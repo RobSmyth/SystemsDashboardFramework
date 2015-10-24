@@ -2,7 +2,7 @@
 using Dashboard.Framework.DataSources.Jira;
 using NUnit.Framework;
 
-namespace Tests.DataSources.Jira
+namespace TeamDashboard.Tests.DataSources.Jira
 {
     [TestFixture]
     public class JiraChannelTests

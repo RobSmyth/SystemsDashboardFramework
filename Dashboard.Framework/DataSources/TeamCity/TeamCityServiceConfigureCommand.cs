@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace Dashboard.Services.TeamCity
+namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
 {
     public class TeamCityServiceConfigureCommand : ICommand
     {

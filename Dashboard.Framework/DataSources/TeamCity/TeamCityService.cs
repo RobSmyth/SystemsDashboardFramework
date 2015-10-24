@@ -1,10 +1,10 @@
 ﻿using Dashboard.Config;
+using Dashboard.Services.TeamCity;
 using Dashboard.TeamCity;
-using Dashboard.Tiles.TeamCity;
 using TeamCitySharp;
 using TeamCitySharp.DomainEntities;
 
-namespace Dashboard.Services.TeamCity
+namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
 {
     public class TeamCityService : ITeamCityChannel, IStateEngine<ITeamCityChannel>
     {
@@ -13,19 +13,16 @@ namespace Dashboard.Services.TeamCity
         private readonly ITeamCityChannel _disconnectedState;
         private ITeamCityChannel _current;
 
-        public TeamCityService(DashboardConfigurationServices servicesConfiguration)
+        public TeamCityService(DashboardConfigurationServices servicesConfiguration, RunOptions runOptions)
         {
             _configuration = new TeamCityServiceConfiguration(servicesConfiguration.GetService("TeamCity"));
             var client = new TeamCityClient(_configuration.Url);
             _disconnectedState = new TeamCityChannelDisconnectedState(client, this, _configuration);
             _connectedState = new TeamCityChannelConnectedState(client, this);
-            _current = _disconnectedState;
+            _current = runOptions.EmulateMode ? new TeamCityChannelEmulatedState(client, this) : _disconnectedState;
         }
 
-        ITeamCityChannel IStateEngine<ITeamCityChannel>.Current
-        {
-            get { return _current; }
-        }
+        ITeamCityChannel IStateEngine<ITeamCityChannel>.Current => _current;
 
         void IStateEngine<ITeamCityChannel>.OnConnected()
         {
@@ -39,7 +36,7 @@ namespace Dashboard.Services.TeamCity
 
         public void Connect()
         {
-            _disconnectedState.Connect();
+            _current.Connect();
         }
 
         public Build GetLastBuild(string projectName, string buildConfigurationName)

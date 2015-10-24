@@ -4,7 +4,6 @@ using System.Windows;
 using System.Windows.Controls;
 using Dashboard.Config;
 using Dashboard.Framework.Config;
-using Dashboard.Services.TeamCity;
 using Dashboard.Tiles;
 using Dashboard.Tiles.Date;
 using Dashboard.Tiles.DaysLeftCountDown;
@@ -12,11 +11,12 @@ using Dashboard.Tiles.HelpTile;
 using Dashboard.Tiles.Message;
 using Dashboard.Tiles.NavigationTile;
 using Dashboard.Tiles.ServerStatus;
-using Dashboard.Tiles.TeamCityAvailableBuilds;
-using Dashboard.Tiles.TeamCityLastBuildStatus;
 using Dashboard.Tiles.WebPage;
+using NoeticTools.Dashboard.Framework.DataSources.TeamCity;
+using NoeticTools.TeamDashboard.Tiles.TeamCityAvailableBuilds;
+using NoeticTools.TeamDashboard.Tiles.TeamCityLastBuildStatus;
 
-namespace Dashboard
+namespace NoeticTools.TeamDashboard
 {
     public class TileLayoutController
     {

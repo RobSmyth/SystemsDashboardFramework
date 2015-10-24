@@ -1,4 +1,4 @@
-﻿<Window x:Name="TeamCityServiceConfiguration" x:Class="Dashboard.Services.TeamCity.TeamCityConfigurationView"
+﻿<Window x:Name="TeamCityServiceConfiguration" x:Class="NoeticTools.Dashboard.Framework.DataSources.TeamCity.TeamCityConfigurationView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Team City Service Configuration"

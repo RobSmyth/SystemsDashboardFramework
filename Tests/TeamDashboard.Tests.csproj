@@ -7,8 +7,8 @@
     <ProjectGuid>{52DDAE2D-F8C4-4462-A6F6-C63867ACD86D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Tests</RootNamespace>
-    <AssemblyName>Tests</AssemblyName>
+    <RootNamespace>TeamDashboard.Tests</RootNamespace>
+    <AssemblyName>Tests.TeamDashboard</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -62,9 +62,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Dashboard.Framework\Dashboard.Framework.csproj">
+    <ProjectReference Include="..\Dashboard.Framework\TeamDashboard.Framework.csproj">
       <Project>{1f19c0de-e777-48e9-856b-7376a7527ec0}</Project>
-      <Name>Dashboard.Framework</Name>
+      <Name>TeamDashboard.Framework</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

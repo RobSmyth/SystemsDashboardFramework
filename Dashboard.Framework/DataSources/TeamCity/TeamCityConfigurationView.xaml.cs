@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace Dashboard.Services.TeamCity
+namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
 {
     public partial class TeamCityConfigurationView : Window
     {

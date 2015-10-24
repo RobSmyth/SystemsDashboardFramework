@@ -8,14 +8,16 @@ using Dashboard.Config;
 using Dashboard.Config.Parameters;
 using Dashboard.Framework.Config.Commands;
 using Dashboard.Services.TeamCity;
+using Dashboard.Tiles;
+using Dashboard.Tiles.TeamCityLastBuildStatus;
+using NoeticTools.Dashboard.Framework.DataSources.TeamCity;
 using TeamCitySharp.DomainEntities;
 
-namespace Dashboard.Tiles.TeamCityLastBuildStatus
+namespace NoeticTools.TeamDashboard.Tiles.TeamCityLastBuildStatus
 {
     internal class TeamCityLastBuildStatusTileViewModel : ITileViewModel
     {
         public static readonly Guid TileTypeId = new Guid("{0FFACE9A-8B68-4DBC-8B42-0255F51368B5}");
-        private readonly IDashboardConfiguration _dashboardConfiguration;
 
         private readonly Dictionary<string, Brush> _runningStatusBrushes = new Dictionary<string, Brush>
         {
@@ -106,11 +108,11 @@ namespace Dashboard.Tiles.TeamCityLastBuildStatus
         {
             _timer.Stop();
 
-            string projectName = _tileConfiguration.GetString("Project");
-            string configurationName = _tileConfiguration.GetString("Configuration");
+            var projectName = _tileConfiguration.GetString("Project");
+            var configurationName = _tileConfiguration.GetString("Configuration");
 
-            Build build = _service.GetRunningBuild(projectName, configurationName);
-            bool running = build != null;
+            var build = _service.GetRunningBuild(projectName, configurationName);
+            var running = build != null;
 
             if (build == null)
             {

@@ -9,10 +9,12 @@ using System.Windows.Threading;
 using Dashboard.Config;
 using Dashboard.Config.Parameters;
 using Dashboard.Framework.Config.Commands;
-using Dashboard.Services.TeamCity;
+using Dashboard.Tiles;
+using Dashboard.Tiles.TeamCityAvailableBuilds;
+using NoeticTools.Dashboard.Framework.DataSources.TeamCity;
 using TeamCitySharp.DomainEntities;
 
-namespace Dashboard.Tiles.TeamCityAvailableBuilds
+namespace NoeticTools.TeamDashboard.Tiles.TeamCityAvailableBuilds
 {
     internal class TeamCityAvailableBuildsViewModel : ITileViewModel
     {

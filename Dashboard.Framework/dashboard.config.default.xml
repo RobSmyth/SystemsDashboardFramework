@@ -12,10 +12,10 @@
               <tile typeId="0fface9a-8b68-4dbc-8b42-0255f51368b5" id="6175e87e-ad55-457c-bd39-e29cba8aaabe" row="1" column="1" rowSpan="1" columnSpan="1">
                 <values>
                   <keyValue key="Project">
-                    <value>YOUR TEAMCITY PROJECT NAME</value>
+                    <value>TEAMCITY PROJECT A</value>
                   </keyValue>
                   <keyValue key="Configuration">
-                    <value>YOUR TeamCity build configuration name</value>
+                    <value>TeamCity build configuration A</value>
                   </keyValue>
                   <keyValue key="Description">
                     <value>YOUR Continuous Build</value>
@@ -26,7 +26,7 @@
               <tile typeId="0fface9a-8b68-4dbc-8b42-0255f51368b5" id="90da418c-9e58-4626-902b-ec3f0d36f56f" row="1" column="2" rowSpan="1" columnSpan="1">
                 <values>
                   <keyValue key="Project">
-                    <value>YOUR TEAMCITY PROJECT NAME</value>
+                    <value>TEAMCITY PROJECT B</value>
                   </keyValue>
                   <keyValue key="Configuration">
                     <value>Configuration 1</value>
@@ -96,13 +96,13 @@
               <tile typeId="0fface9a-8b68-4dbc-8b42-0255f51368b5" id="0357da6f-b827-49f8-a6bb-d1e01bff2302" row="2" column="3" rowSpan="1" columnSpan="1">
                 <values>
                   <keyValue key="Project">
-                    <value>YOUR TEAMCITY PROJECT NAME</value>
+                    <value>TEAMCITY PROJECT NAME</value>
                   </keyValue>
                   <keyValue key="Configuration">
                     <value>Configuration 6</value>
                   </keyValue>
                   <keyValue key="Description">
-                    <value>PUT YOUR DESCRIPTION HERE</value>
+                    <value>DESCRIPTION HERE</value>
                   </keyValue>
                 </values>
                 <tiles />
@@ -110,13 +110,13 @@
               <tile typeId="0fface9a-8b68-4dbc-8b42-0255f51368b5" id="3c71f744-e1ad-4d99-85da-06aa5a6ef1f6" row="2" column="4" rowSpan="1" columnSpan="1">
                 <values>
                   <keyValue key="Project">
-                    <value>YOUR TEAMCITY PROJECT NAME</value>
+                    <value>TEAMCITY PROJECT NAME</value>
                   </keyValue>
                   <keyValue key="Configuration">
                     <value>Configuration 1</value>
                   </keyValue>
                   <keyValue key="Description">
-                    <value>PUT YOUR DESCRIPTION HERE</value>
+                    <value>DESCRIPTION HERE</value>
                   </keyValue>
                 </values>
                 <tiles />
@@ -185,34 +185,34 @@
                 <value>Available builds</value>
               </keyValue>
               <keyValue key="Display_name_1">
-                <value>Your TeamCity build configuration DISPLAY name 1</value>
+                <value>TeamCity build configuration name 1</value>
               </keyValue>
               <keyValue key="Project_1">
-                <value>Your TeamCity build configuration name 1</value>
+                <value>TeamCity build configuration name 2</value>
               </keyValue>
               <keyValue key="Display_name_2">
-                <value>A TeamCity build configuration name</value>
+                <value>TeamCity build configuration name 3</value>
               </keyValue>
               <keyValue key="Project_2">
-                <value>Your TeamCity build configuration name 2</value>
+                <value>TeamCity build configuration name 4</value>
               </keyValue>
               <keyValue key="Display_name_3">
                 <value>Your build X</value>
               </keyValue>
               <keyValue key="Project_3">
-                <value>Your TeamCity build configuration name 3</value>
+                <value>TeamCity build configuration name 3</value>
               </keyValue>
               <keyValue key="Display_name_4">
                 <value>Your display name 4</value>
               </keyValue>
               <keyValue key="Project_4">
-                <value>Your TeamCity build configuration name 4</value>
+                <value>TeamCity build configuration name 4</value>
               </keyValue>
               <keyValue key="Display_name_5">
                 <value>Your display Name 5</value>
               </keyValue>
               <keyValue key="Project_5">
-                <value>Your TeamCity build configuration name 5</value>
+                <value>TeamCity build configuration name 5</value>
               </keyValue>
             </values>
             <tiles />
@@ -304,10 +304,10 @@
                     <value>YOUR TEAMCITY PROJECT NAME</value>
                   </keyValue>
                   <keyValue key="Configuration">
-                    <value>Your TeamCity build configuration name X</value>
+                    <value>TeamCity build configuration X</value>
                   </keyValue>
                   <keyValue key="Description">
-                    <value>Your TeamCity build configuration description X</value>
+                    <value>TeamCity build configuration X</value>
                   </keyValue>
                 </values>
                 <tiles />
@@ -329,13 +329,13 @@
               <tile typeId="0fface9a-8b68-4dbc-8b42-0255f51368b5" id="3c71f744-e1ad-4d99-85da-06aa5a6ef1f6" row="4" column="2" rowSpan="1" columnSpan="1">
                 <values>
                   <keyValue key="Project">
-                    <value>YOUR TEAM CITY CONFIGURATION NAME</value>
+                    <value>TEAM CITY CONFIGURATION NAME</value>
                   </keyValue>
                   <keyValue key="Configuration">
-                    <value>Your TeamCity build configuration name ?</value>
+                    <value>TeamCity build configuration name ?</value>
                   </keyValue>
                   <keyValue key="Description">
-                    <value>Your TeamCity build configuration ?</value>
+                    <value>TeamCity build configuration ?</value>
                   </keyValue>
                 </values>
                 <tiles />
@@ -397,37 +397,37 @@
                     <value>Release</value>
                   </keyValue>
                   <keyValue key="Project_1">
-                    <value>YOUR TEAMCITY PROJECT NAME</value>
+                    <value>TEAMCITY PROJECT NAME</value>
                   </keyValue>
                   <keyValue key="Display_name_2">
                     <value>????</value>
                   </keyValue>
                   <keyValue key="Project_2">
-                    <value>YOUR TEAMCITY PROJECT NAME</value>
+                    <value>TEAMCITY PROJECT NAME</value>
                   </keyValue>
                   <keyValue key="Display_name_3">
                     <value>??????</value>
                   </keyValue>
                   <keyValue key="Project_3">
-                    <value>YOUR TEAMCITY PROJECT NAME</value>
+                    <value>TEAMCITY PROJECT NAME</value>
                   </keyValue>
                   <keyValue key="Display_name_4">
                     <value>?????</value>
                   </keyValue>
                   <keyValue key="Project_4">
-                    <value>YOUR TEAMCITY PROJECT NAME</value>
+                    <value>TEAMCITY PROJECT NAME</value>
                   </keyValue>
                   <keyValue key="Display_name_5">
                     <value>??????</value>
                   </keyValue>
                   <keyValue key="Project_5">
-                    <value>YOUR TEAMCITY PROJECT NAME</value>
+                    <value>TEAMCITY PROJECT NAME</value>
                   </keyValue>
                   <keyValue key="Display_name_6">
                     <value>??????</value>
                   </keyValue>
                   <keyValue key="Project_6">
-                    <value>YOUR TEAMCITY PROJECT NAME</value>
+                    <value>TEAMCITY PROJECT NAME</value>
                   </keyValue>
                   <keyValue key="Configuration_1">
                     <value>???????</value>

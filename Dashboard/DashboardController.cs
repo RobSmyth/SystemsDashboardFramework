@@ -1,23 +1,24 @@
-﻿using System.Linq;
-using System.Windows.Controls;
-using Dashboard.Config;
+﻿using System.Windows.Controls;
 using Dashboard.Framework.Config;
-using Dashboard.Services.TeamCity;
 using Dashboard.Tiles.HelpTile;
 using Dashboard.Tiles.NavigationTile;
+using NoeticTools.Dashboard.Framework;
+using NoeticTools.Dashboard.Framework.DataSources.TeamCity;
 
-namespace Dashboard
+namespace NoeticTools.TeamDashboard
 {
     public class DashboardController
     {
         private readonly DashboardConfigurations _config;
         private readonly DashboardConfigurationManager _configurationManager;
+        private readonly RunOptions _runOptions;
         private int _dashboardIndex = 0;
         private Grid _tileGrid;
 
-        public DashboardController(DashboardConfigurationManager configurationManager)
+        public DashboardController(DashboardConfigurationManager configurationManager, RunOptions runOptions)
         {
             _configurationManager = configurationManager;
+            _runOptions = runOptions;
             _config = new DashboardConfigurationManager().Load();
         }
 
@@ -31,7 +32,7 @@ namespace Dashboard
         {
             ClearGrid();
 
-            var channel = new TeamCityService(_config.Services);
+            var channel = new TeamCityService(_config.Services, _runOptions);
             var layout = new TileLayoutController(tileGrid, channel, activeConfiguration);
 
             foreach (var tile in activeConfiguration.RootTile.Tiles)

@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
-using Dashboard.Config;
 using Dashboard.Framework.Config;
+using NoeticTools.Dashboard.Framework;
 
-namespace Dashboard
+namespace NoeticTools.TeamDashboard
 {
     public partial class MainWindow : Window
     {
@@ -15,7 +15,8 @@ namespace Dashboard
         {
             InitializeComponent();
 
-            _controller = new DashboardController(new DashboardConfigurationManager());
+            var runOptions = new RunOptions();
+            _controller = new DashboardController(new DashboardConfigurationManager(), runOptions);
 
             Loaded += LoadedHandler;
             Closed += ClosedHandler;

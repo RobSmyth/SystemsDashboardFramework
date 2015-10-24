@@ -1,10 +1,10 @@
 ﻿using System;
+using Dashboard.Services.TeamCity;
 using Dashboard.TeamCity;
-using Dashboard.Tiles.TeamCity;
 using TeamCitySharp;
 using TeamCitySharp.DomainEntities;
 
-namespace Dashboard.Services.TeamCity
+namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
 {
     internal class TeamCityChannelDisconnectedState : ITeamCityChannel
     {

@@ -6,7 +6,7 @@ using TeamCitySharp;
 using TeamCitySharp.DomainEntities;
 using TeamCitySharp.Locators;
 
-namespace Dashboard.Tiles.TeamCity
+namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
 {
     internal class TeamCityChannelConnectedState : ITeamCityChannel
     {

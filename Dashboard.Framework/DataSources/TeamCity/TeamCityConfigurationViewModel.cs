@@ -1,13 +1,14 @@
 ﻿using System.Windows;
+using Dashboard.Services.TeamCity;
 
-namespace Dashboard.Services.TeamCity
+namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
 {
     internal class TeamCityConfigurationViewModel
     {
         private readonly TeamCityServiceConfiguration _configuration;
-        private readonly TeamCityConfigurationView _view;
+        private readonly NoeticTools.Dashboard.Framework.DataSources.TeamCity.TeamCityConfigurationView _view;
 
-        public TeamCityConfigurationViewModel(TeamCityServiceConfiguration configuration, TeamCityConfigurationView view)
+        public TeamCityConfigurationViewModel(TeamCityServiceConfiguration configuration, NoeticTools.Dashboard.Framework.DataSources.TeamCity.TeamCityConfigurationView view)
         {
             _configuration = configuration;
             _view = view;

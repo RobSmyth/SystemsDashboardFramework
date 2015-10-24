@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Windows.Controls;
 using Dashboard.Config;
+using NoeticTools.Dashboard.Framework.Config;
+using NoeticTools.TeamDashboard.Tiles;
 
 namespace Dashboard.Tiles.ServerStatus
 {
     internal class ServerStatusTileViewModel : ITileViewModel
     {
-        public static readonly Guid TileTypeId = new Guid("0FFACE9A-8B68-4DBC-8B42-0255F51368B4");
+        public static readonly string TileTypeId = "Server.Status";
         private readonly TileConfiguration _tileConfiguration;
         private ServerStatusTileControl _view;
 
@@ -24,7 +26,7 @@ namespace Dashboard.Tiles.ServerStatus
             _view.message.Text = _tileConfiguration.GetString("Message");
         }
 
-        public Guid TypeId
+        public string TypeId
         {
             get { return TileTypeId; }
         }

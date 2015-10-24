@@ -6,10 +6,10 @@
       <root typeId="6f1bf918-6080-42c2-b980-d562f77cb4e6" id="5926e24a-ebb4-498c-b0cd-34f4986fb36e" row="1" column="2" rowSpan="1" columnSpan="1">
         <values />
         <tiles>
-          <tile typeId="6f1bf918-6080-42c2-b980-d562f77cb4e6" id="00000000-0000-0000-0000-000000000000" row="1" column="1" rowSpan="2" columnSpan="4">
+          <tile typeId="Pane" id="00000000-0000-0000-0000-000000000000" row="1" column="1" rowSpan="2" columnSpan="4">
             <values />
             <tiles>
-              <tile typeId="0fface9a-8b68-4dbc-8b42-0255f51368b5" id="6175e87e-ad55-457c-bd39-e29cba8aaabe" row="1" column="1" rowSpan="1" columnSpan="1">
+              <tile typeId="TeamCity.Build.Status" id="6175e87e-ad55-457c-bd39-e29cba8aaabe" row="1" column="1" rowSpan="1" columnSpan="1">
                 <values>
                   <keyValue key="Project">
                     <value>TEAMCITY PROJECT A</value>
@@ -23,7 +23,7 @@
                 </values>
                 <tiles />
               </tile>
-              <tile typeId="0fface9a-8b68-4dbc-8b42-0255f51368b5" id="90da418c-9e58-4626-902b-ec3f0d36f56f" row="1" column="2" rowSpan="1" columnSpan="1">
+              <tile typeId="TeamCity.Build.Status" id="90da418c-9e58-4626-902b-ec3f0d36f56f" row="1" column="2" rowSpan="1" columnSpan="1">
                 <values>
                   <keyValue key="Project">
                     <value>TEAMCITY PROJECT B</value>
@@ -37,7 +37,7 @@
                 </values>
                 <tiles />
               </tile>
-              <tile typeId="0fface9a-8b68-4dbc-8b42-0255f51368b5" id="0a65d433-4e82-420e-ac9c-e9f8ca7c82f0" row="1" column="3" rowSpan="1" columnSpan="1">
+              <tile typeId="TeamCity.Build.Status" id="0a65d433-4e82-420e-ac9c-e9f8ca7c82f0" row="1" column="3" rowSpan="1" columnSpan="1">
                 <values>
                   <keyValue key="Project">
                     <value>YOUR TEAMCITY PROJECT NAME</value>
@@ -51,7 +51,7 @@
                 </values>
                 <tiles />
               </tile>
-              <tile typeId="0fface9a-8b68-4dbc-8b42-0255f51368b5" id="1928b17e-63d3-407a-b88c-96f1e924e653" row="1" column="4" rowSpan="1" columnSpan="1">
+              <tile typeId="TeamCity.Build.Status" id="1928b17e-63d3-407a-b88c-96f1e924e653" row="1" column="4" rowSpan="1" columnSpan="1">
                 <values>
                   <keyValue key="Project">
                     <value>YOUR TEAMCITY PROJECT NAME</value>
@@ -65,7 +65,7 @@
                 </values>
                 <tiles />
               </tile>
-              <tile typeId="0fface9a-8b68-4dbc-8b42-0255f51368b5" id="a2aecaea-676d-45eb-962c-1632b95548c6" row="2" column="1" rowSpan="1" columnSpan="1">
+              <tile typeId="TeamCity.Build.Status" id="a2aecaea-676d-45eb-962c-1632b95548c6" row="2" column="1" rowSpan="1" columnSpan="1">
                 <values>
                   <keyValue key="Project">
                     <value>YOUR TEAMCITY PROJECT NAME</value>
@@ -79,7 +79,7 @@
                 </values>
                 <tiles />
               </tile>
-              <tile typeId="0fface9a-8b68-4dbc-8b42-0255f51368b5" id="0d69c978-bfc2-4fe3-a68a-3fb79adbbd8a" row="2" column="2" rowSpan="1" columnSpan="1">
+              <tile typeId="TeamCity.Build.Status" id="0d69c978-bfc2-4fe3-a68a-3fb79adbbd8a" row="2" column="2" rowSpan="1" columnSpan="1">
                 <values>
                   <keyValue key="Project">
                     <value>YOUR TEAMCITY PROJECT NAME</value>
@@ -93,7 +93,7 @@
                 </values>
                 <tiles />
               </tile>
-              <tile typeId="0fface9a-8b68-4dbc-8b42-0255f51368b5" id="0357da6f-b827-49f8-a6bb-d1e01bff2302" row="2" column="3" rowSpan="1" columnSpan="1">
+              <tile typeId="TeamCity.Build.Status" id="0357da6f-b827-49f8-a6bb-d1e01bff2302" row="2" column="3" rowSpan="1" columnSpan="1">
                 <values>
                   <keyValue key="Project">
                     <value>TEAMCITY PROJECT NAME</value>
@@ -107,7 +107,7 @@
                 </values>
                 <tiles />
               </tile>
-              <tile typeId="0fface9a-8b68-4dbc-8b42-0255f51368b5" id="3c71f744-e1ad-4d99-85da-06aa5a6ef1f6" row="2" column="4" rowSpan="1" columnSpan="1">
+              <tile typeId="TeamCity.Build.Status" id="3c71f744-e1ad-4d99-85da-06aa5a6ef1f6" row="2" column="4" rowSpan="1" columnSpan="1">
                 <values>
                   <keyValue key="Project">
                     <value>TEAMCITY PROJECT NAME</value>
@@ -123,10 +123,10 @@
               </tile>
             </tiles>
           </tile>
-          <tile typeId="6f1bf918-6080-42c2-b980-d562f77cb4e6" id="00000000-0000-0000-0000-000000000000" row="3" column="1" rowSpan="2" columnSpan="1">
+          <tile typeId="Pane" id="00000000-0000-0000-0000-000000000000" row="3" column="1" rowSpan="2" columnSpan="1">
             <values />
             <tiles>
-              <tile typeId="0fface9a-8b68-4dbc-8b42-0255f51368b2" id="0a96de50-a059-492b-91ee-9239540fa47c" row="1" column="1" rowSpan="1" columnSpan="1">
+              <tile typeId="TimeLeft.Days.Count" id="0a96de50-a059-492b-91ee-9239540fa47c" row="1" column="1" rowSpan="1" columnSpan="1">
                 <values>
                   <keyValue key="End_date">
                     <value>130875264000000000</value>
@@ -143,16 +143,16 @@
                 </values>
                 <tiles />
               </tile>
-              <tile typeId="0fface9a-8b68-4dbc-8b42-0255f51368b1" id="e1d6c553-4cfd-463d-9cdc-91e6bb0ab0d0" row="2" column="1" rowSpan="1" columnSpan="1">
+              <tile typeId="Date.Now" id="e1d6c553-4cfd-463d-9cdc-91e6bb0ab0d0" row="2" column="1" rowSpan="1" columnSpan="1">
                 <values />
                 <tiles />
               </tile>
             </tiles>
           </tile>
-          <tile typeId="6f1bf918-6080-42c2-b980-d562f77cb4e6" id="00000000-0000-0000-0000-000000000000" row="3" column="4" rowSpan="2" columnSpan="1">
+          <tile typeId="Pane" id="00000000-0000-0000-0000-000000000000" row="3" column="4" rowSpan="2" columnSpan="1">
             <values />
             <tiles>
-              <tile typeId="0fface9a-8b68-4dbc-8b42-0255f51368b2" id="64ead8da-5dc8-44b0-81be-821b9e67795c" row="1" column="1" rowSpan="2" columnSpan="1">
+              <tile typeId="TimeLeft.Days.Count" id="64ead8da-5dc8-44b0-81be-821b9e67795c" row="1" column="1" rowSpan="2" columnSpan="1">
                 <values>
                   <keyValue key="End_date">
                     <value>130870080000000000</value>
@@ -169,7 +169,7 @@
                 </values>
                 <tiles />
               </tile>
-              <tile typeId="0fface9a-8b68-4dbc-8b42-0255f51368b3" id="4e804ac9-0aba-459f-84b6-d1b6c8d8b350" row="3" column="1" rowSpan="1" columnSpan="1">
+              <tile typeId="Message" id="4e804ac9-0aba-459f-84b6-d1b6c8d8b350" row="3" column="1" rowSpan="1" columnSpan="1">
                 <values>
                   <keyValue key="Message">
                     <value>YOURPROJECT</value>
@@ -179,7 +179,7 @@
               </tile>
             </tiles>
           </tile>
-          <tile typeId="0fface9a-8b68-4dbc-8b42-0255f51368b6" id="f96a54b9-e3cc-440b-b80d-256ebca95700" row="3" column="2" rowSpan="2" columnSpan="2">
+          <tile typeId="TeamCity.AvailableBuilds" id="f96a54b9-e3cc-440b-b80d-256ebca95700" row="3" column="2" rowSpan="2" columnSpan="2">
             <values>
               <keyValue key="Title">
                 <value>Available builds</value>
@@ -213,6 +213,48 @@
               </keyValue>
               <keyValue key="Project_5">
                 <value>TeamCity build configuration name 5</value>
+              </keyValue>
+              <keyValue key="Configuration_1">
+                <value>X</value>
+              </keyValue>
+              <keyValue key="Configuration_2">
+                <value>X</value>
+              </keyValue>
+              <keyValue key="Configuration_3">
+                <value>X</value>
+              </keyValue>
+              <keyValue key="Configuration_4">
+                <value>X</value>
+              </keyValue>
+              <keyValue key="Configuration_5">
+                <value>X</value>
+              </keyValue>
+              <keyValue key="Display_name_6">
+                <value>X</value>
+              </keyValue>
+              <keyValue key="Project_6">
+                <value>X</value>
+              </keyValue>
+              <keyValue key="Configuration_6">
+                <value>X</value>
+              </keyValue>
+              <keyValue key="Display_name_7">
+                <value>X</value>
+              </keyValue>
+              <keyValue key="Project_7">
+                <value>X</value>
+              </keyValue>
+              <keyValue key="Configuration_7">
+                <value>X</value>
+              </keyValue>
+              <keyValue key="Display_name_8">
+                <value>X</value>
+              </keyValue>
+              <keyValue key="Project_8">
+                <value>X</value>
+              </keyValue>
+              <keyValue key="Configuration_8">
+                <value>X</value>
               </keyValue>
             </values>
             <tiles />

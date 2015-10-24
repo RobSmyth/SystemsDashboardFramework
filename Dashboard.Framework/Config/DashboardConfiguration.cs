@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Xml.Serialization;
 using Dashboard.Config;
+using NoeticTools.Dashboard.Framework.Config;
 
 namespace Dashboard.Framework.Config
 {

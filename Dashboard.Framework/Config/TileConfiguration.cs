@@ -1,5 +1,6 @@
 ﻿using System;
 using Dashboard.Config.Parameters;
+using NoeticTools.Dashboard.Framework.Config;
 
 namespace Dashboard.Config
 {

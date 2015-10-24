@@ -4,12 +4,14 @@ using System.Windows.Input;
 using Dashboard.Config;
 using Dashboard.Config.Parameters;
 using Dashboard.Framework.Config.Commands;
+using NoeticTools.Dashboard.Framework.Config;
+using NoeticTools.TeamDashboard.Tiles;
 
 namespace Dashboard.Tiles.Message
 {
     internal class MessageTileViewModel : ITileViewModel
     {
-        public static readonly Guid TileTypeId = new Guid("{0FFACE9A-8B68-4DBC-8B42-0255F51368B3}");
+        public static readonly string TileTypeId = "Message";
         private readonly TileConfiguration _tileConfiguration;
         private MessageTileControl _view;
 
@@ -33,7 +35,7 @@ namespace Dashboard.Tiles.Message
             UpdateView();
         }
 
-        public Guid TypeId
+        public string TypeId
         {
             get { return TileTypeId; }
         }

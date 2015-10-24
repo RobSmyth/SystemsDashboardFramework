@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Windows.Controls;
 using System.Windows.Threading;
+using NoeticTools.TeamDashboard.Tiles;
 
 namespace Dashboard.Tiles.Date
 {
     internal class DateTileViewModel : ITileViewModel
     {
-        public static readonly Guid TileTypeId = new Guid("0FFACE9A-8B68-4DBC-8B42-0255F51368B1");
+        public static readonly string TileTypeId = "Date.Now";
         private readonly TimeSpan _tickPeriod = TimeSpan.FromSeconds(30);
         private readonly DispatcherTimer _timer;
         private DateTileControl _view;
@@ -27,7 +28,7 @@ namespace Dashboard.Tiles.Date
             _timer.Start();
         }
 
-        public Guid TypeId
+        public string TypeId
         {
             get { return TileTypeId; }
         }

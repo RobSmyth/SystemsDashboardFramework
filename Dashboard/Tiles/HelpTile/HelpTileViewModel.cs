@@ -3,12 +3,13 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Dashboard.Framework.Config.Commands;
 using Dashboard.Tiles.Message;
+using NoeticTools.TeamDashboard.Tiles;
 
 namespace Dashboard.Tiles.HelpTile
 {
     internal class HelpTileViewModel : ITileViewModel
     {
-        public static readonly Guid TileTypeId = new Guid("{14B30D27-DC55-466A-A7C7-835004FF94A6}");
+        public static readonly string TileTypeId = "Help";
         private HelpTileControl _view;
 
         public HelpTileViewModel()
@@ -27,7 +28,7 @@ namespace Dashboard.Tiles.HelpTile
             UpdateView();
         }
 
-        public Guid TypeId
+        public string TypeId
         {
             get { return TileTypeId; }
         }

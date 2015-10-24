@@ -3,12 +3,13 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Dashboard.Framework.Config.Commands;
 using Dashboard.Tiles.Message;
+using NoeticTools.TeamDashboard.Tiles;
 
 namespace Dashboard.Tiles.NavigationTile
 {
     internal class NavigationTileViewModel : ITileViewModel
     {
-        public static readonly Guid TileTypeId = new Guid("{49D4EBB4-3C2E-44A6-AF42-FC9EDCDE9D95}");
+        public static readonly string TileTypeId = "Navigation";
         private NavigationTileControl _view;
 
         public NavigationTileViewModel()
@@ -27,7 +28,7 @@ namespace Dashboard.Tiles.NavigationTile
             UpdateView();
         }
 
-        public Guid TypeId
+        public string TypeId
         {
             get { return TileTypeId; }
         }

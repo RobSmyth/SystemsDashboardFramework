@@ -5,12 +5,14 @@ using System.Windows.Threading;
 using Dashboard.Config;
 using Dashboard.Config.Parameters;
 using Dashboard.Framework.Config.Commands;
+using NoeticTools.Dashboard.Framework.Config;
+using NoeticTools.TeamDashboard.Tiles;
 
 namespace Dashboard.Tiles.DaysLeftCountDown
 {
     internal class DaysLeftCountDownViewModel : ITileViewModel
     {
-        public static readonly Guid TileTypeId = new Guid("{0FFACE9A-8B68-4DBC-8B42-0255F51368B2}");
+        public static readonly string TileTypeId = "TimeLeft.Days.Count";
         private readonly TimeSpan _tickPeriod = TimeSpan.FromSeconds(30);
         private readonly TileConfiguration _tileConfiguration;
         private readonly DispatcherTimer _timer;
@@ -44,7 +46,7 @@ namespace Dashboard.Tiles.DaysLeftCountDown
             _timer.Start();
         }
 
-        public Guid TypeId
+        public string TypeId
         {
             get { return TileTypeId; }
         }

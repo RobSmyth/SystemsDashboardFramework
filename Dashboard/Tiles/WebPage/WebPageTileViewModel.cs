@@ -4,12 +4,14 @@ using System.Windows.Input;
 using Dashboard.Config;
 using Dashboard.Config.Parameters;
 using Dashboard.Framework.Config.Commands;
+using NoeticTools.Dashboard.Framework.Config;
+using NoeticTools.TeamDashboard.Tiles;
 
 namespace Dashboard.Tiles.WebPage
 {
     internal class WebPageTileViewModel : ITileViewModel
     {
-        public static readonly Guid TileTypeId = new Guid("{92CE0D61-4748-4427-8EB7-DC8B8B741C15}");
+        public static readonly string TileTypeId = "WebBrowser";
         private readonly TileConfiguration _tileConfiguration;
         private WebPage.WebPageTileControl _view;
 
@@ -33,7 +35,7 @@ namespace Dashboard.Tiles.WebPage
             UpdateView();
         }
 
-        public Guid TypeId
+        public string TypeId
         {
             get { return TileTypeId; }
         }

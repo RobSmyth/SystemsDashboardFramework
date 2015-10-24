@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
+using Dashboard.Config;
 
-namespace Dashboard.Config
+namespace NoeticTools.Dashboard.Framework.Config
 {
     [XmlType("tile")]
     public class DashboardTileConfiguration
     {
-        public static Guid BlankTileTypeId = new Guid("6f1bf918-6080-42c2-b980-d562f77cb4e6");
+        public static string BlankTileTypeId = "Pane";
 
         public DashboardTileConfiguration()
         {
@@ -21,7 +22,7 @@ namespace Dashboard.Config
         ///     The tile's type ID. This is used to load the tile's controller.
         /// </summary>
         [XmlAttribute(AttributeName = "typeId")]
-        public Guid TypeId { get; set; }
+        public string TypeId { get; set; }
 
         /// <summary>
         ///     The tile's unique ID.

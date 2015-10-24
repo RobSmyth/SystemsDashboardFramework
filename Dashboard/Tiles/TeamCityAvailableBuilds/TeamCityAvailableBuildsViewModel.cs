@@ -11,6 +11,7 @@ using Dashboard.Config.Parameters;
 using Dashboard.Framework.Config.Commands;
 using Dashboard.Tiles;
 using Dashboard.Tiles.TeamCityAvailableBuilds;
+using NoeticTools.Dashboard.Framework.Config;
 using NoeticTools.Dashboard.Framework.DataSources.TeamCity;
 using TeamCitySharp.DomainEntities;
 
@@ -19,7 +20,7 @@ namespace NoeticTools.TeamDashboard.Tiles.TeamCityAvailableBuilds
     internal class TeamCityAvailableBuildsViewModel : ITileViewModel
     {
         private const int MaxNumberOfBuilds = 8;
-        public static readonly Guid TileTypeId = new Guid("0FFACE9A-8B68-4DBC-8B42-0255F51368B6");
+        public static readonly string TileTypeId = "TeamCity.AvailableBuilds";
         private readonly TeamCityService _service;
         private readonly TimeSpan _tickPeriod = TimeSpan.FromSeconds(15);
         private readonly TileConfiguration _tileConfiguration;
@@ -67,7 +68,7 @@ namespace NoeticTools.TeamDashboard.Tiles.TeamCityAvailableBuilds
             _timer.Start();
         }
 
-        public Guid TypeId
+        public string TypeId
         {
             get { return TileTypeId; }
         }

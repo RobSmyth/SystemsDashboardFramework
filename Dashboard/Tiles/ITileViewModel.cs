@@ -2,11 +2,11 @@ using System;
 using System.Windows.Controls;
 using Dashboard.Config;
 
-namespace Dashboard.Tiles
+namespace NoeticTools.TeamDashboard.Tiles
 {
     public interface ITileViewModel : IConfigurationChangeListener
     {
-        Guid TypeId { get; }
+        string TypeId { get; }
         Guid Id { get; }
         void Start(Panel placeholderPanel);
     }

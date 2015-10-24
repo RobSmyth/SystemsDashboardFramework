@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="Dashboard.TeamCity.TeamCityAvailableBuildsListControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300"
+             Name="AvailableBuildsList">
+    <Grid Name="root" Margin="10" Background="Transparent">
+        <StackPanel Orientation="Vertical" Background="Transparent" HorizontalAlignment="Center">
+            <TextBox Name="projectName" HorizontalAlignment="Center" VerticalAlignment="Top" TextAlignment="Center"
+                     MaxLines="3" TextWrapping="WrapWithOverflow"
+                     FontSize="16" FontWeight="Bold" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0"
+                     Margin="5">PROJECT</TextBox>
+            <DataGrid Name="buildsList" BorderThickness="0" Background="Transparent" Foreground="White" 
+                      HeadersVisibility="None" RowHeaderWidth="0" Margin="5" AutoGenerateColumns="False" >
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding BuildConfiguration}"/>
+                    <DataGridTextColumn Binding="{Binding Version}"/>
+                </DataGrid.Columns>
+
+                <DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow">
+                        <Setter Property="Background" Value="Transparent"></Setter>
+                        <Setter Property="Foreground" Value="White"></Setter>
+                        <Setter Property="FontSize" Value="16"></Setter>
+                        <Setter Property="FontWeight" Value="Bold"></Setter>
+                    </Style>
+                </DataGrid.RowStyle>
+
+            </DataGrid>
+            
+        </StackPanel>
+    </Grid>
+</UserControl>

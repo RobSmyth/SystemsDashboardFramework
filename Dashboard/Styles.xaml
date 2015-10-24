@@ -1,0 +1,48 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:converters="clr-namespace:Dashboard.Converters"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Dark tile style -->
+    <SolidColorBrush x:Key="DarkTileStyle_BackgroundBrush">#FF292929</SolidColorBrush>
+    <SolidColorBrush x:Key="DarkTileStyle_ForegroundBrush">WhiteSmoke</SolidColorBrush>
+    <SolidColorBrush x:Key="DarkTileStyle_GridHeaderRowBrush">#FF448032</SolidColorBrush>
+    <Style x:Key="DarkTileStyle_Textbox" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource DarkTileStyle_ForegroundBrush}"/>
+    </Style>
+    <Style x:Key="DarkTileStyle_Grid" TargetType="Grid">
+        <Setter Property="Background" Value="{StaticResource DarkTileStyle_BackgroundBrush}"/>
+    </Style>
+
+    <!-- White tile style -->
+    <SolidColorBrush x:Key="WhiteTileStyle_BackgroundBrush">WhiteSmoke</SolidColorBrush>
+    <SolidColorBrush x:Key="WhiteTileStyle_ForegroundBrush">Teal</SolidColorBrush>
+    <Style x:Key="WhiteTileStyle_Textbox" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource WhiteTileStyle_ForegroundBrush}"/>
+    </Style>
+    <Style x:Key="WhiteTileStyle_Grid" TargetType="Grid">
+        <Setter Property="Background" Value="{StaticResource WhiteTileStyle_BackgroundBrush}"/>
+    </Style>
+
+    <!-- Teal tile style -->
+    <SolidColorBrush x:Key="TealTileStyle_BackgroundBrush">Teal</SolidColorBrush>
+    <SolidColorBrush x:Key="TealTileStyle_ForegroundBrush">WhiteSmoke</SolidColorBrush>
+    <Style x:Key="TealTileStyle_Textbox" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource TealTileStyle_ForegroundBrush}"/>
+    </Style>
+    <Style x:Key="TealTileStyle_Grid" TargetType="Grid">
+        <Setter Property="Background" Value="{StaticResource TealTileStyle_BackgroundBrush}"/>
+    </Style>
+
+    <!-- Tech tile style -->
+    <SolidColorBrush x:Key="TechTileStyle_BackgroundBrush">White</SolidColorBrush>
+    <SolidColorBrush x:Key="TechTileStyle_ForegroundBrush">Black</SolidColorBrush>
+    <Style x:Key="TechTileStyle_Textbox" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource TechTileStyle_ForegroundBrush}"/>
+    </Style>
+    <Style x:Key="TechTileStyle_Grid" TargetType="Grid">
+        <Setter Property="Background" Value="{StaticResource TechTileStyle_BackgroundBrush}"/>
+    </Style>
+
+    <converters:DoubleValueConverter x:Key="doubleConverter" />
+
+</ResourceDictionary>

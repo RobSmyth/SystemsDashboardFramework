@@ -1,0 +1,55 @@
+﻿<Window x:Name="TeamCityServiceConfiguration" x:Class="Dashboard.Services.TeamCity.TeamCityConfigurationView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Team City Service Configuration"
+        Height="250" Width="350"
+        ResizeMode="NoResize" ShowInTaskbar="False" Topmost="True">
+
+    <Window.Resources>
+
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Dashboard;component/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="TextBlock" BasedOn="{StaticResource DarkTileStyle_Textbox}" />
+            <Style TargetType="Grid" BasedOn="{StaticResource DarkTileStyle_Grid}" />
+        </ResourceDictionary>
+
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontWeight="Bold" FontSize="12" Margin="10,10,10,5">TeamCity service configuration</TextBlock>
+
+        <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" Margin="10">URL:</TextBlock>
+        <TextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" Margin="10"
+                 Text="{Binding Url}" />
+
+        <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" Margin="10">Username:</TextBlock>
+        <TextBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" Margin="10"
+                 Text="{Binding UserName}" />
+
+        <TextBlock Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right" Margin="10">Password:</TextBlock>
+        <PasswordBox Grid.Row="4" Grid.Column="1" HorizontalAlignment="Stretch" Margin="10" Name="PasswordBox"/>
+
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom"
+                    Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Right"
+                    Margin="5">
+            <Button Name="OkButton" Margin="5" Padding="5">OK</Button>
+            <Button Name="CancelButton" Margin="5" Padding="5">Cancel</Button>
+        </StackPanel>
+
+    </Grid>
+</Window>

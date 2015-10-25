@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace Dashboard.Tiles.WebPage
+namespace NoeticTools.TeamDashboard.Tiles.WebPage
 {
     public partial class WebPageTileControl : UserControl
     {

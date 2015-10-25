@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:converters="clr-namespace:NoeticTools.TeamDashboard.Converters"
+             xmlns:converters="clr-NoeticTools.Dashboard.Framework.Converters"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300"
              Name="TeamCityBuildStatus"
@@ -13,7 +13,7 @@
 
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/TeamDashboard;component/Styles.xaml" />
+                <ResourceDictionary Source="/NoeticTools.Dashboard.Framework;component/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Style TargetType="TextBlock" BasedOn="{StaticResource DarkTileStyle_Textbox}" />
             <Style TargetType="Grid" BasedOn="{StaticResource DarkTileStyle_Grid}" />
@@ -23,6 +23,7 @@
 
     <UserControl.InputBindings>
         <MouseBinding MouseAction="LeftClick" Command="{Binding ConfigureCommand}" />
+        <KeyBinding Key="F2" Command="{Binding ConfigureCommand}"/>
     </UserControl.InputBindings>
 
     <Border Name="FocusBorder" Style="{StaticResource FocusBorder}">

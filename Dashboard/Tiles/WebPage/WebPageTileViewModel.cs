@@ -5,15 +5,14 @@ using Dashboard.Config;
 using Dashboard.Config.Parameters;
 using Dashboard.Framework.Config.Commands;
 using NoeticTools.Dashboard.Framework.Config;
-using NoeticTools.TeamDashboard.Tiles;
 
-namespace Dashboard.Tiles.WebPage
+namespace NoeticTools.TeamDashboard.Tiles.WebPage
 {
     internal class WebPageTileViewModel : ITileViewModel
     {
         public static readonly string TileTypeId = "WebBrowser";
         private readonly TileConfiguration _tileConfiguration;
-        private WebPage.WebPageTileControl _view;
+        private NoeticTools.TeamDashboard.Tiles.WebPage.WebPageTileControl _view;
 
         public WebPageTileViewModel(DashboardTileConfiguration tileConfiguration)
         {
@@ -29,7 +28,7 @@ namespace Dashboard.Tiles.WebPage
             {
                 new ConfigurationParameter("Url", "http://www.google.com", _tileConfiguration)
             });
-            _view = new WebPage.WebPageTileControl {DataContext = this};
+            _view = new NoeticTools.TeamDashboard.Tiles.WebPage.WebPageTileControl {DataContext = this};
             placeholderPanel.Children.Add(_view);
 
             UpdateView();

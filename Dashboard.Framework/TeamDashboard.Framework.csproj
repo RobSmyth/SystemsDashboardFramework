@@ -88,6 +88,7 @@
     <Compile Include="Config\Views\TileConfigurationView.xaml.cs">
       <DependentUpon>TileConfigurationView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\DoubleValueConverter.cs" />
     <Compile Include="DataSources\Jira\JiraChannel.cs" />
     <Compile Include="DataSources\TeamCity\IStateEngine.cs" />
     <Compile Include="DataSources\TeamCity\ITeamCityChannel.cs" />
@@ -114,6 +115,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -123,6 +128,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="NoeticTools.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

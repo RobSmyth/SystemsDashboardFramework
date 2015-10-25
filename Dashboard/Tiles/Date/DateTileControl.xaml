@@ -10,7 +10,7 @@
 
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/TeamDashboard;component/Styles.xaml" />
+                <ResourceDictionary Source="/NoeticTools.Dashboard.Framework;component/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Style TargetType="TextBlock" BasedOn="{StaticResource TealTileStyle_Textbox}" />
             <Style TargetType="Grid" BasedOn="{StaticResource TealTileStyle_Grid}" />

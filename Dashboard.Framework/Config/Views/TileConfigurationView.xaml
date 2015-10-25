@@ -3,13 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Message Tile Configuration"
         Height="75" Width="400"
-        SizeToContent="Height" Topmost="True">
+        SizeToContent="Height" Topmost="True" 
+        Icon="/NoeticTools.Dashboard.Framework;component/NoeticTools.ico">
 
     <Window.Resources>
 
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/TeamDashboard;component/Styles.xaml" />
+                <ResourceDictionary Source="/NoeticTools.Dashboard.Framework;component/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Style TargetType="TextBlock" BasedOn="{StaticResource DarkTileStyle_Textbox}" />
             <Style TargetType="Grid" BasedOn="{StaticResource DarkTileStyle_Grid}" />

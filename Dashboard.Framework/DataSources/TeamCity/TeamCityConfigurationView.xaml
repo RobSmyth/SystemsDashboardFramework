@@ -3,13 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Team City Service Configuration"
         Height="250" Width="350"
-        ResizeMode="NoResize" ShowInTaskbar="False" Topmost="True">
+        ResizeMode="NoResize" ShowInTaskbar="False" Topmost="True" 
+        Icon="/NoeticTools.Dashboard.Framework;component/NoeticTools.ico">
 
     <Window.Resources>
 
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/TeamDashboard;component/Styles.xaml" />
+                <ResourceDictionary Source="/NoeticTools.Dashboard.Framework;component/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Style TargetType="TextBlock" BasedOn="{StaticResource DarkTileStyle_Textbox}" />
             <Style TargetType="Grid" BasedOn="{StaticResource DarkTileStyle_Grid}" />

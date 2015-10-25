@@ -6,9 +6,8 @@ using Dashboard.Config;
 using Dashboard.Config.Parameters;
 using Dashboard.Framework.Config.Commands;
 using NoeticTools.Dashboard.Framework.Config;
-using NoeticTools.TeamDashboard.Tiles;
 
-namespace Dashboard.Tiles.DaysLeftCountDown
+namespace NoeticTools.TeamDashboard.Tiles.DaysLeftCountDown
 {
     internal class DaysLeftCountDownViewModel : ITileViewModel
     {

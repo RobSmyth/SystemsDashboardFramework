@@ -12,7 +12,7 @@
 
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/TeamDashboard;component/Styles.xaml" />
+                <ResourceDictionary Source="/NoeticTools.Dashboard.Framework;component/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Style TargetType="TextBlock" BasedOn="{StaticResource DarkTileStyle_Textbox}" />
             <Style TargetType="Grid" BasedOn="{StaticResource DarkTileStyle_Grid}" />
@@ -22,6 +22,7 @@
 
     <UserControl.InputBindings>
         <MouseBinding MouseAction="LeftClick" Command="{Binding ConfigureCommand}" />
+        <KeyBinding Key="F2" Command="{Binding ConfigureCommand}"/>
     </UserControl.InputBindings>
 
     <Border Name="FocusBorder" Style="{StaticResource FocusBorder}">

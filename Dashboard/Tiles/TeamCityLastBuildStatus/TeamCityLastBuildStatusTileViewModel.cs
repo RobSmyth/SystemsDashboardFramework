@@ -7,12 +7,9 @@ using System.Windows.Threading;
 using Dashboard.Config;
 using Dashboard.Config.Parameters;
 using Dashboard.Framework.Config.Commands;
-using Dashboard.Services.TeamCity;
-using Dashboard.Tiles;
 using Dashboard.Tiles.TeamCityLastBuildStatus;
 using NoeticTools.Dashboard.Framework.Config;
 using NoeticTools.Dashboard.Framework.DataSources.TeamCity;
-using TeamCitySharp.DomainEntities;
 
 namespace NoeticTools.TeamDashboard.Tiles.TeamCityLastBuildStatus
 {
@@ -77,6 +74,7 @@ namespace NoeticTools.TeamDashboard.Tiles.TeamCityLastBuildStatus
                 {
                     new ConfigurationParameter("Project", "", _tileConfiguration),
                     new ConfigurationParameter("Configuration", "", _tileConfiguration),
+                    new ConfigurationParameter("Description", "", _tileConfiguration),
                     new ConfigurationHyperlink("TeamCity service", ConfigureService)
                 });
 

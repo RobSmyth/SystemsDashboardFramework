@@ -2,21 +2,18 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using Dashboard.Config;
-using Dashboard.Framework.Config;
-using Dashboard.Tiles;
 using Dashboard.Tiles.Date;
-using Dashboard.Tiles.DaysLeftCountDown;
 using Dashboard.Tiles.HelpTile;
 using Dashboard.Tiles.Message;
 using Dashboard.Tiles.NavigationTile;
 using Dashboard.Tiles.ServerStatus;
-using Dashboard.Tiles.WebPage;
 using NoeticTools.Dashboard.Framework.Config;
 using NoeticTools.Dashboard.Framework.DataSources.TeamCity;
 using NoeticTools.TeamDashboard.Tiles;
+using NoeticTools.TeamDashboard.Tiles.DaysLeftCountDown;
 using NoeticTools.TeamDashboard.Tiles.TeamCityAvailableBuilds;
 using NoeticTools.TeamDashboard.Tiles.TeamCityLastBuildStatus;
+using NoeticTools.TeamDashboard.Tiles.WebPage;
 
 namespace NoeticTools.TeamDashboard
 {

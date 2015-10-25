@@ -6,12 +6,10 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
-using Dashboard.Config;
-using Dashboard.Config.Parameters;
-using Dashboard.Framework.Config.Commands;
-using Dashboard.Tiles;
 using Dashboard.Tiles.TeamCityAvailableBuilds;
 using NoeticTools.Dashboard.Framework.Config;
+using NoeticTools.Dashboard.Framework.Config.Commands;
+using NoeticTools.Dashboard.Framework.Config.Parameters;
 using NoeticTools.Dashboard.Framework.DataSources.TeamCity;
 using TeamCitySharp.DomainEntities;
 

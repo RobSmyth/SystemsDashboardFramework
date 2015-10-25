@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace Dashboard.Config.Views
+namespace NoeticTools.Dashboard.Framework.Config.Views
 {
     public partial class TileConfigurationView : Window
     {

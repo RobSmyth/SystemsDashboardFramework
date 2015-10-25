@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Windows.Controls;
 using System.Windows.Input;
-using Dashboard.Config;
-using Dashboard.Config.Parameters;
-using Dashboard.Framework.Config.Commands;
 using NoeticTools.Dashboard.Framework.Config;
+using NoeticTools.Dashboard.Framework.Config.Commands;
+using NoeticTools.Dashboard.Framework.Config.Parameters;
 
 namespace NoeticTools.TeamDashboard.Tiles.WebPage
 {
@@ -12,7 +11,7 @@ namespace NoeticTools.TeamDashboard.Tiles.WebPage
     {
         public static readonly string TileTypeId = "WebBrowser";
         private readonly TileConfiguration _tileConfiguration;
-        private NoeticTools.TeamDashboard.Tiles.WebPage.WebPageTileControl _view;
+        private WebPageTileControl _view;
 
         public WebPageTileViewModel(DashboardTileConfiguration tileConfiguration)
         {
@@ -28,7 +27,7 @@ namespace NoeticTools.TeamDashboard.Tiles.WebPage
             {
                 new ConfigurationParameter("Url", "http://www.google.com", _tileConfiguration)
             });
-            _view = new NoeticTools.TeamDashboard.Tiles.WebPage.WebPageTileControl {DataContext = this};
+            _view = new WebPageTileControl {DataContext = this};
             placeholderPanel.Children.Add(_view);
 
             UpdateView();

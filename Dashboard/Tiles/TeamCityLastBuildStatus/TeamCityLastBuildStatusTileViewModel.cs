@@ -4,11 +4,11 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
-using Dashboard.Config;
 using Dashboard.Config.Parameters;
-using Dashboard.Framework.Config.Commands;
 using Dashboard.Tiles.TeamCityLastBuildStatus;
 using NoeticTools.Dashboard.Framework.Config;
+using NoeticTools.Dashboard.Framework.Config.Commands;
+using NoeticTools.Dashboard.Framework.Config.Parameters;
 using NoeticTools.Dashboard.Framework.DataSources.TeamCity;
 
 namespace NoeticTools.TeamDashboard.Tiles.TeamCityLastBuildStatus
@@ -145,7 +145,7 @@ namespace NoeticTools.TeamDashboard.Tiles.TeamCityLastBuildStatus
 
         private void SetTextForeground(bool running, string status)
         {
-            Brush textBrush = running ? _runningStatusTextBrushes[status] : _statusTextBrushes[status];
+            var textBrush = running ? _runningStatusTextBrushes[status] : _statusTextBrushes[status];
             _view.headerText.Foreground = textBrush;
             _view.statusText.Foreground = textBrush;
             _view.buildVer.Foreground = textBrush;

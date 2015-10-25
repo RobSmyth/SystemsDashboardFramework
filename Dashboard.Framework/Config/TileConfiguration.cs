@@ -1,8 +1,8 @@
 ﻿using System;
+using Dashboard.Config;
 using Dashboard.Config.Parameters;
-using NoeticTools.Dashboard.Framework.Config;
 
-namespace Dashboard.Config
+namespace NoeticTools.Dashboard.Framework.Config
 {
     public class TileConfiguration
     {
@@ -61,7 +61,7 @@ namespace Dashboard.Config
             SetParameter(name, value);
         }
 
-        public T GetParameter<T>(string name)
+        private T GetParameter<T>(string name)
         {
             string value = _inner.GetParameter(name, string.Empty).Value;
             return (T) Convert.ChangeType(value, typeof (T));

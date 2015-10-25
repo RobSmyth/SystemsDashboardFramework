@@ -9,26 +9,31 @@
         Title="TeamDashboard" Height="450" Width="750"
         Background="Black" Icon="NoeticTools.ico">
 
-    <Grid Margin="2" Name="tileGrid">
 
-        <!--
-        <Grid Name="placeholder02" Grid.Row="0" Grid.Column="2" Margin="2" Background="Chocolate">
-            <TextBlock Foreground="White" Margin="15,2,2,2">Sprint:</TextBlock>
-            <Grid Background="Transparent">
-                <Ellipse HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stroke="#FFF9F902" StrokeThickness="50" Margin="15"/>
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" FontWeight="Bold" Foreground="White">100%</TextBlock>
-            </Grid>
-        </Grid>
--->
+    <Window.Resources>
 
-        <!--
-        <Grid Name="placeholder03" Grid.Row="0" Grid.Column="3" Margin="2" Background="DarkSlateGray">
-            <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                <TextBlock Foreground="White" Margin="0" HorizontalAlignment="Center" FontSize="24">Sprint 5</TextBlock>
-                <TextBlock FontSize="48" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center">5 days</TextBlock>
-            </StackPanel>
-        </Grid>
-        -->
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/NoeticTools.Dashboard.Framework;component/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
 
+    </Window.Resources>
+
+    <Grid Name="rootLayout">
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <Grid Name="tileGrid" Margin="2" Grid.Row="0" Grid.Column="0"/>
+        
+        <DockPanel Name="sidePanel" Grid.Row="0" Grid.Column="1" Visibility="Collapsed" Width="0" LastChildFill="True"
+                   Style="{StaticResource SidePane}"/>
+        
     </Grid>
 </Window>

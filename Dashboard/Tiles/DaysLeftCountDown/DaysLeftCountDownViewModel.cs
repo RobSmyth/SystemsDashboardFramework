@@ -2,23 +2,25 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
-using Dashboard.Config;
-using Dashboard.Config.Parameters;
-using Dashboard.Framework.Config.Commands;
+using NoeticTools.Dashboard.Framework;
 using NoeticTools.Dashboard.Framework.Config;
+using NoeticTools.Dashboard.Framework.Config.Commands;
+using NoeticTools.Dashboard.Framework.Config.Parameters;
 
 namespace NoeticTools.TeamDashboard.Tiles.DaysLeftCountDown
 {
     internal class DaysLeftCountDownViewModel : ITileViewModel
     {
+        private readonly IClock _clock;
         public static readonly string TileTypeId = "TimeLeft.Days.Count";
         private readonly TimeSpan _tickPeriod = TimeSpan.FromSeconds(30);
         private readonly TileConfiguration _tileConfiguration;
         private readonly DispatcherTimer _timer;
         private DaysLeftCountDownTileView _view;
 
-        public DaysLeftCountDownViewModel(DashboardTileConfiguration tileConfiguration)
+        public DaysLeftCountDownViewModel(DashboardTileConfiguration tileConfiguration, IClock clock)
         {
+            _clock = clock;
             _tileConfiguration = new TileConfiguration(tileConfiguration, this);
             Id = tileConfiguration.Id;
             _timer = new DispatcherTimer {Interval = _tickPeriod};
@@ -62,7 +64,7 @@ namespace NoeticTools.TeamDashboard.Tiles.DaysLeftCountDown
         {
             var disabled = _tileConfiguration.GetBool("Disabled");
             var endDate = _tileConfiguration.GetDateTime("End_date");
-            var daysRemaining = (endDate - DateTime.Now).Days;
+            var daysRemaining = (endDate - _clock.Now).Days;
             _view.days.Text = disabled ? "-" : daysRemaining.ToString();
             _view.header.Text = _tileConfiguration.GetString("Title");
         }

@@ -17,7 +17,7 @@ namespace NoeticTools.TeamDashboard
             InitializeComponent();
 
             var runOptions = new RunOptions();
-            _controller = new DashboardController(new DashboardConfigurationManager(), runOptions);
+            _controller = new DashboardController(new DashboardConfigurationManager(), runOptions, new Clock());
 
             _keyDownHandlers = new Dictionary<Key, Action<Key>>
             {
@@ -62,7 +62,7 @@ namespace NoeticTools.TeamDashboard
 
         private void LoadedHandler(object sender, RoutedEventArgs e)
         {
-            _controller.Start(tileGrid);
+            _controller.Start(tileGrid, sidePanel);
         }
     }
 }

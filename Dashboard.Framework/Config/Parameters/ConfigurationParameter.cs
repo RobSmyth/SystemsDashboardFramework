@@ -1,8 +1,9 @@
 ﻿using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using Dashboard.Config.Parameters;
 
-namespace Dashboard.Config.Parameters
+namespace NoeticTools.Dashboard.Framework.Config.Parameters
 {
     public class ConfigurationParameter : ConfigurationElementBase, IConfigurationParameter, IConfigurationView
     {

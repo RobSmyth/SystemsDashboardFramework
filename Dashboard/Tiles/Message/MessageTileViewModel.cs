@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Windows.Controls;
 using System.Windows.Input;
-using Dashboard.Config;
-using Dashboard.Config.Parameters;
-using Dashboard.Framework.Config.Commands;
+using Dashboard.Tiles.Message;
 using NoeticTools.Dashboard.Framework.Config;
-using NoeticTools.TeamDashboard.Tiles;
+using NoeticTools.Dashboard.Framework.Config.Commands;
+using NoeticTools.Dashboard.Framework.Config.Parameters;
 
-namespace Dashboard.Tiles.Message
+namespace NoeticTools.TeamDashboard.Tiles.Message
 {
     internal class MessageTileViewModel : ITileViewModel
     {

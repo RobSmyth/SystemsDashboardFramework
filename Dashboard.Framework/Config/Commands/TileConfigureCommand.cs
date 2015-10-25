@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Input;
-using Dashboard.Config;
-using Dashboard.Config.Parameters;
-using Dashboard.Config.ViewModels;
+using NoeticTools.Dashboard.Framework.Config.Parameters;
+using NoeticTools.Dashboard.Framework.Config.ViewModels;
 
-namespace Dashboard.Framework.Config.Commands
+namespace NoeticTools.Dashboard.Framework.Config.Commands
 {
     public class TileConfigureCommand : ICommand
     {
@@ -42,7 +41,7 @@ namespace Dashboard.Framework.Config.Commands
 
         private void OnChanExecuteChanged()
         {
-            EventHandler handler = CanExecuteChanged;
+            var handler = CanExecuteChanged;
             if (handler != null)
             {
                 handler(this, new EventArgs());

@@ -2,9 +2,9 @@
 
 namespace Dashboard.Tiles.Message
 {
-    public partial class HelpTileControl : UserControl
+    public partial class HelpPaneControl : UserControl
     {
-        public HelpTileControl()
+        public HelpPaneControl()
         {
             InitializeComponent();
         }

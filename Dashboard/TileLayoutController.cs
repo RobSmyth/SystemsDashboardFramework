@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using Dashboard.Tiles.Date;
-using Dashboard.Tiles.HelpTile;
-using Dashboard.Tiles.Message;
-using Dashboard.Tiles.NavigationTile;
 using Dashboard.Tiles.ServerStatus;
+using NoeticTools.Dashboard.Framework;
 using NoeticTools.Dashboard.Framework.Config;
 using NoeticTools.Dashboard.Framework.DataSources.TeamCity;
 using NoeticTools.TeamDashboard.Tiles;
 using NoeticTools.TeamDashboard.Tiles.DaysLeftCountDown;
+using NoeticTools.TeamDashboard.Tiles.Message;
 using NoeticTools.TeamDashboard.Tiles.TeamCityAvailableBuilds;
 using NoeticTools.TeamDashboard.Tiles.TeamCityLastBuildStatus;
 using NoeticTools.TeamDashboard.Tiles.WebPage;
@@ -20,51 +19,52 @@ namespace NoeticTools.TeamDashboard
     public class TileLayoutController
     {
         private readonly DashboardConfiguration _activeConfiguration; //>>> move out when factories resolved
+        private readonly IClock _clock;
         private readonly TeamCityService _teamCityService; //>>> move out when factories resolved
+        private readonly Grid _tileGrid;
 
-        public TileLayoutController(Grid grid, TeamCityService teamCityService,
-            DashboardConfiguration activeConfiguration)
+        public TileLayoutController(Grid tileGrid, TeamCityService teamCityService,
+            DashboardConfiguration activeConfiguration, IClock clock)
         {
             _teamCityService = teamCityService;
             _activeConfiguration = activeConfiguration;
-            Grid = grid;
+            _clock = clock;
+            _tileGrid = tileGrid;
         }
-
-        public Grid Grid { get; private set; }
 
         private TileLayoutController AddTile(DashboardTileConfiguration tileConfiguration, ITileViewModel viewModel)
         {
-            Grid panel = AddPlaceholderPanel(tileConfiguration.RowNumber, tileConfiguration.ColumnNumber,
+            var panel = AddPlaceholderPanel(tileConfiguration.RowNumber, tileConfiguration.ColumnNumber,
                 tileConfiguration.RowSpan, tileConfiguration.ColumnSpan);
-            var layout = new TileLayoutController(panel, _teamCityService, _activeConfiguration)
+            var layout = new TileLayoutController(panel, _teamCityService, _activeConfiguration, _clock)
             {
-                Grid = {Margin = new Thickness(2)}
+                _tileGrid = {Margin = new Thickness(2)}
             };
-            viewModel.Start(layout.Grid);
+            viewModel.Start(layout._tileGrid);
             return this;
         }
 
         private TileLayoutController AddPanel(DashboardTileConfiguration tileConfiguration)
         {
-            Grid panel = AddPlaceholderPanel(tileConfiguration.RowNumber, tileConfiguration.ColumnNumber,
+            var panel = AddPlaceholderPanel(tileConfiguration.RowNumber, tileConfiguration.ColumnNumber,
                 tileConfiguration.RowSpan, tileConfiguration.ColumnSpan);
-            var layout = new TileLayoutController(panel, _teamCityService, _activeConfiguration)
+            var layout = new TileLayoutController(panel, _teamCityService, _activeConfiguration, _clock)
             {
-                Grid = {Margin = new Thickness(2)}
+                _tileGrid = {Margin = new Thickness(2)}
             };
             return layout;
         }
 
         private Grid AddPlaceholderPanel(int rowNumber, int columnNumber, int rowSpan, int columnSpan)
         {
-            while (rowNumber + rowSpan - 1 > Grid.RowDefinitions.Count)
+            while (rowNumber + rowSpan - 1 > _tileGrid.RowDefinitions.Count)
             {
-                Grid.RowDefinitions.Add(new RowDefinition());
+                _tileGrid.RowDefinitions.Add(new RowDefinition());
             }
 
-            while (columnNumber + columnSpan - 1 > Grid.ColumnDefinitions.Count)
+            while (columnNumber + columnSpan - 1 > _tileGrid.ColumnDefinitions.Count)
             {
-                Grid.ColumnDefinitions.Add(new ColumnDefinition());
+                _tileGrid.ColumnDefinitions.Add(new ColumnDefinition());
             }
 
             var panel = new Grid {Margin = new Thickness(0)};
@@ -74,7 +74,7 @@ namespace NoeticTools.TeamDashboard
             Grid.SetRowSpan(panel, rowSpan);
             Grid.SetColumnSpan(panel, columnSpan);
 
-            Grid.Children.Add(panel);
+            _tileGrid.Children.Add(panel);
             return panel;
         }
 
@@ -84,36 +84,25 @@ namespace NoeticTools.TeamDashboard
             {
                 {DateTileViewModel.TileTypeId, CreateDateTile},
                 {"0FFACE9A-8B68-4DBC-8B42-0255F51368B1".ToLower(), CreateDateTile},
-                 
                 {DaysLeftCountDownViewModel.TileTypeId, CreateDaysLeftTile},
                 {"0FFACE9A-8B68-4DBC-8B42-0255F51368B2".ToLower(), CreateDaysLeftTile},
-
                 {ServerStatusTileViewModel.TileTypeId, CreateServerStatusTile},
                 {"0FFACE9A-8B68-4DBC-8B42-0255F51368B4".ToLower(), CreateServerStatusTile},
-
                 {TeamCityAvailableBuildsViewModel.TileTypeId, CreateTeamCityAvailableBuildsTile},
                 {"0FFACE9A-8B68-4DBC-8B42-0255F51368B6".ToLower(), CreateTeamCityAvailableBuildsTile},
-
                 {TeamCityLastBuildStatusTileViewModel.TileTypeId, CreateTeamCityLastBuildTile},
                 {"0FFACE9A-8B68-4DBC-8B42-0255F51368B5".ToLower(), CreateTeamCityLastBuildTile},
-
                 {MessageTileViewModel.TileTypeId, CreateMessageTile},
                 {"0FFACE9A-8B68-4DBC-8B42-0255F51368B3".ToLower(), CreateMessageTile},
-
                 {WebPageTileViewModel.TileTypeId, CreateWebPageTile},
                 {"92CE0D61-4748-4427-8EB7-DC8B8B741C15".ToLower(), CreateWebPageTile},
-
-                {HelpTileViewModel.TileTypeId, CreateHelpTile},
-                {"14B30D27-DC55-466A-A7C7-835004FF94A6".ToLower(), CreateHelpTile},
-
-                {NavigationTileViewModel.TileTypeId, CreateNavigationTile},
-                {"49D4EBB4-3C2E-44A6-AF42-FC9EDCDE9D95".ToLower(), CreateNavigationTile},
             };
 
             TileLayoutController layoutController = null;
 
-            if (tileConfiguration.TypeId == DashboardTileConfiguration.BlankTileTypeId || 
-                tileConfiguration.TypeId.Equals("6f1bf918-6080-42c2-b980-d562f77cb4e6", StringComparison.InvariantCultureIgnoreCase))
+            if (tileConfiguration.TypeId == DashboardTileConfiguration.BlankTileTypeId ||
+                tileConfiguration.TypeId.Equals("6f1bf918-6080-42c2-b980-d562f77cb4e6",
+                    StringComparison.InvariantCultureIgnoreCase))
             {
                 tileConfiguration.TypeId = DashboardTileConfiguration.BlankTileTypeId;
                 layoutController = AddPanel(tileConfiguration);
@@ -123,7 +112,7 @@ namespace NoeticTools.TeamDashboard
                 layoutController = AddTile(tileConfiguration, factoryLookup[tileConfiguration.TypeId](tileConfiguration));
             }
 
-            foreach (DashboardTileConfiguration tile in tileConfiguration.Tiles)
+            foreach (var tile in tileConfiguration.Tiles)
             {
                 layoutController.AddTile(tile);
             }
@@ -156,7 +145,7 @@ namespace NoeticTools.TeamDashboard
         private ITileViewModel CreateDaysLeftTile(DashboardTileConfiguration tileConfiguration)
         {
             tileConfiguration.TypeId = DaysLeftCountDownViewModel.TileTypeId;
-            return new DaysLeftCountDownViewModel(tileConfiguration);
+            return new DaysLeftCountDownViewModel(tileConfiguration, _clock);
         }
 
         private ITileViewModel CreateMessageTile(DashboardTileConfiguration tileConfiguration)
@@ -169,18 +158,6 @@ namespace NoeticTools.TeamDashboard
         {
             tileConfiguration.TypeId = WebPageTileViewModel.TileTypeId;
             return new WebPageTileViewModel(tileConfiguration);
-        }
-
-        private ITileViewModel CreateHelpTile(DashboardTileConfiguration tileConfiguration)
-        {
-            tileConfiguration.TypeId = HelpTileViewModel.TileTypeId;
-            return new HelpTileViewModel();
-        }
-
-        private ITileViewModel CreateNavigationTile(DashboardTileConfiguration tileConfiguration)
-        {
-            tileConfiguration.TypeId = NavigationTileViewModel.TileTypeId;
-            return new NavigationTileViewModel();
         }
     }
 }

@@ -104,18 +104,18 @@
       <DependentUpon>DaysLeftCountDownTileView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Tiles\DaysLeftCountDown\DaysLeftCountDownViewModel.cs" />
-    <Compile Include="Tiles\HelpTile\HelpTileControl.xaml.cs">
-      <DependentUpon>HelpTileControl.xaml</DependentUpon>
+    <Compile Include="Panes\HelpPane\HelpPaneControl.xaml.cs">
+      <DependentUpon>HelpPaneControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Tiles\HelpTile\HelpTileViewModel.cs" />
+    <Compile Include="Panes\HelpPane\HelpPaneViewModel.cs" />
     <Compile Include="Tiles\Message\MessageTileControl.xaml.cs">
       <DependentUpon>MessageTileControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Tiles\Message\MessageTileViewModel.cs" />
-    <Compile Include="Tiles\NavigationTile\NavigationTileControl.xaml.cs">
-      <DependentUpon>NavigationTileControl.xaml</DependentUpon>
+    <Compile Include="Panes\NavigationPane\NavigationPaneControl.xaml.cs">
+      <DependentUpon>NavigationPaneControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Tiles\NavigationTile\NavigationTileViewModel.cs" />
+    <Compile Include="Panes\NavigationPane\NavigationPaneViewModel.cs" />
     <Compile Include="Tiles\ServerStatus\ServerStatusTileControl.xaml.cs">
       <DependentUpon>ServerStatusTileControl.xaml</DependentUpon>
     </Compile>
@@ -153,7 +153,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Tiles\HelpTile\HelpTileControl.xaml">
+    <Page Include="Panes\HelpPane\HelpPaneControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -161,7 +161,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Tiles\NavigationTile\NavigationTileControl.xaml">
+    <Page Include="Panes\NavigationPane\NavigationPaneControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -226,9 +226,6 @@
     <Resource Include="Images\TransparentStar_20x20.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Config\" />
-    <Folder Include="Converters\" />
-    <Folder Include="DataSources\" />
     <Folder Include="Tiles\TeamCityBuildAgentsStatus\" />
   </ItemGroup>
   <ItemGroup>

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
-using Dashboard.Config.Parameters;
-using Dashboard.Config.Views;
+using NoeticTools.Dashboard.Framework.Config.Parameters;
+using NoeticTools.Dashboard.Framework.Config.Views;
 
-namespace Dashboard.Config.ViewModels
+namespace NoeticTools.Dashboard.Framework.Config.ViewModels
 {
     internal class TileConfigationViewModel
     {

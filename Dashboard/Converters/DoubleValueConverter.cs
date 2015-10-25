@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace Dashboard.Converters
+namespace NoeticTools.TeamDashboard.Converters
 {
     internal class DoubleValueConverter : IValueConverter
     {

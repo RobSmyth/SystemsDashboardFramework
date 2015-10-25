@@ -3,16 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:converters="clr-namespace:Dashboard.Converters"
+             xmlns:converters="clr-namespace:NoeticTools.TeamDashboard.Converters"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300"
-             Name="TeamCityBuildStatus">
+             Name="TeamCityBuildStatus"
+              Focusable="True">
 
     <UserControl.Resources>
 
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Dashboard;component/Styles.xaml" />
+                <ResourceDictionary Source="/TeamDashboard;component/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Style TargetType="TextBlock" BasedOn="{StaticResource DarkTileStyle_Textbox}" />
             <Style TargetType="Grid" BasedOn="{StaticResource DarkTileStyle_Grid}" />
@@ -24,28 +25,30 @@
         <MouseBinding MouseAction="LeftClick" Command="{Binding ConfigureCommand}" />
     </UserControl.InputBindings>
 
-    <Grid Name="root" Margin="0">
-        <TextBlock Name="headerText" HorizontalAlignment="Center" VerticalAlignment="Top"
+    <Border Name="FocusBorder" Style="{StaticResource FocusBorder}">
+        <Grid Name="root" Margin="0">
+            <TextBlock Name="headerText" HorizontalAlignment="Center" VerticalAlignment="Top"
                    FontSize="{Binding Path=ActualWidth, ElementName=root, 
                                 Converter={StaticResource doubleConverter}, ConverterParameter=0.045}"
                    FontWeight="Bold" FontStyle="Italic" Margin="5">
             UNKNOWN
-        </TextBlock>
+            </TextBlock>
 
-        <TextBlock Name="statusText" HorizontalAlignment="Center" VerticalAlignment="Center"
+            <TextBlock Name="statusText" HorizontalAlignment="Center" VerticalAlignment="Center"
                    FontSize="{Binding Path=ActualWidth, ElementName=root, 
                                 Converter={StaticResource doubleConverter}, ConverterParameter=0.08}"
                    FontWeight="Bold" Margin="5">
             UNKNOWN
-        </TextBlock>
+            </TextBlock>
 
-        <TextBlock Name="buildVer" HorizontalAlignment="Center" VerticalAlignment="Bottom" TextAlignment="Center"
+            <TextBlock Name="buildVer" HorizontalAlignment="Center" VerticalAlignment="Bottom" TextAlignment="Center"
                    TextWrapping="WrapWithOverflow"
                    FontSize="{Binding Path=ActualWidth, ElementName=root, 
                                 Converter={StaticResource doubleConverter}, ConverterParameter=0.035}"
                    FontWeight="Normal" Background="{x:Null}"
                    Margin="5">
             VERSION
-        </TextBlock>
-    </Grid>
+            </TextBlock>
+        </Grid>
+    </Border>
 </UserControl>

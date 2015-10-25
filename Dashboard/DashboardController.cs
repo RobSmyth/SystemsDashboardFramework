@@ -3,6 +3,7 @@ using Dashboard.Framework.Config;
 using Dashboard.Tiles.HelpTile;
 using Dashboard.Tiles.NavigationTile;
 using NoeticTools.Dashboard.Framework;
+using NoeticTools.Dashboard.Framework.Config;
 using NoeticTools.Dashboard.Framework.DataSources.TeamCity;
 
 namespace NoeticTools.TeamDashboard

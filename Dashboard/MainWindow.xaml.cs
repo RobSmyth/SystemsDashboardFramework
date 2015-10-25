@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Input;
 using Dashboard.Framework.Config;
 using NoeticTools.Dashboard.Framework;
+using NoeticTools.Dashboard.Framework.Config;
 
 namespace NoeticTools.TeamDashboard
 {

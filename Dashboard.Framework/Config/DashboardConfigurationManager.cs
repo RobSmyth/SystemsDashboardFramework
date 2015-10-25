@@ -3,9 +3,8 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Xml.Serialization;
-using Dashboard.Config;
 
-namespace Dashboard.Framework.Config
+namespace NoeticTools.Dashboard.Framework.Config
 {
     public class DashboardConfigurationManager
     {

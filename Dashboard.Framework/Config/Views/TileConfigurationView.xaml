@@ -9,7 +9,7 @@
 
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Dashboard;component/Styles.xaml" />
+                <ResourceDictionary Source="/TeamDashboard;component/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Style TargetType="TextBlock" BasedOn="{StaticResource DarkTileStyle_Textbox}" />
             <Style TargetType="Grid" BasedOn="{StaticResource DarkTileStyle_Grid}" />

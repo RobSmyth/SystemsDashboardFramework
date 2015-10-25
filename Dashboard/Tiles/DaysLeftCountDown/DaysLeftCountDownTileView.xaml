@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:converters="clr-namespace:Dashboard.Converters"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
 
@@ -11,7 +10,7 @@
 
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Dashboard;component/Styles.xaml" />
+                <ResourceDictionary Source="/TeamDashboard;component/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Style TargetType="TextBlock" BasedOn="{StaticResource TealTileStyle_Textbox}" />
             <Style TargetType="Grid" BasedOn="{StaticResource TealTileStyle_Grid}" />
@@ -23,12 +22,13 @@
         <MouseBinding MouseAction="LeftClick" Command="{Binding ConfigureCommand}" />
     </UserControl.InputBindings>
 
-    <Grid Name="root" Margin="0">
+    <Border Name="FocusBorder" Style="{StaticResource FocusBorder}">
+        <Grid Name="root" Margin="0">
 
-        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Height="Auto"
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Height="Auto"
                     Margin="0">
 
-            <TextBlock Name="header" HorizontalAlignment="Center" TextAlignment="Center"
+                <TextBlock Name="header" HorizontalAlignment="Center" TextAlignment="Center"
                        TextWrapping="WrapWithOverflow"
                        FontSize="{Binding Path=ActualHeight, ElementName=root, 
                                     Converter={StaticResource doubleConverter}, ConverterParameter=0.15}"
@@ -36,17 +36,17 @@
                        Foreground="{StaticResource TealTileStyle_ForegroundBrush}"
                        Margin="0,5,0,-2">
                 Sprint X
-            </TextBlock>
+                </TextBlock>
 
-            <TextBlock Name="days" HorizontalAlignment="Center" TextAlignment="Center"
+                <TextBlock Name="days" HorizontalAlignment="Center" TextAlignment="Center"
                        FontSize="{Binding Path=ActualHeight, ElementName=root, 
                                     Converter={StaticResource doubleConverter}, ConverterParameter=0.4}"
                        FontWeight="Bold" Foreground="{StaticResource TealTileStyle_ForegroundBrush}"
                        Margin="0,0,0,-3">
                 42
-            </TextBlock>
+                </TextBlock>
 
-            <TextBlock Name="footer" HorizontalAlignment="Center" TextAlignment="Center"
+                <TextBlock Name="footer" HorizontalAlignment="Center" TextAlignment="Center"
                        TextWrapping="WrapWithOverflow"
                        FontSize="{Binding Path=ActualHeight, ElementName=root, 
                                     Converter={StaticResource doubleConverter}, ConverterParameter=0.10}"
@@ -54,8 +54,10 @@
                        Foreground="{StaticResource TealTileStyle_ForegroundBrush}"
                        Margin="0,-2,0,5">
                 Days left
-            </TextBlock>
-        </StackPanel>
+                </TextBlock>
+            </StackPanel>
 
-    </Grid>
+        </Grid>
+    </Border>
+    
 </UserControl>

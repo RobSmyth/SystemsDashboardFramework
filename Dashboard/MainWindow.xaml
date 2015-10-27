@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         d:DesignHeight="450" d:DesignWidth="750"
         Title="TeamDashboard" Height="450" Width="750"
-        Background="Black" Icon="NoeticTools.ico">
+        Background="Black" Icon="Images/NoeticTools.ico">
 
 
     <Window.Resources>

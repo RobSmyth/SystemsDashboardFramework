@@ -33,10 +33,7 @@ namespace NoeticTools.TeamDashboard.Tiles.WebPage
             UpdateView();
         }
 
-        public string TypeId
-        {
-            get { return TileTypeId; }
-        }
+        public string TypeId => TileTypeId;
 
         public Guid Id { get; private set; }
 

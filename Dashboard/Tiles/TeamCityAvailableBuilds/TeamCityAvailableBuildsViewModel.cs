@@ -7,32 +7,33 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using Dashboard.Tiles.TeamCityAvailableBuilds;
+using NoeticTools.Dashboard.Framework;
 using NoeticTools.Dashboard.Framework.Config;
 using NoeticTools.Dashboard.Framework.Config.Commands;
 using NoeticTools.Dashboard.Framework.Config.Parameters;
 using NoeticTools.Dashboard.Framework.DataSources.TeamCity;
+using NoeticTools.Dashboard.Framework.Time;
 using TeamCitySharp.DomainEntities;
 
 namespace NoeticTools.TeamDashboard.Tiles.TeamCityAvailableBuilds
 {
-    internal class TeamCityAvailableBuildsViewModel : ITileViewModel
+    internal class TeamCityAvailableBuildsViewModel : ITileViewModel, ITimerListener
     {
         private const int MaxNumberOfBuilds = 8;
         public static readonly string TileTypeId = "TeamCity.AvailableBuilds";
         private readonly TeamCityService _service;
+        private readonly ITimerService _timerService;
         private readonly TimeSpan _tickPeriod = TimeSpan.FromSeconds(15);
         private readonly TileConfiguration _tileConfiguration;
-        private readonly DispatcherTimer _timer;
         private TeamCityAvailableBuildsListControl _view;
 
-        public TeamCityAvailableBuildsViewModel(TeamCityService service, DashboardTileConfiguration tileConfiguration)
+        public TeamCityAvailableBuildsViewModel(TeamCityService service, DashboardTileConfiguration tileConfiguration, ITimerService timerService)
         {
             _service = service;
+            _timerService = timerService;
             _tileConfiguration = new TileConfiguration(tileConfiguration, this);
             Id = tileConfiguration.Id;
             Builds = new ObservableCollection<BuildDetails>();
-            _timer = new DispatcherTimer();
-            _timer.Tick += _timer_Tick;
         }
 
         public ICommand ConfigureCommand { get; private set; }
@@ -46,9 +47,9 @@ namespace NoeticTools.TeamDashboard.Tiles.TeamCityAvailableBuilds
             };
             for (int buildNumber = 1; buildNumber <= MaxNumberOfBuilds; buildNumber++)
             {
-                string diplayName = string.Format("Display_name_{0}", buildNumber);
-                string project = string.Format("Project_{0}", buildNumber);
-                string configuration = string.Format("Configuration_{0}", buildNumber);
+                string diplayName = $"Display_name_{buildNumber}";
+                string project = $"Project_{buildNumber}";
+                string configuration = $"Configuration_{buildNumber}";
                 parameters.Add(new ConfigurationParameter(diplayName, "EMPTY", _tileConfiguration));
                 parameters.Add(new ConfigurationParameter(project, "EMPTY", _tileConfiguration));
                 parameters.Add(new ConfigurationParameter(configuration, "EMPTY", _tileConfiguration));
@@ -62,14 +63,10 @@ namespace NoeticTools.TeamDashboard.Tiles.TeamCityAvailableBuilds
             _view = new TeamCityAvailableBuildsListControl {DataContext = this};
             placeholderPanel.Children.Add(_view);
 
-            _timer.Interval = TimeSpan.FromSeconds(1);
-            _timer.Start();
+            _timerService.QueueCallback(TimeSpan.FromSeconds(1), this);
         }
 
-        public string TypeId
-        {
-            get { return TileTypeId; }
-        }
+        public string TypeId => TileTypeId;
 
         public Guid Id { get; private set; }
 
@@ -83,17 +80,16 @@ namespace NoeticTools.TeamDashboard.Tiles.TeamCityAvailableBuilds
             Tick();
         }
 
-        private void _timer_Tick(object sender, EventArgs e)
+
+        public void OnTimeElapsed(TimerToken token)
         {
             Tick();
         }
 
         private void Tick()
         {
-            _timer.Stop();
             UpdateView();
-            _timer.Interval = _tickPeriod;
-            _timer.Start();
+            _timerService.QueueCallback(_tickPeriod, this);
         }
 
         private void UpdateView()
@@ -145,7 +141,7 @@ namespace NoeticTools.TeamDashboard.Tiles.TeamCityAvailableBuilds
 
         private string CleanupVersion(string version)
         {
-            int length = version.IndexOf(".Rel");
+            var length = version.IndexOf(".Rel");
             if (length <= 0)
             {
                 return version;

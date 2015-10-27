@@ -7,6 +7,7 @@ using Dashboard.Tiles.ServerStatus;
 using NoeticTools.Dashboard.Framework;
 using NoeticTools.Dashboard.Framework.Config;
 using NoeticTools.Dashboard.Framework.DataSources.TeamCity;
+using NoeticTools.Dashboard.Framework.Time;
 using NoeticTools.TeamDashboard.Tiles;
 using NoeticTools.TeamDashboard.Tiles.DaysLeftCountDown;
 using NoeticTools.TeamDashboard.Tiles.Message;
@@ -20,15 +21,17 @@ namespace NoeticTools.TeamDashboard
     {
         private readonly DashboardConfiguration _activeConfiguration; //>>> move out when factories resolved
         private readonly IClock _clock;
+        private readonly ITimerService _timerService;
         private readonly TeamCityService _teamCityService; //>>> move out when factories resolved
         private readonly Grid _tileGrid;
 
         public TileLayoutController(Grid tileGrid, TeamCityService teamCityService,
-            DashboardConfiguration activeConfiguration, IClock clock)
+            DashboardConfiguration activeConfiguration, IClock clock, ITimerService timerService)
         {
             _teamCityService = teamCityService;
             _activeConfiguration = activeConfiguration;
             _clock = clock;
+            _timerService = timerService;
             _tileGrid = tileGrid;
         }
 
@@ -36,7 +39,7 @@ namespace NoeticTools.TeamDashboard
         {
             var panel = AddPlaceholderPanel(tileConfiguration.RowNumber, tileConfiguration.ColumnNumber,
                 tileConfiguration.RowSpan, tileConfiguration.ColumnSpan);
-            var layout = new TileLayoutController(panel, _teamCityService, _activeConfiguration, _clock)
+            var layout = new TileLayoutController(panel, _teamCityService, _activeConfiguration, _clock, _timerService)
             {
                 _tileGrid = {Margin = new Thickness(2)}
             };
@@ -48,7 +51,7 @@ namespace NoeticTools.TeamDashboard
         {
             var panel = AddPlaceholderPanel(tileConfiguration.RowNumber, tileConfiguration.ColumnNumber,
                 tileConfiguration.RowSpan, tileConfiguration.ColumnSpan);
-            var layout = new TileLayoutController(panel, _teamCityService, _activeConfiguration, _clock)
+            var layout = new TileLayoutController(panel, _teamCityService, _activeConfiguration, _clock, _timerService)
             {
                 _tileGrid = {Margin = new Thickness(2)}
             };
@@ -127,13 +130,13 @@ namespace NoeticTools.TeamDashboard
         private ITileViewModel CreateTeamCityLastBuildTile(DashboardTileConfiguration tileConfiguration)
         {
             tileConfiguration.TypeId = TeamCityLastBuildStatusTileViewModel.TileTypeId;
-            return new TeamCityLastBuildStatusTileViewModel(_teamCityService, tileConfiguration);
+            return new TeamCityLastBuildStatusTileViewModel(_teamCityService, tileConfiguration, _timerService);
         }
 
         private ITileViewModel CreateTeamCityAvailableBuildsTile(DashboardTileConfiguration tileConfiguration)
         {
             tileConfiguration.TypeId = TeamCityAvailableBuildsViewModel.TileTypeId;
-            return new TeamCityAvailableBuildsViewModel(_teamCityService, tileConfiguration);
+            return new TeamCityAvailableBuildsViewModel(_teamCityService, tileConfiguration, _timerService);
         }
 
         private ITileViewModel CreateServerStatusTile(DashboardTileConfiguration tileConfiguration)

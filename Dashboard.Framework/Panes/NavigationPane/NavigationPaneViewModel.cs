@@ -1,11 +1,8 @@
-﻿using System;
-using System.Windows.Controls;
-using System.Windows.Input;
-using Dashboard.Framework.Config.Commands;
+﻿using System.Windows.Controls;
 
-namespace NoeticTools.TeamDashboard.Panes.NavigationPane
+namespace NoeticTools.Dashboard.Framework.Panes.NavigationPane
 {
-    internal class NavigationSideViewModel
+    public class NavigationSideViewModel : IPaneViewModel
     {
         private readonly DockPanel _placeholderPanel;
         private NavigationPaneControl _view;
@@ -15,16 +12,10 @@ namespace NoeticTools.TeamDashboard.Panes.NavigationPane
             _placeholderPanel = placeholderPanel;
         }
 
-        public void Start()
+        public void Show()
         {
             _view = new NavigationPaneControl() { DataContext = this};
             _placeholderPanel.Children.Add(_view);
-
-            UpdateView();
-        }
-
-        private void UpdateView()
-        {
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="NoeticTools.TeamDashboard.Panes.NavigationPane.NavigationPaneControl"
+﻿<UserControl x:Class="NoeticTools.Dashboard.Framework.Panes.HelpPane.HelpPaneControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -22,12 +22,11 @@
         <MouseBinding MouseAction="LeftClick" Command="{Binding ConfigureCommand}" />
     </UserControl.InputBindings>
 
-    <Grid Name="root" Margin="0">
+    <Grid Name="root" Margin="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <StackPanel Margin="5">
-            <TextBlock HorizontalAlignment="Left" FontSize="16" FontWeight="Bold">Navigation</TextBlock>
-            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Height="Auto"
-                    Margin="0">
-                <TextBlock Name="message" HorizontalAlignment="Center" TextAlignment="Center" FontSize="12" Margin="0,0,0,-3">Good luck (not implemented yet)</TextBlock>
+            <TextBlock HorizontalAlignment="Left" FontSize="16" FontWeight="Bold" Margin="5">Dashboard Help</TextBlock>
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top" Height="Auto" Margin="10">
+                <TextBlock Name="message" FontSize="12" Margin="0,0,0,-3">Good luck</TextBlock>
             </StackPanel>
         </StackPanel>
     </Grid>

@@ -3,8 +3,10 @@ using System.Windows.Controls;
 using NoeticTools.Dashboard.Framework;
 using NoeticTools.Dashboard.Framework.Config;
 using NoeticTools.Dashboard.Framework.DataSources.TeamCity;
-using NoeticTools.TeamDashboard.Panes.HelpPane;
-using NoeticTools.TeamDashboard.Panes.NavigationPane;
+using NoeticTools.Dashboard.Framework.Panes;
+using NoeticTools.Dashboard.Framework.Panes.HelpPane;
+using NoeticTools.Dashboard.Framework.Panes.NavigationPane;
+using NoeticTools.Dashboard.Framework.Time;
 
 namespace NoeticTools.TeamDashboard
 {
@@ -14,15 +16,17 @@ namespace NoeticTools.TeamDashboard
         private readonly DashboardConfigurationManager _configurationManager;
         private readonly RunOptions _runOptions;
         private readonly IClock _clock;
+        private readonly ITimerService _timerService;
         private int _dashboardIndex = 0;
         private Grid _tileGrid;
         private DockPanel _sidePanel;
 
-        public DashboardController(DashboardConfigurationManager configurationManager, RunOptions runOptions, IClock clock)
+        public DashboardController(DashboardConfigurationManager configurationManager, RunOptions runOptions, IClock clock, ITimerService timerService)
         {
             _configurationManager = configurationManager;
             _runOptions = runOptions;
             _clock = clock;
+            _timerService = timerService;
             _config = new DashboardConfigurationManager().Load();
         }
 
@@ -38,7 +42,7 @@ namespace NoeticTools.TeamDashboard
             ClearTileGrid();
 
             var channel = new TeamCityService(_config.Services, _runOptions);
-            var layout = new TileLayoutController(tileGrid, channel, activeConfiguration, _clock);
+            var layout = new TileLayoutController(tileGrid, channel, activeConfiguration, _clock, _timerService);
 
             foreach (var tile in activeConfiguration.RootTile.Tiles)
             {
@@ -97,26 +101,33 @@ namespace NoeticTools.TeamDashboard
             Load(_tileGrid, _config.Configurations[_dashboardIndex]);
         }
 
-        public void ShowHelp()
-        {
-            _sidePanel.Visibility = Visibility.Collapsed;
-            _sidePanel.Children.Clear();
-            new HelpPaneViewModel(_sidePanel).Start();
-            _sidePanel.Visibility = Visibility.Visible;
-        }
-
-        public void ShowNavigation()
-        {
-            _sidePanel.Visibility = Visibility.Collapsed;
-            _sidePanel.Children.Clear();
-            new NavigationSideViewModel(_sidePanel).Start();
-            _sidePanel.Visibility = Visibility.Visible;
-        }
-
         public void ShowCurrentDashboard()
         {
             _sidePanel.Visibility = Visibility.Collapsed;
             Load(_tileGrid, _config.Configurations[_dashboardIndex]);
+        }
+
+        public void ShowHelp()
+        {
+            ShowSidePane(new HelpPaneViewModel(_sidePanel));
+        }
+
+        public void ShowNavigation()
+        {
+            ShowSidePane(new NavigationSideViewModel(_sidePanel));
+        }
+
+        private void ShowSidePane(IPaneViewModel viewModel)
+        {
+            _sidePanel.Visibility = Visibility.Collapsed;
+            _sidePanel.Children.Clear();
+            viewModel.Show();
+            _sidePanel.Visibility = Visibility.Visible;
+        }
+
+        public void Refresh()
+        {
+            _timerService.FireAll();
         }
     }
 }

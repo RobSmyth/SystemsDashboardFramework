@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
 using NoeticTools.Dashboard.Framework;
 using NoeticTools.Dashboard.Framework.Config;
+using NoeticTools.Dashboard.Framework.Time;
 
 namespace NoeticTools.TeamDashboard
 {
@@ -11,13 +13,16 @@ namespace NoeticTools.TeamDashboard
     {
         private readonly DashboardController _controller;
         private readonly IDictionary<Key, Action<Key>> _keyDownHandlers;
+        private TimerService _timerService;
 
         public MainWindow()
         {
             InitializeComponent();
 
+            var clock = new Clock();
+            _timerService = new TimerService(clock);
             var runOptions = new RunOptions();
-            _controller = new DashboardController(new DashboardConfigurationManager(), runOptions, new Clock());
+            _controller = new DashboardController(new DashboardConfigurationManager(), runOptions, clock, _timerService);
 
             _keyDownHandlers = new Dictionary<Key, Action<Key>>
             {
@@ -28,7 +33,7 @@ namespace NoeticTools.TeamDashboard
                 {Key.F1, key => _controller.ShowHelp()},
                 // F2 - used by tiles for tile edit
                 {Key.F3, key => _controller.ShowNavigation()},
-                // F5 - will use to force immediate refresh
+                {Key.F5, key => _controller.Refresh()},
                 {Key.Escape, key => _controller.ShowCurrentDashboard()},
                 // INS - will be used to insert a new tile
                 // DEL - will be used to delete a tile

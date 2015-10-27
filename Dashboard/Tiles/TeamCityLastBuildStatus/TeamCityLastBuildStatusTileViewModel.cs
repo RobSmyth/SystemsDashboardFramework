@@ -6,14 +6,16 @@ using System.Windows.Media;
 using System.Windows.Threading;
 using Dashboard.Config.Parameters;
 using Dashboard.Tiles.TeamCityLastBuildStatus;
+using NoeticTools.Dashboard.Framework;
 using NoeticTools.Dashboard.Framework.Config;
 using NoeticTools.Dashboard.Framework.Config.Commands;
 using NoeticTools.Dashboard.Framework.Config.Parameters;
 using NoeticTools.Dashboard.Framework.DataSources.TeamCity;
+using NoeticTools.Dashboard.Framework.Time;
 
 namespace NoeticTools.TeamDashboard.Tiles.TeamCityLastBuildStatus
 {
-    internal class TeamCityLastBuildStatusTileViewModel : ITileViewModel
+    internal class TeamCityLastBuildStatusTileViewModel : ITileViewModel, ITimerListener
     {
         public static readonly string TileTypeId = "TeamCity.Build.Status";
 
@@ -48,22 +50,20 @@ namespace NoeticTools.TeamDashboard.Tiles.TeamCityLastBuildStatus
         };
 
         private readonly TileConfiguration _tileConfiguration;
-        private readonly DispatcherTimer _timer;
         private readonly TimeSpan _updatePeriod = TimeSpan.FromSeconds(30);
         private TeamCityBuildStatusTileControl _view;
+        private readonly TimerToken _timerToken;
 
-        public TeamCityLastBuildStatusTileViewModel(TeamCityService service,
-            DashboardTileConfiguration tileConfiguration)
+        public TeamCityLastBuildStatusTileViewModel(TeamCityService service, DashboardTileConfiguration tileConfiguration, ITimerService timerService)
         {
             _service = service;
             _tileConfiguration = new TileConfiguration(tileConfiguration, this);
-            ;
             Id = tileConfiguration.Id;
-            _timer = new DispatcherTimer();
             ConfigureService = new TeamCityServiceConfigureCommand(service);
+            _timerToken = timerService.QueueCallback(TimeSpan.FromDays(10000), this);
         }
 
-        public ICommand ConfigureService { get; private set; }
+        public ICommand ConfigureService { get; }
 
         public ICommand ConfigureCommand { get; private set; }
 
@@ -84,9 +84,7 @@ namespace NoeticTools.TeamDashboard.Tiles.TeamCityLastBuildStatus
 
             _service.Connect();
 
-            _timer.Interval = TimeSpan.FromSeconds(1);
-            _timer.Tick += _timer_Tick;
-            _timer.Start();
+            _timerToken.Requeue(TimeSpan.FromSeconds(1));
         }
 
         public string TypeId => TileTypeId;
@@ -95,15 +93,11 @@ namespace NoeticTools.TeamDashboard.Tiles.TeamCityLastBuildStatus
 
         public void OnConfigurationChanged()
         {
-            _timer.Stop();
-            _timer.Interval = TimeSpan.FromMilliseconds(100);
-            _timer.Start();
+            _timerToken.Requeue(TimeSpan.FromMilliseconds(100));
         }
 
-        private void _timer_Tick(object sender, EventArgs e)
+        public void OnTimeElapsed(TimerToken token)
         {
-            _timer.Stop();
-
             var projectName = _tileConfiguration.GetString("Project");
             var configurationName = _tileConfiguration.GetString("Configuration");
 
@@ -139,8 +133,7 @@ namespace NoeticTools.TeamDashboard.Tiles.TeamCityLastBuildStatus
             _view.root.Background = running ? _runningStatusBrushes[status] : _statusBrushes[status];
             SetTextForeground(running, status);
 
-            _timer.Interval = _updatePeriod;
-            _timer.Start();
+            _timerToken.Requeue(_updatePeriod);
         }
 
         private void SetTextForeground(bool running, string status)

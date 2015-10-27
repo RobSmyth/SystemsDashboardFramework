@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NoeticTools.Dashboard.Framework
+namespace NoeticTools.Dashboard.Framework.Time
 {
     public class Clock : IClock
     {

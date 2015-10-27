@@ -67,7 +67,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Clock.cs" />
+    <Compile Include="Time\Clock.cs" />
     <Compile Include="Config\Commands\NullCommand.cs" />
     <Compile Include="Config\Commands\TileConfigureCommand.cs" />
     <Compile Include="Config\DashboardConfiguration.cs" />
@@ -103,9 +103,23 @@
     <Compile Include="DataSources\TeamCity\TeamCityService.cs" />
     <Compile Include="DataSources\TeamCity\TeamCItyServiceConfiguration.cs" />
     <Compile Include="DataSources\TeamCity\TeamCityServiceConfigureCommand.cs" />
-    <Compile Include="IClock.cs" />
+    <Compile Include="Time\IClock.cs" />
+    <Compile Include="Time\ITimerListener.cs" />
+    <Compile Include="Time\ITimerService.cs" />
+    <Compile Include="Time\NullTimerListener.cs" />
+    <Compile Include="Panes\HelpPane\HelpPaneControl.xaml.cs">
+      <DependentUpon>HelpPaneControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Panes\HelpPane\HelpPaneViewModel.cs" />
+    <Compile Include="Panes\IPaneViewModel.cs" />
+    <Compile Include="Panes\NavigationPane\NaviagtionPaneControl.xaml.cs">
+      <DependentUpon>NaviagtionPaneControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Panes\NavigationPane\NavigationPaneViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RunOptions.cs" />
+    <Compile Include="Time\TimerService.cs" />
+    <Compile Include="Time\TimerToken.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="dashboard.config.default.xml">
@@ -114,6 +128,14 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Config\Views\TileConfigurationView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Panes\HelpPane\HelpPaneControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Panes\NavigationPane\NaviagtionPaneControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

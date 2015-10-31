@@ -32,7 +32,7 @@
 
         <Grid Name="tileGrid" Margin="2" Grid.Row="0" Grid.Column="0"/>
         
-        <DockPanel Name="sidePanel" Grid.Row="0" Grid.Column="1" Visibility="Collapsed" LastChildFill="True" Width="250"
+        <DockPanel Name="sidePanel" Grid.Row="0" Grid.Column="1" Visibility="Collapsed" LastChildFill="True" Width="325"
                    Style="{StaticResource SidePane}"/>
         
     </Grid>

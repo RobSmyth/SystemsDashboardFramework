@@ -42,7 +42,7 @@
         
         <Grid Name="ParametersGrid" Grid.Row="2" Grid.Column="0" Height="Auto" Margin="5,10,5,5">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" MinWidth="75" />
+                <ColumnDefinition Width="Auto" MinWidth="50" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
         </Grid>

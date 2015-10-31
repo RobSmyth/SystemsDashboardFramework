@@ -69,7 +69,7 @@
   <ItemGroup>
     <Compile Include="Config\Commands\SaveConfigurationParametersCommand.cs" />
     <Compile Include="Config\Commands\CloseCommand.cs" />
-    <Compile Include="Config\ViewModels\NotifyingViewModelBase.cs" />
+    <Compile Include="NotifyingViewModelBase.cs" />
     <Compile Include="DataSources\Jira\IJiraChannel.cs" />
     <Compile Include="DataSources\Jira\JiraChannelEmulateState.cs" />
     <Compile Include="DataSources\Jira\JiraChannelState.cs" />

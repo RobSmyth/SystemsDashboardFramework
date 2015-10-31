@@ -63,7 +63,7 @@ namespace NoeticTools.Dashboard.Framework.Config.Parameters
             {
                 Text = tileConfiguration.GetParameterValueText(this),
                 HorizontalAlignment = HorizontalAlignment.Stretch,
-                Margin = new Thickness(10, 5, 10, 5),
+                Margin = new Thickness(5, 5, 5, 5),
                 FontSize = 12.0,
                 Name = string.Format("Param_{0}", Name),
             };

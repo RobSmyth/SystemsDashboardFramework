@@ -5,7 +5,7 @@ using NoeticTools.Dashboard.Framework.Annotations;
 
 namespace NoeticTools.Dashboard.Framework.Config.ViewModels
 {
-    internal abstract class NotifyingViewModelBase : INotifyPropertyChanged
+    public abstract class NotifyingViewModelBase : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

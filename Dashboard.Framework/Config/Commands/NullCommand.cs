@@ -7,12 +7,12 @@ namespace NoeticTools.Dashboard.Framework.Config.Commands
     {
         public bool CanExecute(object parameter)
         {
-            return true;
+            return false;
         }
 
         public void Execute(object parameter)
         {
-            throw new NotImplementedException();
+            throw new InvalidOperationException();
         }
 
         public event EventHandler CanExecuteChanged;

@@ -7,9 +7,9 @@ namespace NoeticTools.Dashboard.Framework.Config.Commands
 {
     public class CloseCommand : ICommand
     {
-        private readonly TileConfigurationControl _view;
+        private readonly UIElement _view;
 
-        public CloseCommand(TileConfigurationControl view)
+        public CloseCommand(UIElement view)
         {
             _view = view;
         }

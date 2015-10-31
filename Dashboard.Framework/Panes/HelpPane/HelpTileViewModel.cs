@@ -4,18 +4,18 @@ using NoeticTools.Dashboard.Framework.Config.Commands;
 
 namespace NoeticTools.Dashboard.Framework.Panes.HelpPane
 {
-    public class HelpPaneViewModel : IPaneViewModel
+    public class HelpTileViewModel : IPaneViewModel
     {
-        private HelpPaneControl _view;
+        private HelpTileControl _view;
 
-        public HelpPaneViewModel()
+        public HelpTileViewModel()
         {
             Save = new NullCommand();
         }
 
         public UserControl Show()
         {
-            _view = new HelpPaneControl { DataContext = this};
+            _view = new HelpTileControl { DataContext = this};
             UpdateView();
             return _view;
         }
@@ -30,7 +30,8 @@ namespace NoeticTools.Dashboard.Framework.Panes.HelpPane
 
 Esc - Show current dashboard.
 F1 - Show this help pane.
-F3 - Show navigation pane.
+F3 - Show dashboards navigation pane.
+F5 - Refresh all tiles.
 PageUp - Show previous dashboard.
 PageDown - Show next dashboard.
 Home - Show first dashboard.

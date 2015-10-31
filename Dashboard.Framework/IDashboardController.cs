@@ -16,5 +16,7 @@ namespace NoeticTools.Dashboard.Framework
         void ShowNavigation();
         void ShowOnSidePane(IPaneViewModel viewModel);
         void Refresh();
+        void ShowDashboard(int index);
+        int DashboardIndex { get; }
     }
 }

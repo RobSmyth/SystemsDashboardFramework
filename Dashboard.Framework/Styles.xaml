@@ -36,11 +36,18 @@
     <!-- Tech tile style -->
     <SolidColorBrush x:Key="TechTileStyle_BackgroundBrush">White</SolidColorBrush>
     <SolidColorBrush x:Key="TechTileStyle_ForegroundBrush">Black</SolidColorBrush>
-    <Style x:Key="TechTileStyle_Textbox" TargetType="TextBlock">
+    <SolidColorBrush x:Key="TechTilelStyle_DarkBackgroundBrush">LightGray</SolidColorBrush>
+    <Style x:Key="TechTileStyle_Textbox" TargetType="TextBox">
+        <Setter Property="Foreground" Value="{StaticResource TechTileStyle_ForegroundBrush}"/>
+    </Style>
+    <Style x:Key="TechTileStyle_Textblock" TargetType="TextBlock">
         <Setter Property="Foreground" Value="{StaticResource TechTileStyle_ForegroundBrush}"/>
     </Style>
     <Style x:Key="TechTileStyle_Grid" TargetType="Grid">
         <Setter Property="Background" Value="{StaticResource TechTileStyle_BackgroundBrush}"/>
+    </Style>
+    <Style x:Key="TechTileStyle_Button" TargetType="Button">
+        <Setter Property="Background" Value="{StaticResource ConfigPanelStyle_DarkBackgroundBrush}"/>
     </Style>
 
 

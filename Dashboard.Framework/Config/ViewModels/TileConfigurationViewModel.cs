@@ -1,11 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.Design;
-using System.Runtime.CompilerServices;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using NoeticTools.Dashboard.Framework.Annotations;
 using NoeticTools.Dashboard.Framework.Config.Commands;
 using NoeticTools.Dashboard.Framework.Config.Parameters;
 using NoeticTools.Dashboard.Framework.Config.Views;

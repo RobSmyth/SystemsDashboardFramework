@@ -36,7 +36,7 @@ namespace NoeticTools.Dashboard.Framework.Config.Commands
         {
             var viewModel = new TileConfigationViewModel(_title, _tileConfiguration, _parameters);
             _dashboardController.ShowOnSidePane(viewModel);
-            //viewModel.Show();
+            //viewModel.CreateView();
         }
 
         public event EventHandler CanExecuteChanged;

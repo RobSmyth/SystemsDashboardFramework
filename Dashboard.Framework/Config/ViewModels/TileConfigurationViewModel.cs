@@ -1,14 +1,15 @@
 ﻿using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using NoeticTools.Dashboard.Framework.Config.Commands;
 using NoeticTools.Dashboard.Framework.Config.Parameters;
 using NoeticTools.Dashboard.Framework.Config.Views;
-using NoeticTools.Dashboard.Framework.Panes;
+using NoeticTools.Dashboard.Framework.Tiles;
 
 namespace NoeticTools.Dashboard.Framework.Config.ViewModels
 {
-    internal class TileConfigationViewModel : NotifyingViewModelBase, IPaneViewModel
+    internal class TileConfigationViewModel : NotifyingViewModelBase, ITileViewModel
     {
         private readonly IEnumerable<IConfigurationView> _parameters;
         private readonly TileConfiguration _tileConfiguration;
@@ -27,7 +28,7 @@ namespace NoeticTools.Dashboard.Framework.Config.ViewModels
         public ICommand Close { get; private set; }
         public ICommand Save { get; private set; }
 
-        public UserControl Show()
+        public FrameworkElement CreateView()
         {
             _view = new TileConfigurationControl {Title = {Text = _title}};
 
@@ -42,6 +43,10 @@ namespace NoeticTools.Dashboard.Framework.Config.ViewModels
             _view.DataContext = this;
 
             return _view;
+        }
+
+        public void OnConfigurationChanged()
+        {
         }
     }
 }

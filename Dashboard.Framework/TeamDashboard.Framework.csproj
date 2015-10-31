@@ -69,6 +69,7 @@
   <ItemGroup>
     <Compile Include="Config\Commands\SaveConfigurationParametersCommand.cs" />
     <Compile Include="Config\Commands\CloseCommand.cs" />
+    <Compile Include="DashboardController.cs" />
     <Compile Include="NotifyingViewModelBase.cs" />
     <Compile Include="DataSources\Jira\IJiraChannel.cs" />
     <Compile Include="DataSources\Jira\JiraChannelEmulateState.cs" />
@@ -76,6 +77,36 @@
     <Compile Include="IDashboardController.cs" />
     <Compile Include="ITileLayoutController.cs" />
     <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="TileLayoutController.cs" />
+    <Compile Include="Tiles\Date\DateTileControl.xaml.cs">
+      <DependentUpon>DateTileControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tiles\Date\DateTileViewModel.cs" />
+    <Compile Include="Tiles\DaysLeftCountDown\DaysLeftCountDownTileView.xaml.cs">
+      <DependentUpon>DaysLeftCountDownTileView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tiles\DaysLeftCountDown\DaysLeftCountDownViewModel.cs" />
+    <Compile Include="Tiles\ITileViewModel.cs" />
+    <Compile Include="Tiles\Message\MessageTileControl.xaml.cs">
+      <DependentUpon>MessageTileControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tiles\Message\MessageTileViewModel.cs" />
+    <Compile Include="Tiles\ServerStatus\ServerStatusTileControl.xaml.cs">
+      <DependentUpon>ServerStatusTileControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tiles\ServerStatus\ServerStatusTileViewModel.cs" />
+    <Compile Include="Tiles\TeamCityAvailableBuilds\TeamCityAvailableBuildsListControl.xaml.cs">
+      <DependentUpon>TeamCityAvailableBuildsListControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tiles\TeamCityAvailableBuilds\TeamCityAvailableBuildsViewModel.cs" />
+    <Compile Include="Tiles\TeamCityLastBuildStatus\TeamCityLastBuildStatusTileControl.xaml.cs">
+      <DependentUpon>TeamCityLastBuildStatusTileControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tiles\TeamCityLastBuildStatus\TeamCityLastBuildStatusTileViewModel.cs" />
+    <Compile Include="Tiles\WebPage\WebPageTileControl.xaml.cs">
+      <DependentUpon>WebPageTileControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tiles\WebPage\WebPageTileViewModel.cs" />
     <Compile Include="Time\Clock.cs" />
     <Compile Include="Config\Commands\NullCommand.cs" />
     <Compile Include="Config\Commands\TileConfigureCommand.cs" />
@@ -116,15 +147,14 @@
     <Compile Include="Time\ITimerListener.cs" />
     <Compile Include="Time\ITimerService.cs" />
     <Compile Include="Time\NullTimerListener.cs" />
-    <Compile Include="Panes\HelpPane\HelpTileControl.xaml.cs">
+    <Compile Include="Tiles\Help\HelpTileControl.xaml.cs">
       <DependentUpon>HelpTileControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Panes\HelpPane\HelpTileViewModel.cs" />
-    <Compile Include="Panes\IPaneViewModel.cs" />
-    <Compile Include="Panes\NavigationPane\DashboardNaviagtionTileControl.xaml.cs">
+    <Compile Include="Tiles\Help\HelpTileViewModel.cs" />
+    <Compile Include="Tiles\Dashboards\DashboardNaviagtionTileControl.xaml.cs">
       <DependentUpon>DashboardNaviagtionTileControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Panes\NavigationPane\DashboardsNavigationTileViewModel.cs" />
+    <Compile Include="Tiles\Dashboards\DashboardsNavigationTileViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RunOptions.cs" />
     <Compile Include="Time\TimerService.cs" />
@@ -140,15 +170,43 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Panes\HelpPane\HelpTileControl.xaml">
+    <Page Include="Tiles\Date\DateTileControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Panes\NavigationPane\DashboardNaviagtionTileControl.xaml">
+    <Page Include="Tiles\DaysLeftCountDown\DaysLeftCountDownTileView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Tiles\Help\HelpTileControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Tiles\Dashboards\DashboardNaviagtionTileControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Tiles\Message\MessageTileControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Tiles\ServerStatus\ServerStatusTileControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Tiles\TeamCityAvailableBuilds\TeamCityAvailableBuildsListControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Tiles\TeamCityLastBuildStatus\TeamCityLastBuildStatusTileControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Tiles\WebPage\WebPageTileControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -164,6 +222,27 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="NoeticTools.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\NoeticTools.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\NoeticTools.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\TransparentStar_20x20.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\WhiteStar_20x20.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\YellowStar_20x20.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\YellowStar_24x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\YellowStar_32x32.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

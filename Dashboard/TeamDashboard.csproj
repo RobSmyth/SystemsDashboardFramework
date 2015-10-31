@@ -95,37 +95,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="DashboardController.cs" />
-    <Compile Include="TileLayoutController.cs" />
-    <Compile Include="Tiles\Date\DateTileControl.xaml.cs">
-      <DependentUpon>DateTileControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Tiles\Date\DateTileViewModel.cs" />
-    <Compile Include="Tiles\DaysLeftCountDown\DaysLeftCountDownTileView.xaml.cs">
-      <DependentUpon>DaysLeftCountDownTileView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Tiles\DaysLeftCountDown\DaysLeftCountDownViewModel.cs" />
-    <Compile Include="Tiles\Message\MessageTileControl.xaml.cs">
-      <DependentUpon>MessageTileControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Tiles\Message\MessageTileViewModel.cs" />
-    <Compile Include="Tiles\ServerStatus\ServerStatusTileControl.xaml.cs">
-      <DependentUpon>ServerStatusTileControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Tiles\ServerStatus\ServerStatusTileViewModel.cs" />
-    <Compile Include="Tiles\TeamCityAvailableBuilds\TeamCityAvailableBuildsListControl.xaml.cs">
-      <DependentUpon>TeamCityAvailableBuildsListControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Tiles\TeamCityAvailableBuilds\TeamCityAvailableBuildsViewModel.cs" />
-    <Compile Include="Tiles\ITileViewModel.cs" />
-    <Compile Include="Tiles\TeamCityLastBuildStatus\TeamCityLastBuildStatusTileControl.xaml.cs">
-      <DependentUpon>TeamCityLastBuildStatusTileControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Tiles\TeamCityLastBuildStatus\TeamCityLastBuildStatusTileViewModel.cs" />
-    <Compile Include="Tiles\WebPage\WebPageTileControl.xaml.cs">
-      <DependentUpon>WebPageTileControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Tiles\WebPage\WebPageTileViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -138,34 +107,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Tiles\Date\DateTileControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Tiles\DaysLeftCountDown\DaysLeftCountDownTileView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Tiles\Message\MessageTileControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Tiles\ServerStatus\ServerStatusTileControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Tiles\TeamCityAvailableBuilds\TeamCityAvailableBuildsListControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Tiles\TeamCityLastBuildStatus\TeamCityLastBuildStatusTileControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Tiles\WebPage\WebPageTileControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -196,21 +137,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\YellowStar_32x32.png" />
+    <Resource Include="Images\NoeticTools.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\YellowStar_24x24.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\YellowStar_20x20.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\WhiteStar_20x20.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\TransparentStar_20x20.png" />
-  </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Dashboard.Framework\TeamDashboard.Framework.csproj">
       <Project>{1f19c0de-e777-48e9-856b-7376a7527ec0}</Project>
@@ -230,7 +158,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\NoeticTools.ico" />
     <Resource Include="Images\NoeticTools.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

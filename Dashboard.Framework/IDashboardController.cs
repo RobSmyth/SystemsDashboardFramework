@@ -1,5 +1,5 @@
 ﻿using System.Windows.Controls;
-using NoeticTools.Dashboard.Framework.Panes;
+using NoeticTools.Dashboard.Framework.Tiles;
 
 namespace NoeticTools.Dashboard.Framework
 {
@@ -14,7 +14,7 @@ namespace NoeticTools.Dashboard.Framework
         void ShowCurrentDashboard();
         void ShowHelp();
         void ShowNavigation();
-        void ShowOnSidePane(IPaneViewModel viewModel);
+        void ShowOnSidePane(ITileViewModel viewModel);
         void Refresh();
         void ShowDashboard(int index);
         int DashboardIndex { get; }

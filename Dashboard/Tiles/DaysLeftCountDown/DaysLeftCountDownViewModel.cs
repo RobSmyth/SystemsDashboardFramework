@@ -12,15 +12,17 @@ namespace NoeticTools.TeamDashboard.Tiles.DaysLeftCountDown
     internal class DaysLeftCountDownViewModel : ITileViewModel
     {
         private readonly IClock _clock;
+        private readonly IDashboardController _dashboardController;
         public static readonly string TileTypeId = "TimeLeft.Days.Count";
         private readonly TimeSpan _tickPeriod = TimeSpan.FromSeconds(30);
         private readonly TileConfiguration _tileConfiguration;
         private readonly DispatcherTimer _timer;
         private DaysLeftCountDownTileView _view;
 
-        public DaysLeftCountDownViewModel(DashboardTileConfiguration tileConfiguration, IClock clock)
+        public DaysLeftCountDownViewModel(DashboardTileConfiguration tileConfiguration, IClock clock, IDashboardController dashboardController)
         {
             _clock = clock;
+            _dashboardController = dashboardController;
             _tileConfiguration = new TileConfiguration(tileConfiguration, this);
             Id = tileConfiguration.Id;
             _timer = new DispatcherTimer {Interval = _tickPeriod};
@@ -37,7 +39,8 @@ namespace NoeticTools.TeamDashboard.Tiles.DaysLeftCountDown
                     new ConfigurationParameter("Title", "TITLE", _tileConfiguration),
                     new ConfigurationParameter("End_date", new DateTime(2000, 1, 1), _tileConfiguration),
                     new ConfigurationParameter("Disabled", false, _tileConfiguration)
-                });
+                },
+                _dashboardController);
 
             _view = new DaysLeftCountDownTileView {DataContext = this};
             placeholderPanel.Children.Add(_view);

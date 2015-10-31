@@ -8,17 +8,18 @@ namespace NoeticTools.Dashboard.Framework.Config.Commands
 {
     public class TileConfigureCommand : ICommand
     {
-        private readonly IEnumerable<IConfigurationView> _parameters;
+        private readonly IConfigurationView[] _parameters;
+        private readonly IDashboardController _dashboardController;
         private readonly TileConfiguration _tileConfiguration;
         private readonly string _title;
         private bool _canExecute = true;
 
-        public TileConfigureCommand(string title, TileConfiguration tileConfiguration,
-            IEnumerable<IConfigurationView> parameters)
+        public TileConfigureCommand(string title, TileConfiguration tileConfiguration, IConfigurationView[] parameters, IDashboardController dashboardController)
         {
             _title = title;
             _tileConfiguration = tileConfiguration;
             _parameters = parameters;
+            _dashboardController = dashboardController;
         }
 
         public bool CanExecute(object parameter)
@@ -34,7 +35,8 @@ namespace NoeticTools.Dashboard.Framework.Config.Commands
         public void Execute(object parameter)
         {
             var viewModel = new TileConfigationViewModel(_title, _tileConfiguration, _parameters);
-            viewModel.Show();
+            _dashboardController.ShowOnSidePane(viewModel);
+            //viewModel.Show();
         }
 
         public event EventHandler CanExecuteChanged;

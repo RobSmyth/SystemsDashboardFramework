@@ -67,6 +67,15 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config\Commands\SaveConfigurationParametersCommand.cs" />
+    <Compile Include="Config\Commands\CloseCommand.cs" />
+    <Compile Include="Config\ViewModels\NotifyingViewModelBase.cs" />
+    <Compile Include="DataSources\Jira\IJiraChannel.cs" />
+    <Compile Include="DataSources\Jira\JiraChannelEmulateState.cs" />
+    <Compile Include="DataSources\Jira\JiraChannelState.cs" />
+    <Compile Include="IDashboardController.cs" />
+    <Compile Include="ITileLayoutController.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Time\Clock.cs" />
     <Compile Include="Config\Commands\NullCommand.cs" />
     <Compile Include="Config\Commands\TileConfigureCommand.cs" />
@@ -86,8 +95,8 @@
     <Compile Include="Config\Parameters\IConfigurationView.cs" />
     <Compile Include="Config\TileConfiguration.cs" />
     <Compile Include="Config\ViewModels\TileConfigurationViewModel.cs" />
-    <Compile Include="Config\Views\TileConfigurationView.xaml.cs">
-      <DependentUpon>TileConfigurationView.xaml</DependentUpon>
+    <Compile Include="Config\Views\TileConfigurationControl.xaml.cs">
+      <DependentUpon>TileConfigurationControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\DoubleValueConverter.cs" />
     <Compile Include="DataSources\Jira\JiraChannel.cs" />
@@ -127,7 +136,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Config\Views\TileConfigurationView.xaml">
+    <Page Include="Config\Views\TileConfigurationControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

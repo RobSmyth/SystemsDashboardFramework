@@ -1,5 +1,6 @@
 ﻿using System;
-using Dashboard.Framework.DataSources.Jira;
+using NoeticTools.Dashboard.Framework;
+using NoeticTools.Dashboard.Framework.DataSources.Jira;
 using NUnit.Framework;
 
 namespace TeamDashboard.Tests.DataSources.Jira
@@ -10,7 +11,7 @@ namespace TeamDashboard.Tests.DataSources.Jira
         [Test]
         public void CanReadIssuesFromFilter()
         {
-            var target = new JiraChannel();
+            var target = new JiraChannel(new RunOptions());
             target.Connect();
 
             var issues = target.GetIssuesFromFilter("EREBRO 2.0.3");
@@ -24,7 +25,7 @@ namespace TeamDashboard.Tests.DataSources.Jira
         [Test]
         public void CanReadIssuesForProject()
         {
-            var target = new JiraChannel();
+            var target = new JiraChannel(new RunOptions());
             target.Connect();
 
             var issues = target.GetIssues("ERN");

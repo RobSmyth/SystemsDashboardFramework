@@ -1,32 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using Atlassian.Jira;
 
-namespace Dashboard.Framework.DataSources.Jira
+namespace NoeticTools.Dashboard.Framework.DataSources.Jira
 {
-    public class JiraChannel
+    public class JiraChannel : IJiraChannel
     {
         private Atlassian.Jira.Jira _jira;
+        private readonly IJiraChannel _currentState;
+
+        public JiraChannel(RunOptions runOption)
+        {
+            _currentState = runOption.EmulateMode ? new JiraChannelEmulateState() : new JiraChannelState();
+        }
 
         public void Connect()
         {
-            _jira = new Atlassian.Jira.Jira("http://jira/", "username", "password") {MaxIssuesPerRequest = 200};//>>>
+            _currentState.Connect();
         }
 
         public IEnumerable<Issue> GetIssuesFromFilter(string filterName)
         {
-            return _jira.GetIssuesFromFilter(filterName, 0);
+            return _currentState.GetIssuesFromFilter(filterName);
         }
 
         public IEnumerable<Issue> GetIssues(string projectName)
         {
-            //var project = _jira.GetProjects().Single(x => x.Name.Equals(projectName));
-
-            var filters = _jira.GetFilters();
-
-            return _jira.Issues;
-            //return _jira.Issues.Where(x => x.Project.Equals(projectName, StringComparison.InvariantCulture)).ToArray();
+            return _currentState.GetIssues(projectName);
         }
 
         public void Disconnect()

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Dashboard.TeamCity;
 using TeamCitySharp;
 using TeamCitySharp.DomainEntities;
 using TeamCitySharp.Locators;

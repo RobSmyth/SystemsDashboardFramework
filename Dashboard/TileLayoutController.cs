@@ -17,21 +17,23 @@ using NoeticTools.TeamDashboard.Tiles.WebPage;
 
 namespace NoeticTools.TeamDashboard
 {
-    public class TileLayoutController
+    public class TileLayoutController : ITileLayoutController
     {
         private readonly DashboardConfiguration _activeConfiguration; //>>> move out when factories resolved
         private readonly IClock _clock;
         private readonly ITimerService _timerService;
+        private readonly IDashboardController _dashboardController;
         private readonly TeamCityService _teamCityService; //>>> move out when factories resolved
         private readonly Grid _tileGrid;
 
         public TileLayoutController(Grid tileGrid, TeamCityService teamCityService,
-            DashboardConfiguration activeConfiguration, IClock clock, ITimerService timerService)
+            DashboardConfiguration activeConfiguration, IClock clock, ITimerService timerService, IDashboardController dashboardController)
         {
             _teamCityService = teamCityService;
             _activeConfiguration = activeConfiguration;
             _clock = clock;
             _timerService = timerService;
+            _dashboardController = dashboardController;
             _tileGrid = tileGrid;
         }
 
@@ -39,7 +41,7 @@ namespace NoeticTools.TeamDashboard
         {
             var panel = AddPlaceholderPanel(tileConfiguration.RowNumber, tileConfiguration.ColumnNumber,
                 tileConfiguration.RowSpan, tileConfiguration.ColumnSpan);
-            var layout = new TileLayoutController(panel, _teamCityService, _activeConfiguration, _clock, _timerService)
+            var layout = new TileLayoutController(panel, _teamCityService, _activeConfiguration, _clock, _timerService, _dashboardController)
             {
                 _tileGrid = {Margin = new Thickness(2)}
             };
@@ -51,7 +53,7 @@ namespace NoeticTools.TeamDashboard
         {
             var panel = AddPlaceholderPanel(tileConfiguration.RowNumber, tileConfiguration.ColumnNumber,
                 tileConfiguration.RowSpan, tileConfiguration.ColumnSpan);
-            var layout = new TileLayoutController(panel, _teamCityService, _activeConfiguration, _clock, _timerService)
+            var layout = new TileLayoutController(panel, _teamCityService, _activeConfiguration, _clock, _timerService, _dashboardController)
             {
                 _tileGrid = {Margin = new Thickness(2)}
             };
@@ -130,13 +132,13 @@ namespace NoeticTools.TeamDashboard
         private ITileViewModel CreateTeamCityLastBuildTile(DashboardTileConfiguration tileConfiguration)
         {
             tileConfiguration.TypeId = TeamCityLastBuildStatusTileViewModel.TileTypeId;
-            return new TeamCityLastBuildStatusTileViewModel(_teamCityService, tileConfiguration, _timerService);
+            return new TeamCityLastBuildStatusTileViewModel(_teamCityService, tileConfiguration, _timerService, _dashboardController);
         }
 
         private ITileViewModel CreateTeamCityAvailableBuildsTile(DashboardTileConfiguration tileConfiguration)
         {
             tileConfiguration.TypeId = TeamCityAvailableBuildsViewModel.TileTypeId;
-            return new TeamCityAvailableBuildsViewModel(_teamCityService, tileConfiguration, _timerService);
+            return new TeamCityAvailableBuildsViewModel(_teamCityService, tileConfiguration, _timerService, _dashboardController);
         }
 
         private ITileViewModel CreateServerStatusTile(DashboardTileConfiguration tileConfiguration)
@@ -148,19 +150,19 @@ namespace NoeticTools.TeamDashboard
         private ITileViewModel CreateDaysLeftTile(DashboardTileConfiguration tileConfiguration)
         {
             tileConfiguration.TypeId = DaysLeftCountDownViewModel.TileTypeId;
-            return new DaysLeftCountDownViewModel(tileConfiguration, _clock);
+            return new DaysLeftCountDownViewModel(tileConfiguration, _clock, _dashboardController);
         }
 
         private ITileViewModel CreateMessageTile(DashboardTileConfiguration tileConfiguration)
         {
             tileConfiguration.TypeId = MessageTileViewModel.TileTypeId;
-            return new MessageTileViewModel(tileConfiguration);
+            return new MessageTileViewModel(tileConfiguration, _dashboardController);
         }
 
         private ITileViewModel CreateWebPageTile(DashboardTileConfiguration tileConfiguration)
         {
             tileConfiguration.TypeId = WebPageTileViewModel.TileTypeId;
-            return new WebPageTileViewModel(tileConfiguration);
+            return new WebPageTileViewModel(tileConfiguration, _dashboardController);
         }
     }
 }

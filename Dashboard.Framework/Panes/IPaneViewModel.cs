@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Windows.Controls;
 
 
 namespace NoeticTools.Dashboard.Framework.Panes
 {
     public interface IPaneViewModel
     {
-        void Show();
+        UserControl Show();
     }
 }

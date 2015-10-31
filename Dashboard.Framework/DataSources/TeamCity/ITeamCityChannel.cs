@@ -1,6 +1,6 @@
 ﻿using TeamCitySharp.DomainEntities;
 
-namespace Dashboard.TeamCity
+namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
 {
     internal interface ITeamCityChannel
     {

@@ -1,52 +1,52 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.Design;
+using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+using NoeticTools.Dashboard.Framework.Annotations;
+using NoeticTools.Dashboard.Framework.Config.Commands;
 using NoeticTools.Dashboard.Framework.Config.Parameters;
 using NoeticTools.Dashboard.Framework.Config.Views;
+using NoeticTools.Dashboard.Framework.Panes;
 
 namespace NoeticTools.Dashboard.Framework.Config.ViewModels
 {
-    internal class TileConfigationViewModel
+    internal class TileConfigationViewModel : NotifyingViewModelBase, IPaneViewModel
     {
         private readonly IEnumerable<IConfigurationView> _parameters;
         private readonly TileConfiguration _tileConfiguration;
         private readonly string _title;
-        private TileConfigurationView _view;
+        private TileConfigurationControl _view;
 
-        public TileConfigationViewModel(string title, TileConfiguration tileConfiguration,
-            IEnumerable<IConfigurationView> parameters)
+        public TileConfigationViewModel(string title, TileConfiguration tileConfiguration, IConfigurationView[] parameters)
         {
             _title = title;
             _tileConfiguration = tileConfiguration;
             _parameters = parameters;
+            Save = new NullCommand();
+            Close = new NullCommand();
         }
 
-        public void Show()
+        public ICommand Close { get; private set; }
+        public ICommand Save { get; private set; }
+
+        public UserControl Show()
         {
-            _view = new TileConfigurationView {DataContext = this, Title = _title};
-            _view.OkButton.Click += OkButton_Click;
-            _view.CancelButton.Click += CancelButton_Click;
+            _view = new TileConfigurationControl {Title = {Text = _title}};
 
             foreach (var parameter in _parameters)
             {
                 parameter.Show(_view.ParametersGrid, _tileConfiguration);
             }
 
-            _view.Show();
-        }
+            Close = new CloseCommand(_view);
+            Save = new SaveConfigurationParametersCommand(_parameters, _view.ParametersGrid);
 
-        private void CancelButton_Click(object sender, RoutedEventArgs e)
-        {
-            _view.Close();
-        }
+            _view.DataContext = this;
 
-        private void OkButton_Click(object sender, RoutedEventArgs e)
-        {
-            foreach (var parameter in _parameters)
-            {
-                parameter.Save(_view.ParametersGrid);
-            }
-
-            _view.Close();
+            return _view;
         }
     }
 }

@@ -1,21 +1,23 @@
 ﻿using System.Windows.Controls;
+using System.Windows.Input;
+using NoeticTools.Dashboard.Framework.Config.Commands;
 
 namespace NoeticTools.Dashboard.Framework.Panes.NavigationPane
 {
     public class NavigationSideViewModel : IPaneViewModel
     {
-        private readonly DockPanel _placeholderPanel;
         private NavigationPaneControl _view;
 
-        public NavigationSideViewModel(DockPanel placeholderPanel)
+        public NavigationSideViewModel()
         {
-            _placeholderPanel = placeholderPanel;
+            Save = new NullCommand();
         }
 
-        public void Show()
+        public UserControl Show()
         {
-            _view = new NavigationPaneControl() { DataContext = this};
-            _placeholderPanel.Children.Add(_view);
+            return new NavigationPaneControl() { DataContext = this};
         }
+
+        public ICommand Save { get; }
     }
 }

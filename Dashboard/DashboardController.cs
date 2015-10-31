@@ -10,7 +10,7 @@ using NoeticTools.Dashboard.Framework.Time;
 
 namespace NoeticTools.TeamDashboard
 {
-    public class DashboardController
+    public class DashboardController : IDashboardController
     {
         private readonly DashboardConfigurations _config;
         private readonly DashboardConfigurationManager _configurationManager;
@@ -42,7 +42,7 @@ namespace NoeticTools.TeamDashboard
             ClearTileGrid();
 
             var channel = new TeamCityService(_config.Services, _runOptions);
-            var layout = new TileLayoutController(tileGrid, channel, activeConfiguration, _clock, _timerService);
+            var layout = new TileLayoutController(tileGrid, channel, activeConfiguration, _clock, _timerService, this);
 
             foreach (var tile in activeConfiguration.RootTile.Tiles)
             {
@@ -109,20 +109,43 @@ namespace NoeticTools.TeamDashboard
 
         public void ShowHelp()
         {
-            ShowSidePane(new HelpPaneViewModel(_sidePanel));
+            ShowOnSidePane(new HelpPaneViewModel());
         }
 
         public void ShowNavigation()
         {
-            ShowSidePane(new NavigationSideViewModel(_sidePanel));
+            ShowOnSidePane(new NavigationSideViewModel());
         }
 
-        private void ShowSidePane(IPaneViewModel viewModel)
+        public void ShowOnSidePane(IPaneViewModel viewModel)
         {
             _sidePanel.Visibility = Visibility.Collapsed;
             _sidePanel.Children.Clear();
-            viewModel.Show();
-            _sidePanel.Visibility = Visibility.Visible;
+
+            var view = viewModel.Show();
+            _sidePanel.Children.Add(view);
+            view.Width = double.NaN;
+            view.Height = double.NaN;
+            _sidePanel.Visibility = view.Visibility;
+
+            view.IsVisibleChanged += View_IsVisibleChanged;
+        }
+
+        private void View_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            var view = (UIElement) sender;
+
+            if (_sidePanel.Children.Contains(view))
+            {
+                if (view.Visibility == Visibility.Collapsed)
+                {
+                    _sidePanel.Children.Remove(view);
+                }
+                if (_sidePanel.Children.Count == 0)
+                {
+                    _sidePanel.Visibility = Visibility.Collapsed;
+                }
+            }
         }
 
         public void Refresh()

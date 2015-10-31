@@ -43,6 +43,21 @@
         <Setter Property="Background" Value="{StaticResource TechTileStyle_BackgroundBrush}"/>
     </Style>
 
+
+    <!-- White tile style -->
+    <SolidColorBrush x:Key="ConfigPanelStyle_BackgroundBrush">WhiteSmoke</SolidColorBrush>
+    <SolidColorBrush x:Key="ConfigPanelStyle_ForegroundBrush">Teal</SolidColorBrush>
+    <SolidColorBrush x:Key="ConfigPanelStyle_DarkBackgroundBrush">LightGray</SolidColorBrush>
+    <Style x:Key="ConfigPanelStyle_Textbox" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource ConfigPanelStyle_ForegroundBrush}"/>
+    </Style>
+    <Style x:Key="ConfigPanelStyle_Grid" TargetType="Grid">
+        <Setter Property="Background" Value="{StaticResource ConfigPanelStyle_BackgroundBrush}"/>
+    </Style>
+    <Style x:Key="ConfigPanelStyle_Button" TargetType="Button">
+        <Setter Property="Background" Value="{StaticResource ConfigPanelStyle_DarkBackgroundBrush}"/>
+    </Style>
+
     <converters:DoubleValueConverter x:Key="doubleConverter" />
 
     <Style x:Key="SidePane" TargetType="DockPanel">

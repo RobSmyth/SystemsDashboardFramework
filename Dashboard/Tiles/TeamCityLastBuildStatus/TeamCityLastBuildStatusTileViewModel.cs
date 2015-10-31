@@ -34,6 +34,7 @@ namespace NoeticTools.TeamDashboard.Tiles.TeamCityLastBuildStatus
         };
 
         private readonly TeamCityService _service;
+        private readonly IDashboardController _dashboardController;
 
         private readonly Dictionary<string, Brush> _statusBrushes = new Dictionary<string, Brush>
         {
@@ -54,9 +55,10 @@ namespace NoeticTools.TeamDashboard.Tiles.TeamCityLastBuildStatus
         private TeamCityBuildStatusTileControl _view;
         private readonly TimerToken _timerToken;
 
-        public TeamCityLastBuildStatusTileViewModel(TeamCityService service, DashboardTileConfiguration tileConfiguration, ITimerService timerService)
+        public TeamCityLastBuildStatusTileViewModel(TeamCityService service, DashboardTileConfiguration tileConfiguration, ITimerService timerService, IDashboardController dashboardController)
         {
             _service = service;
+            _dashboardController = dashboardController;
             _tileConfiguration = new TileConfiguration(tileConfiguration, this);
             Id = tileConfiguration.Id;
             ConfigureService = new TeamCityServiceConfigureCommand(service);
@@ -76,7 +78,8 @@ namespace NoeticTools.TeamDashboard.Tiles.TeamCityLastBuildStatus
                     new ConfigurationParameter("Configuration", "", _tileConfiguration),
                     new ConfigurationParameter("Description", "", _tileConfiguration),
                     new ConfigurationHyperlink("TeamCity service", ConfigureService)
-                });
+                },
+                _dashboardController);
 
             _view = new TeamCityBuildStatusTileControl();
             placeholderPanel.Children.Add(_view);

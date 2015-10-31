@@ -1,13 +1,13 @@
 using System;
 using System.Windows.Input;
 
-namespace Dashboard.Framework.Config.Commands
+namespace NoeticTools.Dashboard.Framework.Config.Commands
 {
     public class NullCommand : ICommand
     {
         public bool CanExecute(object parameter)
         {
-            return false;
+            return true;
         }
 
         public void Execute(object parameter)

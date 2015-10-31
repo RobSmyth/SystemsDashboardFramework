@@ -1,26 +1,26 @@
 ﻿using System.Windows.Controls;
+using System.Windows.Input;
+using NoeticTools.Dashboard.Framework.Config.Commands;
 
 namespace NoeticTools.Dashboard.Framework.Panes.HelpPane
 {
     public class HelpPaneViewModel : IPaneViewModel
     {
-        private readonly Panel _placeholderPanel;
         private HelpPaneControl _view;
 
-        public HelpPaneViewModel(Panel placeholderPanel)
+        public HelpPaneViewModel()
         {
-            _placeholderPanel = placeholderPanel;
+            Save = new NullCommand();
         }
 
-        public void Show()
+        public UserControl Show()
         {
             _view = new HelpPaneControl { DataContext = this};
-            _placeholderPanel.Children.Add(_view);
-            _view.Width = double.NaN;
-            _view.Height = double.NaN;
-
             UpdateView();
+            return _view;
         }
+
+        public ICommand Save { get; }
 
         private void UpdateView()
         {

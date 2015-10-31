@@ -1,6 +1,5 @@
 ﻿using Dashboard.Config;
 using Dashboard.Services.TeamCity;
-using Dashboard.TeamCity;
 using TeamCitySharp;
 using TeamCitySharp.DomainEntities;
 

@@ -23,14 +23,16 @@ namespace NoeticTools.TeamDashboard.Tiles.TeamCityAvailableBuilds
         public static readonly string TileTypeId = "TeamCity.AvailableBuilds";
         private readonly TeamCityService _service;
         private readonly ITimerService _timerService;
+        private readonly IDashboardController _dashboardController;
         private readonly TimeSpan _tickPeriod = TimeSpan.FromSeconds(15);
         private readonly TileConfiguration _tileConfiguration;
         private TeamCityAvailableBuildsListControl _view;
 
-        public TeamCityAvailableBuildsViewModel(TeamCityService service, DashboardTileConfiguration tileConfiguration, ITimerService timerService)
+        public TeamCityAvailableBuildsViewModel(TeamCityService service, DashboardTileConfiguration tileConfiguration, ITimerService timerService, IDashboardController dashboardController)
         {
             _service = service;
             _timerService = timerService;
+            _dashboardController = dashboardController;
             _tileConfiguration = new TileConfiguration(tileConfiguration, this);
             Id = tileConfiguration.Id;
             Builds = new ObservableCollection<BuildDetails>();
@@ -56,7 +58,7 @@ namespace NoeticTools.TeamDashboard.Tiles.TeamCityAvailableBuilds
             }
 
             ConfigureCommand = new TileConfigureCommand("Message Tile Configuration", _tileConfiguration,
-                parameters.ToArray());
+                parameters.ToArray(), _dashboardController);
 
             _service.Connect();
 

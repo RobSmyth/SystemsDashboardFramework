@@ -37,7 +37,7 @@ namespace NoeticTools.Dashboard.Framework.Config.Parameters
             parametersGrid.Children.Add(textBox);
         }
 
-        public void Save(Grid parametersGrid)
+        public void Save(Panel parametersPanel)
         {
         }
     }

@@ -27,7 +27,7 @@ namespace NoeticTools.Dashboard.Framework.Config.Parameters
             {
                 Text = Name.Replace('_', ' '),
                 HorizontalAlignment = HorizontalAlignment.Right,
-                Margin = new Thickness(10, 5, 10, 5),
+                Margin = new Thickness(5, 5, 5, 5),
                 FontSize = 12.0
             };
             Grid.SetRow(textBlock, rowIndex);
@@ -41,7 +41,6 @@ namespace NoeticTools.Dashboard.Framework.Config.Parameters
             else
             {
                 AddTextBox(parametersGrid, tileConfiguration, rowIndex);
-                
             }
         }
 
@@ -50,7 +49,7 @@ namespace NoeticTools.Dashboard.Framework.Config.Parameters
             var checkBox = new CheckBox()
             {
                 IsChecked = tileConfiguration.GetBool(Name),
-                Margin = new Thickness(10, 5, 10, 5),
+                Margin = new Thickness(5, 5, 5, 5),
                 Name = string.Format("Param_{0}", Name),
             };
             Grid.SetRow(checkBox, rowIndex);
@@ -73,14 +72,14 @@ namespace NoeticTools.Dashboard.Framework.Config.Parameters
             parametersGrid.Children.Add(textBox);
         }
 
-        public void Save(Grid parametersGrid)
+        public void Save(Panel parametersPanel)
         {
             var name = string.Format("Param_{0}", Name);
             if (DefaultValue is bool)
             {
                 var checkbox =
                     (CheckBox)
-                        parametersGrid.Children.Cast<FrameworkElement>()
+                        parametersPanel.Children.Cast<FrameworkElement>()
                             .Single<FrameworkElement>(x => x.Name.Equals(name));
                 _tileConfiguration.SetParameter(Name, checkbox.IsChecked);
             }
@@ -88,7 +87,7 @@ namespace NoeticTools.Dashboard.Framework.Config.Parameters
             {
                 var textBox =
                     (TextBox)
-                        parametersGrid.Children.Cast<FrameworkElement>()
+                        parametersPanel.Children.Cast<FrameworkElement>()
                             .Single<FrameworkElement>(x => x.Name.Equals(name));
                 _tileConfiguration.SetParameterValue(this, textBox.Text);
             }

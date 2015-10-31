@@ -1,12 +1,7 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Controls;
-using Dashboard.Config;
+﻿using System.Windows;
 using NoeticTools.Dashboard.Framework.Config;
-using NoeticTools.Dashboard.Framework.Tiles;
-using NoeticTools.TeamDashboard.Tiles;
 
-namespace Dashboard.Tiles.ServerStatus
+namespace NoeticTools.Dashboard.Framework.Tiles.ServerStatus
 {
     internal class ServerStatusTileViewModel : ITileViewModel
     {

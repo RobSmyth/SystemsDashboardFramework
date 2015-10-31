@@ -1,6 +1,6 @@
 ﻿using System;
 using Dashboard.Config;
-using Dashboard.Config.Parameters;
+using NoeticTools.Dashboard.Framework.Config.Parameters;
 
 namespace NoeticTools.Dashboard.Framework.Config
 {

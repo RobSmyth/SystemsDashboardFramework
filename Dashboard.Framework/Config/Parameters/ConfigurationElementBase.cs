@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace Dashboard.Config.Parameters
+namespace NoeticTools.Dashboard.Framework.Config.Parameters
 {
     public class ConfigurationElementBase
     {

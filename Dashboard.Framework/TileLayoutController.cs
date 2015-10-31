@@ -2,22 +2,19 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using Dashboard.Tiles.Date;
-using Dashboard.Tiles.ServerStatus;
-using NoeticTools.Dashboard.Framework;
 using NoeticTools.Dashboard.Framework.Config;
 using NoeticTools.Dashboard.Framework.DataSources.TeamCity;
 using NoeticTools.Dashboard.Framework.Tiles;
+using NoeticTools.Dashboard.Framework.Tiles.Date;
+using NoeticTools.Dashboard.Framework.Tiles.DaysLeftCountDown;
+using NoeticTools.Dashboard.Framework.Tiles.ServerStatus;
+using NoeticTools.Dashboard.Framework.Tiles.TeamCityAvailableBuilds;
+using NoeticTools.Dashboard.Framework.Tiles.TeamCityLastBuildStatus;
+using NoeticTools.Dashboard.Framework.Tiles.WebPage;
 using NoeticTools.Dashboard.Framework.Time;
-using NoeticTools.TeamDashboard.Tiles;
-using NoeticTools.TeamDashboard.Tiles.Date;
-using NoeticTools.TeamDashboard.Tiles.DaysLeftCountDown;
 using NoeticTools.TeamDashboard.Tiles.Message;
-using NoeticTools.TeamDashboard.Tiles.TeamCityAvailableBuilds;
-using NoeticTools.TeamDashboard.Tiles.TeamCityLastBuildStatus;
-using NoeticTools.TeamDashboard.Tiles.WebPage;
 
-namespace NoeticTools.TeamDashboard
+namespace NoeticTools.Dashboard.Framework
 {
     public class TileLayoutController : ITileLayoutController
     {

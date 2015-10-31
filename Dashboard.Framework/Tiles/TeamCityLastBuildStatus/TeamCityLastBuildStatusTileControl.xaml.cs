@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace Dashboard.Tiles.TeamCityLastBuildStatus
+namespace NoeticTools.Dashboard.Framework.Tiles.TeamCityLastBuildStatus
 {
     public partial class TeamCityBuildStatusTileControl : UserControl
     {

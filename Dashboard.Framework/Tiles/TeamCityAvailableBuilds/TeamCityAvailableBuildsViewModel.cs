@@ -2,22 +2,17 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Threading;
-using Dashboard.Tiles.TeamCityAvailableBuilds;
-using NoeticTools.Dashboard.Framework;
 using NoeticTools.Dashboard.Framework.Config;
 using NoeticTools.Dashboard.Framework.Config.Commands;
 using NoeticTools.Dashboard.Framework.Config.Parameters;
 using NoeticTools.Dashboard.Framework.DataSources.TeamCity;
-using NoeticTools.Dashboard.Framework.Tiles;
 using NoeticTools.Dashboard.Framework.Time;
 using TeamCitySharp.DomainEntities;
 
-namespace NoeticTools.TeamDashboard.Tiles.TeamCityAvailableBuilds
+namespace NoeticTools.Dashboard.Framework.Tiles.TeamCityAvailableBuilds
 {
     internal class TeamCityAvailableBuildsViewModel : ITileViewModel, ITimerListener
     {

@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using Dashboard.Config.Parameters;
 
 namespace NoeticTools.Dashboard.Framework.Config.Parameters
 {

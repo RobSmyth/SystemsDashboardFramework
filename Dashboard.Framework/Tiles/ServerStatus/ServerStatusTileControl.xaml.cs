@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace Dashboard.Tiles.ServerStatus
+namespace NoeticTools.Dashboard.Framework.Tiles.ServerStatus
 {
     public partial class ServerStatusTileControl : UserControl
     {

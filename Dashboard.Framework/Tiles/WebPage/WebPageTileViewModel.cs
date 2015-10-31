@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
-using NoeticTools.Dashboard.Framework;
 using NoeticTools.Dashboard.Framework.Config;
 using NoeticTools.Dashboard.Framework.Config.Commands;
 using NoeticTools.Dashboard.Framework.Config.Parameters;
-using NoeticTools.Dashboard.Framework.Tiles;
 
-namespace NoeticTools.TeamDashboard.Tiles.WebPage
+namespace NoeticTools.Dashboard.Framework.Tiles.WebPage
 {
     internal class WebPageTileViewModel : ITileViewModel
     {

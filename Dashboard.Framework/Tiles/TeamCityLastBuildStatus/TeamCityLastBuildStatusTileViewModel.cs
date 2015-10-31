@@ -1,21 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Threading;
-using Dashboard.Config.Parameters;
-using Dashboard.Tiles.TeamCityLastBuildStatus;
-using NoeticTools.Dashboard.Framework;
 using NoeticTools.Dashboard.Framework.Config;
 using NoeticTools.Dashboard.Framework.Config.Commands;
 using NoeticTools.Dashboard.Framework.Config.Parameters;
 using NoeticTools.Dashboard.Framework.DataSources.TeamCity;
-using NoeticTools.Dashboard.Framework.Tiles;
 using NoeticTools.Dashboard.Framework.Time;
 
-namespace NoeticTools.TeamDashboard.Tiles.TeamCityLastBuildStatus
+namespace NoeticTools.Dashboard.Framework.Tiles.TeamCityLastBuildStatus
 {
     internal class TeamCityLastBuildStatusTileViewModel : ITileViewModel, ITimerListener
     {

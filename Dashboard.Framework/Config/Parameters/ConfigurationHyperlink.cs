@@ -2,7 +2,6 @@
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
-using Dashboard.Config.Parameters;
 
 namespace NoeticTools.Dashboard.Framework.Config.Parameters
 {

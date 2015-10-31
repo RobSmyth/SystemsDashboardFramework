@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Threading;
-using Dashboard.Tiles.Date;
-using NoeticTools.Dashboard.Framework.Tiles;
 
-namespace NoeticTools.TeamDashboard.Tiles.Date
+namespace NoeticTools.Dashboard.Framework.Tiles.Date
 {
     internal class DateTileViewModel : ITileViewModel
     {

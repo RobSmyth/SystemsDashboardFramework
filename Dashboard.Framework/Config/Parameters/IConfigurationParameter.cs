@@ -1,4 +1,4 @@
-namespace Dashboard.Config.Parameters
+namespace NoeticTools.Dashboard.Framework.Config.Parameters
 {
     public interface IConfigurationParameter
     {

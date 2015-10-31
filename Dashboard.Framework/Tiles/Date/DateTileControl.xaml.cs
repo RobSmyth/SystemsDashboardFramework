@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace Dashboard.Tiles.Date
+namespace NoeticTools.Dashboard.Framework.Tiles.Date
 {
     public partial class DateTileControl : UserControl
     {

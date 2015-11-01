@@ -71,21 +71,25 @@
     <Compile Include="Config\Commands\CloseCommand.cs" />
     <Compile Include="DashboardController.cs" />
     <Compile Include="DashBoardLoader.cs" />
+    <Compile Include="DashBoardLoaderConduit.cs" />
     <Compile Include="DashboardNavigator.cs" />
     <Compile Include="DashboardTileNavigator.cs" />
     <Compile Include="IDashBoardLoader.cs" />
     <Compile Include="IDashboardNavigator.cs" />
     <Compile Include="IDashboardTileNavigator.cs" />
-    <Compile Include="Tiles\ITileFactory.cs" />
+    <Compile Include="KeyboardHandler.cs" />
+    <Compile Include="Tiles\ITileLayoutControllerRegistry.cs" />
+    <Compile Include="Tiles\ITileRegistry.cs" />
     <Compile Include="NotifyingViewModelBase.cs" />
     <Compile Include="DataSources\Jira\IJiraChannel.cs" />
     <Compile Include="DataSources\Jira\JiraChannelEmulateState.cs" />
     <Compile Include="DataSources\Jira\JiraChannelState.cs" />
     <Compile Include="IDashboardController.cs" />
-    <Compile Include="ITileLayoutController.cs" />
+    <Compile Include="Tiles\ITileLayoutController.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="Tiles\TileFactory.cs" />
-    <Compile Include="TileLayoutController.cs" />
+    <Compile Include="Tiles\TileLayoutControllerRegistry.cs" />
+    <Compile Include="Tiles\TileRegistry.cs" />
+    <Compile Include="Tiles\TileLayoutController.cs" />
     <Compile Include="Tiles\Date\DateTileControl.xaml.cs">
       <DependentUpon>DateTileControl.xaml</DependentUpon>
     </Compile>
@@ -111,6 +115,7 @@
       <DependentUpon>TeamCityLastBuildStatusTileControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Tiles\TeamCityLastBuildStatus\TeamCityLastBuildStatusTileViewModel.cs" />
+    <Compile Include="Tiles\TileRegistryConduit.cs" />
     <Compile Include="Tiles\WebPage\WebPageTileControl.xaml.cs">
       <DependentUpon>WebPageTileControl.xaml</DependentUpon>
     </Compile>

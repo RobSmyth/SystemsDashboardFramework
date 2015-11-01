@@ -1,13 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Input;
-using NoeticTools.Dashboard.Framework;
 
-namespace NoeticTools.TeamDashboard
+namespace NoeticTools.Dashboard.Framework
 {
     public class KeyboardHandler
     {
-        private Dictionary<Key, Action<Key>> _keyDownHandlers;
+        private readonly Dictionary<Key, Action<Key>> _keyDownHandlers;
 
         public KeyboardHandler(IDashboardTileNavigator tileNavigator, IDashboardNavigator dashboardNavigator, IDashboardController controller)
         {
@@ -20,6 +19,7 @@ namespace NoeticTools.TeamDashboard
                 {Key.F1, key => controller.ShowHelpPane()},
                 // F2 - used by tiles for tile edit
                 {Key.F3, key => controller.ShowNavigationPane()},
+                {Key.F4, key => dashboardNavigator.ToggleShowPanesMode()},
                 {Key.F5, key => controller.Refresh()},
                 {Key.Escape, key => dashboardNavigator.ShowCurrentDashboard()},
                 {Key.Right, key => tileNavigator.MoveRight() },

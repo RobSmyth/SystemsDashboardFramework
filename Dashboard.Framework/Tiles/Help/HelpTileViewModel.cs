@@ -33,12 +33,15 @@ namespace NoeticTools.Dashboard.Framework.Tiles.Help
 
 Esc - Show current dashboard.
 F1 - Show this help pane.
+F2 - Show tile details/configuration.
 F3 - Show dashboards navigation pane.
+F4 - Toggle show group panels.
 F5 - Refresh all tiles.
 PageUp - Show previous dashboard.
 PageDown - Show next dashboard.
 Home - Show first dashboard.
 End - Show last dashboard.
+LEFT,RIGT,UP,DOWN - Select tile.
 
 Click on a tile to configure the tile.
 ";

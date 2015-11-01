@@ -18,7 +18,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles.TeamCityAvailableBuilds
     internal class TeamCityAvailableBuildsViewModel : ITileViewModel, ITimerListener
     {
         private const int MaxNumberOfBuilds = 8;
-        public static readonly string TileTypeId = "TeamCity.AvailableBuilds";
+        public const string TileTypeId = "TeamCity.AvailableBuilds";
         private readonly TeamCityService _service;
         private readonly ITimerService _timerService;
         private readonly IDashboardController _dashboardController;

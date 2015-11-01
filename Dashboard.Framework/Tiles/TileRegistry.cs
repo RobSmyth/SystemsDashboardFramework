@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using NoeticTools.Dashboard.Framework.Config;
 using NoeticTools.Dashboard.Framework.DataSources.TeamCity;
 using NoeticTools.Dashboard.Framework.Tiles.Date;
@@ -13,14 +14,15 @@ using NoeticTools.TeamDashboard.Tiles.Message;
 
 namespace NoeticTools.Dashboard.Framework.Tiles
 {
-    public class TileFactory : ITileFactory
+    public class TileRegistry : ITileRegistry
     {
         private readonly TeamCityService _teamCityService;
         private readonly IClock _clock;
         private readonly ITimerService _timerService;
         private readonly IDashboardController _dashboardController;
+        private readonly IList<ITileViewModel> _tileViewModels = new List<ITileViewModel>();
 
-        public TileFactory(TeamCityService teamCityService, IClock clock, ITimerService timerService, IDashboardController dashboardController)
+        public TileRegistry(TeamCityService teamCityService, IClock clock, ITimerService timerService, IDashboardController dashboardController)
         {
             _teamCityService = teamCityService;
             _clock = clock;
@@ -28,7 +30,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles
             _dashboardController = dashboardController;
         }
 
-        public ITileViewModel Create(DashboardTileConfiguration tileConfiguration)
+        public ITileViewModel GetNew(DashboardTileConfiguration tileConfiguration)
         {
             var factoryLookup = new Dictionary<string, Func<DashboardTileConfiguration, ITileViewModel>>
             {
@@ -48,7 +50,19 @@ namespace NoeticTools.Dashboard.Framework.Tiles
                 {"92CE0D61-4748-4427-8EB7-DC8B8B741C15".ToLower(), CreateWebPageTile},
             };
 
-            return factoryLookup[tileConfiguration.TypeId](tileConfiguration);
+            var tileViewModel = factoryLookup[tileConfiguration.TypeId](tileConfiguration);
+            _tileViewModels.Add(tileViewModel);
+            return tileViewModel;
+        }
+
+        public ITileViewModel[] GetAll()
+        {
+            return _tileViewModels.ToArray();
+        }
+
+        public void Clear()
+        {
+            _tileViewModels.Clear();
         }
 
         private ITileViewModel CreateDateTile(DashboardTileConfiguration tileConfiguration)

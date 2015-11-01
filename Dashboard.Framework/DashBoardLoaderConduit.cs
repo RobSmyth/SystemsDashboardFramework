@@ -1,7 +1,6 @@
-using NoeticTools.Dashboard.Framework;
 using NoeticTools.Dashboard.Framework.Config;
 
-namespace NoeticTools.TeamDashboard
+namespace NoeticTools.Dashboard.Framework
 {
     public class DashBoardLoaderConduit : IDashBoardLoader
     {

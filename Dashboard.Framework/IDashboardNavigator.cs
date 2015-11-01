@@ -9,5 +9,6 @@
         void ShowCurrentDashboard();
         int CurrentDashboardIndex { get; }
         void ShowDashboard(int index);
+        void ToggleShowPanesMode();
     }
 }

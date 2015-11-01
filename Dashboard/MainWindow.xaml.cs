@@ -28,11 +28,14 @@ namespace NoeticTools.TeamDashboard
             var dashboardConfigurationManager = new DashboardConfigurationManager();
             _config = dashboardConfigurationManager.Load();
             var loaderConduit = new DashBoardLoaderConduit();
-            _dashboardNavigator = new DashboardNavigator(loaderConduit, _config);
+            var tileRegistryConduit = new TileRegistryConduit();
+            var tileLayoutControllerRegistry = new TileLayoutControllerRegistry(tileRegistryConduit);
+            _dashboardNavigator = new DashboardNavigator(loaderConduit, _config, tileRegistryConduit, tileLayoutControllerRegistry);
             _controller = new DashboardController(dashboardConfigurationManager, timerService, sidePanel, _config, _dashboardNavigator);
-            var tileFactory = new TileFactory(new TeamCityService(_config.Services, runOptions), clock, timerService, _controller);
-            var tileLayoutController = new TileLayoutController(tileGrid, tileFactory);
-            _loader = new DashBoardLoader(tileLayoutController);
+            var tileRegistry = new TileRegistry(new TeamCityService(_config.Services, runOptions), clock, timerService, _controller);
+            tileRegistryConduit.SetTarget(tileRegistry);
+            var rootTileLayoutController = new TileLayoutController(tileGrid, tileRegistry, tileLayoutControllerRegistry, new Thickness(0));
+            _loader = new DashBoardLoader(rootTileLayoutController);
             loaderConduit.SetTarget(_loader);
             _keyboardHandler = new KeyboardHandler(tileNavigator, _dashboardNavigator, _controller);
 

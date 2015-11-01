@@ -12,7 +12,7 @@ namespace NoeticTools.Dashboard.Framework
         {
             _dashboardLoader = dashboardLoader;
             _config = config;
-        }
+        }   
 
         public int CurrentDashboardIndex { get; private set; } = 0;
 

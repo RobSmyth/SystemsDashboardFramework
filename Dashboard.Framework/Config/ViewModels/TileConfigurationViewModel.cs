@@ -21,13 +21,14 @@ namespace NoeticTools.Dashboard.Framework.Config.ViewModels
             _title = title;
             _tileConfiguration = tileConfiguration;
             _parameters = parameters;
-            Save = new NullCommand();
-            Close = new NullCommand();
+            SaveCommand = new NullCommand();
+            CloseCommand = new NullCommand();
             ConfigureCommand = new NullCommand();
         }
 
-        public ICommand Close { get; private set; }
-        public ICommand Save { get; private set; }
+        public ICommand CloseCommand { get; private set; }
+        public ICommand SaveCommand { get; private set; }
+        public ICommand ConfigureCommand { get; }
 
         public FrameworkElement CreateView()
         {
@@ -38,15 +39,13 @@ namespace NoeticTools.Dashboard.Framework.Config.ViewModels
                 parameter.Show(_view.ParametersGrid, _tileConfiguration);
             }
 
-            Close = new CloseCommand(_view);
-            Save = new SaveConfigurationParametersCommand(_parameters, _view.ParametersGrid);
+            CloseCommand = new CloseCommand(_view);
+            SaveCommand = new SaveConfigurationParametersCommand(_parameters, _view.ParametersGrid);
 
             _view.DataContext = this;
 
             return _view;
         }
-
-        public ICommand ConfigureCommand { get; }
 
         public void OnConfigurationChanged()
         {

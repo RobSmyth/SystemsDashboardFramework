@@ -1,9 +1,10 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
 using NoeticTools.Dashboard.Framework;
 using NoeticTools.Dashboard.Framework.Config;
+using NoeticTools.Dashboard.Framework.DataSources.TeamCity;
+using NoeticTools.Dashboard.Framework.Tiles;
 using NoeticTools.Dashboard.Framework.Time;
 
 namespace NoeticTools.TeamDashboard
@@ -29,7 +30,9 @@ namespace NoeticTools.TeamDashboard
             var loaderConduit = new DashBoardLoaderConduit();
             _dashboardNavigator = new DashboardNavigator(loaderConduit, _config);
             _controller = new DashboardController(dashboardConfigurationManager, timerService, sidePanel, _config, _dashboardNavigator);
-            _loader = new DashBoardLoader(_config, runOptions, tileGrid, clock, timerService, _controller);
+            var tileFactory = new TileFactory(new TeamCityService(_config.Services, runOptions), clock, timerService, _controller);
+            var tileLayoutController = new TileLayoutController(tileGrid, tileFactory);
+            _loader = new DashBoardLoader(tileLayoutController);
             loaderConduit.SetTarget(_loader);
             _keyboardHandler = new KeyboardHandler(tileNavigator, _dashboardNavigator, _controller);
 

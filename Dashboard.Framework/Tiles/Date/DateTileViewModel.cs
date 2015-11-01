@@ -10,7 +10,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles.Date
     {
         private readonly ITimerService _timerService;
         private readonly IClock _clock;
-        public static readonly string TileTypeId = "Date.Now";
+        public const string TileTypeId = "Date.Now";
         private DateTileControl _view;
 
         public DateTileViewModel(ITimerService timerService, IClock clock)

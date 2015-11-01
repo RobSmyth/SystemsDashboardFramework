@@ -35,7 +35,7 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <TextBlock Name="Title" Grid.Column="0" FontSize="12" FontWeight="Bold" Margin="5">Dashboards</TextBlock>
-                <Button x:Name="CloseButton" Grid.Column="1" Margin="5" Width="20 " Command="{Binding Close}" BorderThickness="0" Background="{StaticResource TechTileStyle_BackgroundBrush}">X</Button>
+                <Button x:Name="CloseButton" Grid.Column="1" Margin="5" Width="20 " Command="{Binding CloseCommand}" BorderThickness="0" Background="{StaticResource TechTileStyle_BackgroundBrush}">X</Button>
             </Grid>
 
             <DataGrid Name="items" ItemsSource="{Binding Items, Mode=OneWay}" 

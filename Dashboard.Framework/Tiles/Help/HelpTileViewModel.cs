@@ -10,7 +10,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles.Help
 
         public HelpTileViewModel()
         {
-            Save = new NullCommand();
+            SaveCommand = new NullCommand();
             ConfigureCommand = new NullCommand();
         }
 
@@ -23,7 +23,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles.Help
 
         public ICommand ConfigureCommand { get; }
 
-        public ICommand Save { get; }
+        public ICommand SaveCommand { get; }
 
         private void UpdateView()
         {

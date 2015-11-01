@@ -5,5 +5,6 @@ namespace NoeticTools.Dashboard.Framework
     public interface ITileLayoutController
     {
         void AddTile(DashboardTileConfiguration tileConfiguration);
+        void Clear();
     }
 }

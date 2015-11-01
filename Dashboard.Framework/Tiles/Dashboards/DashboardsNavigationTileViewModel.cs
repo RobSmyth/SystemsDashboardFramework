@@ -27,7 +27,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles.Dashboards
         {
             _dashboardNavigator = dashboardNavigator;
             DashboardIndex = _dashboardNavigator.CurrentDashboardIndex;
-            Close = new NullCommand();
+            CloseCommand = new NullCommand();
             Items = new ObservableCollection<DashboardConfiguration>(config.Configurations);
             ConfigureCommand = new NullCommand();
         }
@@ -35,7 +35,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles.Dashboards
         public FrameworkElement CreateView()
         {
             var view = new DashboardNavigationTileControl();
-            Close = new CloseCommand(view);
+            CloseCommand = new CloseCommand(view);
             view.DataContext = this;
             return view;
         }
@@ -44,7 +44,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles.Dashboards
 
         public ObservableCollection<DashboardConfiguration> Items { get; }
 
-        public ICommand Close { get; private set; }
+        public ICommand CloseCommand { get; private set; }
 
         public void OnConfigurationChanged()
         {

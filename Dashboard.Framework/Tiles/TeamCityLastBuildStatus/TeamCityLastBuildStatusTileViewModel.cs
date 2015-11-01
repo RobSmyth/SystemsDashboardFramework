@@ -13,7 +13,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles.TeamCityLastBuildStatus
 {
     internal class TeamCityLastBuildStatusTileViewModel : ITileViewModel, ITimerListener
     {
-        public static readonly string TileTypeId = "TeamCity.Build.Status";
+        public const string TileTypeId = "TeamCity.Build.Status";
 
         private readonly Dictionary<string, Brush> _runningStatusBrushes = new Dictionary<string, Brush>
         {
@@ -56,11 +56,11 @@ namespace NoeticTools.Dashboard.Framework.Tiles.TeamCityLastBuildStatus
             _service = service;
             _dashboardController = dashboardController;
             _tileConfiguration = new TileConfiguration(tileConfiguration, this);
-            ConfigureService = new TeamCityServiceConfigureCommand(service);
+            ConfigureServiceCommand = new TeamCityServiceConfigureCommand(service);
             _timerToken = timerService.QueueCallback(TimeSpan.FromDays(10000), this);
         }
 
-        public ICommand ConfigureService { get; }
+        private ICommand ConfigureServiceCommand { get; }
 
         public ICommand ConfigureCommand { get; private set; }
 
@@ -72,12 +72,11 @@ namespace NoeticTools.Dashboard.Framework.Tiles.TeamCityLastBuildStatus
                     new ConfigurationParameter("Project", "", _tileConfiguration),
                     new ConfigurationParameter("Configuration", "", _tileConfiguration),
                     new ConfigurationParameter("Description", "", _tileConfiguration),
-                    new ConfigurationHyperlink("TeamCity service", ConfigureService)
+                    new ConfigurationHyperlink("TeamCity service", ConfigureServiceCommand)
                 },
                 _dashboardController);
 
-            _view = new TeamCityBuildStatusTileControl();
-            _view.DataContext = this;
+            _view = new TeamCityBuildStatusTileControl {DataContext = this};
 
             _service.Connect();
 

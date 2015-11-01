@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -35,11 +36,11 @@ namespace NoeticTools.Dashboard.Framework.Tiles.TeamCityAvailableBuilds
         }
 
         public ICommand ConfigureCommand { get; private set; }
-        public ObservableCollection<BuildDetails> Builds { get; set; }
+        public ObservableCollection<BuildDetails> Builds { get; private set; }
 
         public FrameworkElement CreateView()
         {
-            var parameters = new List<ConfigurationParameter>
+            var parameters = new List<IConfigurationView>
             {
                 new ConfigurationParameter("Title", "EMPTY", _tileConfiguration)
             };
@@ -98,9 +99,9 @@ namespace NoeticTools.Dashboard.Framework.Tiles.TeamCityAvailableBuilds
 
             for (int buildNumber = 1; buildNumber <= MaxNumberOfBuilds; buildNumber++)
             {
-                string displayName = _tileConfiguration.GetString(string.Format("Display_name_{0}", buildNumber));
-                string projectName = _tileConfiguration.GetString(string.Format("Project_{0}", buildNumber));
-                string configurationName = _tileConfiguration.GetString(string.Format("Configuration_{0}", buildNumber));
+                string displayName = _tileConfiguration.GetString($"Display_name_{buildNumber}");
+                string projectName = _tileConfiguration.GetString($"Project_{buildNumber}");
+                string configurationName = _tileConfiguration.GetString($"Configuration_{buildNumber}");
 
                 if (!string.IsNullOrWhiteSpace(displayName) &&
                     !displayName.Equals("EMPTY", StringComparison.InvariantCultureIgnoreCase))
@@ -133,9 +134,9 @@ namespace NoeticTools.Dashboard.Framework.Tiles.TeamCityAvailableBuilds
             }
         }
 
-        private string CleanupVersion(string version)
+        private static string CleanupVersion(string version)
         {
-            var length = version.IndexOf(".Rel");
+            var length = version.IndexOf(".Rel", StringComparison.Ordinal);
             if (length <= 0)
             {
                 return version;

@@ -37,7 +37,7 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <TextBlock Name="Title" Grid.Column="0" FontSize="12" FontWeight="Bold" Margin="5"/>
-            <Button x:Name="CloseButton" Grid.Column="1" Margin="5" Width="20 " Command="{Binding Close}" BorderThickness="0" Background="WhiteSmoke">X</Button>
+            <Button x:Name="CloseButton" Grid.Column="1" Margin="5" Width="20 " Command="{Binding CloseCommand}" BorderThickness="0" Background="WhiteSmoke">X</Button>
         </Grid>
         
         <Grid Name="ParametersGrid" Grid.Row="2" Grid.Column="0" Height="Auto" Margin="5,10,5,5">
@@ -50,7 +50,7 @@
         <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom"
                     Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right"
                     Margin="10" Height="Auto">
-            <Button Name="OkButton" Margin="5" Padding="5" Command="{Binding Save}">Apply</Button>
+            <Button Name="OkButton" Margin="5" Padding="5" Command="{Binding SaveCommand}">Apply</Button>
         </StackPanel>
     </Grid>
 </UserControl>

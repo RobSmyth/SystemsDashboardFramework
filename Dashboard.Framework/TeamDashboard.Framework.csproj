@@ -76,6 +76,7 @@
     <Compile Include="IDashBoardLoader.cs" />
     <Compile Include="IDashboardNavigator.cs" />
     <Compile Include="IDashboardTileNavigator.cs" />
+    <Compile Include="Tiles\ITileFactory.cs" />
     <Compile Include="NotifyingViewModelBase.cs" />
     <Compile Include="DataSources\Jira\IJiraChannel.cs" />
     <Compile Include="DataSources\Jira\JiraChannelEmulateState.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="IDashboardController.cs" />
     <Compile Include="ITileLayoutController.cs" />
     <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Tiles\TileFactory.cs" />
     <Compile Include="TileLayoutController.cs" />
     <Compile Include="Tiles\Date\DateTileControl.xaml.cs">
       <DependentUpon>DateTileControl.xaml</DependentUpon>

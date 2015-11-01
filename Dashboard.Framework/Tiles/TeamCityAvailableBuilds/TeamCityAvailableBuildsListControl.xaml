@@ -27,109 +27,115 @@
 
     <Border Name="FocusBorder" Style="{StaticResource FocusBorder}">
         <Grid Name="root" Margin="0">
-            <StackPanel Orientation="Vertical" Background="Transparent" HorizontalAlignment="Center"
-                    VerticalAlignment="Center" Width="Auto">
+            <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
+                <ScrollViewer.InputBindings>
+                    <MouseBinding MouseAction="LeftClick" Command="{Binding ConfigureCommand}" />
+                    <KeyBinding Key="F2" Command="{Binding ConfigureCommand}"/>
+                </ScrollViewer.InputBindings>
+                
+                <StackPanel Orientation="Vertical" Background="Transparent" HorizontalAlignment="Center"
+                    VerticalAlignment="Center" Width="Auto" Height="Auto">
 
-                <TextBlock Name="projectName" HorizontalAlignment="Left" VerticalAlignment="Top" TextAlignment="Left"
+                    <TextBlock Name="projectName" HorizontalAlignment="Left" VerticalAlignment="Top" TextAlignment="Left"
                        TextWrapping="WrapWithOverflow"
                        FontSize="{Binding Path=ActualHeight, ElementName=root, 
                                 Converter={StaticResource doubleConverter}, ConverterParameter=0.06}"
                        FontWeight="Normal"
                        Margin="5,5,5,2">
                 LIS NAME
-                </TextBlock>
+                    </TextBlock>
 
-                <DataGrid Name="buildsList" BorderThickness="0" Background="Transparent"
+                    <DataGrid Name="buildsList" BorderThickness="0" Background="Transparent"
                       Foreground="{StaticResource DarkTileStyle_ForegroundBrush}"
                       HeadersVisibility="Column" RowHeaderWidth="0" Margin="5,2,5,2" AutoGenerateColumns="False"
                       Padding="5"
                       BorderBrush="{x:Null}" GridLinesVisibility="None" Height="Auto" CanUserAddRows="False"
                       CanUserDeleteRows="False"
                       IsReadOnly="True" 
-                      Focusable="False"
                       IsTabStop="False">
 
-                    <DataGrid.Resources>
-                        <Style TargetType="{x:Type DataGridColumnHeader}">
-                            <Setter Property="Background" Value="{StaticResource DarkTileStyle_GridHeaderRowBrush}" />
-                            <Setter Property="Foreground" Value="{StaticResource DarkTileStyle_ForegroundBrush}" />
-                            <Setter Property="Padding" Value="5,2,5,2" />
-                            <Setter Property="FontSize"
+                        <DataGrid.Resources>
+                            <Style TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="Background" Value="{StaticResource DarkTileStyle_GridHeaderRowBrush}" />
+                                <Setter Property="Foreground" Value="{StaticResource DarkTileStyle_ForegroundBrush}" />
+                                <Setter Property="Padding" Value="5,2,5,2" />
+                                <Setter Property="FontSize"
                                 Value="{Binding Path=ActualHeight, ElementName=root, 
                                 Converter={StaticResource doubleConverter}, ConverterParameter=0.06}" />
-                        </Style>
-                        <Style TargetType="{x:Type DataGridCell}">
-                            <Setter Property="KeyboardNavigation.IsTabStop" Value="False"></Setter>
-                        </Style>
-                    </DataGrid.Resources>
+                            </Style>
+                            <Style TargetType="{x:Type DataGridCell}">
+                                <Setter Property="KeyboardNavigation.IsTabStop" Value="False"></Setter>
+                            </Style>
+                        </DataGrid.Resources>
 
-                    <DataGrid.Columns>
+                        <DataGrid.Columns>
 
-                        <DataGridTextColumn Binding="{Binding BuildConfiguration}" IsReadOnly="True" Header="Build">
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="{x:Type TextBlock}">
-                                    <Setter Property="Margin" Value="2,2,5,2" />
-                                    <Setter Property="FontSize"
+                            <DataGridTextColumn Binding="{Binding BuildConfiguration}" IsReadOnly="True" Header="Build">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="Margin" Value="2,2,5,2" />
+                                        <Setter Property="FontSize"
                                         Value="{Binding Path=ActualHeight, ElementName=root, 
                                     Converter={StaticResource doubleConverter}, ConverterParameter=0.06}" />
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
 
-                        <DataGridTextColumn Binding="{Binding Version}" IsReadOnly="True" Header="Version">
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="{x:Type TextBlock}">
-                                    <Setter Property="Margin" Value="5,2,2,2" />
-                                    <Setter Property="FontWeight" Value="Bold" />
-                                    <Setter Property="FontSize"
+                            <DataGridTextColumn Binding="{Binding Version}" IsReadOnly="True" Header="Version">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="Margin" Value="5,2,2,2" />
+                                        <Setter Property="FontWeight" Value="Bold" />
+                                        <Setter Property="FontSize"
                                         Value="{Binding Path=ActualHeight, ElementName=root, 
                                     Converter={StaticResource doubleConverter}, ConverterParameter=0.06}" />
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
 
-                        <DataGridTextColumn Binding="{Binding DaysOld}" IsReadOnly="True" Header="Age" Width="Auto"
+                            <DataGridTextColumn Binding="{Binding DaysOld}" IsReadOnly="True" Header="Age" Width="Auto"
                                         MinWidth="30">
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="{x:Type TextBlock}">
-                                    <Setter Property="Margin" Value="10,2,10,2" />
-                                    <Setter Property="FontWeight" Value="Normal" />
-                                    <Setter Property="HorizontalAlignment" Value="Center" />
-                                    <Setter Property="FontSize"
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="Margin" Value="10,2,10,2" />
+                                        <Setter Property="FontWeight" Value="Normal" />
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="FontSize"
                                         Value="{Binding Path=ActualHeight, ElementName=root, 
                                     Converter={StaticResource doubleConverter}, ConverterParameter=0.06}" />
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
 
-                        <DataGridTemplateColumn Header="" Width="SizeToCells" IsReadOnly="True" MinWidth="30">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Image Source="{Binding ImageSource}"
+                            <DataGridTemplateColumn Header="" Width="SizeToCells" IsReadOnly="True" MinWidth="30">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Source="{Binding ImageSource}"
                                        Width="{Binding Path=ActualHeight, ElementName=root, 
                                             Converter={StaticResource doubleConverter}, ConverterParameter=0.09}"
                                        Height="{Binding Path=ActualHeight, ElementName=root, 
                                             Converter={StaticResource doubleConverter}, ConverterParameter=0.09}" />
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
 
-                    </DataGrid.Columns>
+                        </DataGrid.Columns>
 
-                    <DataGrid.RowStyle>
-                        <Style TargetType="DataGridRow">
-                            <Setter Property="IsTabStop" Value="False"/>
-                            <Setter Property="Background" Value="Transparent" />
-                            <Setter Property="Foreground" Value="{StaticResource DarkTileStyle_ForegroundBrush}" />
-                            <Setter Property="FontSize"
+                        <DataGrid.RowStyle>
+                            <Style TargetType="DataGridRow">
+                                <Setter Property="IsTabStop" Value="False"/>
+                                <Setter Property="Background" Value="Transparent" />
+                                <Setter Property="Foreground" Value="{StaticResource DarkTileStyle_ForegroundBrush}" />
+                                <Setter Property="FontSize"
                                 Value="{Binding Path=ActualHeight, ElementName=root, 
                                     Converter={StaticResource doubleConverter}, ConverterParameter=0.06}" />
-                        </Style>
-                    </DataGrid.RowStyle>
+                            </Style>
+                        </DataGrid.RowStyle>
 
-                </DataGrid>
+                    </DataGrid>
 
-            </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
         </Grid>
     </Border>
 </UserControl>

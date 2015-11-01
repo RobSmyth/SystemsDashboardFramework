@@ -23,6 +23,7 @@ namespace NoeticTools.Dashboard.Framework.Config.ViewModels
             _parameters = parameters;
             Save = new NullCommand();
             Close = new NullCommand();
+            ConfigureCommand = new NullCommand();
         }
 
         public ICommand Close { get; private set; }
@@ -44,6 +45,8 @@ namespace NoeticTools.Dashboard.Framework.Config.ViewModels
 
             return _view;
         }
+
+        public ICommand ConfigureCommand { get; }
 
         public void OnConfigurationChanged()
         {

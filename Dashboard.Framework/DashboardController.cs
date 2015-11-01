@@ -1,61 +1,32 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using NoeticTools.Dashboard.Framework;
 using NoeticTools.Dashboard.Framework.Config;
-using NoeticTools.Dashboard.Framework.DataSources.TeamCity;
 using NoeticTools.Dashboard.Framework.Tiles;
 using NoeticTools.Dashboard.Framework.Tiles.Dashboards;
 using NoeticTools.Dashboard.Framework.Tiles.Help;
 using NoeticTools.Dashboard.Framework.Time;
 
-namespace NoeticTools.TeamDashboard
+namespace NoeticTools.Dashboard.Framework
 {
     public class DashboardController : IDashboardController
     {
         private readonly DashboardConfigurations _config;
+        private readonly IDashboardNavigator _dashboardNavigator;
         private readonly DashboardConfigurationManager _configurationManager;
-        private readonly RunOptions _runOptions;
-        private readonly IClock _clock;
         private readonly ITimerService _timerService;
-        private Grid _tileGrid;
-        private DockPanel _sidePanel;
+        private readonly DockPanel _sidePanel;
 
-        public DashboardController(DashboardConfigurationManager configurationManager, RunOptions runOptions, IClock clock, ITimerService timerService)
+        public DashboardController(DashboardConfigurationManager configurationManager, ITimerService timerService, DockPanel sidePanel, DashboardConfigurations config, IDashboardNavigator dashboardNavigator)
         {
             _configurationManager = configurationManager;
-            _runOptions = runOptions;
-            _clock = clock;
             _timerService = timerService;
-            _config = new DashboardConfigurationManager().Load();
-        }
-
-        public int DashboardIndex { get; private set; } = 0;
-
-        public void Start(Grid tileGrid, DockPanel sidePanel)
-        {
-            _tileGrid = tileGrid;
             _sidePanel = sidePanel;
-            Load(tileGrid, _config.Configurations[DashboardIndex]);
+            _config = config;
+            _dashboardNavigator = dashboardNavigator;
         }
 
-        private void Load(Grid tileGrid, DashboardConfiguration activeConfiguration)
+        public void Start()
         {
-            ClearTileGrid();
-
-            var channel = new TeamCityService(_config.Services, _runOptions);
-            var layout = new TileLayoutController(tileGrid, channel, activeConfiguration, _clock, _timerService, this);
-
-            foreach (var tile in activeConfiguration.RootTile.Tiles)
-            {
-                layout.AddTile(tile);
-            }
-        }
-
-        private void ClearTileGrid()
-        {
-            _tileGrid.Children.Clear();
-            _tileGrid.RowDefinitions.Clear();
-            _tileGrid.ColumnDefinitions.Clear();
         }
 
         private void Save()
@@ -68,60 +39,14 @@ namespace NoeticTools.TeamDashboard
             Save();
         }
 
-        public void ShowDashboard(int index)
-        {
-            DashboardIndex = index;
-            Load(_tileGrid, _config.Configurations[DashboardIndex]);
-        }
-
-        public void NextDashboard()
-        {
-            _sidePanel.Visibility = Visibility.Collapsed;
-            if (++DashboardIndex >= _config.Configurations.Length)
-            {
-                DashboardIndex = 0;
-            }
-            Load(_tileGrid, _config.Configurations[DashboardIndex]);
-        }
-
-        public void PrevDashboard()
-        {
-            _sidePanel.Visibility = Visibility.Collapsed;
-            if (--DashboardIndex < 0)
-            {
-                DashboardIndex = _config.Configurations.Length-1;
-            }
-            Load(_tileGrid, _config.Configurations[DashboardIndex]);
-        }
-
-        public void ShowFirstDashboard()
-        {
-            _sidePanel.Visibility = Visibility.Collapsed;
-            DashboardIndex = 0;
-            Load(_tileGrid, _config.Configurations[DashboardIndex]);
-        }
-
-        public void ShowLastDashboard()
-        {
-            _sidePanel.Visibility = Visibility.Collapsed;
-            DashboardIndex = _config.Configurations.Length - 1;
-            Load(_tileGrid, _config.Configurations[DashboardIndex]);
-        }
-
-        public void ShowCurrentDashboard()
-        {
-            _sidePanel.Visibility = Visibility.Collapsed;
-            Load(_tileGrid, _config.Configurations[DashboardIndex]);
-        }
-
-        public void ShowHelp()
+        public void ShowHelpPane()
         {
             ShowOnSidePane(new HelpTileViewModel());
         }
 
-        public void ShowNavigation()
+        public void ShowNavigationPane()
         {
-            ShowOnSidePane(new DashboardsNavigationTileViewModel(_config, this));
+            ShowOnSidePane(new DashboardsNavigationTileViewModel(_config, _dashboardNavigator));
         }
 
         public void ShowOnSidePane(ITileViewModel viewModel)

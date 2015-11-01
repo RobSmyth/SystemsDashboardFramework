@@ -8,7 +8,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles.Dashboards
 {
     public class DashboardsNavigationTileViewModel : NotifyingViewModelBase, ITileViewModel
     {
-        private readonly IDashboardController _dashboardController;
+        private readonly IDashboardNavigator _dashboardNavigator;
         private int _dashboardIndex;
 
         public int DashboardIndex
@@ -19,16 +19,17 @@ namespace NoeticTools.Dashboard.Framework.Tiles.Dashboards
                 if (value == _dashboardIndex) return;
                 _dashboardIndex = value;
                 OnPropertyChanged();
-                _dashboardController.ShowDashboard(DashboardIndex);
+                _dashboardNavigator.ShowDashboard(DashboardIndex);
             }
         }
 
-        public DashboardsNavigationTileViewModel(DashboardConfigurations config, IDashboardController dashboardController)
+        public DashboardsNavigationTileViewModel(DashboardConfigurations config, IDashboardNavigator dashboardNavigator)
         {
-            _dashboardController = dashboardController;
-            DashboardIndex = dashboardController.DashboardIndex;
+            _dashboardNavigator = dashboardNavigator;
+            DashboardIndex = _dashboardNavigator.CurrentDashboardIndex;
             Close = new NullCommand();
             Items = new ObservableCollection<DashboardConfiguration>(config.Configurations);
+            ConfigureCommand = new NullCommand();
         }
 
         public FrameworkElement CreateView()
@@ -38,6 +39,8 @@ namespace NoeticTools.Dashboard.Framework.Tiles.Dashboards
             view.DataContext = this;
             return view;
         }
+
+        public ICommand ConfigureCommand { get; }
 
         public ObservableCollection<DashboardConfiguration> Items { get; }
 

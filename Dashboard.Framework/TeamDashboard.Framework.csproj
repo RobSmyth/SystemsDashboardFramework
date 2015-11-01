@@ -70,6 +70,12 @@
     <Compile Include="Config\Commands\SaveConfigurationParametersCommand.cs" />
     <Compile Include="Config\Commands\CloseCommand.cs" />
     <Compile Include="DashboardController.cs" />
+    <Compile Include="DashBoardLoader.cs" />
+    <Compile Include="DashboardNavigator.cs" />
+    <Compile Include="DashboardTileNavigator.cs" />
+    <Compile Include="IDashBoardLoader.cs" />
+    <Compile Include="IDashboardNavigator.cs" />
+    <Compile Include="IDashboardTileNavigator.cs" />
     <Compile Include="NotifyingViewModelBase.cs" />
     <Compile Include="DataSources\Jira\IJiraChannel.cs" />
     <Compile Include="DataSources\Jira\JiraChannelEmulateState.cs" />

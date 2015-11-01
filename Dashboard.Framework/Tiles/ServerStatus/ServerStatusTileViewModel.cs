@@ -1,5 +1,7 @@
 ﻿using System.Windows;
+using System.Windows.Input;
 using NoeticTools.Dashboard.Framework.Config;
+using NoeticTools.Dashboard.Framework.Config.Commands;
 
 namespace NoeticTools.Dashboard.Framework.Tiles.ServerStatus
 {
@@ -12,6 +14,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles.ServerStatus
         public ServerStatusTileViewModel(DashboardTileConfiguration tileConfiguration)
         {
             _tileConfiguration = new TileConfiguration(tileConfiguration, this);
+            ConfigureCommand = new NullCommand();
         }
 
         public FrameworkElement CreateView()
@@ -21,6 +24,8 @@ namespace NoeticTools.Dashboard.Framework.Tiles.ServerStatus
             _view.message.Text = _tileConfiguration.GetString("Message");
             return _view;
         }
+
+        public ICommand ConfigureCommand { get; }
 
         public void OnConfigurationChanged()
         {

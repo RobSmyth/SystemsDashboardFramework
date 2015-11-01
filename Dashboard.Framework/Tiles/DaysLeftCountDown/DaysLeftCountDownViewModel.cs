@@ -11,7 +11,6 @@ namespace NoeticTools.Dashboard.Framework.Tiles.DaysLeftCountDown
     internal class DaysLeftCountDownViewModel : ITileViewModel
     {
         private readonly IClock _clock;
-        private readonly IDashboardController _dashboardController;
         public static readonly string TileTypeId = "TimeLeft.Days.Count";
         private readonly TimeSpan _tickPeriod = TimeSpan.FromSeconds(30);
         private readonly TileConfiguration _tileConfiguration;
@@ -21,16 +20,9 @@ namespace NoeticTools.Dashboard.Framework.Tiles.DaysLeftCountDown
         public DaysLeftCountDownViewModel(DashboardTileConfiguration tileConfiguration, IClock clock, IDashboardController dashboardController)
         {
             _clock = clock;
-            _dashboardController = dashboardController;
             _tileConfiguration = new TileConfiguration(tileConfiguration, this);
             _timer = new DispatcherTimer {Interval = _tickPeriod};
             _timer.Tick += _timer_Tick;
-        }
-
-        public ICommand ConfigureCommand { get; private set; }
-
-        public FrameworkElement CreateView()
-        {
             ConfigureCommand = new TileConfigureCommand("Days Count Down Configuration", _tileConfiguration,
                 new[]
                 {
@@ -38,8 +30,13 @@ namespace NoeticTools.Dashboard.Framework.Tiles.DaysLeftCountDown
                     new ConfigurationParameter("End_date", new DateTime(2000, 1, 1), _tileConfiguration),
                     new ConfigurationParameter("Disabled", false, _tileConfiguration)
                 },
-                _dashboardController);
+                dashboardController);
+        }
 
+        public ICommand ConfigureCommand { get; private set; }
+
+        public FrameworkElement CreateView()
+        {
             _view = new DaysLeftCountDownTileView {DataContext = this};
 
             UpdateView();

@@ -126,7 +126,7 @@ namespace NoeticTools.Dashboard.Framework
         private ITileViewModel CreateDateTile(DashboardTileConfiguration tileConfiguration)
         {
             tileConfiguration.TypeId = DateTileViewModel.TileTypeId;
-            return new DateTileViewModel();
+            return new DateTileViewModel(_timerService, _clock);
         }
 
         private ITileViewModel CreateTeamCityLastBuildTile(DashboardTileConfiguration tileConfiguration)
@@ -163,6 +163,13 @@ namespace NoeticTools.Dashboard.Framework
         {
             tileConfiguration.TypeId = WebPageTileViewModel.TileTypeId;
             return new WebPageTileViewModel(tileConfiguration, _dashboardController);
+        }
+
+        public void Clear()
+        {
+            _tileGrid.Children.Clear();
+            _tileGrid.RowDefinitions.Clear();
+            _tileGrid.ColumnDefinitions.Clear();
         }
     }
 }

@@ -1,47 +1,52 @@
 ﻿using System;
 using System.Windows;
-using System.Windows.Threading;
+using System.Windows.Input;
+using NoeticTools.Dashboard.Framework.Config.Commands;
+using NoeticTools.Dashboard.Framework.Time;
 
 namespace NoeticTools.Dashboard.Framework.Tiles.Date
 {
-    internal class DateTileViewModel : ITileViewModel
+    internal class DateTileViewModel : ITileViewModel, ITimerListener
     {
+        private readonly ITimerService _timerService;
+        private readonly IClock _clock;
         public static readonly string TileTypeId = "Date.Now";
-        private readonly TimeSpan _tickPeriod = TimeSpan.FromSeconds(30);
-        private readonly DispatcherTimer _timer;
         private DateTileControl _view;
 
-        public DateTileViewModel()
+        public DateTileViewModel(ITimerService timerService, IClock clock)
         {
-            _timer = new DispatcherTimer();
-            _timer.Tick += _timer_Tick;
-            _timer.Interval = _tickPeriod;
+            _timerService = timerService;
+            _clock = clock;
+            ConfigureCommand = new NullCommand();
         }
 
         public FrameworkElement CreateView()
         {
             _view = new DateTileControl();
             UpdateView();
-            _timer.Start();
+            _timerService.QueueCallback(TimeSpan.FromMilliseconds(100), this);
             return _view;
         }
+
+        public ICommand ConfigureCommand { get; }
 
         public void OnConfigurationChanged()
         {
         }
 
-        private void _timer_Tick(object sender, EventArgs e)
-        {
-            _timer.Stop();
-            UpdateView();
-            _timer.Start();
-        }
-
         private void UpdateView()
         {
-            DateTime now = DateTime.Now;
+            var now = _clock.Now;
             _view.day.Text = now.Day.ToString();
             _view.month.Text = now.ToString("MMM");
+        }
+
+        void ITimerListener.OnTimeElapsed(TimerToken token)
+        {
+            UpdateView();
+            var now = _clock.Now;
+            var timeToNextMinuteChange = TimeSpan.FromSeconds(60.1 - now.Second);
+            _timerService.QueueCallback(timeToNextMinuteChange, this);
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
@@ -11,33 +10,28 @@ namespace NoeticTools.TeamDashboard
 {
     public partial class MainWindow : Window
     {
-        private readonly DashboardController _controller;
-        private readonly IDictionary<Key, Action<Key>> _keyDownHandlers;
-        private TimerService _timerService;
+        private readonly IDashboardController _controller;
+        private readonly DashBoardLoader _loader;
+        private readonly DashboardConfigurations _config;
+        private readonly DashboardNavigator _dashboardNavigator;
+        private readonly KeyboardHandler _keyboardHandler;
 
         public MainWindow()
         {
             InitializeComponent();
 
             var clock = new Clock();
-            _timerService = new TimerService(clock);
+            var timerService = new TimerService(clock);
             var runOptions = new RunOptions();
-            _controller = new DashboardController(new DashboardConfigurationManager(), runOptions, clock, _timerService);
-
-            _keyDownHandlers = new Dictionary<Key, Action<Key>>
-            {
-                {Key.Home, key => _controller.ShowFirstDashboard()},
-                {Key.End, key => _controller.ShowLastDashboard()},
-                {Key.PageDown, key => _controller.NextDashboard()},
-                {Key.PageUp, key => _controller.PrevDashboard()},
-                {Key.F1, key => _controller.ShowHelp()},
-                // F2 - used by tiles for tile edit
-                {Key.F3, key => _controller.ShowNavigation()},
-                {Key.F5, key => _controller.Refresh()},
-                {Key.Escape, key => _controller.ShowCurrentDashboard()},
-                // INS - will be used to insert a new tile
-                // DEL - will be used to delete a tile
-            };
+            var tileNavigator = new DashboardTileNavigator(tileGrid);
+            var dashboardConfigurationManager = new DashboardConfigurationManager();
+            _config = dashboardConfigurationManager.Load();
+            var loaderConduit = new DashBoardLoaderConduit();
+            _dashboardNavigator = new DashboardNavigator(loaderConduit, _config);
+            _controller = new DashboardController(dashboardConfigurationManager, timerService, sidePanel, _config, _dashboardNavigator);
+            _loader = new DashBoardLoader(_config, runOptions, tileGrid, clock, timerService, _controller);
+            loaderConduit.SetTarget(_loader);
+            _keyboardHandler = new KeyboardHandler(tileNavigator, _dashboardNavigator, _controller);
 
             Loaded += LoadedHandler;
             Closed += ClosedHandler;
@@ -48,15 +42,7 @@ namespace NoeticTools.TeamDashboard
         {
             if (e.IsDown)
             {
-                if (Keyboard.Modifiers == ModifierKeys.None && _keyDownHandlers.ContainsKey(e.Key))
-                {
-                    _keyDownHandlers[e.Key](e.Key);
-                }
-
-                // TODO - CNTRL C, X, & V keys to cut & paste
-                // TODO - SHIFT arrow keys to move tiles (maybe)
-
-                // TODO - how to invoke dashboard configuration? ALT-F2? ... slide out panel?
+                _keyboardHandler.OnKeyDown(e.Key);
             }
         }
 
@@ -67,7 +53,9 @@ namespace NoeticTools.TeamDashboard
 
         private void LoadedHandler(object sender, RoutedEventArgs e)
         {
-            _controller.Start(tileGrid, sidePanel);
+            _controller.Start();
+            _loader.Load(_config.Configurations[_dashboardNavigator.CurrentDashboardIndex]);
+            MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
         }
     }
 }

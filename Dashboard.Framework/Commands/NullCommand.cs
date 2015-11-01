@@ -1,26 +1,19 @@
-﻿using System;
-using System.Windows;
+using System;
 using System.Windows.Input;
+
 
 namespace NoeticTools.Dashboard.Framework.Config.Commands
 {
-    public class CloseCommand : ICommand
+    public class NullCommand : ICommand
     {
-        private readonly UIElement _view;
-
-        public CloseCommand(UIElement view)
-        {
-            _view = view;
-        }
-
         public bool CanExecute(object parameter)
         {
-            return true;
+            return false;
         }
 
         public void Execute(object parameter)
         {
-            _view.Visibility = Visibility.Collapsed;
+            throw new InvalidOperationException();
         }
 
         public event EventHandler CanExecuteChanged;

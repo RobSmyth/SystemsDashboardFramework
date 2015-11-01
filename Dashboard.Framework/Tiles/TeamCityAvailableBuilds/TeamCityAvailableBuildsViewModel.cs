@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -11,12 +10,20 @@ using NoeticTools.Dashboard.Framework.Config.Commands;
 using NoeticTools.Dashboard.Framework.Config.Parameters;
 using NoeticTools.Dashboard.Framework.DataSources.TeamCity;
 using NoeticTools.Dashboard.Framework.Time;
-using TeamCitySharp.DomainEntities;
+
 
 namespace NoeticTools.Dashboard.Framework.Tiles.TeamCityAvailableBuilds
 {
     internal class TeamCityAvailableBuildsViewModel : ITileViewModel, ITimerListener
     {
+        public class BuildDetails
+        {
+            public string BuildConfiguration { get; set; }
+            public string Version { get; set; }
+            public ImageSource ImageSource { get; set; }
+            public int DaysOld { get; set; }
+        }
+
         private const int MaxNumberOfBuilds = 8;
         public const string TileTypeId = "TeamCity.AvailableBuilds";
         private readonly TeamCityService _service;
@@ -26,7 +33,18 @@ namespace NoeticTools.Dashboard.Framework.Tiles.TeamCityAvailableBuilds
         private readonly TileConfiguration _tileConfiguration;
         private TeamCityAvailableBuildsListControl _view;
 
-        public TeamCityAvailableBuildsViewModel(TeamCityService service, DashboardTileConfiguration tileConfiguration, ITimerService timerService, IDashboardController dashboardController)
+        private static string CleanupVersion(string version)
+        {
+            var length = version.IndexOf(".Rel", StringComparison.Ordinal);
+            if (length <= 0)
+            {
+                return version;
+            }
+            return version.Substring(0, length);
+        }
+
+        public TeamCityAvailableBuildsViewModel(TeamCityService service, DashboardTileConfiguration tileConfiguration,
+            ITimerService timerService, IDashboardController dashboardController)
         {
             _service = service;
             _timerService = timerService;
@@ -36,7 +54,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles.TeamCityAvailableBuilds
         }
 
         public ICommand ConfigureCommand { get; private set; }
-        public ObservableCollection<BuildDetails> Builds { get; private set; }
+        public ObservableCollection<BuildDetails> Builds { get; }
 
         public FrameworkElement CreateView()
         {
@@ -44,7 +62,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles.TeamCityAvailableBuilds
             {
                 new ConfigurationParameter("Title", "EMPTY", _tileConfiguration)
             };
-            for (int buildNumber = 1; buildNumber <= MaxNumberOfBuilds; buildNumber++)
+            for (var buildNumber = 1; buildNumber <= MaxNumberOfBuilds; buildNumber++)
             {
                 string diplayName = $"Display_name_{buildNumber}";
                 string project = $"Project_{buildNumber}";
@@ -54,7 +72,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles.TeamCityAvailableBuilds
                 parameters.Add(new ConfigurationParameter(configuration, "EMPTY", _tileConfiguration));
             }
 
-            ConfigureCommand = new TileConfigureCommand("Message Tile Configuration", _tileConfiguration,
+            ConfigureCommand = new TileConfigureCommand("TeamCity Available Builds Tile", _tileConfiguration,
                 parameters.ToArray(), _dashboardController);
 
             _service.Connect();
@@ -97,20 +115,20 @@ namespace NoeticTools.Dashboard.Framework.Tiles.TeamCityAvailableBuilds
             _view.projectName.Text = _tileConfiguration.GetString("Title");
             Builds.Clear();
 
-            for (int buildNumber = 1; buildNumber <= MaxNumberOfBuilds; buildNumber++)
+            for (var buildNumber = 1; buildNumber <= MaxNumberOfBuilds; buildNumber++)
             {
-                string displayName = _tileConfiguration.GetString($"Display_name_{buildNumber}");
-                string projectName = _tileConfiguration.GetString($"Project_{buildNumber}");
-                string configurationName = _tileConfiguration.GetString($"Configuration_{buildNumber}");
+                var displayName = _tileConfiguration.GetString($"Display_name_{buildNumber}");
+                var projectName = _tileConfiguration.GetString($"Project_{buildNumber}");
+                var configurationName = _tileConfiguration.GetString($"Configuration_{buildNumber}");
 
                 if (!string.IsNullOrWhiteSpace(displayName) &&
                     !displayName.Equals("EMPTY", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    Build build = _service.GetLastSuccessfulBuild(projectName, configurationName);
+                    var build = _service.GetLastSuccessfulBuild(projectName, configurationName);
                     if (build != null)
                     {
-                        int ageInDays = (DateTime.Now - build.StartDate).Days;
-                        BitmapImage imageSource = ageInDays < 2
+                        var ageInDays = (DateTime.Now - build.StartDate).Days;
+                        var imageSource = ageInDays < 2
                             ? new BitmapImage(
                                 new Uri("pack://application:,,,/Dashboard;component/Images/YellowStar_32x32.png"))
                             : ageInDays < 7
@@ -127,29 +145,11 @@ namespace NoeticTools.Dashboard.Framework.Tiles.TeamCityAvailableBuilds
                             BuildConfiguration = displayName,
                             Version = CleanupVersion(build.Number),
                             ImageSource = imageSource,
-                            DaysOld = ageInDays,
+                            DaysOld = ageInDays
                         });
                     }
                 }
             }
-        }
-
-        private static string CleanupVersion(string version)
-        {
-            var length = version.IndexOf(".Rel", StringComparison.Ordinal);
-            if (length <= 0)
-            {
-                return version;
-            }
-            return version.Substring(0, length);
-        }
-
-        public class BuildDetails
-        {
-            public string BuildConfiguration { get; set; }
-            public string Version { get; set; }
-            public ImageSource ImageSource { get; set; }
-            public int DaysOld { get; set; }
         }
     }
 }

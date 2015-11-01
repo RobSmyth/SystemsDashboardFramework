@@ -7,6 +7,7 @@ using NoeticTools.Dashboard.Framework.DataSources.TeamCity;
 using NoeticTools.Dashboard.Framework.Tiles;
 using NoeticTools.Dashboard.Framework.Time;
 
+
 namespace NoeticTools.TeamDashboard
 {
     public partial class MainWindow : Window
@@ -30,11 +31,14 @@ namespace NoeticTools.TeamDashboard
             var loaderConduit = new DashBoardLoaderConduit();
             var tileRegistryConduit = new TileRegistryConduit();
             var tileLayoutControllerRegistry = new TileLayoutControllerRegistry(tileRegistryConduit);
-            _dashboardNavigator = new DashboardNavigator(loaderConduit, _config, tileRegistryConduit, tileLayoutControllerRegistry);
-            _controller = new DashboardController(dashboardConfigurationManager, timerService, sidePanel, _config, _dashboardNavigator);
-            var tileRegistry = new TileRegistry(new TeamCityService(_config.Services, runOptions), clock, timerService, _controller);
+            _dashboardNavigator = new DashboardNavigator(loaderConduit, _config, tileLayoutControllerRegistry);
+            _controller = new DashboardController(dashboardConfigurationManager, timerService, sidePanel, _config,
+                _dashboardNavigator);
+            var tileRegistry = new TileRegistry(new TeamCityService(_config.Services, runOptions), clock, timerService,
+                _controller);
             tileRegistryConduit.SetTarget(tileRegistry);
-            var rootTileLayoutController = new TileLayoutController(tileGrid, tileRegistry, tileLayoutControllerRegistry, new Thickness(0));
+            var rootTileLayoutController = new TileLayoutController(tileGrid, tileRegistry, tileLayoutControllerRegistry,
+                new Thickness(0));
             _loader = new DashBoardLoader(rootTileLayoutController);
             loaderConduit.SetTarget(_loader);
             _keyboardHandler = new KeyboardHandler(tileNavigator, _dashboardNavigator, _controller);
@@ -44,7 +48,7 @@ namespace NoeticTools.TeamDashboard
             KeyDown += MainWindow_KeyDown;
         }
 
-        void MainWindow_KeyDown(object sender, KeyEventArgs e)
+        private void MainWindow_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.IsDown)
             {

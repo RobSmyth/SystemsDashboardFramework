@@ -4,12 +4,22 @@ using System.Windows.Input;
 using NoeticTools.Dashboard.Framework.Config;
 using NoeticTools.Dashboard.Framework.Config.Commands;
 
+
 namespace NoeticTools.Dashboard.Framework.Tiles.Dashboards
 {
     public class DashboardsNavigationTileViewModel : NotifyingViewModelBase, ITileViewModel
     {
         private readonly IDashboardNavigator _dashboardNavigator;
         private int _dashboardIndex;
+
+        public DashboardsNavigationTileViewModel(DashboardConfigurations config, IDashboardNavigator dashboardNavigator)
+        {
+            _dashboardNavigator = dashboardNavigator;
+            DashboardIndex = _dashboardNavigator.CurrentDashboardIndex;
+            CloseCommand = new NullCommand();
+            Items = new ObservableCollection<DashboardConfiguration>(config.Configurations);
+            ConfigureCommand = new NullCommand();
+        }
 
         public int DashboardIndex
         {
@@ -23,14 +33,11 @@ namespace NoeticTools.Dashboard.Framework.Tiles.Dashboards
             }
         }
 
-        public DashboardsNavigationTileViewModel(DashboardConfigurations config, IDashboardNavigator dashboardNavigator)
-        {
-            _dashboardNavigator = dashboardNavigator;
-            DashboardIndex = _dashboardNavigator.CurrentDashboardIndex;
-            CloseCommand = new NullCommand();
-            Items = new ObservableCollection<DashboardConfiguration>(config.Configurations);
-            ConfigureCommand = new NullCommand();
-        }
+        public ICommand ConfigureCommand { get; }
+
+        public ObservableCollection<DashboardConfiguration> Items { get; }
+
+        public ICommand CloseCommand { get; private set; }
 
         public FrameworkElement CreateView()
         {
@@ -39,12 +46,6 @@ namespace NoeticTools.Dashboard.Framework.Tiles.Dashboards
             view.DataContext = this;
             return view;
         }
-
-        public ICommand ConfigureCommand { get; }
-
-        public ObservableCollection<DashboardConfiguration> Items { get; }
-
-        public ICommand CloseCommand { get; private set; }
 
         public void OnConfigurationChanged()
         {

@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using TeamCitySharp;
 using TeamCitySharp.DomainEntities;
 using TeamCitySharp.Locators;
+
 
 namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
 {
@@ -31,12 +31,12 @@ namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
         {
             try
             {
-                Project project =
+                var project =
                     _client.Projects.All()
                         .Single(x => x.Name.Equals(projectName, StringComparison.InvariantCultureIgnoreCase));
-                BuildConfig buildConfiguration = _client.BuildConfigs.ByProjectIdAndConfigurationName(project.Id,
+                var buildConfiguration = _client.BuildConfigs.ByProjectIdAndConfigurationName(project.Id,
                     buildConfigurationName);
-                List<Build> builds = _client.Builds.ByBuildConfigId(buildConfiguration.Id);
+                var builds = _client.Builds.ByBuildConfigId(buildConfiguration.Id);
                 return builds.FirstOrDefault(x => x.Status != "UNKNOWN");
             }
             catch (Exception)
@@ -49,12 +49,12 @@ namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
         {
             try
             {
-                Project project =
+                var project =
                     _client.Projects.All()
                         .Single(x => x.Name.Equals(projectName, StringComparison.InvariantCultureIgnoreCase));
-                BuildConfig buildConfiguration = _client.BuildConfigs.ByProjectIdAndConfigurationName(project.Id,
+                var buildConfiguration = _client.BuildConfigs.ByProjectIdAndConfigurationName(project.Id,
                     buildConfigurationName);
-                List<Build> builds = _client.Builds.SuccessfulBuildsByBuildConfigId(buildConfiguration.Id);
+                var builds = _client.Builds.SuccessfulBuildsByBuildConfigId(buildConfiguration.Id);
                 return builds.FirstOrDefault();
             }
             catch (Exception)
@@ -67,12 +67,12 @@ namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
         {
             try
             {
-                Project project =
+                var project =
                     _client.Projects.All()
                         .Single(x => x.Name.Equals(projectName, StringComparison.InvariantCultureIgnoreCase));
-                BuildConfig buildConfiguration = _client.BuildConfigs.ByProjectIdAndConfigurationName(project.Id,
+                var buildConfiguration = _client.BuildConfigs.ByProjectIdAndConfigurationName(project.Id,
                     buildConfigurationName);
-                List<Build> builds =
+                var builds =
                     _client.Builds.ByBuildLocator(BuildLocator.WithDimensions(running: false,
                         status: BuildStatus.SUCCESS, branch: branchName));
                 //var builds = _client.Builds.ByBranch(branchName);
@@ -88,12 +88,12 @@ namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
         {
             try
             {
-                Project project =
+                var project =
                     _client.Projects.All()
                         .Single(x => x.Name.Equals(projectName, StringComparison.InvariantCultureIgnoreCase));
-                BuildConfig buildConfiguration = _client.BuildConfigs.ByProjectIdAndConfigurationName(project.Id,
+                var buildConfiguration = _client.BuildConfigs.ByProjectIdAndConfigurationName(project.Id,
                     buildConfigurationName);
-                List<Build> builds = _client.Builds.ByBuildLocator(BuildLocator.WithDimensions(running: true));
+                var builds = _client.Builds.ByBuildLocator(BuildLocator.WithDimensions(running: true));
                 return builds.FirstOrDefault(x => x.Status != "UNKNOWN" && x.WebUrl.EndsWith(buildConfiguration.Id));
             }
             catch (Exception)
@@ -106,7 +106,7 @@ namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
         {
             try
             {
-                List<Build> builds =
+                var builds =
                     _client.Builds.ByBuildLocator(BuildLocator.WithDimensions(running: true, branch: branchName));
                 return builds.FirstOrDefault();
             }

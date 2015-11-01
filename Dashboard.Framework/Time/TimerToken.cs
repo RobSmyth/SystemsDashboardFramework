@@ -1,5 +1,6 @@
 ﻿using System;
 
+
 namespace NoeticTools.Dashboard.Framework.Time
 {
     public sealed class TimerToken

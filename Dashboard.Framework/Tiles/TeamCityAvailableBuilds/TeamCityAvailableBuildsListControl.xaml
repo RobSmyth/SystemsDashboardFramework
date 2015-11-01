@@ -64,7 +64,7 @@
                                 Converter={StaticResource doubleConverter}, ConverterParameter=0.06}" />
                             </Style>
                             <Style TargetType="{x:Type DataGridCell}">
-                                <Setter Property="KeyboardNavigation.IsTabStop" Value="False"></Setter>
+                                <Setter Property="KeyboardNavigation.IsTabStop" Value="False" />
                             </Style>
                         </DataGrid.Resources>
 

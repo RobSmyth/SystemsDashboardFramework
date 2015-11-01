@@ -1,15 +1,12 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows;
 using System.Windows.Input;
 using Dashboard.Tiles.Message;
-using NoeticTools.Dashboard.Framework;
 using NoeticTools.Dashboard.Framework.Config;
 using NoeticTools.Dashboard.Framework.Config.Commands;
 using NoeticTools.Dashboard.Framework.Config.Parameters;
-using NoeticTools.Dashboard.Framework.Tiles;
 
-namespace NoeticTools.TeamDashboard.Tiles.Message
+
+namespace NoeticTools.Dashboard.Framework.Tiles.Message
 {
     internal class MessageTileViewModel : ITileViewModel
     {
@@ -18,7 +15,8 @@ namespace NoeticTools.TeamDashboard.Tiles.Message
         private readonly TileConfiguration _tileConfiguration;
         private MessageTileControl _view;
 
-        public MessageTileViewModel(DashboardTileConfiguration tileConfiguration, IDashboardController dashboardController)
+        public MessageTileViewModel(DashboardTileConfiguration tileConfiguration,
+            IDashboardController dashboardController)
         {
             _dashboardController = dashboardController;
             _tileConfiguration = new TileConfiguration(tileConfiguration, this);
@@ -32,7 +30,7 @@ namespace NoeticTools.TeamDashboard.Tiles.Message
             {
                 new ConfigurationParameter("Message", "X", _tileConfiguration)
             },
-            _dashboardController);
+                _dashboardController);
             _view = new MessageTileControl {DataContext = this};
 
             UpdateView();

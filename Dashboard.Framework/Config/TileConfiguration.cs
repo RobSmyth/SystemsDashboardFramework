@@ -1,6 +1,6 @@
 ﻿using System;
-using Dashboard.Config;
 using NoeticTools.Dashboard.Framework.Config.Parameters;
+
 
 namespace NoeticTools.Dashboard.Framework.Config
 {
@@ -61,15 +61,9 @@ namespace NoeticTools.Dashboard.Framework.Config
             SetParameter(name, value);
         }
 
-        private T GetParameter<T>(string name)
-        {
-            string value = _inner.GetParameter(name, string.Empty).Value;
-            return (T) Convert.ChangeType(value, typeof (T));
-        }
-
         public void SetParameter<T>(string name, T value)
         {
-            string textValue = value.ToString();
+            var textValue = value.ToString();
             if (_inner.GetParameter(name, string.Empty).Value != textValue)
             {
                 _inner.GetParameter(name, string.Empty).Value = textValue;
@@ -85,6 +79,12 @@ namespace NoeticTools.Dashboard.Framework.Config
                 return false;
             }
             return bool.Parse(value);
+        }
+
+        private T GetParameter<T>(string name)
+        {
+            var value = _inner.GetParameter(name, string.Empty).Value;
+            return (T) Convert.ChangeType(value, typeof (T));
         }
     }
 }

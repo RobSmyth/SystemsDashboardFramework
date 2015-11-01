@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
 
+
 namespace NoeticTools.Dashboard.Framework.Config.Parameters
 {
     public class ConfigurationHyperlink : ConfigurationElementBase, IConfigurationView
@@ -18,7 +19,7 @@ namespace NoeticTools.Dashboard.Framework.Config.Parameters
 
         public void Show(Grid parametersGrid, TileConfiguration tileConfiguration)
         {
-            int rowIndex = AddRow(parametersGrid);
+            var rowIndex = AddRow(parametersGrid);
 
             var hyperlink = new Hyperlink {Command = _command};
             hyperlink.Inlines.Add(_text);
@@ -27,7 +28,7 @@ namespace NoeticTools.Dashboard.Framework.Config.Parameters
             {
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 Margin = new Thickness(5, 5, 5, 5),
-                FontSize = 12.0,
+                FontSize = 12.0
             };
             textBox.Inlines.Add(hyperlink);
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Atlassian.Jira;
 
+
 namespace NoeticTools.Dashboard.Framework.DataSources.Jira
 {
     public class JiraChannelState : JiraChannelEmulateState
@@ -9,7 +10,7 @@ namespace NoeticTools.Dashboard.Framework.DataSources.Jira
 
         public void Connect()
         {
-            _jira = new Atlassian.Jira.Jira("http://jira/", "username", "password") { MaxIssuesPerRequest = 200 };//>>>
+            _jira = new Atlassian.Jira.Jira("http://jira/", "username", "password") {MaxIssuesPerRequest = 200}; //>>>
         }
 
         public IEnumerable<Issue> GetIssuesFromFilter(string filterName)

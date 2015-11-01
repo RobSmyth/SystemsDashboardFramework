@@ -2,13 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Input;
 
+
 namespace NoeticTools.Dashboard.Framework
 {
     public class KeyboardHandler
     {
         private readonly Dictionary<Key, Action<Key>> _keyDownHandlers;
 
-        public KeyboardHandler(IDashboardTileNavigator tileNavigator, IDashboardNavigator dashboardNavigator, IDashboardController controller)
+        public KeyboardHandler(IDashboardTileNavigator tileNavigator, IDashboardNavigator dashboardNavigator,
+            IDashboardController controller)
         {
             _keyDownHandlers = new Dictionary<Key, Action<Key>>
             {
@@ -22,10 +24,10 @@ namespace NoeticTools.Dashboard.Framework
                 {Key.F4, key => dashboardNavigator.ToggleShowPanesMode()},
                 {Key.F5, key => controller.Refresh()},
                 {Key.Escape, key => dashboardNavigator.ShowCurrentDashboard()},
-                {Key.Right, key => tileNavigator.MoveRight() },
-                {Key.Left, key => tileNavigator.MoveLeft() },
-                {Key.Up, key => tileNavigator.MoveUp() },
-                {Key.Down, key => tileNavigator.MoveDown() },
+                {Key.Right, key => tileNavigator.MoveRight()},
+                {Key.Left, key => tileNavigator.MoveLeft()},
+                {Key.Up, key => tileNavigator.MoveUp()},
+                {Key.Down, key => tileNavigator.MoveDown()}
                 // INS - will be used to insert a new tile
                 // DEL - will be used to delete a tile
             };

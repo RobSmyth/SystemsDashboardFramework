@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
-using Dashboard.Config;
+
 
 namespace NoeticTools.Dashboard.Framework.Config
 {
@@ -62,7 +62,7 @@ namespace NoeticTools.Dashboard.Framework.Config
 
         public DashboardConfigValuePair GetParameter(string name, string defaultValue)
         {
-            DashboardConfigValuePair pair =
+            var pair =
                 Values.SingleOrDefault(x => x.Key.Equals(name, StringComparison.InvariantCultureIgnoreCase));
             if (pair == null)
             {
@@ -81,7 +81,7 @@ namespace NoeticTools.Dashboard.Framework.Config
                 return this;
             }
             foreach (
-                DashboardTileConfiguration config in
+                var config in
                     Tiles.Select(tile => tile.GetTileConfiguration(tileId)).Where(config => config != null))
             {
                 return config;

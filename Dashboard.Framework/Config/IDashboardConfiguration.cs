@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace NoeticTools.Dashboard.Framework.Config
+﻿namespace NoeticTools.Dashboard.Framework.Config
 {
     public interface IDashboardConfiguration
     {

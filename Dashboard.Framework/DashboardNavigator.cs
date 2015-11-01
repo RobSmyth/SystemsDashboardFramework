@@ -1,6 +1,6 @@
-﻿using System.Windows;
-using NoeticTools.Dashboard.Framework.Config;
+﻿using NoeticTools.Dashboard.Framework.Config;
 using NoeticTools.Dashboard.Framework.Tiles;
+
 
 namespace NoeticTools.Dashboard.Framework
 {
@@ -8,18 +8,17 @@ namespace NoeticTools.Dashboard.Framework
     {
         private readonly IDashBoardLoader _dashboardLoader;
         private readonly DashboardConfigurations _config;
-        private readonly ITileRegistry _tileRegistry;
         private readonly ITileLayoutControllerRegistry _layoutControllerRegistry;
 
-        public DashboardNavigator(IDashBoardLoader dashboardLoader, DashboardConfigurations config, ITileRegistry tileRegistry, ITileLayoutControllerRegistry layoutControllerRegistry)
+        public DashboardNavigator(IDashBoardLoader dashboardLoader, DashboardConfigurations config,
+            ITileLayoutControllerRegistry layoutControllerRegistry)
         {
             _dashboardLoader = dashboardLoader;
             _config = config;
-            _tileRegistry = tileRegistry;
             _layoutControllerRegistry = layoutControllerRegistry;
-        }   
+        }
 
-        public int CurrentDashboardIndex { get; private set; } = 0;
+        public int CurrentDashboardIndex { get; private set; }
 
         public void ShowDashboard(int index)
         {

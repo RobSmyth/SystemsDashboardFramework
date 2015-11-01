@@ -1,4 +1,5 @@
-using Dashboard.Config;
+using NoeticTools.Dashboard.Framework.Config;
+
 
 namespace Dashboard.Services.TeamCity
 {
@@ -26,7 +27,7 @@ namespace Dashboard.Services.TeamCity
         public string Password
         {
             get { return _inner.Parameter("Password", "MyPassword").Value; }
-            set  { _inner.Parameter("Password", "MyPassword").Value = value; }
+            set { _inner.Parameter("Password", "MyPassword").Value = value; }
         }
     }
 }

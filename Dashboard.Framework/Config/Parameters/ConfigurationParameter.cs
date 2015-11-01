@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
+
 namespace NoeticTools.Dashboard.Framework.Config.Parameters
 {
     public class ConfigurationParameter : ConfigurationElementBase, IConfigurationParameter, IConfigurationView
@@ -20,7 +21,7 @@ namespace NoeticTools.Dashboard.Framework.Config.Parameters
 
         public void Show(Grid parametersGrid, TileConfiguration tileConfiguration)
         {
-            int rowIndex = AddRow(parametersGrid);
+            var rowIndex = AddRow(parametersGrid);
 
             var textBlock = new TextBlock
             {
@@ -43,13 +44,34 @@ namespace NoeticTools.Dashboard.Framework.Config.Parameters
             }
         }
 
+        public void Save(Panel parametersPanel)
+        {
+            var name = $"Param_{Name}";
+            if (DefaultValue is bool)
+            {
+                var checkbox =
+                    (CheckBox)
+                        parametersPanel.Children.Cast<FrameworkElement>()
+                            .Single(x => x.Name.Equals(name));
+                _tileConfiguration.SetParameter(Name, checkbox.IsChecked);
+            }
+            else
+            {
+                var textBox =
+                    (TextBox)
+                        parametersPanel.Children.Cast<FrameworkElement>()
+                            .Single(x => x.Name.Equals(name));
+                _tileConfiguration.SetParameterValue(this, textBox.Text);
+            }
+        }
+
         private void AddCheckBox(Grid parametersGrid, TileConfiguration tileConfiguration, int rowIndex)
         {
-            var checkBox = new CheckBox()
+            var checkBox = new CheckBox
             {
                 IsChecked = tileConfiguration.GetBool(Name),
                 Margin = new Thickness(5, 5, 5, 5),
-                Name = string.Format("Param_{0}", Name),
+                Name = $"Param_{Name}"
             };
             Grid.SetRow(checkBox, rowIndex);
             Grid.SetColumn(checkBox, 1);
@@ -64,32 +86,11 @@ namespace NoeticTools.Dashboard.Framework.Config.Parameters
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 Margin = new Thickness(5, 5, 5, 5),
                 FontSize = 12.0,
-                Name = string.Format("Param_{0}", Name),
+                Name = $"Param_{Name}"
             };
             Grid.SetRow(textBox, rowIndex);
             Grid.SetColumn(textBox, 1);
             parametersGrid.Children.Add(textBox);
-        }
-
-        public void Save(Panel parametersPanel)
-        {
-            var name = string.Format("Param_{0}", Name);
-            if (DefaultValue is bool)
-            {
-                var checkbox =
-                    (CheckBox)
-                        parametersPanel.Children.Cast<FrameworkElement>()
-                            .Single<FrameworkElement>(x => x.Name.Equals(name));
-                _tileConfiguration.SetParameter(Name, checkbox.IsChecked);
-            }
-            else
-            {
-                var textBox =
-                    (TextBox)
-                        parametersPanel.Children.Cast<FrameworkElement>()
-                            .Single<FrameworkElement>(x => x.Name.Equals(name));
-                _tileConfiguration.SetParameterValue(this, textBox.Text);
-            }
         }
     }
 }

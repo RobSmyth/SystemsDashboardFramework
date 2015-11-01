@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using NoeticTools.Dashboard.Framework.Config.Commands;
-using NoeticTools.Dashboard.Framework.Config.Parameters;
 using NoeticTools.Dashboard.Framework.Config.Views;
 using NoeticTools.Dashboard.Framework.Tiles;
+
 
 namespace NoeticTools.Dashboard.Framework.Config.ViewModels
 {
@@ -16,7 +15,8 @@ namespace NoeticTools.Dashboard.Framework.Config.ViewModels
         private readonly string _title;
         private TileConfigurationControl _view;
 
-        public TileConfigationViewModel(string title, TileConfiguration tileConfiguration, IConfigurationView[] parameters)
+        public TileConfigationViewModel(string title, TileConfiguration tileConfiguration,
+            IConfigurationView[] parameters)
         {
             _title = title;
             _tileConfiguration = tileConfiguration;

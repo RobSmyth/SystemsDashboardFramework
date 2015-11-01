@@ -5,12 +5,13 @@ using NoeticTools.Dashboard.Framework.Config;
 using NoeticTools.Dashboard.Framework.DataSources.TeamCity;
 using NoeticTools.Dashboard.Framework.Tiles.Date;
 using NoeticTools.Dashboard.Framework.Tiles.DaysLeftCountDown;
+using NoeticTools.Dashboard.Framework.Tiles.Message;
 using NoeticTools.Dashboard.Framework.Tiles.ServerStatus;
 using NoeticTools.Dashboard.Framework.Tiles.TeamCityAvailableBuilds;
 using NoeticTools.Dashboard.Framework.Tiles.TeamCityLastBuildStatus;
 using NoeticTools.Dashboard.Framework.Tiles.WebPage;
 using NoeticTools.Dashboard.Framework.Time;
-using NoeticTools.TeamDashboard.Tiles.Message;
+
 
 namespace NoeticTools.Dashboard.Framework.Tiles
 {
@@ -22,7 +23,8 @@ namespace NoeticTools.Dashboard.Framework.Tiles
         private readonly IDashboardController _dashboardController;
         private readonly IList<ITileViewModel> _tileViewModels = new List<ITileViewModel>();
 
-        public TileRegistry(TeamCityService teamCityService, IClock clock, ITimerService timerService, IDashboardController dashboardController)
+        public TileRegistry(TeamCityService teamCityService, IClock clock, ITimerService timerService,
+            IDashboardController dashboardController)
         {
             _teamCityService = teamCityService;
             _clock = clock;
@@ -47,7 +49,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles
                 {MessageTileViewModel.TileTypeId, CreateMessageTile},
                 {"0FFACE9A-8B68-4DBC-8B42-0255F51368B3".ToLower(), CreateMessageTile},
                 {WebPageTileViewModel.TileTypeId, CreateWebPageTile},
-                {"92CE0D61-4748-4427-8EB7-DC8B8B741C15".ToLower(), CreateWebPageTile},
+                {"92CE0D61-4748-4427-8EB7-DC8B8B741C15".ToLower(), CreateWebPageTile}
             };
 
             var tileViewModel = factoryLookup[tileConfiguration.TypeId](tileConfiguration);
@@ -74,13 +76,15 @@ namespace NoeticTools.Dashboard.Framework.Tiles
         private ITileViewModel CreateTeamCityLastBuildTile(DashboardTileConfiguration tileConfiguration)
         {
             tileConfiguration.TypeId = TeamCityLastBuildStatusTileViewModel.TileTypeId;
-            return new TeamCityLastBuildStatusTileViewModel(_teamCityService, tileConfiguration, _timerService, _dashboardController);
+            return new TeamCityLastBuildStatusTileViewModel(_teamCityService, tileConfiguration, _timerService,
+                _dashboardController);
         }
 
         private ITileViewModel CreateTeamCityAvailableBuildsTile(DashboardTileConfiguration tileConfiguration)
         {
             tileConfiguration.TypeId = TeamCityAvailableBuildsViewModel.TileTypeId;
-            return new TeamCityAvailableBuildsViewModel(_teamCityService, tileConfiguration, _timerService, _dashboardController);
+            return new TeamCityAvailableBuildsViewModel(_teamCityService, tileConfiguration, _timerService,
+                _dashboardController);
         }
 
         private ITileViewModel CreateServerStatusTile(DashboardTileConfiguration tileConfiguration)

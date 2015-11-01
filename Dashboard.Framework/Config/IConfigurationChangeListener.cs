@@ -1,4 +1,4 @@
-namespace Dashboard.Config
+namespace NoeticTools.Dashboard.Framework.Config
 {
     public interface IConfigurationChangeListener
     {

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Xml.Serialization;
 
+
 namespace NoeticTools.Dashboard.Framework.Config
 {
     public class DashboardConfigurationManager
@@ -51,13 +52,24 @@ namespace NoeticTools.Dashboard.Framework.Config
             return configuration;
         }
 
+        public void Save(DashboardConfigurations configuration)
+        {
+            var configPath = GetFilePath();
+            var serializer = new XmlSerializer(typeof (DashboardConfigurations));
+            using (var writer = new FileStream(configPath, FileMode.Create))
+            {
+                serializer.Serialize(writer, configuration);
+                writer.Close();
+            }
+        }
+
         private void SaveDefaultConfiguration(string configPath)
         {
             var assembly = Assembly.GetExecutingAssembly();
             var resourceName = "NoeticTools.Dashboard.Framework.dashboard.config.default.xml";
 
-            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
-            using (StreamReader reader = new StreamReader(stream))
+            using (var stream = assembly.GetManifestResourceStream(resourceName))
+            using (var reader = new StreamReader(stream))
             {
                 var defaultContent = reader.ReadToEnd();
                 using (var output = File.CreateText(configPath))
@@ -69,24 +81,13 @@ namespace NoeticTools.Dashboard.Framework.Config
 
         private string GetFilePath()
         {
-            string configFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+            var configFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
                 @"Dashboard");
             if (!Directory.Exists(configFolder))
             {
                 Directory.CreateDirectory(configFolder);
             }
             return Path.Combine(configFolder, @"dashboard.config.xml");
-        }
-
-        public void Save(DashboardConfigurations configuration)
-        {
-            string configPath = GetFilePath();
-            var serializer = new XmlSerializer(typeof (DashboardConfigurations));
-            using (var writer = new FileStream(configPath, FileMode.Create))
-            {
-                serializer.Serialize(writer, configuration);
-                writer.Close();
-            }
         }
 
         private DashboardConfigurations CreateDefaultConfig()

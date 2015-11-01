@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using Atlassian.Jira;
 
+
 namespace NoeticTools.Dashboard.Framework.DataSources.Jira
 {
     public class JiraChannel : IJiraChannel
     {
-        private Atlassian.Jira.Jira _jira;
         private readonly IJiraChannel _currentState;
+        private Atlassian.Jira.Jira _jira;
 
         public JiraChannel(RunOptions runOption)
         {

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
-using NoeticTools.Dashboard.Framework.Config;
 
-namespace Dashboard.Config
+
+namespace NoeticTools.Dashboard.Framework.Config
 {
     [XmlType("service")]
     public class DashboardServiceConfiguration
@@ -29,7 +29,7 @@ namespace Dashboard.Config
 
         public DashboardConfigValuePair Parameter(string name, string defaultValue)
         {
-            DashboardConfigValuePair pair =
+            var pair =
                 Values.SingleOrDefault(x => x.Key.Equals(name, StringComparison.InvariantCultureIgnoreCase));
             if (pair == null)
             {

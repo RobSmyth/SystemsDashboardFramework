@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 
+
 namespace NoeticTools.Dashboard.Framework
 {
     public class DashboardTileNavigator : IDashboardTileNavigator

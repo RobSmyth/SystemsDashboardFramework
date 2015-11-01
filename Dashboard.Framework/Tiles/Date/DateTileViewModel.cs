@@ -4,13 +4,14 @@ using System.Windows.Input;
 using NoeticTools.Dashboard.Framework.Config.Commands;
 using NoeticTools.Dashboard.Framework.Time;
 
+
 namespace NoeticTools.Dashboard.Framework.Tiles.Date
 {
     internal class DateTileViewModel : ITileViewModel, ITimerListener
     {
+        public const string TileTypeId = "Date.Now";
         private readonly ITimerService _timerService;
         private readonly IClock _clock;
-        public const string TileTypeId = "Date.Now";
         private DateTileControl _view;
 
         public DateTileViewModel(ITimerService timerService, IClock clock)
@@ -20,6 +21,8 @@ namespace NoeticTools.Dashboard.Framework.Tiles.Date
             ConfigureCommand = new NullCommand();
         }
 
+        public ICommand ConfigureCommand { get; }
+
         public FrameworkElement CreateView()
         {
             _view = new DateTileControl();
@@ -27,8 +30,6 @@ namespace NoeticTools.Dashboard.Framework.Tiles.Date
             _timerService.QueueCallback(TimeSpan.FromMilliseconds(100), this);
             return _view;
         }
-
-        public ICommand ConfigureCommand { get; }
 
         public void OnConfigurationChanged()
         {

@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using NoeticTools.Dashboard.Framework.Config.Commands;
 
+
 namespace NoeticTools.Dashboard.Framework.Tiles.Help
 {
     public class HelpTileViewModel : ITileViewModel
@@ -14,16 +15,20 @@ namespace NoeticTools.Dashboard.Framework.Tiles.Help
             ConfigureCommand = new NullCommand();
         }
 
+        public ICommand ConfigureCommand { get; }
+
+        public ICommand SaveCommand { get; }
+
         public FrameworkElement CreateView()
         {
-            _view = new HelpTileControl { DataContext = this};
+            _view = new HelpTileControl {DataContext = this};
             UpdateView();
             return _view;
         }
 
-        public ICommand ConfigureCommand { get; }
-
-        public ICommand SaveCommand { get; }
+        public void OnConfigurationChanged()
+        {
+        }
 
         private void UpdateView()
         {
@@ -45,10 +50,6 @@ LEFT,RIGT,UP,DOWN - Select tile.
 
 Click on a tile to configure the tile.
 ";
-        }
-
-        public void OnConfigurationChanged()
-        {
         }
     }
 }

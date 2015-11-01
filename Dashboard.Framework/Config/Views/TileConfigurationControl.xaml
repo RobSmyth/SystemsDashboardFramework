@@ -22,8 +22,6 @@
     <Grid Height="Auto">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
@@ -39,16 +37,18 @@
             <TextBlock Name="Title" Grid.Column="0" FontSize="12" FontWeight="Bold" Margin="5"/>
             <Button x:Name="CloseButton" Grid.Column="1" Margin="5" Width="20 " Command="{Binding CloseCommand}" BorderThickness="0" Background="WhiteSmoke">X</Button>
         </Grid>
-        
-        <Grid Name="ParametersGrid" Grid.Row="2" Grid.Column="0" Height="Auto" Margin="5,10,5,5">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" MinWidth="50" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-        </Grid>
+
+        <ScrollViewer Grid.Row="1" Grid.Column="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <Grid Name="ParametersGrid" Height="Auto" Margin="5,10,5,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" MinWidth="50" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+            </Grid>
+        </ScrollViewer>
 
         <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom"
-                    Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right"
+                    Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right"
                     Margin="10" Height="Auto">
             <Button Name="OkButton" Margin="5" Padding="5" Command="{Binding SaveCommand}">Apply</Button>
         </StackPanel>

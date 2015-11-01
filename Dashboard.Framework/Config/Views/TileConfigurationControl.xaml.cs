@@ -1,5 +1,5 @@
-﻿using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
+
 
 namespace NoeticTools.Dashboard.Framework.Config.Views
 {

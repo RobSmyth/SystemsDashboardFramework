@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Atlassian.Jira;
 
+
 namespace NoeticTools.Dashboard.Framework.DataSources.Jira
 {
     public interface IJiraChannel

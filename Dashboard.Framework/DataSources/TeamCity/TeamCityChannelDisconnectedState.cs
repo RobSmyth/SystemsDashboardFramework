@@ -3,6 +3,7 @@ using Dashboard.Services.TeamCity;
 using TeamCitySharp;
 using TeamCitySharp.DomainEntities;
 
+
 namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
 {
     internal class TeamCityChannelDisconnectedState : ITeamCityChannel

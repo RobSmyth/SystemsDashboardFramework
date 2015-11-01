@@ -1,66 +1,27 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Media;
 using NoeticTools.Dashboard.Framework.Config;
+
 
 namespace NoeticTools.Dashboard.Framework.Tiles
 {
     public class TileLayoutController : ITileLayoutController
     {
-        private readonly ITileRegistry _tileRegistry;
-        private readonly ITileLayoutControllerRegistry _tileLayoutControllerRegistry;
-        private readonly Thickness _normalMargin;
         private readonly Thickness _highlightedMargin = new Thickness(10);
+        private readonly Thickness _normalMargin;
         private readonly Grid _tileGrid;
+        private readonly ITileLayoutControllerRegistry _tileLayoutControllerRegistry;
+        private readonly ITileRegistry _tileRegistry;
 
-        public TileLayoutController(Grid tileGrid, ITileRegistry tileRegistry, ITileLayoutControllerRegistry tileLayoutControllerRegistry, Thickness normalMargin)
+        public TileLayoutController(Grid tileGrid, ITileRegistry tileRegistry,
+            ITileLayoutControllerRegistry tileLayoutControllerRegistry, Thickness normalMargin)
         {
             _tileRegistry = tileRegistry;
             _tileLayoutControllerRegistry = tileLayoutControllerRegistry;
             _normalMargin = normalMargin;
             _tileGrid = tileGrid;
             _tileGrid.Margin = _normalMargin;
-        }
-
-        private TileLayoutController AddTile(DashboardTileConfiguration tileConfiguration, ITileViewModel viewModel)
-        {
-            var panel = AddPlaceholderPanel(tileConfiguration.RowNumber, tileConfiguration.ColumnNumber, tileConfiguration.RowSpan, tileConfiguration.ColumnSpan);
-            panel.Margin = new Thickness(2);
-            var view = viewModel.CreateView();
-            panel.Children.Add(view);
-            return this;
-        }
-
-        private ITileLayoutController AddPanel(DashboardTileConfiguration tileConfiguration)
-        {
-            var panel = AddPlaceholderPanel(tileConfiguration.RowNumber, tileConfiguration.ColumnNumber, tileConfiguration.RowSpan, tileConfiguration.ColumnSpan);
-            var layout = _tileLayoutControllerRegistry.GetNew(panel);
-            return layout;
-        }
-
-        private Grid AddPlaceholderPanel(int rowNumber, int columnNumber, int rowSpan, int columnSpan)
-        {
-            while (rowNumber + rowSpan - 1 > _tileGrid.RowDefinitions.Count)
-            {
-                _tileGrid.RowDefinitions.Add(new RowDefinition());
-            }
-
-            while (columnNumber + columnSpan - 1 > _tileGrid.ColumnDefinitions.Count)
-            {
-                _tileGrid.ColumnDefinitions.Add(new ColumnDefinition());
-            }
-
-            var panel = new Grid {Margin = new Thickness(0)};
-
-            Grid.SetRow(panel, rowNumber - 1);
-            Grid.SetColumn(panel, columnNumber - 1);
-            Grid.SetRowSpan(panel, rowSpan);
-            Grid.SetColumnSpan(panel, columnSpan);
-
-            _tileGrid.Children.Add(panel);
-            return panel;
         }
 
         public void AddTile(DashboardTileConfiguration tileConfiguration)
@@ -97,12 +58,54 @@ namespace NoeticTools.Dashboard.Framework.Tiles
         {
             if (_tileGrid.Margin == _normalMargin)
             {
-                _tileGrid.Margin = _highlightedMargin; // todo - adorner ... perhaps show model of panels with # and list of settings?
+                _tileGrid.Margin = _highlightedMargin;
+                // todo - adorner ... perhaps show model of panels with # and list of settings?
             }
             else
             {
                 _tileGrid.Margin = _normalMargin;
             }
+        }
+
+        private TileLayoutController AddTile(DashboardTileConfiguration tileConfiguration, ITileViewModel viewModel)
+        {
+            var panel = AddPlaceholderPanel(tileConfiguration.RowNumber, tileConfiguration.ColumnNumber,
+                tileConfiguration.RowSpan, tileConfiguration.ColumnSpan);
+            panel.Margin = new Thickness(2);
+            var view = viewModel.CreateView();
+            panel.Children.Add(view);
+            return this;
+        }
+
+        private ITileLayoutController AddPanel(DashboardTileConfiguration tileConfiguration)
+        {
+            var panel = AddPlaceholderPanel(tileConfiguration.RowNumber, tileConfiguration.ColumnNumber,
+                tileConfiguration.RowSpan, tileConfiguration.ColumnSpan);
+            var layout = _tileLayoutControllerRegistry.GetNew(panel);
+            return layout;
+        }
+
+        private Grid AddPlaceholderPanel(int rowNumber, int columnNumber, int rowSpan, int columnSpan)
+        {
+            while (rowNumber + rowSpan - 1 > _tileGrid.RowDefinitions.Count)
+            {
+                _tileGrid.RowDefinitions.Add(new RowDefinition());
+            }
+
+            while (columnNumber + columnSpan - 1 > _tileGrid.ColumnDefinitions.Count)
+            {
+                _tileGrid.ColumnDefinitions.Add(new ColumnDefinition());
+            }
+
+            var panel = new Grid {Margin = new Thickness(0)};
+
+            Grid.SetRow(panel, rowNumber - 1);
+            Grid.SetColumn(panel, columnNumber - 1);
+            Grid.SetRowSpan(panel, rowSpan);
+            Grid.SetColumnSpan(panel, columnSpan);
+
+            _tileGrid.Children.Add(panel);
+            return panel;
         }
     }
 }

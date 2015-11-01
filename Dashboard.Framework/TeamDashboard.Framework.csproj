@@ -67,8 +67,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Config\Commands\SaveConfigurationParametersCommand.cs" />
-    <Compile Include="Config\Commands\CloseCommand.cs" />
+    <Compile Include="Commands\SaveConfigurationParametersCommand.cs" />
+    <Compile Include="Commands\CloseCommand.cs" />
     <Compile Include="DashboardController.cs" />
     <Compile Include="DashBoardLoader.cs" />
     <Compile Include="DashBoardLoaderConduit.cs" />
@@ -121,8 +121,8 @@
     </Compile>
     <Compile Include="Tiles\WebPage\WebPageTileViewModel.cs" />
     <Compile Include="Time\Clock.cs" />
-    <Compile Include="Config\Commands\NullCommand.cs" />
-    <Compile Include="Config\Commands\TileConfigureCommand.cs" />
+    <Compile Include="Commands\NullCommand.cs" />
+    <Compile Include="Commands\TileConfigureCommand.cs" />
     <Compile Include="Config\DashboardConfiguration.cs" />
     <Compile Include="Config\DashboardConfigurationManager.cs" />
     <Compile Include="Config\DashboardConfigurations.cs" />
@@ -136,7 +136,7 @@
     <Compile Include="Config\Parameters\ConfigurationHyperlink.cs" />
     <Compile Include="Config\Parameters\ConfigurationParameter.cs" />
     <Compile Include="Config\Parameters\IConfigurationParameter.cs" />
-    <Compile Include="Config\Parameters\IConfigurationView.cs" />
+    <Compile Include="Config\IConfigurationView.cs" />
     <Compile Include="Config\TileConfiguration.cs" />
     <Compile Include="Config\ViewModels\TileConfigurationViewModel.cs" />
     <Compile Include="Config\Views\TileConfigurationControl.xaml.cs">

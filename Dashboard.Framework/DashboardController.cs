@@ -6,6 +6,7 @@ using NoeticTools.Dashboard.Framework.Tiles.Dashboards;
 using NoeticTools.Dashboard.Framework.Tiles.Help;
 using NoeticTools.Dashboard.Framework.Time;
 
+
 namespace NoeticTools.Dashboard.Framework
 {
     public class DashboardController : IDashboardController
@@ -16,7 +17,8 @@ namespace NoeticTools.Dashboard.Framework
         private readonly ITimerService _timerService;
         private readonly DockPanel _sidePanel;
 
-        public DashboardController(DashboardConfigurationManager configurationManager, ITimerService timerService, DockPanel sidePanel, DashboardConfigurations config, IDashboardNavigator dashboardNavigator)
+        public DashboardController(DashboardConfigurationManager configurationManager, ITimerService timerService,
+            DockPanel sidePanel, DashboardConfigurations config, IDashboardNavigator dashboardNavigator)
         {
             _configurationManager = configurationManager;
             _timerService = timerService;
@@ -27,11 +29,6 @@ namespace NoeticTools.Dashboard.Framework
 
         public void Start()
         {
-        }
-
-        private void Save()
-        {
-            _configurationManager.Save(_config);
         }
 
         public void Stop()
@@ -63,6 +60,16 @@ namespace NoeticTools.Dashboard.Framework
             view.IsVisibleChanged += View_IsVisibleChanged;
         }
 
+        public void Refresh()
+        {
+            _timerService.FireAll();
+        }
+
+        private void Save()
+        {
+            _configurationManager.Save(_config);
+        }
+
         private void View_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             var view = (UIElement) sender;
@@ -78,11 +85,6 @@ namespace NoeticTools.Dashboard.Framework
                     _sidePanel.Visibility = Visibility.Collapsed;
                 }
             }
-        }
-
-        public void Refresh()
-        {
-            _timerService.FireAll();
         }
     }
 }

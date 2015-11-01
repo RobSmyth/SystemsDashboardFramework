@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
-using NoeticTools.Dashboard.Framework.Config.Parameters;
 using NoeticTools.Dashboard.Framework.Config.ViewModels;
+
 
 namespace NoeticTools.Dashboard.Framework.Config.Commands
 {
@@ -13,7 +13,8 @@ namespace NoeticTools.Dashboard.Framework.Config.Commands
         private readonly string _title;
         private bool _canExecute = true;
 
-        public TileConfigureCommand(string title, TileConfiguration tileConfiguration, IConfigurationView[] parameters, IDashboardController dashboardController)
+        public TileConfigureCommand(string title, TileConfiguration tileConfiguration, IConfigurationView[] parameters,
+            IDashboardController dashboardController)
         {
             _title = title;
             _tileConfiguration = tileConfiguration;

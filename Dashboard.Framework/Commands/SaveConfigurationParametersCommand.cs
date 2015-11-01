@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Controls;
 using System.Windows.Input;
-using NoeticTools.Dashboard.Framework.Config.Parameters;
+
 
 namespace NoeticTools.Dashboard.Framework.Config.Commands
 {

@@ -5,6 +5,7 @@ using NoeticTools.Dashboard.Framework.Config;
 using NoeticTools.Dashboard.Framework.Config.Commands;
 using NoeticTools.Dashboard.Framework.Config.Parameters;
 
+
 namespace NoeticTools.Dashboard.Framework.Tiles.WebPage
 {
     internal class WebPageTileViewModel : ITileViewModel
@@ -14,7 +15,8 @@ namespace NoeticTools.Dashboard.Framework.Tiles.WebPage
         private readonly TileConfiguration _tileConfiguration;
         private WebPageTileControl _view;
 
-        public WebPageTileViewModel(DashboardTileConfiguration tileConfiguration, IDashboardController dashboardController)
+        public WebPageTileViewModel(DashboardTileConfiguration tileConfiguration,
+            IDashboardController dashboardController)
         {
             _dashboardController = dashboardController;
             _tileConfiguration = new TileConfiguration(tileConfiguration, this);
@@ -28,7 +30,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles.WebPage
             {
                 new ConfigurationParameter("Url", "http://www.google.com", _tileConfiguration)
             },
-            _dashboardController);
+                _dashboardController);
             _view = new WebPageTileControl {DataContext = this};
 
             UpdateView();

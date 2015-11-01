@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
+
 namespace NoeticTools.TeamDashboard.Converters
 {
     internal class DoubleValueConverter : IValueConverter
@@ -10,7 +11,7 @@ namespace NoeticTools.TeamDashboard.Converters
             object parameter, CultureInfo culture)
         {
             var dblValue = (double) value;
-            double scale = Double.Parse(((string) parameter), CultureInfo.InvariantCulture.NumberFormat);
+            var scale = double.Parse(((string) parameter), CultureInfo.InvariantCulture.NumberFormat);
             return dblValue*scale;
         }
 

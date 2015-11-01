@@ -3,6 +3,7 @@ using Dashboard.Services.TeamCity;
 using TeamCitySharp;
 using TeamCitySharp.DomainEntities;
 
+
 namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
 {
     public class TeamCityService : ITeamCityChannel, IStateEngine<ITeamCityChannel>
@@ -19,18 +20,6 @@ namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
             _disconnectedState = new TeamCityChannelDisconnectedState(client, this, _configuration);
             _connectedState = new TeamCityChannelConnectedState(client, this);
             _current = runOptions.EmulateMode ? new TeamCityChannelEmulatedState(client, this) : _disconnectedState;
-        }
-
-        ITeamCityChannel IStateEngine<ITeamCityChannel>.Current => _current;
-
-        void IStateEngine<ITeamCityChannel>.OnConnected()
-        {
-            _current = _connectedState;
-        }
-
-        void IStateEngine<ITeamCityChannel>.OnDisconnected()
-        {
-            _current = _disconnectedState;
         }
 
         public void Connect()
@@ -73,6 +62,18 @@ namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
             var view = new TeamCityConfigurationView();
             var viewModel = new TeamCityConfigurationViewModel(_configuration, view);
             viewModel.Show();
+        }
+
+        ITeamCityChannel IStateEngine<ITeamCityChannel>.Current => _current;
+
+        void IStateEngine<ITeamCityChannel>.OnConnected()
+        {
+            _current = _connectedState;
+        }
+
+        void IStateEngine<ITeamCityChannel>.OnDisconnected()
+        {
+            _current = _disconnectedState;
         }
     }
 }

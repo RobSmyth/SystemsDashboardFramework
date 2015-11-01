@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
+using NoeticTools.Dashboard.Framework.Config;
+
 
 namespace Dashboard.Config
 {
@@ -18,7 +20,7 @@ namespace Dashboard.Config
 
         public DashboardServiceConfiguration GetService(string serviceName)
         {
-            DashboardServiceConfiguration service =
+            var service =
                 Services.SingleOrDefault(x => x.Name.Equals(serviceName, StringComparison.InvariantCultureIgnoreCase));
             if (service != null)
             {

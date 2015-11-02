@@ -7,11 +7,11 @@ namespace NoeticTools.Dashboard.Framework.Config.Parameters
 {
     public class ConfigurationParameter : ConfigurationElementBase, IConfigurationParameter, IConfigurationView
     {
-        private readonly TileConfiguration _tileConfiguration;
+        private readonly TileConfigurationConverter _tileConfigurationConverter;
 
-        public ConfigurationParameter(string name, object defaultValue, TileConfiguration tileConfiguration)
+        public ConfigurationParameter(string name, object defaultValue, TileConfigurationConverter tileConfigurationConverter)
         {
-            _tileConfiguration = tileConfiguration;
+            _tileConfigurationConverter = tileConfigurationConverter;
             Name = name;
             DefaultValue = defaultValue;
         }
@@ -19,7 +19,7 @@ namespace NoeticTools.Dashboard.Framework.Config.Parameters
         public string Name { get; set; }
         public object DefaultValue { get; set; }
 
-        public void Show(Grid parametersGrid, TileConfiguration tileConfiguration)
+        public void Show(Grid parametersGrid, TileConfigurationConverter tileConfigurationConverter)
         {
             var rowIndex = AddRow(parametersGrid);
 
@@ -36,11 +36,11 @@ namespace NoeticTools.Dashboard.Framework.Config.Parameters
 
             if (DefaultValue is bool)
             {
-                AddCheckBox(parametersGrid, tileConfiguration, rowIndex);
+                AddCheckBox(parametersGrid, tileConfigurationConverter, rowIndex);
             }
             else
             {
-                AddTextBox(parametersGrid, tileConfiguration, rowIndex);
+                AddTextBox(parametersGrid, tileConfigurationConverter, rowIndex);
             }
         }
 
@@ -53,7 +53,7 @@ namespace NoeticTools.Dashboard.Framework.Config.Parameters
                     (CheckBox)
                         parametersPanel.Children.Cast<FrameworkElement>()
                             .Single(x => x.Name.Equals(name));
-                _tileConfiguration.SetParameter(Name, checkbox.IsChecked);
+                _tileConfigurationConverter.SetParameter(Name, checkbox.IsChecked);
             }
             else
             {
@@ -61,15 +61,15 @@ namespace NoeticTools.Dashboard.Framework.Config.Parameters
                     (TextBox)
                         parametersPanel.Children.Cast<FrameworkElement>()
                             .Single(x => x.Name.Equals(name));
-                _tileConfiguration.SetParameterValue(this, textBox.Text);
+                _tileConfigurationConverter.SetParameterValue(this, textBox.Text);
             }
         }
 
-        private void AddCheckBox(Grid parametersGrid, TileConfiguration tileConfiguration, int rowIndex)
+        private void AddCheckBox(Grid parametersGrid, TileConfigurationConverter tileConfigurationConverter, int rowIndex)
         {
             var checkBox = new CheckBox
             {
-                IsChecked = tileConfiguration.GetBool(Name),
+                IsChecked = tileConfigurationConverter.GetBool(Name),
                 Margin = new Thickness(5, 5, 5, 5),
                 Name = $"Param_{Name}"
             };
@@ -78,11 +78,11 @@ namespace NoeticTools.Dashboard.Framework.Config.Parameters
             parametersGrid.Children.Add(checkBox);
         }
 
-        private void AddTextBox(Grid parametersGrid, TileConfiguration tileConfiguration, int rowIndex)
+        private void AddTextBox(Grid parametersGrid, TileConfigurationConverter tileConfigurationConverter, int rowIndex)
         {
             var textBox = new TextBox
             {
-                Text = tileConfiguration.GetParameterValueText(this),
+                Text = tileConfigurationConverter.GetParameterValueText(this),
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 Margin = new Thickness(5, 5, 5, 5),
                 FontSize = 12.0,

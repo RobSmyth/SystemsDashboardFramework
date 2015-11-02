@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="NoeticTools.Dashboard.Framework.Config.Views.TileConfigurationControl"
+﻿<UserControl x:Class="NoeticTools.Dashboard.Framework.Config.Views.PaneWithTitleBarControl"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -19,7 +19,7 @@
 
     </UserControl.Resources>
 
-    <Grid Height="Auto">
+    <Grid Height="Auto" VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -34,17 +34,12 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <TextBlock Name="Title" Grid.Column="0" FontSize="12" FontWeight="Bold" Margin="5"/>
+            <TextBlock Name="Title" Grid.Column="0" FontSize="12" FontWeight="Bold" Margin="5" Text="{Binding Title}"/>
             <Button x:Name="CloseButton" Grid.Column="1" Margin="5" Width="20 " Command="{Binding CloseCommand}" BorderThickness="0" Background="WhiteSmoke">X</Button>
         </Grid>
 
         <ScrollViewer Grid.Row="1" Grid.Column="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-            <Grid Name="ParametersGrid" Height="Auto" Margin="5,10,5,5">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" MinWidth="50" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-            </Grid>
+            <Grid Name="PlaceholderGrid" Height="Auto" Margin="5,10,5,5"/>
         </ScrollViewer>
 
         <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom"

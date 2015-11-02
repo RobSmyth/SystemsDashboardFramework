@@ -16,8 +16,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles
         private readonly ITileLayoutControllerRegistry _tileLayoutControllerRegistry;
         private readonly ITileRegistry _tileRegistry;
 
-        public TileLayoutController(Grid tileGrid, ITileRegistry tileRegistry,
-            ITileLayoutControllerRegistry tileLayoutControllerRegistry, Thickness normalMargin)
+        public TileLayoutController(Grid tileGrid, ITileRegistry tileRegistry, ITileLayoutControllerRegistry tileLayoutControllerRegistry, Thickness normalMargin)
         {
             _tileRegistry = tileRegistry;
             _tileLayoutControllerRegistry = tileLayoutControllerRegistry;
@@ -26,15 +25,14 @@ namespace NoeticTools.Dashboard.Framework.Tiles
             _tileGrid.Margin = _normalMargin;
         }
 
-        public void AddTile(DashboardTileConfiguration tileConfiguration)
+        public void AddTile(TileConfiguration tileConfiguration)
         {
             ITileLayoutController layoutController = null;
 
-            if (tileConfiguration.TypeId == DashboardTileConfiguration.BlankTileTypeId ||
-                tileConfiguration.TypeId.Equals("6f1bf918-6080-42c2-b980-d562f77cb4e6",
-                    StringComparison.InvariantCultureIgnoreCase))
+            if (tileConfiguration.TypeId == TileConfiguration.BlankTileTypeId || tileConfiguration.TypeId.Equals("6f1bf918-6080-42c2-b980-d562f77cb4e6",
+                StringComparison.InvariantCultureIgnoreCase))
             {
-                tileConfiguration.TypeId = DashboardTileConfiguration.BlankTileTypeId;
+                tileConfiguration.TypeId = TileConfiguration.BlankTileTypeId;
                 layoutController = AddPanel(tileConfiguration);
             }
             else
@@ -56,7 +54,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles
             _tileRegistry.Clear();
         }
 
-        public void ToggleDisplayMode()
+        public void ToggleShowGroupPanelDetailsMode()
         {
             if (_tileGrid.Margin == _normalMargin)
             {
@@ -75,17 +73,17 @@ namespace NoeticTools.Dashboard.Framework.Tiles
             }
         }
 
-        private TileLayoutController AddTile(DashboardTileConfiguration tileConfiguration, ITileViewModel viewModel)
+        private TileLayoutController AddTile(TileConfiguration tileConfiguration, IViewController viewController)
         {
             var panel = AddPlaceholderPanel(tileConfiguration.RowNumber, tileConfiguration.ColumnNumber,
                 tileConfiguration.RowSpan, tileConfiguration.ColumnSpan);
             panel.Margin = new Thickness(2);
-            var view = viewModel.CreateView();
+            var view = viewController.CreateView();
             panel.Children.Add(view);
             return this;
         }
 
-        private ITileLayoutController AddPanel(DashboardTileConfiguration tileConfiguration)
+        private ITileLayoutController AddPanel(TileConfiguration tileConfiguration)
         {
             var panel = AddPlaceholderPanel(tileConfiguration.RowNumber, tileConfiguration.ColumnNumber,
                 tileConfiguration.RowSpan, tileConfiguration.ColumnSpan);

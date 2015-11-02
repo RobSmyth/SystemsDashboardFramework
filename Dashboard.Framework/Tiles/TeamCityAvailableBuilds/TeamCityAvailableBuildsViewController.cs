@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using NoeticTools.Dashboard.Framework.Commands;
 using NoeticTools.Dashboard.Framework.Config;
 using NoeticTools.Dashboard.Framework.Config.Commands;
 using NoeticTools.Dashboard.Framework.Config.Parameters;
@@ -14,7 +15,7 @@ using NoeticTools.Dashboard.Framework.Time;
 
 namespace NoeticTools.Dashboard.Framework.Tiles.TeamCityAvailableBuilds
 {
-    internal class TeamCityAvailableBuildsViewModel : ITileViewModel, ITimerListener
+    internal class TeamCityAvailableBuildsViewController : IViewController, ITimerListener
     {
         public class BuildDetails
         {
@@ -30,7 +31,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles.TeamCityAvailableBuilds
         private readonly ITimerService _timerService;
         private readonly IDashboardController _dashboardController;
         private readonly TimeSpan _tickPeriod = TimeSpan.FromSeconds(15);
-        private readonly TileConfiguration _tileConfiguration;
+        private readonly TileConfigurationConverter _tileConfigurationConverter;
         private TeamCityAvailableBuildsListControl _view;
 
         private static string CleanupVersion(string version)
@@ -43,13 +44,13 @@ namespace NoeticTools.Dashboard.Framework.Tiles.TeamCityAvailableBuilds
             return version.Substring(0, length);
         }
 
-        public TeamCityAvailableBuildsViewModel(TeamCityService service, DashboardTileConfiguration tileConfiguration,
+        public TeamCityAvailableBuildsViewController(TeamCityService service, TileConfiguration tileConfiguration,
             ITimerService timerService, IDashboardController dashboardController)
         {
             _service = service;
             _timerService = timerService;
             _dashboardController = dashboardController;
-            _tileConfiguration = new TileConfiguration(tileConfiguration, this);
+            _tileConfigurationConverter = new TileConfigurationConverter(tileConfiguration, this);
             Builds = new ObservableCollection<BuildDetails>();
         }
 
@@ -60,19 +61,19 @@ namespace NoeticTools.Dashboard.Framework.Tiles.TeamCityAvailableBuilds
         {
             var parameters = new List<IConfigurationView>
             {
-                new ConfigurationParameter("Title", "EMPTY", _tileConfiguration)
+                new ConfigurationParameter("Title", "EMPTY", _tileConfigurationConverter)
             };
             for (var buildNumber = 1; buildNumber <= MaxNumberOfBuilds; buildNumber++)
             {
                 string diplayName = $"Display_name_{buildNumber}";
                 string project = $"Project_{buildNumber}";
                 string configuration = $"Configuration_{buildNumber}";
-                parameters.Add(new ConfigurationParameter(diplayName, "EMPTY", _tileConfiguration));
-                parameters.Add(new ConfigurationParameter(project, "EMPTY", _tileConfiguration));
-                parameters.Add(new ConfigurationParameter(configuration, "EMPTY", _tileConfiguration));
+                parameters.Add(new ConfigurationParameter(diplayName, "EMPTY", _tileConfigurationConverter));
+                parameters.Add(new ConfigurationParameter(project, "EMPTY", _tileConfigurationConverter));
+                parameters.Add(new ConfigurationParameter(configuration, "EMPTY", _tileConfigurationConverter));
             }
 
-            ConfigureCommand = new TileConfigureCommand("TeamCity Available Builds Tile", _tileConfiguration,
+            ConfigureCommand = new TileConfigureCommand("TeamCity Available Builds Tile", _tileConfigurationConverter,
                 parameters.ToArray(), _dashboardController);
 
             _service.Connect();
@@ -112,14 +113,14 @@ namespace NoeticTools.Dashboard.Framework.Tiles.TeamCityAvailableBuilds
                 _view.buildsList.ItemsSource = Builds;
             }
 
-            _view.projectName.Text = _tileConfiguration.GetString("Title");
+            _view.projectName.Text = _tileConfigurationConverter.GetString("Title");
             Builds.Clear();
 
             for (var buildNumber = 1; buildNumber <= MaxNumberOfBuilds; buildNumber++)
             {
-                var displayName = _tileConfiguration.GetString($"Display_name_{buildNumber}");
-                var projectName = _tileConfiguration.GetString($"Project_{buildNumber}");
-                var configurationName = _tileConfiguration.GetString($"Configuration_{buildNumber}");
+                var displayName = _tileConfigurationConverter.GetString($"Display_name_{buildNumber}");
+                var projectName = _tileConfigurationConverter.GetString($"Project_{buildNumber}");
+                var configurationName = _tileConfigurationConverter.GetString($"Configuration_{buildNumber}");
 
                 if (!string.IsNullOrWhiteSpace(displayName) &&
                     !displayName.Equals("EMPTY", StringComparison.InvariantCultureIgnoreCase))

@@ -10,8 +10,7 @@ namespace NoeticTools.Dashboard.Framework
         private readonly DashboardConfigurations _config;
         private readonly ITileLayoutControllerRegistry _layoutControllerRegistry;
 
-        public DashboardNavigator(IDashBoardLoader dashboardLoader, DashboardConfigurations config,
-            ITileLayoutControllerRegistry layoutControllerRegistry)
+        public DashboardNavigator(IDashBoardLoader dashboardLoader, DashboardConfigurations config, ITileLayoutControllerRegistry layoutControllerRegistry)
         {
             _dashboardLoader = dashboardLoader;
             _config = config;
@@ -26,11 +25,11 @@ namespace NoeticTools.Dashboard.Framework
             _dashboardLoader.Load(_config.Configurations[CurrentDashboardIndex]);
         }
 
-        public void ToggleShowPanesMode()
+        public void ToggleShowGroupPanelsDetailsMode()
         {
             foreach (var layoutController in _layoutControllerRegistry.GetAll())
             {
-                layoutController.ToggleDisplayMode();
+                layoutController.ToggleShowGroupPanelDetailsMode();
             }
         }
 

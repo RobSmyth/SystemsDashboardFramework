@@ -5,8 +5,8 @@ namespace NoeticTools.Dashboard.Framework.Tiles
 {
     public interface ITileRegistry
     {
-        ITileViewModel GetNew(DashboardTileConfiguration tileConfiguration);
+        IViewController GetNew(TileConfiguration tileConfiguration);
         void Clear();
-        ITileViewModel[] GetAll();
+        IViewController[] GetAll();
     }
 }

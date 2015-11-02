@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using NoeticTools.Dashboard.Framework.Commands;
 using NoeticTools.Dashboard.Framework.Config;
 using NoeticTools.Dashboard.Framework.Config.Commands;
 using NoeticTools.Dashboard.Framework.Config.Parameters;
@@ -12,7 +13,7 @@ using NoeticTools.Dashboard.Framework.Time;
 
 namespace NoeticTools.Dashboard.Framework.Tiles.TeamCityLastBuildStatus
 {
-    internal class TeamCityLastBuildStatusTileViewModel : ITileViewModel, ITimerListener
+    internal class TeamCityLastBuildStatusViewController : IViewController, ITimerListener
     {
         public const string TileTypeId = "TeamCity.Build.Status";
 
@@ -47,18 +48,16 @@ namespace NoeticTools.Dashboard.Framework.Tiles.TeamCityLastBuildStatus
             {"UNKNOWN", Brushes.White}
         };
 
-        private readonly TileConfiguration _tileConfiguration;
+        private readonly TileConfigurationConverter _tileConfigurationConverter;
         private readonly TimeSpan _updatePeriod = TimeSpan.FromSeconds(30);
         private readonly TimerToken _timerToken;
         private TeamCityBuildStatusTileControl _view;
 
-        public TeamCityLastBuildStatusTileViewModel(TeamCityService service,
-            DashboardTileConfiguration tileConfiguration, ITimerService timerService,
-            IDashboardController dashboardController)
+        public TeamCityLastBuildStatusViewController(TeamCityService service, TileConfiguration tileConfiguration, ITimerService timerService, IDashboardController dashboardController)
         {
             _service = service;
             _dashboardController = dashboardController;
-            _tileConfiguration = new TileConfiguration(tileConfiguration, this);
+            _tileConfigurationConverter = new TileConfigurationConverter(tileConfiguration, this);
             ConfigureServiceCommand = new TeamCityServiceConfigureCommand(service);
             _timerToken = timerService.QueueCallback(TimeSpan.FromDays(10000), this);
         }
@@ -67,12 +66,12 @@ namespace NoeticTools.Dashboard.Framework.Tiles.TeamCityLastBuildStatus
 
         public FrameworkElement CreateView()
         {
-            ConfigureCommand = new TileConfigureCommand("Last Build Status Configuration", _tileConfiguration,
+            ConfigureCommand = new TileConfigureCommand("Last Build Status Configuration", _tileConfigurationConverter,
                 new IConfigurationView[]
                 {
-                    new ConfigurationParameter("Project", "", _tileConfiguration),
-                    new ConfigurationParameter("Configuration", "", _tileConfiguration),
-                    new ConfigurationParameter("Description", "", _tileConfiguration),
+                    new ConfigurationParameter("Project", "", _tileConfigurationConverter),
+                    new ConfigurationParameter("Configuration", "", _tileConfigurationConverter),
+                    new ConfigurationParameter("Description", "", _tileConfigurationConverter),
                     new ConfigurationHyperlink("TeamCity service", ConfigureServiceCommand)
                 },
                 _dashboardController);
@@ -92,8 +91,8 @@ namespace NoeticTools.Dashboard.Framework.Tiles.TeamCityLastBuildStatus
 
         public void OnTimeElapsed(TimerToken token)
         {
-            var projectName = _tileConfiguration.GetString("Project");
-            var configurationName = _tileConfiguration.GetString("Configuration");
+            var projectName = _tileConfigurationConverter.GetString("Project");
+            var configurationName = _tileConfigurationConverter.GetString("Configuration");
 
             var build = _service.GetRunningBuild(projectName, configurationName);
             var running = build != null;
@@ -119,7 +118,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles.TeamCityLastBuildStatus
                 {
                     status = "UNKNOWN";
                 }
-                _view.statusText.Text = _tileConfiguration.GetString("Description");
+                _view.statusText.Text = _tileConfigurationConverter.GetString("Description");
                 _view.buildVer.Text = build.Number;
                 _view.headerText.Text = running ? "Running" : "";
             }

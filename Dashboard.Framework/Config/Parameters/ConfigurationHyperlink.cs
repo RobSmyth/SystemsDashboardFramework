@@ -17,7 +17,7 @@ namespace NoeticTools.Dashboard.Framework.Config.Parameters
             _command = command;
         }
 
-        public void Show(Grid parametersGrid, TileConfiguration tileConfiguration)
+        public void Show(Grid parametersGrid, TileConfigurationConverter tileConfigurationConverter)
         {
             var rowIndex = AddRow(parametersGrid);
 

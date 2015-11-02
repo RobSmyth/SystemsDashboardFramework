@@ -9,8 +9,7 @@ namespace NoeticTools.Dashboard.Framework
     {
         private readonly Dictionary<Key, Action<Key>> _keyDownHandlers;
 
-        public KeyboardHandler(IDashboardTileNavigator tileNavigator, IDashboardNavigator dashboardNavigator,
-            IDashboardController controller)
+        public KeyboardHandler(IDashboardTileNavigator tileNavigator, IDashboardNavigator dashboardNavigator, IDashboardController controller)
         {
             _keyDownHandlers = new Dictionary<Key, Action<Key>>
             {
@@ -21,7 +20,7 @@ namespace NoeticTools.Dashboard.Framework
                 {Key.F1, key => controller.ShowHelpPane()},
                 // F2 - used by tiles for tile edit
                 {Key.F3, key => controller.ShowNavigationPane()},
-                {Key.F4, key => dashboardNavigator.ToggleShowPanesMode()},
+                {Key.F4, key => controller.ToggleGroupPanelsEditMode()},
                 {Key.F5, key => controller.Refresh()},
                 {Key.Escape, key => dashboardNavigator.ShowCurrentDashboard()},
                 {Key.Right, key => tileNavigator.MoveRight()},

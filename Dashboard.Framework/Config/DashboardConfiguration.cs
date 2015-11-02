@@ -19,6 +19,6 @@ namespace NoeticTools.Dashboard.Framework.Config
         public string DisplayName { get; set; }
 
         [XmlElement(ElementName = "root")]
-        public DashboardTileConfiguration RootTile { get; set; }
+        public TileConfiguration RootTile { get; set; }
     }
 }

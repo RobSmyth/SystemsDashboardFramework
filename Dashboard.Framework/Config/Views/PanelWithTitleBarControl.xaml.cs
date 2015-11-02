@@ -3,9 +3,9 @@
 
 namespace NoeticTools.Dashboard.Framework.Config.Views
 {
-    public partial class TileConfigurationControl : UserControl
+    public partial class PaneWithTitleBarControl : UserControl
     {
-        public TileConfigurationControl()
+        public PaneWithTitleBarControl()
         {
             InitializeComponent();
         }

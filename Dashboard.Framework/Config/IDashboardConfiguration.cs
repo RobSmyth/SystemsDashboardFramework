@@ -4,6 +4,6 @@
     {
         string Name { get; set; }
         string DisplayName { get; set; }
-        DashboardTileConfiguration RootTile { get; set; }
+        TileConfiguration RootTile { get; set; }
     }
 }

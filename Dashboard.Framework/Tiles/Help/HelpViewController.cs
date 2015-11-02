@@ -5,11 +5,11 @@ using NoeticTools.Dashboard.Framework.Config.Commands;
 
 namespace NoeticTools.Dashboard.Framework.Tiles.Help
 {
-    public class HelpTileViewModel : ITileViewModel
+    public class HelpViewController : IViewController
     {
         private HelpTileControl _view;
 
-        public HelpTileViewModel()
+        public HelpViewController()
         {
             SaveCommand = new NullCommand();
             ConfigureCommand = new NullCommand();

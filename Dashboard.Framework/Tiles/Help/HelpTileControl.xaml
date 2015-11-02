@@ -25,7 +25,6 @@
 
     <Grid Name="root" Margin="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <StackPanel Margin="5">
-            <TextBlock HorizontalAlignment="Left" FontSize="16" FontWeight="Bold" Margin="5">Dashboard Help</TextBlock>
             <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top" Height="Auto" Margin="10">
                 <TextBlock Name="message" FontSize="12" Margin="0,0,0,-3">Good luck</TextBlock>
             </StackPanel>

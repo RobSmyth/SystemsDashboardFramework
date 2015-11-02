@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:dashboards="clr-namespace:NoeticTools.Dashboard.Framework.Tiles.Dashboards"
-             d:DataContext ="{d:DesignInstance {x:Type dashboards:DashboardsNavigationTileViewModel}, IsDesignTimeCreatable=False}"
+             d:DataContext ="{d:DesignInstance {x:Type dashboards:DashboardsNavigationViewController}, IsDesignTimeCreatable=False}"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
 
@@ -35,7 +35,6 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <TextBlock Name="Title" Grid.Column="0" FontSize="12" FontWeight="Bold" Margin="5">Dashboards</TextBlock>
-                <Button x:Name="CloseButton" Grid.Column="1" Margin="5" Width="20 " Command="{Binding CloseCommand}" BorderThickness="0" Background="{StaticResource TechTileStyle_BackgroundBrush}">X</Button>
             </Grid>
 
             <DataGrid Name="items" ItemsSource="{Binding Items, Mode=OneWay}" 

@@ -12,7 +12,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles
             _inner = tileRegistry;
         }
 
-        ITileViewModel ITileRegistry.GetNew(DashboardTileConfiguration tileConfiguration)
+        IViewController ITileRegistry.GetNew(TileConfiguration tileConfiguration)
         {
             return _inner.GetNew(tileConfiguration);
         }
@@ -22,7 +22,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles
             _inner.Clear();
         }
 
-        ITileViewModel[] ITileRegistry.GetAll()
+        IViewController[] ITileRegistry.GetAll()
         {
             return _inner.GetAll();
         }

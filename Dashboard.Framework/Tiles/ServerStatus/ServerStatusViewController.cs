@@ -6,15 +6,15 @@ using NoeticTools.Dashboard.Framework.Config.Commands;
 
 namespace NoeticTools.Dashboard.Framework.Tiles.ServerStatus
 {
-    internal class ServerStatusTileViewModel : ITileViewModel
+    internal class ServerStatusViewController : IViewController
     {
         public const string TileTypeId = "Server.Status";
-        private readonly TileConfiguration _tileConfiguration;
+        private readonly TileConfigurationConverter _tileConfigurationConverter;
         private ServerStatusTileControl _view;
 
-        public ServerStatusTileViewModel(DashboardTileConfiguration tileConfiguration)
+        public ServerStatusViewController(TileConfiguration tileConfiguration)
         {
-            _tileConfiguration = new TileConfiguration(tileConfiguration, this);
+            _tileConfigurationConverter = new TileConfigurationConverter(tileConfiguration, this);
             ConfigureCommand = new NullCommand();
         }
 
@@ -23,8 +23,8 @@ namespace NoeticTools.Dashboard.Framework.Tiles.ServerStatus
         public FrameworkElement CreateView()
         {
             _view = new ServerStatusTileControl();
-            _view.serverName.Text = _tileConfiguration.GetString("Name");
-            _view.message.Text = _tileConfiguration.GetString("Message");
+            _view.serverName.Text = _tileConfigurationConverter.GetString("Name");
+            _view.message.Text = _tileConfigurationConverter.GetString("Message");
             return _view;
         }
 

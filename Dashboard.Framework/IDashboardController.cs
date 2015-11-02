@@ -9,7 +9,8 @@ namespace NoeticTools.Dashboard.Framework
         void Stop();
         void ShowHelpPane();
         void ShowNavigationPane();
-        void ShowOnSidePane(ITileViewModel viewModel);
+        void ShowOnSidePane(IViewController viewController, string title);
         void Refresh();
+        void ToggleGroupPanelsEditMode();
     }
 }

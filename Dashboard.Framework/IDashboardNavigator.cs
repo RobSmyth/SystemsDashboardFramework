@@ -9,6 +9,6 @@
         void ShowLastDashboard();
         void ShowCurrentDashboard();
         void ShowDashboard(int index);
-        void ToggleShowPanesMode();
+        void ToggleShowGroupPanelsDetailsMode();
     }
 }

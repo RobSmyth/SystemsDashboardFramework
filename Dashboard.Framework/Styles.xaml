@@ -75,7 +75,7 @@
                 <Trigger.EnterActions>
                     <BeginStoryboard>
                         <Storyboard>
-                            <DoubleAnimation BeginTime="00:00:00.0" To="250" Duration="00:00:00.3" Storyboard.TargetProperty="Width" />
+                            <DoubleAnimation BeginTime="00:00:00.0" To="300" Duration="00:00:00.3" Storyboard.TargetProperty="Width" />
                             <DoubleAnimation BeginTime="00:01:00.0"  To="0" Duration="00:00:01.0" Storyboard.TargetProperty="Width" />
                         </Storyboard>
                     </BeginStoryboard>

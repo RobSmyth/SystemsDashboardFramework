@@ -5,9 +5,8 @@ using NoeticTools.Dashboard.Framework.Config;
 
 namespace NoeticTools.Dashboard.Framework.Tiles
 {
-    public interface ITileViewModel : IConfigurationChangeListener
+    public interface IViewController : IConfigurationChangeListener
     {
-        ICommand ConfigureCommand { get; }
         FrameworkElement CreateView();
     }
 }

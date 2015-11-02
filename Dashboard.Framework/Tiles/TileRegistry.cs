@@ -21,10 +21,9 @@ namespace NoeticTools.Dashboard.Framework.Tiles
         private readonly IClock _clock;
         private readonly ITimerService _timerService;
         private readonly IDashboardController _dashboardController;
-        private readonly IList<ITileViewModel> _tileViewModels = new List<ITileViewModel>();
+        private readonly IList<IViewController> _tileViewModels = new List<IViewController>();
 
-        public TileRegistry(TeamCityService teamCityService, IClock clock, ITimerService timerService,
-            IDashboardController dashboardController)
+        public TileRegistry(TeamCityService teamCityService, IClock clock, ITimerService timerService, IDashboardController dashboardController)
         {
             _teamCityService = teamCityService;
             _clock = clock;
@@ -32,23 +31,23 @@ namespace NoeticTools.Dashboard.Framework.Tiles
             _dashboardController = dashboardController;
         }
 
-        public ITileViewModel GetNew(DashboardTileConfiguration tileConfiguration)
+        public IViewController GetNew(TileConfiguration tileConfiguration)
         {
-            var factoryLookup = new Dictionary<string, Func<DashboardTileConfiguration, ITileViewModel>>
+            var factoryLookup = new Dictionary<string, Func<TileConfiguration, IViewController>>
             {
-                {DateTileViewModel.TileTypeId, CreateDateTile},
+                {DateViewController.TileTypeId, CreateDateTile},
                 {"0FFACE9A-8B68-4DBC-8B42-0255F51368B1".ToLower(), CreateDateTile},
-                {DaysLeftCountDownViewModel.TileTypeId, CreateDaysLeftTile},
+                {DaysLeftCountDownViewController.TileTypeId, CreateDaysLeftTile},
                 {"0FFACE9A-8B68-4DBC-8B42-0255F51368B2".ToLower(), CreateDaysLeftTile},
-                {ServerStatusTileViewModel.TileTypeId, CreateServerStatusTile},
+                {ServerStatusViewController.TileTypeId, CreateServerStatusTile},
                 {"0FFACE9A-8B68-4DBC-8B42-0255F51368B4".ToLower(), CreateServerStatusTile},
-                {TeamCityAvailableBuildsViewModel.TileTypeId, CreateTeamCityAvailableBuildsTile},
+                {TeamCityAvailableBuildsViewController.TileTypeId, CreateTeamCityAvailableBuildsTile},
                 {"0FFACE9A-8B68-4DBC-8B42-0255F51368B6".ToLower(), CreateTeamCityAvailableBuildsTile},
-                {TeamCityLastBuildStatusTileViewModel.TileTypeId, CreateTeamCityLastBuildTile},
+                {TeamCityLastBuildStatusViewController.TileTypeId, CreateTeamCityLastBuildTile},
                 {"0FFACE9A-8B68-4DBC-8B42-0255F51368B5".ToLower(), CreateTeamCityLastBuildTile},
-                {MessageTileViewModel.TileTypeId, CreateMessageTile},
+                {MessageViewController.TileTypeId, CreateMessageTile},
                 {"0FFACE9A-8B68-4DBC-8B42-0255F51368B3".ToLower(), CreateMessageTile},
-                {WebPageTileViewModel.TileTypeId, CreateWebPageTile},
+                {WebPageViewController.TileTypeId, CreateWebPageTile},
                 {"92CE0D61-4748-4427-8EB7-DC8B8B741C15".ToLower(), CreateWebPageTile}
             };
 
@@ -57,7 +56,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles
             return tileViewModel;
         }
 
-        public ITileViewModel[] GetAll()
+        public IViewController[] GetAll()
         {
             return _tileViewModels.ToArray();
         }
@@ -67,48 +66,48 @@ namespace NoeticTools.Dashboard.Framework.Tiles
             _tileViewModels.Clear();
         }
 
-        private ITileViewModel CreateDateTile(DashboardTileConfiguration tileConfiguration)
+        private IViewController CreateDateTile(TileConfiguration tileConfiguration)
         {
-            tileConfiguration.TypeId = DateTileViewModel.TileTypeId;
-            return new DateTileViewModel(_timerService, _clock);
+            tileConfiguration.TypeId = DateViewController.TileTypeId;
+            return new DateViewController(_timerService, _clock);
         }
 
-        private ITileViewModel CreateTeamCityLastBuildTile(DashboardTileConfiguration tileConfiguration)
+        private IViewController CreateTeamCityLastBuildTile(TileConfiguration tileConfiguration)
         {
-            tileConfiguration.TypeId = TeamCityLastBuildStatusTileViewModel.TileTypeId;
-            return new TeamCityLastBuildStatusTileViewModel(_teamCityService, tileConfiguration, _timerService,
+            tileConfiguration.TypeId = TeamCityLastBuildStatusViewController.TileTypeId;
+            return new TeamCityLastBuildStatusViewController(_teamCityService, tileConfiguration, _timerService,
                 _dashboardController);
         }
 
-        private ITileViewModel CreateTeamCityAvailableBuildsTile(DashboardTileConfiguration tileConfiguration)
+        private IViewController CreateTeamCityAvailableBuildsTile(TileConfiguration tileConfiguration)
         {
-            tileConfiguration.TypeId = TeamCityAvailableBuildsViewModel.TileTypeId;
-            return new TeamCityAvailableBuildsViewModel(_teamCityService, tileConfiguration, _timerService,
+            tileConfiguration.TypeId = TeamCityAvailableBuildsViewController.TileTypeId;
+            return new TeamCityAvailableBuildsViewController(_teamCityService, tileConfiguration, _timerService,
                 _dashboardController);
         }
 
-        private ITileViewModel CreateServerStatusTile(DashboardTileConfiguration tileConfiguration)
+        private IViewController CreateServerStatusTile(TileConfiguration tileConfiguration)
         {
-            tileConfiguration.TypeId = ServerStatusTileViewModel.TileTypeId;
-            return new ServerStatusTileViewModel(tileConfiguration);
+            tileConfiguration.TypeId = ServerStatusViewController.TileTypeId;
+            return new ServerStatusViewController(tileConfiguration);
         }
 
-        private ITileViewModel CreateDaysLeftTile(DashboardTileConfiguration tileConfiguration)
+        private IViewController CreateDaysLeftTile(TileConfiguration tileConfiguration)
         {
-            tileConfiguration.TypeId = DaysLeftCountDownViewModel.TileTypeId;
-            return new DaysLeftCountDownViewModel(tileConfiguration, _clock, _dashboardController);
+            tileConfiguration.TypeId = DaysLeftCountDownViewController.TileTypeId;
+            return new DaysLeftCountDownViewController(tileConfiguration, _clock, _dashboardController);
         }
 
-        private ITileViewModel CreateMessageTile(DashboardTileConfiguration tileConfiguration)
+        private IViewController CreateMessageTile(TileConfiguration tileConfiguration)
         {
-            tileConfiguration.TypeId = MessageTileViewModel.TileTypeId;
-            return new MessageTileViewModel(tileConfiguration, _dashboardController);
+            tileConfiguration.TypeId = MessageViewController.TileTypeId;
+            return new MessageViewController(tileConfiguration, _dashboardController);
         }
 
-        private ITileViewModel CreateWebPageTile(DashboardTileConfiguration tileConfiguration)
+        private IViewController CreateWebPageTile(TileConfiguration tileConfiguration)
         {
-            tileConfiguration.TypeId = WebPageTileViewModel.TileTypeId;
-            return new WebPageTileViewModel(tileConfiguration, _dashboardController);
+            tileConfiguration.TypeId = WebPageViewController.TileTypeId;
+            return new WebPageViewController(tileConfiguration, _dashboardController);
         }
     }
 }

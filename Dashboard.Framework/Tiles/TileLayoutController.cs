@@ -60,14 +60,14 @@ namespace NoeticTools.Dashboard.Framework.Tiles
         {
             if (_tileGrid.Margin == _normalMargin)
             {
-                var groupTileHighlightAdorner = new GroupTileHighlightAdorner(_tileGrid);
+                var groupTileHighlightAdorner = new GroupPanelDetailsAdorner(_tileGrid);
                 groupTileHighlightAdorner.Attach();
             }
             else
             {
                 _tileGrid.Margin = _normalMargin;
                 var layer = AdornerLayer.GetAdornerLayer(_tileGrid);
-                var tileAdorners = layer.GetAdorners(_tileGrid).Where(x => x is GroupTileHighlightAdorner).Cast<GroupTileHighlightAdorner>().ToArray();
+                var tileAdorners = layer.GetAdorners(_tileGrid).Where(x => x is GroupPanelDetailsAdorner).Cast<GroupPanelDetailsAdorner>().ToArray();
                 foreach (var tileAdorner in tileAdorners)
                 {
                     tileAdorner.Detach();
@@ -106,6 +106,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles
             }
 
             var groupPanel = new Grid();
+            groupPanel.Name = $"Panel{_tileLayoutControllerRegistry.Count + 1}";
 
             Grid.SetRow(groupPanel, rowNumber - 1);
             Grid.SetColumn(groupPanel, columnNumber - 1);

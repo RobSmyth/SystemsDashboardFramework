@@ -27,5 +27,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles
         {
             return _layoutControllers.ToArray();
         }
+
+        public int Count => _layoutControllers.Count;
     }
 }

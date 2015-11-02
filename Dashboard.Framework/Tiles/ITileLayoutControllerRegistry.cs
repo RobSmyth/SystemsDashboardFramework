@@ -7,5 +7,6 @@ namespace NoeticTools.Dashboard.Framework.Tiles
     {
         ITileLayoutController GetNew(Grid tileGrid);
         ITileLayoutController[] GetAll();
+        int Count { get; }
     }
 }

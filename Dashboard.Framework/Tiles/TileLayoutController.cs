@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
+using NoeticTools.Dashboard.Framework.Adorners;
 using NoeticTools.Dashboard.Framework.Config;
 
 
@@ -8,7 +11,6 @@ namespace NoeticTools.Dashboard.Framework.Tiles
 {
     public class TileLayoutController : ITileLayoutController
     {
-        private readonly Thickness _highlightedMargin = new Thickness(10);
         private readonly Thickness _normalMargin;
         private readonly Grid _tileGrid;
         private readonly ITileLayoutControllerRegistry _tileLayoutControllerRegistry;
@@ -58,12 +60,18 @@ namespace NoeticTools.Dashboard.Framework.Tiles
         {
             if (_tileGrid.Margin == _normalMargin)
             {
-                _tileGrid.Margin = _highlightedMargin;
-                // todo - adorner ... perhaps show model of panels with # and list of settings?
+                var groupTileHighlightAdorner = new GroupTileHighlightAdorner(_tileGrid);
+                groupTileHighlightAdorner.Attach();
             }
             else
             {
                 _tileGrid.Margin = _normalMargin;
+                var layer = AdornerLayer.GetAdornerLayer(_tileGrid);
+                var tileAdorners = layer.GetAdorners(_tileGrid).Where(x => x is GroupTileHighlightAdorner).Cast<GroupTileHighlightAdorner>().ToArray();
+                foreach (var tileAdorner in tileAdorners)
+                {
+                    tileAdorner.Detach();
+                }
             }
         }
 
@@ -97,15 +105,15 @@ namespace NoeticTools.Dashboard.Framework.Tiles
                 _tileGrid.ColumnDefinitions.Add(new ColumnDefinition());
             }
 
-            var panel = new Grid {Margin = new Thickness(0)};
+            var groupPanel = new Grid();
 
-            Grid.SetRow(panel, rowNumber - 1);
-            Grid.SetColumn(panel, columnNumber - 1);
-            Grid.SetRowSpan(panel, rowSpan);
-            Grid.SetColumnSpan(panel, columnSpan);
+            Grid.SetRow(groupPanel, rowNumber - 1);
+            Grid.SetColumn(groupPanel, columnNumber - 1);
+            Grid.SetRowSpan(groupPanel, rowSpan);
+            Grid.SetColumnSpan(groupPanel, columnSpan);
 
-            _tileGrid.Children.Add(panel);
-            return panel;
+            _tileGrid.Children.Add(groupPanel);
+            return groupPanel;
         }
     }
 }

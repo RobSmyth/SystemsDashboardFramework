@@ -9,10 +9,10 @@ namespace NoeticTools.Dashboard.Framework.Commands
 {
     public class SaveConfigurationParametersCommand : ICommand
     {
-        private readonly IEnumerable<IConfigurationElement> _parameters;
+        private readonly IEnumerable<IElementViewModel> _parameters;
         private readonly Panel _parametersPanel;
 
-        public SaveConfigurationParametersCommand(IEnumerable<IConfigurationElement> parameters, Panel parametersPanel)
+        public SaveConfigurationParametersCommand(IEnumerable<IElementViewModel> parameters, Panel parametersPanel)
         {
             _parameters = parameters;
             _parametersPanel = parametersPanel;
@@ -25,10 +25,10 @@ namespace NoeticTools.Dashboard.Framework.Commands
 
         public void Execute(object panelObject)
         {
-            foreach (var parameter in _parameters)
-            {
-                parameter.Save(_parametersPanel);
-            }
+            //foreach (var parameter in _parameters)
+            //{
+            //    parameter.Save(_parametersPanel);
+            //}
         }
 
         public event EventHandler CanExecuteChanged;

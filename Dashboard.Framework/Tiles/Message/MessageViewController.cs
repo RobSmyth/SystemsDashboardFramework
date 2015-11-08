@@ -23,7 +23,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles.Message
         public FrameworkElement CreateView()
         {
             _view = new MessageTileControl();
-            _view.DataContext = new MessageViewModel(_tileConfiguration, _dashboardController, _view);
+            _view.DataContext = new MessageViewModel(_tileConfiguration, _dashboardController);
 
             return _view;
         }

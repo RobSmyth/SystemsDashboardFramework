@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:viewModels="clr-namespace:NoeticTools.Dashboard.Framework.Config.ViewModels"
              Height="200" Width="200" Margin="5">
 
     <UserControl.Resources>
@@ -18,10 +17,6 @@
         </ResourceDictionary>
 
     </UserControl.Resources>
-    
-    <UserControl.CommandBindings>
-        <CommandBinding Command="ApplicationCommands.Close" Executed="CloseCommandBinding_Executed" />
-    </UserControl.CommandBindings>
     
     <Grid Height="Auto" VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
@@ -38,7 +33,7 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <TextBlock Name="Title" Grid.Column="0" FontSize="12" FontWeight="Bold" Margin="5" Text="{Binding Title}"/>
+            <TextBlock Name="Title" Grid.Column="0" FontSize="12" FontWeight="Bold" Margin="5" />
             <Button x:Name="CloseButton" Grid.Column="1" Margin="5" Width="20 " Command="ApplicationCommands.Close" BorderThickness="0" Background="WhiteSmoke">X</Button>
         </Grid>
 

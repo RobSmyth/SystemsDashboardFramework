@@ -1,5 +1,4 @@
 ﻿using System.Windows.Input;
-using Dashboard.Tiles.Message;
 using NoeticTools.Dashboard.Framework.Commands;
 using NoeticTools.Dashboard.Framework.Config;
 using NoeticTools.Dashboard.Framework.Config.Parameters;
@@ -13,16 +12,16 @@ namespace NoeticTools.Dashboard.Framework.Tiles.Message
         private readonly TileConfigurationConverter _tileConfigurationConverter;
         private string _text;
 
-        public MessageViewModel(TileConfiguration tileConfiguration, IDashboardController dashboardController, MessageTileControl view)
+        public MessageViewModel(TileConfiguration tileConfiguration, IDashboardController dashboardController)
         {
             _tileConfigurationConverter = new TileConfigurationConverter(tileConfiguration, this);
 
             ConfigureCommand = new TileConfigureCommand("Message Tile Configuration", _tileConfigurationConverter, new[]
             {
-                new ConfigurationElement("Message", ElementType.Text, _tileConfigurationConverter)
+                new ElementViewModel("Message", ElementType.Text, _tileConfigurationConverter)
             },
                 dashboardController);
-            UpdateView();
+            Update();
         }
 
         public string Text
@@ -40,10 +39,10 @@ namespace NoeticTools.Dashboard.Framework.Tiles.Message
 
         public void OnConfigurationChanged()
         {
-            UpdateView();
+            Update();
         }
 
-        private void UpdateView()
+        private void Update()
         {
             Text = _tileConfigurationConverter.GetString("Message");
         }

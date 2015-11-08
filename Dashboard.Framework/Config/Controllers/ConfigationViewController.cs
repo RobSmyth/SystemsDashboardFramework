@@ -3,7 +3,6 @@ using System.Windows;
 using System.Windows.Input;
 using NoeticTools.Dashboard.Framework.Commands;
 using NoeticTools.Dashboard.Framework.Config.Commands;
-using NoeticTools.Dashboard.Framework.Config.ViewModels;
 using NoeticTools.Dashboard.Framework.Config.Views;
 using NoeticTools.Dashboard.Framework.Tiles;
 
@@ -12,13 +11,12 @@ namespace NoeticTools.Dashboard.Framework.Config.Controllers
 {
     public class ConfigationViewController : NotifyingViewModelBase, IViewController
     {
-        private readonly IEnumerable<IConfigurationElement> _parameters;
+        private readonly IEnumerable<IElementViewModel> _parameters;
         private readonly TileConfigurationConverter _tileConfigurationConverter;
         private readonly string _title;
-        private ParametersConfigControl _view;
         private PaneWithTitleBarControl _panelView;
 
-        public ConfigationViewController(string title, TileConfigurationConverter tileConfigurationConverter, IConfigurationElement[] parameters)
+        public ConfigationViewController(string title, TileConfigurationConverter tileConfigurationConverter, IElementViewModel[] parameters)
         {
             _title = title;
             _tileConfigurationConverter = tileConfigurationConverter;
@@ -30,9 +28,9 @@ namespace NoeticTools.Dashboard.Framework.Config.Controllers
             var commands = new RoutedCommands();
             commands.CloseCommandBinding.Executed += CloseCommandBinding_Executed;
 
-            _view = new ParametersConfigControl(commands, _parameters, _tileConfigurationConverter) {DataContext = this};
+            var view = new ParametersConfigControl(commands, _parameters) {DataContext = this};
 
-            _panelView = new PaneWithTitleBarControl(new PanelWithTitleBarViewModel(_title), _view)
+            _panelView = new PaneWithTitleBarControl(_title, view, commands)
             {
                 Width = double.NaN,
                 Height = double.NaN

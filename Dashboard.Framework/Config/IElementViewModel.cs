@@ -4,9 +4,9 @@ using NoeticTools.Dashboard.Framework.Config.Parameters;
 
 namespace NoeticTools.Dashboard.Framework.Config
 {
-    public interface IConfigurationElement : IConfigurationParameter
+    public interface IElementViewModel : IConfigurationParameter
     {
-        void Save(Panel parametersPanel);
         object[] Parameters { get; }
+        object Value { get; set; }
     }
 }

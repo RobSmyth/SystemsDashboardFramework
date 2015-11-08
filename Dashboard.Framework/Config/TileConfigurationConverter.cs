@@ -27,7 +27,7 @@ namespace NoeticTools.Dashboard.Framework.Config
 
         public string GetParameterValueText(IConfigurationParameter parameter)
         {
-            if (parameter.ValueType is DateTime)
+            if (parameter.ElementType is DateTime)
             {
                 return GetDateTime(parameter.Name).ToShortDateString();
             }
@@ -36,7 +36,7 @@ namespace NoeticTools.Dashboard.Framework.Config
 
         public void SetParameterValue(IConfigurationParameter parameter, string text)
         {
-            if (parameter.ValueType is DateTime)
+            if (parameter.ElementType == ElementType.DateTime)
             {
                 SetDateTime(parameter.Name, DateTime.Parse(text));
             }
@@ -81,10 +81,42 @@ namespace NoeticTools.Dashboard.Framework.Config
             return bool.Parse(value);
         }
 
+        public object GetParameter(string name, ElementType elementType)
+        {
+            if (elementType == ElementType.DateTime)
+            {
+                return GetDateTime(name);
+            }
+            else if (elementType == ElementType.Boolean)
+            {
+                return GetBool(name);
+            }
+            else
+            {
+                return GetString(name);
+            }
+        }
+
         private T GetParameter<T>(string name)
         {
             var value = _inner.GetParameter(name, string.Empty).Value;
             return (T) Convert.ChangeType(value, typeof (T));
+        }
+
+        public void SetParameter(string name, ElementType elementType, object value)
+        {
+            if (elementType == ElementType.DateTime)
+            {
+                SetDateTime(name, (DateTime) value);
+            }
+            else if (elementType == ElementType.Boolean)
+            {
+                SetParameter(name, (bool)value);
+            }
+            else
+            {
+                SetParameter(name, value.ToString());
+            }
         }
     }
 }

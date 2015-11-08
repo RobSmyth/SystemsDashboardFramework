@@ -59,18 +59,18 @@ namespace NoeticTools.Dashboard.Framework.Tiles.TeamCityAvailableBuilds
 
         public FrameworkElement CreateView()
         {
-            var parameters = new List<IConfigurationElement>
+            var parameters = new List<IElementViewModel>
             {
-                new ConfigurationElement("Title", ElementType.Text, _tileConfigurationConverter)
+                new ElementViewModel("Title", ElementType.Text, _tileConfigurationConverter)
             };
             for (var buildNumber = 1; buildNumber <= MaxNumberOfBuilds; buildNumber++)
             {
                 string diplayName = $"Display_name_{buildNumber}";
                 string project = $"Project_{buildNumber}";
                 string configuration = $"Configuration_{buildNumber}";
-                parameters.Add(new ConfigurationElement(diplayName, ElementType.Text, _tileConfigurationConverter));
-                parameters.Add(new ConfigurationElement(project, ElementType.Text, _tileConfigurationConverter));
-                parameters.Add(new ConfigurationElement(configuration, ElementType.Text, _tileConfigurationConverter));
+                parameters.Add(new ElementViewModel(diplayName, ElementType.Text, _tileConfigurationConverter));
+                parameters.Add(new ElementViewModel(project, ElementType.Text, _tileConfigurationConverter));
+                parameters.Add(new ElementViewModel(configuration, ElementType.Text, _tileConfigurationConverter));
             }
 
             ConfigureCommand = new TileConfigureCommand("TeamCity Available Builds Tile", _tileConfigurationConverter,

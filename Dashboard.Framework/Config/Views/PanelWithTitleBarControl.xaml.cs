@@ -2,7 +2,6 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 using NoeticTools.Dashboard.Framework.Commands;
-using NoeticTools.Dashboard.Framework.Config.ViewModels;
 
 
 namespace NoeticTools.Dashboard.Framework.Config.Views
@@ -14,16 +13,12 @@ namespace NoeticTools.Dashboard.Framework.Config.Views
             InitializeComponent();
         }
 
-        public PaneWithTitleBarControl(PanelWithTitleBarViewModel panelWithTitleBarViewModel, ParametersConfigControl childView) : this()
+        public PaneWithTitleBarControl(string title, UIElement childView, RoutedCommands commands) : this()
         {
+            CommandBindings.Add(commands.CloseCommandBinding);
+            CommandBindings.Add(commands.SaveCommandBinding);
             PlaceholderGrid.Children.Add(childView);
-            DataContext = panelWithTitleBarViewModel;
-        }
-
-        private void CloseCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            Visibility = Visibility.Collapsed;
-            //e.Handled = true;
+            Title.Text = title;
         }
     }
 }

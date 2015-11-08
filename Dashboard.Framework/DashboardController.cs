@@ -1,8 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using NoeticTools.Dashboard.Framework.Config;
-using NoeticTools.Dashboard.Framework.Config.ViewModels;
-using NoeticTools.Dashboard.Framework.Config.Views;
 using NoeticTools.Dashboard.Framework.Tiles;
 using NoeticTools.Dashboard.Framework.Tiles.Dashboards;
 using NoeticTools.Dashboard.Framework.Tiles.Help;

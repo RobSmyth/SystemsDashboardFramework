@@ -74,7 +74,6 @@
     <Compile Include="Commands\SaveConfigurationParametersCommand.cs" />
     <Compile Include="Commands\CloseCommand.cs" />
     <Compile Include="Config\Parameters\ElementType.cs" />
-    <Compile Include="Config\ViewModels\PanelWithTitleBarViewModel.cs" />
     <Compile Include="Config\Views\ParametersConfigControl.xaml.cs">
       <DependentUpon>ParametersConfigControl.xaml</DependentUpon>
     </Compile>
@@ -143,11 +142,10 @@
     <Compile Include="Config\TileConfiguration.cs" />
     <Compile Include="Config\IConfigurationChangeListener.cs" />
     <Compile Include="Config\IDashboardConfiguration.cs" />
-    <Compile Include="Config\Parameters\ConfigurationElementBase.cs" />
-    <Compile Include="Config\Parameters\HyperlinkElement.cs" />
-    <Compile Include="Config\Parameters\ConfigurationElement.cs" />
+    <Compile Include="Config\Parameters\HyperlinkElementViewModel.cs" />
+    <Compile Include="Config\Parameters\ElementViewModel.cs" />
     <Compile Include="Config\Parameters\IConfigurationParameter.cs" />
-    <Compile Include="Config\IConfigurationElement.cs" />
+    <Compile Include="Config\IElementViewModel.cs" />
     <Compile Include="Config\TileConfigurationConverter.cs" />
     <Compile Include="Config\Controllers\ConfigationViewController.cs" />
     <Compile Include="Config\Views\PanelWithTitleBarControl.xaml.cs">
@@ -273,6 +271,7 @@
     <Resource Include="Images\YellowStar_32x32.png" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Config\ViewModels\" />
     <Folder Include="Tiles\GroupPanels\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

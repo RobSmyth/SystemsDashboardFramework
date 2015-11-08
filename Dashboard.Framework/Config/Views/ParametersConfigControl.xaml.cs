@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -12,25 +13,54 @@ namespace NoeticTools.Dashboard.Framework.Config.Views
 {
     public partial class ParametersConfigControl : UserControl
     {
-        private readonly TileConfigurationConverter _tileConfigurationConverter;
+        private readonly IEnumerable<IElementViewModel> _parameters;
 
         public ParametersConfigControl()
         {
             InitializeComponent();
         }
 
-        public ParametersConfigControl(RoutedCommands commands, IEnumerable<IConfigurationElement> parameters, TileConfigurationConverter tileConfigurationConverter) : this()
+        public ParametersConfigControl(RoutedCommands commands, IEnumerable<IElementViewModel> parameters) : this()
         {
-            _tileConfigurationConverter = tileConfigurationConverter;
-            foreach (var parameter in parameters)
+            CommandBindings.Add(commands.SaveCommandBinding);
+            commands.SaveCommandBinding.Executed += SaveCommandBinding_Executed;
+
+            _parameters = parameters.ToArray();
+            foreach (var parameter in _parameters)
             {
                 Add(parameter);
             }
-
-            CommandBindings.Add(commands.SaveCommandBinding);
         }
 
-        private void Add(IConfigurationElement parameter)
+        private void SaveCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            foreach (var parameter in _parameters)
+            {
+                SetParameterValue(parameter);
+            }
+        }
+
+        private void SetParameterValue(IElementViewModel parameter)
+        {
+            var name = GetUIlementName(parameter);
+            if (parameter.ElementType == ElementType.Boolean)
+            {
+                var checkbox = (CheckBox)PlaceholderGrid.Children.Cast<FrameworkElement>().Single(x => x.Name.Equals(name));
+                parameter.Value = checkbox.IsChecked;
+            }
+            else
+            {
+                var textBox = (TextBox)PlaceholderGrid.Children.Cast<FrameworkElement>().Single(x => x.Name.Equals(name));
+                parameter.Value = textBox.Text;
+            }
+        }
+
+        private static string GetUIlementName(IElementViewModel parameter)
+        {
+            return $"Param_{parameter.Name}";
+        }
+
+        private void Add(IElementViewModel parameter)
         {
             var rowIndex = AddRow();
 
@@ -46,7 +76,7 @@ namespace NoeticTools.Dashboard.Framework.Config.Views
             Grid.SetColumn(textBlock, 0);
             PlaceholderGrid.Children.Add(textBlock);
 
-            var creatorLookup = new Dictionary<ElementType, Func<IConfigurationElement, UIElement>>
+            var creatorLookup = new Dictionary<ElementType, Func<IElementViewModel, UIElement>>
             {
                 {ElementType.Boolean, CreateCheckBox },
                 {ElementType.Text, CreateTextBox },
@@ -54,7 +84,7 @@ namespace NoeticTools.Dashboard.Framework.Config.Views
                 {ElementType.Hyperlink, CreateHyperlink },
             };
 
-            Add(rowIndex, creatorLookup[parameter.ValueType](parameter));
+            Add(rowIndex, creatorLookup[parameter.ElementType](parameter));
         }
 
         private int AddRow()
@@ -64,7 +94,7 @@ namespace NoeticTools.Dashboard.Framework.Config.Views
             return rowIndex;
         }
 
-        private UIElement CreateHyperlink(IConfigurationElement parameter)
+        private UIElement CreateHyperlink(IElementViewModel parameter)
         {
             var hyperlink = new Hyperlink { Command = (ICommand)parameter.Parameters[1] };
             hyperlink.Inlines.Add((string)parameter.Parameters[0]);
@@ -79,25 +109,25 @@ namespace NoeticTools.Dashboard.Framework.Config.Views
             return textBox;
         }
 
-        private UIElement CreateCheckBox(IConfigurationElement parameter)
+        private UIElement CreateCheckBox(IElementViewModel parameter)
         {
             return new CheckBox
             {
-                IsChecked = _tileConfigurationConverter.GetBool(Name),
+                IsChecked = (bool)parameter.Value, // todo - use binding
                 Margin = new Thickness(5, 5, 5, 5),
-                Name = $"Param_{Name}"
+                Name = GetUIlementName(parameter)
             };
         }
 
-        private UIElement CreateTextBox(IConfigurationElement parameter)
+        private UIElement CreateTextBox(IElementViewModel parameter)
         {
             return new TextBox
             {
-                Text = _tileConfigurationConverter.GetParameterValueText(parameter),
+                Text = (string)parameter.Value, // todo - use binding
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 Margin = new Thickness(5, 5, 5, 5),
                 FontSize = 12.0,
-                Name = $"Param_{Name}"
+                Name = GetUIlementName(parameter)
             };
         }
 

@@ -54,20 +54,12 @@ namespace NoeticTools.Dashboard.Framework
             _sidePanel.Visibility = Visibility.Collapsed;
             _sidePanel.Children.Clear();
 
-            var panelView = new PaneWithTitleBarControl();// view model?
-            panelView.IsVisibleChanged += View_IsVisibleChanged;
-            new PanelWithTitleBarViewModel(panelView, title);
-
-            _sidePanel.Children.Add(panelView);
-            panelView.Width = double.NaN;
-            panelView.Height = double.NaN;
-
             var view = viewController.CreateView();
-            panelView.PlaceholderGrid.Children.Add(view);
-            view.Width = double.NaN;
-            view.Height = double.NaN;
 
-            _sidePanel.Visibility = panelView.Visibility;
+            _sidePanel.Children.Add(view);
+            view.IsVisibleChanged += View_IsVisibleChanged;
+
+            _sidePanel.Visibility = Visibility.Visible;
         }
 
         public void Refresh()

@@ -29,7 +29,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles.WebPage
         {
             ConfigureCommand = new TileConfigureCommand("Web Page Tile Configuration", _tileConfigurationConverter, new[]
             {
-                new ConfigurationParameter("Url", "http://www.google.com", _tileConfigurationConverter)
+                new ConfigurationElement("Url", ElementType.Text/* "http://www.google.com"*/, _tileConfigurationConverter)
             },
                 _dashboardController);
             _view = new WebPageTileControl {DataContext = this};

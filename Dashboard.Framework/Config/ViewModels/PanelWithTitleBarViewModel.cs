@@ -1,23 +1,18 @@
-﻿using System.Windows.Input;
-using NoeticTools.Dashboard.Framework.Commands;
+﻿using System.Windows;
+using System.Windows.Input;
 using NoeticTools.Dashboard.Framework.Config.Commands;
 using NoeticTools.Dashboard.Framework.Config.Views;
-using NoeticTools.Dashboard.Framework.Tiles.Dashboards;
 
 
 namespace NoeticTools.Dashboard.Framework.Config.ViewModels
 {
-    public class PanelWithTitleBarViewModel : NotifyingViewModelBase, ICloseableViewModel
+    public class PanelWithTitleBarViewModel : NotifyingViewModelBase
     {
         private string _title;
 
-        public PanelWithTitleBarViewModel(PaneWithTitleBarControl view, string title)
+        public PanelWithTitleBarViewModel(string title)
         {
             Title = title;
-            CloseCommand = new CloseCommand(view);
-            SaveCommand = new NullCommand();
-            ConfigureCommand = new NullCommand();
-            view.DataContext = this;
         }
 
         public string Title
@@ -30,11 +25,5 @@ namespace NoeticTools.Dashboard.Framework.Config.ViewModels
                 OnPropertyChanged();
             }
         }
-
-        public ICommand ConfigureCommand { get; }
-
-        public ICommand SaveCommand { get; }
-
-        public ICommand CloseCommand { get; }
     }
 }

@@ -18,7 +18,11 @@
         </ResourceDictionary>
 
     </UserControl.Resources>
-
+    
+    <UserControl.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Close" Executed="CloseCommandBinding_Executed" />
+    </UserControl.CommandBindings>
+    
     <Grid Height="Auto" VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -35,7 +39,7 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <TextBlock Name="Title" Grid.Column="0" FontSize="12" FontWeight="Bold" Margin="5" Text="{Binding Title}"/>
-            <Button x:Name="CloseButton" Grid.Column="1" Margin="5" Width="20 " Command="{Binding CloseCommand}" BorderThickness="0" Background="WhiteSmoke">X</Button>
+            <Button x:Name="CloseButton" Grid.Column="1" Margin="5" Width="20 " Command="ApplicationCommands.Close" BorderThickness="0" Background="WhiteSmoke">X</Button>
         </Grid>
 
         <ScrollViewer Grid.Row="1" Grid.Column="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
@@ -45,7 +49,7 @@
         <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom"
                     Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right"
                     Margin="10" Height="Auto">
-            <Button Name="OkButton" Margin="5" Padding="5" Command="{Binding SaveCommand}">Apply</Button>
+            <Button Name="applyButton" Margin="5" Padding="5" Command="ApplicationCommands.Save">Apply</Button>
         </StackPanel>
     </Grid>
 </UserControl>

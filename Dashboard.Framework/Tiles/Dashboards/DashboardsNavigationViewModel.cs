@@ -1,12 +1,10 @@
 ﻿using System.Collections.ObjectModel;
-using System.Windows.Input;
 using NoeticTools.Dashboard.Framework.Config;
-using NoeticTools.Dashboard.Framework.Config.Commands;
 
 
 namespace NoeticTools.Dashboard.Framework.Tiles.Dashboards
 {
-    public class DashboardsNavigationViewModel : NotifyingViewModelBase, ICloseableViewModel
+    public class DashboardsNavigationViewModel : NotifyingViewModelBase
     {
         private readonly IDashboardNavigator _dashboardNavigator;
         private int _dashboardIndex;
@@ -15,9 +13,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles.Dashboards
         {
             _dashboardNavigator = dashboardNavigator;
             DashboardIndex = _dashboardNavigator.CurrentDashboardIndex;
-            CloseCommand = new NullCommand();
             Items = new ObservableCollection<DashboardConfiguration>(config.Configurations);
-            ConfigureCommand = new NullCommand();
         }
 
         public int DashboardIndex
@@ -32,11 +28,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles.Dashboards
             }
         }
 
-        public ICommand ConfigureCommand { get; }
-
         public ObservableCollection<DashboardConfiguration> Items { get; }
-
-        public ICommand CloseCommand { get; private set; }
 
     }
 }

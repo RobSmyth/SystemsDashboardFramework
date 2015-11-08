@@ -2,16 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Controls;
 using System.Windows.Input;
+using NoeticTools.Dashboard.Framework.Config;
 
 
-namespace NoeticTools.Dashboard.Framework.Config.Commands
+namespace NoeticTools.Dashboard.Framework.Commands
 {
     public class SaveConfigurationParametersCommand : ICommand
     {
-        private readonly IEnumerable<IConfigurationView> _parameters;
+        private readonly IEnumerable<IConfigurationElement> _parameters;
         private readonly Panel _parametersPanel;
 
-        public SaveConfigurationParametersCommand(IEnumerable<IConfigurationView> parameters, Panel parametersPanel)
+        public SaveConfigurationParametersCommand(IEnumerable<IConfigurationElement> parameters, Panel parametersPanel)
         {
             _parameters = parameters;
             _parametersPanel = parametersPanel;

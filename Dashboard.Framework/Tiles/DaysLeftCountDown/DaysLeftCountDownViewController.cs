@@ -29,9 +29,9 @@ namespace NoeticTools.Dashboard.Framework.Tiles.DaysLeftCountDown
             ConfigureCommand = new TileConfigureCommand("Days Count Down Configuration", _tileConfigurationConverter,
                 new[]
                 {
-                    new ConfigurationParameter("Title", "TITLE", _tileConfigurationConverter),
-                    new ConfigurationParameter("End_date", new DateTime(2000, 1, 1), _tileConfigurationConverter),
-                    new ConfigurationParameter("Disabled", false, _tileConfigurationConverter)
+                    new ConfigurationElement("Title", ElementType.Text, _tileConfigurationConverter),
+                    new ConfigurationElement("End_date", ElementType.DateTime, _tileConfigurationConverter),
+                    new ConfigurationElement("Disabled", ElementType.Boolean, _tileConfigurationConverter)
                 },
                 dashboardController);
         }

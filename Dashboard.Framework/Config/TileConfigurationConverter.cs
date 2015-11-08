@@ -27,7 +27,7 @@ namespace NoeticTools.Dashboard.Framework.Config
 
         public string GetParameterValueText(IConfigurationParameter parameter)
         {
-            if (parameter.DefaultValue is DateTime)
+            if (parameter.ValueType is DateTime)
             {
                 return GetDateTime(parameter.Name).ToShortDateString();
             }
@@ -36,7 +36,7 @@ namespace NoeticTools.Dashboard.Framework.Config
 
         public void SetParameterValue(IConfigurationParameter parameter, string text)
         {
-            if (parameter.DefaultValue is DateTime)
+            if (parameter.ValueType is DateTime)
             {
                 SetDateTime(parameter.Name, DateTime.Parse(text));
             }

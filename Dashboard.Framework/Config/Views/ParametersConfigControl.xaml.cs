@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using NoeticTools.Dashboard.Framework.Commands;
@@ -13,20 +14,21 @@ namespace NoeticTools.Dashboard.Framework.Config.Views
 {
     public partial class ParametersConfigControl : UserControl
     {
-        private readonly IEnumerable<IElementViewModel> _parameters;
+        private readonly IEnumerable<IElementViewModel> _elementViewModels;
+        private readonly Thickness _elementMargin = new Thickness(5, 3, 5, 3);
 
         public ParametersConfigControl()
         {
             InitializeComponent();
         }
 
-        public ParametersConfigControl(RoutedCommands commands, IEnumerable<IElementViewModel> parameters) : this()
+        public ParametersConfigControl(RoutedCommands commands, IEnumerable<IElementViewModel> elementViewModels) : this()
         {
             CommandBindings.Add(commands.SaveCommandBinding);
             commands.SaveCommandBinding.Executed += SaveCommandBinding_Executed;
 
-            _parameters = parameters.ToArray();
-            foreach (var parameter in _parameters)
+            _elementViewModels = elementViewModels.ToArray();
+            foreach (var parameter in _elementViewModels)
             {
                 Add(parameter);
             }
@@ -34,108 +36,133 @@ namespace NoeticTools.Dashboard.Framework.Config.Views
 
         private void SaveCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            foreach (var parameter in _parameters)
+            foreach (var elementViewModel in _elementViewModels)
             {
-                SetParameterValue(parameter);
+                SetParameterValue(elementViewModel);
             }
         }
 
-        private void SetParameterValue(IElementViewModel parameter)
+        private void SetParameterValue(IElementViewModel elementViewModel)
         {
-            var name = GetUIlementName(parameter);
-            if (parameter.ElementType == ElementType.Boolean)
+            var name = GetUIlementName(elementViewModel);
+            if (elementViewModel.ElementType == ElementType.Boolean)
             {
                 var checkbox = (CheckBox)PlaceholderGrid.Children.Cast<FrameworkElement>().Single(x => x.Name.Equals(name));
-                parameter.Value = checkbox.IsChecked;
+                elementViewModel.Value = checkbox.IsChecked;
             }
             else
             {
                 var textBox = (TextBox)PlaceholderGrid.Children.Cast<FrameworkElement>().Single(x => x.Name.Equals(name));
-                parameter.Value = textBox.Text;
+                elementViewModel.Value = textBox.Text;
             }
         }
 
-        private static string GetUIlementName(IElementViewModel parameter)
+        private static string GetUIlementName(IElementViewModel elementViewModel)
         {
-            return $"Param_{parameter.Name}";
+            return $"Param_{elementViewModel.Name}";
         }
 
-        private void Add(IElementViewModel parameter)
+        private void Add(IElementViewModel elementViewModel)
         {
             var rowIndex = AddRow();
 
-            var textBlock = new TextBlock
+            if (!string.IsNullOrWhiteSpace(elementViewModel.Name))
             {
-                Text = Name.Replace('_', ' '),
-                HorizontalAlignment = HorizontalAlignment.Right,
-                Margin = new Thickness(5, 5, 5, 5),
-                FontSize = 12.0
-            };
+                var textBlock = new TextBlock
+                {
+                    Text = elementViewModel.Name.Replace('_', ' '),
+                    HorizontalAlignment = HorizontalAlignment.Right,
+                    Margin = _elementMargin,
+                    FontSize = 12.0
+                };
 
-            Grid.SetRow(textBlock, rowIndex);
-            Grid.SetColumn(textBlock, 0);
-            PlaceholderGrid.Children.Add(textBlock);
+                PlaceholderGrid.Children.Add(textBlock);
+                Grid.SetRow(textBlock, rowIndex);
+                Grid.SetColumn(textBlock, 0);
+            }
 
-            var creatorLookup = new Dictionary<ElementType, Func<IElementViewModel, UIElement>>
+            var creatorLookup = new Dictionary<ElementType, Func<IElementViewModel, int, UIElement>>
             {
                 {ElementType.Boolean, CreateCheckBox },
                 {ElementType.Text, CreateTextBox },
                 {ElementType.DateTime, CreateTextBox },
                 {ElementType.Hyperlink, CreateHyperlink },
+                {ElementType.Divider, CreateDivider },
             };
 
-            Add(rowIndex, creatorLookup[parameter.ElementType](parameter));
+            Add(rowIndex, creatorLookup[elementViewModel.ElementType](elementViewModel, rowIndex));
         }
 
         private int AddRow()
         {
             var rowIndex = PlaceholderGrid.RowDefinitions.Count;
-            PlaceholderGrid.RowDefinitions.Add(new RowDefinition());
+            PlaceholderGrid.RowDefinitions.Add(new RowDefinition() {MinHeight = 5});
             return rowIndex;
         }
 
-        private UIElement CreateHyperlink(IElementViewModel parameter)
+        private UIElement CreateDivider(IElementViewModel elementViewModel, int rowIndex)
         {
-            var hyperlink = new Hyperlink { Command = (ICommand)parameter.Parameters[1] };
-            hyperlink.Inlines.Add((string)parameter.Parameters[0]);
+            PlaceholderGrid.RowDefinitions[rowIndex].MinHeight = 15;
+            return null;
+        }
+
+        private UIElement CreateHyperlink(IElementViewModel elementViewModel, int rowIndex)
+        {
+            var hyperlink = new Hyperlink { Command = (ICommand)elementViewModel.Parameters[1] };
+            hyperlink.Inlines.Add((string)elementViewModel.Parameters[0]);
 
             var textBox = new TextBlock
             {
                 HorizontalAlignment = HorizontalAlignment.Stretch,
-                Margin = new Thickness(5, 5, 5, 5),
+                Margin = _elementMargin,
                 FontSize = 12.0
             };
             textBox.Inlines.Add(hyperlink);
             return textBox;
         }
 
-        private UIElement CreateCheckBox(IElementViewModel parameter)
+        private UIElement CreateCheckBox(IElementViewModel elementViewModel, int rowIndex)
         {
-            return new CheckBox
+            var checkbox = new CheckBox
             {
-                IsChecked = (bool)parameter.Value, // todo - use binding
-                Margin = new Thickness(5, 5, 5, 5),
-                Name = GetUIlementName(parameter)
+                IsChecked = (bool) elementViewModel.Value, // todo - use binding
+                Margin = _elementMargin,
+                Name = GetUIlementName(elementViewModel),
+                DataContext = elementViewModel
             };
+
+            var binding = new Binding("Value");
+            BindingOperations.SetBinding(checkbox, CheckBox.IsCheckedProperty, binding);
+
+            return checkbox;
         }
 
-        private UIElement CreateTextBox(IElementViewModel parameter)
+        private UIElement CreateTextBox(IElementViewModel elementViewModel, int rowIndex)
         {
-            return new TextBox
+            var textbox = new TextBox
             {
-                Text = (string)parameter.Value, // todo - use binding
                 HorizontalAlignment = HorizontalAlignment.Stretch,
-                Margin = new Thickness(5, 5, 5, 5),
+                Margin = _elementMargin,
                 FontSize = 12.0,
-                Name = GetUIlementName(parameter)
+                Name = GetUIlementName(elementViewModel),
+                DataContext = elementViewModel
             };
+
+            var binding = new Binding("Value");
+            BindingOperations.SetBinding(textbox, TextBox.TextProperty, binding);
+
+            return textbox;
         }
 
-        private void Add(int rowIndex, UIElement checkBox)
+        private void Add(int rowIndex, UIElement uiElement)
         {
-            Grid.SetRow(checkBox, rowIndex);
-            Grid.SetColumn(checkBox, 1);
-            PlaceholderGrid.Children.Add(checkBox);
+            if (uiElement == null)
+            {
+                return;
+            }
+            PlaceholderGrid.Children.Add(uiElement);
+            Grid.SetRow(uiElement, rowIndex);
+            Grid.SetColumn(uiElement, 1);
         }
     }
 }

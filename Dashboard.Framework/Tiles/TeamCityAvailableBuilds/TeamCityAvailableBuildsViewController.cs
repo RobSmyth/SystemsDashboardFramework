@@ -61,7 +61,8 @@ namespace NoeticTools.Dashboard.Framework.Tiles.TeamCityAvailableBuilds
         {
             var parameters = new List<IElementViewModel>
             {
-                new ElementViewModel("Title", ElementType.Text, _tileConfigurationConverter)
+                new ElementViewModel("Title", ElementType.Text, _tileConfigurationConverter),
+                new DividerElementViewModel(),
             };
             for (var buildNumber = 1; buildNumber <= MaxNumberOfBuilds; buildNumber++)
             {
@@ -71,6 +72,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles.TeamCityAvailableBuilds
                 parameters.Add(new ElementViewModel(diplayName, ElementType.Text, _tileConfigurationConverter));
                 parameters.Add(new ElementViewModel(project, ElementType.Text, _tileConfigurationConverter));
                 parameters.Add(new ElementViewModel(configuration, ElementType.Text, _tileConfigurationConverter));
+                parameters.Add(new DividerElementViewModel());
             }
 
             ConfigureCommand = new TileConfigureCommand("TeamCity Available Builds Tile", _tileConfigurationConverter,

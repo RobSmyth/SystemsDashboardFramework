@@ -7,5 +7,6 @@
         DateTime,
         Hyperlink,
         Boolean,
+        Divider,
     }
 }

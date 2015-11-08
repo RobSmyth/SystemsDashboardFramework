@@ -43,7 +43,7 @@
 
         <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom"
                     Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right"
-                    Margin="10" Height="Auto">
+                    Margin="10" Height="Auto" Visibility="Collapsed">
             <Button Name="applyButton" Margin="5" Padding="5" Command="ApplicationCommands.Save">Apply</Button>
         </StackPanel>
     </Grid>

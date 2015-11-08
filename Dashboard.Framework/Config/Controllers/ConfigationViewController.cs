@@ -12,14 +12,12 @@ namespace NoeticTools.Dashboard.Framework.Config.Controllers
     public class ConfigationViewController : NotifyingViewModelBase, IViewController
     {
         private readonly IEnumerable<IElementViewModel> _parameters;
-        private readonly TileConfigurationConverter _tileConfigurationConverter;
         private readonly string _title;
         private PaneWithTitleBarControl _panelView;
 
-        public ConfigationViewController(string title, TileConfigurationConverter tileConfigurationConverter, IElementViewModel[] parameters)
+        public ConfigationViewController(string title, IElementViewModel[] parameters)
         {
             _title = title;
-            _tileConfigurationConverter = tileConfigurationConverter;
             _parameters = parameters;
         }
 

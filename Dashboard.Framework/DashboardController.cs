@@ -13,19 +13,17 @@ namespace NoeticTools.Dashboard.Framework
     {
         private readonly DashboardConfigurations _config;
         private readonly IDashboardNavigator _dashboardNavigator;
-        private readonly TileRegistryConduit _tileRegistryConduit;
         private readonly DashboardConfigurationManager _configurationManager;
         private readonly ITimerService _timerService;
         private readonly DockPanel _sidePanel;
 
-        public DashboardController(DashboardConfigurationManager configurationManager, ITimerService timerService, DockPanel sidePanel, DashboardConfigurations config, IDashboardNavigator dashboardNavigator, TileRegistryConduit tileRegistryConduit)
+        public DashboardController(DashboardConfigurationManager configurationManager, ITimerService timerService, DockPanel sidePanel, DashboardConfigurations config, IDashboardNavigator dashboardNavigator)
         {
             _configurationManager = configurationManager;
             _timerService = timerService;
             _sidePanel = sidePanel;
             _config = config;
             _dashboardNavigator = dashboardNavigator;
-            _tileRegistryConduit = tileRegistryConduit;
         }
 
         public void Start()

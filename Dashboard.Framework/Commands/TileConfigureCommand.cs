@@ -34,7 +34,7 @@ namespace NoeticTools.Dashboard.Framework.Commands
 
         public void Execute(object parameter)
         {
-            var controller = new ConfigationViewController(_title, _tileConfigurationConverter, _parameters);
+            var controller = new ConfigationViewController(_title, _parameters);
             _dashboardController.ShowOnSidePane(controller, _title);
         }
 

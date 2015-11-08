@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Threading;
-using NoeticTools.Dashboard.Framework.Time;
 
 
-namespace NoeticTools.Dashboard.Framework
+namespace NoeticTools.Dashboard.Framework.Time
 {
     public sealed class TimerService : ITimerService
     {
@@ -46,6 +45,7 @@ namespace NoeticTools.Dashboard.Framework
             var dueCallbacks = _callbacks.Where(x => x.DueDateTime <= _clock.UtcNow).ToArray();
             foreach (var dueCallback in dueCallbacks)
             {
+                _callbacks.Remove(dueCallback);
                 dueCallback.Listener.OnTimeElapsed(dueCallback);
             }
 

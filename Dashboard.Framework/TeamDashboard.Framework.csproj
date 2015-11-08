@@ -73,6 +73,7 @@
     <Compile Include="Commands\RoutedCommands.cs" />
     <Compile Include="Commands\SaveConfigurationParametersCommand.cs" />
     <Compile Include="Commands\CloseCommand.cs" />
+    <Compile Include="Config\Parameters\DividerElementViewModel.cs" />
     <Compile Include="Config\Parameters\ElementType.cs" />
     <Compile Include="Config\Views\ParametersConfigControl.xaml.cs">
       <DependentUpon>ParametersConfigControl.xaml</DependentUpon>

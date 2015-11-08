@@ -32,7 +32,7 @@ namespace NoeticTools.TeamDashboard
             var tileRegistryConduit = new TileRegistryConduit();
             var tileLayoutControllerRegistry = new TileLayoutControllerRegistry(tileRegistryConduit);
             _dashboardNavigator = new DashboardNavigator(loaderConduit, _config, tileLayoutControllerRegistry);
-            _controller = new DashboardController(dashboardConfigurationManager, timerService, sidePanel, _config, _dashboardNavigator, tileRegistryConduit);
+            _controller = new DashboardController(dashboardConfigurationManager, timerService, sidePanel, _config, _dashboardNavigator);
             var tileRegistry = new TileRegistry(new TeamCityService(_config.Services, runOptions), clock, timerService, _controller);
             tileRegistryConduit.SetTarget(tileRegistry);
             var rootTileLayoutController = new TileLayoutController(tileGrid, tileRegistry, tileLayoutControllerRegistry, new Thickness(0));

@@ -83,6 +83,8 @@
     <Compile Include="DashBoardLoaderConduit.cs" />
     <Compile Include="DashboardNavigator.cs" />
     <Compile Include="DashboardTileNavigator.cs" />
+    <Compile Include="DataSources\Jira\JiraFilterIssuesReader.cs" />
+    <Compile Include="DataSources\Jira\TimeRefreshedItems.cs" />
     <Compile Include="IDashBoardLoader.cs" />
     <Compile Include="IDashboardNavigator.cs" />
     <Compile Include="IDashboardTileNavigator.cs" />

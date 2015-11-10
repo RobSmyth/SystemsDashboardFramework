@@ -6,6 +6,12 @@ namespace NoeticTools.Dashboard.Framework.DataSources.Jira
 {
     public class JiraChannelEmulateState : IJiraChannel
     {
+        public JiraChannelEmulateState()
+        {
+            Filters = new JiraNamedEntity[0];
+            Projects = new JiraNamedEntity[0];
+        }
+
         public void Connect()
         {
         }
@@ -23,5 +29,8 @@ namespace NoeticTools.Dashboard.Framework.DataSources.Jira
         public void Disconnect()
         {
         }
+
+        public JiraNamedEntity[] Filters { get; }
+        public JiraNamedEntity[] Projects { get; }
     }
 }

@@ -28,11 +28,16 @@ namespace NoeticTools.Dashboard.Framework.DataSources.Jira
             return _currentState.GetIssues(projectName);
         }
 
+        public IEnumerable<Issue> GetIssuesQuery(string query)
+        {
+            return _currentState.GetIssuesQuery(query);
+        }
+
         public void Disconnect()
         {
         }
 
-        public JiraNamedEntity[] Filters { get; }
-        public JiraNamedEntity[] Projects { get; }
+        public JiraNamedEntity[] Filters => _currentState.Filters;
+        public JiraNamedEntity[] Projects => _currentState.Projects;
     }
 }

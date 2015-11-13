@@ -15,6 +15,9 @@ namespace TeamDashboard.Tests.DataSources.Jira
         private string _password;
         private string _url;
         private IClock _clock;
+        private JiraChannel _target;
+        private string _projectName;
+        private string _filterName;
 
         [SetUp]
         public void SetUp()
@@ -36,20 +39,34 @@ namespace TeamDashboard.Tests.DataSources.Jira
                     file.WriteLine("username");
                     file.WriteLine("password");
                     file.WriteLine("JIRA.url");
+                    file.WriteLine("JIRA.ProjectName");
+                    file.WriteLine("JIRA.FiltetName");
                     file.Close();
                 }
             }
 
+            ReadCredentialsFile(credentialsFilePath);
+
+            _target = new JiraChannel(new RunOptions(), _userName, _password, _url, _clock);
+            _target.Connect();
+        }
+
+        private void ReadCredentialsFile(string credentialsFilePath)
+        {
             using (var file = File.OpenText(credentialsFilePath))
             {
                 _userName = file.ReadLine();
                 _password = file.ReadLine();
                 _url = file.ReadLine();
+                _projectName = file.ReadLine();
+                _filterName = file.ReadLine();
 
-                if (!string.IsNullOrWhiteSpace(_url))
+                if (!string.IsNullOrWhiteSpace(_filterName))
                 {
                     _userName = _userName.Trim();
                     _password = _password.Trim();
+                    _projectName = _projectName.Trim();
+                    _filterName = _filterName.Trim();
                     _url = _url.Trim();
                 }
 
@@ -57,32 +74,49 @@ namespace TeamDashboard.Tests.DataSources.Jira
             }
         }
 
+        [TearDown]
+        public void TearDown()
+        {
+            _target.Disconnect();
+        }
+
         [Test]
         public void CanReadIssuesForProject()
         {
-            var target = new JiraChannel(new RunOptions(), _userName, _password, _url, _clock);
-            target.Connect();
 
-            var issues = target.GetIssues("CERN");
+            var issues = _target.GetIssues(_projectName);
             foreach (var issue in issues)
             {
                 Console.WriteLine("{0} - {1}", issue.Key, issue.Summary);
             }
-
-            target.Disconnect();
         }
 
         [Test]
         public void CanReadIssuesFromFilter()
         {
-            var target = new JiraChannel(new RunOptions(), _userName, _password, _url, _clock);
-            target.Connect();
-
-            var issues = target.GetIssuesFromFilter("CEREBRO 2.0");
+            var issues = _target.GetIssuesFromFilter(_filterName);
             foreach (var issue in issues)
             {
                 Console.WriteLine("{0} - {1}", issue.Key, issue.Summary);
                 Console.WriteLine("\t{0} - {1}", issue.Type, issue.Assignee);
+            }
+        }
+
+        [Test]
+        public void CanReadProjects()
+        {
+            foreach (var project in _target.Projects)
+            {
+                Console.WriteLine("{0}", project.Name);
+            }
+        }
+
+        [Test]
+        public void CanReadFilters()
+        {
+            foreach (var filter in _target.Filters)
+            {
+                Console.WriteLine("{0}", filter.Name);
             }
         }
     }

@@ -46,12 +46,12 @@ namespace NoeticTools.Dashboard.Framework.DataSources.Jira
 
         public IEnumerable<Issue> GetIssues(string projectName)
         {
-            //var project = _jira.GetProjects().Single(x => x.Name.Equals(projectName));
+            return _jira.Issues.Where(x => x.Project.Equals(projectName, StringComparison.InvariantCulture)).ToArray();
+        }
 
-            var filters = _jira.GetFilters();
-
-            return _jira.Issues;
-            //return _jira.Issues.Where(x => x.Project.Equals(projectName, StringComparison.InvariantCulture)).ToArray();
+        public IEnumerable<Issue> GetIssuesQuery(string query)
+        {
+            return _jira.GetIssuesFromJql(query).ToArray();
         }
 
         public void Disconnect()

@@ -26,6 +26,11 @@ namespace NoeticTools.Dashboard.Framework.DataSources.Jira
             return new Issue[0];
         }
 
+        public IEnumerable<Issue> GetIssuesQuery(string query)
+        {
+            return new Issue[0];
+        }
+
         public void Disconnect()
         {
         }

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Controls;
 using Atlassian.Jira;
 
 
@@ -8,6 +7,7 @@ namespace NoeticTools.Dashboard.Framework.DataSources.Jira
 {
     public class JiraFilterIssuesReader
     {
+        private const int MaxNumberOfIssues = 500;
         private const int IssuesPerReadLimit = 100;
         private readonly Atlassian.Jira.Jira _jira;
         private readonly string _filtername;
@@ -23,12 +23,12 @@ namespace NoeticTools.Dashboard.Framework.DataSources.Jira
             var issues = new List<Issue>();
             var firstIssueIndex = 0;
             var read = true;
-            while (read)
+            while (read && firstIssueIndex < MaxNumberOfIssues)
             {
                 var readIssues = _jira.GetIssuesFromFilter(_filtername, firstIssueIndex, IssuesPerReadLimit);
                 issues.AddRange(readIssues);
-                firstIssueIndex += issues.Count;
-                read = issues.Any();
+                firstIssueIndex += readIssues.Count();
+                read = readIssues.Any();
             }
             return issues;
         }

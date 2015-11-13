@@ -12,5 +12,6 @@ namespace NoeticTools.Dashboard.Framework.DataSources.Jira
         void Disconnect();
         JiraNamedEntity[] Filters { get; }
         JiraNamedEntity[] Projects { get; }
+        IEnumerable<Issue> GetIssuesQuery(string query);
     }
 }

@@ -13,12 +13,12 @@ namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
         private readonly ITeamCityChannel _disconnectedState;
         private ITeamCityChannel _current;
 
-        public TeamCityService(DashboardConfigurationServices servicesConfiguration, RunOptions runOptions)
+        public TeamCityService(DashboardConfigurationServices servicesConfiguration, RunOptions runOptions, IClock clock)
         {
             _configuration = new TeamCityServiceConfiguration(servicesConfiguration.GetService("TeamCity"));
             var client = new TeamCityClient(_configuration.Url);
             _disconnectedState = new TeamCityChannelDisconnectedState(client, this, _configuration);
-            _connectedState = new TeamCityChannelConnectedState(client, this);
+            _connectedState = new TeamCityChannelConnectedState(client, this, clock);
             _current = runOptions.EmulateMode ? new TeamCityChannelEmulatedState(client, this) : _disconnectedState;
         }
 
@@ -35,11 +35,6 @@ namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
         public Build GetLastSuccessfulBuild(string projectName, string buildConfigurationName)
         {
             return _current.GetLastSuccessfulBuild(projectName, buildConfigurationName);
-        }
-
-        public Build GetLastSuccessfulBuild(string projectName, string buildConfigurationName, string branchName)
-        {
-            return _current.GetLastSuccessfulBuild(projectName, buildConfigurationName, branchName);
         }
 
         public Build GetRunningBuild(string projectName, string buildConfigurationName, string branchName)

@@ -9,7 +9,6 @@ namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
         void Disconnect();
         Build GetLastBuild(string projectName, string buildConfigurationName);
         Build GetLastSuccessfulBuild(string projectName, string buildConfigurationName);
-        Build GetLastSuccessfulBuild(string projectName, string buildConfigurationName, string branchName);
         Build GetRunningBuild(string projectName, string buildConfigurationName, string branchName);
         Build GetRunningBuild(string projectName, string buildConfigurationName);
     }

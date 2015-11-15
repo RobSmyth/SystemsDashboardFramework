@@ -51,12 +51,6 @@ namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
             return null;
         }
 
-        public Build GetLastSuccessfulBuild(string projectName, string buildConfigurationName, string branchName)
-        {
-            Connect();
-            return null;
-        }
-
         public Build GetRunningBuild(string projectName, string buildConfigurationName, string branchName)
         {
             Connect();

@@ -170,6 +170,7 @@
     <Compile Include="DataSources\TeamCity\TeamCityServiceConfigureCommand.cs" />
     <Compile Include="Time\IClock.cs" />
     <Compile Include="Time\ITimerListener.cs" />
+    <Compile Include="Time\ITimerQueue.cs" />
     <Compile Include="Time\ITimerService.cs" />
     <Compile Include="Time\NullTimerListener.cs" />
     <Compile Include="Tiles\Help\HelpTileControl.xaml.cs">

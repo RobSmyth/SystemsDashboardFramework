@@ -6,10 +6,12 @@ namespace NoeticTools.Dashboard.Framework.Time
     public sealed class TimerToken
     {
         private readonly IClock _clock;
+        private readonly ITimerQueue _queue;
 
-        internal TimerToken(ITimerListener listener, IClock clock)
+        internal TimerToken(ITimerListener listener, IClock clock, ITimerQueue queue)
         {
             _clock = clock;
+            _queue = queue;
             Listener = listener;
         }
 
@@ -25,6 +27,7 @@ namespace NoeticTools.Dashboard.Framework.Time
         public void Requeue(TimeSpan timeSpan)
         {
             DueDateTime = _clock.UtcNow.Add(timeSpan);
+            _queue.Queue(this);
         }
     }
 }

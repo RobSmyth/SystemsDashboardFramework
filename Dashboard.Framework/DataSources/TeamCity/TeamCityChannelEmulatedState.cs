@@ -41,13 +41,6 @@ namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
             return CreateBuild(buildConfiguration);
         }
 
-        public Build GetLastSuccessfulBuild(string projectName, string buildConfigurationName, string branchName)
-        {
-            var project = GetProject(projectName);
-            var buildConfiguration = GetBuildConfiguration(project, buildConfigurationName);
-            return CreateBuild(buildConfiguration);
-        }
-
         public Build GetRunningBuild(string projectName, string buildConfigurationName)
         {
             if (_rand.Next(1, 10) <= 3)

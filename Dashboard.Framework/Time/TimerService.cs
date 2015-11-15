@@ -6,7 +6,7 @@ using System.Windows.Threading;
 
 namespace NoeticTools.Dashboard.Framework.Time
 {
-    public sealed class TimerService : ITimerService
+    public sealed class TimerService : ITimerService, ITimerQueue
     {
         private readonly IClock _clock;
         private readonly List<TimerToken> _callbacks = new List<TimerToken>();
@@ -23,10 +23,18 @@ namespace NoeticTools.Dashboard.Framework.Time
 
         public TimerToken QueueCallback(TimeSpan timeToCallback, ITimerListener listener)
         {
-            var callback = new TimerToken(listener, _clock);
+            var callback = new TimerToken(listener, _clock, this);
             callback.Requeue(timeToCallback);
             _callbacks.Add(callback);
             return callback;
+        }
+
+        public void Queue(TimerToken token)
+        {
+            if (!_callbacks.Contains(token))
+            {
+                _callbacks.Add(token);
+            }
         }
 
         public void FireAll()
@@ -42,14 +50,20 @@ namespace NoeticTools.Dashboard.Framework.Time
         {
             _timer.Stop();
 
-            var dueCallbacks = _callbacks.Where(x => x.DueDateTime <= _clock.UtcNow).ToArray();
-            foreach (var dueCallback in dueCallbacks)
+            var dueCallback = GetNextDueToken();
+            while (dueCallback != null)
             {
                 _callbacks.Remove(dueCallback);
                 dueCallback.Listener.OnTimeElapsed(dueCallback);
+                dueCallback = GetNextDueToken();
             }
 
             _timer.Start();
+        }
+
+        private TimerToken GetNextDueToken()
+        {
+            return _callbacks.FirstOrDefault(x => x.DueDateTime <= _clock.UtcNow);
         }
     }
 }

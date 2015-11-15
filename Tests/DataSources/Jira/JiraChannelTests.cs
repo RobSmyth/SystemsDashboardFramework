@@ -119,5 +119,14 @@ namespace TeamDashboard.Tests.DataSources.Jira
                 Console.WriteLine("{0}", filter.Name);
             }
         }
+
+        [Test]
+        public void CanReadCustomFields()
+        {
+            foreach (var customField in _target.GetCustomFields())
+            {
+                Console.WriteLine("{0}", customField.Name);
+            }
+        }
     }
 }

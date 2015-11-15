@@ -31,7 +31,14 @@ namespace NoeticTools.Dashboard.Framework.DataSources.Jira
 
         public void Connect()
         {
-            _jira = new Atlassian.Jira.Jira(_url, _username, _password) {MaxIssuesPerRequest = MaxIssuesPerRequest };
+            //_jira = Atlassian.Jira.Jira.CreateSoapClient(_url, _username, _password);
+            _jira = Atlassian.Jira.Jira.CreateRestClient(_url, _username, _password);
+            _jira.MaxIssuesPerRequest = MaxIssuesPerRequest;
+        }
+
+        public IEnumerable<CustomField> GetCustomFields()
+        {
+            return _jira.GetCustomFields();
         }
 
         public IEnumerable<Issue> GetIssuesFromFilter(string filterName)

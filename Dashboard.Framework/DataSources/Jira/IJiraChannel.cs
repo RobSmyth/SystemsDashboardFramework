@@ -13,5 +13,6 @@ namespace NoeticTools.Dashboard.Framework.DataSources.Jira
         JiraNamedEntity[] Filters { get; }
         JiraNamedEntity[] Projects { get; }
         IEnumerable<Issue> GetIssuesQuery(string query);
+        IEnumerable<CustomField> GetCustomFields();
     }
 }

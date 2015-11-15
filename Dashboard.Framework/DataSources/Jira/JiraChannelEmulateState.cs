@@ -31,6 +31,11 @@ namespace NoeticTools.Dashboard.Framework.DataSources.Jira
             return new Issue[0];
         }
 
+        public IEnumerable<CustomField> GetCustomFields()
+        {
+            return new CustomField[0];
+        }
+
         public void Disconnect()
         {
         }

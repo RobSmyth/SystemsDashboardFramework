@@ -6,7 +6,7 @@ using NoeticTools.Dashboard.Framework.Time;
 
 namespace NoeticTools.Dashboard.Framework.DataSources.Jira
 {
-    public class TimeRefreshedItems<T>
+    public class TimeCachedArray<T>
     {
         private readonly Func<IEnumerable<T>> _loader;
         private readonly TimeSpan _lifeTime;
@@ -14,7 +14,7 @@ namespace NoeticTools.Dashboard.Framework.DataSources.Jira
         private DateTime _nextRefresh;
         private T[] _items = new T[0];
 
-        public TimeRefreshedItems(Func<IEnumerable<T>> loader, TimeSpan lifeTime, IClock clock) 
+        public TimeCachedArray(Func<IEnumerable<T>> loader, TimeSpan lifeTime, IClock clock) 
         {
             _loader = loader;
             _lifeTime = lifeTime;

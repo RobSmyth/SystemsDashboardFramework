@@ -5,6 +5,13 @@ using NoeticTools.Dashboard.Framework;
 using NoeticTools.Dashboard.Framework.Config;
 using NoeticTools.Dashboard.Framework.DataSources.TeamCity;
 using NoeticTools.Dashboard.Framework.Tiles;
+using NoeticTools.Dashboard.Framework.Tiles.Date;
+using NoeticTools.Dashboard.Framework.Tiles.DaysLeftCountDown;
+using NoeticTools.Dashboard.Framework.Tiles.Message;
+using NoeticTools.Dashboard.Framework.Tiles.ServerStatus;
+using NoeticTools.Dashboard.Framework.Tiles.TeamCityAvailableBuilds;
+using NoeticTools.Dashboard.Framework.Tiles.TeamCityLastBuildStatus;
+using NoeticTools.Dashboard.Framework.Tiles.WebPage;
 using NoeticTools.Dashboard.Framework.Time;
 
 
@@ -33,7 +40,18 @@ namespace NoeticTools.TeamDashboard
             var tileLayoutControllerRegistry = new TileLayoutControllerRegistry(tileRegistryConduit);
             _dashboardNavigator = new DashboardNavigator(loaderConduit, _config, tileLayoutControllerRegistry);
             _controller = new DashboardController(dashboardConfigurationManager, timerService, sidePanel, _config, _dashboardNavigator);
-            var tileRegistry = new TileRegistry(new TeamCityService(_config.Services, runOptions, clock), clock, timerService, _controller);
+            var teamCityService = new TeamCityService(_config.Services, runOptions, clock);
+            var tileRegistry = new TileRegistry(teamCityService, clock, timerService, _controller, 
+                new ITilePlugin[]
+                {
+                    new TeamCityLastBuildStatusTilePlugin(teamCityService, timerService, _controller), 
+                    new TeamCityLAvailbleBuildSTilePlugin(teamCityService, timerService, _controller), 
+                    new DaysLeftCountDownTilePlugin(_controller, clock), 
+                    new DateTilePlugin(timerService, _controller, clock), 
+                    new MessageTilePlugin(_controller), 
+                    new WebPageTilePlugin(_controller), 
+                    new ServerStatusTilePlugin(_controller), 
+                });
             tileRegistryConduit.SetTarget(tileRegistry);
             var rootTileLayoutController = new TileLayoutController(tileGrid, tileRegistry, tileLayoutControllerRegistry, new Thickness(0));
             _loader = new DashBoardLoader(rootTileLayoutController);

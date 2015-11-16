@@ -4,13 +4,12 @@ using System.Windows.Input;
 using System.Windows.Threading;
 using NoeticTools.Dashboard.Framework.Commands;
 using NoeticTools.Dashboard.Framework.Config;
-using NoeticTools.Dashboard.Framework.Config.Commands;
 using NoeticTools.Dashboard.Framework.Config.Parameters;
 
 
 namespace NoeticTools.Dashboard.Framework.Tiles.DaysLeftCountDown
 {
-    internal class DaysLeftCountDownViewController : IViewController
+    internal class DaysLeftCountDownTileController : IViewController
     {
         public const string TileTypeId = "TimeLeft.Days.Count";
         private readonly IClock _clock;
@@ -19,7 +18,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles.DaysLeftCountDown
         private readonly DispatcherTimer _timer;
         private DaysLeftCountDownTileView _view;
 
-        public DaysLeftCountDownViewController(TileConfiguration tileConfiguration, IClock clock,
+        public DaysLeftCountDownTileController(TileConfiguration tileConfiguration, IClock clock,
             IDashboardController dashboardController)
         {
             _clock = clock;

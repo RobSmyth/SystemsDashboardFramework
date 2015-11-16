@@ -14,9 +14,9 @@ namespace NoeticTools.Dashboard.Framework.DataSources.Jira
         private readonly string _url;
         private readonly IClock _clock;
         private Atlassian.Jira.Jira _jira;
-        private readonly TimeRefreshedItems<JiraNamedEntity> _filters;
-        private readonly TimeRefreshedItems<JiraNamedEntity> _projects;
-        private readonly Dictionary<string, TimeRefreshedItems<Issue>> _filterItems;
+        private readonly TimeCachedArray<JiraNamedEntity> _filters;
+        private readonly TimeCachedArray<JiraNamedEntity> _projects;
+        private readonly Dictionary<string, TimeCachedArray<Issue>> _filterItems;
 
         public JiraChannelState(string username, string password, string url, IClock clock)
         {
@@ -24,9 +24,9 @@ namespace NoeticTools.Dashboard.Framework.DataSources.Jira
             _password = password;
             _url = url;
             _clock = clock;
-            _filters = new TimeRefreshedItems<JiraNamedEntity>(() => _jira.GetFilters(), TimeSpan.FromMinutes(5), clock);
-            _projects = new TimeRefreshedItems<JiraNamedEntity>(() => _jira.GetProjects(), TimeSpan.FromMinutes(5), clock);
-            _filterItems = new Dictionary<string, TimeRefreshedItems<Issue>>();
+            _filters = new TimeCachedArray<JiraNamedEntity>(() => _jira.GetFilters(), TimeSpan.FromMinutes(5), clock);
+            _projects = new TimeCachedArray<JiraNamedEntity>(() => _jira.GetProjects(), TimeSpan.FromMinutes(5), clock);
+            _filterItems = new Dictionary<string, TimeCachedArray<Issue>>();
         }
 
         public void Connect()
@@ -46,7 +46,7 @@ namespace NoeticTools.Dashboard.Framework.DataSources.Jira
             if (!_filterItems.ContainsKey(filterName))
             {
                 var reader = new JiraFilterIssuesReader(_jira, filterName);
-                _filterItems.Add(filterName, new TimeRefreshedItems<Issue>(() => reader.GetIssuesFromFilter(), TimeSpan.FromSeconds(3), _clock));
+                _filterItems.Add(filterName, new TimeCachedArray<Issue>(() => reader.GetIssuesFromFilter(), TimeSpan.FromSeconds(3), _clock));
             }
             return _filterItems[filterName].Items;
         }

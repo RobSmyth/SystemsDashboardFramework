@@ -6,14 +6,14 @@ using NoeticTools.Dashboard.Framework.Config.Commands;
 
 namespace NoeticTools.Dashboard.Framework.Tiles.Message
 {
-    internal class MessageViewController : IViewController
+    internal class MessageTileController : IViewController
     {
         private readonly TileConfiguration _tileConfiguration;
         private readonly IDashboardController _dashboardController;
         public static readonly string TileTypeId = "Message";
         private MessageTileControl _view;
 
-        public MessageViewController(TileConfiguration tileConfiguration,
+        public MessageTileController(TileConfiguration tileConfiguration,
             IDashboardController dashboardController)
         {
             _tileConfiguration = tileConfiguration;

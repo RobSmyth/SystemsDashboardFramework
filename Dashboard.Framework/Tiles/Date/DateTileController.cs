@@ -7,14 +7,14 @@ using NoeticTools.Dashboard.Framework.Time;
 
 namespace NoeticTools.Dashboard.Framework.Tiles.Date
 {
-    internal class DateViewController : IViewController, ITimerListener
+    internal class DateTileController : IViewController, ITimerListener
     {
         public const string TileTypeId = "Date.Now";
         private readonly ITimerService _timerService;
         private readonly IClock _clock;
         private DateTileControl _view;
 
-        public DateViewController(ITimerService timerService, IClock clock)
+        public DateTileController(ITimerService timerService, IClock clock)
         {
             _timerService = timerService;
             _clock = clock;

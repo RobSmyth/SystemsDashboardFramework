@@ -14,15 +14,15 @@ namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
         private readonly TeamCityClient _client;
         private readonly IStateEngine<ITeamCityChannel> _stateEngine;
         private readonly IClock _clock;
-        private readonly TimeRefreshedItems<Project> _projects;
-        private readonly Dictionary<Project, TimeRefreshedItems<BuildConfig>> _buildConfigurations = new Dictionary<Project, TimeRefreshedItems<BuildConfig>>();
+        private readonly TimeCachedArray<Project> _projects;
+        private readonly Dictionary<Project, TimeCachedArray<BuildConfig>> _buildConfigurations = new Dictionary<Project, TimeCachedArray<BuildConfig>>();
 
         public TeamCityChannelConnectedState(TeamCityClient client, IStateEngine<ITeamCityChannel> stateEngine, IClock clock)
         {
             _client = client;
             _stateEngine = stateEngine;
             _clock = clock;
-            _projects = new TimeRefreshedItems<Project>(() => _client.Projects.All(), TimeSpan.FromMinutes(5), clock);
+            _projects = new TimeCachedArray<Project>(() => _client.Projects.All(), TimeSpan.FromMinutes(5), clock);
         }
 
         public void Connect()
@@ -96,7 +96,7 @@ namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
         {
             if (!_buildConfigurations.ContainsKey(project))
             {
-                _buildConfigurations.Add(project, new TimeRefreshedItems<BuildConfig>(() => _client.BuildConfigs.ByProjectId(project.Id), TimeSpan.FromSeconds(30), _clock));
+                _buildConfigurations.Add(project, new TimeCachedArray<BuildConfig>(() => _client.BuildConfigs.ByProjectId(project.Id), TimeSpan.FromSeconds(30), _clock));
             }
             return _buildConfigurations[project].Items.Single(x => x.Name.Equals(buildConfigurationName, StringComparison.InvariantCultureIgnoreCase));
         }

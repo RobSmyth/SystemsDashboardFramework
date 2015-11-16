@@ -6,13 +6,13 @@ using NoeticTools.Dashboard.Framework.Config.Commands;
 
 namespace NoeticTools.Dashboard.Framework.Tiles.ServerStatus
 {
-    internal class ServerStatusViewController : IViewController
+    internal class ServerStatusTileController : IViewController
     {
         public const string TileTypeId = "Server.Status";
         private readonly TileConfigurationConverter _tileConfigurationConverter;
         private ServerStatusTileControl _view;
 
-        public ServerStatusViewController(TileConfiguration tileConfiguration)
+        public ServerStatusTileController(TileConfiguration tileConfiguration)
         {
             _tileConfigurationConverter = new TileConfigurationConverter(tileConfiguration, this);
             ConfigureCommand = new NullCommand();

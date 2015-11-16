@@ -15,7 +15,7 @@ using NoeticTools.Dashboard.Framework.Time;
 
 namespace NoeticTools.Dashboard.Framework.Tiles.TeamCityAvailableBuilds
 {
-    internal class TeamCityAvailableBuildsViewController : IViewController, ITimerListener
+    internal class TeamCityAvailableBuildsTileController : IViewController, ITimerListener
     {
         public class BuildDetails
         {
@@ -44,7 +44,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles.TeamCityAvailableBuilds
             return version.Substring(0, length);
         }
 
-        public TeamCityAvailableBuildsViewController(TeamCityService service, TileConfiguration tileConfiguration,
+        public TeamCityAvailableBuildsTileController(TeamCityService service, TileConfiguration tileConfiguration,
             ITimerService timerService, IDashboardController dashboardController)
         {
             _service = service;

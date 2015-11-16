@@ -9,14 +9,14 @@ using NoeticTools.Dashboard.Framework.Config.Parameters;
 
 namespace NoeticTools.Dashboard.Framework.Tiles.WebPage
 {
-    internal class WebPageViewController : IViewController
+    internal class WebPageTileController : IViewController
     {
         private readonly IDashboardController _dashboardController;
         public static readonly string TileTypeId = "WebBrowser";
         private readonly TileConfigurationConverter _tileConfigurationConverter;
         private WebPageTileControl _view;
 
-        public WebPageViewController(TileConfiguration tileConfiguration,
+        public WebPageTileController(TileConfiguration tileConfiguration,
             IDashboardController dashboardController)
         {
             _dashboardController = dashboardController;

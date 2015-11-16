@@ -5,7 +5,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using NoeticTools.Dashboard.Framework.Commands;
 using NoeticTools.Dashboard.Framework.Config;
-using NoeticTools.Dashboard.Framework.Config.Commands;
 using NoeticTools.Dashboard.Framework.Config.Parameters;
 using NoeticTools.Dashboard.Framework.DataSources.TeamCity;
 using NoeticTools.Dashboard.Framework.Time;
@@ -13,7 +12,7 @@ using NoeticTools.Dashboard.Framework.Time;
 
 namespace NoeticTools.Dashboard.Framework.Tiles.TeamCityLastBuildStatus
 {
-    internal class TeamCityLastBuildStatusViewController : IViewController, ITimerListener
+    internal class TeamCityLastBuildStatusTileController : IViewController, ITimerListener
     {
         public const string TileTypeId = "TeamCity.Build.Status";
 
@@ -53,7 +52,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles.TeamCityLastBuildStatus
         private readonly TimerToken _timerToken;
         private TeamCityBuildStatusTileControl _view;
 
-        public TeamCityLastBuildStatusViewController(TeamCityService service, TileConfiguration tileConfiguration, ITimerService timerService, IDashboardController dashboardController)
+        public TeamCityLastBuildStatusTileController(TeamCityService service, TileConfiguration tileConfiguration, ITimerService timerService, IDashboardController dashboardController)
         {
             _service = service;
             _dashboardController = dashboardController;

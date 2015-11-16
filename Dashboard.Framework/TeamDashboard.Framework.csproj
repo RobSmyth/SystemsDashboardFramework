@@ -95,8 +95,8 @@
     <Compile Include="Tiles\Dashboards\DashboardsNavigationViewModel.cs" />
     <Compile Include="Tiles\Date\DateTilePlugin.cs" />
     <Compile Include="Tiles\DaysLeftCountDown\DaysLeftCountDownTilePlugin.cs" />
-    <Compile Include="Tiles\ITileLayoutControllerRegistry.cs" />
-    <Compile Include="Tiles\ITileRegistry.cs" />
+    <Compile Include="Registries\ITileLayoutControllerRegistry.cs" />
+    <Compile Include="Registries\ITileRegistry.cs" />
     <Compile Include="NotifyingViewModelBase.cs" />
     <Compile Include="DataSources\Jira\IJiraChannel.cs" />
     <Compile Include="DataSources\Jira\JiraChannelEmulateState.cs" />
@@ -108,10 +108,11 @@
     <Compile Include="Tiles\Message\MessageTilePlugin.cs" />
     <Compile Include="Tiles\ServerStatus\ServerStatusTilePlugin.cs" />
     <Compile Include="Tiles\TeamCityAvailableBuilds\TeamCityAvailableBuildsTilePlugin.cs" />
-    <Compile Include="Tiles\TeamCityLastBuildStatus\ITilePlugin.cs" />
+    <Compile Include="Tiles\ITilePlugin.cs" />
     <Compile Include="Tiles\TeamCityLastBuildStatus\TeamCityLastBuildStatusTilePlugin.cs" />
-    <Compile Include="Tiles\TileLayoutControllerRegistry.cs" />
-    <Compile Include="Tiles\TileRegistry.cs" />
+    <Compile Include="Registries\TileLayoutControllerRegistry.cs" />
+    <Compile Include="Registries\TilePluginRegistry.cs" />
+    <Compile Include="Registries\TileControllerRegistry.cs" />
     <Compile Include="Tiles\TileLayoutController.cs" />
     <Compile Include="Tiles\Date\DateTileControl.xaml.cs">
       <DependentUpon>DateTileControl.xaml</DependentUpon>

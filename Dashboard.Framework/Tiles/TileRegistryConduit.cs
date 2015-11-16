@@ -1,4 +1,5 @@
 using NoeticTools.Dashboard.Framework.Config;
+using NoeticTools.Dashboard.Framework.Registries;
 
 
 namespace NoeticTools.Dashboard.Framework.Tiles

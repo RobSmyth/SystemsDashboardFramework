@@ -2,9 +2,10 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using NoeticTools.Dashboard.Framework.Tiles;
 
 
-namespace NoeticTools.Dashboard.Framework.Tiles
+namespace NoeticTools.Dashboard.Framework.Registries
 {
     public class TileLayoutControllerRegistry : ITileLayoutControllerRegistry
     {

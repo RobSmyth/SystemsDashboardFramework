@@ -4,10 +4,11 @@ using NoeticTools.Dashboard.Framework.Tiles;
 
 namespace NoeticTools.Dashboard.Framework.Registries
 {
-    public interface ITileRegistry
+    public interface ITileControllerRegistry
     {
         IViewController GetNew(TileConfiguration tileConfiguration);
         void Clear();
         IViewController[] GetAll();
+        void Register(IViewControllerProvider provider);
     }
 }

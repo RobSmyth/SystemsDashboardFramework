@@ -15,9 +15,9 @@ namespace NoeticTools.Dashboard.Framework.Tiles
         private readonly Thickness _normalMargin;
         private readonly Grid _tileGrid;
         private readonly ITileLayoutControllerRegistry _tileLayoutControllerRegistry;
-        private readonly ITileRegistry _tileRegistry;
+        private readonly ITileControllerRegistry _tileRegistry;
 
-        public TileLayoutController(Grid tileGrid, ITileRegistry tileRegistry, ITileLayoutControllerRegistry tileLayoutControllerRegistry, Thickness normalMargin)
+        public TileLayoutController(Grid tileGrid, ITileControllerRegistry tileRegistry, ITileLayoutControllerRegistry tileLayoutControllerRegistry, Thickness normalMargin)
         {
             _tileRegistry = tileRegistry;
             _tileLayoutControllerRegistry = tileLayoutControllerRegistry;

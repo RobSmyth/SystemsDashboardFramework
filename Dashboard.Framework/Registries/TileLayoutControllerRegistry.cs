@@ -9,10 +9,10 @@ namespace NoeticTools.Dashboard.Framework.Registries
 {
     public class TileLayoutControllerRegistry : ITileLayoutControllerRegistry
     {
-        private readonly ITileRegistry _tileRegistry;
+        private readonly ITileControllerRegistry _tileRegistry;
         private readonly IList<ITileLayoutController> _layoutControllers = new List<ITileLayoutController>();
 
-        public TileLayoutControllerRegistry(ITileRegistry tileRegistry)
+        public TileLayoutControllerRegistry(ITileControllerRegistry tileRegistry)
         {
             _tileRegistry = tileRegistry;
         }

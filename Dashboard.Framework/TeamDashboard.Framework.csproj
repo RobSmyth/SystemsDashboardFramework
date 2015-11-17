@@ -75,7 +75,14 @@
     <Compile Include="Commands\CloseCommand.cs" />
     <Compile Include="Config\Parameters\DividerElementViewModel.cs" />
     <Compile Include="Config\Parameters\ElementType.cs" />
-    <Compile Include="Config\Views\InsertTileControl.xaml.cs">
+    <Compile Include="IKeyboardHandler.cs" />
+    <Compile Include="IKeyHandler.cs" />
+    <Compile Include="Tiles\Date\IServices.cs" />
+    <Compile Include="Tiles\Date\Services.cs" />
+    <Compile Include="Tiles\Help\HelpTilePlugin.cs" />
+    <Compile Include="Tiles\InsertTile\InsertTilePlugin.cs" />
+    <Compile Include="Tiles\InsertTile\InsertTileController.cs" />
+    <Compile Include="Tiles\InsertTile\InsertTileControl.xaml.cs">
       <DependentUpon>InsertTileControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Config\Views\ParametersConfigControl.xaml.cs">
@@ -96,7 +103,7 @@
     <Compile Include="Tiles\Date\DateTilePlugin.cs" />
     <Compile Include="Tiles\DaysLeftCountDown\DaysLeftCountDownTilePlugin.cs" />
     <Compile Include="Registries\ITileLayoutControllerRegistry.cs" />
-    <Compile Include="Registries\ITileRegistry.cs" />
+    <Compile Include="Registries\ITileControllerRegistry.cs" />
     <Compile Include="NotifyingViewModelBase.cs" />
     <Compile Include="DataSources\Jira\IJiraChannel.cs" />
     <Compile Include="DataSources\Jira\JiraChannelEmulateState.cs" />
@@ -104,14 +111,14 @@
     <Compile Include="IDashboardController.cs" />
     <Compile Include="Tiles\ITileLayoutController.cs" />
     <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Tiles\IViewControllerProvider.cs" />
     <Compile Include="Tiles\Message\MessageViewModel.cs" />
     <Compile Include="Tiles\Message\MessageTilePlugin.cs" />
     <Compile Include="Tiles\ServerStatus\ServerStatusTilePlugin.cs" />
     <Compile Include="Tiles\TeamCityAvailableBuilds\TeamCityAvailableBuildsTilePlugin.cs" />
-    <Compile Include="Tiles\ITilePlugin.cs" />
+    <Compile Include="Tiles\IPlugin.cs" />
     <Compile Include="Tiles\TeamCityLastBuildStatus\TeamCityLastBuildStatusTilePlugin.cs" />
     <Compile Include="Registries\TileLayoutControllerRegistry.cs" />
-    <Compile Include="Registries\TilePluginRegistry.cs" />
     <Compile Include="Registries\TileControllerRegistry.cs" />
     <Compile Include="Tiles\TileLayoutController.cs" />
     <Compile Include="Tiles\Date\DateTileControl.xaml.cs">
@@ -139,7 +146,7 @@
       <DependentUpon>TeamCityLastBuildStatusTileControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Tiles\TeamCityLastBuildStatus\TeamCityLastBuildStatusTileController.cs" />
-    <Compile Include="Tiles\TileRegistryConduit.cs" />
+    <Compile Include="Registries\TileRegistryConduit.cs" />
     <Compile Include="Tiles\WebPage\WebPageTilePlugin.cs" />
     <Compile Include="Tiles\WebPage\WebPageTileControl.xaml.cs">
       <DependentUpon>WebPageTileControl.xaml</DependentUpon>
@@ -204,7 +211,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Config\Views\InsertTileControl.xaml">
+    <Page Include="Tiles\InsertTile\InsertTileControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -292,6 +299,16 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Config\ViewModels\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Insert row to left.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Insert row to right.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Insert row above.png" />
+    <Resource Include="Images\Insert row below.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

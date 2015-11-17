@@ -1,23 +1,24 @@
 ﻿using System;
 using NoeticTools.Dashboard.Framework.Config;
-using NoeticTools.Dashboard.Framework.Tiles.Message;
-using NoeticTools.Dashboard.Framework.Tiles.TeamCityLastBuildStatus;
 using NoeticTools.Dashboard.Framework.Time;
 
 
 namespace NoeticTools.Dashboard.Framework.Tiles.Date
 {
-    public class DateTilePlugin : ITilePlugin
+    public class DateTilePlugin : IPlugin, IViewControllerProvider
     {
         private readonly ITimerService _timerService;
-        private readonly IDashboardController _dashboardController;
         private readonly IClock _clock;
 
-        public DateTilePlugin(ITimerService timerService, IDashboardController dashboardController, IClock clock)
+        public DateTilePlugin(ITimerService timerService, IClock clock)
         {
             _timerService = timerService;
-            _dashboardController = dashboardController;
             _clock = clock;
+        }
+
+        public void Register(IServices services)
+        {
+            services.Repository.Register(this);
         }
 
         public bool MatchesId(string id)

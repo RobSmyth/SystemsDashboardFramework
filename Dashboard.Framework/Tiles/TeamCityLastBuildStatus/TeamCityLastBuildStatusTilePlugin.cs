@@ -1,12 +1,13 @@
 ﻿using System;
 using NoeticTools.Dashboard.Framework.Config;
 using NoeticTools.Dashboard.Framework.DataSources.TeamCity;
+using NoeticTools.Dashboard.Framework.Tiles.Date;
 using NoeticTools.Dashboard.Framework.Time;
 
 
 namespace NoeticTools.Dashboard.Framework.Tiles.TeamCityLastBuildStatus
 {
-    public class TeamCityLastBuildStatusTilePlugin : ITilePlugin
+    public class TeamCityLastBuildStatusTilePlugin : IPlugin, IViewControllerProvider
     {
         private readonly TeamCityService _service;
         private readonly ITimerService _timerService;
@@ -27,6 +28,11 @@ namespace NoeticTools.Dashboard.Framework.Tiles.TeamCityLastBuildStatus
         public IViewController CreateViewController(TileConfiguration tileConfiguration)
         {
             return new TeamCityLastBuildStatusTileController(_service, tileConfiguration, _timerService, _dashboardController);
+        }
+
+        public void Register(IServices services)
+        {
+            services.Repository.Register(this);
         }
     }
 }

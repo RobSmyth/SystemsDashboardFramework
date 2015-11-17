@@ -12,5 +12,6 @@ namespace NoeticTools.Dashboard.Framework
         void ShowOnSidePane(IViewController viewController, string title);
         void Refresh();
         void ToggleGroupPanelsEditMode();
+        void ShowInsertPanel();
     }
 }

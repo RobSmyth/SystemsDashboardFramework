@@ -4,6 +4,7 @@ using NoeticTools.Dashboard.Framework.Config;
 using NoeticTools.Dashboard.Framework.Tiles;
 using NoeticTools.Dashboard.Framework.Tiles.Dashboards;
 using NoeticTools.Dashboard.Framework.Tiles.Help;
+using NoeticTools.Dashboard.Framework.Tiles.InsertTile;
 using NoeticTools.Dashboard.Framework.Time;
 
 
@@ -67,6 +68,11 @@ namespace NoeticTools.Dashboard.Framework
         {
             _dashboardNavigator.ToggleShowGroupPanelsDetailsMode();
             //ShowOnSidePane(new GroupPanelsEditTileViewModel(_config, _tileRegistryConduit));
+        }
+
+        public void ShowInsertPanel()
+        {
+            ShowOnSidePane(new InsertTileController(), "Help");
         }
 
         private void Save()

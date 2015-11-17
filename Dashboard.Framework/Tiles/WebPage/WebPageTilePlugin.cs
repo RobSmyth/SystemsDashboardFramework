@@ -1,11 +1,12 @@
 ﻿using System;
 using NoeticTools.Dashboard.Framework.Config;
+using NoeticTools.Dashboard.Framework.Tiles.Date;
 using NoeticTools.Dashboard.Framework.Tiles.TeamCityLastBuildStatus;
 
 
 namespace NoeticTools.Dashboard.Framework.Tiles.WebPage
 {
-    public class WebPageTilePlugin : ITilePlugin
+    public class WebPageTilePlugin : IPlugin, IViewControllerProvider
     {
         private readonly IDashboardController _dashboardController;
 
@@ -22,6 +23,11 @@ namespace NoeticTools.Dashboard.Framework.Tiles.WebPage
         public IViewController CreateViewController(TileConfiguration tileConfiguration)
         {
             return new WebPageTileController(tileConfiguration, _dashboardController);
+        }
+
+        public void Register(IServices services)
+        {
+            services.Repository.Register(this);
         }
     }
 }

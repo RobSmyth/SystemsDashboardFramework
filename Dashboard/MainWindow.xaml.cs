@@ -8,6 +8,8 @@ using NoeticTools.Dashboard.Framework.Registries;
 using NoeticTools.Dashboard.Framework.Tiles;
 using NoeticTools.Dashboard.Framework.Tiles.Date;
 using NoeticTools.Dashboard.Framework.Tiles.DaysLeftCountDown;
+using NoeticTools.Dashboard.Framework.Tiles.Help;
+using NoeticTools.Dashboard.Framework.Tiles.InsertTile;
 using NoeticTools.Dashboard.Framework.Tiles.Message;
 using NoeticTools.Dashboard.Framework.Tiles.ServerStatus;
 using NoeticTools.Dashboard.Framework.Tiles.TeamCityAvailableBuilds;
@@ -42,27 +44,41 @@ namespace NoeticTools.TeamDashboard
             _dashboardNavigator = new DashboardNavigator(loaderConduit, _config, tileLayoutControllerRegistry);
             _dashboardController = new DashboardController(dashboardConfigurationManager, timerService, sidePanel, _config, _dashboardNavigator);
             var teamCityService = new TeamCityService(_config.Services, runOptions, clock);
-            var tilePluginRegistry = new TilePluginRegistry(
-                new ITilePlugin[]
-                {
-                    new TeamCityLastBuildStatusTilePlugin(teamCityService, timerService, _dashboardController),
-                    new TeamCityLAvailbleBuildSTilePlugin(teamCityService, timerService, _dashboardController),
-                    new DaysLeftCountDownTilePlugin(_dashboardController, clock),
-                    new DateTilePlugin(timerService, _dashboardController, clock),
-                    new MessageTilePlugin(_dashboardController),
-                    new WebPageTilePlugin(_dashboardController),
-                    new ServerStatusTilePlugin(_dashboardController),
-                });
-            var tileControllerRegistry = new TileControllerRegistry(tilePluginRegistry);
+            var tileControllerRegistry = new TileControllerRegistry();
             tileRegistryConduit.SetTarget(tileControllerRegistry);
             var rootTileLayoutController = new TileLayoutController(tileGrid, tileControllerRegistry, tileLayoutControllerRegistry, new Thickness(0));
             _loader = new DashBoardLoader(rootTileLayoutController);
             loaderConduit.SetTarget(_loader);
             _keyboardHandler = new KeyboardHandler(tileNavigator, _dashboardNavigator, _dashboardController);
 
+            var services = new Services(tileControllerRegistry, _keyboardHandler);
+
+            RegisterPlugins(teamCityService, timerService, clock, services);
+
             Loaded += LoadedHandler;
             Closed += ClosedHandler;
             KeyDown += MainWindow_KeyDown;
+        }
+
+        private void RegisterPlugins(TeamCityService teamCityService, TimerService timerService, Clock clock, Services services)
+        {
+            var plugins = new IPlugin[]
+            {
+                new InsertTilePlugin(_dashboardController),
+                new HelpTilePlugin(_dashboardController),
+
+                new TeamCityLastBuildStatusTilePlugin(teamCityService, timerService, _dashboardController),
+                new TeamCityLAvailbleBuildSTilePlugin(teamCityService, timerService, _dashboardController),
+                new DaysLeftCountDownTilePlugin(_dashboardController, clock),
+                new DateTilePlugin(timerService, clock),
+                new MessageTilePlugin(_dashboardController),
+                new WebPageTilePlugin(_dashboardController),
+                new ServerStatusTilePlugin(_dashboardController),
+            };
+            foreach (var plugin in plugins)
+            {
+                plugin.Register(services);
+            }
         }
 
         private void MainWindow_KeyDown(object sender, KeyEventArgs e)

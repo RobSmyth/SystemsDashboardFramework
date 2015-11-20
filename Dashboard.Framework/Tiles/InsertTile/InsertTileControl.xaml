@@ -33,36 +33,41 @@
         <Grid HorizontalAlignment="Center" Margin="10" Height="Auto" Grid.Row="1">
             
             <Grid.RowDefinitions>
-                <RowDefinition Height="40" />
+                <RowDefinition />
             </Grid.RowDefinitions>
             
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="40" />
-                <ColumnDefinition Width="40" />
-                <ColumnDefinition Width="40" />
-                <ColumnDefinition Width="40" />
-                <ColumnDefinition Width="40" />
-                <ColumnDefinition Width="40" />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition />
+                <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2" ToolTip="Insert in new row to left">
+            <Button Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5" ToolTip="Insert in new row to left">
                 <Image Source="/NoeticTools.Dashboard.Framework;component/Images/Insert row to left.png" Width="32" Height="32"/>
             </Button>
-            <Button Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2" ToolTip="Insert in new row to right">
+            
+            <Button Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5" ToolTip="Insert in new row to right">
                 <Image Source="/NoeticTools.Dashboard.Framework;component/Images/Insert row to right.png" Width="32" Height="32"/>
             </Button>
-            <Button Grid.Row="0" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2" ToolTip="Insert in new row above">
+            
+            <Button Grid.Row="0" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5" ToolTip="Insert in new row above">
                 <Image Source="/NoeticTools.Dashboard.Framework;component/Images/Insert row above.png" Width="32" Height="32"/>
             </Button>
-            <Button Grid.Row="0" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2" ToolTip="Insert in new row below">
+            
+            <Button Grid.Row="0" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5" ToolTip="Insert in new row below">
                 <Image Source="/NoeticTools.Dashboard.Framework;component/Images/Insert row below.png" Width="32" Height="32"/>
             </Button>
 
-            <Button Grid.Row="0" Grid.Column="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2">
-                <TextBlock TextWrapping="WrapWithOverflow" TextAlignment="Center">Delete column</TextBlock>
+            <Button Grid.Row="0" Grid.Column="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5" ToolTip="Delete column">
+                <Image Source="/NoeticTools.Dashboard.Framework;component/Images/Delete column.png" Width="32" Height="32"/>
             </Button>
-            <Button Grid.Row="0" Grid.Column="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2">
-                <TextBlock TextWrapping="WrapWithOverflow" TextAlignment="Center">Delete row</TextBlock>
+            
+            <Button Grid.Row="0" Grid.Column="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5" ToolTip="Delete row">
+                <Image Source="/NoeticTools.Dashboard.Framework;component/Images/Delete row.png" Width="32" Height="32"/>
             </Button>
 
         </Grid>

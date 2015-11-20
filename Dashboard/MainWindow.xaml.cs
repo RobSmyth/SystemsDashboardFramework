@@ -69,7 +69,7 @@ namespace NoeticTools.TeamDashboard
 
                 new TeamCityLastBuildStatusTilePlugin(teamCityService, timerService, _dashboardController),
                 new TeamCityLAvailbleBuildSTilePlugin(teamCityService, timerService, _dashboardController),
-                new DaysLeftCountDownTilePlugin(_dashboardController, clock),
+                new DaysLeftCountDownTilePlugin(_dashboardController, clock, timerService),
                 new DateTilePlugin(timerService, clock),
                 new MessageTilePlugin(_dashboardController),
                 new WebPageTilePlugin(_dashboardController),

@@ -79,6 +79,7 @@
     <Compile Include="IKeyHandler.cs" />
     <Compile Include="Tiles\Date\IServices.cs" />
     <Compile Include="Tiles\Date\Services.cs" />
+    <Compile Include="Tiles\DaysLeftCountDown\DaysLeftCountDownTileViewModel.cs" />
     <Compile Include="Tiles\Help\HelpTilePlugin.cs" />
     <Compile Include="Tiles\InsertTile\InsertTilePlugin.cs" />
     <Compile Include="Tiles\InsertTile\InsertTileController.cs" />

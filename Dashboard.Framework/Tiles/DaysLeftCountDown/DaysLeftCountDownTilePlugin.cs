@@ -2,6 +2,7 @@
 using NoeticTools.Dashboard.Framework.Config;
 using NoeticTools.Dashboard.Framework.Tiles.Date;
 using NoeticTools.Dashboard.Framework.Tiles.TeamCityLastBuildStatus;
+using NoeticTools.Dashboard.Framework.Time;
 
 
 namespace NoeticTools.Dashboard.Framework.Tiles.DaysLeftCountDown
@@ -10,11 +11,13 @@ namespace NoeticTools.Dashboard.Framework.Tiles.DaysLeftCountDown
     {
         private readonly IDashboardController _dashboardController;
         private readonly IClock _clock;
+        private readonly ITimerService _timerService;
 
-        public DaysLeftCountDownTilePlugin(IDashboardController dashboardController, IClock clock)
+        public DaysLeftCountDownTilePlugin(IDashboardController dashboardController, IClock clock, ITimerService timerService)
         {
             _dashboardController = dashboardController;
             _clock = clock;
+            _timerService = timerService;
         }
 
         public bool MatchesId(string id)
@@ -24,7 +27,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles.DaysLeftCountDown
 
         public IViewController CreateViewController(TileConfiguration tileConfiguration)
         {
-            return new DaysLeftCountDownTileController(tileConfiguration, _clock, _dashboardController);
+            return new DaysLeftCountDownTileController(tileConfiguration, _clock, _dashboardController, _timerService);
         }
 
         public void Register(IServices services)

@@ -73,8 +73,11 @@
     <Compile Include="Commands\RoutedCommands.cs" />
     <Compile Include="Commands\SaveConfigurationParametersCommand.cs" />
     <Compile Include="Commands\CloseCommand.cs" />
+    <Compile Include="Config\INotifyingElementViewModel.cs" />
     <Compile Include="Config\Parameters\DividerElementViewModel.cs" />
     <Compile Include="Config\Parameters\ElementType.cs" />
+    <Compile Include="Tiles\TeamCityLastBuildStatus\TeamCityConfigurationElementViewModel.cs" />
+    <Compile Include="Tiles\TeamCityLastBuildStatus\TeamCityProjectElementViewModel.cs" />
     <Compile Include="IKeyboardHandler.cs" />
     <Compile Include="IKeyHandler.cs" />
     <Compile Include="Tiles\Date\IServices.cs" />

@@ -62,5 +62,12 @@ namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
             Connect();
             return null;
         }
+
+        public string[] ProjectNames => new string[0];
+
+        public string[] GetConfigurationNames(string projectName)
+        {
+            return new string[0];
+        }
     }
 }

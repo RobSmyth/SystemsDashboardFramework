@@ -11,5 +11,7 @@ namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
         Build GetLastSuccessfulBuild(string projectName, string buildConfigurationName);
         Build GetRunningBuild(string projectName, string buildConfigurationName, string branchName);
         Build GetRunningBuild(string projectName, string buildConfigurationName);
+        string[] ProjectNames { get; }
+        string[] GetConfigurationNames(string projectName);
     }
 }

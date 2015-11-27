@@ -88,6 +88,7 @@ namespace NoeticTools.Dashboard.Framework.Config.Views
                 {ElementType.DateTime, CreateTextBox },
                 {ElementType.Hyperlink, CreateHyperlink },
                 {ElementType.Divider, CreateDivider },
+                {ElementType.SelectedText, CreateComboBox },
             };
 
             Add(rowIndex, creatorLookup[elementViewModel.ElementType](elementViewModel, rowIndex));
@@ -150,6 +151,23 @@ namespace NoeticTools.Dashboard.Framework.Config.Views
 
             var binding = new Binding("Value");
             BindingOperations.SetBinding(textbox, TextBox.TextProperty, binding);
+
+            return textbox;
+        }
+
+        private UIElement CreateComboBox(IElementViewModel elementViewModel, int rowIndex)
+        {
+            var textbox = new ComboBox
+            {
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                Margin = _elementMargin,
+                FontSize = 12.0,
+                Name = GetUIlementName(elementViewModel),
+                DataContext = elementViewModel
+            };
+
+            BindingOperations.SetBinding(textbox, ComboBox.SelectedItemProperty, new Binding("Value"));
+            BindingOperations.SetBinding(textbox, ComboBox.ItemsSourceProperty, new Binding("Parameters"));
 
             return textbox;
         }

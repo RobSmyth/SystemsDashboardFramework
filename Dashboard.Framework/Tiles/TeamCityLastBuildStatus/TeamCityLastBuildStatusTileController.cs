@@ -65,13 +65,14 @@ namespace NoeticTools.Dashboard.Framework.Tiles.TeamCityLastBuildStatus
 
         public FrameworkElement CreateView()
         {
+            var projectElementViewModel = new TeamCityProjectElementViewModel("Project", _tileConfigurationConverter, _service);
             ConfigureCommand = new TileConfigureCommand("Last Build Status Configuration", _tileConfigurationConverter,
                 new IElementViewModel[]
                 {
-                    new ElementViewModel("Project", ElementType.Text, _tileConfigurationConverter),
-                    new ElementViewModel("Configuration", ElementType.Text, _tileConfigurationConverter),
+                    projectElementViewModel,
+                    new TeamCityConfigurationElementViewModel("Configuration", _tileConfigurationConverter, _service, projectElementViewModel),
                     new ElementViewModel("Description", ElementType.Text, _tileConfigurationConverter),
-                    new HyperlinkElementViewModel("TeamCity service", ConfigureServiceCommand)
+                    new HyperlinkElementViewModel("TeamCity service", ConfigureServiceCommand),
                 },
                 _dashboardController);
 

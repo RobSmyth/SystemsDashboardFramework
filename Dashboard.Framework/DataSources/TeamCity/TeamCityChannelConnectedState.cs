@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
 using NoeticTools.Dashboard.Framework.DataSources.Jira;
 using TeamCitySharp;
 using TeamCitySharp.DomainEntities;
@@ -33,6 +34,14 @@ namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
         {
             _stateEngine.OnDisconnected();
         }
+
+        public string[] GetConfigurationNames(string projectName)
+        {
+            var project = _projects.Items.Single(x => x.Name.Equals(projectName, StringComparison.CurrentCultureIgnoreCase));
+            return project == null ? new string[0] : GetConfigurations(project).Items.Select(x => x.Name).ToArray();
+        }
+
+        public string[] ProjectNames => _projects.Items.Select(x => x.Name).ToArray();
 
         public Build GetLastBuild(string projectName, string buildConfigurationName)
         {
@@ -94,11 +103,18 @@ namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
 
         private BuildConfig GetConfiguration(Project project, string buildConfigurationName)
         {
+            var buildConfigurations = GetConfigurations(project);
+            return buildConfigurations.Items.Single(x => x.Name.Equals(buildConfigurationName, StringComparison.InvariantCultureIgnoreCase));
+        }
+
+        private TimeCachedArray<BuildConfig> GetConfigurations(Project project)
+        {
             if (!_buildConfigurations.ContainsKey(project))
             {
                 _buildConfigurations.Add(project, new TimeCachedArray<BuildConfig>(() => _client.BuildConfigs.ByProjectId(project.Id), TimeSpan.FromSeconds(30), _clock));
             }
-            return _buildConfigurations[project].Items.Single(x => x.Name.Equals(buildConfigurationName, StringComparison.InvariantCultureIgnoreCase));
+            var buildConfigurations = _buildConfigurations[project];
+            return buildConfigurations;
         }
     }
 }

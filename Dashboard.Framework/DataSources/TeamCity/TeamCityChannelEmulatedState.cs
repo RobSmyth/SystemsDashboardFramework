@@ -55,6 +55,13 @@ namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
             return build;
         }
 
+        public string[] ProjectNames => new[] {"Project A", "Project B"};
+
+        public string[] GetConfigurationNames(string projectName)
+        {
+            return new[] {"Configuration 1", "Configuration 2", "Configuration 3"};
+        }
+
         public Build GetRunningBuild(string projectName, string buildConfigurationName, string branchName)
         {
             return GetRunningBuild(projectName, buildConfigurationName);

@@ -8,5 +8,6 @@
         Hyperlink,
         Boolean,
         Divider,
+        SelectedText,
     }
 }

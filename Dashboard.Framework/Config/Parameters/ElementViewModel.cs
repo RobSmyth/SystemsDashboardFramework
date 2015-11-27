@@ -2,16 +2,17 @@
 
 namespace NoeticTools.Dashboard.Framework.Config.Parameters
 {
-    public class ElementViewModel : NotifyingViewModelBase, IElementViewModel
+    public class ElementViewModel : NotifyingViewModelBase, INotifyingElementViewModel
     {
         private readonly TileConfigurationConverter _tileConfigurationConverter;
+        private object[] _parameters;
 
-        public ElementViewModel(string name, ElementType elementType, TileConfigurationConverter tileConfigurationConverter)
+        public ElementViewModel(string name, ElementType elementType, TileConfigurationConverter tileConfigurationConverter, params  string[] parameters)
         {
             _tileConfigurationConverter = tileConfigurationConverter;
             Name = name;
             ElementType = elementType;
-            Parameters = new object[0];
+            Parameters = parameters;
         }
 
         public object Value
@@ -28,6 +29,16 @@ namespace NoeticTools.Dashboard.Framework.Config.Parameters
 
         public string Name { get; }
         public ElementType ElementType { get; }
-        public object[] Parameters { get; }
+
+        public object[] Parameters
+        {
+            get { return _parameters; }
+            protected set
+            {
+                if (Equals(value, _parameters)) return;
+                _parameters = value;
+                OnPropertyChanged();
+            }
+        }
     }
 }

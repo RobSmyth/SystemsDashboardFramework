@@ -47,6 +47,13 @@ namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
             return _current.GetRunningBuild(projectName, buildConfigurationName);
         }
 
+        public string[] ProjectNames => _current.ProjectNames;
+
+        public string[] GetConfigurationNames(string projectName)
+        {
+            return _current.GetConfigurationNames(projectName);
+        }
+
         public void Disconnect()
         {
             // does nothing

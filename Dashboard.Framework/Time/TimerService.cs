@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Threading;
 
@@ -50,8 +51,11 @@ namespace NoeticTools.Dashboard.Framework.Time
         {
             _timer.Stop();
 
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
             var dueCallback = GetNextDueToken();
-            while (dueCallback != null)
+            while (dueCallback != null && stopwatch.Elapsed <= TimeSpan.FromSeconds(1))
             {
                 _callbacks.Remove(dueCallback);
                 dueCallback.Listener.OnTimeElapsed(dueCallback);

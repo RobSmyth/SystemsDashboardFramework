@@ -33,7 +33,7 @@ namespace NoeticTools.Dashboard.Framework.Config.Parameters
         public object[] Parameters
         {
             get { return _parameters; }
-            protected set
+            set
             {
                 if (Equals(value, _parameters)) return;
                 _parameters = value;

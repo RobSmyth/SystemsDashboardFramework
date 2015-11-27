@@ -37,7 +37,7 @@ namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
 
         public string[] GetConfigurationNames(string projectName)
         {
-            var project = _projects.Items.Single(x => x.Name.Equals(projectName, StringComparison.CurrentCultureIgnoreCase));
+            var project = _projects.Items.SingleOrDefault(x => x.Name.Equals(projectName, StringComparison.CurrentCultureIgnoreCase));
             return project == null ? new string[0] : GetConfigurations(project).Items.Select(x => x.Name).ToArray();
         }
 
@@ -47,8 +47,16 @@ namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
         {
             try
             {
-                var project = _projects.Items.Single(x => x.Name.Equals(projectName, StringComparison.InvariantCultureIgnoreCase));
+                var project = _projects.Items.SingleOrDefault(x => x.Name.Equals(projectName, StringComparison.InvariantCultureIgnoreCase));
+                if (project == null)
+                {
+                    return null;
+                }
                 var buildConfiguration = GetConfiguration(project, buildConfigurationName);
+                if (buildConfiguration == null)
+                {
+                    return null;
+                }
                 var builds = _client.Builds.ByBuildConfigId(buildConfiguration.Id);
                 return builds.FirstOrDefault(x => x.Status != "UNKNOWN");
             }
@@ -77,7 +85,11 @@ namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
         {
             try
             {
-                var project = _projects.Items.Single(x => x.Name.Equals(projectName, StringComparison.InvariantCultureIgnoreCase));
+                var project = _projects.Items.SingleOrDefault(x => x.Name.Equals(projectName, StringComparison.InvariantCultureIgnoreCase));
+                if (project == null)
+                {
+                    return null;
+                }
                 var buildConfiguration = GetConfiguration(project, buildConfigurationName);
                 var builds = _client.Builds.ByBuildLocator(BuildLocator.WithDimensions(running: true));
                 return builds.FirstOrDefault(x => x.Status != "UNKNOWN" && x.WebUrl.EndsWith(buildConfiguration.Id));
@@ -104,7 +116,7 @@ namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
         private BuildConfig GetConfiguration(Project project, string buildConfigurationName)
         {
             var buildConfigurations = GetConfigurations(project);
-            return buildConfigurations.Items.Single(x => x.Name.Equals(buildConfigurationName, StringComparison.InvariantCultureIgnoreCase));
+            return buildConfigurations.Items.SingleOrDefault(x => x.Name.Equals(buildConfigurationName, StringComparison.InvariantCultureIgnoreCase));
         }
 
         private TimeCachedArray<BuildConfig> GetConfigurations(Project project)

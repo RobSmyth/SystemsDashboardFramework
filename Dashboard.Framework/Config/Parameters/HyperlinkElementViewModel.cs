@@ -15,7 +15,7 @@ namespace NoeticTools.Dashboard.Framework.Config.Parameters
 
         public string Name { get; }
         public ElementType ElementType { get; }
-        public object[] Parameters { get; }
+        public object[] Parameters { get; set; }
         public object Value { get; set; }
     }
 }

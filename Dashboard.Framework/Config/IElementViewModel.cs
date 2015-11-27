@@ -6,7 +6,7 @@ namespace NoeticTools.Dashboard.Framework.Config
 {
     public interface IElementViewModel : IConfigurationParameter
     {
-        object[] Parameters { get; }
+        object[] Parameters { get; set; }
         object Value { get; set; }
     }
 }

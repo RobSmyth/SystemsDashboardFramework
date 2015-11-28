@@ -1,9 +1,9 @@
 using NoeticTools.Dashboard.Framework.Config;
 
 
-namespace Dashboard.Services.TeamCity
+namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
 {
-    public class TeamCityServiceConfiguration
+    public class TeamCityServiceConfiguration : IItemConfiguration
     {
         private readonly DashboardServiceConfiguration _inner;
 
@@ -28,6 +28,13 @@ namespace Dashboard.Services.TeamCity
         {
             get { return _inner.Parameter("Password", "MyPassword").Value; }
             set { _inner.Parameter("Password", "MyPassword").Value = value; }
+        }
+
+        public DashboardConfigValuePair[] Values { get { return _inner.Values; } set { _inner.Values = value; } }
+
+        public DashboardConfigValuePair GetParameter(string name, string defaultValue)
+        {
+            return _inner.GetParameter(name, defaultValue);
         }
     }
 }

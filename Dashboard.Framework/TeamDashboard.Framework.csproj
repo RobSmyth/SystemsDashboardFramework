@@ -73,11 +73,15 @@
     <Compile Include="Commands\RoutedCommands.cs" />
     <Compile Include="Commands\SaveConfigurationParametersCommand.cs" />
     <Compile Include="Commands\CloseCommand.cs" />
+    <Compile Include="Config\IItemConfiguration.cs" />
     <Compile Include="Config\INotifyingElementViewModel.cs" />
+    <Compile Include="Config\ItemConfigurationBase.cs" />
     <Compile Include="Config\Parameters\DividerElementViewModel.cs" />
     <Compile Include="Config\Parameters\ElementType.cs" />
     <Compile Include="Config\Parameters\DependantElementViewModel.cs" />
-    <Compile Include="Tiles\TeamCityLastBuildStatus\TeamCityProjectElementViewModel.cs" />
+    <Compile Include="Config\Parameters\PasswordElementViewModel.cs" />
+    <Compile Include="Config\Parameters\TextElementViewModel.cs" />
+    <Compile Include="Tiles\TeamCity\TeamCityProjectElementViewModel.cs" />
     <Compile Include="IKeyboardHandler.cs" />
     <Compile Include="IKeyHandler.cs" />
     <Compile Include="Tiles\Date\IServices.cs" />
@@ -119,9 +123,9 @@
     <Compile Include="Tiles\Message\MessageViewModel.cs" />
     <Compile Include="Tiles\Message\MessageTilePlugin.cs" />
     <Compile Include="Tiles\ServerStatus\ServerStatusTilePlugin.cs" />
-    <Compile Include="Tiles\TeamCityAvailableBuilds\TeamCityAvailableBuildsTilePlugin.cs" />
+    <Compile Include="Tiles\TeamCity\AvailableBuilds\TeamCityAvailableBuildsTilePlugin.cs" />
     <Compile Include="Tiles\IPlugin.cs" />
-    <Compile Include="Tiles\TeamCityLastBuildStatus\TeamCityLastBuildStatusTilePlugin.cs" />
+    <Compile Include="Tiles\TeamCity\LastBuildStatus\TeamCityLastBuildStatusTilePlugin.cs" />
     <Compile Include="Registries\TileLayoutControllerRegistry.cs" />
     <Compile Include="Registries\TileControllerRegistry.cs" />
     <Compile Include="Tiles\TileLayoutController.cs" />
@@ -142,14 +146,14 @@
       <DependentUpon>ServerStatusTileControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Tiles\ServerStatus\ServerStatusTileController.cs" />
-    <Compile Include="Tiles\TeamCityAvailableBuilds\TeamCityAvailableBuildsListControl.xaml.cs">
+    <Compile Include="Tiles\TeamCity\AvailableBuilds\TeamCityAvailableBuildsListControl.xaml.cs">
       <DependentUpon>TeamCityAvailableBuildsListControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Tiles\TeamCityAvailableBuilds\TeamCityAvailableBuildsTileController.cs" />
-    <Compile Include="Tiles\TeamCityLastBuildStatus\TeamCityLastBuildStatusTileControl.xaml.cs">
+    <Compile Include="Tiles\TeamCity\AvailableBuilds\TeamCityAvailableBuildsTileController.cs" />
+    <Compile Include="Tiles\TeamCity\LastBuildStatus\TeamCityLastBuildStatusTileControl.xaml.cs">
       <DependentUpon>TeamCityLastBuildStatusTileControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Tiles\TeamCityLastBuildStatus\TeamCityLastBuildStatusTileController.cs" />
+    <Compile Include="Tiles\TeamCity\LastBuildStatus\TeamCityLastBuildStatusTileController.cs" />
     <Compile Include="Registries\TileRegistryConduit.cs" />
     <Compile Include="Tiles\WebPage\WebPageTilePlugin.cs" />
     <Compile Include="Tiles\WebPage\WebPageTileControl.xaml.cs">
@@ -184,10 +188,6 @@
     <Compile Include="DataSources\TeamCity\TeamCityChannelConnectedState.cs" />
     <Compile Include="DataSources\TeamCity\TeamCityChannelDisconnectedState.cs" />
     <Compile Include="DataSources\TeamCity\TeamCityChannelEmulatedState.cs" />
-    <Compile Include="DataSources\TeamCity\TeamCityConfigurationView.xaml.cs">
-      <DependentUpon>TeamCityConfigurationView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="DataSources\TeamCity\TeamCityConfigurationViewModel.cs" />
     <Compile Include="DataSources\TeamCity\TeamCityService.cs" />
     <Compile Include="DataSources\TeamCity\TeamCItyServiceConfiguration.cs" />
     <Compile Include="DataSources\TeamCity\TeamCityServiceConfigureCommand.cs" />
@@ -255,11 +255,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Tiles\TeamCityAvailableBuilds\TeamCityAvailableBuildsListControl.xaml">
+    <Page Include="Tiles\TeamCity\AvailableBuilds\TeamCityAvailableBuildsListControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Tiles\TeamCityLastBuildStatus\TeamCityLastBuildStatusTileControl.xaml">
+    <Page Include="Tiles\TeamCity\LastBuildStatus\TeamCityLastBuildStatusTileControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -270,12 +270,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="DataSources\TeamCity\TeamCityConfigurationView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="NoeticTools.ico" />

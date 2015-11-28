@@ -6,10 +6,10 @@ namespace NoeticTools.Dashboard.Framework.Config
 {
     public class TileConfigurationConverter
     {
-        private readonly TileConfiguration _inner;
+        private readonly IItemConfiguration _inner;
         private readonly IConfigurationChangeListener _listener;
 
-        public TileConfigurationConverter(TileConfiguration inner, IConfigurationChangeListener listener)
+        public TileConfigurationConverter(IItemConfiguration inner, IConfigurationChangeListener listener)
         {
             _inner = inner;
             _listener = listener;
@@ -67,7 +67,7 @@ namespace NoeticTools.Dashboard.Framework.Config
             if (_inner.GetParameter(name, string.Empty).Value != textValue)
             {
                 _inner.GetParameter(name, string.Empty).Value = textValue;
-                _listener.OnConfigurationChanged();
+                _listener.OnConfigurationChanged(this);
             }
         }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Input;
+using NoeticTools.Dashboard.Framework.Config;
 using NoeticTools.Dashboard.Framework.Config.Commands;
 using NoeticTools.Dashboard.Framework.Time;
 
@@ -31,7 +32,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles.Date
             return _view;
         }
 
-        public void OnConfigurationChanged()
+        public void OnConfigurationChanged(TileConfigurationConverter converter)
         {
         }
 

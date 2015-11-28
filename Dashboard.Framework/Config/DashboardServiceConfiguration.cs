@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 namespace NoeticTools.Dashboard.Framework.Config
 {
     [XmlType("service")]
-    public class DashboardServiceConfiguration
+    public class DashboardServiceConfiguration : ItemConfigurationBase
     {
         private const string DefaultGuid = "B714E5AB-8F0D-4C4A-A6CB-44B6C3AEEE88";
 
@@ -24,18 +24,13 @@ namespace NoeticTools.Dashboard.Framework.Config
         [XmlAttribute(AttributeName = "name")]
         public string Name { get; set; }
 
-        [XmlArray(ElementName = "values")]
-        public DashboardConfigValuePair[] Values { get; set; }
-
         public DashboardConfigValuePair Parameter(string name, string defaultValue)
         {
-            var pair =
-                Values.SingleOrDefault(x => x.Key.Equals(name, StringComparison.InvariantCultureIgnoreCase));
+            var pair = Values.SingleOrDefault(x => x.Key.Equals(name, StringComparison.InvariantCultureIgnoreCase));
             if (pair == null)
             {
                 pair = new DashboardConfigValuePair {Key = name, Value = defaultValue};
-                var list = new List<DashboardConfigValuePair>(Values);
-                list.Add(pair);
+                var list = new List<DashboardConfigValuePair>(Values) {pair};
                 Values = list.ToArray();
             }
             return pair;

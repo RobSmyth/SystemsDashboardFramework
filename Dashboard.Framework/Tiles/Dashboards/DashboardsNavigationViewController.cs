@@ -23,7 +23,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles.Dashboards
             return view;
         }
 
-        public void OnConfigurationChanged()
+        public void OnConfigurationChanged(TileConfigurationConverter converter)
         {
         }
     }

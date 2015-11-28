@@ -3,7 +3,6 @@ using System.Windows;
 using System.Windows.Input;
 using NoeticTools.Dashboard.Framework.Commands;
 using NoeticTools.Dashboard.Framework.Config;
-using NoeticTools.Dashboard.Framework.Config.Commands;
 using NoeticTools.Dashboard.Framework.Config.Parameters;
 
 
@@ -27,7 +26,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles.WebPage
 
         public FrameworkElement CreateView()
         {
-            ConfigureCommand = new TileConfigureCommand("Web Page Tile Configuration", _tileConfigurationConverter, new[]
+            ConfigureCommand = new TileConfigureCommand("Web Page Tile Configuration", new[]
             {
                 new ElementViewModel("Url", ElementType.Text, _tileConfigurationConverter
 /* "http://www.google.com"*/)
@@ -39,7 +38,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles.WebPage
             return _view;
         }
 
-        public void OnConfigurationChanged()
+        public void OnConfigurationChanged(TileConfigurationConverter converter)
         {
             UpdateView();
         }

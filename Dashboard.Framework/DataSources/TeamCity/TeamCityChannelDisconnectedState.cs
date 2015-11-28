@@ -1,5 +1,4 @@
 ﻿using System;
-using Dashboard.Services.TeamCity;
 using TeamCitySharp;
 using TeamCitySharp.DomainEntities;
 

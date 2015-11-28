@@ -5,7 +5,7 @@ using NoeticTools.Dashboard.Framework.Tiles.Date;
 using NoeticTools.Dashboard.Framework.Time;
 
 
-namespace NoeticTools.Dashboard.Framework.Tiles.TeamCityLastBuildStatus
+namespace NoeticTools.Dashboard.Framework.Tiles.TeamCity.LastBuildStatus
 {
     public class TeamCityLastBuildStatusTilePlugin : IPlugin, IViewControllerProvider
     {

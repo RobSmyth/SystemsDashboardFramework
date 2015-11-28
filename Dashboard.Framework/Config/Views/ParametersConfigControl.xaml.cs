@@ -89,6 +89,7 @@ namespace NoeticTools.Dashboard.Framework.Config.Views
                 {ElementType.Hyperlink, CreateHyperlink },
                 {ElementType.Divider, CreateDivider },
                 {ElementType.SelectedText, CreateComboBox },
+                {ElementType.Password, CreatePasswordBox },
             };
 
             Add(rowIndex, creatorLookup[elementViewModel.ElementType](elementViewModel, rowIndex));
@@ -153,6 +154,21 @@ namespace NoeticTools.Dashboard.Framework.Config.Views
             BindingOperations.SetBinding(textbox, TextBox.TextProperty, binding);
 
             return textbox;
+        }
+
+        private UIElement CreatePasswordBox(IElementViewModel elementViewModel, int rowIndex)
+        {
+            var passwordBox = new PasswordBox()
+            {
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                Margin = _elementMargin,
+                FontSize = 12.0,
+                Name = GetUIlementName(elementViewModel),
+                DataContext = elementViewModel,
+                Password = (string)elementViewModel.Value,
+            };
+
+            return passwordBox;
         }
 
         private UIElement CreateComboBox(IElementViewModel elementViewModel, int rowIndex)

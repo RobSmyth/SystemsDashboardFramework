@@ -75,7 +75,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles.TeamCityAvailableBuilds
                 parameters.Add(new DividerElementViewModel());
             }
 
-            ConfigureCommand = new TileConfigureCommand("TeamCity Available Builds Tile", _tileConfigurationConverter,
+            ConfigureCommand = new TileConfigureCommand("TeamCity Available Builds Tile",
                 parameters.ToArray(), _dashboardController);
 
             _service.Connect();
@@ -86,7 +86,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles.TeamCityAvailableBuilds
             return _view;
         }
 
-        public void OnConfigurationChanged()
+        public void OnConfigurationChanged(TileConfigurationConverter converter)
         {
             if (_view == null)
             {

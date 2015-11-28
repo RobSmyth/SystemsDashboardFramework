@@ -28,7 +28,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles.ServerStatus
             return _view;
         }
 
-        public void OnConfigurationChanged()
+        public void OnConfigurationChanged(TileConfigurationConverter converter)
         {
         }
     }

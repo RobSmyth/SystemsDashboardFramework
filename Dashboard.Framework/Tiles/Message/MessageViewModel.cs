@@ -16,7 +16,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles.Message
         {
             _tileConfigurationConverter = new TileConfigurationConverter(tileConfiguration, this);
 
-            ConfigureCommand = new TileConfigureCommand("Message Tile Configuration", _tileConfigurationConverter, new[]
+            ConfigureCommand = new TileConfigureCommand("Message Tile Configuration", new[]
             {
                 new ElementViewModel("Message", ElementType.Text, _tileConfigurationConverter)
             },
@@ -37,7 +37,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles.Message
 
         public ICommand ConfigureCommand { get; private set; }
 
-        public void OnConfigurationChanged()
+        public void OnConfigurationChanged(TileConfigurationConverter converter)
         {
             Update();
         }

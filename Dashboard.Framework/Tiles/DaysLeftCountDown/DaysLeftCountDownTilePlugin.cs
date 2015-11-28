@@ -1,7 +1,6 @@
 ﻿using System;
 using NoeticTools.Dashboard.Framework.Config;
 using NoeticTools.Dashboard.Framework.Tiles.Date;
-using NoeticTools.Dashboard.Framework.Tiles.TeamCityLastBuildStatus;
 using NoeticTools.Dashboard.Framework.Time;
 
 

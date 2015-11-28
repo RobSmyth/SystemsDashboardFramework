@@ -2,7 +2,6 @@
 using System.Windows;
 using System.Windows.Input;
 using NoeticTools.Dashboard.Framework.Commands;
-using NoeticTools.Dashboard.Framework.Config.Commands;
 using NoeticTools.Dashboard.Framework.Config.Views;
 using NoeticTools.Dashboard.Framework.Tiles;
 
@@ -42,7 +41,7 @@ namespace NoeticTools.Dashboard.Framework.Config.Controllers
             _panelView.Visibility = Visibility.Collapsed;
         }
 
-        public void OnConfigurationChanged()
+        public void OnConfigurationChanged(TileConfigurationConverter converter)
         {
         }
     }

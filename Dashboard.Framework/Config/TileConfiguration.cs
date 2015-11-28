@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Xml.Serialization;
 
 
 namespace NoeticTools.Dashboard.Framework.Config
 {
     [XmlType("tile")]
-    public class TileConfiguration
+    public class TileConfiguration : ItemConfigurationBase
     {
         public static string BlankTileTypeId = "Pane";
 
@@ -49,44 +47,9 @@ namespace NoeticTools.Dashboard.Framework.Config
         public int ColumnSpan { get; set; }
 
         /// <summary>
-        ///     Configuration values.
-        /// </summary>
-        [XmlArray(ElementName = "values")]
-        public DashboardConfigValuePair[] Values { get; set; }
-
-        /// <summary>
         ///     Child tiles.
         /// </summary>
         [XmlArray(ElementName = "tiles")]
         public TileConfiguration[] Tiles { get; set; }
-
-        public DashboardConfigValuePair GetParameter(string name, string defaultValue)
-        {
-            var pair =
-                Values.SingleOrDefault(x => x.Key.Equals(name, StringComparison.InvariantCultureIgnoreCase));
-            if (pair == null)
-            {
-                pair = new DashboardConfigValuePair {Key = name, Value = defaultValue};
-                var list = new List<DashboardConfigValuePair>(Values);
-                list.Add(pair);
-                Values = list.ToArray();
-            }
-            return pair;
-        }
-
-        public TileConfiguration GetTileConfiguration(Guid tileId)
-        {
-            if (Id == tileId)
-            {
-                return this;
-            }
-            foreach (
-                var config in
-                    Tiles.Select(tile => tile.GetTileConfiguration(tileId)).Where(config => config != null))
-            {
-                return config;
-            }
-            return null;
-        }
     }
 }

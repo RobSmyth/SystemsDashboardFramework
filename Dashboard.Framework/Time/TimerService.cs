@@ -55,7 +55,7 @@ namespace NoeticTools.Dashboard.Framework.Time
             stopwatch.Start();
 
             var dueCallback = GetNextDueToken();
-            while (dueCallback != null && stopwatch.Elapsed <= TimeSpan.FromSeconds(1))
+            while (dueCallback != null && stopwatch.Elapsed <= TimeSpan.FromSeconds(0.5))
             {
                 _callbacks.Remove(dueCallback);
                 dueCallback.Listener.OnTimeElapsed(dueCallback);

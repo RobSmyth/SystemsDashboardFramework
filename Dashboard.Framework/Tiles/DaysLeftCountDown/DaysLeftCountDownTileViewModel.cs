@@ -22,7 +22,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles.DaysLeftCountDown
             _clock = clock;
             _view = view;
             _tileConfigurationConverter = new TileConfigurationConverter(tileConfiguration, this);
-            ConfigureCommand = new TileConfigureCommand("Days Count Down Configuration", _tileConfigurationConverter,
+            ConfigureCommand = new TileConfigureCommand("Days Count Down Configuration",
                 new IElementViewModel[]
                 {
                     new ElementViewModel("Title", ElementType.Text, _tileConfigurationConverter),
@@ -36,7 +36,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles.DaysLeftCountDown
 
         public ICommand ConfigureCommand { get; }
 
-        public void OnConfigurationChanged()
+        public void OnConfigurationChanged(TileConfigurationConverter converter)
         {
             UpdateView();
         }

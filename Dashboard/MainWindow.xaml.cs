@@ -12,8 +12,8 @@ using NoeticTools.Dashboard.Framework.Tiles.Help;
 using NoeticTools.Dashboard.Framework.Tiles.InsertTile;
 using NoeticTools.Dashboard.Framework.Tiles.Message;
 using NoeticTools.Dashboard.Framework.Tiles.ServerStatus;
+using NoeticTools.Dashboard.Framework.Tiles.TeamCity.LastBuildStatus;
 using NoeticTools.Dashboard.Framework.Tiles.TeamCityAvailableBuilds;
-using NoeticTools.Dashboard.Framework.Tiles.TeamCityLastBuildStatus;
 using NoeticTools.Dashboard.Framework.Tiles.WebPage;
 using NoeticTools.Dashboard.Framework.Time;
 
@@ -43,7 +43,7 @@ namespace NoeticTools.TeamDashboard
             var tileLayoutControllerRegistry = new TileLayoutControllerRegistry(tileRegistryConduit);
             _dashboardNavigator = new DashboardNavigator(loaderConduit, _config, tileLayoutControllerRegistry);
             _dashboardController = new DashboardController(dashboardConfigurationManager, timerService, sidePanel, _config, _dashboardNavigator);
-            var teamCityService = new TeamCityService(_config.Services, runOptions, clock);
+            var teamCityService = new TeamCityService(_config.Services, runOptions, clock, _dashboardController);
             var tileControllerRegistry = new TileControllerRegistry();
             tileRegistryConduit.SetTarget(tileControllerRegistry);
             var rootTileLayoutController = new TileLayoutController(tileGrid, tileControllerRegistry, tileLayoutControllerRegistry, new Thickness(0));

@@ -33,7 +33,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles.DaysLeftCountDown
             return view;
         }
 
-        public void OnConfigurationChanged()
+        public void OnConfigurationChanged(TileConfigurationConverter converter)
         {
         }
     }

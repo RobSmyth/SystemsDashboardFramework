@@ -10,14 +10,12 @@ namespace NoeticTools.Dashboard.Framework.Commands
     {
         private readonly IElementViewModel[] _parameters;
         private readonly IDashboardController _dashboardController;
-        private readonly TileConfigurationConverter _tileConfigurationConverter;
         private readonly string _title;
         private bool _canExecute = true;
 
-        public TileConfigureCommand(string title, TileConfigurationConverter tileConfigurationConverter, IElementViewModel[] parameters, IDashboardController dashboardController)
+        public TileConfigureCommand(string title, IElementViewModel[] parameters, IDashboardController dashboardController)
         {
             _title = title;
-            _tileConfigurationConverter = tileConfigurationConverter;
             _parameters = parameters;
             _dashboardController = dashboardController;
         }
@@ -43,10 +41,7 @@ namespace NoeticTools.Dashboard.Framework.Commands
         private void OnChanExecuteChanged()
         {
             var handler = CanExecuteChanged;
-            if (handler != null)
-            {
-                handler(this, new EventArgs());
-            }
+            handler?.Invoke(this, new EventArgs());
         }
     }
 }

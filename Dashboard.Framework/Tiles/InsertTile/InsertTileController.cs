@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using NoeticTools.Dashboard.Framework.Config;
 
 
 namespace NoeticTools.Dashboard.Framework.Tiles.InsertTile
@@ -10,7 +11,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles.InsertTile
             return new InsertTileControl() { DataContext = this };
         }
 
-        public void OnConfigurationChanged()
+        public void OnConfigurationChanged(TileConfigurationConverter converter)
         {
         }
     }

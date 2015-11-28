@@ -76,8 +76,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles
 
         private TileLayoutController AddTile(TileConfiguration tileConfiguration, IViewController viewController)
         {
-            var panel = AddPlaceholderPanel(tileConfiguration.RowNumber, tileConfiguration.ColumnNumber,
-                tileConfiguration.RowSpan, tileConfiguration.ColumnSpan);
+            var panel = AddPlaceholderPanel(tileConfiguration.RowNumber, tileConfiguration.ColumnNumber, tileConfiguration.RowSpan, tileConfiguration.ColumnSpan);
             panel.Margin = new Thickness(2);
             var view = viewController.CreateView();
             panel.Children.Add(view);
@@ -86,8 +85,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles
 
         private ITileLayoutController AddPanel(TileConfiguration tileConfiguration)
         {
-            var panel = AddPlaceholderPanel(tileConfiguration.RowNumber, tileConfiguration.ColumnNumber,
-                tileConfiguration.RowSpan, tileConfiguration.ColumnSpan);
+            var panel = AddPlaceholderPanel(tileConfiguration.RowNumber, tileConfiguration.ColumnNumber, tileConfiguration.RowSpan, tileConfiguration.ColumnSpan);
             var layout = _tileLayoutControllerRegistry.GetNew(panel);
             return layout;
         }
@@ -104,8 +102,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles
                 _tileGrid.ColumnDefinitions.Add(new ColumnDefinition());
             }
 
-            var groupPanel = new Grid();
-            groupPanel.Name = $"Panel{_tileLayoutControllerRegistry.Count + 1}";
+            var groupPanel = new Grid {Name = $"Panel{_tileLayoutControllerRegistry.Count + 1}"};
 
             Grid.SetRow(groupPanel, rowNumber - 1);
             Grid.SetColumn(groupPanel, columnNumber - 1);

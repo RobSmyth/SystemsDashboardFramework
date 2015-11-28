@@ -1,20 +1,24 @@
 ﻿using Dashboard.Config;
-using Dashboard.Services.TeamCity;
+using NoeticTools.Dashboard.Framework.Config;
+using NoeticTools.Dashboard.Framework.Config.Controllers;
+using NoeticTools.Dashboard.Framework.Config.Parameters;
 using TeamCitySharp;
 using TeamCitySharp.DomainEntities;
 
 
 namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
 {
-    public class TeamCityService : ITeamCityChannel, IStateEngine<ITeamCityChannel>
+    public class TeamCityService : ITeamCityChannel, IStateEngine<ITeamCityChannel>, IConfigurationChangeListener
     {
+        private readonly IDashboardController _dashboardController;
         private readonly TeamCityServiceConfiguration _configuration;
         private readonly ITeamCityChannel _connectedState;
         private readonly ITeamCityChannel _disconnectedState;
         private ITeamCityChannel _current;
 
-        public TeamCityService(DashboardConfigurationServices servicesConfiguration, RunOptions runOptions, IClock clock)
+        public TeamCityService(DashboardConfigurationServices servicesConfiguration, RunOptions runOptions, IClock clock, IDashboardController dashboardController)
         {
+            _dashboardController = dashboardController;
             _configuration = new TeamCityServiceConfiguration(servicesConfiguration.GetService("TeamCity"));
             var client = new TeamCityClient(_configuration.Url);
             _disconnectedState = new TeamCityChannelDisconnectedState(client, this, _configuration);
@@ -56,14 +60,22 @@ namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
 
         public void Disconnect()
         {
-            // does nothing
         }
 
         public void Configure()
         {
-            var view = new TeamCityConfigurationView();
-            var viewModel = new TeamCityConfigurationViewModel(_configuration, view);
-            viewModel.Show();
+            var configurationConverter = new TileConfigurationConverter(_configuration, this);
+
+            var parameters = new IElementViewModel[]
+            {
+                new TextElementViewModel("Url", configurationConverter),
+                new TextElementViewModel("UserName", configurationConverter),
+                new PasswordElementViewModel("Password", configurationConverter),
+            };
+
+            const string title = "TeamCity Server Configuration";
+            var controller = new ConfigationViewController(title, parameters);
+            _dashboardController.ShowOnSidePane(controller, title);
         }
 
         ITeamCityChannel IStateEngine<ITeamCityChannel>.Current => _current;
@@ -76,6 +88,11 @@ namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
         void IStateEngine<ITeamCityChannel>.OnDisconnected()
         {
             _current = _disconnectedState;
+        }
+
+        public void OnConfigurationChanged(TileConfigurationConverter converter)
+        {
+            _configuration.Password = converter.GetString("Password");
         }
     }
 }

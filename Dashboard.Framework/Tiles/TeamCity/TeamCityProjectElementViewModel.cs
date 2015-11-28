@@ -3,7 +3,7 @@ using NoeticTools.Dashboard.Framework.Config.Parameters;
 using NoeticTools.Dashboard.Framework.DataSources.TeamCity;
 
 
-namespace NoeticTools.Dashboard.Framework.Tiles.TeamCityLastBuildStatus
+namespace NoeticTools.Dashboard.Framework.Tiles.TeamCity
 {
     public class TeamCityProjectElementViewModel : ElementViewModel
     {

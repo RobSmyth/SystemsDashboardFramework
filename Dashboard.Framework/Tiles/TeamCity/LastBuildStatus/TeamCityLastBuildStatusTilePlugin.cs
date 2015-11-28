@@ -25,7 +25,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles.TeamCity.LastBuildStatus
             return id == TeamCityLastBuildStatusTileController.TileTypeId || id.Equals("0FFACE9A-8B68-4DBC-8B42-0255F51368B5", StringComparison.InvariantCultureIgnoreCase);
         }
 
-        public IViewController CreateViewController(TileConfiguration tileConfiguration)
+        public IViewController CreateTileController(TileConfiguration tileConfiguration)
         {
             return new TeamCityLastBuildStatusTileController(_service, tileConfiguration, _timerService, _dashboardController);
         }

@@ -19,7 +19,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles.WebPage
             return id == WebPageTileController.TileTypeId || id.Equals("92CE0D61-4748-4427-8EB7-DC8B8B741C15", StringComparison.InvariantCultureIgnoreCase);
         }
 
-        public IViewController CreateViewController(TileConfiguration tileConfiguration)
+        public IViewController CreateTileController(TileConfiguration tileConfiguration)
         {
             return new WebPageTileController(tileConfiguration, _dashboardController);
         }

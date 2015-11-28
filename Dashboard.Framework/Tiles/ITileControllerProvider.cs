@@ -6,7 +6,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles
     public interface ITileControllerProvider
     {
         bool MatchesId(string id);
-        IViewController CreateViewController(TileConfiguration tileConfiguration);
+        IViewController CreateTileController(TileConfiguration tileConfiguration);
         string Name { get; }
     }
 }

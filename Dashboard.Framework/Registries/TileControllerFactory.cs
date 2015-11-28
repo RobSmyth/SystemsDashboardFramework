@@ -18,7 +18,7 @@ namespace NoeticTools.Dashboard.Framework.Registries
         public IViewController Create(TileConfiguration tileConfiguration)
         {
             var plugin = _tileProviderRegistry.GetAll().Single(x => x.MatchesId(tileConfiguration.TypeId));
-            var tileViewModel = plugin.CreateViewController(tileConfiguration);
+            var tileViewModel = plugin.CreateTileController(tileConfiguration);
             return tileViewModel;
         }
     }

@@ -26,7 +26,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles.Date
             return id == DateTileController.TileTypeId || id.Equals("0FFACE9A-8B68-4DBC-8B42-0255F51368B1", StringComparison.InvariantCultureIgnoreCase);
         }
 
-        public IViewController CreateViewController(TileConfiguration tileConfiguration)
+        public IViewController CreateTileController(TileConfiguration tileConfiguration)
         {
             return new DateTileController(_timerService, _clock);
         }

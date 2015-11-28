@@ -12,8 +12,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles.Message
         public static readonly string TileTypeId = "Message";
         private MessageTileControl _view;
 
-        public MessageTileController(TileConfiguration tileConfiguration,
-            IDashboardController dashboardController)
+        public MessageTileController(TileConfiguration tileConfiguration, IDashboardController dashboardController)
         {
             _tileConfiguration = tileConfiguration;
             _dashboardController = dashboardController;

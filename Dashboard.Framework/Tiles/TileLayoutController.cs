@@ -90,8 +90,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles
         private ITileLayoutController AddPanel(TileConfiguration tileConfiguration)
         {
             var panel = AddPlaceholderPanel(tileConfiguration.RowNumber, tileConfiguration.ColumnNumber, tileConfiguration.RowSpan, tileConfiguration.ColumnSpan);
-            var layout = _tileLayoutControllerRegistry.GetNew(panel);
-            return layout;
+            return _tileLayoutControllerRegistry.GetNew(panel);
         }
 
         private Grid AddPlaceholderPanel(int rowNumber, int columnNumber, int rowSpan, int columnSpan)

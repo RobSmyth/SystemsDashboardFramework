@@ -19,7 +19,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles.ServerStatus
             return id == ServerStatusTileController.TileTypeId || id.Equals("0FFACE9A-8B68-4DBC-8B42-0255F51368B4", StringComparison.InvariantCultureIgnoreCase);
         }
 
-        public IViewController CreateViewController(TileConfiguration tileConfiguration)
+        public IViewController CreateTileController(TileConfiguration tileConfiguration)
         {
             return new ServerStatusTileController(tileConfiguration);
         }

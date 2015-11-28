@@ -81,6 +81,7 @@
     <Compile Include="Config\Parameters\DependantElementViewModel.cs" />
     <Compile Include="Config\Parameters\PasswordElementViewModel.cs" />
     <Compile Include="Config\Parameters\TextElementViewModel.cs" />
+    <Compile Include="TeamDashboardRunner.cs" />
     <Compile Include="Tiles\TeamCity\TeamCityProjectElementViewModel.cs" />
     <Compile Include="IKeyboardHandler.cs" />
     <Compile Include="IKeyHandler.cs" />

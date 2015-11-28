@@ -5,7 +5,8 @@ namespace NoeticTools.Dashboard.Framework.Tiles.Date
 {
     public interface IServices
     {
-        ITileControllerRegistry Repository { get; }
+        ITileControllerFactory TileControllerRepository { get; }
         KeyboardHandler KeyboardHandler { get; }
+        ITileProviderRegistry TileProviderRegistry { get; }
     }
 }

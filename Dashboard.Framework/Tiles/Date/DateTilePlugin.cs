@@ -5,7 +5,7 @@ using NoeticTools.Dashboard.Framework.Time;
 
 namespace NoeticTools.Dashboard.Framework.Tiles.Date
 {
-    public class DateTilePlugin : IPlugin, IViewControllerProvider
+    public class DateTilePlugin : IPlugin, ITileControllerProvider
     {
         private readonly ITimerService _timerService;
         private readonly IClock _clock;
@@ -18,7 +18,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles.Date
 
         public void Register(IServices services)
         {
-            services.Repository.Register(this);
+            services.TileProviderRegistry.Register(this);
         }
 
         public bool MatchesId(string id)
@@ -30,5 +30,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles.Date
         {
             return new DateTileController(_timerService, _clock);
         }
+
+        public string Name => "Date";
     }
 }

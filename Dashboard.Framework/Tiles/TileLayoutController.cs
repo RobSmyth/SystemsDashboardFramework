@@ -15,11 +15,11 @@ namespace NoeticTools.Dashboard.Framework.Tiles
         private readonly Thickness _normalMargin;
         private readonly Grid _tileGrid;
         private readonly ITileLayoutControllerRegistry _tileLayoutControllerRegistry;
-        private readonly ITileControllerRegistry _tileRegistry;
+        private readonly ITileControllerFactory _tileFactory;
 
-        public TileLayoutController(Grid tileGrid, ITileControllerRegistry tileRegistry, ITileLayoutControllerRegistry tileLayoutControllerRegistry, Thickness normalMargin)
+        public TileLayoutController(Grid tileGrid, ITileControllerFactory tileFactory, ITileLayoutControllerRegistry tileLayoutControllerRegistry, Thickness normalMargin)
         {
-            _tileRegistry = tileRegistry;
+            _tileFactory = tileFactory;
             _tileLayoutControllerRegistry = tileLayoutControllerRegistry;
             _normalMargin = normalMargin;
             _tileGrid = tileGrid;
@@ -38,7 +38,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles
             }
             else
             {
-                layoutController = AddTile(tileConfiguration, _tileRegistry.GetNew(tileConfiguration));
+                layoutController = AddTile(tileConfiguration, _tileFactory.Create(tileConfiguration));
             }
 
             foreach (var tile in tileConfiguration.Tiles)
@@ -52,7 +52,6 @@ namespace NoeticTools.Dashboard.Framework.Tiles
             _tileGrid.Children.Clear();
             _tileGrid.RowDefinitions.Clear();
             _tileGrid.ColumnDefinitions.Clear();
-            _tileRegistry.Clear();
         }
 
         public void ToggleShowGroupPanelDetailsMode()

@@ -81,6 +81,8 @@
     <Compile Include="Config\Parameters\DependantElementViewModel.cs" />
     <Compile Include="Config\Parameters\PasswordElementViewModel.cs" />
     <Compile Include="Config\Parameters\TextElementViewModel.cs" />
+    <Compile Include="Registries\ITileProviderRegistry.cs" />
+    <Compile Include="Registries\TileProviderRegistry.cs" />
     <Compile Include="TeamDashboardRunner.cs" />
     <Compile Include="Tiles\TeamCity\TeamCityProjectElementViewModel.cs" />
     <Compile Include="IKeyboardHandler.cs" />
@@ -112,7 +114,7 @@
     <Compile Include="Tiles\Date\DateTilePlugin.cs" />
     <Compile Include="Tiles\DaysLeftCountDown\DaysLeftCountDownTilePlugin.cs" />
     <Compile Include="Registries\ITileLayoutControllerRegistry.cs" />
-    <Compile Include="Registries\ITileControllerRegistry.cs" />
+    <Compile Include="Registries\ITileControllerFactory.cs" />
     <Compile Include="NotifyingViewModelBase.cs" />
     <Compile Include="DataSources\Jira\IJiraChannel.cs" />
     <Compile Include="DataSources\Jira\JiraChannelEmulateState.cs" />
@@ -120,7 +122,7 @@
     <Compile Include="IDashboardController.cs" />
     <Compile Include="Tiles\ITileLayoutController.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="Tiles\IViewControllerProvider.cs" />
+    <Compile Include="Tiles\ITileControllerProvider.cs" />
     <Compile Include="Tiles\Message\MessageViewModel.cs" />
     <Compile Include="Tiles\Message\MessageTilePlugin.cs" />
     <Compile Include="Tiles\ServerStatus\ServerStatusTilePlugin.cs" />
@@ -128,7 +130,7 @@
     <Compile Include="Tiles\IPlugin.cs" />
     <Compile Include="Tiles\TeamCity\LastBuildStatus\TeamCityLastBuildStatusTilePlugin.cs" />
     <Compile Include="Registries\TileLayoutControllerRegistry.cs" />
-    <Compile Include="Registries\TileControllerRegistry.cs" />
+    <Compile Include="Registries\TileControllerFactory.cs" />
     <Compile Include="Tiles\TileLayoutController.cs" />
     <Compile Include="Tiles\Date\DateTileControl.xaml.cs">
       <DependentUpon>DateTileControl.xaml</DependentUpon>
@@ -155,7 +157,7 @@
       <DependentUpon>TeamCityLastBuildStatusTileControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Tiles\TeamCity\LastBuildStatus\TeamCityLastBuildStatusTileController.cs" />
-    <Compile Include="Registries\TileRegistryConduit.cs" />
+    <Compile Include="Registries\TileFactoryConduit.cs" />
     <Compile Include="Tiles\WebPage\WebPageTilePlugin.cs" />
     <Compile Include="Tiles\WebPage\WebPageTileControl.xaml.cs">
       <DependentUpon>WebPageTileControl.xaml</DependentUpon>

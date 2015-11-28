@@ -7,7 +7,7 @@ using NoeticTools.Dashboard.Framework.Time;
 
 namespace NoeticTools.Dashboard.Framework.Tiles.TeamCity.LastBuildStatus
 {
-    public class TeamCityLastBuildStatusTilePlugin : IPlugin, IViewControllerProvider
+    public class TeamCityLastBuildStatusTilePlugin : IPlugin, ITileControllerProvider
     {
         private readonly TeamCityService _service;
         private readonly ITimerService _timerService;
@@ -32,7 +32,9 @@ namespace NoeticTools.Dashboard.Framework.Tiles.TeamCity.LastBuildStatus
 
         public void Register(IServices services)
         {
-            services.Repository.Register(this);
+            services.TileProviderRegistry.Register(this);
         }
+
+        public string Name => "TeamCity build status";
     }
 }

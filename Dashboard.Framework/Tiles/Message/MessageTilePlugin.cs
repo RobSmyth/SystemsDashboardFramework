@@ -5,7 +5,7 @@ using NoeticTools.Dashboard.Framework.Tiles.Date;
 
 namespace NoeticTools.Dashboard.Framework.Tiles.Message
 {
-    public class MessageTilePlugin : IPlugin, IViewControllerProvider
+    public class MessageTilePlugin : IPlugin, ITileControllerProvider
     {
         private readonly IDashboardController _dashboardController;
 
@@ -26,7 +26,9 @@ namespace NoeticTools.Dashboard.Framework.Tiles.Message
 
         public void Register(IServices services)
         {
-            services.Repository.Register(this);
+            services.TileProviderRegistry.Register(this);
         }
+
+        public string Name => "Message";
     }
 }

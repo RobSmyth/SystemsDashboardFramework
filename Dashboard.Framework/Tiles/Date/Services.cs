@@ -5,13 +5,15 @@ namespace NoeticTools.Dashboard.Framework.Tiles.Date
 {
     public class Services : IServices
     {
-        public Services(ITileControllerRegistry repository, KeyboardHandler keyboardHandler)
+        public Services(ITileControllerFactory tileControllerRepository, ITileProviderRegistry tileProviderRegistry, KeyboardHandler keyboardHandler)
         {
-            Repository = repository;
+            TileProviderRegistry = tileProviderRegistry;
+            TileControllerRepository = tileControllerRepository;
             KeyboardHandler = keyboardHandler;
         }
 
-        public ITileControllerRegistry Repository { get; }
+        public ITileProviderRegistry TileProviderRegistry { get; }
+        public ITileControllerFactory TileControllerRepository { get; }
         public KeyboardHandler KeyboardHandler { get; }
     }
 }

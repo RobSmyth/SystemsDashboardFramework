@@ -5,7 +5,7 @@ using NoeticTools.Dashboard.Framework.Tiles.Date;
 
 namespace NoeticTools.Dashboard.Framework.Tiles.ServerStatus
 {
-    public class ServerStatusTilePlugin : IPlugin, IViewControllerProvider
+    public class ServerStatusTilePlugin : IPlugin, ITileControllerProvider
     {
         private readonly IDashboardController _dashboardController;
 
@@ -26,7 +26,9 @@ namespace NoeticTools.Dashboard.Framework.Tiles.ServerStatus
 
         public void Register(IServices services)
         {
-            services.Repository.Register(this);
+            services.TileProviderRegistry.Register(this);
         }
+
+        public string Name => "Server status";
     }
 }

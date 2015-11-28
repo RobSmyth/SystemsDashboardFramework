@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using NoeticTools.Dashboard.Framework.Config;
+using NoeticTools.Dashboard.Framework.Registries;
 using NoeticTools.Dashboard.Framework.Tiles;
 using NoeticTools.Dashboard.Framework.Tiles.Dashboards;
 using NoeticTools.Dashboard.Framework.Tiles.Help;
@@ -14,17 +15,19 @@ namespace NoeticTools.Dashboard.Framework
     {
         private readonly DashboardConfigurations _config;
         private readonly IDashboardNavigator _dashboardNavigator;
+        private readonly TileProviderRegistry _tileProviderRegistry;
         private readonly DashboardConfigurationManager _configurationManager;
         private readonly ITimerService _timerService;
         private readonly DockPanel _sidePanel;
 
-        public DashboardController(DashboardConfigurationManager configurationManager, ITimerService timerService, DockPanel sidePanel, DashboardConfigurations config, IDashboardNavigator dashboardNavigator)
+        public DashboardController(DashboardConfigurationManager configurationManager, ITimerService timerService, DockPanel sidePanel, DashboardConfigurations config, IDashboardNavigator dashboardNavigator, TileProviderRegistry tileProviderRegistry)
         {
             _configurationManager = configurationManager;
             _timerService = timerService;
             _sidePanel = sidePanel;
             _config = config;
             _dashboardNavigator = dashboardNavigator;
+            _tileProviderRegistry = tileProviderRegistry;
         }
 
         public void Start()
@@ -72,7 +75,7 @@ namespace NoeticTools.Dashboard.Framework
 
         public void ShowInsertPanel()
         {
-            ShowOnSidePane(new InsertTileController(), "Help");
+            ShowOnSidePane(new InsertTileController(_tileProviderRegistry), "Help");
         }
 
         private void Save()

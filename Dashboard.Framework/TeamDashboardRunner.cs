@@ -10,6 +10,7 @@ using NoeticTools.Dashboard.Framework.Tiles.Help;
 using NoeticTools.Dashboard.Framework.Tiles.InsertTile;
 using NoeticTools.Dashboard.Framework.Tiles.Message;
 using NoeticTools.Dashboard.Framework.Tiles.ServerStatus;
+using NoeticTools.Dashboard.Framework.Tiles.TeamCity.AvailableBuilds;
 using NoeticTools.Dashboard.Framework.Tiles.TeamCity.LastBuildStatus;
 using NoeticTools.Dashboard.Framework.Tiles.TeamCityAvailableBuilds;
 using NoeticTools.Dashboard.Framework.Tiles.WebPage;
@@ -31,23 +32,26 @@ namespace NoeticTools.Dashboard.Framework
             var clock = new Clock();
             var timerService = new TimerService(clock);
             var runOptions = new RunOptions();
+            var tileProviderRegistry = new TileProviderRegistry();
+            var tileControllerFactory = new TileControllerFactory(tileProviderRegistry);
+
             var tileNavigator = new DashboardTileNavigator(tileGrid);
             var dashboardConfigurationManager = new DashboardConfigurationManager();
             _config = dashboardConfigurationManager.Load();
             var loaderConduit = new DashBoardLoaderConduit();
-            var tileRegistryConduit = new TileRegistryConduit();
+            var tileRegistryConduit = new TileFactoryConduit();
             var tileLayoutControllerRegistry = new TileLayoutControllerRegistry(tileRegistryConduit);
             _dashboardNavigator = new DashboardNavigator(loaderConduit, _config, tileLayoutControllerRegistry);
-            _dashboardController = new DashboardController(dashboardConfigurationManager, timerService, sidePanel, _config, _dashboardNavigator);
+            _dashboardController = new DashboardController(dashboardConfigurationManager, timerService, sidePanel, _config, _dashboardNavigator, tileProviderRegistry);
             var teamCityService = new TeamCityService(_config.Services, runOptions, clock, _dashboardController);
-            var tileControllerRegistry = new TileControllerRegistry();
-            tileRegistryConduit.SetTarget(tileControllerRegistry);
-            var rootTileLayoutController = new TileLayoutController(tileGrid, tileControllerRegistry, tileLayoutControllerRegistry, new Thickness(0));
+
+            tileRegistryConduit.SetTarget(tileControllerFactory);
+            var rootTileLayoutController = new TileLayoutController(tileGrid, tileControllerFactory, tileLayoutControllerRegistry, new Thickness(0));
             _loader = new DashBoardLoader(rootTileLayoutController);
             loaderConduit.SetTarget(_loader);
             KeyboardHandler = new KeyboardHandler(tileNavigator, _dashboardNavigator, _dashboardController);
 
-            var services = new Services(tileControllerRegistry, KeyboardHandler);
+            var services = new Services(tileControllerFactory, tileProviderRegistry, KeyboardHandler);
 
             RegisterPlugins(teamCityService, timerService, clock, services);
         }
@@ -56,7 +60,7 @@ namespace NoeticTools.Dashboard.Framework
         {
             var plugins = new IPlugin[]
             {
-                new InsertTilePlugin(_dashboardController),
+                new InsertTilePlugin(_dashboardController, services),
                 new HelpTilePlugin(_dashboardController),
 
                 new TeamCityLastBuildStatusTilePlugin(teamCityService, timerService, _dashboardController),

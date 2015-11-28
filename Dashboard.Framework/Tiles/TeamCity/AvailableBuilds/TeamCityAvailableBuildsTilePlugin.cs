@@ -2,12 +2,13 @@
 using NoeticTools.Dashboard.Framework.Config;
 using NoeticTools.Dashboard.Framework.DataSources.TeamCity;
 using NoeticTools.Dashboard.Framework.Tiles.Date;
+using NoeticTools.Dashboard.Framework.Tiles.TeamCityAvailableBuilds;
 using NoeticTools.Dashboard.Framework.Time;
 
 
-namespace NoeticTools.Dashboard.Framework.Tiles.TeamCityAvailableBuilds
+namespace NoeticTools.Dashboard.Framework.Tiles.TeamCity.AvailableBuilds
 {
-    public class TeamCityLAvailbleBuildSTilePlugin : IPlugin, IViewControllerProvider
+    public class TeamCityLAvailbleBuildSTilePlugin : IPlugin, ITileControllerProvider
     {
         private readonly TeamCityService _service;
         private readonly ITimerService _timerService;
@@ -32,7 +33,9 @@ namespace NoeticTools.Dashboard.Framework.Tiles.TeamCityAvailableBuilds
 
         public void Register(IServices services)
         {
-            services.Repository.Register(this);
+            services.TileProviderRegistry.Register(this);
         }
+
+        public string Name => "TeamCity available builds";
     }
 }

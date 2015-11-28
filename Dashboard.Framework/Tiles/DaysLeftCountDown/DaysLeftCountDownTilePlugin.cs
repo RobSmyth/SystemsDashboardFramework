@@ -6,7 +6,7 @@ using NoeticTools.Dashboard.Framework.Time;
 
 namespace NoeticTools.Dashboard.Framework.Tiles.DaysLeftCountDown
 {
-    public class DaysLeftCountDownTilePlugin : IPlugin, IViewControllerProvider
+    public class DaysLeftCountDownTilePlugin : IPlugin, ITileControllerProvider
     {
         private readonly IDashboardController _dashboardController;
         private readonly IClock _clock;
@@ -31,7 +31,9 @@ namespace NoeticTools.Dashboard.Framework.Tiles.DaysLeftCountDown
 
         public void Register(IServices services)
         {
-            services.Repository.Register(this);
+            services.TileProviderRegistry.Register(this);
         }
+
+        public string Name => "Days left";
     }
 }

@@ -9,7 +9,6 @@
         Title="TeamDashboard" Height="500" Width="900"
         Background="Black" Icon="Images/NoeticTools.ico">
 
-
     <Window.Resources>
 
         <ResourceDictionary>

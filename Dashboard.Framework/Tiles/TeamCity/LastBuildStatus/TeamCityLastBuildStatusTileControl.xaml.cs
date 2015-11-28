@@ -1,4 +1,7 @@
-﻿using System.Windows.Controls;
+﻿using System;
+using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
 
 
 namespace NoeticTools.Dashboard.Framework.Tiles.TeamCity.LastBuildStatus

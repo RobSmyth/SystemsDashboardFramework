@@ -13,15 +13,17 @@ namespace NoeticTools.Dashboard.Framework.Tiles
     public class TileLayoutController : ITileLayoutController
     {
         private readonly Thickness _normalMargin;
+        private readonly TileDragAndDropController _dragAndDropController;
         private readonly Grid _tileGrid;
         private readonly ITileLayoutControllerRegistry _tileLayoutControllerRegistry;
         private readonly ITileControllerFactory _tileFactory;
 
-        public TileLayoutController(Grid tileGrid, ITileControllerFactory tileFactory, ITileLayoutControllerRegistry tileLayoutControllerRegistry, Thickness normalMargin)
+        public TileLayoutController(Grid tileGrid, ITileControllerFactory tileFactory, ITileLayoutControllerRegistry tileLayoutControllerRegistry, Thickness normalMargin, TileDragAndDropController dragAndDropController)
         {
             _tileFactory = tileFactory;
             _tileLayoutControllerRegistry = tileLayoutControllerRegistry;
             _normalMargin = normalMargin;
+            _dragAndDropController = dragAndDropController;
             _tileGrid = tileGrid;
             _tileGrid.Margin = _normalMargin;
         }
@@ -79,6 +81,9 @@ namespace NoeticTools.Dashboard.Framework.Tiles
             panel.Margin = new Thickness(2);
             var view = viewController.CreateView();
             panel.Children.Add(view);
+
+            _dragAndDropController.RegisterTarget(view);
+
             return this;
         }
 

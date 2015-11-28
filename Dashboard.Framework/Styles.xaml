@@ -58,6 +58,9 @@
     <Style x:Key="ConfigPanelStyle_Textbox" TargetType="TextBlock">
         <Setter Property="Foreground" Value="{StaticResource ConfigPanelStyle_ForegroundBrush}"/>
     </Style>
+    <Style x:Key="ConfigPanelStyle_Label" TargetType="Label">
+        <Setter Property="Foreground" Value="{StaticResource ConfigPanelStyle_ForegroundBrush}"/>
+    </Style>
     <Style x:Key="ConfigPanelStyle_Grid" TargetType="Grid">
         <Setter Property="Background" Value="{StaticResource ConfigPanelStyle_BackgroundBrush}"/>
     </Style>

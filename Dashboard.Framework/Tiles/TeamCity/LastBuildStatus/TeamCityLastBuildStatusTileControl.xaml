@@ -7,7 +7,7 @@
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300"
              Name="TeamCityBuildStatus"
-              Focusable="True">
+             Focusable="True">
 
     <UserControl.Resources>
 

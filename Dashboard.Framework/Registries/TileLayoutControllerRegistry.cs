@@ -10,16 +10,18 @@ namespace NoeticTools.Dashboard.Framework.Registries
     public class TileLayoutControllerRegistry : ITileLayoutControllerRegistry
     {
         private readonly ITileControllerFactory _tileFactory;
+        private readonly TileDragAndDropController _dragAndDropController;
         private readonly IList<ITileLayoutController> _layoutControllers = new List<ITileLayoutController>();
 
-        public TileLayoutControllerRegistry(ITileControllerFactory tileFactory)
+        public TileLayoutControllerRegistry(ITileControllerFactory tileFactory, TileDragAndDropController dragAndDropController)
         {
             _tileFactory = tileFactory;
+            _dragAndDropController = dragAndDropController;
         }
 
         public ITileLayoutController GetNew(Grid tileGrid)
         {
-            var layoutController = new TileLayoutController(tileGrid, _tileFactory, this, new Thickness(0));
+            var layoutController = new TileLayoutController(tileGrid, _tileFactory, this, new Thickness(0), _dragAndDropController);
             _layoutControllers.Add(layoutController);
             return layoutController;
         }

@@ -16,11 +16,7 @@ namespace NoeticTools.Dashboard.Framework
         public void Load(DashboardConfiguration configuration)
         {
             _tileLayoutController.Clear();
-
-            foreach (var tile in configuration.RootTile.Tiles)
-            {
-                _tileLayoutController.AddTile(tile);
-            }
+            _tileLayoutController.AddTiles(configuration.RootTile.Tiles);
         }
     }
 }

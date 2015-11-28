@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,6 +18,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles
         private readonly Grid _tileGrid;
         private readonly ITileLayoutControllerRegistry _tileLayoutControllerRegistry;
         private readonly ITileControllerFactory _tileFactory;
+        private readonly IList<TileConfiguration> _tileConfigurations = new List<TileConfiguration>();
 
         public TileLayoutController(Grid tileGrid, ITileControllerFactory tileFactory, ITileLayoutControllerRegistry tileLayoutControllerRegistry, Thickness normalMargin, TileDragAndDropController dragAndDropController)
         {
@@ -28,8 +30,18 @@ namespace NoeticTools.Dashboard.Framework.Tiles
             _tileGrid.Margin = _normalMargin;
         }
 
-        public void AddTile(TileConfiguration tileConfiguration)
+        public void AddTiles(TileConfiguration[] tileConfigurations)
         {
+            foreach (TileConfiguration tileConfiguration in tileConfigurations)
+            {
+                AddTile(tileConfiguration);
+            }
+        }
+
+        private void AddTile(TileConfiguration tileConfiguration)
+        {
+            _tileConfigurations.Add(tileConfiguration);
+
             ITileLayoutController layoutController = null;
 
             if (tileConfiguration.TypeId == TileConfiguration.BlankTileTypeId || tileConfiguration.TypeId.Equals("6f1bf918-6080-42c2-b980-d562f77cb4e6",
@@ -43,10 +55,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles
                 layoutController = AddTile(tileConfiguration, _tileFactory.Create(tileConfiguration));
             }
 
-            foreach (var tile in tileConfiguration.Tiles)
-            {
-                layoutController.AddTile(tile);
-            }
+            layoutController.AddTiles(tileConfiguration.Tiles);
         }
 
         public void Clear()
@@ -54,6 +63,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles
             _tileGrid.Children.Clear();
             _tileGrid.RowDefinitions.Clear();
             _tileGrid.ColumnDefinitions.Clear();
+            _tileConfigurations.Clear();
         }
 
         public void ToggleShowGroupPanelDetailsMode()
@@ -75,6 +85,46 @@ namespace NoeticTools.Dashboard.Framework.Tiles
             }
         }
 
+        public void InsertNewRow(int insertAtRowNumber)
+        {
+            var existingRowsCount = _tileGrid.RowDefinitions.Count;
+            AddRowsToFit((insertAtRowNumber > existingRowsCount) ? insertAtRowNumber : existingRowsCount + 1, 1);
+
+            foreach (var tileConfiguration in _tileConfigurations.Where(tileConfiguration => tileConfiguration.RowNumber >= insertAtRowNumber))
+            {
+                tileConfiguration.RowNumber++;
+            }
+
+            foreach (UIElement child in _tileGrid.Children)
+            {
+                var rowIndex = Grid.GetRow(child);
+                if (rowIndex >= insertAtRowNumber-1)
+                {
+                    Grid.SetRow(child, rowIndex+1);
+                }
+            }
+        }
+
+        public void InsertNewColumn(int insertAtColumnNumber)
+        {
+            var existingColumnsCount = _tileGrid.ColumnDefinitions.Count;
+            AddColumnsToFit((insertAtColumnNumber > existingColumnsCount) ? insertAtColumnNumber : existingColumnsCount + 1, 1);
+
+            foreach (var tileConfiguration in _tileConfigurations.Where(tileConfiguration => tileConfiguration.ColumnNumber >= insertAtColumnNumber))
+            {
+                tileConfiguration.ColumnNumber++;
+            }
+
+            foreach (UIElement child in _tileGrid.Children)
+            {
+                var columnIndex = Grid.GetColumn(child);
+                if (columnIndex >= insertAtColumnNumber-1)
+                {
+                    Grid.SetColumn(child, columnIndex + 1);
+                }
+            }
+        }
+
         private TileLayoutController AddTile(TileConfiguration tileConfiguration, IViewController viewController)
         {
             var panel = AddPlaceholderPanel(tileConfiguration.RowNumber, tileConfiguration.ColumnNumber, tileConfiguration.RowSpan, tileConfiguration.ColumnSpan);
@@ -82,7 +132,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles
             var view = viewController.CreateView();
             panel.Children.Add(view);
 
-            _dragAndDropController.RegisterTarget(view);
+            _dragAndDropController.RegisterTarget(view, this, tileConfiguration);
 
             return this;
         }
@@ -95,15 +145,8 @@ namespace NoeticTools.Dashboard.Framework.Tiles
 
         private Grid AddPlaceholderPanel(int rowNumber, int columnNumber, int rowSpan, int columnSpan)
         {
-            while (rowNumber + rowSpan - 1 > _tileGrid.RowDefinitions.Count)
-            {
-                _tileGrid.RowDefinitions.Add(new RowDefinition());
-            }
-
-            while (columnNumber + columnSpan - 1 > _tileGrid.ColumnDefinitions.Count)
-            {
-                _tileGrid.ColumnDefinitions.Add(new ColumnDefinition());
-            }
+            AddRowsToFit(rowNumber, rowSpan);
+            AddColumnsToFit(columnNumber, columnSpan);
 
             var groupPanel = new Grid {Name = $"Panel{_tileLayoutControllerRegistry.Count + 1}"};
 
@@ -114,6 +157,22 @@ namespace NoeticTools.Dashboard.Framework.Tiles
 
             _tileGrid.Children.Add(groupPanel);
             return groupPanel;
+        }
+
+        private void AddColumnsToFit(int columnNumber, int columnSpan)
+        {
+            while (columnNumber + columnSpan - 1 > _tileGrid.ColumnDefinitions.Count)
+            {
+                _tileGrid.ColumnDefinitions.Add(new ColumnDefinition());
+            }
+        }
+
+        private void AddRowsToFit(int rowNumber, int rowSpan)
+        {
+            while (rowNumber + rowSpan - 1 > _tileGrid.RowDefinitions.Count)
+            {
+                _tileGrid.RowDefinitions.Add(new RowDefinition());
+            }
         }
     }
 }

@@ -5,8 +5,8 @@ namespace NoeticTools.Dashboard.Framework.Tiles
 {
     public interface ITileLayoutController
     {
-        void AddTile(TileConfiguration tileConfiguration);
         void Clear();
         void ToggleShowGroupPanelDetailsMode();
+        void AddTiles(TileConfiguration[] tileConfigurations);
     }
 }

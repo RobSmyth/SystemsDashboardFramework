@@ -83,6 +83,7 @@
     <Compile Include="Config\Parameters\TextElementViewModel.cs" />
     <Compile Include="Registries\ITileProviderRegistry.cs" />
     <Compile Include="Registries\TileProviderRegistry.cs" />
+    <Compile Include="RelativeDropPostion.cs" />
     <Compile Include="TeamDashboardRunner.cs" />
     <Compile Include="TileDragAndDropController.cs" />
     <Compile Include="Tiles\TeamCity\TeamCityProjectElementViewModel.cs" />

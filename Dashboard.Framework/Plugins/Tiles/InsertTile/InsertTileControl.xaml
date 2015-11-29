@@ -29,7 +29,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         
-        <Label Grid.Row="0" HorizontalAlignment="Center" FontWeight="Bold" FontSize="16">ALPHA - NOT FUNCTIONAL</Label>
+        <Label Grid.Row="0" Margin="10,5,10,5">Drag and drop to add a tile.</Label>
         
         <Grid HorizontalAlignment="Center" Margin="10" Height="Auto" Grid.Row="1" Visibility="Collapsed">
             

@@ -9,7 +9,7 @@ namespace NoeticTools.Dashboard.Framework.Config
     {
         public TileConfiguration()
         {
-            TypeId = BlankTileTypeId;
+            TypeId = PaneTileTypeId;
             Values = new DashboardConfigValuePair[0];
             Tiles = new TileConfiguration[0];
         }
@@ -50,7 +50,7 @@ namespace NoeticTools.Dashboard.Framework.Config
         [XmlArray(ElementName = "tiles")]
         public TileConfiguration[] Tiles { get; set; }
 
-        public static string BlankTileTypeId = "Pane";
+        public static string PaneTileTypeId = "Pane";
 
         public bool IsInColumn(int columnNumber)
         {

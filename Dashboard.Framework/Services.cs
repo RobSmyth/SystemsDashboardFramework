@@ -1,7 +1,7 @@
 using NoeticTools.Dashboard.Framework.Registries;
 
 
-namespace NoeticTools.Dashboard.Framework.Tiles.Date
+namespace NoeticTools.Dashboard.Framework
 {
     public class Services : IServices
     {

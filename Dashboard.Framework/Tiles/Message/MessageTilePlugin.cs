@@ -24,6 +24,16 @@ namespace NoeticTools.Dashboard.Framework.Tiles.Message
             return new MessageTileController(tileConfiguration, _dashboardController);
         }
 
+        public TileConfiguration CreateDefaultConfiguration()
+        {
+            return new TileConfiguration()
+            {
+                TypeId = MessageTileController.TileTypeId,
+                Id = Guid.NewGuid(),
+                Tiles = new TileConfiguration[0],
+            };
+        }
+
         public void Register(IServices services)
         {
             services.TileProviderRegistry.Register(this);

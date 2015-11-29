@@ -1,7 +1,6 @@
 ﻿using System;
 using NoeticTools.Dashboard.Framework.Config;
 using NoeticTools.Dashboard.Framework.DataSources.TeamCity;
-using NoeticTools.Dashboard.Framework.Tiles.Date;
 using NoeticTools.Dashboard.Framework.Time;
 
 
@@ -28,6 +27,16 @@ namespace NoeticTools.Dashboard.Framework.Tiles.TeamCity.LastBuildStatus
         public IViewController CreateTileController(TileConfiguration tileConfiguration)
         {
             return new TeamCityLastBuildStatusTileController(_service, tileConfiguration, _timerService, _dashboardController);
+        }
+
+        public TileConfiguration CreateDefaultConfiguration()
+        {
+            return new TileConfiguration()
+            {
+                TypeId = TeamCityLastBuildStatusTileController.TileTypeId,
+                Id = Guid.NewGuid(),
+                Tiles = new TileConfiguration[0],
+            };
         }
 
         public void Register(IServices services)

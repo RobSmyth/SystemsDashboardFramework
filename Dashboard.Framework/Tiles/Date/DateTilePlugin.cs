@@ -31,6 +31,16 @@ namespace NoeticTools.Dashboard.Framework.Tiles.Date
             return new DateTileController(_timerService, _clock);
         }
 
+        public TileConfiguration CreateDefaultConfiguration()
+        {
+            return new TileConfiguration()
+            {
+                TypeId = DateTileController.TileTypeId,
+                Id = Guid.NewGuid(),
+                Tiles = new TileConfiguration[0],
+            };
+        }
+
         public string Name => "Date";
     }
 }

@@ -38,7 +38,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles
             }
         }
 
-        private void AddTile(TileConfiguration tileConfiguration)
+        public void AddTile(TileConfiguration tileConfiguration)
         {
             _tileConfigurations.Add(tileConfiguration);
 

@@ -29,6 +29,16 @@ namespace NoeticTools.Dashboard.Framework.Tiles.DaysLeftCountDown
             return new DaysLeftCountDownTileController(tileConfiguration, _clock, _dashboardController, _timerService);
         }
 
+        public TileConfiguration CreateDefaultConfiguration()
+        {
+            return new TileConfiguration()
+            {
+                TypeId = DaysLeftCountDownTileController.TileTypeId,
+                Id = Guid.NewGuid(),
+                Tiles = new TileConfiguration[0],
+            };
+        }
+
         public void Register(IServices services)
         {
             services.TileProviderRegistry.Register(this);

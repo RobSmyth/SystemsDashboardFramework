@@ -16,11 +16,14 @@ namespace NoeticTools.Dashboard.Framework
         private readonly DashboardConfigurations _config;
         private readonly IDashboardNavigator _dashboardNavigator;
         private readonly TileProviderRegistry _tileProviderRegistry;
+        private readonly TileDragAndDropController _dragAndDropController;
         private readonly DashboardConfigurationManager _configurationManager;
         private readonly ITimerService _timerService;
         private readonly DockPanel _sidePanel;
 
-        public DashboardController(DashboardConfigurationManager configurationManager, ITimerService timerService, DockPanel sidePanel, DashboardConfigurations config, IDashboardNavigator dashboardNavigator, TileProviderRegistry tileProviderRegistry)
+        public DashboardController(DashboardConfigurationManager configurationManager, ITimerService timerService, DockPanel sidePanel, 
+            DashboardConfigurations config, IDashboardNavigator dashboardNavigator, TileProviderRegistry tileProviderRegistry,
+            TileDragAndDropController dragAndDropController)
         {
             _configurationManager = configurationManager;
             _timerService = timerService;
@@ -28,6 +31,7 @@ namespace NoeticTools.Dashboard.Framework
             _config = config;
             _dashboardNavigator = dashboardNavigator;
             _tileProviderRegistry = tileProviderRegistry;
+            _dragAndDropController = dragAndDropController;
         }
 
         public void Start()
@@ -75,7 +79,7 @@ namespace NoeticTools.Dashboard.Framework
 
         public void ShowInsertPanel()
         {
-            ShowOnSidePane(new InsertTileController(_tileProviderRegistry), "Help");
+            ShowOnSidePane(new InsertTileController(_tileProviderRegistry, _dragAndDropController), "Help");
         }
 
         private void Save()

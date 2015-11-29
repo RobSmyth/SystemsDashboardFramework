@@ -31,6 +31,16 @@ namespace NoeticTools.Dashboard.Framework.Tiles.TeamCity.AvailableBuilds
             return new TeamCityAvailableBuildsTileController(_service, tileConfiguration, _timerService, _dashboardController);
         }
 
+        public TileConfiguration CreateDefaultConfiguration()
+        {
+            return new TileConfiguration()
+            {
+                TypeId = TeamCityAvailableBuildsTileController.TileTypeId,
+                Id = Guid.NewGuid(),
+                Tiles = new TileConfiguration[0],
+            };
+        }
+
         public void Register(IServices services)
         {
             services.TileProviderRegistry.Register(this);

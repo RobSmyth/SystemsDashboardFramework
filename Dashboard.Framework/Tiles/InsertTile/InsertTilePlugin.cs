@@ -10,11 +10,13 @@ namespace NoeticTools.Dashboard.Framework.Tiles.InsertTile
     {
         private readonly IDashboardController _dashboardController;
         private readonly Services _services;
+        private readonly TileDragAndDropController _dragAndDropController;
 
-        public InsertTilePlugin(IDashboardController dashboardController, Services services)
+        public InsertTilePlugin(IDashboardController dashboardController, Services services, TileDragAndDropController dragAndDropController)
         {
             _dashboardController = dashboardController;
             _services = services;
+            _dragAndDropController = dragAndDropController;
         }
 
         public void Register(IServices services)
@@ -29,7 +31,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles.InsertTile
 
         void IKeyHandler.Handle(Key key)
         {
-            _dashboardController.ShowOnSidePane(new InsertTileController(_services.TileProviderRegistry), "Insert Tile");
+            _dashboardController.ShowOnSidePane(new InsertTileController(_services.TileProviderRegistry, _dragAndDropController), "Insert Tile");
         }
     }
 }

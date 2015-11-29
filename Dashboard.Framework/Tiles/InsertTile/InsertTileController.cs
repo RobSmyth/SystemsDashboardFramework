@@ -9,8 +9,11 @@ namespace NoeticTools.Dashboard.Framework.Tiles.InsertTile
 {
     public class InsertTileController : IViewController
     {
-        public InsertTileController(ITileProviderRegistry tileProviderRegistry)
+        private readonly TileDragAndDropController _dragAndDropController;
+
+        public InsertTileController(ITileProviderRegistry tileProviderRegistry, TileDragAndDropController dragAndDropController)
         {
+            _dragAndDropController = dragAndDropController;
             TileProviders = tileProviderRegistry.GetAll();
         }
 
@@ -18,7 +21,9 @@ namespace NoeticTools.Dashboard.Framework.Tiles.InsertTile
 
         public FrameworkElement CreateView()
         {
-            return new InsertTileControl() { DataContext = this };
+            var view = new InsertTileControl() { DataContext = this };
+            _dragAndDropController.RegisterSource(view);
+            return view;
         }
 
         public void OnConfigurationChanged(TileConfigurationConverter converter)

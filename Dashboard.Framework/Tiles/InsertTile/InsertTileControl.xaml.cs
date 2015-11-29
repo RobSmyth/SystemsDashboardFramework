@@ -2,41 +2,30 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using NoeticTools.Dashboard.Framework.Config;
 
 
 namespace NoeticTools.Dashboard.Framework.Tiles.InsertTile
 {
-    public partial class InsertTileControl : UserControl
+    public partial class InsertTileControl : UserControl, IDragSource
     {
-        private Point _mouseDownPoint;
-
         public InsertTileControl()
         {
             InitializeComponent();
         }
 
-        private void ProvidersList_OnPreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            _mouseDownPoint = e.GetPosition(null);
-        }
+        public UIElement Element => this;
 
-        private void ProvidersList_OnPreviewMouseMove(object sender, MouseEventArgs e)
+        public void OnMouseDragStarted()
         {
-            var mousePos = e.GetPosition(null);
-            var diff = _mouseDownPoint - mousePos;
-
-            if (e.LeftButton == MouseButtonState.Pressed && 
-                Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance ||
-                Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance)
+            if (providersList.SelectedItem == null || !providersList.IsMouseOver)
             {
-                if (providersList.SelectedItem == null)
-                {
-                    return;
-                }
-
-                var dragData = new DataObject("TileProviderName", ((ITileControllerProvider)providersList.SelectedItem).Name);
-                DragDrop.DoDragDrop(providersList, dragData, DragDropEffects.Copy);
+                return;
             }
+
+            var tileConfiguration = ((ITileControllerProvider) providersList.SelectedItem).CreateDefaultConfiguration();
+            var dragData = new DataObject(typeof(TileConfiguration), tileConfiguration);
+            DragDrop.DoDragDrop(providersList, dragData, DragDropEffects.Copy);
         }
     }
 }

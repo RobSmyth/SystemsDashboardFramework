@@ -43,7 +43,7 @@ namespace NoeticTools.Dashboard.Framework
             var tileRegistryConduit = new TileFactoryConduit();
             var tileLayoutControllerRegistry = new TileLayoutControllerRegistry(tileRegistryConduit, dragAndDropController);
             _dashboardNavigator = new DashboardNavigator(loaderConduit, _config, tileLayoutControllerRegistry);
-            _dashboardController = new DashboardController(dashboardConfigurationManager, timerService, sidePanel, _config, _dashboardNavigator, tileProviderRegistry);
+            _dashboardController = new DashboardController(dashboardConfigurationManager, timerService, sidePanel, _config, _dashboardNavigator, tileProviderRegistry, dragAndDropController);
             var teamCityService = new TeamCityService(_config.Services, runOptions, clock, _dashboardController);
 
             tileRegistryConduit.SetTarget(tileControllerFactory);
@@ -54,14 +54,14 @@ namespace NoeticTools.Dashboard.Framework
 
             var services = new Services(tileControllerFactory, tileProviderRegistry, KeyboardHandler);
 
-            RegisterPlugins(teamCityService, timerService, clock, services);
+            RegisterPlugins(teamCityService, timerService, clock, services, dragAndDropController);
         }
 
-        private void RegisterPlugins(TeamCityService teamCityService, TimerService timerService, Clock clock, Services services)
+        private void RegisterPlugins(TeamCityService teamCityService, TimerService timerService, Clock clock, Services services, TileDragAndDropController dragAndDropController)
         {
             var plugins = new IPlugin[]
             {
-                new InsertTilePlugin(_dashboardController, services),
+                new InsertTilePlugin(_dashboardController, services, dragAndDropController),
                 new HelpTilePlugin(_dashboardController),
 
                 new TeamCityLastBuildStatusTilePlugin(teamCityService, timerService, _dashboardController),

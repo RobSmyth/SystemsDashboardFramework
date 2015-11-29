@@ -24,11 +24,16 @@ namespace NoeticTools.Dashboard.Framework.Tiles.ServerStatus
             return new ServerStatusTileController(tileConfiguration);
         }
 
+        public TileConfiguration CreateDefaultConfiguration()
+        {
+            throw new NotImplementedException();
+        }
+
         public void Register(IServices services)
         {
             services.TileProviderRegistry.Register(this);
         }
 
-        public string Name => "Server status";
+        public string Name => "Server status (future)";
     }
 }

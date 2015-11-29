@@ -2,7 +2,7 @@ namespace NoeticTools.Dashboard.Framework
 {
     public enum RelativeDropPostion
     {
-        Center,
+        OnTop,
         Top,
         Left,
         Right,

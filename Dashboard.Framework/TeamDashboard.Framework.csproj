@@ -81,6 +81,7 @@
     <Compile Include="Config\Parameters\DependantElementViewModel.cs" />
     <Compile Include="Config\Parameters\PasswordElementViewModel.cs" />
     <Compile Include="Config\Parameters\TextElementViewModel.cs" />
+    <Compile Include="IDragSource.cs" />
     <Compile Include="Registries\ITileProviderRegistry.cs" />
     <Compile Include="Registries\TileProviderRegistry.cs" />
     <Compile Include="RelativeDropPostion.cs" />
@@ -89,8 +90,8 @@
     <Compile Include="Tiles\TeamCity\TeamCityProjectElementViewModel.cs" />
     <Compile Include="IKeyboardHandler.cs" />
     <Compile Include="IKeyHandler.cs" />
-    <Compile Include="Tiles\Date\IServices.cs" />
-    <Compile Include="Tiles\Date\Services.cs" />
+    <Compile Include="IServices.cs" />
+    <Compile Include="Services.cs" />
     <Compile Include="Tiles\DaysLeftCountDown\DaysLeftCountDownTileViewModel.cs" />
     <Compile Include="Tiles\Help\HelpTilePlugin.cs" />
     <Compile Include="Tiles\InsertTile\InsertTilePlugin.cs" />

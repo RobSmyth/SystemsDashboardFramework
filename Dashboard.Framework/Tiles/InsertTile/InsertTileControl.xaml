@@ -73,11 +73,8 @@
 
         </Grid>
 
-        
         <ListView Name="providersList" Grid.Row="2" Margin="10" 
-                 ItemsSource="{Binding TileProviders}" DisplayMemberPath="Name"
-                 PreviewMouseLeftButtonDown="ProvidersList_OnPreviewMouseLeftButtonDown"
-                  PreviewMouseMove="ProvidersList_OnPreviewMouseMove"/>
+                 ItemsSource="{Binding TileProviders}" DisplayMemberPath="Name"/>
         
     </Grid>
     

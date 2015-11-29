@@ -51,5 +51,15 @@ namespace NoeticTools.Dashboard.Framework.Config
         public TileConfiguration[] Tiles { get; set; }
 
         public static string BlankTileTypeId = "Pane";
+
+        public bool IsInColumn(int columnNumber)
+        {
+            return ColumnNumber <= columnNumber && ColumnNumber + ColumnSpan - 1 >= columnNumber;
+        }
+
+        public bool IsInRow(int rowNumber)
+        {
+            return RowNumber <= rowNumber && RowNumber + RowSpan - 1 >= rowNumber;
+        }
     }
 }

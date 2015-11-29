@@ -234,6 +234,11 @@ namespace NoeticTools.Dashboard.Framework
                     Grid.SetRow(child, rowIndex + 1);
                 }
             }
+
+            for (var columnNumber = 1; columnNumber < _tileGrid.ColumnDefinitions.Count; columnNumber++)
+            {
+                // add a placeholder tile
+            }
         }
 
         private void InsertNewColumn(int insertAtColumnNumber)

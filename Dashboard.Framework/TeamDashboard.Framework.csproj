@@ -85,6 +85,13 @@
     <Compile Include="Plugins\KeyboardDashboardNavigationPlugin.cs" />
     <Compile Include="Plugins\KeyboardTileNavigationPlugin.cs" />
     <Compile Include="Input\LookupKeyboardHandler.cs" />
+    <Compile Include="Plugins\Tiles\Date\DateTileController.cs" />
+    <Compile Include="Plugins\Tiles\Date\DateTilePlugin.cs" />
+    <Compile Include="Plugins\Tiles\BlankTile\BlankTileControl.xaml.cs">
+      <DependentUpon>BlankTileControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\Tiles\BlankTile\BlankTileController.cs" />
+    <Compile Include="Plugins\Tiles\BlankTile\BlankTilePlugin.cs" />
     <Compile Include="Registries\ITileProviderRegistry.cs" />
     <Compile Include="Registries\TileProviderRegistry.cs" />
     <Compile Include="Input\RelativeDropPostion.cs" />
@@ -117,7 +124,6 @@
     <Compile Include="IDashboardTileNavigator.cs" />
     <Compile Include="Input\KeyboardHandler.cs" />
     <Compile Include="Dashboards\DashboardsNavigationViewModel.cs" />
-    <Compile Include="Plugins\Tiles\Date\DateTilePlugin.cs" />
     <Compile Include="Plugins\Tiles\DaysLeftCountDown\DaysLeftCountDownTilePlugin.cs" />
     <Compile Include="Registries\ITileLayoutControllerRegistry.cs" />
     <Compile Include="Registries\ITileControllerFactory.cs" />
@@ -142,7 +148,6 @@
     <Compile Include="Plugins\Tiles\Date\DateTileControl.xaml.cs">
       <DependentUpon>DateTileControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Plugins\Tiles\Date\DateTileController.cs" />
     <Compile Include="Plugins\Tiles\DaysLeftCountDown\DaysLeftCountDownTileView.xaml.cs">
       <DependentUpon>DaysLeftCountDownTileView.xaml</DependentUpon>
     </Compile>
@@ -224,6 +229,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Plugins\Tiles\BlankTile\BlankTileControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Plugins\Tiles\InsertTile\InsertTileControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

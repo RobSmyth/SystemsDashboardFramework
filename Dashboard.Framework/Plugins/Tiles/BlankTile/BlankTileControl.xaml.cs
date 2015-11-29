@@ -3,9 +3,9 @@
 
 namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.Date
 {
-    public partial class DateTileControl : UserControl
+    public partial class BlankTileControl : UserControl
     {
-        public DateTileControl()
+        public BlankTileControl()
         {
             InitializeComponent();
         }

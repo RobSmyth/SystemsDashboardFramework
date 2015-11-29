@@ -4,6 +4,7 @@ using NoeticTools.Dashboard.Framework.Config;
 using NoeticTools.Dashboard.Framework.DataSources.TeamCity;
 using NoeticTools.Dashboard.Framework.Input;
 using NoeticTools.Dashboard.Framework.Plugins;
+using NoeticTools.Dashboard.Framework.Plugins.Tiles.BlankTile;
 using NoeticTools.Dashboard.Framework.Plugins.Tiles.Date;
 using NoeticTools.Dashboard.Framework.Plugins.Tiles.DaysLeftCountDown;
 using NoeticTools.Dashboard.Framework.Plugins.Tiles.InsertTile;
@@ -83,11 +84,12 @@ namespace NoeticTools.Dashboard.Framework
                 new KeyboardDashboardNavigationPlugin(_dashboardNavigator, _dashboardController),
                 new InsertTilePlugin(_dashboardController, _services, _dragAndDropController),
                 new HelpTilePlugin(_dashboardController),
+                new BlankTilePlugin(),
+                new DateTilePlugin(_timerService, _clock),
+                new MessageTilePlugin(_dashboardController),
                 new TeamCityLastBuildStatusTilePlugin(teamCityService, _timerService, _dashboardController),
                 new TeamCityLAvailbleBuildSTilePlugin(teamCityService, _timerService, _dashboardController),
                 new DaysLeftCountDownTilePlugin(_dashboardController, _clock, _timerService),
-                new DateTilePlugin(_timerService, _clock),
-                new MessageTilePlugin(_dashboardController),
                 new WebPageTilePlugin(_dashboardController),
                 new ServerStatusTilePlugin(_dashboardController)
             };

@@ -3,10 +3,11 @@ using System.Windows;
 using System.Windows.Input;
 using NoeticTools.Dashboard.Framework.Config;
 using NoeticTools.Dashboard.Framework.Config.Commands;
+using NoeticTools.Dashboard.Framework.Tiles;
 using NoeticTools.Dashboard.Framework.Time;
 
 
-namespace NoeticTools.Dashboard.Framework.Tiles.Date
+namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.Date
 {
     internal class DateTileController : IViewController, ITimerListener
     {

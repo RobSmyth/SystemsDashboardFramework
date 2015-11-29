@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using NoeticTools.Dashboard.Framework.Adorners;
 using NoeticTools.Dashboard.Framework.Config;
+using NoeticTools.Dashboard.Framework.Input;
 using NoeticTools.Dashboard.Framework.Registries;
 
 

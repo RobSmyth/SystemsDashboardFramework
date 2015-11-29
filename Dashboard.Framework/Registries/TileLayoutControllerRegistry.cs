@@ -3,6 +3,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using NoeticTools.Dashboard.Framework.Config;
+using NoeticTools.Dashboard.Framework.Input;
 using NoeticTools.Dashboard.Framework.Tiles;
 
 

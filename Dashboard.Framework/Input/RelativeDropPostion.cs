@@ -1,4 +1,4 @@
-namespace NoeticTools.Dashboard.Framework
+namespace NoeticTools.Dashboard.Framework.Input
 {
     public enum RelativeDropPostion
     {

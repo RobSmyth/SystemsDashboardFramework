@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows;
 using NoeticTools.Dashboard.Framework.Config;
+using NoeticTools.Dashboard.Framework.Input;
 using NoeticTools.Dashboard.Framework.Registries;
 
 

@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using NoeticTools.Dashboard.Framework.Config;
+using NoeticTools.Dashboard.Framework.Input;
 using NoeticTools.Dashboard.Framework.Registries;
 using NoeticTools.Dashboard.Framework.Tiles;
 using NoeticTools.Dashboard.Framework.Tiles.Dashboards;

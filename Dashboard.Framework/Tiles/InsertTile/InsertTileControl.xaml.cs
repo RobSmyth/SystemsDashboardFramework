@@ -1,8 +1,7 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using NoeticTools.Dashboard.Framework.Config;
+using NoeticTools.Dashboard.Framework.Input;
 
 
 namespace NoeticTools.Dashboard.Framework.Tiles.InsertTile
@@ -24,7 +23,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles.InsertTile
             }
 
             var tileConfiguration = ((ITileControllerProvider) providersList.SelectedItem).CreateDefaultConfiguration();
-            var dragData = new DataObject(typeof(TileConfiguration), tileConfiguration);
+            var dragData = new DataObject(typeof (TileConfiguration), tileConfiguration);
             DragDrop.DoDragDrop(providersList, dragData, DragDropEffects.Copy);
         }
     }

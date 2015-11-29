@@ -2,6 +2,7 @@ using System.Windows;
 using System.Windows.Controls;
 using NoeticTools.Dashboard.Framework.Config;
 using NoeticTools.Dashboard.Framework.DataSources.TeamCity;
+using NoeticTools.Dashboard.Framework.Input;
 using NoeticTools.Dashboard.Framework.Plugins;
 using NoeticTools.Dashboard.Framework.Registries;
 using NoeticTools.Dashboard.Framework.Tiles;
@@ -81,6 +82,7 @@ namespace NoeticTools.Dashboard.Framework
                 new WebPageTilePlugin(_dashboardController),
                 new ServerStatusTilePlugin(_dashboardController),
             };
+
             foreach (var plugin in plugins)
             {
                 plugin.Register(_services);

@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Input;
+using NoeticTools.Dashboard.Framework.Input;
 using NoeticTools.Dashboard.Framework.Tiles;
 
 
 namespace NoeticTools.Dashboard.Framework.Plugins
 {
-    public class KeyboardDashboardNavigationPlugin : IPlugin, IKeyHandler
+    public class KeyboardDashboardNavigationPlugin : IPlugin
     {
         private readonly IDictionary<Key, Action<Key>> _keyHandlers;
 
@@ -25,17 +26,7 @@ namespace NoeticTools.Dashboard.Framework.Plugins
 
         public void Register(IServices services)
         {
-            services.KeyboardHandler.Register(this);
-        }
-
-        bool IKeyHandler.CanHandle(Key key)
-        {
-            return Keyboard.Modifiers == ModifierKeys.None && _keyHandlers.ContainsKey(key);
-        }
-
-        void IKeyHandler.Handle(Key key)
-        {
-            _keyHandlers[key](key);
+            services.KeyboardHandler.Register(new LookupKeyboardHandler(_keyHandlers));
         }
     }
 }

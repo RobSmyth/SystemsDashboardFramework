@@ -1,7 +1,5 @@
-﻿using System;
-using System.Windows.Input;
-using NoeticTools.Dashboard.Framework.Tiles.Date;
-using NoeticTools.Dashboard.Framework.Time;
+﻿using System.Windows.Input;
+using NoeticTools.Dashboard.Framework.Input;
 
 
 namespace NoeticTools.Dashboard.Framework.Tiles.InsertTile

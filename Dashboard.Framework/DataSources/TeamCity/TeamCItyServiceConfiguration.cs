@@ -30,7 +30,11 @@ namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
             set { _inner.Parameter("Password", "MyPassword").Value = value; }
         }
 
-        public DashboardConfigValuePair[] Values { get { return _inner.Values; } set { _inner.Values = value; } }
+        public DashboardConfigValuePair[] Values
+        {
+            get { return _inner.Values; }
+            set { _inner.Values = value; }
+        }
 
         public DashboardConfigValuePair GetParameter(string name, string defaultValue)
         {

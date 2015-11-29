@@ -1,5 +1,5 @@
 ﻿using NoeticTools.Dashboard.Framework.Config;
-using NoeticTools.Dashboard.Framework.Tiles;
+using NoeticTools.Dashboard.Framework.Plugins.Tiles;
 
 
 namespace NoeticTools.Dashboard.Framework

@@ -10,10 +10,10 @@ namespace NoeticTools.Dashboard.Framework.Adorners
     public class GroupPanelDetailsAdorner : Adorner
     {
         private const int MarginIncrease = 4;
+        private const int NameFontSize = 24;
         private readonly FrameworkElement _adornedElement;
         private readonly Thickness _originalMargin;
         private static readonly Color Colour = Colors.AntiqueWhite;
-        private const int NameFontSize = 24;
         private readonly Brush NameBrush = Brushes.Black;
 
         public GroupPanelDetailsAdorner([NotNull] FrameworkElement adornedElement) : base(adornedElement)

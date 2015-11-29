@@ -19,6 +19,8 @@ namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
             _rand = new Random(DateTime.Now.Millisecond);
         }
 
+        public string[] ProjectNames => new[] {"Project A", "Project B"};
+
         public void Connect()
         {
         }
@@ -54,8 +56,6 @@ namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
             build.Status = _rand.Next(1, 10) <= 1 ? "FAILURE" : "SUCCESS";
             return build;
         }
-
-        public string[] ProjectNames => new[] {"Project A", "Project B"};
 
         public string[] GetConfigurationNames(string projectName)
         {

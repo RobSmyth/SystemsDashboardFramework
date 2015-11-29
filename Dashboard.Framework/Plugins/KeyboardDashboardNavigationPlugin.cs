@@ -20,7 +20,7 @@ namespace NoeticTools.Dashboard.Framework.Plugins
                 {Key.PageDown, key => dashboardNavigator.NextDashboard()},
                 {Key.PageUp, key => dashboardNavigator.PrevDashboard()},
                 {Key.F3, key => controller.ShowNavigationPane()},
-                {Key.Escape, key => dashboardNavigator.ShowCurrentDashboard()},
+                {Key.Escape, key => dashboardNavigator.ShowCurrentDashboard()}
             };
         }
 

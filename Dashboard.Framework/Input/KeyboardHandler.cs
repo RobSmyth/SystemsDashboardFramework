@@ -18,7 +18,7 @@ namespace NoeticTools.Dashboard.Framework.Input
                 // F2 - used by tiles for tile edit
 
                 {Key.F4, key => controller.ToggleGroupPanelsEditMode()},
-                {Key.F5, key => controller.Refresh()},
+                {Key.F5, key => controller.Refresh()}
 
                 // DEL - will be used to delete a tile
             };

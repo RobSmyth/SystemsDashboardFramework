@@ -18,7 +18,7 @@ namespace NoeticTools.Dashboard.Framework.Plugins
                 {Key.Right, key => tileNavigator.MoveRight()},
                 {Key.Left, key => tileNavigator.MoveLeft()},
                 {Key.Up, key => tileNavigator.MoveUp()},
-                {Key.Down, key => tileNavigator.MoveDown()},
+                {Key.Down, key => tileNavigator.MoveDown()}
             };
         }
 

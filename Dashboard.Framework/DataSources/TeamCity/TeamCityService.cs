@@ -26,6 +26,8 @@ namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
             _current = runOptions.EmulateMode ? new TeamCityChannelEmulatedState(client, this) : _disconnectedState;
         }
 
+        public string[] ProjectNames => _current.ProjectNames;
+
         public void Connect()
         {
             _current.Connect();
@@ -51,8 +53,6 @@ namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
             return _current.GetRunningBuild(projectName, buildConfigurationName);
         }
 
-        public string[] ProjectNames => _current.ProjectNames;
-
         public string[] GetConfigurationNames(string projectName)
         {
             return _current.GetConfigurationNames(projectName);
@@ -70,7 +70,7 @@ namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
             {
                 new TextElementViewModel("Url", configurationConverter),
                 new TextElementViewModel("UserName", configurationConverter),
-                new PasswordElementViewModel("Password", configurationConverter),
+                new PasswordElementViewModel("Password", configurationConverter)
             };
 
             const string title = "TeamCity Server Configuration";
@@ -78,7 +78,10 @@ namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
             _dashboardController.ShowOnSidePane(controller, title);
         }
 
-        ITeamCityChannel IStateEngine<ITeamCityChannel>.Current => _current;
+        public void OnConfigurationChanged(TileConfigurationConverter converter)
+        {
+            _configuration.Password = converter.GetString("Password");
+        }
 
         void IStateEngine<ITeamCityChannel>.OnConnected()
         {
@@ -90,9 +93,6 @@ namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
             _current = _disconnectedState;
         }
 
-        public void OnConfigurationChanged(TileConfigurationConverter converter)
-        {
-            _configuration.Password = converter.GetString("Password");
-        }
+        ITeamCityChannel IStateEngine<ITeamCityChannel>.Current => _current;
     }
 }

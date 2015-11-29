@@ -1,13 +1,11 @@
-﻿
-
-namespace NoeticTools.Dashboard.Framework.Config.Parameters
+﻿namespace NoeticTools.Dashboard.Framework.Config.Parameters
 {
     public class ElementViewModel : NotifyingViewModelBase, INotifyingElementViewModel
     {
         private readonly TileConfigurationConverter _tileConfigurationConverter;
         private object[] _parameters;
 
-        public ElementViewModel(string name, ElementType elementType, TileConfigurationConverter tileConfigurationConverter, params  string[] parameters)
+        public ElementViewModel(string name, ElementType elementType, TileConfigurationConverter tileConfigurationConverter, params string[] parameters)
         {
             _tileConfigurationConverter = tileConfigurationConverter;
             Name = name;

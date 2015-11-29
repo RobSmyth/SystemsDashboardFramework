@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using NoeticTools.Dashboard.Framework.Time;
 
 
 namespace NoeticTools.Dashboard.Framework.DataSources.Jira
@@ -14,7 +13,7 @@ namespace NoeticTools.Dashboard.Framework.DataSources.Jira
         private DateTime _nextRefresh;
         private T[] _items = new T[0];
 
-        public TimeCachedArray(Func<IEnumerable<T>> loader, TimeSpan lifeTime, IClock clock) 
+        public TimeCachedArray(Func<IEnumerable<T>> loader, TimeSpan lifeTime, IClock clock)
         {
             _loader = loader;
             _lifeTime = lifeTime;

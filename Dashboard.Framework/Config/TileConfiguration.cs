@@ -7,8 +7,6 @@ namespace NoeticTools.Dashboard.Framework.Config
     [XmlType("tile")]
     public class TileConfiguration : ItemConfigurationBase
     {
-        public static string BlankTileTypeId = "Pane";
-
         public TileConfiguration()
         {
             TypeId = BlankTileTypeId;
@@ -51,5 +49,7 @@ namespace NoeticTools.Dashboard.Framework.Config
         /// </summary>
         [XmlArray(ElementName = "tiles")]
         public TileConfiguration[] Tiles { get; set; }
+
+        public static string BlankTileTypeId = "Pane";
     }
 }

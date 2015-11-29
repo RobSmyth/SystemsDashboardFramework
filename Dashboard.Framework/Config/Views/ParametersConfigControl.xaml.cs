@@ -47,12 +47,12 @@ namespace NoeticTools.Dashboard.Framework.Config.Views
             var name = GetUIlementName(elementViewModel);
             if (elementViewModel.ElementType == ElementType.Boolean)
             {
-                var checkbox = (CheckBox)PlaceholderGrid.Children.Cast<FrameworkElement>().Single(x => x.Name.Equals(name));
+                var checkbox = (CheckBox) PlaceholderGrid.Children.Cast<FrameworkElement>().Single(x => x.Name.Equals(name));
                 elementViewModel.Value = checkbox.IsChecked;
             }
             else
             {
-                var textBox = (TextBox)PlaceholderGrid.Children.Cast<FrameworkElement>().Single(x => x.Name.Equals(name));
+                var textBox = (TextBox) PlaceholderGrid.Children.Cast<FrameworkElement>().Single(x => x.Name.Equals(name));
                 elementViewModel.Value = textBox.Text;
             }
         }
@@ -83,13 +83,13 @@ namespace NoeticTools.Dashboard.Framework.Config.Views
 
             var creatorLookup = new Dictionary<ElementType, Func<IElementViewModel, int, UIElement>>
             {
-                {ElementType.Boolean, CreateCheckBox },
-                {ElementType.Text, CreateTextBox },
-                {ElementType.DateTime, CreateTextBox },
-                {ElementType.Hyperlink, CreateHyperlink },
-                {ElementType.Divider, CreateDivider },
-                {ElementType.SelectedText, CreateComboBox },
-                {ElementType.Password, CreatePasswordBox },
+                {ElementType.Boolean, CreateCheckBox},
+                {ElementType.Text, CreateTextBox},
+                {ElementType.DateTime, CreateTextBox},
+                {ElementType.Hyperlink, CreateHyperlink},
+                {ElementType.Divider, CreateDivider},
+                {ElementType.SelectedText, CreateComboBox},
+                {ElementType.Password, CreatePasswordBox}
             };
 
             Add(rowIndex, creatorLookup[elementViewModel.ElementType](elementViewModel, rowIndex));
@@ -98,7 +98,7 @@ namespace NoeticTools.Dashboard.Framework.Config.Views
         private int AddRow()
         {
             var rowIndex = PlaceholderGrid.RowDefinitions.Count;
-            PlaceholderGrid.RowDefinitions.Add(new RowDefinition() {MinHeight = 5});
+            PlaceholderGrid.RowDefinitions.Add(new RowDefinition {MinHeight = 5});
             return rowIndex;
         }
 
@@ -110,8 +110,8 @@ namespace NoeticTools.Dashboard.Framework.Config.Views
 
         private UIElement CreateHyperlink(IElementViewModel elementViewModel, int rowIndex)
         {
-            var hyperlink = new Hyperlink { Command = (ICommand)elementViewModel.Parameters[1] };
-            hyperlink.Inlines.Add((string)elementViewModel.Parameters[0]);
+            var hyperlink = new Hyperlink {Command = (ICommand) elementViewModel.Parameters[1]};
+            hyperlink.Inlines.Add((string) elementViewModel.Parameters[0]);
 
             var textBox = new TextBlock
             {
@@ -158,14 +158,14 @@ namespace NoeticTools.Dashboard.Framework.Config.Views
 
         private UIElement CreatePasswordBox(IElementViewModel elementViewModel, int rowIndex)
         {
-            var passwordBox = new PasswordBox()
+            var passwordBox = new PasswordBox
             {
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 Margin = _elementMargin,
                 FontSize = 12.0,
                 Name = GetUIlementName(elementViewModel),
                 DataContext = elementViewModel,
-                Password = (string)elementViewModel.Value,
+                Password = (string) elementViewModel.Value
             };
 
             return passwordBox;

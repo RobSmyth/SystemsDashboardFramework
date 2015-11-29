@@ -87,20 +87,11 @@ namespace NoeticTools.Dashboard.Framework.Config
             {
                 return GetDateTime(name);
             }
-            else if (elementType == ElementType.Boolean)
+            if (elementType == ElementType.Boolean)
             {
                 return GetBool(name);
             }
-            else
-            {
-                return GetString(name);
-            }
-        }
-
-        private T GetParameter<T>(string name)
-        {
-            var value = _inner.GetParameter(name, string.Empty).Value;
-            return (T) Convert.ChangeType(value, typeof (T));
+            return GetString(name);
         }
 
         public void SetParameter(string name, ElementType elementType, object value)
@@ -111,12 +102,18 @@ namespace NoeticTools.Dashboard.Framework.Config
             }
             else if (elementType == ElementType.Boolean)
             {
-                SetParameter(name, (bool)value);
+                SetParameter(name, (bool) value);
             }
             else
             {
                 SetParameter(name, value.ToString());
             }
+        }
+
+        private T GetParameter<T>(string name)
+        {
+            var value = _inner.GetParameter(name, string.Empty).Value;
+            return (T) Convert.ChangeType(value, typeof (T));
         }
     }
 }

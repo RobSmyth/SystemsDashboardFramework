@@ -12,6 +12,9 @@ namespace NoeticTools.Dashboard.Framework.DataSources.Jira
             Projects = new JiraNamedEntity[0];
         }
 
+        public JiraNamedEntity[] Filters { get; }
+        public JiraNamedEntity[] Projects { get; }
+
         public void Connect()
         {
         }
@@ -39,8 +42,5 @@ namespace NoeticTools.Dashboard.Framework.DataSources.Jira
         public void Disconnect()
         {
         }
-
-        public JiraNamedEntity[] Filters { get; }
-        public JiraNamedEntity[] Projects { get; }
     }
 }

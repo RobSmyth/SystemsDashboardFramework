@@ -1,5 +1,4 @@
-﻿using System.Windows.Controls;
-using NoeticTools.Dashboard.Framework.Config.Parameters;
+﻿using NoeticTools.Dashboard.Framework.Config.Parameters;
 
 
 namespace NoeticTools.Dashboard.Framework.Config

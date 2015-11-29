@@ -3,5 +3,7 @@
 
 namespace NoeticTools.Dashboard.Framework.Config
 {
-    public interface INotifyingElementViewModel : IElementViewModel, INotifyPropertyChanged { }
+    public interface INotifyingElementViewModel : IElementViewModel, INotifyPropertyChanged
+    {
+    }
 }

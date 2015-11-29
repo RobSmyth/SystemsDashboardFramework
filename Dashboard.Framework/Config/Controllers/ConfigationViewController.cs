@@ -36,13 +36,13 @@ namespace NoeticTools.Dashboard.Framework.Config.Controllers
             return _panelView;
         }
 
+        public void OnConfigurationChanged(TileConfigurationConverter converter)
+        {
+        }
+
         private void CloseCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             _panelView.Visibility = Visibility.Collapsed;
-        }
-
-        public void OnConfigurationChanged(TileConfigurationConverter converter)
-        {
         }
     }
 }

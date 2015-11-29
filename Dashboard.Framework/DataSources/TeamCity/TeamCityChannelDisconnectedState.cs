@@ -19,6 +19,8 @@ namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
             _configuration = configuration;
         }
 
+        public string[] ProjectNames => new string[0];
+
         public void Connect()
         {
             _client.Connect(_configuration.UserName, _configuration.Password);
@@ -61,8 +63,6 @@ namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
             Connect();
             return null;
         }
-
-        public string[] ProjectNames => new string[0];
 
         public string[] GetConfigurationNames(string projectName)
         {

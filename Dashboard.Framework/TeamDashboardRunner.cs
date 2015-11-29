@@ -4,17 +4,17 @@ using NoeticTools.Dashboard.Framework.Config;
 using NoeticTools.Dashboard.Framework.DataSources.TeamCity;
 using NoeticTools.Dashboard.Framework.Input;
 using NoeticTools.Dashboard.Framework.Plugins;
+using NoeticTools.Dashboard.Framework.Plugins.Tiles.Date;
+using NoeticTools.Dashboard.Framework.Plugins.Tiles.DaysLeftCountDown;
+using NoeticTools.Dashboard.Framework.Plugins.Tiles.InsertTile;
+using NoeticTools.Dashboard.Framework.Plugins.Tiles.Message;
+using NoeticTools.Dashboard.Framework.Plugins.Tiles.ServerStatus;
+using NoeticTools.Dashboard.Framework.Plugins.Tiles.TeamCity.AvailableBuilds;
+using NoeticTools.Dashboard.Framework.Plugins.Tiles.TeamCity.LastBuildStatus;
+using NoeticTools.Dashboard.Framework.Plugins.Tiles.WebPage;
 using NoeticTools.Dashboard.Framework.Registries;
 using NoeticTools.Dashboard.Framework.Tiles;
-using NoeticTools.Dashboard.Framework.Tiles.Date;
-using NoeticTools.Dashboard.Framework.Tiles.DaysLeftCountDown;
 using NoeticTools.Dashboard.Framework.Tiles.Help;
-using NoeticTools.Dashboard.Framework.Tiles.InsertTile;
-using NoeticTools.Dashboard.Framework.Tiles.Message;
-using NoeticTools.Dashboard.Framework.Tiles.ServerStatus;
-using NoeticTools.Dashboard.Framework.Tiles.TeamCity.AvailableBuilds;
-using NoeticTools.Dashboard.Framework.Tiles.TeamCity.LastBuildStatus;
-using NoeticTools.Dashboard.Framework.Tiles.WebPage;
 using NoeticTools.Dashboard.Framework.Time;
 
 
@@ -62,33 +62,6 @@ namespace NoeticTools.Dashboard.Framework
             RegisterPlugins();
         }
 
-        private void RegisterPlugins()
-        {
-            var teamCityService = new TeamCityService(_config.Services, _runOptions, _clock, _dashboardController);
-
-            var plugins = new IPlugin[]
-            {
-                new KeyboardTileNavigationPlugin(_tileNavigator), 
-                new KeyboardDashboardNavigationPlugin(_dashboardNavigator, _dashboardController), 
-
-                new InsertTilePlugin(_dashboardController, _services, _dragAndDropController),
-                new HelpTilePlugin(_dashboardController),
-
-                new TeamCityLastBuildStatusTilePlugin(teamCityService, _timerService, _dashboardController),
-                new TeamCityLAvailbleBuildSTilePlugin(teamCityService, _timerService, _dashboardController),
-                new DaysLeftCountDownTilePlugin(_dashboardController, _clock, _timerService),
-                new DateTilePlugin(_timerService, _clock),
-                new MessageTilePlugin(_dashboardController),
-                new WebPageTilePlugin(_dashboardController),
-                new ServerStatusTilePlugin(_dashboardController),
-            };
-
-            foreach (var plugin in plugins)
-            {
-                plugin.Register(_services);
-            }
-        }
-
         public void Start()
         {
             _dashboardController.Start();
@@ -98,6 +71,31 @@ namespace NoeticTools.Dashboard.Framework
         public void Stop()
         {
             _dashboardController.Stop();
+        }
+
+        private void RegisterPlugins()
+        {
+            var teamCityService = new TeamCityService(_config.Services, _runOptions, _clock, _dashboardController);
+
+            var plugins = new IPlugin[]
+            {
+                new KeyboardTileNavigationPlugin(_tileNavigator),
+                new KeyboardDashboardNavigationPlugin(_dashboardNavigator, _dashboardController),
+                new InsertTilePlugin(_dashboardController, _services, _dragAndDropController),
+                new HelpTilePlugin(_dashboardController),
+                new TeamCityLastBuildStatusTilePlugin(teamCityService, _timerService, _dashboardController),
+                new TeamCityLAvailbleBuildSTilePlugin(teamCityService, _timerService, _dashboardController),
+                new DaysLeftCountDownTilePlugin(_dashboardController, _clock, _timerService),
+                new DateTilePlugin(_timerService, _clock),
+                new MessageTilePlugin(_dashboardController),
+                new WebPageTilePlugin(_dashboardController),
+                new ServerStatusTilePlugin(_dashboardController)
+            };
+
+            foreach (var plugin in plugins)
+            {
+                plugin.Register(_services);
+            }
         }
     }
 }

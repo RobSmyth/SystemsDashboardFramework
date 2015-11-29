@@ -2,11 +2,11 @@
 using System.Windows.Controls;
 using NoeticTools.Dashboard.Framework.Config;
 using NoeticTools.Dashboard.Framework.Input;
+using NoeticTools.Dashboard.Framework.Plugins.Tiles.InsertTile;
 using NoeticTools.Dashboard.Framework.Registries;
 using NoeticTools.Dashboard.Framework.Tiles;
 using NoeticTools.Dashboard.Framework.Tiles.Dashboards;
 using NoeticTools.Dashboard.Framework.Tiles.Help;
-using NoeticTools.Dashboard.Framework.Tiles.InsertTile;
 using NoeticTools.Dashboard.Framework.Time;
 
 
@@ -22,7 +22,7 @@ namespace NoeticTools.Dashboard.Framework
         private readonly ITimerService _timerService;
         private readonly DockPanel _sidePanel;
 
-        public DashboardController(DashboardConfigurationManager configurationManager, ITimerService timerService, DockPanel sidePanel, 
+        public DashboardController(DashboardConfigurationManager configurationManager, ITimerService timerService, DockPanel sidePanel,
             DashboardConfigurations config, IDashboardNavigator dashboardNavigator, TileProviderRegistry tileProviderRegistry,
             TileDragAndDropController dragAndDropController)
         {

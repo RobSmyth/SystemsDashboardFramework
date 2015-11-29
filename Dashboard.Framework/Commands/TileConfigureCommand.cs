@@ -36,12 +36,12 @@ namespace NoeticTools.Dashboard.Framework.Commands
             _dashboardController.ShowOnSidePane(controller, _title);
         }
 
-        public event EventHandler CanExecuteChanged;
-
         private void OnChanExecuteChanged()
         {
             var handler = CanExecuteChanged;
             handler?.Invoke(this, new EventArgs());
         }
+
+        public event EventHandler CanExecuteChanged;
     }
 }

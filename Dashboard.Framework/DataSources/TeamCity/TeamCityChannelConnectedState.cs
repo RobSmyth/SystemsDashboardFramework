@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security;
 using NoeticTools.Dashboard.Framework.DataSources.Jira;
 using TeamCitySharp;
 using TeamCitySharp.DomainEntities;
@@ -26,6 +25,8 @@ namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
             _projects = new TimeCachedArray<Project>(() => _client.Projects.All(), TimeSpan.FromMinutes(5), clock);
         }
 
+        public string[] ProjectNames => _projects.Items.Select(x => x.Name).ToArray();
+
         public void Connect()
         {
         }
@@ -40,8 +41,6 @@ namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
             var project = _projects.Items.SingleOrDefault(x => x.Name.Equals(projectName, StringComparison.CurrentCultureIgnoreCase));
             return project == null ? new string[0] : GetConfigurations(project).Items.Select(x => x.Name).ToArray();
         }
-
-        public string[] ProjectNames => _projects.Items.Select(x => x.Name).ToArray();
 
         public Build GetLastBuild(string projectName, string buildConfigurationName)
         {

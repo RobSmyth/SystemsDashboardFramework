@@ -13,10 +13,10 @@ namespace NoeticTools.Dashboard.Framework.DataSources.Jira
         private readonly string _password;
         private readonly string _url;
         private readonly IClock _clock;
-        private Atlassian.Jira.Jira _jira;
         private readonly TimeCachedArray<JiraNamedEntity> _filters;
         private readonly TimeCachedArray<JiraNamedEntity> _projects;
         private readonly Dictionary<string, TimeCachedArray<Issue>> _filterItems;
+        private Atlassian.Jira.Jira _jira;
 
         public JiraChannelState(string username, string password, string url, IClock clock)
         {
@@ -28,6 +28,10 @@ namespace NoeticTools.Dashboard.Framework.DataSources.Jira
             _projects = new TimeCachedArray<JiraNamedEntity>(() => _jira.GetProjects(), TimeSpan.FromMinutes(5), clock);
             _filterItems = new Dictionary<string, TimeCachedArray<Issue>>();
         }
+
+        public JiraNamedEntity[] Filters => _filters.Items;
+
+        public JiraNamedEntity[] Projects => _projects.Items;
 
         public void Connect()
         {
@@ -64,9 +68,5 @@ namespace NoeticTools.Dashboard.Framework.DataSources.Jira
         public void Disconnect()
         {
         }
-
-        public JiraNamedEntity[] Filters => _filters.Items;
-
-        public JiraNamedEntity[] Projects => _projects.Items;
     }
 }

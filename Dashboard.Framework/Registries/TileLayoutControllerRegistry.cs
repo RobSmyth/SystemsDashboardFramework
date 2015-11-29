@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using NoeticTools.Dashboard.Framework.Config;
 using NoeticTools.Dashboard.Framework.Input;
-using NoeticTools.Dashboard.Framework.Tiles;
+using NoeticTools.Dashboard.Framework.Plugins.Tiles;
 
 
 namespace NoeticTools.Dashboard.Framework.Registries
@@ -21,6 +21,8 @@ namespace NoeticTools.Dashboard.Framework.Registries
             _dragAndDropController = dragAndDropController;
         }
 
+        public int Count => _layoutControllers.Count;
+
         public ITileLayoutController GetNew(Grid tileGrid, TileConfiguration tileConfiguration)
         {
             var layoutController = new TileLayoutController(tileGrid, _tileFactory, this, new Thickness(0), _dragAndDropController);
@@ -33,7 +35,5 @@ namespace NoeticTools.Dashboard.Framework.Registries
         {
             return _layoutControllers.ToArray();
         }
-
-        public int Count => _layoutControllers.Count;
     }
 }

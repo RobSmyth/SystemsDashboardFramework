@@ -9,6 +9,6 @@
         Boolean,
         Divider,
         SelectedText,
-        Password,
+        Password
     }
 }

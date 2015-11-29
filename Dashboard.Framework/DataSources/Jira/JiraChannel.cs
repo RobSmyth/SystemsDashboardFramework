@@ -10,8 +10,11 @@ namespace NoeticTools.Dashboard.Framework.DataSources.Jira
 
         public JiraChannel(RunOptions runOption, string username, string password, string url, IClock clock)
         {
-            _currentState = runOption.EmulateMode ? (IJiraChannel)new JiraChannelEmulateState() : new JiraChannelState(username, password, url, clock);
+            _currentState = runOption.EmulateMode ? (IJiraChannel) new JiraChannelEmulateState() : new JiraChannelState(username, password, url, clock);
         }
+
+        public JiraNamedEntity[] Filters => _currentState.Filters;
+        public JiraNamedEntity[] Projects => _currentState.Projects;
 
         public void Connect()
         {
@@ -41,8 +44,5 @@ namespace NoeticTools.Dashboard.Framework.DataSources.Jira
         public void Disconnect()
         {
         }
-
-        public JiraNamedEntity[] Filters => _currentState.Filters;
-        public JiraNamedEntity[] Projects => _currentState.Projects;
     }
 }

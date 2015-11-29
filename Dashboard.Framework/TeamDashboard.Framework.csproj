@@ -90,16 +90,16 @@
     <Compile Include="Input\RelativeDropPostion.cs" />
     <Compile Include="TeamDashboardRunner.cs" />
     <Compile Include="Input\TileDragAndDropController.cs" />
-    <Compile Include="Tiles\TeamCity\TeamCityProjectElementViewModel.cs" />
+    <Compile Include="Plugins\Tiles\TeamCity\TeamCityProjectElementViewModel.cs" />
     <Compile Include="Input\IKeyboardHandler.cs" />
     <Compile Include="Input\IKeyHandler.cs" />
     <Compile Include="IServices.cs" />
     <Compile Include="Services.cs" />
-    <Compile Include="Tiles\DaysLeftCountDown\DaysLeftCountDownTileViewModel.cs" />
-    <Compile Include="Tiles\Help\HelpTilePlugin.cs" />
-    <Compile Include="Tiles\InsertTile\InsertTilePlugin.cs" />
-    <Compile Include="Tiles\InsertTile\InsertTileController.cs" />
-    <Compile Include="Tiles\InsertTile\InsertTileControl.xaml.cs">
+    <Compile Include="Plugins\Tiles\DaysLeftCountDown\DaysLeftCountDownTileViewModel.cs" />
+    <Compile Include="Plugins\Tiles\Help\HelpTilePlugin.cs" />
+    <Compile Include="Plugins\Tiles\InsertTile\InsertTilePlugin.cs" />
+    <Compile Include="Plugins\Tiles\InsertTile\InsertTileController.cs" />
+    <Compile Include="Plugins\Tiles\InsertTile\InsertTileControl.xaml.cs">
       <DependentUpon>InsertTileControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Config\Views\ParametersConfigControl.xaml.cs">
@@ -116,9 +116,9 @@
     <Compile Include="IDashboardNavigator.cs" />
     <Compile Include="IDashboardTileNavigator.cs" />
     <Compile Include="Input\KeyboardHandler.cs" />
-    <Compile Include="Tiles\Dashboards\DashboardsNavigationViewModel.cs" />
-    <Compile Include="Tiles\Date\DateTilePlugin.cs" />
-    <Compile Include="Tiles\DaysLeftCountDown\DaysLeftCountDownTilePlugin.cs" />
+    <Compile Include="Dashboards\DashboardsNavigationViewModel.cs" />
+    <Compile Include="Plugins\Tiles\Date\DateTilePlugin.cs" />
+    <Compile Include="Plugins\Tiles\DaysLeftCountDown\DaysLeftCountDownTilePlugin.cs" />
     <Compile Include="Registries\ITileLayoutControllerRegistry.cs" />
     <Compile Include="Registries\ITileControllerFactory.cs" />
     <Compile Include="NotifyingViewModelBase.cs" />
@@ -126,48 +126,48 @@
     <Compile Include="DataSources\Jira\JiraChannelEmulateState.cs" />
     <Compile Include="DataSources\Jira\JiraChannelState.cs" />
     <Compile Include="IDashboardController.cs" />
-    <Compile Include="Tiles\ITileLayoutController.cs" />
+    <Compile Include="ITileLayoutController.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="Tiles\ITileControllerProvider.cs" />
-    <Compile Include="Tiles\Message\MessageViewModel.cs" />
-    <Compile Include="Tiles\Message\MessageTilePlugin.cs" />
-    <Compile Include="Tiles\ServerStatus\ServerStatusTilePlugin.cs" />
-    <Compile Include="Tiles\TeamCity\AvailableBuilds\TeamCityAvailableBuildsTilePlugin.cs" />
-    <Compile Include="Tiles\IPlugin.cs" />
-    <Compile Include="Tiles\TeamCity\LastBuildStatus\TeamCityLastBuildStatusTilePlugin.cs" />
+    <Compile Include="ITileControllerProvider.cs" />
+    <Compile Include="Plugins\Tiles\Message\MessageViewModel.cs" />
+    <Compile Include="Plugins\Tiles\Message\MessageTilePlugin.cs" />
+    <Compile Include="Plugins\Tiles\ServerStatus\ServerStatusTilePlugin.cs" />
+    <Compile Include="Plugins\Tiles\TeamCity\AvailableBuilds\TeamCityAvailableBuildsTilePlugin.cs" />
+    <Compile Include="Plugins\Tiles\IPlugin.cs" />
+    <Compile Include="Plugins\Tiles\TeamCity\LastBuildStatus\TeamCityLastBuildStatusTilePlugin.cs" />
     <Compile Include="Registries\TileLayoutControllerRegistry.cs" />
     <Compile Include="Registries\TileControllerFactory.cs" />
-    <Compile Include="Tiles\TileLayoutController.cs" />
-    <Compile Include="Tiles\Date\DateTileControl.xaml.cs">
+    <Compile Include="TileLayoutController.cs" />
+    <Compile Include="Plugins\Tiles\Date\DateTileControl.xaml.cs">
       <DependentUpon>DateTileControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Tiles\Date\DateTileController.cs" />
-    <Compile Include="Tiles\DaysLeftCountDown\DaysLeftCountDownTileView.xaml.cs">
+    <Compile Include="Plugins\Tiles\Date\DateTileController.cs" />
+    <Compile Include="Plugins\Tiles\DaysLeftCountDown\DaysLeftCountDownTileView.xaml.cs">
       <DependentUpon>DaysLeftCountDownTileView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Tiles\DaysLeftCountDown\DaysLeftCountDownTileController.cs" />
-    <Compile Include="Tiles\IViewController.cs" />
-    <Compile Include="Tiles\Message\MessageTileControl.xaml.cs">
+    <Compile Include="Plugins\Tiles\DaysLeftCountDown\DaysLeftCountDownTileController.cs" />
+    <Compile Include="IViewController.cs" />
+    <Compile Include="Plugins\Tiles\Message\MessageTileControl.xaml.cs">
       <DependentUpon>MessageTileControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Tiles\Message\MessageTileController.cs" />
-    <Compile Include="Tiles\ServerStatus\ServerStatusTileControl.xaml.cs">
+    <Compile Include="Plugins\Tiles\Message\MessageTileController.cs" />
+    <Compile Include="Plugins\Tiles\ServerStatus\ServerStatusTileControl.xaml.cs">
       <DependentUpon>ServerStatusTileControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Tiles\ServerStatus\ServerStatusTileController.cs" />
-    <Compile Include="Tiles\TeamCity\AvailableBuilds\TeamCityAvailableBuildsListControl.xaml.cs">
+    <Compile Include="Plugins\Tiles\ServerStatus\ServerStatusTileController.cs" />
+    <Compile Include="Plugins\Tiles\TeamCity\AvailableBuilds\TeamCityAvailableBuildsListControl.xaml.cs">
       <DependentUpon>TeamCityAvailableBuildsListControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Tiles\TeamCity\AvailableBuilds\TeamCityAvailableBuildsTileController.cs" />
-    <Compile Include="Tiles\TeamCity\LastBuildStatus\TeamCityLastBuildStatusTileControl.xaml.cs">
+    <Compile Include="Plugins\Tiles\TeamCity\AvailableBuilds\TeamCityAvailableBuildsTileController.cs" />
+    <Compile Include="Plugins\Tiles\TeamCity\LastBuildStatus\TeamCityLastBuildStatusTileControl.xaml.cs">
       <DependentUpon>TeamCityLastBuildStatusTileControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Tiles\TeamCity\LastBuildStatus\TeamCityLastBuildStatusTileController.cs" />
-    <Compile Include="Tiles\WebPage\WebPageTilePlugin.cs" />
-    <Compile Include="Tiles\WebPage\WebPageTileControl.xaml.cs">
+    <Compile Include="Plugins\Tiles\TeamCity\LastBuildStatus\TeamCityLastBuildStatusTileController.cs" />
+    <Compile Include="Plugins\Tiles\WebPage\WebPageTilePlugin.cs" />
+    <Compile Include="Plugins\Tiles\WebPage\WebPageTileControl.xaml.cs">
       <DependentUpon>WebPageTileControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Tiles\WebPage\WebPageTileController.cs" />
+    <Compile Include="Plugins\Tiles\WebPage\WebPageTileController.cs" />
     <Compile Include="Time\Clock.cs" />
     <Compile Include="Commands\NullCommand.cs" />
     <Compile Include="Commands\TileConfigureCommand.cs" />
@@ -204,14 +204,14 @@
     <Compile Include="Time\ITimerQueue.cs" />
     <Compile Include="Time\ITimerService.cs" />
     <Compile Include="Time\NullTimerListener.cs" />
-    <Compile Include="Tiles\Help\HelpTileControl.xaml.cs">
+    <Compile Include="Plugins\Tiles\Help\HelpTileControl.xaml.cs">
       <DependentUpon>HelpTileControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Tiles\Help\HelpViewController.cs" />
-    <Compile Include="Tiles\Dashboards\DashboardNaviagtionTileControl.xaml.cs">
+    <Compile Include="Plugins\Tiles\Help\HelpViewController.cs" />
+    <Compile Include="Dashboards\DashboardNaviagtionTileControl.xaml.cs">
       <DependentUpon>DashboardNaviagtionTileControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Tiles\Dashboards\DashboardsNavigationViewController.cs" />
+    <Compile Include="Dashboards\DashboardsNavigationViewController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RunOptions.cs" />
     <Compile Include="Time\TimerService.cs" />
@@ -223,7 +223,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Tiles\InsertTile\InsertTileControl.xaml">
+    <Page Include="Plugins\Tiles\InsertTile\InsertTileControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -235,19 +235,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Tiles\Date\DateTileControl.xaml">
+    <Page Include="Plugins\Tiles\Date\DateTileControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Tiles\DaysLeftCountDown\DaysLeftCountDownTileView.xaml">
+    <Page Include="Plugins\Tiles\DaysLeftCountDown\DaysLeftCountDownTileView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Tiles\Help\HelpTileControl.xaml">
+    <Page Include="Plugins\Tiles\Help\HelpTileControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Tiles\Dashboards\DashboardNaviagtionTileControl.xaml">
+    <Page Include="Dashboards\DashboardNaviagtionTileControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -255,23 +255,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Tiles\Message\MessageTileControl.xaml">
+    <Page Include="Plugins\Tiles\Message\MessageTileControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Tiles\ServerStatus\ServerStatusTileControl.xaml">
+    <Page Include="Plugins\Tiles\ServerStatus\ServerStatusTileControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Tiles\TeamCity\AvailableBuilds\TeamCityAvailableBuildsListControl.xaml">
+    <Page Include="Plugins\Tiles\TeamCity\AvailableBuilds\TeamCityAvailableBuildsListControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Tiles\TeamCity\LastBuildStatus\TeamCityLastBuildStatusTileControl.xaml">
+    <Page Include="Plugins\Tiles\TeamCity\LastBuildStatus\TeamCityLastBuildStatusTileControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Tiles\WebPage\WebPageTileControl.xaml">
+    <Page Include="Plugins\Tiles\WebPage\WebPageTileControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

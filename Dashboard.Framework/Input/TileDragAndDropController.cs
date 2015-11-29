@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
 using NoeticTools.Dashboard.Framework.Config;
-using NoeticTools.Dashboard.Framework.Tiles;
 
 
 namespace NoeticTools.Dashboard.Framework.Input
@@ -14,10 +13,6 @@ namespace NoeticTools.Dashboard.Framework.Input
         private readonly IDictionary<object, TileConfiguration> _elementToConfiguration = new Dictionary<object, TileConfiguration>();
         private Point _mouseDownPoint;
         private IDragSource _potentialSender;
-
-        public TileDragAndDropController()
-        {
-        }
 
         public void RegisterTarget(UIElement targetUiElement, TileLayoutController tileLayoutController, TileConfiguration tileConfiguration)
         {
@@ -31,11 +26,17 @@ namespace NoeticTools.Dashboard.Framework.Input
             targetUiElement.Drop += OnDrop;
         }
 
+        public void RegisterSource(IDragSource source)
+        {
+            source.Element.PreviewMouseLeftButtonDown += ProvidersList_OnPreviewMouseLeftButtonDown;
+            source.Element.PreviewMouseMove += ProvidersList_OnPreviewMouseMove;
+        }
+
         private void OnDragEnter(object sender, DragEventArgs e)
         {
             if (IsTileProviderData(e))
             {
-                ((UIElement)sender).Opacity = 0.7;
+                ((UIElement) sender).Opacity = 0.7;
             }
         }
 
@@ -54,17 +55,17 @@ namespace NoeticTools.Dashboard.Framework.Input
 
         private void OnDragLeave(object sender, DragEventArgs e)
         {
-            ((UIElement)sender).Opacity = 1.0;
+            ((UIElement) sender).Opacity = 1.0;
         }
 
         private static bool IsTileProviderData(DragEventArgs e)
         {
-            return e.Data.GetDataPresent(typeof(TileConfiguration));
+            return e.Data.GetDataPresent(typeof (TileConfiguration));
         }
 
         private void OnDrop(object sender, DragEventArgs e)
         {
-            var newTileConfiguration = e.Data.GetData(typeof(TileConfiguration)) as TileConfiguration;
+            var newTileConfiguration = e.Data.GetData(typeof (TileConfiguration)) as TileConfiguration;
             if (newTileConfiguration == null)
             {
                 return;
@@ -147,12 +148,6 @@ namespace NoeticTools.Dashboard.Framework.Input
                 }
             }
             return RelativeDropPostion.OnTop;
-        }
-
-        public void RegisterSource(IDragSource source)
-        {
-            source.Element.PreviewMouseLeftButtonDown += ProvidersList_OnPreviewMouseLeftButtonDown;
-            source.Element.PreviewMouseMove += ProvidersList_OnPreviewMouseMove;
         }
 
         private void ProvidersList_OnPreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)

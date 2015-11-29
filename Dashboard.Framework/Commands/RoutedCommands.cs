@@ -7,5 +7,6 @@ namespace NoeticTools.Dashboard.Framework.Commands
     {
         public readonly CommandBinding SaveCommandBinding = new CommandBinding(ApplicationCommands.Save);
         public readonly CommandBinding CloseCommandBinding = new CommandBinding(ApplicationCommands.Close);
+        public readonly CommandBinding DeleteCommandBinding = new CommandBinding(ApplicationCommands.Delete);
     }
 }

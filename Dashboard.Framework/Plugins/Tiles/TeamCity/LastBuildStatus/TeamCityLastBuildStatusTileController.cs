@@ -7,10 +7,13 @@ using NoeticTools.Dashboard.Framework.Commands;
 using NoeticTools.Dashboard.Framework.Config;
 using NoeticTools.Dashboard.Framework.Config.Parameters;
 using NoeticTools.Dashboard.Framework.DataSources.TeamCity;
+using NoeticTools.Dashboard.Framework.Tiles;
+using NoeticTools.Dashboard.Framework.Tiles.TeamCity;
+using NoeticTools.Dashboard.Framework.Tiles.TeamCity.LastBuildStatus;
 using NoeticTools.Dashboard.Framework.Time;
 
 
-namespace NoeticTools.Dashboard.Framework.Tiles.TeamCity.LastBuildStatus
+namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.TeamCity.LastBuildStatus
 {
     internal class TeamCityLastBuildStatusTileController : IViewController, ITimerListener
     {
@@ -31,7 +34,9 @@ namespace NoeticTools.Dashboard.Framework.Tiles.TeamCity.LastBuildStatus
         };
 
         private readonly TeamCityService _service;
+        private readonly TileConfiguration _tile;
         private readonly IDashboardController _dashboardController;
+        private readonly TileLayoutController _tileLayoutController;
 
         private readonly Dictionary<string, Brush> _statusBrushes = new Dictionary<string, Brush>
         {
@@ -52,11 +57,13 @@ namespace NoeticTools.Dashboard.Framework.Tiles.TeamCity.LastBuildStatus
         private readonly TimerToken _timerToken;
         private TeamCityBuildStatusTileControl _view;
 
-        public TeamCityLastBuildStatusTileController(TeamCityService service, TileConfiguration tileConfiguration, ITimerService timerService, IDashboardController dashboardController)
+        public TeamCityLastBuildStatusTileController(TeamCityService service, TileConfiguration tile, ITimerService timerService, IDashboardController dashboardController, TileLayoutController tileLayoutController)
         {
             _service = service;
+            _tile = tile;
             _dashboardController = dashboardController;
-            _tileConfigurationConverter = new TileConfigurationConverter(tileConfiguration, this);
+            _tileLayoutController = tileLayoutController;
+            _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
             ConfigureServiceCommand = new TeamCityServiceConfigureCommand(service);
             _timerToken = timerService.QueueCallback(TimeSpan.FromDays(10000), this);
         }
@@ -74,7 +81,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles.TeamCity.LastBuildStatus
                 new ElementViewModel("Description", ElementType.Text, _tileConfigurationConverter),
                 new HyperlinkElementViewModel("TeamCity service", ConfigureServiceCommand)
             };
-            ConfigureCommand = new TileConfigureCommand("Last Build Status Tile Configuration", configurationParameters, _dashboardController);
+            ConfigureCommand = new TileConfigureCommand(_tile, "Last Build Status Tile Configuration", configurationParameters, _dashboardController, _tileLayoutController);
 
             _view = new TeamCityBuildStatusTileControl {DataContext = this};
 

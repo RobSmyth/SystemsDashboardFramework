@@ -304,9 +304,7 @@
   <ItemGroup>
     <Resource Include="Images\YellowStar_32x32.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Config\ViewModels\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Images\Insert row to left.png" />
   </ItemGroup>

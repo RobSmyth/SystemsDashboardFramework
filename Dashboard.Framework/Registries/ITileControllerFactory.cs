@@ -6,6 +6,6 @@ namespace NoeticTools.Dashboard.Framework.Registries
 {
     public interface ITileControllerFactory
     {
-        IViewController Create(TileConfiguration tileConfiguration);
+        IViewController Create(TileConfiguration tileConfiguration, TileLayoutController tileLayoutController);
     }
 }

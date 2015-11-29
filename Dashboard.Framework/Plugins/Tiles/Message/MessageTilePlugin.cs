@@ -1,7 +1,6 @@
 ﻿using System;
 using NoeticTools.Dashboard.Framework.Config;
 using NoeticTools.Dashboard.Framework.Tiles;
-using NoeticTools.Dashboard.Framework.Tiles.Message;
 
 
 namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.Message
@@ -22,9 +21,9 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.Message
             return id == MessageTileController.TileTypeId || id.Equals("0FFACE9A-8B68-4DBC-8B42-0255F51368B3", StringComparison.InvariantCultureIgnoreCase);
         }
 
-        public IViewController CreateTileController(TileConfiguration tileConfiguration)
+        public IViewController CreateTileController(TileConfiguration tileConfiguration, TileLayoutController tileLayoutController)
         {
-            return new MessageTileController(tileConfiguration, _dashboardController);
+            return new MessageTileController(tileConfiguration, _dashboardController, tileLayoutController);
         }
 
         public TileConfiguration CreateDefaultConfiguration()

@@ -16,19 +16,19 @@ namespace NoeticTools.Dashboard.Framework.Tiles.DaysLeftCountDown
         private readonly DaysLeftCountDownTileView _view;
         private readonly TimerToken _timerToken;
 
-        public DaysLeftCountDownTileViewModel(TileConfiguration tileConfiguration, IClock clock, IDashboardController dashboardController, DaysLeftCountDownTileView view, ITimerService timerService)
+        public DaysLeftCountDownTileViewModel(TileConfiguration tile, IClock clock, IDashboardController dashboardController, DaysLeftCountDownTileView view, ITimerService timerService, TileLayoutController tileLayoutController)
         {
             _clock = clock;
             _view = view;
-            _tileConfigurationConverter = new TileConfigurationConverter(tileConfiguration, this);
-            ConfigureCommand = new TileConfigureCommand("Days Count Down Configuration",
+            _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
+            ConfigureCommand = new TileConfigureCommand(tile, "Days Count Down Configuration",
                 new IElementViewModel[]
                 {
                     new ElementViewModel("Title", ElementType.Text, _tileConfigurationConverter),
                     new ElementViewModel("End_date", ElementType.DateTime, _tileConfigurationConverter),
                     new ElementViewModel("Disabled", ElementType.Boolean, _tileConfigurationConverter)
                 },
-                dashboardController);
+                dashboardController, tileLayoutController);
             _view.DataContext = this;
             _timerToken = timerService.QueueCallback(TimeSpan.FromMilliseconds(10), this);
         }

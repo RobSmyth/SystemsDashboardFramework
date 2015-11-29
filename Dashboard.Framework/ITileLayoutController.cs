@@ -7,7 +7,7 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles
     {
         void Clear();
         void ToggleShowGroupPanelDetailsMode();
-        void AddTile(TileConfiguration tileConfiguration);
+        void AddTile(TileConfiguration tile);
         void Load(TileConfiguration tileConfiguration);
     }
 }

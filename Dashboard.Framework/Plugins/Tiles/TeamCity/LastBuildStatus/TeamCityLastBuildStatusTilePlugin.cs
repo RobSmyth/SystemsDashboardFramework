@@ -2,7 +2,6 @@
 using NoeticTools.Dashboard.Framework.Config;
 using NoeticTools.Dashboard.Framework.DataSources.TeamCity;
 using NoeticTools.Dashboard.Framework.Tiles;
-using NoeticTools.Dashboard.Framework.Tiles.TeamCity.LastBuildStatus;
 using NoeticTools.Dashboard.Framework.Time;
 
 
@@ -28,9 +27,9 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.TeamCity.LastBuildStatus
             return id == TeamCityLastBuildStatusTileController.TileTypeId || id.Equals("0FFACE9A-8B68-4DBC-8B42-0255F51368B5", StringComparison.InvariantCultureIgnoreCase);
         }
 
-        public IViewController CreateTileController(TileConfiguration tileConfiguration)
+        public IViewController CreateTileController(TileConfiguration tileConfiguration, TileLayoutController tileLayoutController)
         {
-            return new TeamCityLastBuildStatusTileController(_service, tileConfiguration, _timerService, _dashboardController);
+            return new TeamCityLastBuildStatusTileController(_service, tileConfiguration, _timerService, _dashboardController, tileLayoutController);
         }
 
         public TileConfiguration CreateDefaultConfiguration()

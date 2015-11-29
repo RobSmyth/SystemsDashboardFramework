@@ -14,10 +14,10 @@ namespace NoeticTools.Dashboard.Framework.Registries
             _tileProviderRegistry = tileProviderRegistry;
         }
 
-        public IViewController Create(TileConfiguration tileConfiguration)
+        public IViewController Create(TileConfiguration tileConfiguration, TileLayoutController tileLayoutController)
         {
             var plugin = _tileProviderRegistry.GetAll().Single(x => x.MatchesId(tileConfiguration.TypeId));
-            var tileViewModel = plugin.CreateTileController(tileConfiguration);
+            var tileViewModel = plugin.CreateTileController(tileConfiguration, tileLayoutController);
             return tileViewModel;
         }
     }

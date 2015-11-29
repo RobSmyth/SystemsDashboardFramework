@@ -1,4 +1,5 @@
 ﻿using Dashboard.Config;
+using NoeticTools.Dashboard.Framework.Commands;
 using NoeticTools.Dashboard.Framework.Config;
 using NoeticTools.Dashboard.Framework.Config.Controllers;
 using NoeticTools.Dashboard.Framework.Config.Parameters;
@@ -74,7 +75,7 @@ namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
             };
 
             const string title = "TeamCity Server Configuration";
-            var controller = new ConfigationViewController(title, parameters);
+            var controller = new ConfigationViewController(title, new RoutedCommands(), parameters);
             _dashboardController.ShowOnSidePane(controller, title);
         }
 

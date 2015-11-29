@@ -16,6 +16,7 @@ namespace NoeticTools.Dashboard.Framework.Config.Views
         {
             CommandBindings.Add(commands.CloseCommandBinding);
             CommandBindings.Add(commands.SaveCommandBinding);
+            CommandBindings.Add(commands.DeleteCommandBinding);
             PlaceholderGrid.Children.Add(childView);
             Title.Text = title;
         }

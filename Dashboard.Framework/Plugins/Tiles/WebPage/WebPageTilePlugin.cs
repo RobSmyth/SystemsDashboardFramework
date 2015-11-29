@@ -1,7 +1,6 @@
 ﻿using System;
 using NoeticTools.Dashboard.Framework.Config;
 using NoeticTools.Dashboard.Framework.Tiles;
-using NoeticTools.Dashboard.Framework.Tiles.WebPage;
 
 
 namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.WebPage
@@ -22,9 +21,9 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.WebPage
             return id == WebPageTileController.TileTypeId || id.Equals("92CE0D61-4748-4427-8EB7-DC8B8B741C15", StringComparison.InvariantCultureIgnoreCase);
         }
 
-        public IViewController CreateTileController(TileConfiguration tileConfiguration)
+        public IViewController CreateTileController(TileConfiguration tileConfiguration, TileLayoutController tileLayoutController)
         {
-            return new WebPageTileController(tileConfiguration, _dashboardController);
+            return new WebPageTileController(tileConfiguration, _dashboardController, tileLayoutController);
         }
 
         public TileConfiguration CreateDefaultConfiguration()

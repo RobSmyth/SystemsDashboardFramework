@@ -48,7 +48,8 @@
         <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom"
                     Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right"
                     Margin="10" Height="Auto" Visibility="Visible">
-            <Button Name="applyButton" Margin="5" Padding="5" Command="ApplicationCommands.Save">Apply</Button>
+            <Button Name="deleeteButton" Margin="5" Padding="5" Command="ApplicationCommands.Delete">Remove</Button>
+            <Button Name="applyButton" Margin="5" Padding="5" Command="ApplicationCommands.Save" IsDefault="True">Apply</Button>
         </StackPanel>
     </Grid>
 </UserControl>

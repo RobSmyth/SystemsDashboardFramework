@@ -12,22 +12,23 @@ namespace NoeticTools.Dashboard.Framework.Config.Controllers
     {
         private readonly IEnumerable<IElementViewModel> _parameters;
         private readonly string _title;
+        private readonly RoutedCommands _routedCommands;
         private PaneWithTitleBarControl _panelView;
 
-        public ConfigationViewController(string title, IElementViewModel[] parameters)
+        public ConfigationViewController(string title, RoutedCommands routedCommands, IElementViewModel[] parameters)
         {
             _title = title;
+            _routedCommands = routedCommands;
             _parameters = parameters;
         }
 
         public FrameworkElement CreateView()
         {
-            var commands = new RoutedCommands();
-            commands.CloseCommandBinding.Executed += CloseCommandBinding_Executed;
+            _routedCommands.CloseCommandBinding.Executed += CloseCommandBinding_Executed;
 
-            var view = new ParametersConfigControl(commands, _parameters) {DataContext = this};
+            var view = new ParametersConfigControl(_routedCommands, _parameters) {DataContext = this};
 
-            _panelView = new PaneWithTitleBarControl(_title, view, commands)
+            _panelView = new PaneWithTitleBarControl(_title, view, _routedCommands)
             {
                 Width = double.NaN,
                 Height = double.NaN

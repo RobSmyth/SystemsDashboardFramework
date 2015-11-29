@@ -10,14 +10,18 @@ namespace NoeticTools.Dashboard.Framework.Commands
     {
         private readonly IElementViewModel[] _parameters;
         private readonly IDashboardController _dashboardController;
+        private readonly TileLayoutController _tileLayoutController;
+        private readonly TileConfiguration _tile;
         private readonly string _title;
         private bool _canExecute = true;
 
-        public TileConfigureCommand(string title, IElementViewModel[] parameters, IDashboardController dashboardController)
+        public TileConfigureCommand(TileConfiguration tile, string title, IElementViewModel[] parameters, IDashboardController dashboardController, TileLayoutController tileLayoutController)
         {
+            _tile = tile;
             _title = title;
             _parameters = parameters;
             _dashboardController = dashboardController;
+            _tileLayoutController = tileLayoutController;
         }
 
         public bool CanExecute(object parameter)
@@ -32,8 +36,15 @@ namespace NoeticTools.Dashboard.Framework.Commands
 
         public void Execute(object parameter)
         {
-            var controller = new ConfigationViewController(_title, _parameters);
+            var routedCommands = new RoutedCommands();
+            routedCommands.DeleteCommandBinding.Executed += DeleteCommandBinding_Executed;
+            var controller = new ConfigationViewController(_title, routedCommands, _parameters);
             _dashboardController.ShowOnSidePane(controller, _title);
+        }
+
+        private void DeleteCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            _tileLayoutController.Remove(_tile);
         }
 
         private void OnChanExecuteChanged()

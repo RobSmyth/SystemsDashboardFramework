@@ -28,9 +28,9 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.TeamCity.AvailableBuilds
             return id == TeamCityAvailableBuildsTileController.TileTypeId || id.Equals("0FFACE9A-8B68-4DBC-8B42-0255F51368B6", StringComparison.InvariantCultureIgnoreCase);
         }
 
-        public IViewController CreateTileController(TileConfiguration tileConfiguration)
+        public IViewController CreateTileController(TileConfiguration tileConfiguration, TileLayoutController tileLayoutController)
         {
-            return new TeamCityAvailableBuildsTileController(_service, tileConfiguration, _timerService, _dashboardController);
+            return new TeamCityAvailableBuildsTileController(_service, tileConfiguration, _timerService, _dashboardController, tileLayoutController);
         }
 
         public TileConfiguration CreateDefaultConfiguration()

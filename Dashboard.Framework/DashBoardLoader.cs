@@ -16,7 +16,7 @@ namespace NoeticTools.Dashboard.Framework
         public void Load(DashboardConfiguration configuration)
         {
             _tileLayoutController.Clear();
-            _tileLayoutController.AddTiles(configuration.RootTile.Tiles);
+            _tileLayoutController.Load(configuration.RootTile);
         }
     }
 }

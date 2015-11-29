@@ -15,6 +15,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles
     {
         private readonly Thickness _normalMargin;
         private readonly TileDragAndDropController _dragAndDropController;
+        private TileConfiguration _tileConfiguration;
         private readonly Grid _tileGrid;
         private readonly ITileLayoutControllerRegistry _tileLayoutControllerRegistry;
         private readonly ITileControllerFactory _tileFactory;
@@ -30,11 +31,13 @@ namespace NoeticTools.Dashboard.Framework.Tiles
             _tileGrid.Margin = _normalMargin;
         }
 
-        public void AddTiles(TileConfiguration[] tileConfigurations)
+        public void Load(TileConfiguration tileConfiguration)
         {
-            foreach (TileConfiguration tileConfiguration in tileConfigurations)
+            Clear();
+            _tileConfiguration = tileConfiguration;
+            foreach (TileConfiguration childTile in _tileConfiguration.Tiles)
             {
-                AddTile(tileConfiguration);
+                AddTile(childTile);
             }
         }
 
@@ -55,7 +58,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles
                 layoutController = AddTile(tileConfiguration, _tileFactory.Create(tileConfiguration));
             }
 
-            layoutController.AddTiles(tileConfiguration.Tiles);
+            //layoutController.AddTiles(tileConfiguration.Tiles);
         }
 
         public void Clear()
@@ -140,7 +143,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles
         private ITileLayoutController AddPanel(TileConfiguration tileConfiguration)
         {
             var panel = AddPlaceholderPanel(tileConfiguration.RowNumber, tileConfiguration.ColumnNumber, tileConfiguration.RowSpan, tileConfiguration.ColumnSpan);
-            return _tileLayoutControllerRegistry.GetNew(panel);
+            return _tileLayoutControllerRegistry.GetNew(panel, tileConfiguration);
         }
 
         private Grid AddPlaceholderPanel(int rowNumber, int columnNumber, int rowSpan, int columnSpan)

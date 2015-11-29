@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -81,6 +80,9 @@ namespace NoeticTools.Dashboard.Framework
             }
 
             AddTile(tile);
+
+            var tiles = new List<TileConfiguration>(_tile.Tiles) {tile};
+            _tile.Tiles = tiles.ToArray();
         }
 
         public void AddTile(TileConfiguration tile)
@@ -308,6 +310,7 @@ namespace NoeticTools.Dashboard.Framework
             var element = _childTiles[tile];
             _childTiles.Remove(tile);
             _tileGrid.Children.Remove(element);
+            _tile.Tiles = _tile.Tiles.Where(x => !ReferenceEquals(x, tile)).ToArray();
             RemoveEmptyRowsAndColumns();
         }
     }

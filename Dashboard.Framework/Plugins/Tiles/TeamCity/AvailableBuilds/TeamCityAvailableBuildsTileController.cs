@@ -53,6 +53,20 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.TeamCity.AvailableBuilds
 
         public FrameworkElement CreateView()
         {
+            var parameters = GetConfigurtionParameters();
+
+            ConfigureCommand = new TileConfigureCommand(_tile, "TeamCity Available Builds Tile", parameters, _dashboardController, _tileLayoutController);
+
+            _service.Connect();
+
+            _view = new TeamCityAvailableBuildsListControl {DataContext = this};
+
+            _timerService.QueueCallback(TimeSpan.FromSeconds(1), this);
+            return _view;
+        }
+
+        private IElementViewModel[] GetConfigurtionParameters()
+        {
             var parameters = new List<IElementViewModel>
             {
                 new ElementViewModel("Title", ElementType.Text, _tileConfigurationConverter),
@@ -68,15 +82,7 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.TeamCity.AvailableBuilds
                 parameters.Add(new ElementViewModel(configuration, ElementType.Text, _tileConfigurationConverter));
                 parameters.Add(new DividerElementViewModel());
             }
-
-            ConfigureCommand = new TileConfigureCommand(_tile, "TeamCity Available Builds Tile", parameters.ToArray(), _dashboardController, _tileLayoutController);
-
-            _service.Connect();
-
-            _view = new TeamCityAvailableBuildsListControl {DataContext = this};
-
-            _timerService.QueueCallback(TimeSpan.FromSeconds(1), this);
-            return _view;
+            return parameters.ToArray();
         }
 
         public void OnConfigurationChanged(TileConfigurationConverter converter)

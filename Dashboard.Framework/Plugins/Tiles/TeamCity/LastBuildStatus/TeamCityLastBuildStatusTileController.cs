@@ -72,6 +72,19 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.TeamCity.LastBuildStatus
 
         public FrameworkElement CreateView()
         {
+            var configurationParameters = GetConfigurationParameters();
+            ConfigureCommand = new TileConfigureCommand(_tile, "Last Build Status Tile Configuration", configurationParameters, _dashboardController, _tileLayoutController);
+
+            _view = new TeamCityBuildStatusTileControl {DataContext = this};
+
+            _service.Connect();
+
+            _timerToken.Requeue(TimeSpan.FromSeconds(0.1));
+            return _view;
+        }
+
+        private IElementViewModel[] GetConfigurationParameters()
+        {
             var projectElementViewModel = new TeamCityProjectElementViewModel("Project", _tileConfigurationConverter, _service);
             var configurationParameters = new IElementViewModel[]
             {
@@ -81,14 +94,7 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.TeamCity.LastBuildStatus
                 new ElementViewModel("Description", ElementType.Text, _tileConfigurationConverter),
                 new HyperlinkElementViewModel("TeamCity service", ConfigureServiceCommand)
             };
-            ConfigureCommand = new TileConfigureCommand(_tile, "Last Build Status Tile Configuration", configurationParameters, _dashboardController, _tileLayoutController);
-
-            _view = new TeamCityBuildStatusTileControl {DataContext = this};
-
-            _service.Connect();
-
-            _timerToken.Requeue(TimeSpan.FromSeconds(1));
-            return _view;
+            return configurationParameters;
         }
 
         public void OnConfigurationChanged(TileConfigurationConverter converter)

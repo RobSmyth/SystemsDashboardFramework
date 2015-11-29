@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Input;
 using NoeticTools.Dashboard.Framework.Config;
 using NoeticTools.Dashboard.Framework.Config.Controllers;
+using NoeticTools.Dashboard.Framework.Config.Parameters;
 
 
 namespace NoeticTools.Dashboard.Framework.Commands
@@ -19,7 +21,12 @@ namespace NoeticTools.Dashboard.Framework.Commands
         {
             _tile = tile;
             _title = title;
-            _parameters = parameters;
+            _parameters = new List<IElementViewModel>(parameters)
+            {
+                new DividerElementViewModel(),
+                new TileRowSpanViewModel(tile),
+                new TileColumnSpanViewModel(tile),
+            }.ToArray();
             _dashboardController = dashboardController;
             _tileLayoutController = tileLayoutController;
         }

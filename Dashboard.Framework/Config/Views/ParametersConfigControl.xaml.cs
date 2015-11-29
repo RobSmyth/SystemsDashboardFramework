@@ -44,11 +44,21 @@ namespace NoeticTools.Dashboard.Framework.Config.Views
 
         private void SetParameterValue(IElementViewModel elementViewModel)
         {
+            if (elementViewModel.ElementType == ElementType.Hyperlink || elementViewModel.ElementType == ElementType.Divider)
+            {
+                return;
+            }
+
             var name = GetUIlementName(elementViewModel);
             if (elementViewModel.ElementType == ElementType.Boolean)
             {
                 var checkbox = (CheckBox) PlaceholderGrid.Children.Cast<FrameworkElement>().Single(x => x.Name.Equals(name));
                 elementViewModel.Value = checkbox.IsChecked;
+            }
+            if (elementViewModel.ElementType == ElementType.SelectedText)
+            {
+                var combobox = (ComboBox)PlaceholderGrid.Children.Cast<FrameworkElement>().Single(x => x.Name.Equals(name));
+                elementViewModel.Value = combobox.SelectedValue;
             }
             else
             {
@@ -59,7 +69,7 @@ namespace NoeticTools.Dashboard.Framework.Config.Views
 
         private static string GetUIlementName(IElementViewModel elementViewModel)
         {
-            return $"Param_{elementViewModel.Name}";
+            return $"Param_{elementViewModel.Name.Replace(' ', '_')}";
         }
 
         private void Add(IElementViewModel elementViewModel)

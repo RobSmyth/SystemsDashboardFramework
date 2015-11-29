@@ -14,7 +14,8 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.MessageTile
         public MessageViewModel(TileConfiguration tile, IDashboardController dashboardController, TileLayoutController tileLayoutController)
         {
             _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
-            ConfigureCommand = new TileConfigureCommand(tile, "Message Tile Configuration", new[] { new ElementViewModel("Message", ElementType.Text, _tileConfigurationConverter) }, dashboardController, tileLayoutController);
+            var parameters = new IElementViewModel[] { new ElementViewModel("Message", ElementType.Text, _tileConfigurationConverter) };
+            ConfigureCommand = new TileConfigureCommand(tile, "Message Tile Configuration", parameters, dashboardController, tileLayoutController);
             Update();
         }
 

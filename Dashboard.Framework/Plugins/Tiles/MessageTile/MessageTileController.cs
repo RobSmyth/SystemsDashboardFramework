@@ -4,15 +4,14 @@ using NoeticTools.Dashboard.Framework.Config;
 using NoeticTools.Dashboard.Framework.Tiles;
 
 
-namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.Message
+namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.MessageTile
 {
-    internal class MessageTileController : IViewController
+    internal sealed class MessageTileController : IViewController
     {
         private readonly TileConfiguration _tileConfiguration;
         private readonly IDashboardController _dashboardController;
         private readonly TileLayoutController _tileLayoutController;
         public static readonly string TileTypeId = "Message";
-        private MessageTileControl _view;
 
         public MessageTileController(TileConfiguration tileConfiguration, IDashboardController dashboardController, TileLayoutController tileLayoutController)
         {
@@ -23,9 +22,7 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.Message
 
         public FrameworkElement CreateView()
         {
-            _view = new MessageTileControl {DataContext = new MessageViewModel(_tileConfiguration, _dashboardController, _tileLayoutController)};
-
-            return _view;
+            return new MessageTileControl {DataContext = new MessageViewModel(_tileConfiguration, _dashboardController, _tileLayoutController)};
         }
 
         public void OnConfigurationChanged(TileConfigurationConverter converter)

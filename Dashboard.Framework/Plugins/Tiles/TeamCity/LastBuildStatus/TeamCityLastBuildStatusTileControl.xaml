@@ -30,7 +30,7 @@
         <Grid Name="root" Margin="0">
             <TextBlock Name="headerText" HorizontalAlignment="Center" VerticalAlignment="Top"
                    FontSize="{Binding Path=ActualWidth, ElementName=root, 
-                                Converter={StaticResource doubleConverter}, ConverterParameter=0.045}"
+                                Converter={StaticResource doubleConverter}, ConverterParameter=0.05}"
                    FontWeight="Bold" FontStyle="Italic" Margin="5">
             UNKNOWN
             </TextBlock>
@@ -45,7 +45,7 @@
             <TextBlock Name="buildVer" HorizontalAlignment="Center" VerticalAlignment="Bottom" TextAlignment="Center"
                    TextWrapping="WrapWithOverflow"
                    FontSize="{Binding Path=ActualWidth, ElementName=root, 
-                                Converter={StaticResource doubleConverter}, ConverterParameter=0.035}"
+                                Converter={StaticResource doubleConverter}, ConverterParameter=0.04}"
                    FontWeight="Normal" Background="{x:Null}"
                    Margin="5">
             VERSION

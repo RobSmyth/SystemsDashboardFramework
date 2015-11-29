@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 
 namespace NoeticTools.Dashboard.Framework.Config
 {
-    public class ItemConfigurationBase : IItemConfiguration
+    public abstract class ItemConfigurationBase : IItemConfiguration
     {
         /// <summary>
         ///     Configuration values.
@@ -16,13 +16,11 @@ namespace NoeticTools.Dashboard.Framework.Config
 
         public DashboardConfigValuePair GetParameter(string name, string defaultValue)
         {
-            var pair =
-                Values.SingleOrDefault(x => x.Key.Equals(name, StringComparison.InvariantCultureIgnoreCase));
+            var pair = Values.SingleOrDefault(x => x.Key.Equals(name, StringComparison.InvariantCultureIgnoreCase));
             if (pair == null)
             {
                 pair = new DashboardConfigValuePair {Key = name, Value = defaultValue};
-                var list = new List<DashboardConfigValuePair>(Values);
-                list.Add(pair);
+                var list = new List<DashboardConfigValuePair>(Values) {pair};
                 Values = list.ToArray();
             }
             return pair;

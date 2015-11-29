@@ -135,8 +135,8 @@
     <Compile Include="ITileLayoutController.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="ITileControllerProvider.cs" />
-    <Compile Include="Plugins\Tiles\Message\MessageViewModel.cs" />
-    <Compile Include="Plugins\Tiles\Message\MessageTilePlugin.cs" />
+    <Compile Include="Plugins\Tiles\MessageTile\MessageViewModel.cs" />
+    <Compile Include="Plugins\Tiles\MessageTile\MessageTilePlugin.cs" />
     <Compile Include="Plugins\Tiles\ServerStatus\ServerStatusTilePlugin.cs" />
     <Compile Include="Plugins\Tiles\TeamCity\AvailableBuilds\TeamCityAvailableBuildsTilePlugin.cs" />
     <Compile Include="Plugins\Tiles\IPlugin.cs" />
@@ -153,10 +153,10 @@
     </Compile>
     <Compile Include="Plugins\Tiles\DaysLeftCountDown\DaysLeftCountDownTileController.cs" />
     <Compile Include="IViewController.cs" />
-    <Compile Include="Plugins\Tiles\Message\MessageTileControl.xaml.cs">
+    <Compile Include="Plugins\Tiles\MessageTile\MessageTileControl.xaml.cs">
       <DependentUpon>MessageTileControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Plugins\Tiles\Message\MessageTileController.cs" />
+    <Compile Include="Plugins\Tiles\MessageTile\MessageTileController.cs" />
     <Compile Include="Plugins\Tiles\ServerStatus\ServerStatusTileControl.xaml.cs">
       <DependentUpon>ServerStatusTileControl.xaml</DependentUpon>
     </Compile>
@@ -265,7 +265,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Plugins\Tiles\Message\MessageTileControl.xaml">
+    <Page Include="Plugins\Tiles\MessageTile\MessageTileControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

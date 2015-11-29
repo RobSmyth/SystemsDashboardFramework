@@ -12,7 +12,7 @@ using NoeticTools.Dashboard.Framework.Time;
 
 namespace NoeticTools.Dashboard.Framework
 {
-    public class DashboardController : IDashboardController
+    public sealed class DashboardController : IDashboardController
     {
         private readonly DashboardConfigurations _config;
         private readonly IDashboardNavigator _dashboardNavigator;

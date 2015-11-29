@@ -3,7 +3,7 @@ using NoeticTools.Dashboard.Framework.Config;
 using NoeticTools.Dashboard.Framework.Tiles;
 
 
-namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.Message
+namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.MessageTile
 {
     public class MessageTilePlugin : IPlugin, ITileControllerProvider
     {

@@ -8,7 +8,7 @@ using NoeticTools.Dashboard.Framework.Plugins.Tiles.BlankTile;
 using NoeticTools.Dashboard.Framework.Plugins.Tiles.Date;
 using NoeticTools.Dashboard.Framework.Plugins.Tiles.DaysLeftCountDown;
 using NoeticTools.Dashboard.Framework.Plugins.Tiles.InsertTile;
-using NoeticTools.Dashboard.Framework.Plugins.Tiles.Message;
+using NoeticTools.Dashboard.Framework.Plugins.Tiles.MessageTile;
 using NoeticTools.Dashboard.Framework.Plugins.Tiles.ServerStatus;
 using NoeticTools.Dashboard.Framework.Plugins.Tiles.TeamCity.AvailableBuilds;
 using NoeticTools.Dashboard.Framework.Plugins.Tiles.TeamCity.LastBuildStatus;

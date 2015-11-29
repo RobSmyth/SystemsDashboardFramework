@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 namespace NoeticTools.Dashboard.Framework.Config
 {
     [XmlType("tile")]
-    public class TileConfiguration : ItemConfigurationBase
+    public sealed class TileConfiguration : ItemConfigurationBase
     {
         public TileConfiguration()
         {

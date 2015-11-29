@@ -4,9 +4,9 @@ using NoeticTools.Dashboard.Framework.Config;
 using NoeticTools.Dashboard.Framework.Config.Parameters;
 
 
-namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.Message
+namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.MessageTile
 {
-    internal class MessageViewModel : NotifyingViewModelBase, IConfigurationChangeListener
+    internal sealed class MessageViewModel : NotifyingViewModelBase, IConfigurationChangeListener
     {
         private readonly TileConfigurationConverter _tileConfigurationConverter;
         private string _text;
@@ -14,12 +14,7 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.Message
         public MessageViewModel(TileConfiguration tile, IDashboardController dashboardController, TileLayoutController tileLayoutController)
         {
             _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
-
-            ConfigureCommand = new TileConfigureCommand(tile, "Message Tile Configuration", new[]
-            {
-                new ElementViewModel("Message", ElementType.Text, _tileConfigurationConverter)
-            },
-                dashboardController, tileLayoutController);
+            ConfigureCommand = new TileConfigureCommand(tile, "Message Tile Configuration", new[] { new ElementViewModel("Message", ElementType.Text, _tileConfigurationConverter) }, dashboardController, tileLayoutController);
             Update();
         }
 

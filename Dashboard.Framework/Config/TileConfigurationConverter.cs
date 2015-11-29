@@ -4,7 +4,7 @@ using NoeticTools.Dashboard.Framework.Config.Parameters;
 
 namespace NoeticTools.Dashboard.Framework.Config
 {
-    public class TileConfigurationConverter
+    public sealed class TileConfigurationConverter
     {
         private readonly IItemConfiguration _inner;
         private readonly IConfigurationChangeListener _listener;
@@ -25,50 +25,9 @@ namespace NoeticTools.Dashboard.Framework.Config
             return DateTime.FromFileTimeUtc(long.Parse(value));
         }
 
-        public string GetParameterValueText(IConfigurationParameter parameter)
-        {
-            if (parameter.ElementType is DateTime)
-            {
-                return GetDateTime(parameter.Name).ToShortDateString();
-            }
-            return GetParameter<string>(parameter.Name);
-        }
-
-        public void SetParameterValue(IConfigurationParameter parameter, string text)
-        {
-            if (parameter.ElementType == ElementType.DateTime)
-            {
-                SetDateTime(parameter.Name, DateTime.Parse(text));
-            }
-            else
-            {
-                SetParameter(parameter.Name, text);
-            }
-        }
-
-        public void SetDateTime(string name, DateTime value)
-        {
-            SetParameter(name, value.ToFileTimeUtc());
-        }
-
         public string GetString(string name)
         {
             return _inner.GetParameter(name, "X").Value;
-        }
-
-        public void SetString(string name, string value)
-        {
-            SetParameter(name, value);
-        }
-
-        public void SetParameter<T>(string name, T value)
-        {
-            var textValue = value.ToString();
-            if (_inner.GetParameter(name, string.Empty).Value != textValue)
-            {
-                _inner.GetParameter(name, string.Empty).Value = textValue;
-                _listener.OnConfigurationChanged(this);
-            }
         }
 
         public bool GetBool(string name)
@@ -110,10 +69,19 @@ namespace NoeticTools.Dashboard.Framework.Config
             }
         }
 
-        private T GetParameter<T>(string name)
+        private void SetDateTime(string name, DateTime value)
         {
-            var value = _inner.GetParameter(name, string.Empty).Value;
-            return (T) Convert.ChangeType(value, typeof (T));
+            SetParameter(name, value.ToFileTimeUtc());
+        }
+
+        private void SetParameter<T>(string name, T value)
+        {
+            var textValue = value.ToString();
+            if (_inner.GetParameter(name, string.Empty).Value != textValue)
+            {
+                _inner.GetParameter(name, string.Empty).Value = textValue;
+                _listener.OnConfigurationChanged(this);
+            }
         }
     }
 }

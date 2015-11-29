@@ -8,7 +8,7 @@ using NoeticTools.Dashboard.Framework.Tiles;
 
 namespace NoeticTools.Dashboard.Framework.Config.Controllers
 {
-    public class ConfigationViewController : NotifyingViewModelBase, IViewController
+    public sealed class ConfigationViewController : NotifyingViewModelBase, IViewController
     {
         private readonly IEnumerable<IElementViewModel> _parameters;
         private readonly string _title;

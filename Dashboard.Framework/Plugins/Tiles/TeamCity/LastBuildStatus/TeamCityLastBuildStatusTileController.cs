@@ -11,6 +11,7 @@ using NoeticTools.Dashboard.Framework.Tiles;
 using NoeticTools.Dashboard.Framework.Tiles.TeamCity;
 using NoeticTools.Dashboard.Framework.Tiles.TeamCity.LastBuildStatus;
 using NoeticTools.Dashboard.Framework.Time;
+using TeamCitySharp.DomainEntities;
 
 
 namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.TeamCity.LastBuildStatus

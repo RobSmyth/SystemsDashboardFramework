@@ -93,29 +93,15 @@ namespace NoeticTools.Dashboard.Framework.Input
             var layoutController = _elementToLayoutController[sender];
             var targetTile = _elementToConfiguration[sender];
 
-            newTile.RowNumber = targetTile.RowNumber;
-            newTile.ColumnNumber = targetTile.ColumnNumber;
-            newTile.RowSpan = 1;
-            newTile.ColumnSpan = 1;
+            var insertActionMap = new Dictionary<RelativeDropPostion, TileInsertAction>
+            {
+                {RelativeDropPostion.Top, TileInsertAction.Above },
+                {RelativeDropPostion.Bottom, TileInsertAction.Below },
+                {RelativeDropPostion.Left, TileInsertAction.ToLeft },
+                {RelativeDropPostion.Right, TileInsertAction.ToRight },
+            };
 
-            if (dropPostion == RelativeDropPostion.Right)
-            {
-                layoutController.InsertNewColumn(targetTile.ColumnNumber + targetTile.ColumnSpan);
-            }
-            else if (dropPostion == RelativeDropPostion.Left)
-            {
-                layoutController.InsertNewColumn(targetTile.ColumnNumber);
-            }
-            else if (dropPostion == RelativeDropPostion.Top)
-            {
-                layoutController.InsertNewRow(targetTile.RowNumber - 1);
-            }
-            else if (dropPostion == RelativeDropPostion.Bottom)
-            {
-                layoutController.InsertNewRow(targetTile.RowNumber + targetTile.ColumnSpan - 1);
-            }
-
-            layoutController.AddTile(newTile);
+            layoutController.InsertTile(newTile, insertActionMap[dropPostion], targetTile);
         }
 
         private static RelativeDropPostion GetRelativeDropPostion(DragEventArgs e, UIElement target)

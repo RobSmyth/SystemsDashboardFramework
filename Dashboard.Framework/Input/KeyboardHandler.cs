@@ -19,8 +19,6 @@ namespace NoeticTools.Dashboard.Framework.Input
 
                 {Key.F4, key => controller.ToggleGroupPanelsEditMode()},
                 {Key.F5, key => controller.Refresh()}
-
-                // DEL - will be used to delete a tile
             };
         }
 
@@ -31,11 +29,6 @@ namespace NoeticTools.Dashboard.Framework.Input
                 _globalKeyHandlers[key](key);
                 return;
             }
-
-            // TODO - CNTRL C, X, & V keys to cut & paste
-            // TODO - SHIFT arrow keys to move tiles (maybe)
-
-            // TODO - how to invoke dashboard configuration? ALT-F2? ... slide out panel?
 
             foreach (var handler in _keyHandlers.Where(x => x.CanHandle(key)))
             {

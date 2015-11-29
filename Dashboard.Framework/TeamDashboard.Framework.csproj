@@ -137,6 +137,7 @@
     <Compile Include="Plugins\Tiles\TeamCity\LastBuildStatus\TeamCityLastBuildStatusTilePlugin.cs" />
     <Compile Include="Registries\TileLayoutControllerRegistry.cs" />
     <Compile Include="Registries\TileControllerFactory.cs" />
+    <Compile Include="TileInsertAction.cs" />
     <Compile Include="TileLayoutController.cs" />
     <Compile Include="Plugins\Tiles\Date\DateTileControl.xaml.cs">
       <DependentUpon>DateTileControl.xaml</DependentUpon>

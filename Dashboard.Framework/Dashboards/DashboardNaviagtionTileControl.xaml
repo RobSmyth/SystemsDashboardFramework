@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:dashboards="clr-namespace:NoeticTools.Dashboard.Framework.Tiles.Dashboards"
-             d:DataContext ="{d:DesignInstance {x:Type dashboards:DashboardsNavigationViewController}, IsDesignTimeCreatable=False}"
+             xmlns:dashboards1="clr-namespace:NoeticTools.Dashboard.Framework.Dashboards"
+             d:DataContext ="{d:DesignInstance {x:Type dashboards1:DashboardsNavigationViewController}, IsDesignTimeCreatable=False}"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
 

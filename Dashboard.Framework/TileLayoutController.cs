@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,8 +22,8 @@ namespace NoeticTools.Dashboard.Framework
         private readonly Grid _tileGrid;
         private readonly ITileLayoutControllerRegistry _tileLayoutControllerRegistry;
         private readonly ITileControllerFactory _tileFactory;
-        private readonly IList<TileConfiguration> _tileConfigurations = new List<TileConfiguration>();
-        private TileConfiguration _tileConfiguration;
+        private readonly IList<TileConfiguration> _childTiles = new List<TileConfiguration>();
+        private TileConfiguration _tile;
 
         public TileLayoutController(Grid tileGrid, ITileControllerFactory tileFactory, ITileLayoutControllerRegistry tileLayoutControllerRegistry, Thickness normalMargin,
             TileDragAndDropController dragAndDropController)
@@ -38,31 +39,64 @@ namespace NoeticTools.Dashboard.Framework
         public void Load(TileConfiguration tileConfiguration)
         {
             Clear();
-            _tileConfiguration = tileConfiguration;
-            foreach (var childTile in _tileConfiguration.Tiles)
+            _tile = tileConfiguration;
+            foreach (var childTile in _tile.Tiles)
             {
                 AddTile(childTile);
             }
+
+            RemoveEmptyRowsAndColumns();
+        }
+
+        private void RemoveEmptyRowsAndColumns()
+        {
+            RemoveEmptyRows();
+            RemoveEmptyColumns();
+        }
+
+        public void InsertTile(TileConfiguration tile, TileInsertAction insertAction, TileConfiguration currentTile)
+        {
+            tile.ColumnNumber = currentTile.ColumnNumber;
+            tile.RowNumber = currentTile.RowNumber;
+            tile.ColumnSpan = 1;
+            tile.RowSpan = 1;
+
+            if (insertAction == TileInsertAction.ToRight)
+            {
+                InsertNewColumn(currentTile.ColumnNumber + currentTile.ColumnSpan);
+                tile.ColumnNumber++;
+            }
+            else if (insertAction == TileInsertAction.ToLeft)
+            {
+                InsertNewColumn(currentTile.ColumnNumber);
+            }
+            else if (insertAction == TileInsertAction.Above)
+            {
+                InsertNewRow(currentTile.RowNumber);
+            }
+            else if (insertAction == TileInsertAction.Below)
+            {
+                InsertNewRow(currentTile.RowNumber + currentTile.ColumnSpan);
+                tile.RowNumber++;
+            }
+
+            AddTile(tile);
         }
 
         public void AddTile(TileConfiguration tileConfiguration)
         {
-            _tileConfigurations.Add(tileConfiguration);
-
-            ITileLayoutController layoutController = null;
+            _childTiles.Add(tileConfiguration);
 
             if (tileConfiguration.TypeId == TileConfiguration.BlankTileTypeId || tileConfiguration.TypeId.Equals("6f1bf918-6080-42c2-b980-d562f77cb4e6",
                 StringComparison.InvariantCultureIgnoreCase))
             {
                 tileConfiguration.TypeId = TileConfiguration.BlankTileTypeId;
-                layoutController = AddPanel(tileConfiguration);
+                AddPanel(tileConfiguration);
             }
             else
             {
-                layoutController = AddTile(tileConfiguration, _tileFactory.Create(tileConfiguration));
+                AddTile(tileConfiguration, _tileFactory.Create(tileConfiguration));
             }
-
-            //layoutController.AddTiles(tileConfiguration.Tiles);
         }
 
         public void Clear()
@@ -70,7 +104,7 @@ namespace NoeticTools.Dashboard.Framework
             _tileGrid.Children.Clear();
             _tileGrid.RowDefinitions.Clear();
             _tileGrid.ColumnDefinitions.Clear();
-            _tileConfigurations.Clear();
+            _childTiles.Clear();
         }
 
         public void ToggleShowGroupPanelDetailsMode()
@@ -92,12 +126,102 @@ namespace NoeticTools.Dashboard.Framework
             }
         }
 
-        public void InsertNewRow(int insertAtRowNumber)
+        private void RemoveEmptyRows()
+        {
+            var rowIndex = 0;
+            while (rowIndex < _tileGrid.RowDefinitions.Count)
+            {
+                if (IsEmptyRow(rowIndex))
+                {
+                    DeletedRow(rowIndex);
+                    continue;
+                }
+                rowIndex++;
+            }
+        }
+
+        private void RemoveEmptyColumns()
+        {
+            var columnIndex = 0;
+            while (columnIndex < _tileGrid.ColumnDefinitions.Count)
+            {
+                if (IsEmptyColumn(columnIndex))
+                {
+                    DeletedColumn(columnIndex);
+                    continue;
+                }
+                columnIndex++;
+            }
+        }
+
+        private void DeletedColumn(int toDeleteColumnIndex)
+        {
+            if (!IsEmptyColumn(toDeleteColumnIndex))
+            {
+                throw new InvalidOperationException();
+            }
+
+            var rowToDeleteNumber = toDeleteColumnIndex + 1;
+            foreach (var tileConfiguration in _childTiles.Where(tileConfiguration => tileConfiguration.ColumnNumber >= rowToDeleteNumber))
+            {
+                tileConfiguration.ColumnNumber--;
+            }
+
+            foreach (UIElement child in _tileGrid.Children)
+            {
+                var rowIndex = Grid.GetColumn(child);
+                if (rowIndex >= toDeleteColumnIndex)
+                {
+                    Grid.SetColumn(child, rowIndex - 1);
+                }
+            }
+
+            _tileGrid.ColumnDefinitions.Remove(_tileGrid.ColumnDefinitions.Last());
+        }
+
+        private bool IsEmptyColumn(int rowIndex)
+        {
+            var rowNumber = rowIndex + 1;
+            return !_childTiles.Any(x => x.ColumnNumber <= rowNumber && x.ColumnNumber + x.ColumnSpan - 1 >= rowNumber);
+        }
+
+        private void DeletedRow(int toDeleteRowIndex)
+        {
+            if (!IsEmptyRow(toDeleteRowIndex))
+            {
+                throw new InvalidOperationException();
+            }
+
+            var rowToDeleteNumber = toDeleteRowIndex + 1;
+            foreach (var tileConfiguration in _childTiles.Where(tileConfiguration => tileConfiguration.RowNumber >= rowToDeleteNumber))
+            {
+                tileConfiguration.RowNumber--;
+            }
+
+            foreach (UIElement child in _tileGrid.Children)
+            {
+                var rowIndex = Grid.GetRow(child);
+                if (rowIndex >= toDeleteRowIndex)
+                {
+                    Grid.SetRow(child, rowIndex - 1);
+                }
+            }
+
+            _tileGrid.RowDefinitions.Remove(_tileGrid.RowDefinitions.Last());
+        }
+
+        private bool IsEmptyRow(int rowIndex)
+        {
+            var rowNumber = rowIndex + 1;
+            return !_childTiles.Any(x => x.RowNumber <= rowNumber && x.RowNumber + x.RowSpan - 1 >= rowNumber);
+        }
+
+        private void InsertNewRow(int insertAtRowNumber)
         {
             var existingRowsCount = _tileGrid.RowDefinitions.Count;
             AddRowsToFit((insertAtRowNumber > existingRowsCount) ? insertAtRowNumber : existingRowsCount + 1, 1);
 
-            foreach (var tileConfiguration in _tileConfigurations.Where(tileConfiguration => tileConfiguration.RowNumber >= insertAtRowNumber))
+            foreach (var tileConfiguration in _childTiles.Where(tileConfiguration => tileConfiguration.RowNumber >= insertAtRowNumber))
             {
                 tileConfiguration.RowNumber++;
             }
@@ -112,12 +236,12 @@ namespace NoeticTools.Dashboard.Framework
             }
         }
 
-        public void InsertNewColumn(int insertAtColumnNumber)
+        private void InsertNewColumn(int insertAtColumnNumber)
         {
             var existingColumnsCount = _tileGrid.ColumnDefinitions.Count;
             AddColumnsToFit((insertAtColumnNumber > existingColumnsCount) ? insertAtColumnNumber : existingColumnsCount + 1, 1);
 
-            foreach (var tileConfiguration in _tileConfigurations.Where(tileConfiguration => tileConfiguration.ColumnNumber >= insertAtColumnNumber))
+            foreach (var tileConfiguration in _childTiles.Where(tileConfiguration => tileConfiguration.ColumnNumber >= insertAtColumnNumber))
             {
                 tileConfiguration.ColumnNumber++;
             }
@@ -132,7 +256,7 @@ namespace NoeticTools.Dashboard.Framework
             }
         }
 
-        private TileLayoutController AddTile(TileConfiguration tileConfiguration, IViewController viewController)
+        private void AddTile(TileConfiguration tileConfiguration, IViewController viewController)
         {
             var panel = AddPlaceholderPanel(tileConfiguration.RowNumber, tileConfiguration.ColumnNumber, tileConfiguration.RowSpan, tileConfiguration.ColumnSpan);
             panel.Margin = new Thickness(2);
@@ -140,14 +264,12 @@ namespace NoeticTools.Dashboard.Framework
             panel.Children.Add(view);
 
             _dragAndDropController.RegisterTarget(view, this, tileConfiguration);
-
-            return this;
         }
 
-        private ITileLayoutController AddPanel(TileConfiguration tileConfiguration)
+        private void AddPanel(TileConfiguration tileConfiguration)
         {
             var panel = AddPlaceholderPanel(tileConfiguration.RowNumber, tileConfiguration.ColumnNumber, tileConfiguration.RowSpan, tileConfiguration.ColumnSpan);
-            return _tileLayoutControllerRegistry.GetNew(panel, tileConfiguration);
+            _tileLayoutControllerRegistry.GetNew(panel, tileConfiguration);
         }
 
         private Grid AddPlaceholderPanel(int rowNumber, int columnNumber, int rowSpan, int columnSpan)

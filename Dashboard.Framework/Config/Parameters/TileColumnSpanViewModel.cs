@@ -3,7 +3,7 @@ namespace NoeticTools.Dashboard.Framework.Config.Parameters
     public class TileColumnSpanViewModel : NotifyingViewModelBase, INotifyingElementViewModel
     {
         private readonly TileConfiguration _tile;
-        private const int MaxRowSPan = 50;
+        private const int MaxSpan = 50;
 
         public TileColumnSpanViewModel(TileConfiguration tile)
         {
@@ -15,17 +15,17 @@ namespace NoeticTools.Dashboard.Framework.Config.Parameters
 
         public object Value
         {
-            get { return _tile.RowSpan.ToString(); }
+            get { return _tile.ColumnSpan.ToString(); }
             set
             {
                 int newValue;
                 if (int.TryParse((string)value, out newValue))
                 {
-                    if (_tile.RowSpan == newValue || newValue > MaxRowSPan || newValue <= 0)
+                    if (_tile.ColumnSpan == newValue || newValue > MaxSpan || newValue <= 0)
                     {
                         return;
                     }
-                    _tile.RowSpan = newValue;
+                    _tile.ColumnSpan = newValue;
                     OnPropertyChanged();
                 }
             }

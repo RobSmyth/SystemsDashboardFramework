@@ -3,7 +3,7 @@ namespace NoeticTools.Dashboard.Framework.Config.Parameters
     public class TileRowSpanViewModel : NotifyingViewModelBase, INotifyingElementViewModel
     {
         private readonly TileConfiguration _tile;
-        private const int MaxRowSPan = 50;
+        private const int MaxSpan = 50;
 
         public TileRowSpanViewModel(TileConfiguration tile)
         {
@@ -21,7 +21,7 @@ namespace NoeticTools.Dashboard.Framework.Config.Parameters
                 int newValue;
                 if (int.TryParse((string)value, out newValue))
                 {
-                    if (_tile.RowSpan == newValue || newValue > MaxRowSPan || newValue <= 0)
+                    if (_tile.RowSpan == newValue || newValue > MaxSpan || newValue <= 0)
                     {
                         return;
                     }

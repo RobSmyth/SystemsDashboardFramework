@@ -63,7 +63,7 @@ namespace NoeticTools.Dashboard.Framework.Config
             {
                 SetParameter(name, (bool) value);
             }
-            else
+            else if (value != null)
             {
                 SetParameter(name, value.ToString());
             }

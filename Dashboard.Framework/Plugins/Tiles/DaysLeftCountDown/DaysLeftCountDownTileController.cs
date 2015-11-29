@@ -1,9 +1,10 @@
 ﻿using System.Windows;
 using NoeticTools.Dashboard.Framework.Config;
+using NoeticTools.Dashboard.Framework.Tiles;
 using NoeticTools.Dashboard.Framework.Time;
 
 
-namespace NoeticTools.Dashboard.Framework.Tiles.DaysLeftCountDown
+namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.DaysLeftCountDown
 {
     internal class DaysLeftCountDownTileController : IViewController
     {

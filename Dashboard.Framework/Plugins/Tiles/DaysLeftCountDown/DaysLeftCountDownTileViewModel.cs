@@ -6,7 +6,7 @@ using NoeticTools.Dashboard.Framework.Config.Parameters;
 using NoeticTools.Dashboard.Framework.Time;
 
 
-namespace NoeticTools.Dashboard.Framework.Tiles.DaysLeftCountDown
+namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.DaysLeftCountDown
 {
     internal class DaysLeftCountDownTileViewModel : NotifyingViewModelBase, IConfigurationChangeListener, ITimerListener
     {

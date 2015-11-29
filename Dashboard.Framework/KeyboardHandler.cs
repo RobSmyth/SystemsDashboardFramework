@@ -11,28 +11,14 @@ namespace NoeticTools.Dashboard.Framework
         private readonly Dictionary<Key, Action<Key>> _globalKeyHandlers;
         private readonly IList<IKeyHandler> _keyHandlers = new List<IKeyHandler>();
 
-        public KeyboardHandler(IDashboardTileNavigator tileNavigator, IDashboardNavigator dashboardNavigator, IDashboardController controller)
+        public KeyboardHandler(IDashboardController controller)
         {
             _globalKeyHandlers = new Dictionary<Key, Action<Key>>
             {
-                // todo - Replace these with a dashboard navigation plugin
-                {Key.Home, key => dashboardNavigator.ShowFirstDashboard()},
-                {Key.End, key => dashboardNavigator.ShowLastDashboard()},
-                {Key.PageDown, key => dashboardNavigator.NextDashboard()},
-                {Key.PageUp, key => dashboardNavigator.PrevDashboard()},
-                {Key.F3, key => controller.ShowNavigationPane()},
-                {Key.Escape, key => dashboardNavigator.ShowCurrentDashboard()},
-
                 // F2 - used by tiles for tile edit
 
                 {Key.F4, key => controller.ToggleGroupPanelsEditMode()},
                 {Key.F5, key => controller.Refresh()},
-
-                // todo - Replace these with a tile navigator plugin
-                {Key.Right, key => tileNavigator.MoveRight()},
-                {Key.Left, key => tileNavigator.MoveLeft()},
-                {Key.Up, key => tileNavigator.MoveUp()},
-                {Key.Down, key => tileNavigator.MoveDown()},
 
                 // DEL - will be used to delete a tile
             };

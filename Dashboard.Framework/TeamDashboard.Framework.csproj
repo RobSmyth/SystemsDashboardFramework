@@ -82,6 +82,8 @@
     <Compile Include="Config\Parameters\PasswordElementViewModel.cs" />
     <Compile Include="Config\Parameters\TextElementViewModel.cs" />
     <Compile Include="IDragSource.cs" />
+    <Compile Include="Plugins\KeyboardDashboardNavigationPlugin.cs" />
+    <Compile Include="Plugins\KeyboardTileNavigationPlugin.cs" />
     <Compile Include="Registries\ITileProviderRegistry.cs" />
     <Compile Include="Registries\TileProviderRegistry.cs" />
     <Compile Include="RelativeDropPostion.cs" />
@@ -160,7 +162,6 @@
       <DependentUpon>TeamCityLastBuildStatusTileControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Tiles\TeamCity\LastBuildStatus\TeamCityLastBuildStatusTileController.cs" />
-    <Compile Include="Registries\TileFactoryConduit.cs" />
     <Compile Include="Tiles\WebPage\WebPageTilePlugin.cs" />
     <Compile Include="Tiles\WebPage\WebPageTileControl.xaml.cs">
       <DependentUpon>WebPageTileControl.xaml</DependentUpon>

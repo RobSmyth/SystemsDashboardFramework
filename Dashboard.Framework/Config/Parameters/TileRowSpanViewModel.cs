@@ -9,7 +9,7 @@ namespace NoeticTools.Dashboard.Framework.Config.Parameters
         {
             _tile = tile;
             Name = "Row span";
-            ElementType = ElementType.Text;
+            ElementType = ElementType.Text;// todo - numericspin
             Parameters = new object[0];
         }
 

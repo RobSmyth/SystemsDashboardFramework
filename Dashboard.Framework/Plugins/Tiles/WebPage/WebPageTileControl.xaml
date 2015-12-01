@@ -19,11 +19,11 @@
     </UserControl.Resources>
 
     <UserControl.InputBindings>
-        <MouseBinding MouseAction="LeftClick" Command="{Binding ConfigureCommand}" />
+        <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding ConfigureCommand}" />
         <KeyBinding Key="F2" Command="{Binding ConfigureCommand}"/>
     </UserControl.InputBindings>
 
-    <Border Name="FocusBorder" Style="{StaticResource FocusBorder}">
+    <Border Name="FocusBorder" Style="{StaticResource FocusBorder}" Focusable="True">
         <Grid Name="root" Margin="0">
             <WebBrowser Name="webBrowser" Source="http://www.google.com" />
         </Grid>

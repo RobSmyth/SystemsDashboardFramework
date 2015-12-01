@@ -6,8 +6,7 @@
              xmlns:converters="clr-NoeticTools.Dashboard.Framework.Converters"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300"
-             Name="TeamCityBuildStatus"
-             Focusable="True">
+             Name="TeamCityBuildStatus">
 
     <UserControl.Resources>
 
@@ -22,11 +21,11 @@
     </UserControl.Resources>
 
     <UserControl.InputBindings>
-        <MouseBinding MouseAction="LeftClick" Command="{Binding ConfigureCommand}" />
+        <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding ConfigureCommand}" />
         <KeyBinding Key="F2" Command="{Binding ConfigureCommand}"/>
     </UserControl.InputBindings>
 
-    <Border Name="FocusBorder" Style="{StaticResource FocusBorder}">
+    <Border Name="FocusBorder" Style="{StaticResource FocusBorder}" Focusable="True">
         <Grid Name="root" Margin="0">
             <TextBlock Name="headerText" HorizontalAlignment="Center" VerticalAlignment="Top"
                    FontSize="{Binding Path=ActualWidth, ElementName=root, 

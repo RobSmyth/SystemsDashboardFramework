@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows.Input;
 using NoeticTools.Dashboard.Framework.Adorners;
 using NoeticTools.Dashboard.Framework.Config;
 using NoeticTools.Dashboard.Framework.Input;
@@ -19,6 +20,7 @@ namespace NoeticTools.Dashboard.Framework
     {
         private readonly Thickness _normalMargin;
         private readonly TileDragAndDropController _dragAndDropController;
+        private readonly DashboardTileNavigator _tileNavigator;
         private readonly Grid _tileGrid;
         private readonly ITileLayoutControllerRegistry _tileLayoutControllerRegistry;
         private readonly ITileControllerFactory _tileFactory;
@@ -26,12 +28,13 @@ namespace NoeticTools.Dashboard.Framework
         private TileConfiguration _tile;
 
         public TileLayoutController(Grid tileGrid, ITileControllerFactory tileFactory, ITileLayoutControllerRegistry tileLayoutControllerRegistry, Thickness normalMargin,
-            TileDragAndDropController dragAndDropController)
+            TileDragAndDropController dragAndDropController, DashboardTileNavigator tileNavigator)
         {
             _tileFactory = tileFactory;
             _tileLayoutControllerRegistry = tileLayoutControllerRegistry;
             _normalMargin = normalMargin;
             _dragAndDropController = dragAndDropController;
+            _tileNavigator = tileNavigator;
             _tileGrid = tileGrid;
             _tileGrid.Margin = _normalMargin;
         }
@@ -324,10 +327,25 @@ namespace NoeticTools.Dashboard.Framework
         {
             var panel = AddPlaceholderPanel(tile.RowNumber, tile.ColumnNumber, tile.RowSpan, tile.ColumnSpan);
             panel.Margin = new Thickness(2);
+            panel.MouseLeftButtonDown += Panel_MouseLeftButtonDown  ;
+
             var view = viewController.CreateView();
             panel.Children.Add(view);
+
             _dragAndDropController.RegisterTarget(view, this, tile);
+
+            var dragSource = view as IDragSource;
+            if (dragSource != null)
+            {
+                _dragAndDropController.RegisterSource(dragSource);
+            }
+
             return panel;
+        }
+
+        private void Panel_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            _tileNavigator.MoveTo(sender as UIElement);
         }
 
         private UIElement AddPanel(TileConfiguration tileConfiguration)

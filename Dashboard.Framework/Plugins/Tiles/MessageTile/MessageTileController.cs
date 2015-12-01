@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using Dashboard.Tiles.Message;
 using NoeticTools.Dashboard.Framework.Config;
 using NoeticTools.Dashboard.Framework.Tiles;
 

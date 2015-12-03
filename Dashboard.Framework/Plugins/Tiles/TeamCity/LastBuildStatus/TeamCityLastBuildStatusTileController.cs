@@ -37,7 +37,6 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.TeamCity.LastBuildStatus
         private readonly TeamCityService _service;
         private readonly TileConfiguration _tile;
         private readonly IDashboardController _dashboardController;
-        private readonly TileLayoutController _tileLayoutController;
 
         private readonly Dictionary<string, Brush> _statusBrushes = new Dictionary<string, Brush>
         {
@@ -57,13 +56,14 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.TeamCity.LastBuildStatus
         private readonly TimeSpan _updatePeriod = TimeSpan.FromSeconds(30);
         private readonly TimerToken _timerToken;
         private TeamCityBuildStatusTileControl _view;
+        private readonly TileLayoutController _layoutController;
 
         public TeamCityLastBuildStatusTileController(TeamCityService service, TileConfiguration tile, ITimerService timerService, IDashboardController dashboardController, TileLayoutController tileLayoutController)
         {
             _service = service;
             _tile = tile;
             _dashboardController = dashboardController;
-            _tileLayoutController = tileLayoutController;
+            _layoutController = tileLayoutController;
             _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
             ConfigureServiceCommand = new TeamCityServiceConfigureCommand(service);
             _timerToken = timerService.QueueCallback(TimeSpan.FromDays(10000), this);
@@ -74,7 +74,7 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.TeamCity.LastBuildStatus
         public FrameworkElement CreateView()
         {
             var configurationParameters = GetConfigurationParameters();
-            ConfigureCommand = new TileConfigureCommand(_tile, "Last Build Status Tile Configuration", configurationParameters, _dashboardController, _tileLayoutController);
+            ConfigureCommand = new TileConfigureCommand(_tile, "Last Build Status Tile Configuration", configurationParameters, _dashboardController, _layoutController);
 
             _view = new TeamCityBuildStatusTileControl {DataContext = this};
 

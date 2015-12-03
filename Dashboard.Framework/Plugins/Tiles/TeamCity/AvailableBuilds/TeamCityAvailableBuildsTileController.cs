@@ -32,10 +32,10 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.TeamCity.AvailableBuilds
         private readonly TileConfiguration _tile;
         private readonly ITimerService _timerService;
         private readonly IDashboardController _dashboardController;
-        private readonly TileLayoutController _tileLayoutController;
         private readonly TimeSpan _tickPeriod = TimeSpan.FromSeconds(15);
         private readonly TileConfigurationConverter _tileConfigurationConverter;
         private TeamCityAvailableBuildsListControl _view;
+        private readonly TileLayoutController _layoutController;
 
         public TeamCityAvailableBuildsTileController(TeamCityService service, TileConfiguration tile, ITimerService timerService, IDashboardController dashboardController, TileLayoutController tileLayoutController)
         {
@@ -43,7 +43,7 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.TeamCity.AvailableBuilds
             _tile = tile;
             _timerService = timerService;
             _dashboardController = dashboardController;
-            _tileLayoutController = tileLayoutController;
+            _layoutController = tileLayoutController;
             _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
             Builds = new ObservableCollection<BuildDetails>();
         }
@@ -55,7 +55,7 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.TeamCity.AvailableBuilds
         {
             var parameters = GetConfigurtionParameters();
 
-            ConfigureCommand = new TileConfigureCommand(_tile, "TeamCity Available Builds Tile", parameters, _dashboardController, _tileLayoutController);
+            ConfigureCommand = new TileConfigureCommand(_tile, "TeamCity Available Builds Tile", parameters, _dashboardController, _layoutController);
 
             _service.Connect();
 

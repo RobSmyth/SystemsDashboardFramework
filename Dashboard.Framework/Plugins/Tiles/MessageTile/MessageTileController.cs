@@ -9,19 +9,19 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.MessageTile
     {
         private readonly TileConfiguration _tileConfiguration;
         private readonly IDashboardController _dashboardController;
-        private readonly TileLayoutController _tileLayoutController;
         public static readonly string TileTypeId = "Message";
+        private readonly TileLayoutController _layoutController;
 
-        public MessageTileController(TileConfiguration tileConfiguration, IDashboardController dashboardController, TileLayoutController tileLayoutController)
+        public MessageTileController(TileConfiguration tileConfiguration, IDashboardController dashboardController, TileLayoutController layoutController)
         {
             _tileConfiguration = tileConfiguration;
             _dashboardController = dashboardController;
-            _tileLayoutController = tileLayoutController;
+            _layoutController = layoutController;
         }
 
         public FrameworkElement CreateView()
         {
-            return new MessageTileControl {DataContext = new MessageViewModel(_tileConfiguration, _dashboardController, _tileLayoutController)};
+            return new MessageTileControl {DataContext = new MessageViewModel(_tileConfiguration, _dashboardController, _layoutController)};
         }
 
         public void OnConfigurationChanged(TileConfigurationConverter converter)

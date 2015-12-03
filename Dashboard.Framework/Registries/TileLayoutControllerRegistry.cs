@@ -25,9 +25,9 @@ namespace NoeticTools.Dashboard.Framework.Registries
 
         public int Count => _layoutControllers.Count;
 
-        public ITileLayoutController GetNew(Grid tileGrid, TileConfiguration tileConfiguration)
+        public ITileLayoutController GetNew(Grid tileGrid, TileConfiguration tileConfiguration, TileLayoutController parent)
         {
-            var layoutController = new TileLayoutController(tileGrid, _tileFactory, this, new Thickness(0), _dragAndDropController, _tileNavigator);
+            var layoutController = new TileLayoutController(tileGrid, _tileFactory, this, new Thickness(0), _dragAndDropController, _tileNavigator, parent);
             _layoutControllers.Add(layoutController);
             layoutController.Load(tileConfiguration);
             return layoutController;

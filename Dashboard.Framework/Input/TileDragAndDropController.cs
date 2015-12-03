@@ -1,23 +1,32 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using NoeticTools.Dashboard.Framework.Config;
+using NoeticTools.Dashboard.Framework.Plugins.Tiles;
 
 
 namespace NoeticTools.Dashboard.Framework.Input
 {
-    public class TileDragAndDropController
+    public sealed class TileDragAndDropController
     {
-        private readonly IDictionary<object, TileLayoutController> _elementToLayoutController = new Dictionary<object, TileLayoutController>();
-        private readonly IDictionary<object, TileConfiguration> _elementToConfiguration = new Dictionary<object, TileConfiguration>();
+        private readonly IDictionary<object, ITileLayoutController> _elementToLayoutController = new Dictionary<object, ITileLayoutController>();
+        private readonly IDictionary<object, TileConfiguration> _elementToTile = new Dictionary<object, TileConfiguration>();
         private Point _mouseDownPoint;
-        private IDragSource _potentialSender;
+        private object _potentialSender;
+        private readonly Dictionary<RelativeDropPostion, TileInsertAction> _insertActionMap = new Dictionary<RelativeDropPostion, TileInsertAction>
+            {
+                {RelativeDropPostion.Top, TileInsertAction.Above},
+                {RelativeDropPostion.Bottom, TileInsertAction.Below},
+                {RelativeDropPostion.Left, TileInsertAction.ToLeft},
+                {RelativeDropPostion.Right, TileInsertAction.ToRight },
+            };
 
-        public void RegisterTarget(UIElement targetUiElement, TileLayoutController tileLayoutController, TileConfiguration tileConfiguration)
+        public void RegisterTarget(UIElement targetUiElement, ITileLayoutController tileLayoutController, TileConfiguration tileConfiguration)
         {
             _elementToLayoutController.Add(targetUiElement, tileLayoutController);
-            _elementToConfiguration.Add(targetUiElement, tileConfiguration);
+            _elementToTile.Add(targetUiElement, tileConfiguration);
 
             targetUiElement.AllowDrop = true;
             targetUiElement.DragEnter += OnDragEnter;
@@ -26,10 +35,22 @@ namespace NoeticTools.Dashboard.Framework.Input
             targetUiElement.Drop += OnDrop;
         }
 
+        public void Register(FrameworkElement source)
+        {
+            source.PreviewMouseLeftButtonDown += OnPreviewMouseLeftButtonDown;
+            source.PreviewMouseMove += OnPreviewMouseMove;
+        }
+
         public void RegisterSource(IDragSource source)
         {
-            source.Element.PreviewMouseLeftButtonDown += ProvidersList_OnPreviewMouseLeftButtonDown;
-            source.Element.PreviewMouseMove += ProvidersList_OnPreviewMouseMove;
+            source.Element.PreviewMouseLeftButtonDown += OnPreviewMouseLeftButtonDown;
+            source.Element.PreviewMouseMove += OnPreviewMouseMove;
+        }
+
+        public void DeRegister(UIElement view)
+        {
+            _elementToLayoutController.Remove(view);
+            _elementToTile.Remove(view);
         }
 
         private void OnDragEnter(object sender, DragEventArgs e)
@@ -44,7 +65,7 @@ namespace NoeticTools.Dashboard.Framework.Input
         {
             if (IsTileProviderData(e))
             {
-                e.Effects = DragDropEffects.Copy;
+                e.Effects = DragDropEffects.Copy | DragDropEffects.Move;
                 e.Handled = true;
             }
             else
@@ -73,35 +94,69 @@ namespace NoeticTools.Dashboard.Framework.Input
 
             var target = (UIElement) sender;
             var dropPostion = GetRelativeDropPostion(e, target);
+
+            if (e.Effects == DragDropEffects.Copy)
+            {
+                Copy(dropPostion, target, newTileConfiguration);
+            }
+            else if (e.Effects == DragDropEffects.Move)
+            {
+                Move(dropPostion, target, newTileConfiguration);
+            }
+        }
+
+        private void Move(RelativeDropPostion dropPostion, UIElement target, TileConfiguration newTileConfiguration)
+        {
             if (dropPostion == RelativeDropPostion.OnTop)
             {
-                DropOnTop(target, newTileConfiguration);
+                ReplaceWith(target, newTileConfiguration);
             }
             else
             {
-                InsertDroppedTile(dropPostion, target, newTileConfiguration);
+                InsertMoved(dropPostion, target, newTileConfiguration);
             }
         }
 
-        private void DropOnTop(UIElement target, TileConfiguration newTileConfiguration)
+        private void InsertMoved(RelativeDropPostion dropPostion, UIElement target, TileConfiguration tileBingMoved)
         {
-            // todo - replace or make new group
+            tileBingMoved.SetLocation(_elementToTile[target]);
+            Remove(tileBingMoved);
+            InsertCopy(dropPostion, target, tileBingMoved);
         }
 
-        private void InsertDroppedTile(RelativeDropPostion dropPostion, object sender, TileConfiguration newTile)
+        private void ReplaceWith(UIElement target, TileConfiguration tileBingMoved)
+        {
+            tileBingMoved.SetLocation(_elementToTile[target]);
+            Remove(tileBingMoved);
+            var targetLayoutController = _elementToLayoutController[target];
+            targetLayoutController.Replace(_elementToTile[target], tileBingMoved);
+            _elementToTile.Remove(target);
+        }
+
+        private void Copy(RelativeDropPostion dropPostion, UIElement target, TileConfiguration newTile)
+        {
+            if (dropPostion == RelativeDropPostion.OnTop)
+            {
+                _elementToLayoutController[target].Replace(_elementToTile[target], newTile);
+            }
+            else
+            {
+                InsertCopy(dropPostion, target, newTile);
+            }
+        }
+
+        private void InsertCopy(RelativeDropPostion dropPostion, object sender, TileConfiguration newTile)
         {
             var layoutController = _elementToLayoutController[sender];
-            var targetTile = _elementToConfiguration[sender];
+            var targetTile = _elementToTile[sender];
+            layoutController.InsertTile(newTile, _insertActionMap[dropPostion], targetTile);
+        }
 
-            var insertActionMap = new Dictionary<RelativeDropPostion, TileInsertAction>
-            {
-                {RelativeDropPostion.Top, TileInsertAction.Above },
-                {RelativeDropPostion.Bottom, TileInsertAction.Below },
-                {RelativeDropPostion.Left, TileInsertAction.ToLeft },
-                {RelativeDropPostion.Right, TileInsertAction.ToRight },
-            };
-
-            layoutController.InsertTile(newTile, insertActionMap[dropPostion], targetTile);
+        private void Remove(TileConfiguration tileBingMoved)
+        {
+            var elementBeingMoved = _elementToTile.Single(x => x.Value.Equals(tileBingMoved)).Key;
+            _elementToTile.Remove(elementBeingMoved);
+            _elementToLayoutController[elementBeingMoved].Remove(tileBingMoved);
         }
 
         private static RelativeDropPostion GetRelativeDropPostion(DragEventArgs e, UIElement target)
@@ -136,16 +191,15 @@ namespace NoeticTools.Dashboard.Framework.Input
             return RelativeDropPostion.OnTop;
         }
 
-        private void ProvidersList_OnPreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void OnPreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            _potentialSender = sender as IDragSource;
+            _potentialSender = sender;
             _mouseDownPoint = e.GetPosition(null);
         }
 
-        private void ProvidersList_OnPreviewMouseMove(object sender, MouseEventArgs e)
+        private void OnPreviewMouseMove(object sender, MouseEventArgs e)
         {
-            var source = sender as IDragSource;
-            if (source == null || !ReferenceEquals(_potentialSender, source))
+            if (!ReferenceEquals(_potentialSender, sender))
             {
                 _potentialSender = null;
                 return;
@@ -153,14 +207,30 @@ namespace NoeticTools.Dashboard.Framework.Input
 
             var mousePos = e.GetPosition(null);
             var diff = _mouseDownPoint - mousePos;
-
             if (e.LeftButton == MouseButtonState.Pressed &&
                 Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance ||
                 Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance)
             {
                 _potentialSender = null;
-                source.OnMouseDragStarted();
+
+                var source = sender as IDragSource;
+                if (source != null)
+                {
+                    StartDrag(source);
+                }
+                else
+                {
+                    var sourceElement = (FrameworkElement)sender;
+                    var dragData = new DataObject(typeof(TileConfiguration), _elementToTile[sender]);
+                    DragDrop.DoDragDrop(sourceElement, dragData, DragDropEffects.Move);
+                }
             }
+        }
+
+        private void StartDrag(IDragSource source)
+        {
+            _potentialSender = null;
+            source.OnMouseDragStarted();
         }
     }
 }

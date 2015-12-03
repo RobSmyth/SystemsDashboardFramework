@@ -21,7 +21,7 @@ using NoeticTools.Dashboard.Framework.Time;
 
 namespace NoeticTools.Dashboard.Framework
 {
-    public class TeamDashboardRunner
+    public sealed class TeamDashboardRunner
     {
         private readonly IDashboardController _dashboardController;
         private readonly DashBoardLoader _loader;
@@ -53,7 +53,7 @@ namespace NoeticTools.Dashboard.Framework
             _dashboardNavigator = new DashboardNavigator(loaderConduit, _config, tileLayoutControllerRegistry);
             _dashboardController = new DashboardController(dashboardConfigurationManager, _timerService, sidePanel, _config, _dashboardNavigator, tileProviderRegistry, _dragAndDropController);
 
-            var rootTileLayoutController = new TileLayoutController(tileGrid, tileControllerFactory, tileLayoutControllerRegistry, new Thickness(0), _dragAndDropController, _tileNavigator);
+            var rootTileLayoutController = new TileLayoutController(tileGrid, tileControllerFactory, tileLayoutControllerRegistry, new Thickness(0), _dragAndDropController, _tileNavigator, null);
             _loader = new DashBoardLoader(rootTileLayoutController);
             loaderConduit.SetTarget(_loader);
             KeyboardHandler = new KeyboardHandler(_dashboardController);

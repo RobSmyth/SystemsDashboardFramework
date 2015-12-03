@@ -1,13 +1,15 @@
 ﻿using NoeticTools.Dashboard.Framework.Config;
 
 
-namespace NoeticTools.Dashboard.Framework.Plugins.Tiles
+namespace NoeticTools.Dashboard.Framework
 {
     public interface ITileLayoutController
     {
         void Clear();
         void ToggleShowGroupPanelDetailsMode();
-        void AddTile(TileConfiguration tile);
         void Load(TileConfiguration tileConfiguration);
+        void Replace(TileConfiguration tile, TileConfiguration newTile);
+        void InsertTile(TileConfiguration tile, TileInsertAction insertAction, TileConfiguration currentTile);
+        void Remove(TileConfiguration tile);
     }
 }

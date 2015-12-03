@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 
@@ -60,6 +61,14 @@ namespace NoeticTools.Dashboard.Framework.Config
         public bool IsInRow(int rowNumber)
         {
             return RowNumber <= rowNumber && RowNumber + RowSpan - 1 >= rowNumber;
+        }
+
+        public void SetLocation(TileConfiguration tile)
+        {
+            RowNumber = tile.RowNumber;
+            ColumnNumber = tile.ColumnNumber;
+            RowSpan = tile.RowSpan;
+            ColumnSpan = tile.ColumnSpan;
         }
     }
 }

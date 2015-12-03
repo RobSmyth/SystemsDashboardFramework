@@ -2,9 +2,10 @@
 using System.Windows.Input;
 using NoeticTools.Dashboard.Framework.Config;
 using NoeticTools.Dashboard.Framework.Config.Commands;
+using NoeticTools.Dashboard.Framework.Tiles.ServerStatus;
 
 
-namespace NoeticTools.Dashboard.Framework.Tiles.ServerStatus
+namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.ServerStatus
 {
     internal class ServerStatusTileController : IViewController
     {

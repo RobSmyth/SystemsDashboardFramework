@@ -14,16 +14,16 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.WebPage
     {
         private readonly TileConfiguration _tile;
         private readonly IDashboardController _dashboardController;
-        private readonly TileLayoutController _tileLayoutController;
         public static readonly string TileTypeId = "WebBrowser";
         private readonly TileConfigurationConverter _tileConfigurationConverter;
         private WebPageTileControl _view;
+        private readonly TileLayoutController _layoutController;
 
         public WebPageTileController(TileConfiguration tile, IDashboardController dashboardController, TileLayoutController tileLayoutController)
         {
             _tile = tile;
             _dashboardController = dashboardController;
-            _tileLayoutController = tileLayoutController;
+            _layoutController = tileLayoutController;
             _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
         }
 
@@ -36,7 +36,7 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.WebPage
                 new ElementViewModel("Url", ElementType.Text, _tileConfigurationConverter
 /* "http://www.google.com"*/)
             },
-                _dashboardController, _tileLayoutController);
+                _dashboardController, _layoutController);
             _view = new WebPageTileControl {DataContext = this};
 
             UpdateView();

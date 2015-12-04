@@ -14,7 +14,7 @@ namespace NoeticTools.Dashboard.Framework.Adorners
         private readonly FrameworkElement _adornedElement;
         private readonly Thickness _originalMargin;
         private static readonly Color Colour = Colors.AntiqueWhite;
-        private readonly Brush NameBrush = Brushes.Black;
+        private readonly Brush _nameBrush = Brushes.Black;
 
         public GroupPanelDetailsAdorner([NotNull] FrameworkElement adornedElement) : base(adornedElement)
         {
@@ -62,7 +62,7 @@ namespace NoeticTools.Dashboard.Framework.Adorners
             var textPoint = new Point(adornedElementRect.Left, adornedElementRect.Top);
             textPoint.Offset(10, 10);
             var typeface = new Typeface("Verdana");
-            var formattedText = new FormattedText(_adornedElement.Name, CultureInfo.CurrentCulture, FlowDirection.LeftToRight, typeface, NameFontSize, NameBrush);
+            var formattedText = new FormattedText(_adornedElement.Name, CultureInfo.CurrentCulture, FlowDirection.LeftToRight, typeface, NameFontSize, _nameBrush);
             formattedText.SetFontWeight(FontWeights.Bold);
             formattedText.SetFontStyle(FontStyles.Italic);
             drawingContext.DrawText(formattedText, textPoint);

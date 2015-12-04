@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using NoeticTools.Dashboard.Framework.Adorners;
 using NoeticTools.Dashboard.Framework.Config;
-using NoeticTools.Dashboard.Framework.Plugins.Tiles;
 
 
 namespace NoeticTools.Dashboard.Framework.Input
@@ -23,6 +23,9 @@ namespace NoeticTools.Dashboard.Framework.Input
                 {RelativeDropPostion.Right, TileInsertAction.ToRight },
             };
 
+        private UIElement _draggedElement;
+        private DropTargetAdorner _dropHighlightAdorner;
+
         public void RegisterTarget(UIElement targetUiElement, ITileLayoutController tileLayoutController, TileConfiguration tileConfiguration)
         {
             _elementToLayoutController.Add(targetUiElement, tileLayoutController);
@@ -38,6 +41,7 @@ namespace NoeticTools.Dashboard.Framework.Input
         public void Register(FrameworkElement source)
         {
             source.PreviewMouseLeftButtonDown += OnPreviewMouseLeftButtonDown;
+            source.PreviewMouseLeftButtonUp += Source_PreviewMouseLeftButtonUp;
             source.PreviewMouseMove += OnPreviewMouseMove;
         }
 
@@ -55,17 +59,32 @@ namespace NoeticTools.Dashboard.Framework.Input
 
         private void OnDragEnter(object sender, DragEventArgs e)
         {
+            if (ReferenceEquals(sender, _draggedElement))
+            {
+                e.Effects = DragDropEffects.None;
+                return;
+            }
+
             if (IsTileProviderData(e))
             {
-                ((UIElement) sender).Opacity = 0.7;
+                _dropHighlightAdorner = new DropTargetAdorner((FrameworkElement)sender);
+                _dropHighlightAdorner.Attach();
             }
         }
 
         private void OnDragOver(object sender, DragEventArgs e)
         {
+            if (ReferenceEquals(sender, _draggedElement))
+            {
+                e.Effects = DragDropEffects.None;
+                return;
+            }
+
             if (IsTileProviderData(e))
             {
-                e.Effects = DragDropEffects.Copy | DragDropEffects.Move;
+                var relativeDropPostion = GetRelativeDropPostion(e, (UIElement)sender);
+                e.Effects = DragDropEffects.All;
+                _dropHighlightAdorner.SetDropPosition(relativeDropPostion);
                 e.Handled = true;
             }
             else
@@ -76,7 +95,19 @@ namespace NoeticTools.Dashboard.Framework.Input
 
         private void OnDragLeave(object sender, DragEventArgs e)
         {
-            ((UIElement) sender).Opacity = 1.0;
+            var element = (UIElement) sender;
+            OnDragLeave(element);
+        }
+
+        private void OnDragLeave(UIElement element)
+        {
+            if (ReferenceEquals(element, _draggedElement))
+            {
+                return;
+            }
+
+            _dropHighlightAdorner.Detach();
+            _dropHighlightAdorner = null;
         }
 
         private static bool IsTileProviderData(DragEventArgs e)
@@ -86,6 +117,11 @@ namespace NoeticTools.Dashboard.Framework.Input
 
         private void OnDrop(object sender, DragEventArgs e)
         {
+            if (ReferenceEquals(sender, _draggedElement))
+            {
+                return;
+            }
+
             var newTileConfiguration = e.Data.GetData(typeof (TileConfiguration)) as TileConfiguration;
             if (newTileConfiguration == null)
             {
@@ -93,6 +129,8 @@ namespace NoeticTools.Dashboard.Framework.Input
             }
 
             var target = (UIElement) sender;
+            OnDragLeave(target);
+
             var dropPostion = GetRelativeDropPostion(e, target);
 
             if (e.Effects == DragDropEffects.Copy)
@@ -191,8 +229,14 @@ namespace NoeticTools.Dashboard.Framework.Input
             return RelativeDropPostion.OnTop;
         }
 
+        private void Source_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            _draggedElement = null;
+        }
+
         private void OnPreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            _draggedElement = null;
             _potentialSender = sender;
             _mouseDownPoint = e.GetPosition(null);
         }
@@ -211,6 +255,7 @@ namespace NoeticTools.Dashboard.Framework.Input
                 Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance ||
                 Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance)
             {
+                _draggedElement = (UIElement) _potentialSender;
                 _potentialSender = null;
 
                 var source = sender as IDragSource;

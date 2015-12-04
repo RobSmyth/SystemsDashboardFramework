@@ -69,6 +69,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adorners\DropTargetAdorner.cs" />
     <Compile Include="Adorners\GroupPanelDetailsAdorner.cs" />
     <Compile Include="Commands\RoutedCommands.cs" />
     <Compile Include="Commands\SaveConfigurationParametersCommand.cs" />

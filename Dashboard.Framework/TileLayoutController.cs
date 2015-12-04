@@ -87,7 +87,7 @@ namespace NoeticTools.Dashboard.Framework
             _tile.Tiles = new List<TileConfiguration>(_tile.Tiles) {tile}.ToArray();
         }
 
-        public void AddTile(TileConfiguration tile)
+        private void AddTile(TileConfiguration tile)
         {
             if (tile.TypeId == TileConfiguration.PaneTileTypeId || tile.TypeId.Equals("6f1bf918-6080-42c2-b980-d562f77cb4e6", StringComparison.InvariantCultureIgnoreCase))
             {

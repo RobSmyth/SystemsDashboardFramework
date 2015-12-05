@@ -8,7 +8,7 @@ using NoeticTools.Dashboard.Framework.Tiles;
 
 namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.InsertTile
 {
-    public sealed class InsertTileController : IViewController
+    internal sealed class InsertTileController : IViewController
     {
         private readonly TileDragAndDropController _dragAndDropController;
 

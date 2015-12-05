@@ -16,7 +16,7 @@ using NoeticTools.Dashboard.Framework.Time;
 
 namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.TeamCity.AvailableBuilds
 {
-    internal class TeamCityAvailableBuildsTileController : IViewController, ITimerListener
+    internal sealed class TeamCityAvailableBuildsTileController : IViewController, ITimerListener
     {
         public class BuildDetails
         {

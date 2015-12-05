@@ -6,7 +6,7 @@ using NoeticTools.Dashboard.Framework.Tiles.ServerStatus;
 
 namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.ServerStatus
 {
-    public class ServerStatusTilePlugin : IPlugin, ITileControllerProvider
+    internal sealed class ServerStatusTilePlugin : IPlugin, ITileControllerProvider
     {
         public int Rank => 0;
 

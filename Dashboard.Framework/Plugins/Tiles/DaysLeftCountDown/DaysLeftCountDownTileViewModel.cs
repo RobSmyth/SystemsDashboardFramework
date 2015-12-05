@@ -8,7 +8,7 @@ using NoeticTools.Dashboard.Framework.Time;
 
 namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.DaysLeftCountDown
 {
-    internal class DaysLeftCountDownTileViewModel : NotifyingViewModelBase, IConfigurationChangeListener, ITimerListener
+    internal sealed class DaysLeftCountDownTileViewModel : NotifyingViewModelBase, IConfigurationChangeListener, ITimerListener
     {
         private readonly IClock _clock;
         private readonly TimeSpan _tickPeriod = TimeSpan.FromSeconds(30);

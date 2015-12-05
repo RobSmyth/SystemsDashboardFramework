@@ -6,7 +6,7 @@ using NoeticTools.Dashboard.Framework.Time;
 
 namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.Date
 {
-    public class DateTilePlugin : IPlugin, ITileControllerProvider
+    public sealed class DateTilePlugin : IPlugin, ITileControllerProvider
     {
         private readonly ITimerService _timerService;
         private readonly IClock _clock;

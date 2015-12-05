@@ -1,13 +1,11 @@
 ﻿using System;
 using NoeticTools.Dashboard.Framework.Config;
 using NoeticTools.Dashboard.Framework.DataSources.TeamCity;
-using NoeticTools.Dashboard.Framework.Tiles;
-using NoeticTools.Dashboard.Framework.Time;
 
 
 namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.TeamCity.LastBuildStatus
 {
-    public class TeamCityLastBuildStatusTilePlugin : IPlugin, ITileControllerProvider
+    public sealed class TeamCityLastBuildStatusTilePlugin : IPlugin, ITileControllerProvider
     {
         private readonly TeamCityService _service;
         private readonly IDashboardController _dashboardController;

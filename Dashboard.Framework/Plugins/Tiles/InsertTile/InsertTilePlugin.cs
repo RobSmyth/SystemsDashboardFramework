@@ -5,7 +5,7 @@ using NoeticTools.Dashboard.Framework.Tiles;
 
 namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.InsertTile
 {
-    public class InsertTilePlugin : IPlugin, IKeyHandler
+    internal sealed class InsertTilePlugin : IPlugin, IKeyHandler
     {
         private readonly IDashboardController _dashboardController;
         private readonly Services _services;

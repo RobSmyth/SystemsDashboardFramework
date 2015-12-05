@@ -9,7 +9,7 @@ using NoeticTools.Dashboard.Framework.Time;
 
 namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.Date
 {
-    internal class DateTileController : IViewController, ITimerListener
+    internal sealed class DateTileController : IViewController, ITimerListener
     {
         public const string TileTypeId = "Date.Now";
         private readonly ITimerService _timerService;

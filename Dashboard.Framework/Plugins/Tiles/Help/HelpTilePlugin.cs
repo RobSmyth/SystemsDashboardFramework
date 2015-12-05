@@ -4,7 +4,7 @@ using NoeticTools.Dashboard.Framework.Tiles.Help;
 
 namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.Help
 {
-    public class HelpTilePlugin : IPlugin, IKeyHandler
+    public sealed class HelpTilePlugin : IPlugin, IKeyHandler
     {
         private readonly IDashboardController _dashboardController;
 

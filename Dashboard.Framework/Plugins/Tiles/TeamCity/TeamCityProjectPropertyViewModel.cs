@@ -5,7 +5,7 @@ using NoeticTools.Dashboard.Framework.DataSources.TeamCity;
 
 namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.TeamCity
 {
-    public class TeamCityProjectPropertyViewModel : PropertyViewModel
+    public sealed class TeamCityProjectPropertyViewModel : PropertyViewModel
     {
         public TeamCityProjectPropertyViewModel(string name, TileConfigurationConverter tileConfigurationConverter, TeamCityService service)
             : base(name, "TextFromCombobox", tileConfigurationConverter, service.ProjectNames)

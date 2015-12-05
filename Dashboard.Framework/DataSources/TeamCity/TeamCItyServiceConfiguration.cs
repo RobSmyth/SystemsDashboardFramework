@@ -1,7 +1,7 @@
-using NoeticTools.Dashboard.Framework.Config;
+using NoeticTools.SystemsDashboard.Framework.Config;
 
 
-namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
+namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
 {
     public class TeamCityServiceConfiguration : IItemConfiguration
     {

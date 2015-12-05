@@ -1,7 +1,7 @@
 ﻿using System.Windows.Controls;
 
 
-namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.MessageTile
+namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.MessageTile
 {
     public partial class MessageTileControl : UserControl
     {

@@ -1,9 +1,9 @@
-﻿using NoeticTools.Dashboard.Framework.Config;
-using NoeticTools.Dashboard.Framework.Config.Properties;
-using NoeticTools.Dashboard.Framework.DataSources.TeamCity;
+﻿using NoeticTools.SystemsDashboard.Framework.Config;
+using NoeticTools.SystemsDashboard.Framework.Config.Properties;
+using NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity;
 
 
-namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.TeamCity
+namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity
 {
     public sealed class TeamCityProjectPropertyViewModel : PropertyViewModel
     {

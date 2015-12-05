@@ -1,9 +1,9 @@
-﻿<UserControl x:Class="NoeticTools.Dashboard.Framework.Config.Views.ParametersConfigControl"
+﻿<UserControl x:Class="NoeticTools.SystemsDashboard.Framework.Config.Views.ParametersConfigControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:NoeticTools.Dashboard.Framework.Config.Views"
+             xmlns:local="clr-namespace:NoeticTools.SystemsDashboard.Framework.Config.Views"
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="100">
     <Grid Name="PlaceholderGrid" Height="Auto" Margin="5,10,5,5" VerticalAlignment="Top">

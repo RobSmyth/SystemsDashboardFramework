@@ -1,12 +1,14 @@
 using System;
 using System.Windows.Input;
-using NoeticTools.Dashboard.Framework.Commands;
-using NoeticTools.Dashboard.Framework.Config;
-using NoeticTools.Dashboard.Framework.Config.Properties;
-using NoeticTools.Dashboard.Framework.Time;
+using NoeticTools.SystemsDashboard.Framework;
+using NoeticTools.SystemsDashboard.Framework.Config;
+using NoeticTools.SystemsDashboard.Framework.Config.Properties;
+using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.DaysLeftCountDown;
+using NoeticTools.SystemsDashboard.Framework.Time;
+using NoeticTools.SystemsDashboard.Framework.Commands;
 
 
-namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.DaysLeftCountDown
+namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.DaysLeftCountDown
 {
     internal sealed class DaysLeftCountDownTileViewModel : NotifyingViewModelBase, IConfigurationChangeListener, ITimerListener
     {
@@ -16,7 +18,8 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.DaysLeftCountDown
         private readonly DaysLeftCountDownTileView _view;
         private readonly TimerToken _timerToken;
 
-        public DaysLeftCountDownTileViewModel(TileConfiguration tile, IClock clock, IDashboardController dashboardController, DaysLeftCountDownTileView view, TileLayoutController tileLayoutController, IServices services)
+        public DaysLeftCountDownTileViewModel(TileConfiguration tile, IClock clock, IDashboardController dashboardController, DaysLeftCountDownTileView view, TileLayoutController tileLayoutController,
+            IServices services)
         {
             _clock = clock;
             _view = view;

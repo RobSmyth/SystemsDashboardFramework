@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Input;
 
 
-namespace NoeticTools.Dashboard.Framework.Commands
+namespace NoeticTools.SystemsDashboard.Framework.Commands
 {
     public class CloseCommand : ICommand
     {

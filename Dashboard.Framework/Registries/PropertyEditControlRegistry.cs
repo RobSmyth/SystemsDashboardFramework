@@ -2,11 +2,11 @@ using System.Collections.Generic;
 using System.Linq;
 
 
-namespace NoeticTools.Dashboard.Framework.Registries
+namespace NoeticTools.SystemsDashboard.Framework.Registries
 {
     public class PropertyEditControlRegistry : IPropertyEditControlRegistry
     {
-        private readonly IList<IPropertyViewProvider>  _providers = new List<IPropertyViewProvider>();
+        private readonly IList<IPropertyViewProvider> _providers = new List<IPropertyViewProvider>();
 
         public void Register(IPropertyViewProvider provider)
         {

@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Controls;
 using System.Windows.Input;
-using NoeticTools.Dashboard.Framework.Config;
+using NoeticTools.SystemsDashboard.Framework.Config;
 
 
-namespace NoeticTools.Dashboard.Framework.Commands
+namespace NoeticTools.SystemsDashboard.Framework.Commands
 {
     public class SaveConfigurationParametersCommand : ICommand
     {

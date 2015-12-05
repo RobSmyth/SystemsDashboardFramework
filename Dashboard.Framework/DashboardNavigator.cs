@@ -1,8 +1,9 @@
-﻿using NoeticTools.Dashboard.Framework.Config;
-using NoeticTools.Dashboard.Framework.Registries;
+﻿using NoeticTools.SystemsDashboard.Framework;
+using NoeticTools.SystemsDashboard.Framework.Config;
+using NoeticTools.SystemsDashboard.Framework.Registries;
 
 
-namespace NoeticTools.Dashboard.Framework
+namespace NoeticTools.SystemsDashboard.Framework
 {
     public class DashboardNavigator : IDashboardNavigator
     {

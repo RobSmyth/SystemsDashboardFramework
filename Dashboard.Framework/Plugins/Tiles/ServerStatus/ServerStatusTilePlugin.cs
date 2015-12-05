@@ -1,10 +1,10 @@
 ﻿using System;
-using NoeticTools.Dashboard.Framework.Config;
-using NoeticTools.Dashboard.Framework.Tiles;
-using NoeticTools.Dashboard.Framework.Tiles.ServerStatus;
+using NoeticTools.SystemsDashboard.Framework;
+using NoeticTools.SystemsDashboard.Framework.Config;
+using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.ServerStatus;
 
 
-namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.ServerStatus
+namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.ServerStatus
 {
     internal sealed class ServerStatusTilePlugin : IPlugin, ITileControllerProvider
     {

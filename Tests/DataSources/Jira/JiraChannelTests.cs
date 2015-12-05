@@ -1,24 +1,16 @@
 ﻿using System;
 using System.IO;
-using NoeticTools.Dashboard.Framework;
-using NoeticTools.Dashboard.Framework.DataSources.Jira;
-using NoeticTools.Dashboard.Framework.Time;
+using NoeticTools.SystemsDashboard.Framework;
+using NoeticTools.SystemsDashboard.Framework.Time;
+using NoeticTools.SystemsDashboard.Framework.DataSources.Jira;
 using NUnit.Framework;
 
 
-namespace TeamDashboard.Tests.DataSources.Jira
+namespace SystemsDashboard.Tests.DataSources.Jira
 {
     [TestFixture]
     public class JiraChannelTests
     {
-        private string _userName;
-        private string _password;
-        private string _url;
-        private IClock _clock;
-        private JiraChannel _target;
-        private string _projectName;
-        private string _filterName;
-
         [SetUp]
         public void SetUp()
         {
@@ -51,6 +43,20 @@ namespace TeamDashboard.Tests.DataSources.Jira
             _target.Connect();
         }
 
+        [TearDown]
+        public void TearDown()
+        {
+            _target.Disconnect();
+        }
+
+        private string _userName;
+        private string _password;
+        private string _url;
+        private IClock _clock;
+        private JiraChannel _target;
+        private string _projectName;
+        private string _filterName;
+
         private void ReadCredentialsFile(string credentialsFilePath)
         {
             using (var file = File.OpenText(credentialsFilePath))
@@ -74,16 +80,27 @@ namespace TeamDashboard.Tests.DataSources.Jira
             }
         }
 
-        [TearDown]
-        public void TearDown()
+        [Test]
+        public void CanReadCustomFields()
         {
-            _target.Disconnect();
+            foreach (var customField in _target.GetCustomFields())
+            {
+                Console.WriteLine("{0}", customField.Name);
+            }
+        }
+
+        [Test]
+        public void CanReadFilters()
+        {
+            foreach (var filter in _target.Filters)
+            {
+                Console.WriteLine("{0}", filter.Name);
+            }
         }
 
         [Test]
         public void CanReadIssuesForProject()
         {
-
             var issues = _target.GetIssues(_projectName);
             foreach (var issue in issues)
             {
@@ -108,24 +125,6 @@ namespace TeamDashboard.Tests.DataSources.Jira
             foreach (var project in _target.Projects)
             {
                 Console.WriteLine("{0}", project.Name);
-            }
-        }
-
-        [Test]
-        public void CanReadFilters()
-        {
-            foreach (var filter in _target.Filters)
-            {
-                Console.WriteLine("{0}", filter.Name);
-            }
-        }
-
-        [Test]
-        public void CanReadCustomFields()
-        {
-            foreach (var customField in _target.GetCustomFields())
-            {
-                Console.WriteLine("{0}", customField.Name);
             }
         }
     }

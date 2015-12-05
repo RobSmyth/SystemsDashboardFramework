@@ -1,15 +1,15 @@
-namespace NoeticTools.Dashboard.Framework.Config.Properties
+namespace NoeticTools.SystemsDashboard.Framework.Config.Properties
 {
     public class TileRowSpanViewModel : NotifyingViewModelBase, INotifyingElementViewModel
     {
-        private readonly TileConfiguration _tile;
         private const int MaxSpan = 50;
+        private readonly TileConfiguration _tile;
 
         public TileRowSpanViewModel(TileConfiguration tile)
         {
             _tile = tile;
             Name = "Row span";
-            ViewerName = "Text";// todo - numericspin
+            ViewerName = "Text"; // todo - numericspin
             Parameters = new object[0];
         }
 
@@ -19,7 +19,7 @@ namespace NoeticTools.Dashboard.Framework.Config.Properties
             set
             {
                 int newValue;
-                if (int.TryParse((string)value, out newValue))
+                if (int.TryParse((string) value, out newValue))
                 {
                     if (_tile.RowSpan == newValue || newValue > MaxSpan || newValue <= 0)
                     {

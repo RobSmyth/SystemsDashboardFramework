@@ -10,7 +10,7 @@
 // ReSharper disable InconsistentNaming
 // ReSharper disable CheckNamespace
 
-namespace NoeticTools.Dashboard.Framework.Annotations
+namespace NoeticTools.SystemsDashboard.Framework.Annotations
 {
     /// <summary>
     ///     Indicates that the value of the marked element could be <c>null</c> sometimes,

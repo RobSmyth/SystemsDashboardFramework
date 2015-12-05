@@ -3,11 +3,11 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using NoeticTools.Dashboard.Framework.Config;
-using NoeticTools.Dashboard.Framework.Registries;
+using NoeticTools.SystemsDashboard.Framework.Config;
+using NoeticTools.SystemsDashboard.Framework.Registries;
 
 
-namespace NoeticTools.Dashboard.Framework.Plugins.PropertyEditControls
+namespace NoeticTools.SystemsDashboard.Framework.Plugins.PropertyEditControls
 {
     public class DatePropertyViewProvider : IPropertyViewProvider
     {

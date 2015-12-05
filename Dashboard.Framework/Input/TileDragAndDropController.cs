@@ -3,25 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-using NoeticTools.Dashboard.Framework.Adorners;
-using NoeticTools.Dashboard.Framework.Config;
+using NoeticTools.SystemsDashboard.Framework.Adorners;
+using NoeticTools.SystemsDashboard.Framework.Config;
 
 
-namespace NoeticTools.Dashboard.Framework.Input
+namespace NoeticTools.SystemsDashboard.Framework.Input
 {
     public sealed class TileDragAndDropController
     {
         private readonly IDictionary<object, ITileLayoutController> _elementToLayoutController = new Dictionary<object, ITileLayoutController>();
         private readonly IDictionary<object, TileConfiguration> _elementToTile = new Dictionary<object, TileConfiguration>();
+
+        private readonly Dictionary<RelativeDropPostion, TileInsertAction> _insertActionMap = new Dictionary<RelativeDropPostion, TileInsertAction>
+        {
+            {RelativeDropPostion.Top, TileInsertAction.Above},
+            {RelativeDropPostion.Bottom, TileInsertAction.Below},
+            {RelativeDropPostion.Left, TileInsertAction.ToLeft},
+            {RelativeDropPostion.Right, TileInsertAction.ToRight}
+        };
+
         private Point _mouseDownPoint;
         private object _potentialSender;
-        private readonly Dictionary<RelativeDropPostion, TileInsertAction> _insertActionMap = new Dictionary<RelativeDropPostion, TileInsertAction>
-            {
-                {RelativeDropPostion.Top, TileInsertAction.Above},
-                {RelativeDropPostion.Bottom, TileInsertAction.Below},
-                {RelativeDropPostion.Left, TileInsertAction.ToLeft},
-                {RelativeDropPostion.Right, TileInsertAction.ToRight },
-            };
 
         private UIElement _draggedElement;
         private DropTargetAdorner _dropHighlightAdorner;
@@ -67,7 +69,7 @@ namespace NoeticTools.Dashboard.Framework.Input
 
             if (IsTileProviderData(e))
             {
-                _dropHighlightAdorner = new DropTargetAdorner((FrameworkElement)sender);
+                _dropHighlightAdorner = new DropTargetAdorner((FrameworkElement) sender);
                 _dropHighlightAdorner.Attach();
             }
         }
@@ -82,7 +84,7 @@ namespace NoeticTools.Dashboard.Framework.Input
 
             if (IsTileProviderData(e))
             {
-                var relativeDropPostion = GetRelativeDropPostion(e, (UIElement)sender);
+                var relativeDropPostion = GetRelativeDropPostion(e, (UIElement) sender);
                 e.Effects = DragDropEffects.All;
                 _dropHighlightAdorner.SetDropPosition(relativeDropPostion);
                 e.Handled = true;
@@ -265,8 +267,8 @@ namespace NoeticTools.Dashboard.Framework.Input
                 }
                 else
                 {
-                    var sourceElement = (FrameworkElement)sender;
-                    var dragData = new DataObject(typeof(TileConfiguration), _elementToTile[sender]);
+                    var sourceElement = (FrameworkElement) sender;
+                    var dragData = new DataObject(typeof (TileConfiguration), _elementToTile[sender]);
                     DragDrop.DoDragDrop(sourceElement, dragData, DragDropEffects.Move);
                 }
             }

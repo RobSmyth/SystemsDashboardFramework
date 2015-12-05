@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 
 
-namespace NoeticTools.Dashboard.Framework.Config.Properties
+namespace NoeticTools.SystemsDashboard.Framework.Config.Properties
 {
     public class PropertyViewModel : NotifyingViewModelBase, INotifyingElementViewModel
     {

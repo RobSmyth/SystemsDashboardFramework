@@ -1,14 +1,15 @@
 ﻿using Dashboard.Config;
-using NoeticTools.Dashboard.Framework.Commands;
-using NoeticTools.Dashboard.Framework.Config;
-using NoeticTools.Dashboard.Framework.Config.Controllers;
-using NoeticTools.Dashboard.Framework.Config.Properties;
-using NoeticTools.Dashboard.Framework.Registries;
+using NoeticTools.SystemsDashboard.Framework;
+using NoeticTools.SystemsDashboard.Framework.Commands;
+using NoeticTools.SystemsDashboard.Framework.Config;
+using NoeticTools.SystemsDashboard.Framework.Config.Properties;
+using NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity;
+using NoeticTools.SystemsDashboard.Framework.Config.Controllers;
 using TeamCitySharp;
 using TeamCitySharp.DomainEntities;
 
 
-namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
+namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
 {
     public class TeamCityService : ITeamCityChannel, IStateEngine<ITeamCityChannel>, IConfigurationChangeListener
     {

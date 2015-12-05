@@ -1,8 +1,8 @@
 ﻿using System.Collections.ObjectModel;
-using NoeticTools.Dashboard.Framework.Config;
+using NoeticTools.SystemsDashboard.Framework.Config;
 
 
-namespace NoeticTools.Dashboard.Framework.Tiles.Dashboards
+namespace NoeticTools.SystemsDashboard.Framework.Tiles.Dashboards
 {
     public class DashboardsNavigationViewModel : NotifyingViewModelBase
     {

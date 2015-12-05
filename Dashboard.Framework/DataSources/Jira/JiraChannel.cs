@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using Atlassian.Jira;
+using NoeticTools.SystemsDashboard.Framework;
 
 
-namespace NoeticTools.Dashboard.Framework.DataSources.Jira
+namespace NoeticTools.SystemsDashboard.Framework.DataSources.Jira
 {
     public class JiraChannel : IJiraChannel
     {

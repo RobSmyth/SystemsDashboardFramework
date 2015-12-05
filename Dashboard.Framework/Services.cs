@@ -1,9 +1,10 @@
-using NoeticTools.Dashboard.Framework.Input;
-using NoeticTools.Dashboard.Framework.Registries;
-using NoeticTools.Dashboard.Framework.Time;
+using NoeticTools.SystemsDashboard.Framework.Input;
+using NoeticTools.SystemsDashboard.Framework.Registries;
+using NoeticTools.SystemsDashboard.Framework.Time;
+using NoeticTools.SystemsDashboard.Framework.Registries;
 
 
-namespace NoeticTools.Dashboard.Framework
+namespace NoeticTools.SystemsDashboard.Framework
 {
     public class Services : IServices
     {

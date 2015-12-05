@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="NoeticTools.Dashboard.Framework.Plugins.Tiles.Date.DateTileControl"
+﻿<UserControl x:Class="NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Date.DateTileControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -10,7 +10,7 @@
 
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/NoeticTools.Dashboard.Framework;component/Styles.xaml" />
+                <ResourceDictionary Source="/NoeticTools.SystemsDashboard.Framework;component/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Style TargetType="TextBlock" BasedOn="{StaticResource TealTileStyle_Textbox}" />
             <Style TargetType="Grid" BasedOn="{StaticResource TealTileStyle_Grid}" />

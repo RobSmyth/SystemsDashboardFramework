@@ -4,7 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 
 
-namespace NoeticTools.Dashboard.Framework
+namespace NoeticTools.SystemsDashboard.Framework
 {
     public class DashboardTileNavigator : IDashboardTileNavigator
     {
@@ -35,6 +35,11 @@ namespace NoeticTools.Dashboard.Framework
             MoveFocus(new TraversalRequest(FocusNavigationDirection.Down));
         }
 
+        public void MoveTo(UIElement target)
+        {
+            SetFocus(target);
+        }
+
         private void MoveFocus(TraversalRequest request)
         {
             var focusedElement = Keyboard.FocusedElement as UIElement;
@@ -46,11 +51,6 @@ namespace NoeticTools.Dashboard.Framework
             {
                 focusedElement.MoveFocus(request);
             }
-        }
-
-        public void MoveTo(UIElement target)
-        {
-            SetFocus(target);
         }
 
         private static bool SetFocus(UIElement element)

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
-using NoeticTools.Dashboard.Framework.Config;
+using NoeticTools.SystemsDashboard.Framework.Config;
 
 
 namespace Dashboard.Config

@@ -1,29 +1,28 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using NoeticTools.Dashboard.Framework.Config;
-using NoeticTools.Dashboard.Framework.DataSources.TeamCity;
-using NoeticTools.Dashboard.Framework.Input;
-using NoeticTools.Dashboard.Framework.Plugins;
-using NoeticTools.Dashboard.Framework.Plugins.PropertyEditControls;
-using NoeticTools.Dashboard.Framework.Plugins.Tiles;
-using NoeticTools.Dashboard.Framework.Plugins.Tiles.BlankTile;
-using NoeticTools.Dashboard.Framework.Plugins.Tiles.Date;
-using NoeticTools.Dashboard.Framework.Plugins.Tiles.DaysLeftCountDown;
-using NoeticTools.Dashboard.Framework.Plugins.Tiles.Help;
-using NoeticTools.Dashboard.Framework.Plugins.Tiles.InsertTile;
-using NoeticTools.Dashboard.Framework.Plugins.Tiles.MessageTile;
-using NoeticTools.Dashboard.Framework.Plugins.Tiles.ServerStatus;
-using NoeticTools.Dashboard.Framework.Plugins.Tiles.TeamCity.AvailableBuilds;
-using NoeticTools.Dashboard.Framework.Plugins.Tiles.TeamCity.LastBuildStatus;
-using NoeticTools.Dashboard.Framework.Plugins.Tiles.WebPage;
-using NoeticTools.Dashboard.Framework.Registries;
-using NoeticTools.Dashboard.Framework.Tiles;
-using NoeticTools.Dashboard.Framework.Tiles.Help;
-using NoeticTools.Dashboard.Framework.Time;
+using NoeticTools.SystemsDashboard.Framework;
+using NoeticTools.SystemsDashboard.Framework.Config;
+using NoeticTools.SystemsDashboard.Framework.Input;
+using NoeticTools.SystemsDashboard.Framework.Registries;
+using NoeticTools.SystemsDashboard.Framework.Time;
+using NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity;
+using NoeticTools.SystemsDashboard.Framework.Plugins;
+using NoeticTools.SystemsDashboard.Framework.Plugins.PropertyEditControls;
+using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.BlankTile;
+using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Date;
+using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.DaysLeftCountDown;
+using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Help;
+using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.InsertTile;
+using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.MessageTile;
+using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.ServerStatus;
+using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.AvailableBuilds;
+using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.LastBuildStatus;
+using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.WebPage;
+using NoeticTools.SystemsDashboard.Framework.Registries;
 
 
-namespace NoeticTools.Dashboard.Framework
+namespace NoeticTools.SystemsDashboard.Framework
 {
     public sealed class TeamDashboardRunner
     {
@@ -86,10 +85,10 @@ namespace NoeticTools.Dashboard.Framework
 
             var plugins = new IPlugin[]
             {
-                new TextPropertyViewPlugin(), 
-                new DatePropertyViewPlugin(), 
-                new CheckboxPropertyViewPlugin(), 
-                new ComboboxTextPropertyViewPlugin(), 
+                new TextPropertyViewPlugin(),
+                new DatePropertyViewPlugin(),
+                new CheckboxPropertyViewPlugin(),
+                new ComboboxTextPropertyViewPlugin(),
                 new KeyboardTileNavigationPlugin(_tileNavigator),
                 new KeyboardDashboardNavigationPlugin(_dashboardNavigator, _dashboardController),
                 new InsertTilePlugin(_dashboardController, _services, _dragAndDropController),

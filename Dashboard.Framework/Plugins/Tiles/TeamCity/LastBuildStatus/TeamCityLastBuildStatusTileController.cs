@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
-using NoeticTools.Dashboard.Framework.Commands;
-using NoeticTools.Dashboard.Framework.Config;
-using NoeticTools.Dashboard.Framework.Config.Properties;
-using NoeticTools.Dashboard.Framework.DataSources.TeamCity;
-using NoeticTools.Dashboard.Framework.Tiles.TeamCity.LastBuildStatus;
-using NoeticTools.Dashboard.Framework.Time;
+using NoeticTools.SystemsDashboard.Framework;
+using NoeticTools.SystemsDashboard.Framework.Config;
+using NoeticTools.SystemsDashboard.Framework.Config.Properties;
+using NoeticTools.SystemsDashboard.Framework.Tiles.TeamCity.LastBuildStatus;
+using NoeticTools.SystemsDashboard.Framework.Time;
+using NoeticTools.SystemsDashboard.Framework.Commands;
+using NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity;
 
 
-namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.TeamCity.LastBuildStatus
+namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.LastBuildStatus
 {
     internal sealed class TeamCityLastBuildStatusTileController : IViewController, ITimerListener
     {

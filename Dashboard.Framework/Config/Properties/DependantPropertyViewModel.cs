@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel;
 
 
-namespace NoeticTools.Dashboard.Framework.Config.Properties
+namespace NoeticTools.SystemsDashboard.Framework.Config.Properties
 {
     public class DependantPropertyViewModel : PropertyViewModel
     {

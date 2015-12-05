@@ -1,9 +1,9 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using NoeticTools.Dashboard.Framework.Commands;
+using NoeticTools.SystemsDashboard.Framework.Commands;
 
 
-namespace NoeticTools.Dashboard.Framework.Config.Views
+namespace NoeticTools.SystemsDashboard.Framework.Config.Views
 {
     public partial class PaneWithTitleBarControl : UserControl
     {

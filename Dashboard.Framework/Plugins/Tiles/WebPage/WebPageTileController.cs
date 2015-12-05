@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Input;
-using NoeticTools.Dashboard.Framework.Commands;
-using NoeticTools.Dashboard.Framework.Config;
-using NoeticTools.Dashboard.Framework.Config.Properties;
-using NoeticTools.Dashboard.Framework.Tiles;
-using NoeticTools.Dashboard.Framework.Tiles.WebPage;
+using NoeticTools.SystemsDashboard.Framework;
+using NoeticTools.SystemsDashboard.Framework.Config;
+using NoeticTools.SystemsDashboard.Framework.Config.Properties;
+using NoeticTools.SystemsDashboard.Framework.Tiles.WebPage;
+using NoeticTools.SystemsDashboard.Framework.Commands;
 
 
-namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.WebPage
+namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.WebPage
 {
     internal class WebPageTileController : IViewController
     {
@@ -16,9 +16,9 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.WebPage
         private readonly IDashboardController _dashboardController;
         public static readonly string TileTypeId = "WebBrowser";
         private readonly TileConfigurationConverter _tileConfigurationConverter;
-        private WebPageTileControl _view;
         private readonly TileLayoutController _layoutController;
         private readonly IServices _services;
+        private WebPageTileControl _view;
 
         public WebPageTileController(TileConfiguration tile, IDashboardController dashboardController, TileLayoutController tileLayoutController, IServices services)
         {

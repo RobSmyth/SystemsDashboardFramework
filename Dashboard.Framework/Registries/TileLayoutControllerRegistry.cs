@@ -2,11 +2,12 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using NoeticTools.Dashboard.Framework.Config;
-using NoeticTools.Dashboard.Framework.Input;
+using NoeticTools.SystemsDashboard.Framework;
+using NoeticTools.SystemsDashboard.Framework.Config;
+using NoeticTools.SystemsDashboard.Framework.Input;
 
 
-namespace NoeticTools.Dashboard.Framework.Registries
+namespace NoeticTools.SystemsDashboard.Framework.Registries
 {
     public sealed class TileLayoutControllerRegistry : ITileLayoutControllerRegistry
     {

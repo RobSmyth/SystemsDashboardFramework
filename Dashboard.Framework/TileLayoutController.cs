@@ -4,14 +4,16 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
-using NoeticTools.Dashboard.Framework.Adorners;
-using NoeticTools.Dashboard.Framework.Config;
-using NoeticTools.Dashboard.Framework.Input;
-using NoeticTools.Dashboard.Framework.Plugins.Tiles.BlankTile;
-using NoeticTools.Dashboard.Framework.Registries;
+using System.Windows.Input;
+using NoeticTools.SystemsDashboard.Framework;
+using NoeticTools.SystemsDashboard.Framework.Adorners;
+using NoeticTools.SystemsDashboard.Framework.Config;
+using NoeticTools.SystemsDashboard.Framework.Input;
+using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.BlankTile;
+using NoeticTools.SystemsDashboard.Framework.Registries;
 
 
-namespace NoeticTools.Dashboard.Framework
+namespace NoeticTools.SystemsDashboard.Framework
 {
     public sealed class TileLayoutController : ITileLayoutController
     {
@@ -23,10 +25,10 @@ namespace NoeticTools.Dashboard.Framework
         private readonly ITileLayoutControllerRegistry _tileLayoutControllerRegistry;
         private readonly ITileControllerFactory _tileFactory;
         private readonly IDictionary<TileConfiguration, UIElement> _tileToView = new Dictionary<TileConfiguration, UIElement>();
-        private TileConfiguration _tile;
         private readonly TileLayoutController _parent;
+        private TileConfiguration _tile;
 
-        public TileLayoutController(Grid tileGrid, ITileControllerFactory tileFactory, ITileLayoutControllerRegistry tileLayoutControllerRegistry, Thickness normalMargin, 
+        public TileLayoutController(Grid tileGrid, ITileControllerFactory tileFactory, ITileLayoutControllerRegistry tileLayoutControllerRegistry, Thickness normalMargin,
             TileDragAndDropController dragAndDropController, DashboardTileNavigator tileNavigator, TileLayoutController parent)
         {
             _tileFactory = tileFactory;
@@ -82,24 +84,6 @@ namespace NoeticTools.Dashboard.Framework
             AddToConfiguration(tile);
         }
 
-        private void AddToConfiguration(TileConfiguration tile)
-        {
-            _tile.Tiles = new List<TileConfiguration>(_tile.Tiles) {tile}.ToArray();
-        }
-
-        private void AddTile(TileConfiguration tile)
-        {
-            if (tile.TypeId == TileConfiguration.PaneTileTypeId || tile.TypeId.Equals("6f1bf918-6080-42c2-b980-d562f77cb4e6", StringComparison.InvariantCultureIgnoreCase))
-            {
-                tile.TypeId = TileConfiguration.PaneTileTypeId;
-                _tileToView.Add(tile, AddPanel(tile));
-            }
-            else
-            {
-                _tileToView.Add(tile, AddTile(tile, _tileFactory.Create(tile, this)));
-            }
-        }
-
         public void Clear()
         {
             _tileGrid.Children.Clear();
@@ -143,6 +127,31 @@ namespace NoeticTools.Dashboard.Framework
         {
             RemoveTile(tile);
             RemoveEmptyRowsAndColumns();
+        }
+
+        public void Replace(TileConfiguration tileToReplace, TileConfiguration newTile)
+        {
+            newTile.SetLocation(tileToReplace);
+            Remove(tileToReplace);
+            AddTile(newTile);
+        }
+
+        private void AddToConfiguration(TileConfiguration tile)
+        {
+            _tile.Tiles = new List<TileConfiguration>(_tile.Tiles) {tile}.ToArray();
+        }
+
+        private void AddTile(TileConfiguration tile)
+        {
+            if (tile.TypeId == TileConfiguration.PaneTileTypeId || tile.TypeId.Equals("6f1bf918-6080-42c2-b980-d562f77cb4e6", StringComparison.InvariantCultureIgnoreCase))
+            {
+                tile.TypeId = TileConfiguration.PaneTileTypeId;
+                _tileToView.Add(tile, AddPanel(tile));
+            }
+            else
+            {
+                _tileToView.Add(tile, AddTile(tile, _tileFactory.Create(tile, this)));
+            }
         }
 
         private void RemoveEmptyRowsAndColumns()
@@ -349,7 +358,7 @@ namespace NoeticTools.Dashboard.Framework
             return panel;
         }
 
-        private void Panel_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void Panel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             _tileNavigator.MoveTo(sender as UIElement);
         }
@@ -400,13 +409,6 @@ namespace NoeticTools.Dashboard.Framework
             _tileToView.Remove(tile);
             _tileGrid.Children.Remove(element);
             _tile.Tiles = _tile.Tiles.Where(x => !ReferenceEquals(x, tile)).ToArray();
-        }
-
-        public void Replace(TileConfiguration tileToReplace, TileConfiguration newTile)
-        {
-            newTile.SetLocation(tileToReplace);
-            Remove(tileToReplace);
-            AddTile(newTile);
         }
     }
 }

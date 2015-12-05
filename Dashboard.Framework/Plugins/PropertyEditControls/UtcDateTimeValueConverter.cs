@@ -3,10 +3,10 @@ using System.Globalization;
 using System.Windows.Data;
 
 
-namespace NoeticTools.Dashboard.Framework.Plugins.PropertyEditControls
+namespace NoeticTools.SystemsDashboard.Framework.Plugins.PropertyEditControls
 {
     /// <summary>
-    /// Convert between UTC file time (long) and displayed date text.
+    ///     Convert between UTC file time (long) and displayed date text.
     /// </summary>
     public class UtcDateTimeValueConverter : IValueConverter
     {

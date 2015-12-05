@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Input;
-using NoeticTools.Dashboard.Framework;
+using NoeticTools.SystemsDashboard.Framework;
 
 
-namespace NoeticTools.TeamDashboard
+namespace NoeticTools.SystemsDashboard
 {
     public partial class MainWindow : Window
     {

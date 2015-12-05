@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-namespace NoeticTools.Dashboard.Framework
+namespace NoeticTools.SystemsDashboard.Framework
 {
     public interface IClock
     {

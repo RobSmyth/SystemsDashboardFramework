@@ -4,7 +4,7 @@ using System.Linq;
 using System.Windows.Input;
 
 
-namespace NoeticTools.Dashboard.Framework.Input
+namespace NoeticTools.SystemsDashboard.Framework.Input
 {
     public class KeyboardHandler : IKeyboardHandler
     {

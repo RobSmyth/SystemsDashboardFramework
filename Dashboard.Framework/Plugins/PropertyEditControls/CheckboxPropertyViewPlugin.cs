@@ -1,16 +1,15 @@
-﻿using NoeticTools.Dashboard.Framework.Plugins.Tiles;
-using NoeticTools.Dashboard.Framework.Tiles;
+﻿using NoeticTools.SystemsDashboard.Framework.Plugins.PropertyEditControls;
 
 
-namespace NoeticTools.Dashboard.Framework.Plugins.PropertyEditControls
+namespace NoeticTools.SystemsDashboard.Framework.Plugins.PropertyEditControls
 {
     public class CheckboxPropertyViewPlugin : IPlugin
     {
+        public int Rank => 0;
+
         public void Register(IServices services)
         {
             services.PropertyEditControlProviders.Register(new CheckboxPropertyViewProvider());
         }
-
-        public int Rank => 0;
     }
 }

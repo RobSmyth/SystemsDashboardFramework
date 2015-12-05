@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using Atlassian.Jira;
+using NoeticTools.SystemsDashboard.Framework;
+using NoeticTools.SystemsDashboard.Framework.DataSources.Jira;
 
 
-namespace NoeticTools.Dashboard.Framework.DataSources.Jira
+namespace NoeticTools.SystemsDashboard.Framework.DataSources.Jira
 {
     public class JiraChannelState : IJiraChannel
     {

@@ -1,7 +1,7 @@
 ﻿using System.Windows.Input;
 
 
-namespace NoeticTools.Dashboard.Framework.Config.Properties
+namespace NoeticTools.SystemsDashboard.Framework.Config.Properties
 {
     public class HyperlinkPropertyViewModel : IPropertyViewModel
     {

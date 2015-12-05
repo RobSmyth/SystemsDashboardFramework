@@ -1,7 +1,4 @@
-﻿using NoeticTools.Dashboard.Framework.Tiles;
-
-
-namespace NoeticTools.Dashboard.Framework
+﻿namespace NoeticTools.SystemsDashboard.Framework
 {
     public interface IDashboardController
     {

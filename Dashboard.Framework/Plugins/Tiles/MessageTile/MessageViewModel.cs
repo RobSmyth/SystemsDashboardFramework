@@ -1,10 +1,11 @@
 ﻿using System.Windows.Input;
-using NoeticTools.Dashboard.Framework.Commands;
-using NoeticTools.Dashboard.Framework.Config;
-using NoeticTools.Dashboard.Framework.Config.Properties;
+using NoeticTools.SystemsDashboard.Framework;
+using NoeticTools.SystemsDashboard.Framework.Config;
+using NoeticTools.SystemsDashboard.Framework.Config.Properties;
+using NoeticTools.SystemsDashboard.Framework.Commands;
 
 
-namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.MessageTile
+namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.MessageTile
 {
     internal sealed class MessageViewModel : NotifyingViewModelBase, IConfigurationChangeListener
     {
@@ -14,7 +15,7 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.MessageTile
         public MessageViewModel(TileConfiguration tile, IDashboardController dashboardController, TileLayoutController tileLayoutController, IServices services)
         {
             _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
-            var parameters = new IPropertyViewModel[] { new PropertyViewModel("Message", "Text", _tileConfigurationConverter) };
+            var parameters = new IPropertyViewModel[] {new PropertyViewModel("Message", "Text", _tileConfigurationConverter)};
             ConfigureCommand = new TileConfigureCommand(tile, "Message Tile Configuration", parameters, dashboardController, tileLayoutController, services);
             Update();
         }

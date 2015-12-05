@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 
 
-namespace NoeticTools.Dashboard.Framework.Registries
+namespace NoeticTools.SystemsDashboard.Framework.Registries
 {
     public interface ITileProviderRegistry
     {

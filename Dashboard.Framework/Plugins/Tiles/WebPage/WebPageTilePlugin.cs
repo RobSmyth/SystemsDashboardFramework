@@ -1,8 +1,9 @@
 ﻿using System;
-using NoeticTools.Dashboard.Framework.Config;
+using NoeticTools.SystemsDashboard.Framework;
+using NoeticTools.SystemsDashboard.Framework.Config;
 
 
-namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.WebPage
+namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.WebPage
 {
     public class WebPageTilePlugin : IPlugin, ITileControllerProvider
     {

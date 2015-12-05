@@ -2,7 +2,7 @@
 using System.Globalization;
 
 
-namespace NoeticTools.Dashboard.Framework.Config
+namespace NoeticTools.SystemsDashboard.Framework.Config
 {
     public sealed class TileConfigurationConverter
     {
@@ -28,10 +28,7 @@ namespace NoeticTools.Dashboard.Framework.Config
             {
                 return DateTime.FromFileTimeUtc(fileTime);
             }
-            else
-            {
-                return DateTime.Parse(value, CultureInfo.CurrentCulture);
-            }
+            return DateTime.Parse(value, CultureInfo.CurrentCulture);
         }
 
         public string GetString(string name)

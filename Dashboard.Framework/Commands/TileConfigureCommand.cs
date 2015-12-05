@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Input;
-using NoeticTools.Dashboard.Framework.Config;
-using NoeticTools.Dashboard.Framework.Config.Controllers;
-using NoeticTools.Dashboard.Framework.Config.Properties;
-using NoeticTools.Dashboard.Framework.Registries;
+using NoeticTools.SystemsDashboard.Framework;
+using NoeticTools.SystemsDashboard.Framework.Commands;
+using NoeticTools.SystemsDashboard.Framework.Config;
+using NoeticTools.SystemsDashboard.Framework.Config.Properties;
+using NoeticTools.SystemsDashboard.Framework.Config.Controllers;
 
 
-namespace NoeticTools.Dashboard.Framework.Commands
+namespace NoeticTools.SystemsDashboard.Framework.Commands
 {
     public class TileConfigureCommand : ICommand
     {
@@ -27,7 +28,7 @@ namespace NoeticTools.Dashboard.Framework.Commands
             {
                 new DividerPropertyViewModel(),
                 new TileRowSpanViewModel(tile),
-                new TileColumnSpanViewModel(tile),
+                new TileColumnSpanViewModel(tile)
             }.ToArray();
             _dashboardController = dashboardController;
             _tileLayoutController = tileLayoutController;

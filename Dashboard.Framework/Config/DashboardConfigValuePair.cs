@@ -1,7 +1,7 @@
 ﻿using System.Xml.Serialization;
 
 
-namespace NoeticTools.Dashboard.Framework.Config
+namespace NoeticTools.SystemsDashboard.Framework.Config
 {
     [XmlType("keyValue")]
     public class DashboardConfigValuePair

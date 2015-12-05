@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using NoeticTools.Dashboard.Framework.DataSources.Jira;
+using NoeticTools.SystemsDashboard.Framework.DataSources.Jira;
 using TeamCitySharp;
 using TeamCitySharp.DomainEntities;
 using TeamCitySharp.Locators;
 
 
-namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
+namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
 {
     internal class TeamCityChannelConnectedState : ITeamCityChannel
     {

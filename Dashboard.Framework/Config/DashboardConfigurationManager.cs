@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Xml.Serialization;
 
 
-namespace NoeticTools.Dashboard.Framework.Config
+namespace NoeticTools.SystemsDashboard.Framework.Config
 {
     public class DashboardConfigurationManager
     {
@@ -66,7 +66,7 @@ namespace NoeticTools.Dashboard.Framework.Config
         private void SaveDefaultConfiguration(string configPath)
         {
             var assembly = Assembly.GetExecutingAssembly();
-            var resourceName = "NoeticTools.Dashboard.Framework.dashboard.config.default.xml";
+            var resourceName = "NoeticTools.SystemsDashboard.Framework.dashboard.config.default.xml";
 
             using (var stream = assembly.GetManifestResourceStream(resourceName))
             using (var reader = new StreamReader(stream))

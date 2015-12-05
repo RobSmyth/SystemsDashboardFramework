@@ -1,16 +1,16 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using NoeticTools.Dashboard.Framework.Config;
-using NoeticTools.Dashboard.Framework.Dashboards;
-using NoeticTools.Dashboard.Framework.Input;
-using NoeticTools.Dashboard.Framework.Plugins.Tiles.InsertTile;
-using NoeticTools.Dashboard.Framework.Registries;
-using NoeticTools.Dashboard.Framework.Tiles;
-using NoeticTools.Dashboard.Framework.Tiles.Help;
-using NoeticTools.Dashboard.Framework.Time;
+using NoeticTools.SystemsDashboard.Framework;
+using NoeticTools.SystemsDashboard.Framework.Config;
+using NoeticTools.SystemsDashboard.Framework.Dashboards;
+using NoeticTools.SystemsDashboard.Framework.Input;
+using NoeticTools.SystemsDashboard.Framework.Tiles.Help;
+using NoeticTools.SystemsDashboard.Framework.Time;
+using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.InsertTile;
+using NoeticTools.SystemsDashboard.Framework.Registries;
 
 
-namespace NoeticTools.Dashboard.Framework
+namespace NoeticTools.SystemsDashboard.Framework
 {
     public sealed class DashboardController : IDashboardController
     {

@@ -1,15 +1,13 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
-using NoeticTools.Dashboard.Framework.Annotations;
-using NoeticTools.Dashboard.Framework.Input;
+using NoeticTools.SystemsDashboard.Framework.Annotations;
+using NoeticTools.SystemsDashboard.Framework.Input;
 
 
-namespace NoeticTools.Dashboard.Framework.Adorners
+namespace NoeticTools.SystemsDashboard.Framework.Adorners
 {
     public class DropTargetAdorner : Adorner
     {
@@ -39,6 +37,29 @@ namespace NoeticTools.Dashboard.Framework.Adorners
             layer.Remove(this);
         }
 
+        public void SetDropPosition(RelativeDropPostion relativeDropPostion)
+        {
+            if (_relativeDropPostion == relativeDropPostion)
+            {
+                return;
+            }
+
+            _relativeDropPostion = relativeDropPostion;
+
+            var lookup = new Dictionary<RelativeDropPostion, Action<DrawingContext, Rect, SolidColorBrush, Pen, double>>
+            {
+                {RelativeDropPostion.Bottom, DrawBottomInsertHint},
+                {RelativeDropPostion.Left, DrawLeftInsertHint},
+                {RelativeDropPostion.Right, DrawRightInsertHint},
+                {RelativeDropPostion.Top, DrawTopInsertHint},
+                {RelativeDropPostion.OnTop, DrawReplaceHint}
+            };
+
+            _drawHandler = lookup[relativeDropPostion];
+
+            InvalidateVisual();
+        }
+
         private static void DrawBottomInsertHint(DrawingContext drawingContext, Rect adornedElementRect, SolidColorBrush renderBrush, Pen renderPen, double thickness)
         {
             renderBrush.Opacity = 0.7;
@@ -56,7 +77,7 @@ namespace NoeticTools.Dashboard.Framework.Adorners
             renderBrush.Opacity = 0.7;
             var cornerA = adornedElementRect.TopLeft;
             var cornerB = adornedElementRect.TopRight;
-            cornerA.Offset(0,-1);
+            cornerA.Offset(0, -1);
             cornerB.Offset(0, -1);
 
             var streamGeometry = GetHorizontalInsertGeometry(cornerA, cornerB, thickness);
@@ -73,7 +94,7 @@ namespace NoeticTools.Dashboard.Framework.Adorners
                 {
                     adornedElementRect.TopRight,
                     adornedElementRect.BottomRight,
-                    adornedElementRect.BottomLeft,
+                    adornedElementRect.BottomLeft
                 };
                 geometryContext.PolyLineTo(points, true, true);
             }
@@ -85,8 +106,8 @@ namespace NoeticTools.Dashboard.Framework.Adorners
             renderBrush.Opacity = 0.7;
             var cornerA = adornedElementRect.TopLeft;
             var cornerB = adornedElementRect.BottomLeft;
-            cornerA.Offset(-1,0);
-            cornerB.Offset(-1,0);
+            cornerA.Offset(-1, 0);
+            cornerB.Offset(-1, 0);
 
             var streamGeometry = GetVerticalInsertGeometryx(cornerA, cornerB, thickness);
             drawingContext.DrawGeometry(renderBrush, renderPen, streamGeometry);
@@ -97,8 +118,8 @@ namespace NoeticTools.Dashboard.Framework.Adorners
             renderBrush.Opacity = 0.7;
             var cornerA = adornedElementRect.TopRight;
             var cornerB = adornedElementRect.BottomRight;
-            cornerA.Offset(1,0);
-            cornerB.Offset(1,0);
+            cornerA.Offset(1, 0);
+            cornerB.Offset(1, 0);
 
             var streamGeometry = GetVerticalInsertGeometryx(cornerA, cornerB, thickness);
             drawingContext.DrawGeometry(renderBrush, renderPen, streamGeometry);
@@ -116,7 +137,7 @@ namespace NoeticTools.Dashboard.Framework.Adorners
                     new Point(top.X - thickness/2, bottom.Y - thickness/2),
                     bottom,
                     new Point(top.X + thickness/2, bottom.Y - thickness/2),
-                    new Point(top.X + thickness/2, top.Y + thickness/2),
+                    new Point(top.X + thickness/2, top.Y + thickness/2)
                 };
                 geometryContext.PolyLineTo(points, true, true);
             }
@@ -135,7 +156,7 @@ namespace NoeticTools.Dashboard.Framework.Adorners
                     new Point(right.X - thickness/2, right.Y - thickness/2),
                     right,
                     new Point(right.X - thickness/2, right.Y + thickness/2),
-                    new Point(left.X + thickness/2, right.Y + thickness/2),
+                    new Point(left.X + thickness/2, right.Y + thickness/2)
                 };
                 geometryContext.PolyLineTo(points, true, true);
             }
@@ -145,34 +166,11 @@ namespace NoeticTools.Dashboard.Framework.Adorners
         protected override void OnRender(DrawingContext drawingContext)
         {
             var adornedElementRect = new Rect(AdornedElement.RenderSize);
-            var renderBrush = new SolidColorBrush(FillColour) { Opacity = 0.5 };
+            var renderBrush = new SolidColorBrush(FillColour) {Opacity = 0.5};
             var renderPen = new Pen(new SolidColorBrush(LineColour) {Opacity = 0.6}, 2.0);
             var thickness = (_relativeDropPostion & RelativeDropPostion.Horizontal) != 0 ? adornedElementRect.Width : adornedElementRect.Height;
-            thickness = Math.Max(MinimumThickness, thickness / 20.0);
+            thickness = Math.Max(MinimumThickness, thickness/20.0);
             _drawHandler(drawingContext, adornedElementRect, renderBrush, renderPen, thickness);
-        }
-
-        public void SetDropPosition(RelativeDropPostion relativeDropPostion)
-        {
-            if (_relativeDropPostion == relativeDropPostion)
-            {
-                return;
-            }
-
-            _relativeDropPostion = relativeDropPostion;
-
-            var lookup = new Dictionary<RelativeDropPostion, Action<DrawingContext, Rect, SolidColorBrush, Pen, double>>
-            {
-                {RelativeDropPostion.Bottom, DrawBottomInsertHint},
-                {RelativeDropPostion.Left, DrawLeftInsertHint},
-                {RelativeDropPostion.Right, DrawRightInsertHint},
-                {RelativeDropPostion.Top, DrawTopInsertHint},
-                {RelativeDropPostion.OnTop, DrawReplaceHint},
-            };
-
-            _drawHandler = lookup[relativeDropPostion];
-
-            InvalidateVisual();
         }
     }
 }

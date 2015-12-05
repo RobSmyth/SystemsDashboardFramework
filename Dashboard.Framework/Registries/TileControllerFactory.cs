@@ -1,9 +1,9 @@
 using System.Linq;
-using NoeticTools.Dashboard.Framework.Config;
-using NoeticTools.Dashboard.Framework.Tiles;
+using NoeticTools.SystemsDashboard.Framework;
+using NoeticTools.SystemsDashboard.Framework.Config;
 
 
-namespace NoeticTools.Dashboard.Framework.Registries
+namespace NoeticTools.SystemsDashboard.Framework.Registries
 {
     public sealed class TileControllerFactory : ITileControllerFactory
     {

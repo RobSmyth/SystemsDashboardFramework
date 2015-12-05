@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Xml.Serialization;
 
 
-namespace NoeticTools.Dashboard.Framework.Config
+namespace NoeticTools.SystemsDashboard.Framework.Config
 {
     [XmlType("tile")]
     public sealed class TileConfiguration : ItemConfigurationBase
@@ -51,8 +50,6 @@ namespace NoeticTools.Dashboard.Framework.Config
         [XmlArray(ElementName = "tiles")]
         public TileConfiguration[] Tiles { get; set; }
 
-        public static string PaneTileTypeId = "Pane";
-
         public bool IsInColumn(int columnNumber)
         {
             return ColumnNumber <= columnNumber && ColumnNumber + ColumnSpan - 1 >= columnNumber;
@@ -70,5 +67,7 @@ namespace NoeticTools.Dashboard.Framework.Config
             RowSpan = tile.RowSpan;
             ColumnSpan = tile.ColumnSpan;
         }
+
+        public static string PaneTileTypeId = "Pane";
     }
 }

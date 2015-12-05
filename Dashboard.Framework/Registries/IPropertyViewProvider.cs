@@ -1,8 +1,8 @@
 using System.Windows;
-using NoeticTools.Dashboard.Framework.Config;
+using NoeticTools.SystemsDashboard.Framework.Config;
 
 
-namespace NoeticTools.Dashboard.Framework.Registries
+namespace NoeticTools.SystemsDashboard.Framework.Registries
 {
     public interface IPropertyViewProvider
     {

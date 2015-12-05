@@ -5,16 +5,16 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using NoeticTools.Dashboard.Framework.Commands;
-using NoeticTools.Dashboard.Framework.Config;
-using NoeticTools.Dashboard.Framework.Config.Properties;
-using NoeticTools.Dashboard.Framework.DataSources.TeamCity;
-using NoeticTools.Dashboard.Framework.Tiles;
-using NoeticTools.Dashboard.Framework.Tiles.TeamCityAvailableBuilds;
-using NoeticTools.Dashboard.Framework.Time;
+using NoeticTools.SystemsDashboard.Framework;
+using NoeticTools.SystemsDashboard.Framework.Config;
+using NoeticTools.SystemsDashboard.Framework.Config.Properties;
+using NoeticTools.SystemsDashboard.Framework.Tiles.TeamCityAvailableBuilds;
+using NoeticTools.SystemsDashboard.Framework.Time;
+using NoeticTools.SystemsDashboard.Framework.Commands;
+using NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity;
 
 
-namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.TeamCity.AvailableBuilds
+namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.AvailableBuilds
 {
     internal sealed class TeamCityAvailableBuildsTileController : IViewController, ITimerListener
     {
@@ -33,9 +33,9 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.TeamCity.AvailableBuilds
         private readonly IDashboardController _dashboardController;
         private readonly TimeSpan _tickPeriod = TimeSpan.FromSeconds(15);
         private readonly TileConfigurationConverter _tileConfigurationConverter;
-        private TeamCityAvailableBuildsListControl _view;
         private readonly TileLayoutController _layoutController;
         private readonly IServices _services;
+        private TeamCityAvailableBuildsListControl _view;
 
         public TeamCityAvailableBuildsTileController(TeamCityService service, TileConfiguration tile, IDashboardController dashboardController, TileLayoutController tileLayoutController, IServices services)
         {
@@ -65,6 +65,22 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.TeamCity.AvailableBuilds
             return _view;
         }
 
+        public void OnConfigurationChanged(TileConfigurationConverter converter)
+        {
+            if (_view == null)
+            {
+                return;
+            }
+
+            Tick();
+        }
+
+
+        public void OnTimeElapsed(TimerToken token)
+        {
+            Tick();
+        }
+
         private IPropertyViewModel[] GetConfigurtionParameters()
         {
             var parameters = new List<IPropertyViewModel>
@@ -83,22 +99,6 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.TeamCity.AvailableBuilds
                 parameters.Add(new DividerPropertyViewModel());
             }
             return parameters.ToArray();
-        }
-
-        public void OnConfigurationChanged(TileConfigurationConverter converter)
-        {
-            if (_view == null)
-            {
-                return;
-            }
-
-            Tick();
-        }
-
-
-        public void OnTimeElapsed(TimerToken token)
-        {
-            Tick();
         }
 
         private static string CleanupVersion(string version)

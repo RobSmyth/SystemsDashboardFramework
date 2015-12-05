@@ -1,10 +1,10 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using NoeticTools.Dashboard.Framework.Config;
-using NoeticTools.Dashboard.Framework.Input;
+using NoeticTools.SystemsDashboard.Framework.Config;
+using NoeticTools.SystemsDashboard.Framework.Input;
 
 
-namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.InsertTile
+namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.InsertTile
 {
     public partial class InsertTileControl : UserControl, IDragSource
     {

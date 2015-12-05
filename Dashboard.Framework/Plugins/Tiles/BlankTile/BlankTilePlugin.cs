@@ -1,23 +1,24 @@
 ﻿using System;
-using NoeticTools.Dashboard.Framework.Config;
-using NoeticTools.Dashboard.Framework.Plugins.Tiles.Date;
-using NoeticTools.Dashboard.Framework.Tiles;
-using NoeticTools.Dashboard.Framework.Time;
+using NoeticTools.SystemsDashboard.Framework;
+using NoeticTools.SystemsDashboard.Framework.Config;
 
 
-namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.BlankTile
+namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.BlankTile
 {
     public class BlankTilePlugin : IPlugin, ITileControllerProvider
     {
         private readonly IDashboardController _dashboardController;
         private readonly IServices _services;
-        public string Name => "Blank";
 
         public BlankTilePlugin(IDashboardController dashboardController, IServices services)
         {
             _dashboardController = dashboardController;
             _services = services;
         }
+
+        public string Name => "Blank";
+
+        public int Rank => 0;
 
         public void Register(IServices services)
         {
@@ -43,7 +44,5 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.BlankTile
                 Tiles = new TileConfiguration[0]
             };
         }
-
-        public int Rank => 0;
     }
 }

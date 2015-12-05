@@ -2,7 +2,7 @@ using System;
 using System.Windows.Input;
 
 
-namespace NoeticTools.Dashboard.Framework.Config.Commands
+namespace NoeticTools.SystemsDashboard.Framework.Config.Commands
 {
     public class NullCommand : ICommand
     {

@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Input;
-using NoeticTools.Dashboard.Framework.Config;
-using NoeticTools.Dashboard.Framework.Config.Commands;
-using NoeticTools.Dashboard.Framework.Tiles;
-using NoeticTools.Dashboard.Framework.Time;
+using NoeticTools.SystemsDashboard.Framework.Config;
+using NoeticTools.SystemsDashboard.Framework.Config.Commands;
+using NoeticTools.SystemsDashboard.Framework.Time;
 
 
-namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.Date
+namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Date
 {
     internal sealed class DateTileController : IViewController, ITimerListener
     {

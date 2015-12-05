@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
-using NoeticTools.Dashboard.Framework.Config;
-using NoeticTools.Dashboard.Framework.Input;
-using NoeticTools.Dashboard.Framework.Registries;
-using NoeticTools.Dashboard.Framework.Tiles;
+using NoeticTools.SystemsDashboard.Framework;
+using NoeticTools.SystemsDashboard.Framework.Config;
+using NoeticTools.SystemsDashboard.Framework.Input;
+using NoeticTools.SystemsDashboard.Framework.Registries;
 
 
-namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.InsertTile
+namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.InsertTile
 {
     internal sealed class InsertTileController : IViewController
     {

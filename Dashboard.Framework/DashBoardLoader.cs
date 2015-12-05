@@ -1,8 +1,7 @@
-﻿using NoeticTools.Dashboard.Framework.Config;
-using NoeticTools.Dashboard.Framework.Plugins.Tiles;
+﻿using NoeticTools.SystemsDashboard.Framework.Config;
 
 
-namespace NoeticTools.Dashboard.Framework
+namespace NoeticTools.SystemsDashboard.Framework
 {
     public class DashBoardLoader : IDashBoardLoader
     {

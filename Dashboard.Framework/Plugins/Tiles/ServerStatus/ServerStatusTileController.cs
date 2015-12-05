@@ -1,11 +1,11 @@
 ﻿using System.Windows;
 using System.Windows.Input;
-using NoeticTools.Dashboard.Framework.Config;
-using NoeticTools.Dashboard.Framework.Config.Commands;
-using NoeticTools.Dashboard.Framework.Tiles.ServerStatus;
+using NoeticTools.SystemsDashboard.Framework.Config;
+using NoeticTools.SystemsDashboard.Framework.Config.Commands;
+using NoeticTools.SystemsDashboard.Framework.Tiles.ServerStatus;
 
 
-namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.ServerStatus
+namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.ServerStatus
 {
     internal sealed class ServerStatusTileController : IViewController
     {

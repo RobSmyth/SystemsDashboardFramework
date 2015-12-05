@@ -1,7 +1,7 @@
 using System.Windows.Input;
 
 
-namespace NoeticTools.Dashboard.Framework
+namespace NoeticTools.SystemsDashboard.Framework
 {
     public interface IKeyHandler
     {

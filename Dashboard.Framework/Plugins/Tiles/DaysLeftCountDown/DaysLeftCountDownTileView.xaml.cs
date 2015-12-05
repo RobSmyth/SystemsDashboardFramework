@@ -1,7 +1,7 @@
 ﻿using System.Windows.Controls;
 
 
-namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.DaysLeftCountDown
+namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.DaysLeftCountDown
 {
     public partial class DaysLeftCountDownTileView : UserControl
     {

@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
-using NoeticTools.Dashboard.Framework.Commands;
-using NoeticTools.Dashboard.Framework.Config.Views;
-using NoeticTools.Dashboard.Framework.Registries;
-using NoeticTools.Dashboard.Framework.Tiles;
+using NoeticTools.SystemsDashboard.Framework;
+using NoeticTools.SystemsDashboard.Framework.Commands;
+using NoeticTools.SystemsDashboard.Framework.Config;
+using NoeticTools.SystemsDashboard.Framework.Config.Views;
+using NoeticTools.SystemsDashboard.Framework.Config.Views;
 
 
-namespace NoeticTools.Dashboard.Framework.Config.Controllers
+namespace NoeticTools.SystemsDashboard.Framework.Config.Controllers
 {
     public sealed class ConfigationViewController : NotifyingViewModelBase, IViewController
     {

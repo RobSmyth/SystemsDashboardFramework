@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 
-namespace NoeticTools.Dashboard.Framework.DataSources.Jira
+namespace NoeticTools.SystemsDashboard.Framework.DataSources.Jira
 {
     public class TimeCachedArray<T>
     {

@@ -1,4 +1,4 @@
-﻿namespace NoeticTools.Dashboard.Framework.Config
+﻿namespace NoeticTools.SystemsDashboard.Framework.Config
 {
     public interface IItemConfiguration
     {

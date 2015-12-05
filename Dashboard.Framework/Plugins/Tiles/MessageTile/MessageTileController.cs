@@ -1,9 +1,10 @@
 ﻿using System.Windows;
-using NoeticTools.Dashboard.Framework.Config;
-using NoeticTools.Dashboard.Framework.Tiles;
+using NoeticTools.SystemsDashboard.Framework;
+using NoeticTools.SystemsDashboard.Framework.Config;
+using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.MessageTile;
 
 
-namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.MessageTile
+namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.MessageTile
 {
     internal sealed class MessageTileController : IViewController
     {

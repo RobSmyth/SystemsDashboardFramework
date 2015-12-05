@@ -3,7 +3,7 @@ using System.Linq;
 using Atlassian.Jira;
 
 
-namespace NoeticTools.Dashboard.Framework.DataSources.Jira
+namespace NoeticTools.SystemsDashboard.Framework.DataSources.Jira
 {
     public class JiraFilterIssuesReader
     {

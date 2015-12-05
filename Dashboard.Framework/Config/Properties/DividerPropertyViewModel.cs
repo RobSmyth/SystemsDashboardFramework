@@ -1,4 +1,4 @@
-namespace NoeticTools.Dashboard.Framework.Config.Properties
+namespace NoeticTools.SystemsDashboard.Framework.Config.Properties
 {
     public class DividerPropertyViewModel : IPropertyViewModel
     {

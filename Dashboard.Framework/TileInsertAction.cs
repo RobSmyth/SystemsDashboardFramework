@@ -1,4 +1,4 @@
-namespace NoeticTools.Dashboard.Framework
+namespace NoeticTools.SystemsDashboard.Framework
 {
     public enum TileInsertAction
     {

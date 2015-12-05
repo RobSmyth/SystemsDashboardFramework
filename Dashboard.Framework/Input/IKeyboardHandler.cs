@@ -1,4 +1,4 @@
-namespace NoeticTools.Dashboard.Framework.Input
+namespace NoeticTools.SystemsDashboard.Framework.Input
 {
     public interface IKeyboardHandler
     {

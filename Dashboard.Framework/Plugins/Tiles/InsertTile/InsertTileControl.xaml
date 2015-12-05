@@ -1,9 +1,9 @@
-﻿<UserControl x:Class="NoeticTools.Dashboard.Framework.Plugins.Tiles.InsertTile.InsertTileControl"
+﻿<UserControl x:Class="NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.InsertTile.InsertTileControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:NoeticTools.Dashboard.Framework.Config.Views"
+             xmlns:local="clr-namespace:NoeticTools.SystemsDashboard.Framework.Config.Views"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="400">
 
@@ -11,7 +11,7 @@
 
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/NoeticTools.Dashboard.Framework;component/Styles.xaml" />
+                <ResourceDictionary Source="/NoeticTools.SystemsDashboard.Framework;component/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Style TargetType="TextBlock" BasedOn="{StaticResource ConfigPanelStyle_Textbox}" />
             <Style TargetType="Label" BasedOn="{StaticResource ConfigPanelStyle_Label}" />
@@ -48,27 +48,27 @@
             </Grid.ColumnDefinitions>
 
             <Button Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5" ToolTip="Insert in new row to left">
-                <Image Source="/NoeticTools.Dashboard.Framework;component/Images/Insert row to left.png" Width="32" Height="32"/>
+                <Image Source="/NoeticTools.SystemsDashboard.Framework;component/Images/Insert row to left.png" Width="32" Height="32"/>
             </Button>
             
             <Button Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5" ToolTip="Insert in new row to right">
-                <Image Source="/NoeticTools.Dashboard.Framework;component/Images/Insert row to right.png" Width="32" Height="32"/>
+                <Image Source="/NoeticTools.SystemsDashboard.Framework;component/Images/Insert row to right.png" Width="32" Height="32"/>
             </Button>
             
             <Button Grid.Row="0" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5" ToolTip="Insert in new row above">
-                <Image Source="/NoeticTools.Dashboard.Framework;component/Images/Insert row above.png" Width="32" Height="32"/>
+                <Image Source="/NoeticTools.SystemsDashboard.Framework;component/Images/Insert row above.png" Width="32" Height="32"/>
             </Button>
             
             <Button Grid.Row="0" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5" ToolTip="Insert in new row below">
-                <Image Source="/NoeticTools.Dashboard.Framework;component/Images/Insert row below.png" Width="32" Height="32"/>
+                <Image Source="/NoeticTools.SystemsDashboard.Framework;component/Images/Insert row below.png" Width="32" Height="32"/>
             </Button>
 
             <Button Grid.Row="0" Grid.Column="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5" ToolTip="Delete column">
-                <Image Source="/NoeticTools.Dashboard.Framework;component/Images/Delete column.png" Width="32" Height="32"/>
+                <Image Source="/NoeticTools.SystemsDashboard.Framework;component/Images/Delete column.png" Width="32" Height="32"/>
             </Button>
             
             <Button Grid.Row="0" Grid.Column="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5" ToolTip="Delete row">
-                <Image Source="/NoeticTools.Dashboard.Framework;component/Images/Delete row.png" Width="32" Height="32"/>
+                <Image Source="/NoeticTools.SystemsDashboard.Framework;component/Images/Delete row.png" Width="32" Height="32"/>
             </Button>
 
         </Grid>

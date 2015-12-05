@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 
-namespace NoeticTools.Dashboard.Framework.Registries
+namespace NoeticTools.SystemsDashboard.Framework.Registries
 {
     public sealed class TileProviderRegistry : ITileProviderRegistry
     {

@@ -1,10 +1,9 @@
 ﻿using System.Windows;
-using NoeticTools.Dashboard.Framework.Config;
-using NoeticTools.Dashboard.Framework.Tiles;
-using NoeticTools.Dashboard.Framework.Tiles.Dashboards;
+using NoeticTools.SystemsDashboard.Framework.Config;
+using NoeticTools.SystemsDashboard.Framework.Tiles.Dashboards;
 
 
-namespace NoeticTools.Dashboard.Framework.Dashboards
+namespace NoeticTools.SystemsDashboard.Framework.Dashboards
 {
     public class DashboardsNavigationViewController : NotifyingViewModelBase, IViewController
     {

@@ -1,7 +1,7 @@
 using System;
 
 
-namespace NoeticTools.Dashboard.Framework.Input
+namespace NoeticTools.SystemsDashboard.Framework.Input
 {
     [Flags]
     public enum RelativeDropPostion
@@ -12,6 +12,6 @@ namespace NoeticTools.Dashboard.Framework.Input
         Right = 8,
         Bottom = 16,
         Horizontal = Top + Bottom,
-        Vertical = Left + Right,
+        Vertical = Left + Right
     }
 }

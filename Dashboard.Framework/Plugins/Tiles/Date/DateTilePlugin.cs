@@ -1,10 +1,11 @@
 ﻿using System;
-using NoeticTools.Dashboard.Framework.Config;
-using NoeticTools.Dashboard.Framework.Tiles;
-using NoeticTools.Dashboard.Framework.Time;
+using NoeticTools.SystemsDashboard.Framework;
+using NoeticTools.SystemsDashboard.Framework.Config;
+using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Date;
+using NoeticTools.SystemsDashboard.Framework.Time;
 
 
-namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.Date
+namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Date
 {
     public sealed class DateTilePlugin : IPlugin, ITileControllerProvider
     {
@@ -18,6 +19,8 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.Date
         }
 
         public string Name => "Date";
+
+        public int Rank => 0;
 
         public void Register(IServices services)
         {
@@ -43,7 +46,5 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.Date
                 Tiles = new TileConfiguration[0]
             };
         }
-
-        public int Rank => 0;
     }
 }

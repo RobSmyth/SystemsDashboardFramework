@@ -2,7 +2,7 @@
 using System.Linq;
 
 
-namespace NoeticTools.Dashboard.Framework
+namespace NoeticTools.SystemsDashboard.Framework
 {
     public class RunOptions
     {

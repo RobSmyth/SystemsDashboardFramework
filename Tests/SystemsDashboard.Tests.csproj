@@ -7,8 +7,8 @@
     <ProjectGuid>{52DDAE2D-F8C4-4462-A6F6-C63867ACD86D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TeamDashboard.Tests</RootNamespace>
-    <AssemblyName>Tests.TeamDashboard</AssemblyName>
+    <RootNamespace>SystemsDashboard.Tests</RootNamespace>
+    <AssemblyName>Tests.SystemsDashboard</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

@@ -1,8 +1,9 @@
 ﻿using System;
-using NoeticTools.Dashboard.Framework.Config;
+using NoeticTools.SystemsDashboard.Framework;
+using NoeticTools.SystemsDashboard.Framework.Config;
 
 
-namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.MessageTile
+namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.MessageTile
 {
     internal sealed class MessageTilePlugin : IPlugin, ITileControllerProvider
     {

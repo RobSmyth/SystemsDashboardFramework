@@ -1,7 +1,7 @@
 using System;
 
 
-namespace NoeticTools.Dashboard.Framework.Time
+namespace NoeticTools.SystemsDashboard.Framework.Time
 {
     public interface ITimerService
     {

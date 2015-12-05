@@ -4,7 +4,7 @@ using System.Linq;
 using System.Xml.Serialization;
 
 
-namespace NoeticTools.Dashboard.Framework.Config
+namespace NoeticTools.SystemsDashboard.Framework.Config
 {
     [XmlType("service")]
     public class DashboardServiceConfiguration : ItemConfigurationBase

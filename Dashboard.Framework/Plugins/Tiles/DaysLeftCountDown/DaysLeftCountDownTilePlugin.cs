@@ -1,10 +1,9 @@
 ﻿using System;
-using NoeticTools.Dashboard.Framework.Config;
-using NoeticTools.Dashboard.Framework.Tiles;
-using NoeticTools.Dashboard.Framework.Time;
+using NoeticTools.SystemsDashboard.Framework;
+using NoeticTools.SystemsDashboard.Framework.Config;
 
 
-namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.DaysLeftCountDown
+namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.DaysLeftCountDown
 {
     public class DaysLeftCountDownTilePlugin : IPlugin, ITileControllerProvider
     {
@@ -20,6 +19,8 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.DaysLeftCountDown
         }
 
         public string Name => "Days left";
+
+        public int Rank => 0;
 
         public bool MatchesId(string id)
         {
@@ -45,7 +46,5 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.DaysLeftCountDown
         {
             services.TileProviders.Register(this);
         }
-
-        public int Rank => 0;
     }
 }

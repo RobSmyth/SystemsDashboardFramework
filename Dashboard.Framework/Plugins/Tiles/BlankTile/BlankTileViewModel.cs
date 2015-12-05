@@ -1,24 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Input;
 using System.Windows.Media;
-using NoeticTools.Dashboard.Framework.Commands;
-using NoeticTools.Dashboard.Framework.Config;
-using NoeticTools.Dashboard.Framework.Config.Properties;
+using NoeticTools.SystemsDashboard.Framework;
+using NoeticTools.SystemsDashboard.Framework.Config;
+using NoeticTools.SystemsDashboard.Framework.Config.Properties;
+using NoeticTools.SystemsDashboard.Framework.Commands;
 
 
-namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.BlankTile
+namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.BlankTile
 {
     public class BlankTileViewModel : NotifyingViewModelBase, IConfigurationChangeListener
     {
-        private Brush _background;
         private readonly TileConfigurationConverter _tileConfigurationConverter;
+        private Brush _background;
 
         public BlankTileViewModel(TileConfiguration tile, IDashboardController dashboardController, TileLayoutController layoutController, IServices services)
         {
             _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
-            var parameters = new IPropertyViewModel[] { new PropertyViewModel("Colour", "Text", _tileConfigurationConverter) };
+            var parameters = new IPropertyViewModel[] {new PropertyViewModel("Colour", "Text", _tileConfigurationConverter)};
             ConfigureCommand = new TileConfigureCommand(tile, "Blank Tile Configuration", parameters, dashboardController, layoutController, services);
             Update();
         }
@@ -45,7 +44,7 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.BlankTile
         {
             try
             {
-                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(_tileConfigurationConverter.GetString("Colour")));
+                Background = new SolidColorBrush((Color) ColorConverter.ConvertFromString(_tileConfigurationConverter.GetString("Colour")));
             }
             catch (Exception)
             {

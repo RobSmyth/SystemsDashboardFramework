@@ -5,7 +5,7 @@ using System.Linq;
 using System.Windows.Threading;
 
 
-namespace NoeticTools.Dashboard.Framework.Time
+namespace NoeticTools.SystemsDashboard.Framework.Time
 {
     public sealed class TimerService : ITimerService, ITimerQueue
     {

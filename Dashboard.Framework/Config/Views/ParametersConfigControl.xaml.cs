@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
-using NoeticTools.Dashboard.Framework.Commands;
-using NoeticTools.Dashboard.Framework.Registries;
+using NoeticTools.SystemsDashboard.Framework.Commands;
+using NoeticTools.SystemsDashboard.Framework.Config;
 
 
-namespace NoeticTools.Dashboard.Framework.Config.Views
+namespace NoeticTools.SystemsDashboard.Framework.Config.Views
 {
     public partial class ParametersConfigControl : UserControl
     {
@@ -59,13 +58,8 @@ namespace NoeticTools.Dashboard.Framework.Config.Views
             }
             if (propertyViewModel.ViewerName == "TextFromCombobox")
             {
-                var combobox = (ComboBox)PlaceholderGrid.Children.Cast<FrameworkElement>().Single(x => x.Name.Equals(name));
+                var combobox = (ComboBox) PlaceholderGrid.Children.Cast<FrameworkElement>().Single(x => x.Name.Equals(name));
                 propertyViewModel.Value = combobox.SelectedValue;
-            }
-            else
-            {
-                //var textBox = (TextBox) PlaceholderGrid.Children.Cast<FrameworkElement>().Single(x => x.Name.Equals(name));
-                //propertyViewModel.Value = textBox.Text;
             }
         }
 

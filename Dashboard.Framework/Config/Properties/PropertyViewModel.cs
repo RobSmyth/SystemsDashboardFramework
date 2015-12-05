@@ -1,32 +1,35 @@
-﻿namespace NoeticTools.Dashboard.Framework.Config.Parameters
+﻿using System.Linq;
+
+
+namespace NoeticTools.Dashboard.Framework.Config.Properties
 {
-    public class ElementViewModel : NotifyingViewModelBase, INotifyingElementViewModel
+    public class PropertyViewModel : NotifyingViewModelBase, INotifyingElementViewModel
     {
         private readonly TileConfigurationConverter _tileConfigurationConverter;
         private object[] _parameters;
 
-        public ElementViewModel(string name, ElementType elementType, TileConfigurationConverter tileConfigurationConverter, params string[] parameters)
+        public PropertyViewModel(string name, string viewerName, TileConfigurationConverter tileConfigurationConverter, params string[] parameters)
         {
             _tileConfigurationConverter = tileConfigurationConverter;
             Name = name;
-            ElementType = elementType;
-            Parameters = parameters;
+            ViewerName = viewerName;
+            Parameters = parameters.Cast<object>().ToArray();
         }
 
         public object Value
         {
-            get { return _tileConfigurationConverter.GetParameter(Name, ElementType); }
+            get { return _tileConfigurationConverter.GetParameter(Name); }
             set
             {
-                var currentValue = _tileConfigurationConverter.GetParameter(Name, ElementType);
+                var currentValue = _tileConfigurationConverter.GetParameter(Name);
                 if (Equals(value, currentValue)) return;
-                _tileConfigurationConverter.SetParameter(Name, ElementType, value);
+                _tileConfigurationConverter.SetParameter(Name, value);
                 OnPropertyChanged();
             }
         }
 
         public string Name { get; }
-        public ElementType ElementType { get; }
+        public string ViewerName { get; }
 
         public object[] Parameters
         {

@@ -1,6 +1,5 @@
 ﻿using System;
 using NoeticTools.Dashboard.Framework.Config;
-using NoeticTools.Dashboard.Framework.Tiles;
 
 
 namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.WebPage
@@ -8,11 +7,15 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.WebPage
     public class WebPageTilePlugin : IPlugin, ITileControllerProvider
     {
         private readonly IDashboardController _dashboardController;
+        private readonly IServices _services;
 
-        public WebPageTilePlugin(IDashboardController dashboardController)
+        public WebPageTilePlugin(IDashboardController dashboardController, IServices services)
         {
             _dashboardController = dashboardController;
+            _services = services;
         }
+
+        public int Rank => 0;
 
         public string Name => "Web page";
 
@@ -21,9 +24,9 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.WebPage
             return id == WebPageTileController.TileTypeId || id.Equals("92CE0D61-4748-4427-8EB7-DC8B8B741C15", StringComparison.InvariantCultureIgnoreCase);
         }
 
-        public IViewController CreateTileController(TileConfiguration tileConfiguration, TileLayoutController tileLayoutController)
+        public IViewController CreateTileController(TileConfiguration tile, TileLayoutController layoutController)
         {
-            return new WebPageTileController(tileConfiguration, _dashboardController, tileLayoutController);
+            return new WebPageTileController(tile, _dashboardController, layoutController, _services);
         }
 
         public TileConfiguration CreateDefaultConfiguration()
@@ -38,7 +41,7 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.WebPage
 
         public void Register(IServices services)
         {
-            services.TileProviderRegistry.Register(this);
+            services.TileProviders.Register(this);
         }
     }
 }

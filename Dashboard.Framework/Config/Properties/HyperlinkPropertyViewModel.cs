@@ -1,20 +1,20 @@
 ﻿using System.Windows.Input;
 
 
-namespace NoeticTools.Dashboard.Framework.Config.Parameters
+namespace NoeticTools.Dashboard.Framework.Config.Properties
 {
-    public class HyperlinkElementViewModel : IElementViewModel
+    public class HyperlinkPropertyViewModel : IPropertyViewModel
     {
-        public HyperlinkElementViewModel(string text, ICommand command)
+        public HyperlinkPropertyViewModel(string text, ICommand command)
         {
             Parameters = new object[] {text, command};
-            ElementType = ElementType.Hyperlink;
+            ViewerName = "Hyperlink";
             Value = text;
             Name = string.Empty;
         }
 
         public string Name { get; }
-        public ElementType ElementType { get; }
+        public string ViewerName { get; }
         public object[] Parameters { get; set; }
         public object Value { get; set; }
     }

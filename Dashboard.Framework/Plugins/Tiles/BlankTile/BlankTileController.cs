@@ -12,19 +12,24 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.BlankTile
 {
     internal class BlankTileController : IViewController
     {
+        private readonly TileConfiguration _tile;
+        private readonly IDashboardController _dashboardController;
+        private readonly TileLayoutController _layoutController;
+        private readonly IServices _services;
         public const string TileTypeId = "Blank.Tile";
         private BlankTileControl _view;
 
-        public BlankTileController()
+        public BlankTileController(TileConfiguration tile, IDashboardController dashboardController, TileLayoutController layoutController, IServices services)
         {
-            ConfigureCommand = new NullCommand();
+            _tile = tile;
+            _dashboardController = dashboardController;
+            _layoutController = layoutController;
+            _services = services;
         }
-
-        public ICommand ConfigureCommand { get; }
 
         public FrameworkElement CreateView()
         {
-            _view = new BlankTileControl();
+            _view = new BlankTileControl() {DataContext = new BlankTileViewModel(_tile, _dashboardController, _layoutController, _services)};
             UpdateView();
             return _view;
         }

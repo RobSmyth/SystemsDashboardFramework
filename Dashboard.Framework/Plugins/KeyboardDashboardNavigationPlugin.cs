@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Input;
 using NoeticTools.Dashboard.Framework.Input;
+using NoeticTools.Dashboard.Framework.Plugins.Tiles;
 using NoeticTools.Dashboard.Framework.Tiles;
 
 
@@ -23,6 +24,8 @@ namespace NoeticTools.Dashboard.Framework.Plugins
                 {Key.Escape, key => dashboardNavigator.ShowCurrentDashboard()}
             };
         }
+
+        public int Rank => 0;
 
         public void Register(IServices services)
         {

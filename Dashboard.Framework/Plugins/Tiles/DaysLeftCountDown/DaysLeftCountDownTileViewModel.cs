@@ -2,7 +2,7 @@ using System;
 using System.Windows.Input;
 using NoeticTools.Dashboard.Framework.Commands;
 using NoeticTools.Dashboard.Framework.Config;
-using NoeticTools.Dashboard.Framework.Config.Parameters;
+using NoeticTools.Dashboard.Framework.Config.Properties;
 using NoeticTools.Dashboard.Framework.Time;
 
 
@@ -16,21 +16,21 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.DaysLeftCountDown
         private readonly DaysLeftCountDownTileView _view;
         private readonly TimerToken _timerToken;
 
-        public DaysLeftCountDownTileViewModel(TileConfiguration tile, IClock clock, IDashboardController dashboardController, DaysLeftCountDownTileView view, ITimerService timerService, TileLayoutController tileLayoutController)
+        public DaysLeftCountDownTileViewModel(TileConfiguration tile, IClock clock, IDashboardController dashboardController, DaysLeftCountDownTileView view, TileLayoutController tileLayoutController, IServices services)
         {
             _clock = clock;
             _view = view;
             _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
             ConfigureCommand = new TileConfigureCommand(tile, "Days Count Down Configuration",
-                new IElementViewModel[]
+                new IPropertyViewModel[]
                 {
-                    new ElementViewModel("Title", ElementType.Text, _tileConfigurationConverter),
-                    new ElementViewModel("End_date", ElementType.DateTime, _tileConfigurationConverter),
-                    new ElementViewModel("Disabled", ElementType.Boolean, _tileConfigurationConverter)
+                    new PropertyViewModel("Title", "Text", _tileConfigurationConverter),
+                    new PropertyViewModel("End_date", "DateTime", _tileConfigurationConverter),
+                    new PropertyViewModel("Disabled", "Checkbox", _tileConfigurationConverter)
                 },
-                dashboardController, tileLayoutController);
+                dashboardController, tileLayoutController, services);
             _view.DataContext = this;
-            _timerToken = timerService.QueueCallback(TimeSpan.FromMilliseconds(10), this);
+            _timerToken = services.Timer.QueueCallback(TimeSpan.FromMilliseconds(10), this);
         }
 
         public ICommand ConfigureCommand { get; }

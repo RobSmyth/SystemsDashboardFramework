@@ -1,5 +1,5 @@
 ﻿using System;
-using NoeticTools.Dashboard.Framework.Config.Parameters;
+using System.Globalization;
 
 
 namespace NoeticTools.Dashboard.Framework.Config
@@ -22,7 +22,16 @@ namespace NoeticTools.Dashboard.Framework.Config
             {
                 return new DateTime(2000, 1, 1);
             }
-            return DateTime.FromFileTimeUtc(long.Parse(value));
+
+            long fileTime;
+            if (long.TryParse(value, out fileTime))
+            {
+                return DateTime.FromFileTimeUtc(fileTime);
+            }
+            else
+            {
+                return DateTime.Parse(value, CultureInfo.CurrentCulture);
+            }
         }
 
         public string GetString(string name)
@@ -40,38 +49,14 @@ namespace NoeticTools.Dashboard.Framework.Config
             return bool.Parse(value);
         }
 
-        public object GetParameter(string name, ElementType elementType)
+        public object GetParameter(string name)
         {
-            if (elementType == ElementType.DateTime)
-            {
-                return GetDateTime(name);
-            }
-            if (elementType == ElementType.Boolean)
-            {
-                return GetBool(name);
-            }
             return GetString(name);
         }
 
-        public void SetParameter(string name, ElementType elementType, object value)
+        public void SetParameter(string name, object value)
         {
-            if (elementType == ElementType.DateTime)
-            {
-                SetDateTime(name, (DateTime) value);
-            }
-            else if (elementType == ElementType.Boolean)
-            {
-                SetParameter(name, (bool) value);
-            }
-            else if (value != null)
-            {
-                SetParameter(name, value.ToString());
-            }
-        }
-
-        private void SetDateTime(string name, DateTime value)
-        {
-            SetParameter(name, value.ToFileTimeUtc());
+            SetParameter(name, value.ToString());
         }
 
         private void SetParameter<T>(string name, T value)

@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Input;
 using NoeticTools.Dashboard.Framework.Commands;
 using NoeticTools.Dashboard.Framework.Config;
-using NoeticTools.Dashboard.Framework.Config.Parameters;
+using NoeticTools.Dashboard.Framework.Config.Properties;
 using NoeticTools.Dashboard.Framework.Tiles;
 using NoeticTools.Dashboard.Framework.Tiles.WebPage;
 
@@ -18,12 +18,14 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.WebPage
         private readonly TileConfigurationConverter _tileConfigurationConverter;
         private WebPageTileControl _view;
         private readonly TileLayoutController _layoutController;
+        private readonly IServices _services;
 
-        public WebPageTileController(TileConfiguration tile, IDashboardController dashboardController, TileLayoutController tileLayoutController)
+        public WebPageTileController(TileConfiguration tile, IDashboardController dashboardController, TileLayoutController tileLayoutController, IServices services)
         {
             _tile = tile;
             _dashboardController = dashboardController;
             _layoutController = tileLayoutController;
+            _services = services;
             _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
         }
 
@@ -33,10 +35,10 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.WebPage
         {
             ConfigureCommand = new TileConfigureCommand(_tile, "Web Page Tile Configuration", new[]
             {
-                new ElementViewModel("Url", ElementType.Text, _tileConfigurationConverter
+                new PropertyViewModel("Url", "Text", _tileConfigurationConverter
 /* "http://www.google.com"*/)
             },
-                _dashboardController, _layoutController);
+                _dashboardController, _layoutController, _services);
             _view = new WebPageTileControl {DataContext = this};
 
             UpdateView();

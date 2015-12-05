@@ -1,20 +1,23 @@
 using NoeticTools.Dashboard.Framework.Input;
 using NoeticTools.Dashboard.Framework.Registries;
+using NoeticTools.Dashboard.Framework.Time;
 
 
 namespace NoeticTools.Dashboard.Framework
 {
     public class Services : IServices
     {
-        public Services(ITileControllerFactory tileControllerRepository, ITileProviderRegistry tileProviderRegistry, KeyboardHandler keyboardHandler)
+        public Services(ITileProviderRegistry tileProviders, KeyboardHandler keyboardHandler, IPropertyEditControlRegistry propertyEditControlProviderRegistry, TimerService timerService)
         {
-            TileProviderRegistry = tileProviderRegistry;
-            TileControllerRepository = tileControllerRepository;
+            TileProviders = tileProviders;
             KeyboardHandler = keyboardHandler;
+            PropertyEditControlProviders = propertyEditControlProviderRegistry;
+            Timer = timerService;
         }
 
-        public ITileProviderRegistry TileProviderRegistry { get; }
-        public ITileControllerFactory TileControllerRepository { get; }
+        public ITimerService Timer { get; }
+        public ITileProviderRegistry TileProviders { get; }
+        public IPropertyEditControlRegistry PropertyEditControlProviders { get; }
         public KeyboardHandler KeyboardHandler { get; }
     }
 }

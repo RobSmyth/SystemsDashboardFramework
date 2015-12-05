@@ -1,4 +1,4 @@
-namespace NoeticTools.Dashboard.Framework.Config.Parameters
+namespace NoeticTools.Dashboard.Framework.Config.Properties
 {
     public class TileRowSpanViewModel : NotifyingViewModelBase, INotifyingElementViewModel
     {
@@ -9,7 +9,7 @@ namespace NoeticTools.Dashboard.Framework.Config.Parameters
         {
             _tile = tile;
             Name = "Row span";
-            ElementType = ElementType.Text;// todo - numericspin
+            ViewerName = "Text";// todo - numericspin
             Parameters = new object[0];
         }
 
@@ -32,7 +32,7 @@ namespace NoeticTools.Dashboard.Framework.Config.Parameters
         }
 
         public string Name { get; }
-        public ElementType ElementType { get; }
+        public string ViewerName { get; }
         public object[] Parameters { get; set; }
     }
 }

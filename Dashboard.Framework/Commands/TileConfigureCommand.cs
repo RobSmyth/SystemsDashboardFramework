@@ -3,32 +3,35 @@ using System.Collections.Generic;
 using System.Windows.Input;
 using NoeticTools.Dashboard.Framework.Config;
 using NoeticTools.Dashboard.Framework.Config.Controllers;
-using NoeticTools.Dashboard.Framework.Config.Parameters;
+using NoeticTools.Dashboard.Framework.Config.Properties;
+using NoeticTools.Dashboard.Framework.Registries;
 
 
 namespace NoeticTools.Dashboard.Framework.Commands
 {
     public class TileConfigureCommand : ICommand
     {
-        private readonly IElementViewModel[] _parameters;
+        private readonly IPropertyViewModel[] _parameters;
         private readonly IDashboardController _dashboardController;
         private readonly TileLayoutController _tileLayoutController;
+        private readonly IServices _services;
         private readonly TileConfiguration _tile;
         private readonly string _title;
         private bool _canExecute = true;
 
-        public TileConfigureCommand(TileConfiguration tile, string title, IElementViewModel[] parameters, IDashboardController dashboardController, TileLayoutController tileLayoutController)
+        public TileConfigureCommand(TileConfiguration tile, string title, IPropertyViewModel[] parameters, IDashboardController dashboardController, TileLayoutController tileLayoutController, IServices services)
         {
             _tile = tile;
             _title = title;
-            _parameters = new List<IElementViewModel>(parameters)
+            _parameters = new List<IPropertyViewModel>(parameters)
             {
-                new DividerElementViewModel(),
+                new DividerPropertyViewModel(),
                 new TileRowSpanViewModel(tile),
                 new TileColumnSpanViewModel(tile),
             }.ToArray();
             _dashboardController = dashboardController;
             _tileLayoutController = tileLayoutController;
+            _services = services;
         }
 
         public bool CanExecute(object parameter)
@@ -45,7 +48,7 @@ namespace NoeticTools.Dashboard.Framework.Commands
         {
             var routedCommands = new RoutedCommands();
             routedCommands.DeleteCommandBinding.Executed += DeleteCommandBinding_Executed;
-            var controller = new ConfigationViewController(_title, routedCommands, _parameters);
+            var controller = new ConfigationViewController(_title, routedCommands, _parameters, _services);
             _dashboardController.ShowOnSidePane(controller, _title);
         }
 

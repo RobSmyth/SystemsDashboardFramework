@@ -1,7 +1,8 @@
 ﻿using System.Windows.Input;
+using NoeticTools.Dashboard.Framework.Tiles.Help;
 
 
-namespace NoeticTools.Dashboard.Framework.Tiles.Help
+namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.Help
 {
     public class HelpTilePlugin : IPlugin, IKeyHandler
     {
@@ -27,5 +28,7 @@ namespace NoeticTools.Dashboard.Framework.Tiles.Help
             _dashboardController.ShowOnSidePane(new HelpViewController(), "Help");
             ;
         }
+
+        public int Rank => 0;
     }
 }

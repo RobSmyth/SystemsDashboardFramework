@@ -21,7 +21,7 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.Date
 
         public void Register(IServices services)
         {
-            services.TileProviderRegistry.Register(this);
+            services.TileProviders.Register(this);
         }
 
         public bool MatchesId(string id)
@@ -29,7 +29,7 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.Date
             return id == DateTileController.TileTypeId || id.Equals("0FFACE9A-8B68-4DBC-8B42-0255F51368B1", StringComparison.InvariantCultureIgnoreCase);
         }
 
-        public IViewController CreateTileController(TileConfiguration tileConfiguration, TileLayoutController tileLayoutController)
+        public IViewController CreateTileController(TileConfiguration tile, TileLayoutController layoutController)
         {
             return new DateTileController(_timerService, _clock);
         }
@@ -43,5 +43,7 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.Date
                 Tiles = new TileConfiguration[0]
             };
         }
+
+        public int Rank => 0;
     }
 }

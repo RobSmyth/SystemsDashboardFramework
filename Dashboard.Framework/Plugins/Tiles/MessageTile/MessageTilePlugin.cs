@@ -8,11 +8,15 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.MessageTile
     public class MessageTilePlugin : IPlugin, ITileControllerProvider
     {
         private readonly IDashboardController _dashboardController;
+        private readonly IServices _services;
 
-        public MessageTilePlugin(IDashboardController dashboardController)
+        public MessageTilePlugin(IDashboardController dashboardController, IServices services)
         {
             _dashboardController = dashboardController;
+            _services = services;
         }
+
+        public int Rank => 0;
 
         public string Name => "Message";
 
@@ -21,9 +25,9 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.MessageTile
             return id == MessageTileController.TileTypeId || id.Equals("0FFACE9A-8B68-4DBC-8B42-0255F51368B3", StringComparison.InvariantCultureIgnoreCase);
         }
 
-        public IViewController CreateTileController(TileConfiguration tileConfiguration, TileLayoutController tileLayoutController)
+        public IViewController CreateTileController(TileConfiguration tile, TileLayoutController layoutController)
         {
-            return new MessageTileController(tileConfiguration, _dashboardController, tileLayoutController);
+            return new MessageTileController(tile, _dashboardController, layoutController, _services);
         }
 
         public TileConfiguration CreateDefaultConfiguration()
@@ -38,7 +42,7 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.MessageTile
 
         public void Register(IServices services)
         {
-            services.TileProviderRegistry.Register(this);
+            services.TileProviders.Register(this);
         }
     }
 }

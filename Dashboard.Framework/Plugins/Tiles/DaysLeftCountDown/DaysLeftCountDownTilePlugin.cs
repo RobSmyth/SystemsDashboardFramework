@@ -10,13 +10,13 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.DaysLeftCountDown
     {
         private readonly IDashboardController _dashboardController;
         private readonly IClock _clock;
-        private readonly ITimerService _timerService;
+        private readonly IServices _services;
 
-        public DaysLeftCountDownTilePlugin(IDashboardController dashboardController, IClock clock, ITimerService timerService)
+        public DaysLeftCountDownTilePlugin(IDashboardController dashboardController, IClock clock, IServices services)
         {
             _dashboardController = dashboardController;
             _clock = clock;
-            _timerService = timerService;
+            _services = services;
         }
 
         public string Name => "Days left";
@@ -26,9 +26,9 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.DaysLeftCountDown
             return id == DaysLeftCountDownTileController.TileTypeId || id.Equals("0FFACE9A-8B68-4DBC-8B42-0255F51368B2", StringComparison.InvariantCultureIgnoreCase);
         }
 
-        public IViewController CreateTileController(TileConfiguration tileConfiguration, TileLayoutController tileLayoutController)
+        public IViewController CreateTileController(TileConfiguration tile, TileLayoutController layoutController)
         {
-            return new DaysLeftCountDownTileController(tileConfiguration, _clock, _dashboardController, _timerService, tileLayoutController);
+            return new DaysLeftCountDownTileController(tile, _clock, _dashboardController, layoutController, _services);
         }
 
         public TileConfiguration CreateDefaultConfiguration()
@@ -43,7 +43,9 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.DaysLeftCountDown
 
         public void Register(IServices services)
         {
-            services.TileProviderRegistry.Register(this);
+            services.TileProviders.Register(this);
         }
+
+        public int Rank => 0;
     }
 }

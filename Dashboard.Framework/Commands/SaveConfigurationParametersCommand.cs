@@ -9,10 +9,10 @@ namespace NoeticTools.Dashboard.Framework.Commands
 {
     public class SaveConfigurationParametersCommand : ICommand
     {
-        private readonly IEnumerable<IElementViewModel> _parameters;
+        private readonly IEnumerable<IPropertyViewModel> _parameters;
         private readonly Panel _parametersPanel;
 
-        public SaveConfigurationParametersCommand(IEnumerable<IElementViewModel> parameters, Panel parametersPanel)
+        public SaveConfigurationParametersCommand(IEnumerable<IPropertyViewModel> parameters, Panel parametersPanel)
         {
             _parameters = parameters;
             _parametersPanel = parametersPanel;

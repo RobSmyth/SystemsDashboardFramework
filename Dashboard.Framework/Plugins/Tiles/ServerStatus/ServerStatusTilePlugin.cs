@@ -8,12 +8,7 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.ServerStatus
 {
     public class ServerStatusTilePlugin : IPlugin, ITileControllerProvider
     {
-        private readonly IDashboardController _dashboardController;
-
-        public ServerStatusTilePlugin(IDashboardController dashboardController)
-        {
-            _dashboardController = dashboardController;
-        }
+        public int Rank => 0;
 
         public string Name => "Server status (future)";
 
@@ -22,9 +17,9 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.ServerStatus
             return id == ServerStatusTileController.TileTypeId || id.Equals("0FFACE9A-8B68-4DBC-8B42-0255F51368B4", StringComparison.InvariantCultureIgnoreCase);
         }
 
-        public IViewController CreateTileController(TileConfiguration tileConfiguration, TileLayoutController tileLayoutController)
+        public IViewController CreateTileController(TileConfiguration tile, TileLayoutController layoutController)
         {
-            return new ServerStatusTileController(tileConfiguration);
+            return new ServerStatusTileController(tile);
         }
 
         public TileConfiguration CreateDefaultConfiguration()
@@ -34,7 +29,7 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.ServerStatus
 
         public void Register(IServices services)
         {
-            services.TileProviderRegistry.Register(this);
+            services.TileProviders.Register(this);
         }
     }
 }

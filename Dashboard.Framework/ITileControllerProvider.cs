@@ -8,7 +8,7 @@ namespace NoeticTools.Dashboard.Framework
     {
         string Name { get; }
         bool MatchesId(string id);
-        IViewController CreateTileController(TileConfiguration tileConfiguration, TileLayoutController tileLayoutController);
+        IViewController CreateTileController(TileConfiguration tile, TileLayoutController layoutController);
         TileConfiguration CreateDefaultConfiguration();
     }
 }

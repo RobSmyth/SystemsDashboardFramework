@@ -18,6 +18,8 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.InsertTile
             _dragAndDropController = dragAndDropController;
         }
 
+        public int Rank => 0;
+
         public void Register(IServices services)
         {
             services.KeyboardHandler.Register(this);
@@ -30,7 +32,7 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.InsertTile
 
         void IKeyHandler.Handle(Key key)
         {
-            _dashboardController.ShowOnSidePane(new InsertTileController(_services.TileProviderRegistry, _dragAndDropController), "Insert Tile");
+            _dashboardController.ShowOnSidePane(new InsertTileController(_services.TileProviders, _dragAndDropController), "Insert Tile");
         }
     }
 }

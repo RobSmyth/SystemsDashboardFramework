@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Input;
 using NoeticTools.Dashboard.Framework.Commands;
 using NoeticTools.Dashboard.Framework.Config.Views;
+using NoeticTools.Dashboard.Framework.Registries;
 using NoeticTools.Dashboard.Framework.Tiles;
 
 
@@ -10,23 +11,25 @@ namespace NoeticTools.Dashboard.Framework.Config.Controllers
 {
     public sealed class ConfigationViewController : NotifyingViewModelBase, IViewController
     {
-        private readonly IEnumerable<IElementViewModel> _parameters;
+        private readonly IEnumerable<IPropertyViewModel> _parameters;
+        private readonly IServices _services;
         private readonly string _title;
         private readonly RoutedCommands _routedCommands;
         private PaneWithTitleBarControl _panelView;
 
-        public ConfigationViewController(string title, RoutedCommands routedCommands, IElementViewModel[] parameters)
+        public ConfigationViewController(string title, RoutedCommands routedCommands, IPropertyViewModel[] parameters, IServices services)
         {
             _title = title;
             _routedCommands = routedCommands;
             _parameters = parameters;
+            _services = services;
         }
 
         public FrameworkElement CreateView()
         {
             _routedCommands.CloseCommandBinding.Executed += CloseCommandBinding_Executed;
 
-            var view = new ParametersConfigControl(_routedCommands, _parameters) {DataContext = this};
+            var view = new ParametersConfigControl(_routedCommands, _parameters, _services) {DataContext = this};
 
             _panelView = new PaneWithTitleBarControl(_title, view, _routedCommands)
             {

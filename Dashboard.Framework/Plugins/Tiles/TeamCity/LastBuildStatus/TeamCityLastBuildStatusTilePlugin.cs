@@ -10,15 +10,17 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.TeamCity.LastBuildStatus
     public class TeamCityLastBuildStatusTilePlugin : IPlugin, ITileControllerProvider
     {
         private readonly TeamCityService _service;
-        private readonly ITimerService _timerService;
         private readonly IDashboardController _dashboardController;
+        private readonly IServices _services;
 
-        public TeamCityLastBuildStatusTilePlugin(TeamCityService service, ITimerService timerService, IDashboardController dashboardController)
+        public TeamCityLastBuildStatusTilePlugin(TeamCityService service, IDashboardController dashboardController, IServices services)
         {
             _service = service;
-            _timerService = timerService;
             _dashboardController = dashboardController;
+            _services = services;
         }
+
+        public int Rank => 0;
 
         public string Name => "TeamCity build status";
 
@@ -27,9 +29,9 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.TeamCity.LastBuildStatus
             return id == TeamCityLastBuildStatusTileController.TileTypeId || id.Equals("0FFACE9A-8B68-4DBC-8B42-0255F51368B5", StringComparison.InvariantCultureIgnoreCase);
         }
 
-        public IViewController CreateTileController(TileConfiguration tileConfiguration, TileLayoutController tileLayoutController)
+        public IViewController CreateTileController(TileConfiguration tile, TileLayoutController layoutController)
         {
-            return new TeamCityLastBuildStatusTileController(_service, tileConfiguration, _timerService, _dashboardController, tileLayoutController);
+            return new TeamCityLastBuildStatusTileController(_service, tile, _dashboardController, layoutController, _services);
         }
 
         public TileConfiguration CreateDefaultConfiguration()
@@ -44,7 +46,7 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.TeamCity.LastBuildStatus
 
         public void Register(IServices services)
         {
-            services.TileProviderRegistry.Register(this);
+            services.TileProviders.Register(this);
         }
     }
 }

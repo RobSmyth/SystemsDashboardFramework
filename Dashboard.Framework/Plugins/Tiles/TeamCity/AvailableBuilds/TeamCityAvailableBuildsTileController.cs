@@ -7,7 +7,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using NoeticTools.Dashboard.Framework.Commands;
 using NoeticTools.Dashboard.Framework.Config;
-using NoeticTools.Dashboard.Framework.Config.Parameters;
+using NoeticTools.Dashboard.Framework.Config.Properties;
 using NoeticTools.Dashboard.Framework.DataSources.TeamCity;
 using NoeticTools.Dashboard.Framework.Tiles;
 using NoeticTools.Dashboard.Framework.Tiles.TeamCityAvailableBuilds;
@@ -30,20 +30,20 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.TeamCity.AvailableBuilds
         public const string TileTypeId = "TeamCity.AvailableBuilds";
         private readonly TeamCityService _service;
         private readonly TileConfiguration _tile;
-        private readonly ITimerService _timerService;
         private readonly IDashboardController _dashboardController;
         private readonly TimeSpan _tickPeriod = TimeSpan.FromSeconds(15);
         private readonly TileConfigurationConverter _tileConfigurationConverter;
         private TeamCityAvailableBuildsListControl _view;
         private readonly TileLayoutController _layoutController;
+        private readonly IServices _services;
 
-        public TeamCityAvailableBuildsTileController(TeamCityService service, TileConfiguration tile, ITimerService timerService, IDashboardController dashboardController, TileLayoutController tileLayoutController)
+        public TeamCityAvailableBuildsTileController(TeamCityService service, TileConfiguration tile, IDashboardController dashboardController, TileLayoutController tileLayoutController, IServices services)
         {
             _service = service;
             _tile = tile;
-            _timerService = timerService;
             _dashboardController = dashboardController;
             _layoutController = tileLayoutController;
+            _services = services;
             _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
             Builds = new ObservableCollection<BuildDetails>();
         }
@@ -55,32 +55,32 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.TeamCity.AvailableBuilds
         {
             var parameters = GetConfigurtionParameters();
 
-            ConfigureCommand = new TileConfigureCommand(_tile, "TeamCity Available Builds Tile", parameters, _dashboardController, _layoutController);
+            ConfigureCommand = new TileConfigureCommand(_tile, "TeamCity Available Builds Tile", parameters, _dashboardController, _layoutController, _services);
 
             _service.Connect();
 
             _view = new TeamCityAvailableBuildsListControl {DataContext = this};
 
-            _timerService.QueueCallback(TimeSpan.FromSeconds(1), this);
+            _services.Timer.QueueCallback(TimeSpan.FromSeconds(1), this);
             return _view;
         }
 
-        private IElementViewModel[] GetConfigurtionParameters()
+        private IPropertyViewModel[] GetConfigurtionParameters()
         {
-            var parameters = new List<IElementViewModel>
+            var parameters = new List<IPropertyViewModel>
             {
-                new ElementViewModel("Title", ElementType.Text, _tileConfigurationConverter),
-                new DividerElementViewModel()
+                new PropertyViewModel("Title", "Text", _tileConfigurationConverter),
+                new DividerPropertyViewModel()
             };
             for (var buildNumber = 1; buildNumber <= MaxNumberOfBuilds; buildNumber++)
             {
                 string diplayName = $"Display_name_{buildNumber}";
                 string project = $"Project_{buildNumber}";
                 string configuration = $"Configuration_{buildNumber}";
-                parameters.Add(new ElementViewModel(diplayName, ElementType.Text, _tileConfigurationConverter));
-                parameters.Add(new ElementViewModel(project, ElementType.Text, _tileConfigurationConverter));
-                parameters.Add(new ElementViewModel(configuration, ElementType.Text, _tileConfigurationConverter));
-                parameters.Add(new DividerElementViewModel());
+                parameters.Add(new PropertyViewModel(diplayName, "Text", _tileConfigurationConverter));
+                parameters.Add(new PropertyViewModel(project, "Text", _tileConfigurationConverter));
+                parameters.Add(new PropertyViewModel(configuration, "Text", _tileConfigurationConverter));
+                parameters.Add(new DividerPropertyViewModel());
             }
             return parameters.ToArray();
         }
@@ -114,7 +114,7 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.TeamCity.AvailableBuilds
         private void Tick()
         {
             UpdateView();
-            _timerService.QueueCallback(_tickPeriod, this);
+            _services.Timer.QueueCallback(_tickPeriod, this);
         }
 
         private void UpdateView()

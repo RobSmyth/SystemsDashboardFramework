@@ -5,7 +5,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using NoeticTools.Dashboard.Framework.Commands;
 using NoeticTools.Dashboard.Framework.Config;
-using NoeticTools.Dashboard.Framework.Config.Parameters;
+using NoeticTools.Dashboard.Framework.Config.Properties;
 using NoeticTools.Dashboard.Framework.DataSources.TeamCity;
 using NoeticTools.Dashboard.Framework.Tiles;
 using NoeticTools.Dashboard.Framework.Tiles.TeamCity;
@@ -57,16 +57,18 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.TeamCity.LastBuildStatus
         private readonly TimerToken _timerToken;
         private TeamCityBuildStatusTileControl _view;
         private readonly TileLayoutController _layoutController;
+        private readonly IServices _services;
 
-        public TeamCityLastBuildStatusTileController(TeamCityService service, TileConfiguration tile, ITimerService timerService, IDashboardController dashboardController, TileLayoutController tileLayoutController)
+        public TeamCityLastBuildStatusTileController(TeamCityService service, TileConfiguration tile, IDashboardController dashboardController, TileLayoutController tileLayoutController, IServices services)
         {
             _service = service;
             _tile = tile;
             _dashboardController = dashboardController;
             _layoutController = tileLayoutController;
+            _services = services;
             _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
             ConfigureServiceCommand = new TeamCityServiceConfigureCommand(service);
-            _timerToken = timerService.QueueCallback(TimeSpan.FromDays(10000), this);
+            _timerToken = services.Timer.QueueCallback(TimeSpan.FromDays(10000), this);
         }
 
         public ICommand ConfigureCommand { get; private set; }
@@ -74,7 +76,7 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.TeamCity.LastBuildStatus
         public FrameworkElement CreateView()
         {
             var configurationParameters = GetConfigurationParameters();
-            ConfigureCommand = new TileConfigureCommand(_tile, "Last Build Status Tile Configuration", configurationParameters, _dashboardController, _layoutController);
+            ConfigureCommand = new TileConfigureCommand(_tile, "Last Build Status Tile Configuration", configurationParameters, _dashboardController, _layoutController, _services);
 
             _view = new TeamCityBuildStatusTileControl {DataContext = this};
 
@@ -84,16 +86,16 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.TeamCity.LastBuildStatus
             return _view;
         }
 
-        private IElementViewModel[] GetConfigurationParameters()
+        private IPropertyViewModel[] GetConfigurationParameters()
         {
-            var projectElementViewModel = new TeamCityProjectElementViewModel("Project", _tileConfigurationConverter, _service);
-            var configurationParameters = new IElementViewModel[]
+            var projectElementViewModel = new TeamCityProjectPropertyViewModel("Project", _tileConfigurationConverter, _service);
+            var configurationParameters = new IPropertyViewModel[]
             {
                 projectElementViewModel,
-                new DependantElementViewModel("Configuration", ElementType.SelectedText, _tileConfigurationConverter, projectElementViewModel,
+                new DependantPropertyViewModel("Configuration", "TextFromCombobox", _tileConfigurationConverter, projectElementViewModel,
                     x => x.Parameters = _service.GetConfigurationNames((string) projectElementViewModel.Value)),
-                new ElementViewModel("Description", ElementType.Text, _tileConfigurationConverter),
-                new HyperlinkElementViewModel("TeamCity service", ConfigureServiceCommand)
+                new PropertyViewModel("Description", "Text", _tileConfigurationConverter),
+                new HyperlinkPropertyViewModel("TeamCity service", ConfigureServiceCommand)
             };
             return configurationParameters;
         }

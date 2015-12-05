@@ -2,7 +2,8 @@
 using NoeticTools.Dashboard.Framework.Commands;
 using NoeticTools.Dashboard.Framework.Config;
 using NoeticTools.Dashboard.Framework.Config.Controllers;
-using NoeticTools.Dashboard.Framework.Config.Parameters;
+using NoeticTools.Dashboard.Framework.Config.Properties;
+using NoeticTools.Dashboard.Framework.Registries;
 using TeamCitySharp;
 using TeamCitySharp.DomainEntities;
 
@@ -12,14 +13,16 @@ namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
     public class TeamCityService : ITeamCityChannel, IStateEngine<ITeamCityChannel>, IConfigurationChangeListener
     {
         private readonly IDashboardController _dashboardController;
+        private readonly IServices _services;
         private readonly TeamCityServiceConfiguration _configuration;
         private readonly ITeamCityChannel _connectedState;
         private readonly ITeamCityChannel _disconnectedState;
         private ITeamCityChannel _current;
 
-        public TeamCityService(DashboardConfigurationServices servicesConfiguration, RunOptions runOptions, IClock clock, IDashboardController dashboardController)
+        public TeamCityService(DashboardConfigurationServices servicesConfiguration, RunOptions runOptions, IClock clock, IDashboardController dashboardController, IServices services)
         {
             _dashboardController = dashboardController;
+            _services = services;
             _configuration = new TeamCityServiceConfiguration(servicesConfiguration.GetService("TeamCity"));
             var client = new TeamCityClient(_configuration.Url);
             _disconnectedState = new TeamCityChannelDisconnectedState(client, this, _configuration);
@@ -67,15 +70,15 @@ namespace NoeticTools.Dashboard.Framework.DataSources.TeamCity
         {
             var configurationConverter = new TileConfigurationConverter(_configuration, this);
 
-            var parameters = new IElementViewModel[]
+            var parameters = new IPropertyViewModel[]
             {
-                new TextElementViewModel("Url", configurationConverter),
-                new TextElementViewModel("UserName", configurationConverter),
-                new PasswordElementViewModel("Password", configurationConverter)
+                new TextPropertyViewModel("Url", configurationConverter),
+                new TextPropertyViewModel("UserName", configurationConverter),
+                new PasswordPropertyViewModel("Password", configurationConverter)
             };
 
             const string title = "TeamCity Server Configuration";
-            var controller = new ConfigationViewController(title, new RoutedCommands(), parameters);
+            var controller = new ConfigationViewController(title, new RoutedCommands(), parameters, _services);
             _dashboardController.ShowOnSidePane(controller, title);
         }
 

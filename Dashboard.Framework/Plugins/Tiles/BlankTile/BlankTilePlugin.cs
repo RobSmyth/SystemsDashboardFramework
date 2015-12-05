@@ -9,11 +9,19 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.BlankTile
 {
     public class BlankTilePlugin : IPlugin, ITileControllerProvider
     {
+        private readonly IDashboardController _dashboardController;
+        private readonly IServices _services;
         public string Name => "Blank";
+
+        public BlankTilePlugin(IDashboardController dashboardController, IServices services)
+        {
+            _dashboardController = dashboardController;
+            _services = services;
+        }
 
         public void Register(IServices services)
         {
-            services.TileProviderRegistry.Register(this);
+            services.TileProviders.Register(this);
         }
 
         public bool MatchesId(string id)
@@ -21,9 +29,9 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.BlankTile
             return id == BlankTileController.TileTypeId;
         }
 
-        public IViewController CreateTileController(TileConfiguration tileConfiguration, TileLayoutController tileLayoutController)
+        public IViewController CreateTileController(TileConfiguration tile, TileLayoutController layoutController)
         {
-            return new BlankTileController();
+            return new BlankTileController(tile, _dashboardController, layoutController, _services);
         }
 
         public TileConfiguration CreateDefaultConfiguration()
@@ -35,5 +43,7 @@ namespace NoeticTools.Dashboard.Framework.Plugins.Tiles.BlankTile
                 Tiles = new TileConfiguration[0]
             };
         }
+
+        public int Rank => 0;
     }
 }

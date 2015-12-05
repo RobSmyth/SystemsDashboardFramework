@@ -1,12 +1,16 @@
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using NoeticTools.Dashboard.Framework.Config;
 using NoeticTools.Dashboard.Framework.DataSources.TeamCity;
 using NoeticTools.Dashboard.Framework.Input;
 using NoeticTools.Dashboard.Framework.Plugins;
+using NoeticTools.Dashboard.Framework.Plugins.PropertyEditControls;
+using NoeticTools.Dashboard.Framework.Plugins.Tiles;
 using NoeticTools.Dashboard.Framework.Plugins.Tiles.BlankTile;
 using NoeticTools.Dashboard.Framework.Plugins.Tiles.Date;
 using NoeticTools.Dashboard.Framework.Plugins.Tiles.DaysLeftCountDown;
+using NoeticTools.Dashboard.Framework.Plugins.Tiles.Help;
 using NoeticTools.Dashboard.Framework.Plugins.Tiles.InsertTile;
 using NoeticTools.Dashboard.Framework.Plugins.Tiles.MessageTile;
 using NoeticTools.Dashboard.Framework.Plugins.Tiles.ServerStatus;
@@ -34,6 +38,7 @@ namespace NoeticTools.Dashboard.Framework
         private readonly DashboardTileNavigator _tileNavigator;
         private readonly RunOptions _runOptions;
         private readonly Services _services;
+        private readonly PropertyEditControlRegistry _propertyEditControlRegistry;
 
         public TeamDashboardRunner(Grid tileGrid, DockPanel sidePanel)
         {
@@ -45,6 +50,8 @@ namespace NoeticTools.Dashboard.Framework
 
             var tileProviderRegistry = new TileProviderRegistry();
             var tileControllerFactory = new TileControllerFactory(tileProviderRegistry);
+            _propertyEditControlRegistry = new PropertyEditControlRegistry();
+
             var dashboardConfigurationManager = new DashboardConfigurationManager();
             _config = dashboardConfigurationManager.Load();
             var loaderConduit = new DashBoardLoaderConduit();
@@ -52,13 +59,12 @@ namespace NoeticTools.Dashboard.Framework
             var tileLayoutControllerRegistry = new TileLayoutControllerRegistry(tileControllerFactory, _dragAndDropController, _tileNavigator);
             _dashboardNavigator = new DashboardNavigator(loaderConduit, _config, tileLayoutControllerRegistry);
             _dashboardController = new DashboardController(dashboardConfigurationManager, _timerService, sidePanel, _config, _dashboardNavigator, tileProviderRegistry, _dragAndDropController);
+            KeyboardHandler = new KeyboardHandler(_dashboardController);
+            _services = new Services(tileProviderRegistry, KeyboardHandler, _propertyEditControlRegistry, _timerService);
 
             var rootTileLayoutController = new TileLayoutController(tileGrid, tileControllerFactory, tileLayoutControllerRegistry, new Thickness(0), _dragAndDropController, _tileNavigator, null);
             _loader = new DashBoardLoader(rootTileLayoutController);
             loaderConduit.SetTarget(_loader);
-            KeyboardHandler = new KeyboardHandler(_dashboardController);
-
-            _services = new Services(tileControllerFactory, tileProviderRegistry, KeyboardHandler);
 
             RegisterPlugins();
         }
@@ -76,25 +82,31 @@ namespace NoeticTools.Dashboard.Framework
 
         private void RegisterPlugins()
         {
-            var teamCityService = new TeamCityService(_config.Services, _runOptions, _clock, _dashboardController);
+            var teamCityService = new TeamCityService(_config.Services, _runOptions, _clock, _dashboardController, _services);
 
             var plugins = new IPlugin[]
             {
+                new TextPropertyViewPlugin(), 
+                new DatePropertyViewPlugin(), 
+                new CheckboxPropertyViewPlugin(), 
+                new ComboboxTextPropertyViewPlugin(), 
                 new KeyboardTileNavigationPlugin(_tileNavigator),
                 new KeyboardDashboardNavigationPlugin(_dashboardNavigator, _dashboardController),
                 new InsertTilePlugin(_dashboardController, _services, _dragAndDropController),
                 new HelpTilePlugin(_dashboardController),
-                new BlankTilePlugin(),
+                new BlankTilePlugin(_dashboardController, _services),
                 new DateTilePlugin(_timerService, _clock),
-                new MessageTilePlugin(_dashboardController),
-                new TeamCityLastBuildStatusTilePlugin(teamCityService, _timerService, _dashboardController),
-                new TeamCityLAvailbleBuildSTilePlugin(teamCityService, _timerService, _dashboardController),
-                new DaysLeftCountDownTilePlugin(_dashboardController, _clock, _timerService),
-                new WebPageTilePlugin(_dashboardController),
-                new ServerStatusTilePlugin(_dashboardController)
+                new MessageTilePlugin(_dashboardController, _services),
+                new TeamCityLastBuildStatusTilePlugin(teamCityService, _dashboardController, _services),
+                new TeamCityLAvailbleBuildSTilePlugin(teamCityService, _dashboardController, _services),
+                new DaysLeftCountDownTilePlugin(_dashboardController, _clock, _services),
+                new WebPageTilePlugin(_dashboardController, _services),
+                new ServerStatusTilePlugin()
             };
 
-            foreach (var plugin in plugins)
+            // todo - load third-party plug-ins
+
+            foreach (var plugin in plugins.OrderBy(x => x.Rank))
             {
                 plugin.Register(_services);
             }

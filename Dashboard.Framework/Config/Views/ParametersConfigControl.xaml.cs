@@ -7,14 +7,15 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using NoeticTools.Dashboard.Framework.Commands;
-using NoeticTools.Dashboard.Framework.Config.Parameters;
+using NoeticTools.Dashboard.Framework.Registries;
 
 
 namespace NoeticTools.Dashboard.Framework.Config.Views
 {
     public partial class ParametersConfigControl : UserControl
     {
-        private readonly IEnumerable<IElementViewModel> _elementViewModels;
+        private readonly IServices _services;
+        private readonly IEnumerable<IPropertyViewModel> _elementViewModels;
         private readonly Thickness _elementMargin = new Thickness(5, 3, 5, 3);
 
         public ParametersConfigControl()
@@ -22,8 +23,9 @@ namespace NoeticTools.Dashboard.Framework.Config.Views
             InitializeComponent();
         }
 
-        public ParametersConfigControl(RoutedCommands commands, IEnumerable<IElementViewModel> elementViewModels) : this()
+        public ParametersConfigControl(RoutedCommands commands, IEnumerable<IPropertyViewModel> elementViewModels, IServices services) : this()
         {
+            _services = services;
             CommandBindings.Add(commands.SaveCommandBinding);
             commands.SaveCommandBinding.Executed += SaveCommandBinding_Executed;
 
@@ -42,45 +44,45 @@ namespace NoeticTools.Dashboard.Framework.Config.Views
             }
         }
 
-        private void SetParameterValue(IElementViewModel elementViewModel)
+        private void SetParameterValue(IPropertyViewModel propertyViewModel)
         {
-            if (elementViewModel.ElementType == ElementType.Hyperlink || elementViewModel.ElementType == ElementType.Divider)
+            if (propertyViewModel.ViewerName == "Hyperlink" || propertyViewModel.ViewerName == "Divider")
             {
                 return;
             }
 
-            var name = GetUIlementName(elementViewModel);
-            if (elementViewModel.ElementType == ElementType.Boolean)
+            var name = GetUIlementName(propertyViewModel);
+            if (propertyViewModel.ViewerName == "Checkbox")
             {
-                var checkbox = (CheckBox) PlaceholderGrid.Children.Cast<FrameworkElement>().Single(x => x.Name.Equals(name));
-                elementViewModel.Value = checkbox.IsChecked;
+                //var checkbox = (CheckBox) PlaceholderGrid.Children.Cast<FrameworkElement>().Single(x => x.Name.Equals(name));
+                //propertyViewModel.Value = checkbox.IsChecked;
             }
-            if (elementViewModel.ElementType == ElementType.SelectedText)
+            if (propertyViewModel.ViewerName == "TextFromCombobox")
             {
                 var combobox = (ComboBox)PlaceholderGrid.Children.Cast<FrameworkElement>().Single(x => x.Name.Equals(name));
-                elementViewModel.Value = combobox.SelectedValue;
+                propertyViewModel.Value = combobox.SelectedValue;
             }
             else
             {
-                var textBox = (TextBox) PlaceholderGrid.Children.Cast<FrameworkElement>().Single(x => x.Name.Equals(name));
-                elementViewModel.Value = textBox.Text;
+                //var textBox = (TextBox) PlaceholderGrid.Children.Cast<FrameworkElement>().Single(x => x.Name.Equals(name));
+                //propertyViewModel.Value = textBox.Text;
             }
         }
 
-        private static string GetUIlementName(IElementViewModel elementViewModel)
+        private static string GetUIlementName(IPropertyViewModel propertyViewModel)
         {
-            return $"Param_{elementViewModel.Name.Replace(' ', '_')}";
+            return $"Param_{propertyViewModel.Name.Replace(' ', '_')}";
         }
 
-        private void Add(IElementViewModel elementViewModel)
+        private void Add(IPropertyViewModel propertyViewModel)
         {
             var rowIndex = AddRow();
 
-            if (!string.IsNullOrWhiteSpace(elementViewModel.Name))
+            if (!string.IsNullOrWhiteSpace(propertyViewModel.Name))
             {
                 var textBlock = new TextBlock
                 {
-                    Text = elementViewModel.Name.Replace('_', ' '),
+                    Text = propertyViewModel.Name.Replace('_', ' '),
                     HorizontalAlignment = HorizontalAlignment.Right,
                     Margin = _elementMargin,
                     FontSize = 12.0
@@ -91,18 +93,23 @@ namespace NoeticTools.Dashboard.Framework.Config.Views
                 Grid.SetColumn(textBlock, 0);
             }
 
-            var creatorLookup = new Dictionary<ElementType, Func<IElementViewModel, int, UIElement>>
+            var creatorLookup = new Dictionary<string, Func<IPropertyViewModel, int, UIElement>>
             {
-                {ElementType.Boolean, CreateCheckBox},
-                {ElementType.Text, CreateTextBox},
-                {ElementType.DateTime, CreateTextBox},
-                {ElementType.Hyperlink, CreateHyperlink},
-                {ElementType.Divider, CreateDivider},
-                {ElementType.SelectedText, CreateComboBox},
-                {ElementType.Password, CreatePasswordBox}
+                {"Hyperlink", CreateHyperlink},
+                {"Divider", CreateDivider},
+                {"Password", CreatePasswordBox}
             };
 
-            Add(rowIndex, creatorLookup[elementViewModel.ElementType](elementViewModel, rowIndex));
+            if (creatorLookup.ContainsKey(propertyViewModel.ViewerName))
+            {
+                Add(rowIndex, creatorLookup[propertyViewModel.ViewerName](propertyViewModel, rowIndex));
+            }
+            else
+            {
+                var element = _services.PropertyEditControlProviders.Get(propertyViewModel.ViewerName).Create(propertyViewModel, rowIndex, GetUIlementName(propertyViewModel));
+                element.Margin = _elementMargin;
+                Add(rowIndex, element);
+            }
         }
 
         private int AddRow()
@@ -112,16 +119,16 @@ namespace NoeticTools.Dashboard.Framework.Config.Views
             return rowIndex;
         }
 
-        private UIElement CreateDivider(IElementViewModel elementViewModel, int rowIndex)
+        private UIElement CreateDivider(IPropertyViewModel propertyViewModel, int rowIndex)
         {
             PlaceholderGrid.RowDefinitions[rowIndex].MinHeight = 15;
             return null;
         }
 
-        private UIElement CreateHyperlink(IElementViewModel elementViewModel, int rowIndex)
+        private UIElement CreateHyperlink(IPropertyViewModel propertyViewModel, int rowIndex)
         {
-            var hyperlink = new Hyperlink {Command = (ICommand) elementViewModel.Parameters[1]};
-            hyperlink.Inlines.Add((string) elementViewModel.Parameters[0]);
+            var hyperlink = new Hyperlink {Command = (ICommand) propertyViewModel.Parameters[1]};
+            hyperlink.Inlines.Add((string) propertyViewModel.Parameters[0]);
 
             var textBox = new TextBlock
             {
@@ -133,69 +140,19 @@ namespace NoeticTools.Dashboard.Framework.Config.Views
             return textBox;
         }
 
-        private UIElement CreateCheckBox(IElementViewModel elementViewModel, int rowIndex)
-        {
-            var checkbox = new CheckBox
-            {
-                IsChecked = (bool) elementViewModel.Value, // todo - use binding
-                Margin = _elementMargin,
-                Name = GetUIlementName(elementViewModel),
-                DataContext = elementViewModel
-            };
-
-            var binding = new Binding("Value");
-            BindingOperations.SetBinding(checkbox, CheckBox.IsCheckedProperty, binding);
-
-            return checkbox;
-        }
-
-        private UIElement CreateTextBox(IElementViewModel elementViewModel, int rowIndex)
-        {
-            var textbox = new TextBox
-            {
-                HorizontalAlignment = HorizontalAlignment.Stretch,
-                Margin = _elementMargin,
-                FontSize = 12.0,
-                Name = GetUIlementName(elementViewModel),
-                DataContext = elementViewModel
-            };
-
-            var binding = new Binding("Value");
-            BindingOperations.SetBinding(textbox, TextBox.TextProperty, binding);
-
-            return textbox;
-        }
-
-        private UIElement CreatePasswordBox(IElementViewModel elementViewModel, int rowIndex)
+        private UIElement CreatePasswordBox(IPropertyViewModel propertyViewModel, int rowIndex)
         {
             var passwordBox = new PasswordBox
             {
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 Margin = _elementMargin,
                 FontSize = 12.0,
-                Name = GetUIlementName(elementViewModel),
-                DataContext = elementViewModel,
-                Password = (string) elementViewModel.Value
+                Name = GetUIlementName(propertyViewModel),
+                DataContext = propertyViewModel,
+                Password = (string) propertyViewModel.Value
             };
 
             return passwordBox;
-        }
-
-        private UIElement CreateComboBox(IElementViewModel elementViewModel, int rowIndex)
-        {
-            var textbox = new ComboBox
-            {
-                HorizontalAlignment = HorizontalAlignment.Stretch,
-                Margin = _elementMargin,
-                FontSize = 12.0,
-                Name = GetUIlementName(elementViewModel),
-                DataContext = elementViewModel
-            };
-
-            BindingOperations.SetBinding(textbox, ComboBox.SelectedItemProperty, new Binding("Value"));
-            BindingOperations.SetBinding(textbox, ComboBox.ItemsSourceProperty, new Binding("Parameters"));
-
-            return textbox;
         }
 
         private void Add(int rowIndex, UIElement uiElement)

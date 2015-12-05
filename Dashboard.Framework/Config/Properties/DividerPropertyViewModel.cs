@@ -1,17 +1,17 @@
-namespace NoeticTools.Dashboard.Framework.Config.Parameters
+namespace NoeticTools.Dashboard.Framework.Config.Properties
 {
-    public class DividerElementViewModel : IElementViewModel
+    public class DividerPropertyViewModel : IPropertyViewModel
     {
-        public DividerElementViewModel()
+        public DividerPropertyViewModel()
         {
             Parameters = new object[0];
-            ElementType = ElementType.Divider;
+            ViewerName = "Divider";
             Value = null;
             Name = string.Empty;
         }
 
         public string Name { get; }
-        public ElementType ElementType { get; }
+        public string ViewerName { get; }
         public object[] Parameters { get; set; }
         public object Value { get; set; }
     }

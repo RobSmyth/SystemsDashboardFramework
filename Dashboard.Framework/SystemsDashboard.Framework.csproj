@@ -7,8 +7,8 @@
     <ProjectGuid>{1F19C0DE-E777-48E9-856B-7376A7527EC0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NoeticTools.Dashboard.Framework</RootNamespace>
-    <AssemblyName>NoeticTools.Dashboard.Framework</AssemblyName>
+    <RootNamespace>NoeticTools.SystemsDashboard.Framework</RootNamespace>
+    <AssemblyName>NoeticTools.SystemsDashboard.Framework</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

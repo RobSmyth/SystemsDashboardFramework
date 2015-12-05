@@ -63,9 +63,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Dashboard.Framework\TeamDashboard.Framework.csproj">
+    <ProjectReference Include="..\Dashboard.Framework\SystemsDashboard.Framework.csproj">
       <Project>{1f19c0de-e777-48e9-856b-7376a7527ec0}</Project>
-      <Name>TeamDashboard.Framework</Name>
+      <Name>SystemsDashboard.Framework</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

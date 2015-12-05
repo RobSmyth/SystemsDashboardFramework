@@ -4,12 +4,11 @@ using System.Windows;
 using System.Windows.Controls;
 using NoeticTools.Dashboard.Framework.Config;
 using NoeticTools.Dashboard.Framework.Input;
-using NoeticTools.Dashboard.Framework.Plugins.Tiles;
 
 
 namespace NoeticTools.Dashboard.Framework.Registries
 {
-    public class TileLayoutControllerRegistry : ITileLayoutControllerRegistry
+    public sealed class TileLayoutControllerRegistry : ITileLayoutControllerRegistry
     {
         private readonly ITileControllerFactory _tileFactory;
         private readonly TileDragAndDropController _dragAndDropController;

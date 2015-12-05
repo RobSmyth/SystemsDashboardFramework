@@ -104,7 +104,7 @@ namespace NoeticTools.Dashboard.Framework
                 new ServerStatusTilePlugin()
             };
 
-            // todo - load third-party plug-ins
+            // todo - load third-party plug-ins via app config file
 
             foreach (var plugin in plugins.OrderBy(x => x.Rank))
             {

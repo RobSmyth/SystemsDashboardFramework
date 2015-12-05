@@ -5,7 +5,7 @@ using NoeticTools.Dashboard.Framework.Tiles;
 
 namespace NoeticTools.Dashboard.Framework.Registries
 {
-    public class TileControllerFactory : ITileControllerFactory
+    public sealed class TileControllerFactory : ITileControllerFactory
     {
         private readonly TileProviderRegistry _tileProviderRegistry;
 

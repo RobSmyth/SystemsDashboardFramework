@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace NoeticTools.Dashboard.Framework.Registries
 {
-    public class TileProviderRegistry : ITileProviderRegistry
+    public sealed class TileProviderRegistry : ITileProviderRegistry
     {
         private readonly IList<ITileControllerProvider> _providers = new List<ITileControllerProvider>();
 

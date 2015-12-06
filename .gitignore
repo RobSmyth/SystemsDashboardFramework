@@ -6,3 +6,7 @@ obj
 *.user
 /packages/Atlassian.SDK.5.0.0
 /packages/HtmlRenderer.Core.1.5.0.5/lib
+/Output
+/packages/Atlassian.SDK.5.5.1
+/packages/NUnit.3.0.1
+/packages/RestSharp.105.2.3

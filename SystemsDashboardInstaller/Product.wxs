@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Id="*" Name="Systems Dashboard" Language="1033" Version="1.0.0.0" Manufacturer="NoeticTools (Robert Smyth)" UpgradeCode="1d116cb5-1d5b-4a87-a4fc-1e093ceb8aa9">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MediaTemplate />
+
+		<Feature Id="ProductFeature" Title="Systems Dashboard" Level="1">
+			<ComponentGroupRef Id="SystemsDashboard" />
+		</Feature>
+	</Product>
+
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+        <Directory Id="InsallManufFolder" Name="NoeticTools">
+          <Directory Id="INSTALLFOLDER" Name="SystemsDashboard" />
+        </Directory>
+			</Directory>
+		</Directory>
+	</Fragment>
+
+	<Fragment>
+		<ComponentGroup Id="SystemsDashboard" Directory="INSTALLFOLDER">
+      <Component Id="SystemsDashboardWpfExe" Guid="44E288BC-7B4D-4376-BB85-1A2E3C74B88A">
+        <File Id="SystemsDashboard.exe" Source=".\..\Output\SystemsDashboard.exe" KeyPath="yes" Checksum="yes"/>
+      </Component>
+      <Component Id="SystemsDashboarFrameworkDll" Guid="44E288BC-7B4D-4376-BB85-1A2E3C74B88B">
+        <File Id="NoeticTools.SystemsDashboard.Framework.dll" Source=".\..\Output\NoeticTools.SystemsDashboard.Framework.dll" KeyPath="yes" Checksum="yes"/>
+      </Component>
+      <Component Id="AtlassianJiradll" Guid="E64D05A4-5054-401A-8BC7-AB51B51AFB42">
+        <File Id="Atlassian.Jira.dll" Source=".\..\Output\Atlassian.Jira.dll" KeyPath="yes" Checksum="yes"/>
+      </Component>
+      <Component Id="EasyHttpdll" Guid="5C743558-EBD2-4CFD-A7B9-6ABAABDEE261">
+        <File Id="EasyHttp.dll" Source=".\..\Output\EasyHttp.dll" KeyPath="yes" Checksum="yes"/>
+      </Component>
+      <Component Id="JsonFxdll" Guid="07F44A3F-B16E-43ED-8C36-27FC885A9A8D">
+        <File Id="JsonFx.dll" Source=".\..\Output\JsonFx.dll" KeyPath="yes" Checksum="yes"/>
+      </Component>
+      <Component Id="NewtonsoftJsondll" Guid="C4CF3E6C-1074-4886-A10E-3D50EAFD9EB2">
+        <File Id="Newtonsoft.Json.dll" Source=".\..\Output\Newtonsoft.Json.dll" KeyPath="yes" Checksum="yes"/>
+      </Component>
+      <Component Id="RestSharpdll" Guid="7461172A-FD47-49BB-86BB-D395BA928717">
+        <File Id="RestSharp.dll" Source=".\..\Output\RestSharp.dll" KeyPath="yes" Checksum="yes"/>
+      </Component>
+      <Component Id="TeamCitySharpdll" Guid="AA1E8016-FA60-4890-B435-0E790DB4B7DB">
+        <File Id="TeamCitySharp.dll" Source=".\..\Output\TeamCitySharp.dll" KeyPath="yes" Checksum="yes"/>
+      </Component>
+		</ComponentGroup>
+	</Fragment>
+</Wix>

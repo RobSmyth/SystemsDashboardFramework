@@ -3,49 +3,27 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProductVersion>3.8</ProductVersion>
-    <ProjectGuid>{83342cc7-a14d-4e39-9f8d-c7334b5b271f}</ProjectGuid>
+    <ProductVersion>3.10</ProductVersion>
+    <ProjectGuid>b2febee3-398c-42c7-8365-7fa47828fc98</ProjectGuid>
     <SchemaVersion>2.0</SchemaVersion>
-    <OutputName>ProductName1</OutputName>
-    <OutputType>Bundle</OutputType>
+    <OutputName>NoeticTools.SystemsDashboard.Installer</OutputName>
+    <OutputType>Package</OutputType>
     <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' AND '$(MSBuildExtensionsPath32)' != '' ">$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
     <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">$(MSBuildExtensionsPath)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <OutputPath>.\..\Output\Installer\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
     <DefineConstants>Debug</DefineConstants>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
-    <WixExtension Include="WixBalExtension">
-      <HintPath>$(WixExtDir)\WixBalExtension.dll</HintPath>
-      <Name>WixBalExtension</Name>
-    </WixExtension>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ProductName1Setup\ProductName1Setup.wixproj">
-      <Name>ProductName1Setup</Name>
-      <Project>{564f0083-fd2f-4d2b-9d01-679321e21dd3}</Project>
-      <Private>True</Private>
-      <DoNotHarvest>True</DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
-      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Code" />
-    <Folder Include="Resources" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Code\Bundle.wxs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Resources\EULA.rtf" />
-    <Content Include="Resources\Icon.png" />
+    <Compile Include="Product.wxs" />
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <!--

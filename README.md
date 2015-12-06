@@ -3,7 +3,6 @@
 A Windows application (C# WPF) wall team/systems dashboard. This project is something I'm using but is not mature.
 
 ![Screen shot](./Images/Screenshot01.png "Screen shot")
-
 # Features ##
 
 - Tiles:

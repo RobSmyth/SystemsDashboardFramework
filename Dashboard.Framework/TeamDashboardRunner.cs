@@ -13,6 +13,7 @@ using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.BlankTile;
 using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Date;
 using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.DaysLeftCountDown;
 using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Help;
+using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Image;
 using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.InsertTile;
 using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.MessageTile;
 using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.ServerStatus;
@@ -94,6 +95,7 @@ namespace NoeticTools.SystemsDashboard.Framework
                 new InsertTilePlugin(_dashboardController, _services, _dragAndDropController),
                 new HelpTilePlugin(_dashboardController),
                 new BlankTilePlugin(_dashboardController, _services),
+                new ImageTilePlugin(_dashboardController, _services), 
                 new DateTilePlugin(_timerService, _clock),
                 new MessageTilePlugin(_dashboardController, _services),
                 new TeamCityLastBuildStatusTilePlugin(teamCityService, _dashboardController, _services),

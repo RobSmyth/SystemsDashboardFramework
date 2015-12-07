@@ -1,4 +1,5 @@
-﻿using TeamCitySharp.DomainEntities;
+﻿using System.Threading.Tasks;
+using TeamCitySharp.DomainEntities;
 
 
 namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
@@ -7,11 +8,10 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
     {
         string[] ProjectNames { get; }
         void Connect();
-        void Disconnect();
-        Build GetLastBuild(string projectName, string buildConfigurationName);
-        Build GetLastSuccessfulBuild(string projectName, string buildConfigurationName);
-        Build GetRunningBuild(string projectName, string buildConfigurationName, string branchName);
-        Build GetRunningBuild(string projectName, string buildConfigurationName);
-        string[] GetConfigurationNames(string projectName);
+        Task<Build> GetLastBuild(string projectName, string buildConfigurationName);
+        Task<Build> GetLastSuccessfulBuild(string projectName, string buildConfigurationName);
+        Task<Build> GetRunningBuild(string projectName, string buildConfigurationName, string branchName);
+        Task<Build> GetRunningBuild(string projectName, string buildConfigurationName);
+        Task<string[]> GetConfigurationNames(string projectName);
     }
 }

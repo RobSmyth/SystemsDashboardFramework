@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using NoeticTools.SystemsDashboard.Framework.DataSources.Jira;
 using TeamCitySharp;
 using TeamCitySharp.DomainEntities;
@@ -11,16 +12,15 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
 {
     internal class TeamCityChannelConnectedState : ITeamCityChannel
     {
+        private readonly Build _nullBuild = new NullBuild();
         private readonly TeamCityClient _client;
-        private readonly IStateEngine<ITeamCityChannel> _stateEngine;
         private readonly IClock _clock;
         private readonly TimeCachedArray<Project> _projects;
         private readonly Dictionary<Project, TimeCachedArray<BuildConfig>> _buildConfigurations = new Dictionary<Project, TimeCachedArray<BuildConfig>>();
 
-        public TeamCityChannelConnectedState(TeamCityClient client, IStateEngine<ITeamCityChannel> stateEngine, IClock clock)
+        public TeamCityChannelConnectedState(TeamCityClient client, IClock clock)
         {
             _client = client;
-            _stateEngine = stateEngine;
             _clock = clock;
             _projects = new TimeCachedArray<Project>(() => _client.Projects.All(), TimeSpan.FromMinutes(5), clock);
         }
@@ -31,18 +31,14 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
         {
         }
 
-        public void Disconnect()
-        {
-            _stateEngine.OnDisconnected();
-        }
-
-        public string[] GetConfigurationNames(string projectName)
+        public async Task<string[]> GetConfigurationNames(string projectName)
         {
             var project = _projects.Items.SingleOrDefault(x => x.Name.Equals(projectName, StringComparison.CurrentCultureIgnoreCase));
-            return project == null ? new string[0] : GetConfigurations(project).Items.Select(x => x.Name).ToArray();
+            var configurations = await GetConfigurations(project);
+            return project == null ? new string[0] : configurations.Items.Select(x => x.Name).ToArray();
         }
 
-        public Build GetLastBuild(string projectName, string buildConfigurationName)
+        public async Task<Build> GetLastBuild(string projectName, string buildConfigurationName)
         {
             try
             {
@@ -51,7 +47,7 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
                 {
                     return null;
                 }
-                var buildConfiguration = GetConfiguration(project, buildConfigurationName);
+                var buildConfiguration = await GetConfiguration(project, buildConfigurationName);
                 if (buildConfiguration == null)
                 {
                     return null;
@@ -65,67 +61,76 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
             }
         }
 
-        public Build GetLastSuccessfulBuild(string projectName, string buildConfigurationName)
+        public Task<Build> GetLastSuccessfulBuild(string projectName, string buildConfigurationName)
         {
-            try
+            return Task.Run(() =>
             {
-                var project = _projects.Items.Single(x => x.Name.Equals(projectName, StringComparison.InvariantCultureIgnoreCase));
-                var buildConfiguration = _client.BuildConfigs.ByProjectIdAndConfigurationName(project.Id, buildConfigurationName);
-                var builds = _client.Builds.SuccessfulBuildsByBuildConfigId(buildConfiguration.Id);
-                return builds.FirstOrDefault();
-            }
-            catch (Exception)
-            {
-                return null;
-            }
+                try
+                {
+                    var project = _projects.Items.Single(x => x.Name.Equals(projectName, StringComparison.InvariantCultureIgnoreCase));
+                    var buildConfiguration = _client.BuildConfigs.ByProjectIdAndConfigurationName(project.Id, buildConfigurationName);
+                    var builds = _client.Builds.SuccessfulBuildsByBuildConfigId(buildConfiguration.Id);
+                    return builds.FirstOrDefault();
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
+            });
         }
 
-        public Build GetRunningBuild(string projectName, string buildConfigurationName)
+        public async Task<Build> GetRunningBuild(string projectName, string buildConfigurationName)
         {
             try
             {
                 var project = _projects.Items.SingleOrDefault(x => x.Name.Equals(projectName, StringComparison.InvariantCultureIgnoreCase));
                 if (project == null)
                 {
-                    return null;
+                    return _nullBuild;
                 }
-                var buildConfiguration = GetConfiguration(project, buildConfigurationName);
+                var buildConfiguration = await GetConfiguration(project, buildConfigurationName);
                 var builds = _client.Builds.ByBuildLocator(BuildLocator.WithDimensions(running: true));
-                return builds.FirstOrDefault(x => x.Status != "UNKNOWN" && x.WebUrl.EndsWith(buildConfiguration.Id));
+                return builds.FirstOrDefault(x => x.Status != "UNKNOWN" && x.WebUrl.EndsWith(buildConfiguration.Id)) ?? _nullBuild;
             }
             catch (Exception)
             {
-                return null;
+                return _nullBuild;
             }
         }
 
-        public Build GetRunningBuild(string projectName, string buildConfigurationName, string branchName)
+        public Task<Build> GetRunningBuild(string projectName, string buildConfigurationName, string branchName)
         {
-            try
+            return Task.Run(() =>
             {
-                var builds = _client.Builds.ByBuildLocator(BuildLocator.WithDimensions(running: true, branch: branchName));
-                return builds.FirstOrDefault();
-            }
-            catch (Exception)
-            {
-                return null;
-            }
+                try
+                {
+                    var builds = _client.Builds.ByBuildLocator(BuildLocator.WithDimensions(running: true, branch: branchName));
+                    return builds.FirstOrDefault();
+                }
+                catch (Exception)
+                {
+                    return _nullBuild;
+                }
+            });
         }
 
-        private BuildConfig GetConfiguration(Project project, string buildConfigurationName)
+        private async Task<BuildConfig> GetConfiguration(Project project, string buildConfigurationName)
         {
-            var buildConfigurations = GetConfigurations(project);
+            var buildConfigurations = await GetConfigurations(project);
             return buildConfigurations.Items.SingleOrDefault(x => x.Name.Equals(buildConfigurationName, StringComparison.InvariantCultureIgnoreCase));
         }
 
-        private TimeCachedArray<BuildConfig> GetConfigurations(Project project)
+        private Task<TimeCachedArray<BuildConfig>> GetConfigurations(Project project)
         {
-            if (!_buildConfigurations.ContainsKey(project))
+            return Task.Run(() =>
             {
-                _buildConfigurations.Add(project, new TimeCachedArray<BuildConfig>(() => _client.BuildConfigs.ByProjectId(project.Id), TimeSpan.FromSeconds(30), _clock));
-            }
-            var buildConfigurations = _buildConfigurations[project];
-            return buildConfigurations;
+                if (!_buildConfigurations.ContainsKey(project))
+                {
+                    _buildConfigurations.Add(project, new TimeCachedArray<BuildConfig>(() => _client.BuildConfigs.ByProjectId(project.Id), TimeSpan.FromSeconds(30), _clock));
+                }
+                var buildConfigurations = _buildConfigurations[project];
+                return buildConfigurations;
+            });
         }
     }
 }

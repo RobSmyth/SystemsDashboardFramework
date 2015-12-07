@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TeamCitySharp;
 using TeamCitySharp.DomainEntities;
 
@@ -8,14 +9,16 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
 {
     internal class TeamCityChannelEmulatedState : ITeamCityChannel
     {
-        private readonly TeamCityClient _client;
+        private readonly Build _nullBuild = new NullBuild();
         private readonly Dictionary<string, BuildConfig> _buildConfigurations = new Dictionary<string, BuildConfig>();
         private readonly Dictionary<string, Project> _projects = new Dictionary<string, Project>();
         private readonly Random _rand;
+        private readonly object _syncRoot = new object();
+        private string[] _status = new[] { "SUCCESS", "SUCCESS", "SUCCESS", "SUCCESS", "FAILURE", "UNKNOWN" };
 
-        public TeamCityChannelEmulatedState(TeamCityClient client, IStateEngine<ITeamCityChannel> stateEngine)
+
+        public TeamCityChannelEmulatedState()
         {
-            _client = client;
             _rand = new Random(DateTime.Now.Millisecond);
         }
 
@@ -29,71 +32,88 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
         {
         }
 
-        public Build GetLastBuild(string projectName, string buildConfigurationName)
+        public async Task<Build> GetLastBuild(string projectName, string buildConfigurationName)
         {
-            var project = GetProject(projectName);
-            var buildConfiguration = GetBuildConfiguration(project, buildConfigurationName);
-            return CreateBuild(buildConfiguration);
+            var randomValue = _rand.Next(0, _status.Length - 1);
+            return await Task.Run(() =>
+            {
+                var project = GetProject(projectName);
+                var buildConfiguration = GetBuildConfiguration(project, buildConfigurationName);
+                return CreateBuild(buildConfiguration, randomValue);
+            });
         }
 
-        public Build GetLastSuccessfulBuild(string projectName, string buildConfigurationName)
+        public async Task<Build> GetLastSuccessfulBuild(string projectName, string buildConfigurationName)
         {
-            var project = GetProject(projectName);
-            var buildConfiguration = GetBuildConfiguration(project, buildConfigurationName);
-            return CreateBuild(buildConfiguration);
+            var randomValue = _rand.Next(0, _status.Length - 1);
+            return await Task.Run(() =>
+            {
+                var project = GetProject(projectName);
+                var buildConfiguration = GetBuildConfiguration(project, buildConfigurationName);
+                return CreateBuild(buildConfiguration, randomValue);
+            });
         }
 
-        public Build GetRunningBuild(string projectName, string buildConfigurationName)
+        public async Task<Build> GetRunningBuild(string projectName, string buildConfigurationName)
         {
             if (_rand.Next(1, 10) <= 3)
             {
                 return null;
             }
 
-            var project = GetProject(projectName);
-            var buildConfiguration = GetBuildConfiguration(project, buildConfigurationName);
-            var build = CreateBuild(buildConfiguration);
-            build.Status = _rand.Next(1, 10) <= 1 ? "FAILURE" : "SUCCESS";
-            return build;
+            var randomValue = _rand.Next(0, _status.Length - 1);
+            return await Task.Run(() =>
+            {
+                var project = GetProject(projectName);
+                var buildConfiguration = GetBuildConfiguration(project, buildConfigurationName);
+                var build = CreateBuild(buildConfiguration, randomValue);
+                build.Status = randomValue <= 1 ? "FAILURE" : "SUCCESS";
+                return build;
+            });
         }
 
-        public string[] GetConfigurationNames(string projectName)
+        public Task<string[]> GetConfigurationNames(string projectName)
         {
-            return new[] {"Configuration 1", "Configuration 2", "Configuration 3"};
+            return Task.Run(() => new[] {"Configuration 1", "Configuration 2", "Configuration 3"});
         }
 
-        public Build GetRunningBuild(string projectName, string buildConfigurationName, string branchName)
+        public async Task<Build> GetRunningBuild(string projectName, string buildConfigurationName, string branchName)
         {
-            return GetRunningBuild(projectName, buildConfigurationName);
+            return await GetRunningBuild(projectName, buildConfigurationName);
         }
 
-        private Build CreateBuild(BuildConfig buildConfiguration)
+        private Build CreateBuild(BuildConfig buildConfiguration, int randomValue)
         {
-            return new Build {Status = GetBuildState(), BuildConfig = buildConfiguration, Number = "1.2.3-1234"};
+            return new Build {Status = GetBuildState(randomValue), BuildConfig = buildConfiguration, Number = "1.2.3-1234"};
         }
 
-        private string GetBuildState()
+        private string GetBuildState(int randomValue)
         {
-            var status = new[] {"SUCCESS", "SUCCESS", "SUCCESS", "SUCCESS", "FAILURE", "UNKNOWN"};
-            return status[_rand.Next(0, status.Length - 1)];
+            return _status[randomValue];
         }
 
         private Project GetProject(string name)
         {
-            if (!_projects.ContainsKey(name))
+            lock (_syncRoot)
             {
-                _projects.Add(name, new Project {Name = name});
+                if (!_projects.ContainsKey(name))
+                {
+                    _projects.Add(name, new Project {Name = name});
+                }
+                return _projects[name];
             }
-            return _projects[name];
         }
 
         private BuildConfig GetBuildConfiguration(Project project, string name)
         {
-            if (!_buildConfigurations.ContainsKey(name))
+            lock (_syncRoot)
             {
-                _buildConfigurations.Add(name, new BuildConfig {Name = name, Project = project});
+                if (!_buildConfigurations.ContainsKey(name))
+                {
+                    _buildConfigurations.Add(name, new BuildConfig {Name = name, Project = project});
+                }
+                return _buildConfigurations[name];
             }
-            return _buildConfigurations[name];
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -59,7 +61,11 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.Availabl
 
             _service.Connect();
 
-            _view = new TeamCityAvailableBuildsListControl {DataContext = this};
+            _view = new TeamCityAvailableBuildsListControl
+            {
+                DataContext = this,
+                buildsList = {ItemsSource = Builds}
+            };
 
             _services.Timer.QueueCallback(TimeSpan.FromSeconds(1), this);
             return _view;
@@ -72,13 +78,15 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.Availabl
                 return;
             }
 
-            Tick();
+            _view.Dispatcher.InvokeAsync(() => _view.projectName.Text = _tileConfigurationConverter.GetString("Title"));
+            UpdateView();
         }
 
 
         public void OnTimeElapsed(TimerToken token)
         {
-            Tick();
+            UpdateView();
+            _services.Timer.QueueCallback(_tickPeriod, this);
         }
 
         private IPropertyViewModel[] GetConfigurtionParameters()
@@ -111,21 +119,25 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.Availabl
             return version.Substring(0, length);
         }
 
-        private void Tick()
+        private async void UpdateView()
         {
-            UpdateView();
-            _services.Timer.QueueCallback(_tickPeriod, this);
+            await GetCurrentBuilds().ContinueWith(x =>
+            {
+                var builds = x.Result;
+                _view.Dispatcher.InvokeAsync(() =>
+                {
+                    Builds.Clear();
+                    foreach (var build in builds)
+                    {
+                        Builds.Add(build);
+                    }
+                });
+            });
         }
 
-        private void UpdateView()
+        private async Task<BuildDetails[]> GetCurrentBuilds()
         {
-            if (_view.buildsList.ItemsSource == null)
-            {
-                _view.buildsList.ItemsSource = Builds;
-            }
-
-            _view.projectName.Text = _tileConfigurationConverter.GetString("Title");
-            Builds.Clear();
+            var builds = new List<BuildDetails>();
 
             for (var buildNumber = 1; buildNumber <= MaxNumberOfBuilds; buildNumber++)
             {
@@ -136,7 +148,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.Availabl
                 if (!string.IsNullOrWhiteSpace(displayName) &&
                     !displayName.Equals("EMPTY", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    var build = _service.GetLastSuccessfulBuild(projectName, configurationName);
+                    var build = await _service.GetLastSuccessfulBuild(projectName, configurationName);
                     if (build != null)
                     {
                         var ageInDays = (DateTime.Now - build.StartDate).Days;
@@ -152,7 +164,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.Availabl
                                             "pack://application:,,,/NoeticTools.SystemsDashboard.Framework;component/Images/TransparentStar_20x20.png"))
                                     : new BitmapImage();
 
-                        Builds.Add(new BuildDetails
+                        builds.Add(new BuildDetails
                         {
                             BuildConfiguration = displayName,
                             Version = CleanupVersion(build.Number),
@@ -162,6 +174,8 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.Availabl
                     }
                 }
             }
+
+            return builds.ToArray();
         }
     }
 }

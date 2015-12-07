@@ -91,6 +91,7 @@
     <Compile Include="Config\Properties\TextPropertyViewModel.cs" />
     <Compile Include="Config\Properties\TileColumnSpanViewModel.cs" />
     <Compile Include="Config\Properties\TileRowSpanViewModel.cs" />
+    <Compile Include="DataSources\TeamCity\NullBuild.cs" />
     <Compile Include="Input\IDragSource.cs" />
     <Compile Include="Plugins\KeyboardDashboardNavigationPlugin.cs" />
     <Compile Include="Plugins\KeyboardTileNavigationPlugin.cs" />

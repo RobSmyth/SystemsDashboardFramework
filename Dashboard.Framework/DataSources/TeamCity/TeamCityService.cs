@@ -1,4 +1,5 @@
-﻿using Dashboard.Config;
+﻿using System.Threading.Tasks;
+using Dashboard.Config;
 using NoeticTools.SystemsDashboard.Framework;
 using NoeticTools.SystemsDashboard.Framework.Commands;
 using NoeticTools.SystemsDashboard.Framework.Config;
@@ -27,8 +28,8 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
             _configuration = new TeamCityServiceConfiguration(servicesConfiguration.GetService("TeamCity"));
             var client = new TeamCityClient(_configuration.Url);
             _disconnectedState = new TeamCityChannelDisconnectedState(client, this, _configuration);
-            _connectedState = new TeamCityChannelConnectedState(client, this, clock);
-            _current = runOptions.EmulateMode ? new TeamCityChannelEmulatedState(client, this) : _disconnectedState;
+            _connectedState = new TeamCityChannelConnectedState(client, clock);
+            _current = runOptions.EmulateMode ? new TeamCityChannelEmulatedState() : _disconnectedState;
         }
 
         public string[] ProjectNames => _current.ProjectNames;
@@ -38,27 +39,27 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
             _current.Connect();
         }
 
-        public Build GetLastBuild(string projectName, string buildConfigurationName)
+        public Task<Build> GetLastBuild(string projectName, string buildConfigurationName)
         {
             return _current.GetLastBuild(projectName, buildConfigurationName);
         }
 
-        public Build GetLastSuccessfulBuild(string projectName, string buildConfigurationName)
+        public Task<Build> GetLastSuccessfulBuild(string projectName, string buildConfigurationName)
         {
             return _current.GetLastSuccessfulBuild(projectName, buildConfigurationName);
         }
 
-        public Build GetRunningBuild(string projectName, string buildConfigurationName, string branchName)
+        public Task<Build> GetRunningBuild(string projectName, string buildConfigurationName, string branchName)
         {
             return _current.GetRunningBuild(projectName, buildConfigurationName, branchName);
         }
 
-        public Build GetRunningBuild(string projectName, string buildConfigurationName)
+        public Task<Build> GetRunningBuild(string projectName, string buildConfigurationName)
         {
             return _current.GetRunningBuild(projectName, buildConfigurationName);
         }
 
-        public string[] GetConfigurationNames(string projectName)
+        public Task<string[]> GetConfigurationNames(string projectName)
         {
             return _current.GetConfigurationNames(projectName);
         }

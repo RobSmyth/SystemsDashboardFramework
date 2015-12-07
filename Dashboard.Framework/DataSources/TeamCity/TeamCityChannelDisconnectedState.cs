@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using TeamCitySharp;
 using TeamCitySharp.DomainEntities;
 
@@ -10,6 +11,8 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
         private readonly TeamCityClient _client;
         private readonly TeamCityServiceConfiguration _configuration;
         private readonly IStateEngine<ITeamCityChannel> _stateEngine;
+        private readonly Build _nullBuild = new NullBuild();
+        private bool _testingConnection;
 
         public TeamCityChannelDisconnectedState(TeamCityClient client, IStateEngine<ITeamCityChannel> stateEngine,
             TeamCityServiceConfiguration configuration)
@@ -23,50 +26,74 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
 
         public void Connect()
         {
-            _client.Connect(_configuration.UserName, _configuration.Password);
-            try
+            if (_testingConnection)
             {
-                if (_client.Authenticate())
+                return;
+            }
+            _testingConnection = true;
+
+            Task.Run(() =>
+            {
+                _client.Connect(_configuration.UserName, _configuration.Password);
+            })
+            .ContinueWith(x =>
+            {
+                try
                 {
-                    _stateEngine.OnConnected();
+                    if (_client.Authenticate())
+                    {
+                        _stateEngine.OnConnected();
+                    }
                 }
-            }
-            catch (Exception)
+                catch (Exception)
+                {
+                }
+                finally
+                {
+                    _testingConnection = false;
+                }
+            });
+        }
+
+        public Task<Build> GetLastBuild(string projectName, string buildConfigurationName)
+        {
+            return Task.Run(() =>
             {
-            }
+                Connect();
+                return _nullBuild;
+            });
         }
 
-        public void Disconnect()
+        public Task<Build> GetLastSuccessfulBuild(string projectName, string buildConfigurationName)
         {
+            return Task.Run(() =>
+            {
+                Connect();
+                return _nullBuild;
+            });
         }
 
-        public Build GetLastBuild(string projectName, string buildConfigurationName)
+        public Task<Build> GetRunningBuild(string projectName, string buildConfigurationName, string branchName)
         {
-            Connect();
-            return null;
+            return Task.Run(() =>
+            {
+                Connect();
+                return _nullBuild;
+            });
         }
 
-        public Build GetLastSuccessfulBuild(string projectName, string buildConfigurationName)
+        public Task<Build> GetRunningBuild(string projectName, string buildConfigurationName)
         {
-            Connect();
-            return null;
+            return Task.Run(() =>
+            {
+                Connect();
+                return _nullBuild;
+            });
         }
 
-        public Build GetRunningBuild(string projectName, string buildConfigurationName, string branchName)
+        public Task<string[]> GetConfigurationNames(string projectName)
         {
-            Connect();
-            return null;
-        }
-
-        public Build GetRunningBuild(string projectName, string buildConfigurationName)
-        {
-            Connect();
-            return null;
-        }
-
-        public string[] GetConfigurationNames(string projectName)
-        {
-            return new string[0];
+            return Task.Run(() => new string[0]);
         }
     }
 }

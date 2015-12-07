@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -10,6 +11,7 @@ using NoeticTools.SystemsDashboard.Framework.Tiles.TeamCity.LastBuildStatus;
 using NoeticTools.SystemsDashboard.Framework.Time;
 using NoeticTools.SystemsDashboard.Framework.Commands;
 using NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity;
+using TeamCitySharp.DomainEntities;
 
 
 namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.LastBuildStatus
@@ -93,14 +95,22 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.LastBuil
         {
             var projectName = _tileConfigurationConverter.GetString("Project");
             var configurationName = _tileConfigurationConverter.GetString("Configuration");
+            Task.Factory.StartNew(() => GetBuild(projectName, configurationName).ContinueWith(x => _view.Dispatcher.InvokeAsync(() => Update(x.Result))));
+        }
 
+        private Task<Build> GetBuild(string projectName, string configurationName)
+        {
             var build = _service.GetRunningBuild(projectName, configurationName);
-            var running = build != null;
-
             if (build == null)
             {
                 build = _service.GetLastBuild(projectName, configurationName);
             }
+            return build;
+        }
+
+        private void Update(Build build)
+        {
+            var running = build != null;
 
             string status;
 
@@ -136,7 +146,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.LastBuil
             {
                 projectElementViewModel,
                 new DependantPropertyViewModel("Configuration", "TextFromCombobox", _tileConfigurationConverter, projectElementViewModel,
-                    x => x.Parameters = _service.GetConfigurationNames((string) projectElementViewModel.Value)),
+                    x => x.Parameters = _service.GetConfigurationNames((string) projectElementViewModel.Value).Result),
                 new PropertyViewModel("Description", "Text", _tileConfigurationConverter),
                 new HyperlinkPropertyViewModel("TeamCity service", ConfigureServiceCommand)
             };

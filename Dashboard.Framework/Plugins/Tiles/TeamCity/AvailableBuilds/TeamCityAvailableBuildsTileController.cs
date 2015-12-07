@@ -142,14 +142,14 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.Availabl
                         var ageInDays = (DateTime.Now - build.StartDate).Days;
                         var imageSource = ageInDays < 2
                             ? new BitmapImage(
-                                new Uri("pack://application:,,,/Dashboard;component/Images/YellowStar_32x32.png"))
+                                new Uri("pack://application:,,,/NoeticTools.SystemsDashboard.Framework;component/Images/YellowStar_32x32.png"))
                             : ageInDays < 7
                                 ? new BitmapImage(
-                                    new Uri("pack://application:,,,/Dashboard;component/Images/WhiteStar_20x20.png"))
+                                    new Uri("pack://application:,,,/NoeticTools.SystemsDashboard.Framework;component/Images/WhiteStar_20x20.png"))
                                 : ageInDays < 14
                                     ? new BitmapImage(
                                         new Uri(
-                                            "pack://application:,,,/Dashboard;component/Images/TransparentStar_20x20.png"))
+                                            "pack://application:,,,/NoeticTools.SystemsDashboard.Framework;component/Images/TransparentStar_20x20.png"))
                                     : new BitmapImage();
 
                         Builds.Add(new BuildDetails

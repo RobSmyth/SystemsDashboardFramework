@@ -166,8 +166,8 @@ namespace NoeticTools.SystemsDashboard.Framework.Input
 
         private void ReplaceWith(UIElement target, TileConfiguration tileBingMoved)
         {
-            tileBingMoved.SetLocation(_elementToTile[target]);
             Remove(tileBingMoved);
+            tileBingMoved.SetLocation(_elementToTile[target]);
             var targetLayoutController = _elementToLayoutController[target];
             targetLayoutController.Replace(_elementToTile[target], tileBingMoved);
             _elementToTile.Remove(target);

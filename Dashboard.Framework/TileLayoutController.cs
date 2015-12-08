@@ -5,7 +5,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
-using NoeticTools.SystemsDashboard.Framework;
 using NoeticTools.SystemsDashboard.Framework.Adorners;
 using NoeticTools.SystemsDashboard.Framework.Config;
 using NoeticTools.SystemsDashboard.Framework.Input;
@@ -125,7 +124,16 @@ namespace NoeticTools.SystemsDashboard.Framework
 
         public void Remove(TileConfiguration tile)
         {
+            var row = tile.RowNumber;
+            var rowSpan = tile.RowSpan;
+
             RemoveTile(tile);
+
+            for (var rowNumber = row; rowNumber < row + rowSpan; rowNumber++)
+            {
+                FillRow(rowNumber);
+            }
+
             RemoveEmptyRowsAndColumns();
         }
 
@@ -290,12 +298,20 @@ namespace NoeticTools.SystemsDashboard.Framework
             FillRow(insertAtRowNumber);
         }
 
-        private void FillRow(int insertAtRowNumber)
+        private void FillRow(int rowNumber)
         {
             for (var columnNumber = 1; columnNumber <= _tileGrid.ColumnDefinitions.Count; columnNumber++)
             {
-                AddBlankTile(insertAtRowNumber, columnNumber);
+                if (!HasTile(rowNumber, columnNumber))
+                {
+                    AddBlankTile(rowNumber, columnNumber);
+                }
             }
+        }
+
+        private bool HasTile(int rowNumber, int columnNumber)
+        {
+            return _tileToView.Keys.Any(x => x.IsInRow(rowNumber) && x.IsInColumn(columnNumber));
         }
 
         private void AddBlankTile(int rowNumber, int columnNumber)

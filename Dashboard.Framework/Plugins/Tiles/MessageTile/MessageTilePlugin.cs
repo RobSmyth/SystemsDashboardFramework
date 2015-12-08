@@ -1,5 +1,6 @@
 ﻿using System;
 using NoeticTools.SystemsDashboard.Framework;
+using NoeticTools.SystemsDashboard.Framework.Commands;
 using NoeticTools.SystemsDashboard.Framework.Config;
 
 

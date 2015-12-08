@@ -74,7 +74,7 @@ namespace NoeticTools.SystemsDashboard.Framework
             }
 
             var panel = element as Panel;
-            return panel != null && panel.Children.Cast<UIElement>().Any(child1 => SetFocus(child1));
+            return panel != null && panel.Children.Cast<UIElement>().Any(SetFocus);
         }
     }
 }

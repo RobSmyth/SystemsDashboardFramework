@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Input;
+using NoeticTools.SystemsDashboard.Framework.Commands;
 using NoeticTools.SystemsDashboard.Framework.Config;
 using NoeticTools.SystemsDashboard.Framework.Config.Commands;
 using NoeticTools.SystemsDashboard.Framework.Time;

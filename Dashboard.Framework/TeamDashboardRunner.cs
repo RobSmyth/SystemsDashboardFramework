@@ -2,6 +2,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using NoeticTools.SystemsDashboard.Framework;
+using NoeticTools.SystemsDashboard.Framework.Commands;
 using NoeticTools.SystemsDashboard.Framework.Config;
 using NoeticTools.SystemsDashboard.Framework.Input;
 using NoeticTools.SystemsDashboard.Framework.Registries;
@@ -38,7 +39,7 @@ namespace NoeticTools.SystemsDashboard.Framework
         private readonly DashboardTileNavigator _tileNavigator;
         private readonly RunOptions _runOptions;
         private readonly Services _services;
-        private readonly PropertyEditControlRegistry _propertyEditControlRegistry;
+        private RoutedCommands _commands;
 
         public TeamDashboardRunner(Grid tileGrid, DockPanel sidePanel)
         {
@@ -47,22 +48,23 @@ namespace NoeticTools.SystemsDashboard.Framework
             _runOptions = new RunOptions();
             _dragAndDropController = new TileDragAndDropController();
             _tileNavigator = new DashboardTileNavigator(tileGrid);
+            _commands = new RoutedCommands();
 
             var tileProviderRegistry = new TileProviderRegistry();
             var tileControllerFactory = new TileControllerFactory(tileProviderRegistry);
-            _propertyEditControlRegistry = new PropertyEditControlRegistry();
+            var propertyEditControlRegistry = new PropertyEditControlRegistry();
 
             var dashboardConfigurationManager = new DashboardConfigurationManager();
             _config = dashboardConfigurationManager.Load();
             var loaderConduit = new DashBoardLoaderConduit();
 
-            var tileLayoutControllerRegistry = new TileLayoutControllerRegistry(tileControllerFactory, _dragAndDropController, _tileNavigator);
+            var tileLayoutControllerRegistry = new TileLayoutControllerRegistry(tileControllerFactory, _dragAndDropController, _tileNavigator, _commands);
             _dashboardNavigator = new DashboardNavigator(loaderConduit, _config, tileLayoutControllerRegistry);
             _dashboardController = new DashboardController(dashboardConfigurationManager, _timerService, sidePanel, _config, _dashboardNavigator, tileProviderRegistry, _dragAndDropController);
             KeyboardHandler = new KeyboardHandler(_dashboardController);
-            _services = new Services(tileProviderRegistry, KeyboardHandler, _propertyEditControlRegistry, _timerService);
+            _services = new Services(tileProviderRegistry, KeyboardHandler, propertyEditControlRegistry, _timerService);
 
-            var rootTileLayoutController = new TileLayoutController(tileGrid, tileControllerFactory, tileLayoutControllerRegistry, new Thickness(0), _dragAndDropController, _tileNavigator, null);
+            var rootTileLayoutController = new TileLayoutController(tileGrid, tileControllerFactory, tileLayoutControllerRegistry, new Thickness(0), _dragAndDropController, _tileNavigator, null, _commands);
             _loader = new DashBoardLoader(rootTileLayoutController);
             loaderConduit.SetTarget(_loader);
 

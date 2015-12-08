@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Channels;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
 using NoeticTools.SystemsDashboard.Framework.Adorners;
+using NoeticTools.SystemsDashboard.Framework.Commands;
 using NoeticTools.SystemsDashboard.Framework.Config;
 using NoeticTools.SystemsDashboard.Framework.Input;
 using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.BlankTile;
@@ -21,21 +23,23 @@ namespace NoeticTools.SystemsDashboard.Framework
         private readonly TileDragAndDropController _dragAndDropController;
         private readonly DashboardTileNavigator _tileNavigator;
         private readonly Grid _tileGrid;
-        private readonly ITileLayoutControllerRegistry _tileLayoutControllerRegistry;
+        private readonly ITileLayoutControllerRegistry _layoutControllerRegistry;
         private readonly ITileControllerFactory _tileFactory;
         private readonly IDictionary<TileConfiguration, UIElement> _tileToView = new Dictionary<TileConfiguration, UIElement>();
         private readonly TileLayoutController _parent;
+        private readonly RoutedCommands _commands;
         private TileConfiguration _tile;
 
-        public TileLayoutController(Grid tileGrid, ITileControllerFactory tileFactory, ITileLayoutControllerRegistry tileLayoutControllerRegistry, Thickness normalMargin,
-            TileDragAndDropController dragAndDropController, DashboardTileNavigator tileNavigator, TileLayoutController parent)
+        public TileLayoutController(Grid tileGrid, ITileControllerFactory tileFactory, ITileLayoutControllerRegistry layoutControllerRegistry, Thickness normalMargin, 
+            TileDragAndDropController dragAndDropController, DashboardTileNavigator tileNavigator, TileLayoutController parent, RoutedCommands commands)
         {
             _tileFactory = tileFactory;
-            _tileLayoutControllerRegistry = tileLayoutControllerRegistry;
+            _layoutControllerRegistry = layoutControllerRegistry;
             _normalMargin = normalMargin;
             _dragAndDropController = dragAndDropController;
             _tileNavigator = tileNavigator;
             _parent = parent;
+            _commands = commands;
             _tileGrid = tileGrid;
             _tileGrid.Margin = _normalMargin;
         }
@@ -368,6 +372,16 @@ namespace NoeticTools.SystemsDashboard.Framework
             var view = viewController.CreateView();
             panel.Children.Add(view);
 
+            view.CommandBindings.Add(_commands.DeleteCommandBinding);
+            _commands.DeleteCommandBinding.Executed += (sender, args) =>
+            {
+                var frameworkElement = ((FrameworkElement)sender);
+                if (ReferenceEquals(view, frameworkElement) && frameworkElement.IsKeyboardFocusWithin)
+                {
+                    Remove(tile);
+                }
+            };
+
             _dragAndDropController.RegisterTarget(view, this, tile);
             _dragAndDropController.Register(view);
 
@@ -382,7 +396,7 @@ namespace NoeticTools.SystemsDashboard.Framework
         private UIElement AddPanel(TileConfiguration tile)
         {
             var panel = AddPlaceholderPanel(tile.RowNumber, tile.ColumnNumber, tile.RowSpan, tile.ColumnSpan);
-            _tileLayoutControllerRegistry.GetNew(panel, tile, this);
+            _layoutControllerRegistry.GetNew(panel, tile, this);
             return panel;
         }
 
@@ -391,7 +405,7 @@ namespace NoeticTools.SystemsDashboard.Framework
             AddRowsToFit(rowNumber, rowSpan);
             AddColumnsToFit(columnNumber, columnSpan);
 
-            var groupPanel = new Grid {Name = $"Panel{_tileLayoutControllerRegistry.Count + 1}"};
+            var groupPanel = new Grid {Name = $"Panel{_layoutControllerRegistry.Count + 1}"};
 
             Grid.SetRow(groupPanel, rowNumber - 1);
             Grid.SetColumn(groupPanel, columnNumber - 1);

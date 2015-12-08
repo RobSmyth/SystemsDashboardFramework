@@ -12,7 +12,6 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.WebPage
 {
     internal class WebPageTileController : IViewController
     {
-        private readonly TileConfiguration _tile;
         private readonly IDashboardController _dashboardController;
         public static readonly string TileTypeId = "WebBrowser";
         private readonly TileConfigurationConverter _tileConfigurationConverter;
@@ -22,7 +21,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.WebPage
 
         public WebPageTileController(TileConfiguration tile, IDashboardController dashboardController, TileLayoutController tileLayoutController, IServices services)
         {
-            _tile = tile;
+            Tile = tile;
             _dashboardController = dashboardController;
             _layoutController = tileLayoutController;
             _services = services;
@@ -31,9 +30,11 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.WebPage
 
         public ICommand ConfigureCommand { get; private set; }
 
+        public TileConfiguration Tile { get; }
+
         public FrameworkElement CreateView()
         {
-            ConfigureCommand = new TileConfigureCommand(_tile, "Web Page Tile Configuration", new[]
+            ConfigureCommand = new TileConfigureCommand(Tile, "Web Page Tile Configuration", new[]
             {
                 new PropertyViewModel("Url", "Text", _tileConfigurationConverter
 /* "http://www.google.com"*/)

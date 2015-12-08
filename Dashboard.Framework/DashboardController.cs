@@ -1,13 +1,12 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using NoeticTools.SystemsDashboard.Framework;
 using NoeticTools.SystemsDashboard.Framework.Config;
 using NoeticTools.SystemsDashboard.Framework.Dashboards;
 using NoeticTools.SystemsDashboard.Framework.Input;
-using NoeticTools.SystemsDashboard.Framework.Tiles.Help;
-using NoeticTools.SystemsDashboard.Framework.Time;
+using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Help;
 using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.InsertTile;
 using NoeticTools.SystemsDashboard.Framework.Registries;
+using NoeticTools.SystemsDashboard.Framework.Time;
 
 
 namespace NoeticTools.SystemsDashboard.Framework

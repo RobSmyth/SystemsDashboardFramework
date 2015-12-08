@@ -13,13 +13,16 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.ServerStatus
         private readonly TileConfigurationConverter _tileConfigurationConverter;
         private ServerStatusTileControl _view;
 
-        public ServerStatusTileController(TileConfiguration tileConfiguration)
+        public ServerStatusTileController(TileConfiguration tile)
         {
-            _tileConfigurationConverter = new TileConfigurationConverter(tileConfiguration, this);
+            Tile = tile;
+            _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
             ConfigureCommand = new NullCommand();
         }
 
         public ICommand ConfigureCommand { get; }
+
+        public TileConfiguration Tile { get; }
 
         public FrameworkElement CreateView()
         {

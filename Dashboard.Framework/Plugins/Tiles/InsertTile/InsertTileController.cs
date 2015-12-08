@@ -20,6 +20,8 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.InsertTile
 
         public IEnumerable<ITileControllerProvider> TileProviders { get; set; }
 
+        public TileConfiguration Tile { get { return null; } }
+
         public FrameworkElement CreateView()
         {
             var view = new InsertTileControl {DataContext = this};

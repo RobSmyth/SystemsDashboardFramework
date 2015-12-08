@@ -31,7 +31,6 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.Availabl
         private const int MaxNumberOfBuilds = 8;
         public const string TileTypeId = "TeamCity.AvailableBuilds";
         private readonly TeamCityService _service;
-        private readonly TileConfiguration _tile;
         private readonly IDashboardController _dashboardController;
         private readonly TimeSpan _tickPeriod = TimeSpan.FromSeconds(15);
         private readonly TileConfigurationConverter _tileConfigurationConverter;
@@ -41,8 +40,8 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.Availabl
 
         public TeamCityAvailableBuildsTileController(TeamCityService service, TileConfiguration tile, IDashboardController dashboardController, TileLayoutController tileLayoutController, IServices services)
         {
+            Tile = tile;
             _service = service;
-            _tile = tile;
             _dashboardController = dashboardController;
             _layoutController = tileLayoutController;
             _services = services;
@@ -53,11 +52,13 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.Availabl
         public ICommand ConfigureCommand { get; private set; }
         public ObservableCollection<BuildDetails> Builds { get; }
 
+        public TileConfiguration Tile { get; }
+
         public FrameworkElement CreateView()
         {
             var parameters = GetConfigurtionParameters();
 
-            ConfigureCommand = new TileConfigureCommand(_tile, "TeamCity Available Builds Tile", parameters, _dashboardController, _layoutController, _services);
+            ConfigureCommand = new TileConfigureCommand(Tile, "TeamCity Available Builds Tile", parameters, _dashboardController, _layoutController, _services);
 
             _service.Connect();
 

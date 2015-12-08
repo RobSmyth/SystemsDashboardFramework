@@ -2,9 +2,10 @@
 using System.Windows.Input;
 using NoeticTools.SystemsDashboard.Framework.Config;
 using NoeticTools.SystemsDashboard.Framework.Config.Commands;
+using NoeticTools.SystemsDashboard.Framework.Tiles.Help;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Tiles.Help
+namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Help
 {
     public class HelpViewController : IViewController
     {

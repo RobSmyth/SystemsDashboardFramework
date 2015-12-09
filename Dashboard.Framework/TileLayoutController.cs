@@ -372,15 +372,7 @@ namespace NoeticTools.SystemsDashboard.Framework
             var view = viewController.CreateView();
             panel.Children.Add(view);
 
-            view.CommandBindings.Add(_commands.DeleteCommandBinding);
-            _commands.DeleteCommandBinding.Executed += (sender, args) =>
-            {
-                var frameworkElement = ((FrameworkElement)sender);
-                if (ReferenceEquals(view, frameworkElement) && frameworkElement.IsKeyboardFocusWithin)
-                {
-                    Remove(tile);
-                }
-            };
+            _commands.BindView(tile, view, this);
 
             _dragAndDropController.RegisterTarget(view, this, tile);
             _dragAndDropController.Register(view);

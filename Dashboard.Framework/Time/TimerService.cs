@@ -12,13 +12,14 @@ namespace NoeticTools.SystemsDashboard.Framework.Time
         private readonly IClock _clock;
         private readonly List<TimerToken> _callbacks = new List<TimerToken>();
         private readonly DispatcherTimer _timer;
+        private readonly TimeSpan _tickRate = TimeSpan.FromMilliseconds(25);
 
         public TimerService(IClock clock)
         {
             _clock = clock;
             _timer = new DispatcherTimer();
             _timer.Tick += _timer_Tick;
-            _timer.Interval = TimeSpan.FromMilliseconds(25);
+            _timer.Interval = TimeSpan.FromMilliseconds(100);
             _timer.Start();
         }
 
@@ -62,6 +63,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Time
                 dueCallback = GetNextDueToken();
             }
 
+            _timer.Interval = _tickRate;
             _timer.Start();
         }
 

@@ -4,7 +4,6 @@ using NoeticTools.SystemsDashboard.Framework;
 using NoeticTools.SystemsDashboard.Framework.Commands;
 using NoeticTools.SystemsDashboard.Framework.Config;
 using NoeticTools.SystemsDashboard.Framework.Config.Properties;
-using NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity;
 using NoeticTools.SystemsDashboard.Framework.Config.Controllers;
 using TeamCitySharp;
 using TeamCitySharp.DomainEntities;
@@ -64,8 +63,9 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
             return _current.GetConfigurationNames(projectName);
         }
 
-        public void Disconnect()
+        public bool IsConnected
         {
+            get { return _current.IsConnected; }
         }
 
         public void Configure()

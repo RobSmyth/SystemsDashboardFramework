@@ -19,9 +19,13 @@
     </UserControl.Resources>
 
     <UserControl.InputBindings>
+        <!--
         <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding ConfigureCommand}" />
+            -->
         <KeyBinding Key="F2" Command="{Binding ConfigureCommand}"/>
+        <!--
         <KeyBinding Key="Enter" Command="{Binding ConfigureCommand}"/>
+        -->
     </UserControl.InputBindings>
 
     <Border Name="FocusBorder" Style="{StaticResource FocusBorder}" Focusable="True">

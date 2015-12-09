@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using log4net;
 using NoeticTools.SystemsDashboard.Framework;
 using NoeticTools.SystemsDashboard.Framework.Config;
 using NoeticTools.SystemsDashboard.Framework.Config.Properties;
@@ -51,11 +52,13 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.LastBuil
         };
 
         private readonly TileConfigurationConverter _tileConfigurationConverter;
-        private readonly TimeSpan _updatePeriod = TimeSpan.FromSeconds(30);
+        private readonly TimeSpan _connectedUpdatePeriod = TimeSpan.FromSeconds(30);
+        private readonly TimeSpan _disconnectedUpdatePeriod = TimeSpan.FromSeconds(1);
         private readonly TimerToken _timerToken;
         private readonly TileLayoutController _layoutController;
         private readonly IServices _services;
         private TeamCityBuildStatusTileControl _view;
+        private readonly ILog _logger;
 
         public TeamCityLastBuildStatusTileController(TeamCityService service, TileConfiguration tile, IDashboardController dashboardController, TileLayoutController tileLayoutController, IServices services)
         {
@@ -67,41 +70,55 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.LastBuil
             _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
             ConfigureServiceCommand = new TeamCityServiceConfigureCommand(service);
             _timerToken = services.Timer.QueueCallback(TimeSpan.FromDays(10000), this);
+            _logger = LogManager.GetLogger("Tiles.TeamCity.LastBuildStatus");
         }
 
         public ICommand ConfigureCommand { get; private set; }
 
-        public TileConfiguration Tile { get; }
+        private TileConfiguration Tile { get; }
 
         public FrameworkElement CreateView()
         {
+            _logger.InfoFormat("Create tile for: {0} / {1}.", _tileConfigurationConverter.GetString("Project"), _tileConfigurationConverter.GetString("Configuration"));
+
             var configurationParameters = GetConfigurationParameters();
             ConfigureCommand = new TileConfigureCommand(Tile, "Last Build Status Tile Configuration", configurationParameters, _dashboardController, _layoutController, _services);
 
             _view = new TeamCityBuildStatusTileControl {DataContext = this};
 
             _service.Connect();
-
             _timerToken.Requeue(TimeSpan.FromSeconds(0.1));
+
             return _view;
         }
 
         public void OnConfigurationChanged(TileConfigurationConverter converter)
         {
+            _logger.Debug("Configuration changed.");
             _timerToken.Requeue(TimeSpan.FromMilliseconds(100));
         }
 
         public void OnTimeElapsed(TimerToken token)
         {
+            if (!_service.IsConnected)
+            {
+                _timerToken.Requeue(_disconnectedUpdatePeriod);
+                return;
+            }
+
+            _logger.Debug("Timer elapsed. Update.");
+
             var projectName = _tileConfigurationConverter.GetString("Project");
             var configurationName = _tileConfigurationConverter.GetString("Configuration");
-            Task.Factory.StartNew(() => GetBuild(projectName, configurationName).ContinueWith(x => _view.Dispatcher.InvokeAsync(() => Update(x.Result))));
+
+            Task.Factory.StartNew(() => GetBuild(projectName, configurationName)
+                .ContinueWith(x => _view.Dispatcher.InvokeAsync(() => Update(x.Result))));
         }
 
         private Task<Build> GetBuild(string projectName, string configurationName)
         {
             var build = _service.GetRunningBuild(projectName, configurationName);
-            if (build == null)
+            if (build.Result == null)
             {
                 build = _service.GetLastBuild(projectName, configurationName);
             }
@@ -110,7 +127,9 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.LastBuil
 
         private void Update(Build build)
         {
-            var running = build != null;
+            _logger.Debug("Update UI.");
+
+            var running = !string.IsNullOrWhiteSpace(build?.Status) && !_statusBrushes.ContainsKey(build.Status);
 
             string status;
 
@@ -136,7 +155,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.LastBuil
             _view.root.Background = running ? _runningStatusBrushes[status] : _statusBrushes[status];
             SetTextForeground(running, status);
 
-            _timerToken.Requeue(_updatePeriod);
+            _timerToken.Requeue(build == null ? _disconnectedUpdatePeriod : _connectedUpdatePeriod);
         }
 
         private IPropertyViewModel[] GetConfigurationParameters()

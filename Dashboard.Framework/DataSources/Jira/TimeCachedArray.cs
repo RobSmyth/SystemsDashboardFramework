@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using log4net;
 
 
 namespace NoeticTools.SystemsDashboard.Framework.DataSources.Jira
@@ -12,6 +13,7 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.Jira
         private readonly IClock _clock;
         private DateTime _nextRefresh;
         private T[] _items = new T[0];
+        private ILog _logger;
 
         public TimeCachedArray(Func<IEnumerable<T>> loader, TimeSpan lifeTime, IClock clock)
         {
@@ -19,6 +21,7 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.Jira
             _lifeTime = lifeTime;
             _clock = clock;
             _nextRefresh = DateTime.MinValue;
+            _logger = LogManager.GetLogger("TimeCachedArrary");
         }
 
         public T[] Items
@@ -32,6 +35,10 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.Jira
                     try
                     {
                         _items = _loader().ToArray();
+                    }
+                    catch (Exception exception)
+                    {
+                        _logger.Error("Exception.", exception);
                     }
                     finally
                     {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using log4net;
 using TeamCitySharp;
 using TeamCitySharp.DomainEntities;
 
@@ -14,15 +15,17 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
         private readonly Dictionary<string, Project> _projects = new Dictionary<string, Project>();
         private readonly Random _rand;
         private readonly object _syncRoot = new object();
-        private string[] _status = new[] { "SUCCESS", "SUCCESS", "SUCCESS", "SUCCESS", "FAILURE", "UNKNOWN" };
-
+        private readonly string[] _status = new[] { "SUCCESS", "SUCCESS", "SUCCESS", "SUCCESS", "FAILURE", "UNKNOWN" };
+        private ILog _logger;
 
         public TeamCityChannelEmulatedState()
         {
             _rand = new Random(DateTime.Now.Millisecond);
+            _logger = LogManager.GetLogger("DateSources.TeamCity.Emulated");
         }
 
         public string[] ProjectNames => new[] {"Project A", "Project B"};
+        public bool IsConnected => true;
 
         public void Connect()
         {

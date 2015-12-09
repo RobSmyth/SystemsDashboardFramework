@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using log4net;
 using TeamCitySharp;
 using TeamCitySharp.DomainEntities;
 
@@ -11,8 +12,8 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
         private readonly TeamCityClient _client;
         private readonly TeamCityServiceConfiguration _configuration;
         private readonly IStateEngine<ITeamCityChannel> _stateEngine;
-        private readonly Build _nullBuild = new NullBuild();
         private bool _testingConnection;
+        private readonly ILog _logger;
 
         public TeamCityChannelDisconnectedState(TeamCityClient client, IStateEngine<ITeamCityChannel> stateEngine,
             TeamCityServiceConfiguration configuration)
@@ -20,17 +21,22 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
             _client = client;
             _stateEngine = stateEngine;
             _configuration = configuration;
+
+            _logger = LogManager.GetLogger("DateSources.TeamCity.Disconnected");
         }
 
         public string[] ProjectNames => new string[0];
+        public bool IsConnected => false;
 
         public void Connect()
         {
             if (_testingConnection)
             {
-                return;
+                _logger.Debug("Connect request ignored (busy testing the connection).");
             }
             _testingConnection = true;
+
+            _logger.Debug("Attempt to connect.");
 
             Task.Run(() =>
             {
@@ -42,11 +48,17 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
                 {
                     if (_client.Authenticate())
                     {
+                        _logger.Info("Has connected.");
                         _stateEngine.OnConnected();
                     }
+                    else
+                    {
+                        _logger.Debug("Connection failed.");
+                    }
                 }
-                catch (Exception)
+                catch (Exception exception)
                 {
+                    _logger.Debug("Connection failed.", exception);
                 }
                 finally
                 {
@@ -60,7 +72,7 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
             return Task.Run(() =>
             {
                 Connect();
-                return _nullBuild;
+                return (Build)null;
             });
         }
 
@@ -69,7 +81,7 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
             return Task.Run(() =>
             {
                 Connect();
-                return _nullBuild;
+                return (Build)null;
             });
         }
 
@@ -78,7 +90,7 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
             return Task.Run(() =>
             {
                 Connect();
-                return _nullBuild;
+                return (Build)null;
             });
         }
 
@@ -87,7 +99,7 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
             return Task.Run(() =>
             {
                 Connect();
-                return _nullBuild;
+                return (Build)null;
             });
         }
 

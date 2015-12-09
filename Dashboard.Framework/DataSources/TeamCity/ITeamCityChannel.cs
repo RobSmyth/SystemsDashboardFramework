@@ -7,6 +7,7 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
     internal interface ITeamCityChannel
     {
         string[] ProjectNames { get; }
+        bool IsConnected { get; }
         void Connect();
         Task<Build> GetLastBuild(string projectName, string buildConfigurationName);
         Task<Build> GetLastSuccessfulBuild(string projectName, string buildConfigurationName);

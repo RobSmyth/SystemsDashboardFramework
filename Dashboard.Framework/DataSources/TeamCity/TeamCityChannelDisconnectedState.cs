@@ -85,21 +85,21 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
             });
         }
 
-        public Task<Build> GetRunningBuild(string projectName, string buildConfigurationName, string branchName)
+        public Task<Build[]> GetRunningBuilds(string projectName, string buildConfigurationName, string branchName)
         {
             return Task.Run(() =>
             {
                 Connect();
-                return (Build)null;
+                return new Build[0];
             });
         }
 
-        public Task<Build> GetRunningBuild(string projectName, string buildConfigurationName)
+        public Task<Build[]> GetRunningBuilds(string projectName, string buildConfigurationName)
         {
             return Task.Run(() =>
             {
                 Connect();
-                return (Build)null;
+                return new Build[0];
             });
         }
 

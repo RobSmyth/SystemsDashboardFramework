@@ -102,7 +102,7 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
             });
         }
 
-        public async Task<Build> GetRunningBuild(string projectName, string buildConfigurationName)
+        public async Task<Build[]> GetRunningBuilds(string projectName, string buildConfigurationName)
         {
             _logger.DebugFormat("Request for running build: {0} / {1}.", projectName, buildConfigurationName);
 
@@ -112,29 +112,24 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
                 if (project == null)
                 {
                     _logger.WarnFormat("Could not find project {0}.", projectName);
-                    return null;
+                    return new Build[0];
                 }
 
                 var buildConfiguration = await GetConfiguration(project, buildConfigurationName);
                 if (buildConfiguration == null)
                 {
                     _logger.WarnFormat("Could not find configuration: {0} / {1}.", projectName, buildConfigurationName);
-                    return null;
+                    return new Build[0];
                 }
 
-                var builds = _client.Builds.ByBuildLocator(BuildLocator.WithDimensions(running: true));
-                var runningBuild = builds.FirstOrDefault(x => x.Status != "UNKNOWN" && x.WebUrl.EndsWith(buildConfiguration.Id)) ?? null;
-                if (runningBuild == null)
+                var builds = _client.Builds.ByBuildLocator(BuildLocator.WithDimensions(running: true)).Where(x => x.WebUrl.EndsWith(buildConfiguration.Id)).ToArray();
+
+                foreach (var build in builds)
                 {
-                    _logger.DebugFormat("No build running: {0} / {1}.", projectName, buildConfigurationName);
-                }
-                else
-                {
-                    _logger.DebugFormat("Build running: {0} / {1}.", projectName, buildConfigurationName);
-                    runningBuild.Status = runningBuild.Status == "FAILED" ? "RUNNING FAILED" : "RUNNING";
+                    build.Status = build.Status == "FAILED" ? "RUNNING FAILED" : "RUNNING";
                 }
 
-                return runningBuild;
+                return builds;
             }
             catch (Exception exception)
             {
@@ -143,7 +138,7 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
             }
         }
 
-        public Task<Build> GetRunningBuild(string projectName, string buildConfigurationName, string branchName)
+        public Task<Build[]> GetRunningBuilds(string projectName, string buildConfigurationName, string branchName)
         {
             _logger.DebugFormat("Request for last build on branch {2}: {0} / {1}.", projectName, buildConfigurationName, branchName);
 
@@ -152,7 +147,7 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
                 try
                 {
                     var builds = _client.Builds.ByBuildLocator(BuildLocator.WithDimensions(running: true, branch: branchName));
-                    return builds.FirstOrDefault();
+                    return builds.ToArray();
                 }
                 catch (Exception)
                 {

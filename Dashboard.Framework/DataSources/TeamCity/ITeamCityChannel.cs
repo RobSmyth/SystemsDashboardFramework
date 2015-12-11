@@ -11,8 +11,8 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
         void Connect();
         Task<Build> GetLastBuild(string projectName, string buildConfigurationName);
         Task<Build> GetLastSuccessfulBuild(string projectName, string buildConfigurationName);
-        Task<Build> GetRunningBuild(string projectName, string buildConfigurationName, string branchName);
-        Task<Build> GetRunningBuild(string projectName, string buildConfigurationName);
+        Task<Build[]> GetRunningBuilds(string projectName, string buildConfigurationName, string branchName);
+        Task<Build[]> GetRunningBuilds(string projectName, string buildConfigurationName);
         Task<string[]> GetConfigurationNames(string projectName);
     }
 }

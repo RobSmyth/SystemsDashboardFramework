@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -108,23 +109,31 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.LastBuil
             var projectName = _tileConfigurationConverter.GetString("Project");
             var configurationName = _tileConfigurationConverter.GetString("Configuration");
 
-            Task.Factory.StartNew(() => GetBuild(projectName, configurationName)
-                .ContinueWith(x => _view.Dispatcher.InvokeAsync(() => Update(x.Result))));
+            Task.Factory.StartNew(() => GetBuilds(projectName, configurationName))
+                .ContinueWith(x => _view.Dispatcher.InvokeAsync(() => Update(x.Result)));
         }
 
-        private Task<Build> GetBuild(string projectName, string configurationName)
+        private Build[] GetBuilds(string projectName, string configurationName)
         {
-            var build = _service.GetRunningBuild(projectName, configurationName);
-            if (build.Result == null)
+            var build = _service.GetRunningBuilds(projectName, configurationName).Result;
+            if (build.Any())
             {
-                _logger.Debug("No build running, getting last build.");
-                build = _service.GetLastBuild(projectName, configurationName);
+                return build;
             }
-            return build;
+
+            _logger.Debug("No build running, getting last build.");
+            var lastBuild = _service.GetLastBuild(projectName, configurationName).Result;
+            if (lastBuild == null)
+            {
+                return new Build[0];
+            }
+            return new[] {lastBuild};
         }
 
-        private void Update(Build build)
+        private void Update(Build[] builds)
         {
+            var build = builds.FirstOrDefault();
+
             if (string.IsNullOrWhiteSpace(build?.Status))
             {
                 SetUiToError();
@@ -135,14 +144,12 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.LastBuil
             var running = build.Status.StartsWith("RUNNING");
 
             var status = build.Status;
-            //if (_statusBrushes.ContainsKey(status))
-            //{
-            //    status = "UNKNOWN";
-            //}
             _view.statusText.Text = _tileConfigurationConverter.GetString("Description");
             _view.buildVer.Text = build.Number;
             _view.headerText.Text = running ? "Running" : "";
             _view.root.Background = _statusBrushes[status];
+            _view.agentsCount.Visibility = running ? Visibility.Visible : Visibility.Collapsed;
+            _view.agentsCount.Text = builds.Length.ToString();
             SetTextForeground(running, status);
 
             _logger.DebugFormat("Updated UI. Build is {0}.", status);
@@ -157,6 +164,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.LastBuil
             _view.buildVer.Text = "";
             _view.headerText.Text = "";
             _view.root.Background = _statusBrushes["UNKNOWN"];
+            _view.agentsCount.Visibility = Visibility.Collapsed;
         }
 
         private IPropertyViewModel[] GetConfigurationParameters()
@@ -179,6 +187,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.LastBuil
             _view.headerText.Foreground = textBrush;
             _view.statusText.Foreground = textBrush;
             _view.buildVer.Foreground = textBrush;
+            _view.agentsCount.Foreground = textBrush;
         }
 
         private ICommand ConfigureServiceCommand { get; }

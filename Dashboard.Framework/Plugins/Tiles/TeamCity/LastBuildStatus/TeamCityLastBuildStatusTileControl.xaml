@@ -49,6 +49,15 @@
                    Margin="5">
             VERSION
             </TextBlock>
+
+            <TextBlock Name="agentsCount" HorizontalAlignment="Right" VerticalAlignment="Bottom" TextAlignment="Right"
+                   TextWrapping="WrapWithOverflow"
+                   FontSize="{Binding Path=ActualWidth, ElementName=root, 
+                                Converter={StaticResource doubleConverter}, ConverterParameter=0.08}"
+                   FontWeight="Bold" Background="{x:Null}"
+                   Margin="5">
+            0
+            </TextBlock>
         </Grid>
     </Border>
 </UserControl>

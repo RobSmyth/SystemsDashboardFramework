@@ -57,7 +57,7 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
             });
         }
 
-        public async Task<Build> GetRunningBuild(string projectName, string buildConfigurationName)
+        public async Task<Build[]> GetRunningBuilds(string projectName, string buildConfigurationName)
         {
             if (_rand.Next(1, 10) <= 3)
             {
@@ -71,7 +71,7 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
                 var buildConfiguration = GetBuildConfiguration(project, buildConfigurationName);
                 var build = CreateBuild(buildConfiguration, randomValue);
                 build.Status = randomValue <= 1 ? "FAILURE" : "SUCCESS";
-                return build;
+                return new[] { build };
             });
         }
 
@@ -80,9 +80,9 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
             return Task.Run(() => new[] {"Configuration 1", "Configuration 2", "Configuration 3"});
         }
 
-        public async Task<Build> GetRunningBuild(string projectName, string buildConfigurationName, string branchName)
+        public async Task<Build[]> GetRunningBuilds(string projectName, string buildConfigurationName, string branchName)
         {
-            return await GetRunningBuild(projectName, buildConfigurationName);
+            return await GetRunningBuilds(projectName, buildConfigurationName);
         }
 
         private Build CreateBuild(BuildConfig buildConfiguration, int randomValue)

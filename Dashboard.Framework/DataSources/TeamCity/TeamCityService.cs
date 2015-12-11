@@ -48,14 +48,14 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
             return _current.GetLastSuccessfulBuild(projectName, buildConfigurationName);
         }
 
-        public Task<Build> GetRunningBuild(string projectName, string buildConfigurationName, string branchName)
+        public Task<Build[]> GetRunningBuilds(string projectName, string buildConfigurationName, string branchName)
         {
-            return _current.GetRunningBuild(projectName, buildConfigurationName, branchName);
+            return _current.GetRunningBuilds(projectName, buildConfigurationName, branchName);
         }
 
-        public Task<Build> GetRunningBuild(string projectName, string buildConfigurationName)
+        public Task<Build[]> GetRunningBuilds(string projectName, string buildConfigurationName)
         {
-            return _current.GetRunningBuild(projectName, buildConfigurationName);
+            return _current.GetRunningBuilds(projectName, buildConfigurationName);
         }
 
         public Task<string[]> GetConfigurationNames(string projectName)

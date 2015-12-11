@@ -37,6 +37,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.Availabl
         private readonly IServices _services;
         private TeamCityAvailableBuildsListControl _view;
         private readonly ILog _logger;
+        private static int _nextInstanceId = 1;
 
         public TeamCityAvailableBuildsTileController(TeamCityService service, TileConfiguration tile, IDashboardController dashboardController, TileLayoutController tileLayoutController, IServices services)
         {
@@ -47,7 +48,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.Availabl
             _services = services;
             _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
             Builds = new ObservableCollection<BuildDetails>();
-            _logger = LogManager.GetLogger("Tiles.TeamCity.AvailableBuilds");
+            _logger = LogManager.GetLogger($"Tiles.TeamCity.AvailableBuilds.{_nextInstanceId++}");
         }
 
         public ICommand ConfigureCommand { get; private set; }

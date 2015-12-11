@@ -114,13 +114,26 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
                     _logger.WarnFormat("Could not find project {0}.", projectName);
                     return null;
                 }
+
                 var buildConfiguration = await GetConfiguration(project, buildConfigurationName);
+                if (buildConfiguration == null)
+                {
+                    _logger.WarnFormat("Could not find configuration: {0} / {1}.", projectName, buildConfigurationName);
+                    return null;
+                }
+
                 var builds = _client.Builds.ByBuildLocator(BuildLocator.WithDimensions(running: true));
                 var runningBuild = builds.FirstOrDefault(x => x.Status != "UNKNOWN" && x.WebUrl.EndsWith(buildConfiguration.Id)) ?? null;
                 if (runningBuild == null)
                 {
-                    _logger.DebugFormat("No build running for: {0} / {1}.", projectName, buildConfigurationName);
+                    _logger.DebugFormat("No build running: {0} / {1}.", projectName, buildConfigurationName);
                 }
+                else
+                {
+                    _logger.DebugFormat("Build running: {0} / {1}.", projectName, buildConfigurationName);
+                    runningBuild.Status = runningBuild.Status == "FAILED" ? "RUNNING FAILED" : "RUNNING";
+                }
+
                 return runningBuild;
             }
             catch (Exception exception)

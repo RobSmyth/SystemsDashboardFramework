@@ -33,17 +33,20 @@ namespace NoeticTools.SystemsDashboard
         {
             if (e.IsDown)
             {
+                _logger.DebugFormat("Key {0} down.", e.Key);
                 _runner.KeyboardHandler.OnKeyDown(e.Key);
             }
         }
 
         private void ClosedHandler(object sender, EventArgs e)
         {
+            _logger.Info("Closing.");
             _runner.Stop();
         }
 
         private void LoadedHandler(object sender, RoutedEventArgs e)
         {
+            _logger.Debug("Loading.");
             _runner.Start();
             MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
         }

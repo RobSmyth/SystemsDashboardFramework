@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using log4net;
 using NoeticTools.SystemsDashboard.Framework.Config;
 using NoeticTools.SystemsDashboard.Framework.Dashboards;
 using NoeticTools.SystemsDashboard.Framework.Input;
@@ -20,6 +21,7 @@ namespace NoeticTools.SystemsDashboard.Framework
         private readonly DashboardConfigurationManager _configurationManager;
         private readonly ITimerService _timerService;
         private readonly DockPanel _sidePanel;
+        private ILog _logger;
 
         public DashboardController(DashboardConfigurationManager configurationManager, ITimerService timerService, DockPanel sidePanel,
             DashboardConfigurations config, IDashboardNavigator dashboardNavigator, TileProviderRegistry tileProviderRegistry,
@@ -32,6 +34,7 @@ namespace NoeticTools.SystemsDashboard.Framework
             _dashboardNavigator = dashboardNavigator;
             _tileProviderRegistry = tileProviderRegistry;
             _dragAndDropController = dragAndDropController;
+            _logger = LogManager.GetLogger("UI.Dashboard");
         }
 
         public void Start()
@@ -50,11 +53,13 @@ namespace NoeticTools.SystemsDashboard.Framework
 
         public void ShowNavigationPane()
         {
+            _logger.Info("Show navigation.");
             ShowOnSidePane(new DashboardsNavigationViewController(_config, _dashboardNavigator), "Dashboards Navigation");
         }
 
         public void ShowOnSidePane(IViewController viewController, string title)
         {
+            _logger.Debug("Show on side panel.");
             _sidePanel.Visibility = Visibility.Collapsed;
             _sidePanel.Children.Clear();
 
@@ -68,6 +73,7 @@ namespace NoeticTools.SystemsDashboard.Framework
 
         public void Refresh()
         {
+            _logger.Info("Refresh.");
             _timerService.FireAll();
         }
 

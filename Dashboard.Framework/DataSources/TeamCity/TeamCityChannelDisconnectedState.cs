@@ -107,5 +107,10 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
         {
             return Task.Run(() => new string[0]);
         }
+
+        public Task<Agent[]> GetAgents()
+        {
+            return Task.Run(() => new Agent[0]);
+        }
     }
 }

@@ -38,6 +38,11 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
             _current.Connect();
         }
 
+        public Task<Agent[]> GetAgents()
+        {
+            return _current.GetAgents();
+        }
+
         public Task<Build> GetLastBuild(string projectName, string buildConfigurationName)
         {
             return _current.GetLastBuild(projectName, buildConfigurationName);

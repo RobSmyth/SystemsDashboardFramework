@@ -18,6 +18,7 @@ using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Image;
 using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.InsertTile;
 using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.MessageTile;
 using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.ServerStatus;
+using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.AgentStatus;
 using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.AvailableBuilds;
 using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.LastBuildStatus;
 using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.WebPage;
@@ -100,6 +101,7 @@ namespace NoeticTools.SystemsDashboard.Framework
                 new ImageTilePlugin(_dashboardController, _services), 
                 new DateTilePlugin(_timerService, _clock),
                 new MessageTilePlugin(_dashboardController, _services),
+                new TeamCityAgentStatusTilePlugin(teamCityService, _dashboardController, _services), 
                 new TeamCityLastBuildStatusTilePlugin(teamCityService, _dashboardController, _services),
                 new TeamCityLAvailbleBuildSTilePlugin(teamCityService, _dashboardController, _services),
                 new DaysLeftCountDownTilePlugin(_dashboardController, _clock, _services),

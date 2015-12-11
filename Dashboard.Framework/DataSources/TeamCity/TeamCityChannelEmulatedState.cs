@@ -80,6 +80,11 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
             return Task.Run(() => new[] {"Configuration 1", "Configuration 2", "Configuration 3"});
         }
 
+        public Task<Agent[]> GetAgents()
+        {
+            return Task.Run(() => new Agent[0]);
+        }
+
         public async Task<Build[]> GetRunningBuilds(string projectName, string buildConfigurationName, string branchName)
         {
             return await GetRunningBuilds(projectName, buildConfigurationName);

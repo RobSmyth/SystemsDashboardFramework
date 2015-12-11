@@ -44,6 +44,11 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
             return project == null ? new string[0] : configurations.Items.Select(x => x.Name).ToArray();
         }
 
+        public Task<Agent[]> GetAgents()
+        {
+            return Task.Run(() => _client.Agents.All().ToArray());
+        }
+
         public async Task<Build> GetLastBuild(string projectName, string buildConfigurationName)
         {
             _logger.DebugFormat("Request for last build: {0} / {1}.", projectName, buildConfigurationName);

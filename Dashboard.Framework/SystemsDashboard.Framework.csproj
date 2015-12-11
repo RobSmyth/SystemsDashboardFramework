@@ -123,6 +123,11 @@
     <Compile Include="Plugins\Tiles\Image\ImageTileController.cs" />
     <Compile Include="Plugins\Tiles\Image\ImageTilePlugin.cs" />
     <Compile Include="Plugins\Tiles\Image\ImageViewModel.cs" />
+    <Compile Include="Plugins\Tiles\TeamCity\AgentStatus\TeamCityAgentStatusTileControl.xaml.cs">
+      <DependentUpon>TeamCityAgentStatusTileControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\Tiles\TeamCity\AgentStatus\TeamCityAgentStatusTileController.cs" />
+    <Compile Include="Plugins\Tiles\TeamCity\AgentStatus\TeamCityAgentStatusTilePlugin.cs" />
     <Compile Include="Registries\IPropertyViewProvider.cs" />
     <Compile Include="Registries\IPropertyEditControlRegistry.cs" />
     <Compile Include="Registries\ITileProviderRegistry.cs" />
@@ -298,6 +303,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Plugins\Tiles\TeamCity\AgentStatus\TeamCityAgentStatusTileControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Styles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -365,6 +374,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Delete column.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\server128x128.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

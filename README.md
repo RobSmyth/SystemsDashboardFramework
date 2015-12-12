@@ -35,7 +35,7 @@ The message tile displays a text message. Useful of adding labels to the dashboa
 To add a message tile:
 
 1. Press INSERT, the insert pane will appear.
-2. Drag and drop the message tile entry to where you want the message tile.
+2. Drag and drop the message tile entry to where you want the tile.
 3. To change the message double click on the tile.
 
 ![Message tile configuration screen shot](./Images/Screenshot_MessageTile_Config.png "Message tile configuration")
@@ -49,10 +49,32 @@ The today's date tile displays the current date.
 To add a date tile:
 
 1. Press INSERT, the insert pane will appear.
-2. Drag and drop the today's date tile entry to where you want the message tile.
+2. Drag and drop the today's date tile entry to where you want the tile.
 
 
 ## TeamCity tiles
+
+### Build configuration
+
+The TeamCity build configuration tile displays the status of a current build, or if not build is running, the configuration's last build.
+
+After a successful build:
+
+![TeamCity configuration (SUCCESS) tile screen shot](./Images/Screenshot_TC_ConfigTile_Succeeded.png "TeamCity configuration (SUCCESS) tile")
+
+After a failed build:
+
+![TeamCity configuration (FAILED) tile screen shot](./Images/Screenshot_TC_ConfigTile_Failed.png "TeamCity configuration (FAILED) tile")
+
+While building, no failure:
+
+![TeamCity configuration (BUILDING) tile screen shot](./Images/Screenshot_TC_ConfigTile_Building.png "TeamCity configuration (BUILDING) tile")
+
+To add a build tile:
+
+1. Press INSERT, the insert pane will appear.
+2. Drag and drop the build tile entry to where you want the tile.
+3. Double click on the tile to configure it.
 
 ### Build agent
 
@@ -65,7 +87,8 @@ THIS TILE IS A WORK IN PROGRESS
 To add a build agent tile:
 
 1. Press INSERT, the insert pane will appear.
-2. Drag and drop the today's date tile entry to where you want the message tile.
+2. Drag and drop the today's date tile entry to where you want the tile.
+3. Double click on the tile to configure it.
 
 
 

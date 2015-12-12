@@ -22,6 +22,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{260E65
 		Images\Screenshot_MessageTile.png = Images\Screenshot_MessageTile.png
 		Images\Screenshot_MessageTile_Config.png = Images\Screenshot_MessageTile_Config.png
 		Images\Screenshot_TC_AgentTile_Error.png = Images\Screenshot_TC_AgentTile_Error.png
+		Images\Screenshot_TC_ConfigTile_Building.png = Images\Screenshot_TC_ConfigTile_Building.png
+		Images\Screenshot_TC_ConfigTile_Failed.png = Images\Screenshot_TC_ConfigTile_Failed.png
+		Images\Screenshot_TC_ConfigTile_Succeeded.png = Images\Screenshot_TC_ConfigTile_Succeeded.png
 		Images\Screenshot_TodaysDateTile.png = Images\Screenshot_TodaysDateTile.png
 	EndProjectSection
 EndProject

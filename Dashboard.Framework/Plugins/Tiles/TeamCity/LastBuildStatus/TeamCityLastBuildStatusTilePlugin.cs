@@ -21,6 +21,8 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.LastBuil
 
         public int Rank => 0;
 
+        public string Name => "TeamCity running or last build status";
+
         public bool MatchesId(string id)
         {
             return id == TeamCityLastBuildStatusTileViewModel.TileTypeId || id.Equals("0FFACE9A-8B68-4DBC-8B42-0255F51368B5", StringComparison.InvariantCultureIgnoreCase);

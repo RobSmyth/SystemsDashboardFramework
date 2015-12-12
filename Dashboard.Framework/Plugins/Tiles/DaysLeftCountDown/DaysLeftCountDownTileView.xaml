@@ -35,17 +35,15 @@
                                     Converter={StaticResource doubleConverter}, ConverterParameter=0.15}"
                        FontWeight="Normal"
                        Foreground="{StaticResource TealTileStyle_ForegroundBrush}"
-                       Margin="0,5,0,-2">
-                Sprint X
-                </TextBlock>
+                       Margin="0,5,0,-2"
+                           Text="{Binding Title, Mode=OneWay}"/>
 
                 <TextBlock Name="days" HorizontalAlignment="Center" TextAlignment="Center"
                        FontSize="{Binding Path=ActualHeight, ElementName=root, 
                                     Converter={StaticResource doubleConverter}, ConverterParameter=0.4}"
                        FontWeight="Bold" Foreground="{StaticResource TealTileStyle_ForegroundBrush}"
-                       Margin="0,0,0,-3">
-                42
-                </TextBlock>
+                       Margin="0,0,0,-3"
+                           Text="{Binding DaysRemaining, Mode=OneWay}"/>
 
                 <TextBlock Name="footer" HorizontalAlignment="Center" TextAlignment="Center"
                        TextWrapping="WrapWithOverflow"

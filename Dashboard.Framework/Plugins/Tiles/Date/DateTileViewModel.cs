@@ -6,11 +6,13 @@ using NoeticTools.SystemsDashboard.Framework.Time;
 
 namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Date
 {
-    internal sealed class DateTileViewModel : ITimerListener
+    internal sealed class DateTileViewModel : NotifyingViewModelBase, ITimerListener
     {
         private readonly ITimerService _timerService;
         private readonly IClock _clock;
         private readonly DateTileControl _view;
+        private int _day;
+        private string _month;
 
         public DateTileViewModel(ITimerService timerService, IClock clock, DateTileControl view)
         {
@@ -24,11 +26,37 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Date
 
         public ICommand ConfigureCommand { get; }
 
+        public int Day
+        {
+            get { return _day; }
+            private set
+            {
+                if (_day != value)
+                {
+                    _day = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public string Month
+        {
+            get { return _month; }
+            set
+            {
+                if (_month != value)
+                {
+                    _month = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         private void UpdateView()
         {
             var now = _clock.Now;
-            _view.day.Text = now.Day.ToString();
-            _view.month.Text = now.ToString("MMM");
+            Day = now.Day;
+            Month = now.ToString("MMM");
         }
 
         void ITimerListener.OnTimeElapsed(TimerToken token)

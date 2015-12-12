@@ -15,6 +15,8 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.DaysLeftCountDown
         private readonly TileConfigurationConverter _tileConfigurationConverter;
         private readonly DaysLeftCountDownTileView _view;
         private readonly TimerToken _timerToken;
+        private string _daysRemaining;
+        private string _title;
 
         public DaysLeftCountDownTileViewModel(TileConfiguration tile, IClock clock, IDashboardController dashboardController, DaysLeftCountDownTileView view, TileLayoutController tileLayoutController,
             IServices services)
@@ -30,11 +32,38 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.DaysLeftCountDown
                     new PropertyViewModel("Disabled", "Checkbox", _tileConfigurationConverter)
                 },
                 dashboardController, tileLayoutController, services);
+            DaysRemaining = "";
             _view.DataContext = this;
             _timerToken = services.Timer.QueueCallback(TimeSpan.FromMilliseconds(10), this);
         }
 
         public ICommand ConfigureCommand { get; }
+
+        public string Title
+        {
+            get { return _title; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(_title) || !_title.Equals(value, StringComparison.InvariantCulture))
+                {
+                    _title = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public string DaysRemaining
+        {
+            get { return _daysRemaining; }
+            private set
+            {
+                if (_daysRemaining != value)
+                {
+                    _daysRemaining = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         public void OnConfigurationChanged(TileConfigurationConverter converter)
         {
@@ -53,8 +82,8 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.DaysLeftCountDown
             {
                 workingDaysRemaining = -workingDaysRemaining;
             }
-            _view.days.Text = disabled ? "-" : workingDaysRemaining.ToString();
-            _view.header.Text = _tileConfigurationConverter.GetString("Title");
+            DaysRemaining = disabled ? "-" : workingDaysRemaining.ToString();
+            Title = _tileConfigurationConverter.GetString("Title");
         }
 
         void ITimerListener.OnTimeElapsed(TimerToken token)

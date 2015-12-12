@@ -25,6 +25,8 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Date
             services.TileProviders.Register(this);
         }
 
+        public string Name => "Today's date";
+
         public bool MatchesId(string id)
         {
             return id == TileTypeId || id.Equals("0FFACE9A-8B68-4DBC-8B42-0255F51368B1", StringComparison.InvariantCultureIgnoreCase);

@@ -7,6 +7,7 @@ namespace NoeticTools.SystemsDashboard.Framework
 {
     public interface ITileControllerProvider
     {
+        string Name { get; }
         bool MatchesId(string id);
         FrameworkElement CreateTile(TileConfiguration tile, TileLayoutController layoutController);
         TileConfiguration CreateDefaultConfiguration();

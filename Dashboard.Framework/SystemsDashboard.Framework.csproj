@@ -115,7 +115,6 @@
     <Compile Include="Plugins\Tiles\BlankTile\BlankTileControl.xaml.cs">
       <DependentUpon>BlankTileControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Plugins\Tiles\BlankTile\BlankTileController.cs" />
     <Compile Include="Plugins\Tiles\BlankTile\BlankTilePlugin.cs" />
     <Compile Include="Plugins\Tiles\Image\ImageTileControl.xaml.cs">
       <DependentUpon>ImageTileControl.xaml</DependentUpon>

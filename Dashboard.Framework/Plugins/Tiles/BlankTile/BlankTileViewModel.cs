@@ -4,6 +4,7 @@ using System.Windows.Media;
 using NoeticTools.SystemsDashboard.Framework.Commands;
 using NoeticTools.SystemsDashboard.Framework.Config;
 using NoeticTools.SystemsDashboard.Framework.Config.Properties;
+using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Date;
 
 
 namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.BlankTile
@@ -13,11 +14,12 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.BlankTile
         private readonly TileConfigurationConverter _tileConfigurationConverter;
         private Brush _background;
 
-        public BlankTileViewModel(TileConfiguration tile, IDashboardController dashboardController, TileLayoutController layoutController, IServices services)
+        public BlankTileViewModel(TileConfiguration tile, IDashboardController dashboardController, TileLayoutController layoutController, IServices services, BlankTileControl view)
         {
             _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
             var parameters = new IPropertyViewModel[] {new PropertyViewModel("Colour", "Text", _tileConfigurationConverter)};
             ConfigureCommand = new TileConfigureCommand(tile, "Blank Tile Configuration", parameters, dashboardController, layoutController, services);
+            view.DataContext = this;
             Update();
         }
 

@@ -1,7 +1,12 @@
 ﻿using System;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using log4net;
 using NoeticTools.SystemsDashboard.Framework.Commands;
 using NoeticTools.SystemsDashboard.Framework.Config;
 using NoeticTools.SystemsDashboard.Framework.Config.Properties;
@@ -11,15 +16,37 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Image
 {
     internal sealed class ImageViewModel : NotifyingViewModelBase, IConfigurationChangeListener
     {
+        private readonly ImageTileControl _view;
         private readonly TileConfigurationConverter _tileConfigurationConverter;
         private ImageSource _source;
+        private string _imageFilePath = string.Empty;
+        private readonly FileSystemWatcher _fileWatcher;
+        private static int _nextInstanceId = 1;
+        private readonly ILog _logger;
 
-        public ImageViewModel(TileConfiguration tile, IDashboardController dashboardController, TileLayoutController tileLayoutController, IServices services)
+        public ImageViewModel(TileConfiguration tile, IDashboardController dashboardController, TileLayoutController tileLayoutController, IServices services, ImageTileControl view)
         {
+            _view = view;
             _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
             var parameters = new IPropertyViewModel[] {new PropertyViewModel("ImagePath", "Text", _tileConfigurationConverter)};
             ConfigureCommand = new TileConfigureCommand(tile, "Image Tile Configuration", parameters, dashboardController, tileLayoutController, services);
+            _logger = LogManager.GetLogger($"Tiles.Image.File.Watcher.{_nextInstanceId++}");
+            _fileWatcher = new FileSystemWatcher
+            {
+                IncludeSubdirectories = false,
+                EnableRaisingEvents = false
+            };
+            _fileWatcher.Changed += _fileWatcher_Changed;
+            _fileWatcher.Deleted += _fileWatcher_Changed;
+            _fileWatcher.Created += _fileWatcher_Changed;
+            _fileWatcher.Renamed += _fileWatcher_Changed;
+            _view.DataContext = this;
             Update();
+        }
+
+        private void _fileWatcher_Changed(object sender, FileSystemEventArgs e)
+        {
+            _view.Dispatcher.InvokeAsync(Update);
         }
 
         public ImageSource Source
@@ -44,10 +71,44 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Image
         {
             try
             {
-                var imageFilePath = _tileConfigurationConverter.GetString("ImagePath");
-                Source = new BitmapImage(new Uri(imageFilePath));
+                System.Threading.Thread.Sleep(50);
+                var imageFilePath = _tileConfigurationConverter.GetString("ImagePath").Trim('"');
+
+                _logger.Info($"Setting image source to {imageFilePath}");
+                _imageFilePath = imageFilePath;
+
+                if (File.Exists(imageFilePath))
+                {
+                    using (var stream = File.Open(imageFilePath, FileMode.Open))
+                    {
+                        var image = (Bitmap) System.Drawing.Image.FromStream(stream);
+
+                        using (var memory = new MemoryStream())
+                        {
+                            image.Save(memory, ImageFormat.Png);
+                            memory.Position = 0;
+                            var bitmapImage = new BitmapImage();
+                            bitmapImage.BeginInit();
+                            bitmapImage.StreamSource = memory;
+                            bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                            bitmapImage.EndInit();
+                            Source = bitmapImage;
+                        }
+
+                        stream.Close();
+                    }
+                }
+                else
+                {
+                    Source = new BitmapImage();
+                }
+
+                _fileWatcher.EnableRaisingEvents = false;
+                _fileWatcher.Path = Path.GetDirectoryName(_imageFilePath);
+                _fileWatcher.Filter = Path.GetFileName(_imageFilePath);
+                _fileWatcher.EnableRaisingEvents = true;
             }
-            catch (Exception exception)
+            catch (Exception)
             {
             }
         }

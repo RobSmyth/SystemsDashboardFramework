@@ -17,8 +17,6 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.AgentSta
 {
     internal sealed class TeamCityAgentTileViewModel : ITimerListener, IConfigurationChangeListener
     {
-        public const string TileTypeId = "TeamCity.Agent.Status";
-
         private readonly Dictionary<string, Brush> _statusBrushes = new Dictionary<string, Brush>
         {
             {"DISABLED", Brushes.Gray},
@@ -42,7 +40,6 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.AgentSta
         private readonly TimeSpan _connectedUpdatePeriod = TimeSpan.FromSeconds(30);
         private readonly TimeSpan _disconnectedUpdatePeriod = TimeSpan.FromSeconds(2);
         private readonly TimerToken _timerToken;
-        private readonly IServices _services;
         private readonly ILog _logger;
         private readonly object _syncRoot = new object();
         private readonly TeamCityAgentStatusTileControl _view;
@@ -58,13 +55,12 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.AgentSta
 
             Tile = tile;
             _service = service;
-            _services = services;
             _view = view;
             _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
             ConfigureServiceCommand = new TeamCityServiceConfigureCommand(service);
 
             var configurationParameters = GetConfigurationParameters();
-            ConfigureCommand = new TileConfigureCommand(Tile, "Build Agent Configuration", configurationParameters, dashboardController, tileLayoutController, _services);
+            ConfigureCommand = new TileConfigureCommand(Tile, "Build Agent Configuration", configurationParameters, dashboardController, tileLayoutController, services);
 
             _view.DataContext = this;
 

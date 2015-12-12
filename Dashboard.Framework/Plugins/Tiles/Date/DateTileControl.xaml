@@ -25,16 +25,15 @@
                 <TextBlock Name="day" HorizontalAlignment="Center" TextAlignment="Center"
                        FontSize="{Binding Path=ActualHeight, ElementName=root, 
                                     Converter={StaticResource doubleConverter}, ConverterParameter=0.4}"
-                       FontWeight="Bold" Margin="0,0,0,-3">
-                00
-                </TextBlock>
+                       FontWeight="Bold" Margin="0,0,0,-3"
+                           Text="{Binding Day, Mode=OneWay}"/>
                 <TextBlock Name="month" HorizontalAlignment="Center" TextAlignment="Center"
                        TextWrapping="WrapWithOverflow"
                        FontSize="{Binding Path=ActualHeight, ElementName=root, 
                                     Converter={StaticResource doubleConverter}, ConverterParameter=0.15}"
-                       FontWeight="Normal" Margin="0,-2,0,5">
-                Month
-                </TextBlock>
+                       FontWeight="Normal" Margin="0,-2,0,5"
+                           Text="{Binding Month, Mode=OneWay}"/>
+                
             </StackPanel>
         </Grid>
     </Border>

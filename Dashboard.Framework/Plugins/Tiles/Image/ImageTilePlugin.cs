@@ -9,7 +9,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Image
     {
         private readonly IDashboardController _dashboardController;
         private readonly IServices _services;
-        private static readonly string TileTypeId = "Image";
+        private const string TileTypeId = "Image.File.Watcher";
 
         public ImageTilePlugin(IDashboardController dashboardController, IServices services)
         {
@@ -19,6 +19,8 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Image
 
         public int Rank => 0;
 
+        public string Name => "Display image file";
+
         public bool MatchesId(string id)
         {
             return id == TileTypeId;
@@ -26,7 +28,9 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Image
 
         public FrameworkElement CreateTile(TileConfiguration tile, TileLayoutController layoutController)
         {
-            return new ImageTileControl { DataContext = new ImageViewModel(tile, _dashboardController, layoutController, _services) };
+            var view = new ImageTileControl();
+            new ImageViewModel(tile, _dashboardController, layoutController, _services, view);
+            return view;
         }
 
         public TileConfiguration CreateDefaultConfiguration()

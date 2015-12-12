@@ -21,6 +21,8 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.DaysLeftCountDown
 
         public int Rank => 0;
 
+        public string Name => "Working days left to date count down";
+
         public bool MatchesId(string id)
         {
             return id == TileTypeId || id.Equals("0FFACE9A-8B68-4DBC-8B42-0255F51368B2", StringComparison.InvariantCultureIgnoreCase);

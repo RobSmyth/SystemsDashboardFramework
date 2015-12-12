@@ -11,6 +11,20 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SystemsDashboard.Framework"
 EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "SystemsDashboardInstaller", "SystemsDashboardInstaller\SystemsDashboardInstaller.wixproj", "{B2FEBEE3-398C-42C7-8365-7FA47828FC98}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{0B50194A-CE8A-49CE-9AE2-CD4C96598A92}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{260E653D-BA80-4D11-B95F-BFAAF7801ABA}"
+	ProjectSection(SolutionItems) = preProject
+		Images\Screenshot01.png = Images\Screenshot01.png
+		Images\Screenshot_MessageTile.png = Images\Screenshot_MessageTile.png
+		Images\Screenshot_MessageTile_Config.png = Images\Screenshot_MessageTile_Config.png
+		Images\Screenshot_TC_AgentTile_Error.png = Images\Screenshot_TC_AgentTile_Error.png
+		Images\Screenshot_TodaysDateTile.png = Images\Screenshot_TodaysDateTile.png
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

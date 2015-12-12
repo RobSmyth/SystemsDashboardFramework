@@ -22,7 +22,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.AgentSta
 
         public int Rank => 0;
 
-        public string Name => "TeamCity build agent status";
+        public string Name => "TeamCity build agent status (future)";
 
         public bool MatchesId(string id)
         {

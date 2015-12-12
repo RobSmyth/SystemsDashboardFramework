@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using NoeticTools.SystemsDashboard.Framework.Config;
 using NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity;
 
@@ -20,23 +21,23 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.AgentSta
 
         public int Rank => 0;
 
-        public string Name => "TeamCity build agent status";
-
         public bool MatchesId(string id)
         {
-            return id == TeamCityAgentTileController.TileTypeId;
+            return id == TeamCityAgentTileViewModel.TileTypeId;
         }
 
-        public IViewController CreateTileController(TileConfiguration tile, TileLayoutController layoutController)
+        public FrameworkElement CreateTile(TileConfiguration tile, TileLayoutController layoutController)
         {
-            return new TeamCityAgentTileController(_service, tile, _dashboardController, layoutController, _services);
+            var view = new TeamCityAgentStatusTileControl();
+            new TeamCityAgentTileViewModel(_service, tile, _dashboardController, layoutController, _services, view);
+            return view;
         }
 
         public TileConfiguration CreateDefaultConfiguration()
         {
             return new TileConfiguration
             {
-                TypeId = TeamCityAgentTileController.TileTypeId,
+                TypeId = TeamCityAgentTileViewModel.TileTypeId,
                 Id = Guid.NewGuid(),
                 Tiles = new TileConfiguration[0]
             };

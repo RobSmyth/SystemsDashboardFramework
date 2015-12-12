@@ -1,15 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
-using NoeticTools.SystemsDashboard.Framework;
 using NoeticTools.SystemsDashboard.Framework.Commands;
-using NoeticTools.SystemsDashboard.Framework.Config;
 using NoeticTools.SystemsDashboard.Framework.Config.Views;
 
 
 namespace NoeticTools.SystemsDashboard.Framework.Config.Controllers
 {
-    public sealed class ConfigationViewController : NotifyingViewModelBase, IViewController
+    public sealed class ConfigationViewController : NotifyingViewModelBase
     {
         private readonly IEnumerable<IPropertyViewModel> _parameters;
         private readonly IServices _services;
@@ -38,10 +36,6 @@ namespace NoeticTools.SystemsDashboard.Framework.Config.Controllers
             };
 
             return _panelView;
-        }
-
-        public void OnConfigurationChanged(TileConfigurationConverter converter)
-        {
         }
 
         private void CloseCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)

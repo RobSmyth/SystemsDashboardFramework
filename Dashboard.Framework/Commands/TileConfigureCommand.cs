@@ -50,7 +50,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Commands
             var routedCommands = new RoutedCommands();
             routedCommands.DeleteCommandBinding.Executed += DeleteCommandBinding_Executed;
             var controller = new ConfigationViewController(_title, routedCommands, _parameters, _services);
-            _dashboardController.ShowOnSidePane(controller, _title);
+            _dashboardController.ShowOnSidePane(controller.CreateView(), _title);
         }
 
         private void DeleteCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)

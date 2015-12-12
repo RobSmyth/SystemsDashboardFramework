@@ -92,7 +92,7 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
 
             const string title = "TeamCity Server Configuration";
             var controller = new ConfigationViewController(title, new RoutedCommands(), parameters, _services);
-            _dashboardController.ShowOnSidePane(controller, title);
+            _dashboardController.ShowOnSidePane(controller.CreateView(), title);
         }
 
         public void OnConfigurationChanged(TileConfigurationConverter converter)

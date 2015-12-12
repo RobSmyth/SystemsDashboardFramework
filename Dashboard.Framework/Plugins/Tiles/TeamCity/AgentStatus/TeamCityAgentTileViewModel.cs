@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using log4net;
@@ -16,7 +15,7 @@ using TeamCitySharp.DomainEntities;
 
 namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.AgentStatus
 {
-    internal sealed class TeamCityAgentTileController : IViewController, ITimerListener
+    internal sealed class TeamCityAgentTileViewModel : ITimerListener, IConfigurationChangeListener
     {
         public const string TileTypeId = "TeamCity.Agent.Status";
 
@@ -39,19 +38,18 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.AgentSta
         };
 
         private readonly TeamCityService _service;
-        private readonly IDashboardController _dashboardController;
         private readonly TileConfigurationConverter _tileConfigurationConverter;
         private readonly TimeSpan _connectedUpdatePeriod = TimeSpan.FromSeconds(30);
         private readonly TimeSpan _disconnectedUpdatePeriod = TimeSpan.FromSeconds(2);
         private readonly TimerToken _timerToken;
-        private readonly TileLayoutController _layoutController;
         private readonly IServices _services;
-        private TeamCityAgentStatusTileControl _view;
         private readonly ILog _logger;
-        private static int _nextInstanceId = 1;
         private readonly object _syncRoot = new object();
+        private readonly TeamCityAgentStatusTileControl _view;
+        private static int _nextInstanceId = 1;
 
-        public TeamCityAgentTileController(TeamCityService service, TileConfiguration tile, IDashboardController dashboardController, TileLayoutController tileLayoutController, IServices services)
+        public TeamCityAgentTileViewModel(TeamCityService service, TileConfiguration tile, IDashboardController dashboardController, TileLayoutController tileLayoutController, IServices services,
+            TeamCityAgentStatusTileControl view)
         {
             lock (_syncRoot)
             {
@@ -60,33 +58,20 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.AgentSta
 
             Tile = tile;
             _service = service;
-            _dashboardController = dashboardController;
-            _layoutController = tileLayoutController;
             _services = services;
+            _view = view;
             _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
             ConfigureServiceCommand = new TeamCityServiceConfigureCommand(service);
 
-            _timerToken = services.Timer.QueueCallback(TimeSpan.FromDays(10000), this);
+            var configurationParameters = GetConfigurationParameters();
+            ConfigureCommand = new TileConfigureCommand(Tile, "Build Agent Configuration", configurationParameters, dashboardController, tileLayoutController, _services);
+
+            _view.DataContext = this;
+
+            _timerToken = services.Timer.QueueCallback(TimeSpan.FromSeconds(_service.IsConnected ? 1 : 3), this);
         }
 
         public ICommand ConfigureCommand { get; private set; }
-
-        private TileConfiguration Tile { get; }
-
-        public FrameworkElement CreateView()
-        {
-            _logger.InfoFormat("Create tile for agent: {0}.", _tileConfigurationConverter.GetString("AgentName"));
-
-            var configurationParameters = GetConfigurationParameters();
-            ConfigureCommand = new TileConfigureCommand(Tile, "Build Agent Configuration", configurationParameters, _dashboardController, _layoutController, _services);
-
-            _view = new TeamCityAgentStatusTileControl {DataContext = this};
-
-            _service.Connect();
-            _timerToken.Requeue(TimeSpan.FromSeconds(1));
-
-            return _view;
-        }
 
         public void OnConfigurationChanged(TileConfigurationConverter converter)
         {
@@ -121,7 +106,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.AgentSta
                 return;
             }
 
-            var running = false;//agent.Status.StartsWith("RUNNING");
+            var running = false; //agent.Status.StartsWith("RUNNING");
 
             var status = "IDLE";
             _view.headerText.Text = running ? "Running" : "Idle";
@@ -145,7 +130,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.AgentSta
         {
             var configurationParameters = new IPropertyViewModel[]
             {
-                new PropertyViewModel("AgentName", "Text", _tileConfigurationConverter),
+                new PropertyViewModel("AgentName", "Text", _tileConfigurationConverter)
             };
             return configurationParameters;
         }
@@ -155,6 +140,8 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.AgentSta
             var textBrush = running ? _statusTextBrushes[status] : _statusTextBrushes[status];
             _view.headerText.Foreground = textBrush;
         }
+
+        private TileConfiguration Tile { get; }
 
         private ICommand ConfigureServiceCommand { get; }
     }

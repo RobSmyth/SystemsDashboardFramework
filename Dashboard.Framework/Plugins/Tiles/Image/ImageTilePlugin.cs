@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Windows;
 using NoeticTools.SystemsDashboard.Framework.Config;
-using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.MessageTile;
 
 
 namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Image
@@ -9,6 +9,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Image
     {
         private readonly IDashboardController _dashboardController;
         private readonly IServices _services;
+        private static readonly string TileTypeId = "Image";
 
         public ImageTilePlugin(IDashboardController dashboardController, IServices services)
         {
@@ -18,23 +19,21 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Image
 
         public int Rank => 0;
 
-        public string Name => "Image";
-
         public bool MatchesId(string id)
         {
-            return id == ImageTileController.TileTypeId;
+            return id == TileTypeId;
         }
 
-        public IViewController CreateTileController(TileConfiguration tile, TileLayoutController layoutController)
+        public FrameworkElement CreateTile(TileConfiguration tile, TileLayoutController layoutController)
         {
-            return new ImageTileController(tile, _dashboardController, layoutController, _services);
+            return new ImageTileControl { DataContext = new ImageViewModel(tile, _dashboardController, layoutController, _services) };
         }
 
         public TileConfiguration CreateDefaultConfiguration()
         {
             return new TileConfiguration
             {
-                TypeId = ImageTileController.TileTypeId,
+                TypeId = TileTypeId,
                 Id = Guid.NewGuid(),
                 Tiles = new TileConfiguration[0]
             };

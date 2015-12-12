@@ -1,13 +1,12 @@
 ﻿using System.Windows;
 using System.Windows.Input;
-using NoeticTools.SystemsDashboard.Framework.Config;
 using NoeticTools.SystemsDashboard.Framework.Config.Commands;
 using NoeticTools.SystemsDashboard.Framework.Tiles.Help;
 
 
 namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Help
 {
-    public class HelpViewController : IViewController
+    public class HelpViewController
     {
         private HelpTileControl _view;
 
@@ -26,10 +25,6 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Help
             _view = new HelpTileControl {DataContext = this};
             UpdateView();
             return _view;
-        }
-
-        public void OnConfigurationChanged(TileConfigurationConverter converter)
-        {
         }
 
         private void UpdateView()

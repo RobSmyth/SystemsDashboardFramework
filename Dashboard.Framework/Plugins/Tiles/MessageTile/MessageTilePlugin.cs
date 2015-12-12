@@ -1,6 +1,5 @@
 ﻿using System;
-using NoeticTools.SystemsDashboard.Framework;
-using NoeticTools.SystemsDashboard.Framework.Commands;
+using System.Windows;
 using NoeticTools.SystemsDashboard.Framework.Config;
 
 
@@ -10,6 +9,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.MessageTile
     {
         private readonly IDashboardController _dashboardController;
         private readonly IServices _services;
+        public static readonly string TileTypeId = "Message";
 
         public MessageTilePlugin(IDashboardController dashboardController, IServices services)
         {
@@ -23,19 +23,19 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.MessageTile
 
         public bool MatchesId(string id)
         {
-            return id == MessageTileController.TileTypeId || id.Equals("0FFACE9A-8B68-4DBC-8B42-0255F51368B3", StringComparison.InvariantCultureIgnoreCase);
+            return id == TileTypeId || id.Equals("0FFACE9A-8B68-4DBC-8B42-0255F51368B3", StringComparison.InvariantCultureIgnoreCase);
         }
 
-        public IViewController CreateTileController(TileConfiguration tile, TileLayoutController layoutController)
+        public FrameworkElement CreateTile(TileConfiguration tile, TileLayoutController layoutController)
         {
-            return new MessageTileController(tile, _dashboardController, layoutController, _services);
+            return new MessageTileControl { DataContext = new MessageViewModel(tile, _dashboardController, layoutController, _services) };
         }
 
         public TileConfiguration CreateDefaultConfiguration()
         {
             return new TileConfiguration
             {
-                TypeId = MessageTileController.TileTypeId,
+                TypeId = TileTypeId,
                 Id = Guid.NewGuid(),
                 Tiles = new TileConfiguration[0]
             };

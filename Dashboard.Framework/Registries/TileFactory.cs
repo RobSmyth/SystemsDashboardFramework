@@ -1,24 +1,24 @@
 using System.Linq;
+using System.Windows;
 using NoeticTools.SystemsDashboard.Framework;
 using NoeticTools.SystemsDashboard.Framework.Config;
 
 
 namespace NoeticTools.SystemsDashboard.Framework.Registries
 {
-    public sealed class TileControllerFactory : ITileControllerFactory
+    public sealed class TileFactory : ITileFactory
     {
         private readonly TileProviderRegistry _tileProviderRegistry;
 
-        public TileControllerFactory(TileProviderRegistry tileProviderRegistry)
+        public TileFactory(TileProviderRegistry tileProviderRegistry)
         {
             _tileProviderRegistry = tileProviderRegistry;
         }
 
-        public IViewController Create(TileConfiguration tileConfiguration, TileLayoutController tileLayoutController)
+        public FrameworkElement Create(TileConfiguration tileConfiguration, TileLayoutController tileLayoutController)
         {
             var plugin = _tileProviderRegistry.GetAll().Single(x => x.MatchesId(tileConfiguration.TypeId));
-            var tileViewModel = plugin.CreateTileController(tileConfiguration, tileLayoutController);
-            return tileViewModel;
+            return plugin.CreateTile(tileConfiguration, tileLayoutController);
         }
     }
 }

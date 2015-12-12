@@ -1,6 +1,4 @@
 ﻿using System.Windows.Input;
-using NoeticTools.SystemsDashboard.Framework;
-using NoeticTools.SystemsDashboard.Framework.Tiles.Help;
 
 
 namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Help
@@ -28,7 +26,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Help
 
         void IKeyHandler.Handle(Key key)
         {
-            _dashboardController.ShowOnSidePane(new HelpViewController(), "Help");
+            _dashboardController.ShowOnSidePane(new HelpViewController().CreateView(), "Help");
             ;
         }
     }

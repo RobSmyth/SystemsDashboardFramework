@@ -1,5 +1,4 @@
 ﻿using System.Windows.Input;
-using NoeticTools.SystemsDashboard.Framework;
 using NoeticTools.SystemsDashboard.Framework.Input;
 
 
@@ -32,7 +31,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.InsertTile
 
         void IKeyHandler.Handle(Key key)
         {
-            _dashboardController.ShowOnSidePane(new InsertTileController(_services.TileProviders, _dragAndDropController), "Insert Tile");
+            _dashboardController.ShowOnSidePane(new InsertTileController(_services.TileProviders, _dragAndDropController).CreateView(), "Insert Tile");
         }
     }
 }

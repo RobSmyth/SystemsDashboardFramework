@@ -1,6 +1,5 @@
 ﻿using System;
-using NoeticTools.SystemsDashboard.Framework;
-using NoeticTools.SystemsDashboard.Framework.Commands;
+using System.Windows;
 using NoeticTools.SystemsDashboard.Framework.Config;
 using NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity;
 
@@ -22,23 +21,23 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.LastBuil
 
         public int Rank => 0;
 
-        public string Name => "TeamCity build status";
-
         public bool MatchesId(string id)
         {
-            return id == TeamCityLastBuildStatusTileController.TileTypeId || id.Equals("0FFACE9A-8B68-4DBC-8B42-0255F51368B5", StringComparison.InvariantCultureIgnoreCase);
+            return id == TeamCityLastBuildStatusTileViewModel.TileTypeId || id.Equals("0FFACE9A-8B68-4DBC-8B42-0255F51368B5", StringComparison.InvariantCultureIgnoreCase);
         }
 
-        public IViewController CreateTileController(TileConfiguration tile, TileLayoutController layoutController)
+        public FrameworkElement CreateTile(TileConfiguration tile, TileLayoutController layoutController)
         {
-            return new TeamCityLastBuildStatusTileController(_service, tile, _dashboardController, layoutController, _services);
+            var view = new TeamCityBuildStatusTileControl();
+            new TeamCityLastBuildStatusTileViewModel(_service, tile, _dashboardController, layoutController, _services, view);
+            return view;
         }
 
         public TileConfiguration CreateDefaultConfiguration()
         {
             return new TileConfiguration
             {
-                TypeId = TeamCityLastBuildStatusTileController.TileTypeId,
+                TypeId = TeamCityLastBuildStatusTileViewModel.TileTypeId,
                 Id = Guid.NewGuid(),
                 Tiles = new TileConfiguration[0]
             };

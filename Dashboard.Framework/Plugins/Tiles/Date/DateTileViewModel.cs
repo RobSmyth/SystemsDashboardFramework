@@ -1,41 +1,28 @@
 ﻿using System;
-using System.Windows;
 using System.Windows.Input;
-using NoeticTools.SystemsDashboard.Framework.Commands;
-using NoeticTools.SystemsDashboard.Framework.Config;
 using NoeticTools.SystemsDashboard.Framework.Config.Commands;
 using NoeticTools.SystemsDashboard.Framework.Time;
 
 
 namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Date
 {
-    internal sealed class DateTileController : IViewController, ITimerListener
+    internal sealed class DateTileViewModel : ITimerListener
     {
-        public const string TileTypeId = "Date.Now";
         private readonly ITimerService _timerService;
         private readonly IClock _clock;
-        private DateTileControl _view;
+        private readonly DateTileControl _view;
 
-        public DateTileController(ITimerService timerService, IClock clock)
+        public DateTileViewModel(ITimerService timerService, IClock clock, DateTileControl view)
         {
             _timerService = timerService;
             _clock = clock;
+            _view = view;
             ConfigureCommand = new NullCommand();
+            _view.DataContext = this;
+            _timerService.QueueCallback(TimeSpan.FromMilliseconds(100), this);
         }
 
         public ICommand ConfigureCommand { get; }
-
-        public FrameworkElement CreateView()
-        {
-            _view = new DateTileControl();
-            UpdateView();
-            _timerService.QueueCallback(TimeSpan.FromMilliseconds(100), this);
-            return _view;
-        }
-
-        public void OnConfigurationChanged(TileConfigurationConverter converter)
-        {
-        }
 
         private void UpdateView()
         {

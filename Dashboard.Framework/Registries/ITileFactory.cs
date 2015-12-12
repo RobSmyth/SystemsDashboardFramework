@@ -1,11 +1,12 @@
+using System.Windows;
 using NoeticTools.SystemsDashboard.Framework;
 using NoeticTools.SystemsDashboard.Framework.Config;
 
 
 namespace NoeticTools.SystemsDashboard.Framework.Registries
 {
-    public interface ITileControllerFactory
+    public interface ITileFactory
     {
-        IViewController Create(TileConfiguration tileConfiguration, TileLayoutController tileLayoutController);
+        FrameworkElement Create(TileConfiguration tileConfiguration, TileLayoutController tileLayoutController);
     }
 }

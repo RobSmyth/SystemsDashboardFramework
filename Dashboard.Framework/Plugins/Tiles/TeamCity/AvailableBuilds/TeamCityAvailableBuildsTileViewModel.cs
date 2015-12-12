@@ -2,22 +2,21 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using log4net;
+using NoeticTools.SystemsDashboard.Framework.Commands;
 using NoeticTools.SystemsDashboard.Framework.Config;
 using NoeticTools.SystemsDashboard.Framework.Config.Properties;
+using NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity;
 using NoeticTools.SystemsDashboard.Framework.Tiles.TeamCityAvailableBuilds;
 using NoeticTools.SystemsDashboard.Framework.Time;
-using NoeticTools.SystemsDashboard.Framework.Commands;
-using NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity;
 
 
 namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.AvailableBuilds
 {
-    internal sealed class TeamCityAvailableBuildsTileController : IViewController, ITimerListener
+    internal sealed class TeamCityAvailableBuildsTileViewModel : ITimerListener, IConfigurationChangeListener
     {
         public class BuildDetails
         {
@@ -30,52 +29,31 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.Availabl
         private const int MaxNumberOfBuilds = 8;
         public const string TileTypeId = "TeamCity.AvailableBuilds";
         private readonly TeamCityService _service;
-        private readonly IDashboardController _dashboardController;
         private readonly TimeSpan _tickPeriod = TimeSpan.FromSeconds(15);
         private readonly TileConfigurationConverter _tileConfigurationConverter;
-        private readonly TileLayoutController _layoutController;
         private readonly IServices _services;
-        private TeamCityAvailableBuildsListControl _view;
         private readonly ILog _logger;
+        private readonly TeamCityAvailableBuildsListControl _view;
         private static int _nextInstanceId = 1;
 
-        public TeamCityAvailableBuildsTileController(TeamCityService service, TileConfiguration tile, IDashboardController dashboardController, TileLayoutController tileLayoutController, IServices services)
+        public TeamCityAvailableBuildsTileViewModel(TeamCityService service, TileConfiguration tile, IDashboardController dashboardController, TileLayoutController layoutController, IServices services,
+            TeamCityAvailableBuildsListControl view)
         {
-            Tile = tile;
             _service = service;
-            _dashboardController = dashboardController;
-            _layoutController = tileLayoutController;
             _services = services;
+            _view = view;
             _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
             Builds = new ObservableCollection<BuildDetails>();
             _logger = LogManager.GetLogger($"Tiles.TeamCity.AvailableBuilds.{_nextInstanceId++}");
+            var parameters = GetConfigurtionParameters();
+            ConfigureCommand = new TileConfigureCommand(tile, "TeamCity Available Builds Tile", parameters, dashboardController, layoutController, _services);
+            _view.DataContext = this;
+            _view.buildsList.ItemsSource = Builds;
+            _services.Timer.QueueCallback(TimeSpan.FromSeconds(_service.IsConnected ? 1 : 4), this);
         }
 
         public ICommand ConfigureCommand { get; private set; }
         public ObservableCollection<BuildDetails> Builds { get; }
-
-        public TileConfiguration Tile { get; }
-
-        public FrameworkElement CreateView()
-        {
-            _logger.Info("Create tile.");
-
-            var parameters = GetConfigurtionParameters();
-
-            ConfigureCommand = new TileConfigureCommand(Tile, "TeamCity Available Builds Tile", parameters, _dashboardController, _layoutController, _services);
-
-            _service.Connect();
-
-            _view = new TeamCityAvailableBuildsListControl
-            {
-                DataContext = this,
-                buildsList = {ItemsSource = Builds}
-            };
-
-            _services.Timer.QueueCallback(TimeSpan.FromSeconds(_service.IsConnected ? 1 : 4), this);
-
-            return _view;
-        }
 
         public void OnConfigurationChanged(TileConfigurationConverter converter)
         {
@@ -89,7 +67,6 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.Availabl
             _view.Dispatcher.InvokeAsync(() => _view.projectName.Text = _tileConfigurationConverter.GetString("Title"));
             UpdateView();
         }
-
 
         public void OnTimeElapsed(TimerToken token)
         {

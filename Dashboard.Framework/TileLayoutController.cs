@@ -24,13 +24,13 @@ namespace NoeticTools.SystemsDashboard.Framework
         private readonly DashboardTileNavigator _tileNavigator;
         private readonly Grid _tileGrid;
         private readonly ITileLayoutControllerRegistry _layoutControllerRegistry;
-        private readonly ITileControllerFactory _tileFactory;
+        private readonly ITileFactory _tileFactory;
         private readonly IDictionary<TileConfiguration, UIElement> _tileToView = new Dictionary<TileConfiguration, UIElement>();
         private readonly TileLayoutController _parent;
         private readonly RoutedCommands _commands;
         private TileConfiguration _tile;
 
-        public TileLayoutController(Grid tileGrid, ITileControllerFactory tileFactory, ITileLayoutControllerRegistry layoutControllerRegistry, Thickness normalMargin, 
+        public TileLayoutController(Grid tileGrid, ITileFactory tileFactory, ITileLayoutControllerRegistry layoutControllerRegistry, Thickness normalMargin, 
             TileDragAndDropController dragAndDropController, DashboardTileNavigator tileNavigator, TileLayoutController parent, RoutedCommands commands)
         {
             _tileFactory = tileFactory;
@@ -241,7 +241,7 @@ namespace NoeticTools.SystemsDashboard.Framework
         private bool IsEmptyColumn(int columnIndex)
         {
             var columnNumber = columnIndex + 1;
-            return !_tileToView.Keys.Any(x => x.IsInColumn(columnNumber) && x.TypeId != BlankTileController.TileTypeId);
+            return !_tileToView.Keys.Any(x => x.IsInColumn(columnNumber) && x.TypeId != BlankTilePlugin.TileTypeId);
         }
 
         private void RemoveRow(int toDeleteRowIndex)
@@ -277,7 +277,7 @@ namespace NoeticTools.SystemsDashboard.Framework
         private bool IsEmptyRow(int rowIndex)
         {
             var rowNumber = rowIndex + 1;
-            return !_tileToView.Keys.Any(x => x.IsInRow(rowNumber) && x.TypeId != BlankTileController.TileTypeId);
+            return !_tileToView.Keys.Any(x => x.IsInRow(rowNumber) && x.TypeId != BlankTilePlugin.TileTypeId);
         }
 
         private void InsertNewRow(int insertAtRowNumber)
@@ -322,7 +322,7 @@ namespace NoeticTools.SystemsDashboard.Framework
         {
             var blankTile = new TileConfiguration
             {
-                TypeId = BlankTileController.TileTypeId,
+                TypeId = BlankTilePlugin.TileTypeId,
                 RowNumber = rowNumber,
                 ColumnNumber = columnNumber,
                 RowSpan = 1,
@@ -363,13 +363,12 @@ namespace NoeticTools.SystemsDashboard.Framework
             }
         }
 
-        private UIElement AddTile(TileConfiguration tile, IViewController viewController)
+        private UIElement AddTile(TileConfiguration tile, FrameworkElement view)
         {
             var panel = AddPlaceholderPanel(tile.RowNumber, tile.ColumnNumber, tile.RowSpan, tile.ColumnSpan);
             panel.Margin = _tileMargin;
             panel.MouseLeftButtonDown += Panel_MouseLeftButtonDown;
 
-            var view = viewController.CreateView();
             panel.Children.Add(view);
 
             _commands.BindView(tile, view, this);

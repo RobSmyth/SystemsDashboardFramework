@@ -48,22 +48,20 @@ namespace NoeticTools.SystemsDashboard.Framework
 
         public void ShowHelpPane()
         {
-            ShowOnSidePane(new HelpViewController(), "Help");
+            ShowOnSidePane(new HelpViewController().CreateView(), "Help");
         }
 
         public void ShowNavigationPane()
         {
             _logger.Info("Show navigation.");
-            ShowOnSidePane(new DashboardsNavigationViewController(_config, _dashboardNavigator), "Dashboards Navigation");
+            ShowOnSidePane(new DashboardsNavigationViewController(_config, _dashboardNavigator).CreateView(), "Dashboards Navigation");
         }
 
-        public void ShowOnSidePane(IViewController viewController, string title)
+        public void ShowOnSidePane(FrameworkElement view, string title)
         {
             _logger.Debug("Show on side panel.");
             _sidePanel.Visibility = Visibility.Collapsed;
             _sidePanel.Children.Clear();
-
-            var view = viewController.CreateView();
 
             _sidePanel.Children.Add(view);
             view.IsVisibleChanged += View_IsVisibleChanged;
@@ -85,7 +83,7 @@ namespace NoeticTools.SystemsDashboard.Framework
 
         public void ShowInsertPanel()
         {
-            ShowOnSidePane(new InsertTileController(_tileProviderRegistry, _dragAndDropController), "Help");
+            ShowOnSidePane(new InsertTileController(_tileProviderRegistry, _dragAndDropController).CreateView(), "Help");
         }
 
         private void Save()

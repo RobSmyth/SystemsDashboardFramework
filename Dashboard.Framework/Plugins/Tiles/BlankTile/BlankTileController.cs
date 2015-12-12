@@ -5,33 +5,27 @@ using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Date;
 
 namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.BlankTile
 {
-    internal class BlankTileController : IViewController
+    internal class BlankTileController
     {
-        public const string TileTypeId = "Blank.Tile";
         private readonly IDashboardController _dashboardController;
         private readonly TileLayoutController _layoutController;
         private readonly IServices _services;
         private BlankTileControl _view;
+        private readonly TileConfiguration _tile;
 
         public BlankTileController(TileConfiguration tile, IDashboardController dashboardController, TileLayoutController layoutController, IServices services)
         {
-            Tile = tile;
+            _tile = tile;
             _dashboardController = dashboardController;
             _layoutController = layoutController;
             _services = services;
         }
 
-        public TileConfiguration Tile { get; }
-
         public FrameworkElement CreateView()
         {
-            _view = new BlankTileControl {DataContext = new BlankTileViewModel(Tile, _dashboardController, _layoutController, _services)};
+            _view = new BlankTileControl {DataContext = new BlankTileViewModel(_tile, _dashboardController, _layoutController, _services)};
             UpdateView();
             return _view;
-        }
-
-        public void OnConfigurationChanged(TileConfigurationConverter converter)
-        {
         }
 
         private void UpdateView()

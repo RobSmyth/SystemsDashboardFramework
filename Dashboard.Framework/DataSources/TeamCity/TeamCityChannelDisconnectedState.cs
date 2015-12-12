@@ -32,7 +32,7 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
         {
             if (_testingConnection)
             {
-                _logger.Debug("Connect request ignored (busy testing the connection).");
+                return;
             }
             _testingConnection = true;
 

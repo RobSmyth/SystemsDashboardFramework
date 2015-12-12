@@ -52,7 +52,7 @@ namespace NoeticTools.SystemsDashboard.Framework
             _commands = new RoutedCommands();
 
             var tileProviderRegistry = new TileProviderRegistry();
-            var tileControllerFactory = new TileControllerFactory(tileProviderRegistry);
+            var tileControllerFactory = new TileFactory(tileProviderRegistry);
             var propertyEditControlRegistry = new PropertyEditControlRegistry();
 
             var dashboardConfigurationManager = new DashboardConfigurationManager();

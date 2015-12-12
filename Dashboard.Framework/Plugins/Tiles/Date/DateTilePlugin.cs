@@ -1,5 +1,5 @@
 ﻿using System;
-using NoeticTools.SystemsDashboard.Framework.Commands;
+using System.Windows;
 using NoeticTools.SystemsDashboard.Framework.Config;
 using NoeticTools.SystemsDashboard.Framework.Time;
 
@@ -8,6 +8,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Date
 {
     public sealed class DateTilePlugin : IPlugin, ITileControllerProvider
     {
+        private const string TileTypeId = "Date.Now";
         private readonly ITimerService _timerService;
         private readonly IClock _clock;
 
@@ -16,8 +17,6 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Date
             _timerService = timerService;
             _clock = clock;
         }
-
-        public string Name => "Date";
 
         public int Rank => 0;
 
@@ -28,19 +27,21 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Date
 
         public bool MatchesId(string id)
         {
-            return id == DateTileController.TileTypeId || id.Equals("0FFACE9A-8B68-4DBC-8B42-0255F51368B1", StringComparison.InvariantCultureIgnoreCase);
+            return id == TileTypeId || id.Equals("0FFACE9A-8B68-4DBC-8B42-0255F51368B1", StringComparison.InvariantCultureIgnoreCase);
         }
 
-        public IViewController CreateTileController(TileConfiguration tile, TileLayoutController layoutController)
+        public FrameworkElement CreateTile(TileConfiguration tile, TileLayoutController layoutController)
         {
-            return new DateTileController(_timerService, _clock);
+            var view = new DateTileControl();
+            new DateTileViewModel(_timerService, _clock, view);
+            return view;
         }
 
         public TileConfiguration CreateDefaultConfiguration()
         {
             return new TileConfiguration
             {
-                TypeId = DateTileController.TileTypeId,
+                TypeId = TileTypeId,
                 Id = Guid.NewGuid(),
                 Tiles = new TileConfiguration[0]
             };

@@ -12,13 +12,13 @@ namespace NoeticTools.SystemsDashboard.Framework.Registries
 {
     public sealed class TileLayoutControllerRegistry : ITileLayoutControllerRegistry
     {
-        private readonly ITileControllerFactory _tileFactory;
+        private readonly ITileFactory _tileFactory;
         private readonly TileDragAndDropController _dragAndDropController;
         private readonly DashboardTileNavigator _tileNavigator;
         private readonly RoutedCommands _commands;
         private readonly IList<ITileLayoutController> _layoutControllers = new List<ITileLayoutController>();
 
-        public TileLayoutControllerRegistry(ITileControllerFactory tileFactory, TileDragAndDropController dragAndDropController, DashboardTileNavigator tileNavigator, RoutedCommands commands)
+        public TileLayoutControllerRegistry(ITileFactory tileFactory, TileDragAndDropController dragAndDropController, DashboardTileNavigator tileNavigator, RoutedCommands commands)
         {
             _tileFactory = tileFactory;
             _dragAndDropController = dragAndDropController;

@@ -5,7 +5,7 @@ using NoeticTools.SystemsDashboard.Framework.Tiles.Dashboards;
 
 namespace NoeticTools.SystemsDashboard.Framework.Dashboards
 {
-    public class DashboardsNavigationViewController : NotifyingViewModelBase, IViewController
+    public class DashboardsNavigationViewController : NotifyingViewModelBase
     {
         private readonly DashboardConfigurations _config;
         private readonly IDashboardNavigator _dashboardNavigator;
@@ -21,10 +21,6 @@ namespace NoeticTools.SystemsDashboard.Framework.Dashboards
             var view = new DashboardNavigationTileControl();
             view.DataContext = new DashboardsNavigationViewModel(_config, _dashboardNavigator);
             return view;
-        }
-
-        public void OnConfigurationChanged(TileConfigurationConverter converter)
-        {
         }
     }
 }

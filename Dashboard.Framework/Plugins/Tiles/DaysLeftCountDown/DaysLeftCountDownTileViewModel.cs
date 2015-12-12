@@ -1,11 +1,9 @@
 using System;
 using System.Windows.Input;
-using NoeticTools.SystemsDashboard.Framework;
+using NoeticTools.SystemsDashboard.Framework.Commands;
 using NoeticTools.SystemsDashboard.Framework.Config;
 using NoeticTools.SystemsDashboard.Framework.Config.Properties;
-using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.DaysLeftCountDown;
 using NoeticTools.SystemsDashboard.Framework.Time;
-using NoeticTools.SystemsDashboard.Framework.Commands;
 
 
 namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.DaysLeftCountDown

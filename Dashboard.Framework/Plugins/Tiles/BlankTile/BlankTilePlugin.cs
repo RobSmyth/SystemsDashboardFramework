@@ -1,5 +1,5 @@
 ﻿using System;
-using NoeticTools.SystemsDashboard.Framework;
+using System.Windows;
 using NoeticTools.SystemsDashboard.Framework.Config;
 
 
@@ -9,6 +9,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.BlankTile
     {
         private readonly IDashboardController _dashboardController;
         private readonly IServices _services;
+        public const string TileTypeId = "Blank.Tile";
 
         public BlankTilePlugin(IDashboardController dashboardController, IServices services)
         {
@@ -27,19 +28,19 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.BlankTile
 
         public bool MatchesId(string id)
         {
-            return id == BlankTileController.TileTypeId;
+            return id == TileTypeId;
         }
 
-        public IViewController CreateTileController(TileConfiguration tile, TileLayoutController layoutController)
+        public FrameworkElement CreateTile(TileConfiguration tile, TileLayoutController layoutController)
         {
-            return new BlankTileController(tile, _dashboardController, layoutController, _services);
+            return new BlankTileController(tile, _dashboardController, layoutController, _services).CreateView();
         }
 
         public TileConfiguration CreateDefaultConfiguration()
         {
             return new TileConfiguration
             {
-                TypeId = BlankTileController.TileTypeId,
+                TypeId = TileTypeId,
                 Id = Guid.NewGuid(),
                 Tiles = new TileConfiguration[0]
             };

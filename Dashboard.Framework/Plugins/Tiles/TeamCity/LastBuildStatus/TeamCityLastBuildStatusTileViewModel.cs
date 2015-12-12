@@ -6,18 +6,17 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using log4net;
-using NoeticTools.SystemsDashboard.Framework;
+using NoeticTools.SystemsDashboard.Framework.Commands;
 using NoeticTools.SystemsDashboard.Framework.Config;
 using NoeticTools.SystemsDashboard.Framework.Config.Properties;
-using NoeticTools.SystemsDashboard.Framework.Time;
-using NoeticTools.SystemsDashboard.Framework.Commands;
 using NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity;
+using NoeticTools.SystemsDashboard.Framework.Time;
 using TeamCitySharp.DomainEntities;
 
 
 namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.LastBuildStatus
 {
-    internal sealed class TeamCityLastBuildStatusTileController : IViewController, ITimerListener
+    internal sealed class TeamCityLastBuildStatusTileViewModel : ITimerListener, IConfigurationChangeListener
     {
         public const string TileTypeId = "TeamCity.Build.Status";
 
@@ -25,7 +24,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.LastBuil
         {
             {"RUNNING FAILED", Brushes.OrangeRed},
             {"RUNNING", Brushes.Yellow},
-            {"SUCCESS",  (SolidColorBrush) (new BrushConverter().ConvertFrom("#FF448032"))},
+            {"SUCCESS", (SolidColorBrush) (new BrushConverter().ConvertFrom("#FF448032"))},
             {"FAILURE", Brushes.Firebrick},
             {"UNKNOWN", Brushes.Gray}
         };
@@ -40,54 +39,38 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.LastBuil
         };
 
         private readonly TeamCityService _service;
-        private readonly IDashboardController _dashboardController;
         private readonly TileConfigurationConverter _tileConfigurationConverter;
         private readonly TimeSpan _connectedUpdatePeriod = TimeSpan.FromSeconds(30);
         private readonly TimeSpan _disconnectedUpdatePeriod = TimeSpan.FromSeconds(2);
         private readonly TimerToken _timerToken;
-        private readonly TileLayoutController _layoutController;
         private readonly IServices _services;
-        private TeamCityBuildStatusTileControl _view;
+        private readonly TeamCityBuildStatusTileControl _view;
         private readonly ILog _logger;
-        private static int _nextInstanceId = 1;
         private readonly object _syncRoot = new object();
+        private readonly TileConfiguration _tile;
+        private static int _nextInstanceId = 1;
 
-        public TeamCityLastBuildStatusTileController(TeamCityService service, TileConfiguration tile, IDashboardController dashboardController, TileLayoutController tileLayoutController, IServices services)
+        public TeamCityLastBuildStatusTileViewModel(TeamCityService service, TileConfiguration tile, IDashboardController dashboardController, TileLayoutController layoutController, IServices services,
+            TeamCityBuildStatusTileControl view)
         {
             lock (_syncRoot)
             {
                 _logger = LogManager.GetLogger($"Tiles.TeamCity.LastBuildStatus.{_nextInstanceId++}");
             }
 
-            Tile = tile;
+            _tile = tile;
             _service = service;
-            _dashboardController = dashboardController;
-            _layoutController = tileLayoutController;
             _services = services;
+            _view = view;
             _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
             ConfigureServiceCommand = new TeamCityServiceConfigureCommand(service);
-
-            _timerToken = services.Timer.QueueCallback(TimeSpan.FromDays(10000), this);
+            var configurationParameters = GetConfigurationParameters();
+            ConfigureCommand = new TileConfigureCommand(_tile, "Last Build Status Tile Configuration", configurationParameters, dashboardController, layoutController, _services);
+            _view.DataContext = this;
+            _timerToken = services.Timer.QueueCallback(TimeSpan.FromSeconds(_service.IsConnected ? 1 : 3), this);
         }
 
         public ICommand ConfigureCommand { get; private set; }
-
-        private TileConfiguration Tile { get; }
-
-        public FrameworkElement CreateView()
-        {
-            _logger.InfoFormat("Create tile for: {0} / {1}.", _tileConfigurationConverter.GetString("Project"), _tileConfigurationConverter.GetString("Configuration"));
-
-            var configurationParameters = GetConfigurationParameters();
-            ConfigureCommand = new TileConfigureCommand(Tile, "Last Build Status Tile Configuration", configurationParameters, _dashboardController, _layoutController, _services);
-
-            _view = new TeamCityBuildStatusTileControl {DataContext = this};
-
-            _service.Connect();
-            _timerToken.Requeue(TimeSpan.FromSeconds(3.0));
-
-            return _view;
-        }
 
         public void OnConfigurationChanged(TileConfigurationConverter converter)
         {

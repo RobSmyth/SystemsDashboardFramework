@@ -1,7 +1,7 @@
 ﻿using System;
-using NoeticTools.SystemsDashboard.Framework;
+using System.Windows;
 using NoeticTools.SystemsDashboard.Framework.Config;
-using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.ServerStatus;
+using NoeticTools.SystemsDashboard.Framework.Tiles.ServerStatus;
 
 
 namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.ServerStatus
@@ -14,12 +14,14 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.ServerStatus
 
         public bool MatchesId(string id)
         {
-            return id == ServerStatusTileController.TileTypeId || id.Equals("0FFACE9A-8B68-4DBC-8B42-0255F51368B4", StringComparison.InvariantCultureIgnoreCase);
+            return id == ServerStatusTileViewModel.TileTypeId || id.Equals("0FFACE9A-8B68-4DBC-8B42-0255F51368B4", StringComparison.InvariantCultureIgnoreCase);
         }
 
-        public IViewController CreateTileController(TileConfiguration tile, TileLayoutController layoutController)
+        public FrameworkElement CreateTile(TileConfiguration tile, TileLayoutController layoutController)
         {
-            return new ServerStatusTileController(tile);
+            var view = new ServerStatusTileControl();
+            new ServerStatusTileViewModel(tile, view);
+            return view;
         }
 
         public TileConfiguration CreateDefaultConfiguration()

@@ -1,6 +1,8 @@
 # TeamDashboard 
 
-A Windows application (C# WPF) wall team/systems dashboard. This project is something I'm using but is not mature.
+A Windows application (C# WPF) wall team/systems dashboard.
+
+:warning: This project is something I'm using but is not mature and is buggy.
 
 ![Screen shot](./Images/Screenshot01.png "Screen shot")
 # Features ##
@@ -51,6 +53,15 @@ To add a date tile:
 1. Press INSERT, the insert pane will appear.
 2. Drag and drop the today's date tile entry to where you want the tile.
 
+## Image tile
+
+The image tile displays an image on a file system. The image automatically updates if the image is changed. Use this tile to show a picture of who failed the build, a report exported as an image, the company logo, or a photo of your dog.
+
+To add an image tile:
+
+1. Press INSERT, the insert pane will appear.
+2. Drag and drop the image tile entry to where you want the tile.
+3. Double click on the image to configure it.
 
 ## TeamCity tiles
 

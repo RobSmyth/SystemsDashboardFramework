@@ -1,24 +1,28 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Dashboard.Config;
+using log4net;
 using NoeticTools.SystemsDashboard.Framework;
 using NoeticTools.SystemsDashboard.Framework.Commands;
 using NoeticTools.SystemsDashboard.Framework.Config;
 using NoeticTools.SystemsDashboard.Framework.Config.Properties;
 using NoeticTools.SystemsDashboard.Framework.Config.Controllers;
+using NoeticTools.SystemsDashboard.Framework.Time;
 using TeamCitySharp;
 using TeamCitySharp.DomainEntities;
 
 
 namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
 {
-    public class TeamCityService : ITeamCityChannel, IStateEngine<ITeamCityChannel>, IConfigurationChangeListener
+    public class TeamCityService : ITeamCityChannel, IStateEngine<ITeamCityChannel>, IConfigurationChangeListener, ITimerListener
     {
         private readonly IDashboardController _dashboardController;
         private readonly IServices _services;
         private readonly TeamCityServiceConfiguration _configuration;
-        private readonly ITeamCityChannel _connectedState;
+        private readonly TeamCityChannelConnectedState _connectedState;
         private readonly ITeamCityChannel _disconnectedState;
         private ITeamCityChannel _current;
+        private ILog _logger;
 
         public TeamCityService(DashboardConfigurationServices servicesConfiguration, RunOptions runOptions, IClock clock, IDashboardController dashboardController, IServices services)
         {
@@ -29,6 +33,8 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
             _disconnectedState = new TeamCityChannelDisconnectedState(client, this, _configuration);
             _connectedState = new TeamCityChannelConnectedState(client, clock);
             _current = runOptions.EmulateMode ? new TeamCityChannelEmulatedState() : _disconnectedState;
+            _logger = LogManager.GetLogger("DateSources.TeamCity.Connected");
+            _services.Timer.QueueCallback(TimeSpan.FromMilliseconds(10), this);
         }
 
         public string[] ProjectNames => _current.ProjectNames;
@@ -97,6 +103,7 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
         void IStateEngine<ITeamCityChannel>.OnConnected()
         {
             _current = _connectedState;
+            _connectedState.Enter();
         }
 
         void IStateEngine<ITeamCityChannel>.OnDisconnected()
@@ -105,5 +112,13 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
         }
 
         ITeamCityChannel IStateEngine<ITeamCityChannel>.Current => _current;
+
+        void ITimerListener.OnTimeElapsed(TimerToken token)
+        {
+            if (!IsConnected)
+            {
+                Connect();
+            }
+        }
     }
 }

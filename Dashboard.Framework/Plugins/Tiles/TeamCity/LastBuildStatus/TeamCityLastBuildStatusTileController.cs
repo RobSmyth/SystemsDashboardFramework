@@ -84,7 +84,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.LastBuil
             _view = new TeamCityBuildStatusTileControl {DataContext = this};
 
             _service.Connect();
-            _timerToken.Requeue(TimeSpan.FromSeconds(1));
+            _timerToken.Requeue(TimeSpan.FromSeconds(3.0));
 
             return _view;
         }

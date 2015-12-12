@@ -29,6 +29,7 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
         }
 
         public string[] ProjectNames => _projects.Items.Select(x => x.Name).ToArray();
+
         public bool IsConnected => true;
 
         public void Connect()
@@ -188,6 +189,15 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
                     return _buildConfigurations[project];
                 }
             });
+        }
+
+        public void Enter()
+        {
+            Task.Run(() => GetAgents());
+            if (ProjectNames.Length > 0)
+            {
+                Task.Run(() => GetConfigurationNames(ProjectNames.First()));
+            }
         }
     }
 }

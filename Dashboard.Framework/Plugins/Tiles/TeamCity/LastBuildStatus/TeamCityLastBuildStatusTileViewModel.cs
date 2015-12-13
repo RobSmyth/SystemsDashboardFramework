@@ -16,7 +16,7 @@ using TeamCitySharp.DomainEntities;
 
 namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.LastBuildStatus
 {
-    internal sealed class TeamCityLastBuildStatusTileViewModel : ITimerListener, IConfigurationChangeListener
+    internal sealed class TeamCityLastBuildStatusTileViewModel : ITimerListener, IConfigurationChangeListener, ITileViewModel
     {
         public const string TileTypeId = "TeamCity.Build.Status";
 

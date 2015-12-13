@@ -9,7 +9,7 @@ using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Date;
 
 namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.BlankTile
 {
-    public class BlankTileViewModel : NotifyingViewModelBase, IConfigurationChangeListener
+    public class BlankTileViewModel : NotifyingViewModelBase, IConfigurationChangeListener, ITileViewModel
     {
         private readonly TileConfigurationConverter _tileConfigurationConverter;
         private Brush _background;

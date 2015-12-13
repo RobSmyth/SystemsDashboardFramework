@@ -15,7 +15,7 @@ using TeamCitySharp.DomainEntities;
 
 namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.AgentStatus
 {
-    internal sealed class TeamCityAgentTileViewModel : ITimerListener, IConfigurationChangeListener
+    internal sealed class TeamCityAgentTileViewModel : ITimerListener, IConfigurationChangeListener, ITileViewModel
     {
         private readonly Dictionary<string, Brush> _statusBrushes = new Dictionary<string, Brush>
         {

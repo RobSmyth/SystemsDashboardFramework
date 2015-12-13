@@ -16,7 +16,7 @@ using NoeticTools.SystemsDashboard.Framework.Time;
 
 namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.AvailableBuilds
 {
-    internal sealed class TeamCityAvailableBuildsTileViewModel : ITimerListener, IConfigurationChangeListener
+    internal sealed class TeamCityAvailableBuildsTileViewModel : ITimerListener, IConfigurationChangeListener, ITileViewModel
     {
         public class BuildDetails
         {

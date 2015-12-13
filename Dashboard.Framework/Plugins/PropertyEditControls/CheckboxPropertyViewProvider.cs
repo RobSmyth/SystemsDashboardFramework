@@ -16,9 +16,11 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.PropertyEditControls
 
         public FrameworkElement Create(IPropertyViewModel propertyViewModel, int rowIndex, string elementName)
         {
+            var value = (string) propertyViewModel.Value;
+            var isChecked = !string.IsNullOrWhiteSpace(value) && bool.Parse(value);
             var checkbox = new CheckBox
             {
-                IsChecked = bool.Parse((string) propertyViewModel.Value),
+                IsChecked = isChecked,
                 Name = elementName,
                 DataContext = propertyViewModel
             };

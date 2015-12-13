@@ -8,7 +8,7 @@ using NoeticTools.SystemsDashboard.Framework.Tiles.WebPage;
 
 namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.WebPage
 {
-    internal class WebPageTileViewModel : IConfigurationChangeListener
+    internal class WebPageTileViewModel : IConfigurationChangeListener, ITileViewModel
     {
         public static readonly string TileTypeId = "WebBrowser";
         private readonly TileConfigurationConverter _tileConfigurationConverter;

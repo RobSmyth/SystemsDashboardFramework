@@ -6,7 +6,7 @@ using NoeticTools.SystemsDashboard.Framework.Tiles.ServerStatus;
 
 namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.ServerStatus
 {
-    internal sealed class ServerStatusTileViewModel : IConfigurationChangeListener
+    internal sealed class ServerStatusTileViewModel : IConfigurationChangeListener, ITileViewModel
     {
         public const string TileTypeId = "Server.Status";
         private readonly TileConfigurationConverter _tileConfigurationConverter;

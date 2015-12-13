@@ -6,7 +6,7 @@ using NoeticTools.SystemsDashboard.Framework.Time;
 
 namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Date
 {
-    internal sealed class DateTileViewModel : NotifyingViewModelBase, ITimerListener
+    internal sealed class DateTileViewModel : NotifyingViewModelBase, ITimerListener, ITileViewModel
     {
         private readonly ITimerService _timerService;
         private readonly IClock _clock;

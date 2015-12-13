@@ -13,19 +13,23 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
 {
     internal class TeamCityChannelConnectedState : ITeamCityChannel
     {
-        private readonly TeamCityClient _client;
+        private readonly TeamCityClient _teamCityClient;
         private readonly IClock _clock;
+        private readonly IBuildAgentRepository _buildAgentRepository;
+        private readonly IServices _services;
         private readonly TimeCachedArray<Project> _projects;
         private readonly Dictionary<Project, TimeCachedArray<BuildConfig>> _buildConfigurations = new Dictionary<Project, TimeCachedArray<BuildConfig>>();
         private readonly ILog _logger;
         private readonly object _syncRoot = new object();
 
-        public TeamCityChannelConnectedState(TeamCityClient client, IClock clock)
+        public TeamCityChannelConnectedState(TeamCityClient teamCityClient, IClock clock, IBuildAgentRepository buildAgentRepository, IServices services)
         {
-            _client = client;
+            _teamCityClient = teamCityClient;
             _clock = clock;
+            _buildAgentRepository = buildAgentRepository;
+            _services = services;
             _logger = LogManager.GetLogger("DateSources.TeamCity.Connected");
-            _projects = new TimeCachedArray<Project>(() => _client.Projects.All(), TimeSpan.FromMinutes(5), clock);
+            _projects = new TimeCachedArray<Project>(() => _teamCityClient.Projects.All(), TimeSpan.FromMinutes(5), clock);
         }
 
         public string[] ProjectNames => _projects.Items.Select(x => x.Name).ToArray();
@@ -45,9 +49,37 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
             return project == null ? new string[0] : configurations.Items.Select(x => x.Name).ToArray();
         }
 
-        public Task<Agent[]> GetAgents()
+        public Task<IBuildAgent> GetAgent(string name)
         {
-            return Task.Run(() => _client.Agents.All().ToArray());
+            return Task.Run(() =>
+            {
+                if (!_buildAgentRepository.Has(name))
+                {
+                    _buildAgentRepository.Add(new TeamCityBuildAgentViewModel(name, _teamCityClient, _services.Timer));
+                }
+                return _buildAgentRepository.Get(name);
+            });
+        }
+
+        public Task<IBuildAgent[]> GetAgents()
+        {
+            return Task.Run(() =>
+            {
+                UpdateBuildAgentRepository();
+                return _buildAgentRepository.GetAll();
+            });
+        }
+
+        private void UpdateBuildAgentRepository()
+        {
+            var teamCityAgents = _teamCityClient.Agents.All();
+            foreach (var teamCityAgent in teamCityAgents)
+            {
+                if (!_buildAgentRepository.Has(teamCityAgent.Name))
+                {
+                    _buildAgentRepository.Add(new TeamCityBuildAgentViewModel(teamCityAgent.Name, _teamCityClient, _services.Timer));
+                }
+            }
         }
 
         public async Task<Build> GetLastBuild(string projectName, string buildConfigurationName)
@@ -66,7 +98,7 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
                 {
                     return null;
                 }
-                var builds = _client.Builds.ByBuildConfigId(buildConfiguration.Id);
+                var builds = _teamCityClient.Builds.ByBuildConfigId(buildConfiguration.Id);
                 return builds.FirstOrDefault(x => x.Status != "UNKNOWN");
             }
             catch (Exception)
@@ -86,8 +118,8 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
                     try
                     {
                         var project = _projects.Items.Single(x => x.Name.Equals(projectName, StringComparison.InvariantCultureIgnoreCase));
-                        var buildConfiguration = _client.BuildConfigs.ByProjectIdAndConfigurationName(project.Id, buildConfigurationName);
-                        var builds = _client.Builds.SuccessfulBuildsByBuildConfigId(buildConfiguration.Id);
+                        var buildConfiguration = _teamCityClient.BuildConfigs.ByProjectIdAndConfigurationName(project.Id, buildConfigurationName);
+                        var builds = _teamCityClient.Builds.SuccessfulBuildsByBuildConfigId(buildConfiguration.Id);
                         var lastBuild = builds.FirstOrDefault();
                         if (lastBuild == null)
                         {
@@ -128,7 +160,7 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
                     return new Build[0];
                 }
 
-                var builds = _client.Builds.ByBuildLocator(BuildLocator.WithDimensions(running: true)).Where(x => x.WebUrl.EndsWith(buildConfiguration.Id)).ToArray();
+                var builds = _teamCityClient.Builds.ByBuildLocator(BuildLocator.WithDimensions(running: true)).Where(x => x.WebUrl.EndsWith(buildConfiguration.Id)).ToArray();
 
                 foreach (var build in builds)
                 {
@@ -152,7 +184,7 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
             {
                 try
                 {
-                    var builds = _client.Builds.ByBuildLocator(BuildLocator.WithDimensions(running: true, branch: branchName));
+                    var builds = _teamCityClient.Builds.ByBuildLocator(BuildLocator.WithDimensions(running: true, branch: branchName));
                     return builds.ToArray();
                 }
                 catch (Exception)
@@ -180,7 +212,7 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
                     {
                         var timeCachedArray = new TimeCachedArray<BuildConfig>(() =>
                         {
-                            var byProjectId = _client.BuildConfigs.ByProjectId(project.Id);
+                            var byProjectId = _teamCityClient.BuildConfigs.ByProjectId(project.Id);
                             return byProjectId;
                         }, TimeSpan.FromSeconds(30), _clock);
 

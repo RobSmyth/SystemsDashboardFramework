@@ -95,7 +95,13 @@
     <Compile Include="Config\Properties\TextPropertyViewModel.cs" />
     <Compile Include="Config\Properties\TileColumnSpanViewModel.cs" />
     <Compile Include="Config\Properties\TileRowSpanViewModel.cs" />
+    <Compile Include="DataSources\TeamCity\BuildAgentStatus.cs" />
+    <Compile Include="DataSources\TeamCity\TeamCityBuildAgentViewModel.cs" />
+    <Compile Include="DataSources\TeamCity\BuildAgentRepository.cs" />
+    <Compile Include="DataSources\TeamCity\IBuildAgent.cs" />
+    <Compile Include="DataSources\TeamCity\IBuildAgentRepository.cs" />
     <Compile Include="DataSources\TeamCity\NullBuild.cs" />
+    <Compile Include="DataSources\TeamCity\NullBuildAgent.cs" />
     <Compile Include="Input\IDragSource.cs" />
     <Compile Include="Plugins\KeyboardDashboardNavigationPlugin.cs" />
     <Compile Include="Plugins\KeyboardTileNavigationPlugin.cs" />

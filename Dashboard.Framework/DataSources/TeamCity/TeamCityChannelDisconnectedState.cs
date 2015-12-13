@@ -9,18 +9,21 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
 {
     internal class TeamCityChannelDisconnectedState : ITeamCityChannel
     {
-        private readonly TeamCityClient _client;
+        private readonly TeamCityClient _teamCityClient;
         private readonly TeamCityServiceConfiguration _configuration;
+        private readonly IBuildAgentRepository _buildAgentRepository;
+        private readonly IServices _services;
         private readonly IStateEngine<ITeamCityChannel> _stateEngine;
         private bool _testingConnection;
         private readonly ILog _logger;
 
-        public TeamCityChannelDisconnectedState(TeamCityClient client, IStateEngine<ITeamCityChannel> stateEngine,
-            TeamCityServiceConfiguration configuration)
+        public TeamCityChannelDisconnectedState(TeamCityClient teamCityClient, IStateEngine<ITeamCityChannel> stateEngine, TeamCityServiceConfiguration configuration, IBuildAgentRepository buildAgentRepository, IServices services)
         {
-            _client = client;
+            _teamCityClient = teamCityClient;
             _stateEngine = stateEngine;
             _configuration = configuration;
+            _buildAgentRepository = buildAgentRepository;
+            _services = services;
 
             _logger = LogManager.GetLogger("DateSources.TeamCity.Disconnected");
         }
@@ -40,13 +43,13 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
 
             Task.Run(() =>
             {
-                _client.Connect(_configuration.UserName, _configuration.Password);
+                _teamCityClient.Connect(_configuration.UserName, _configuration.Password);
             })
             .ContinueWith(x =>
             {
                 try
                 {
-                    if (_client.Authenticate())
+                    if (_teamCityClient.Authenticate())
                     {
                         _logger.Info("Has connected.");
                         _stateEngine.OnConnected();
@@ -108,9 +111,21 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
             return Task.Run(() => new string[0]);
         }
 
-        public Task<Agent[]> GetAgents()
+        public Task<IBuildAgent[]> GetAgents()
         {
-            return Task.Run(() => new Agent[0]);
+            return Task.Run(() => new IBuildAgent[0]);
+        }
+
+        public Task<IBuildAgent> GetAgent(string name)
+        {
+            return Task.Run(() =>
+            {
+                if (!_buildAgentRepository.Has(name))
+                {
+                    _buildAgentRepository.Add(new TeamCityBuildAgentViewModel(name, _teamCityClient, _services.Timer));
+                }
+                return _buildAgentRepository.Get(name);
+            });
         }
     }
 }

@@ -14,6 +14,7 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
         Task<Build[]> GetRunningBuilds(string projectName, string buildConfigurationName, string branchName);
         Task<Build[]> GetRunningBuilds(string projectName, string buildConfigurationName);
         Task<string[]> GetConfigurationNames(string projectName);
-        Task<Agent[]> GetAgents();
+        Task<IBuildAgent[]> GetAgents();
+        Task<IBuildAgent> GetAgent(string name);
     }
 }

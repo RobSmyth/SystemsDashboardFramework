@@ -43,9 +43,8 @@
             <TextBlock Name="agentName" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1"
                    FontSize="{Binding Path=ActualWidth, ElementName=root, 
                                 Converter={StaticResource doubleConverter}, ConverterParameter=0.08}"
-                   FontWeight="Bold" Margin="5">
-            UNKNOWN
-            </TextBlock>
+                   FontWeight="Bold" Margin="5"
+                       Text="{Binding BuildAgent.Name}"/>
             
         </Grid>
     </Border>

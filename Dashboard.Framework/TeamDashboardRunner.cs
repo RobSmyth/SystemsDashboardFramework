@@ -85,7 +85,8 @@ namespace NoeticTools.SystemsDashboard.Framework
 
         private void RegisterPlugins()
         {
-            var teamCityService = new TeamCityService(_config.Services, _runOptions, _clock, _dashboardController, _services);
+            var buildAgentRepository = new BuildAgentRepository();
+            var teamCityService = new TeamCityService(_config.Services, _runOptions, _clock, _dashboardController, _services, buildAgentRepository);
 
             var plugins = new IPlugin[]
             {
@@ -101,7 +102,7 @@ namespace NoeticTools.SystemsDashboard.Framework
                 new ImageFileWatcherTilePlugin(_dashboardController, _services), 
                 new DateTilePlugin(_timerService, _clock),
                 new MessageTilePlugin(_dashboardController, _services),
-                new TeamCityAgentStatusTilePlugin(teamCityService, _dashboardController, _services), 
+                new TeamCityAgentStatusTilePlugin(teamCityService, _dashboardController, _services, buildAgentRepository), 
                 new TeamCityLastBuildStatusTilePlugin(teamCityService, _dashboardController, _services),
                 new TeamCityLAvailbleBuildSTilePlugin(teamCityService, _dashboardController, _services),
                 new DaysLeftCountDownTilePlugin(_dashboardController, _clock, _services),

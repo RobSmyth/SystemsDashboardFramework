@@ -15,7 +15,7 @@ using TeamCitySharp.DomainEntities;
 
 namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.AgentStatus
 {
-    internal sealed class TeamCityAgentTileViewModel : ITimerListener, IConfigurationChangeListener, ITileViewModel
+    internal sealed class TeamCityAgentTileViewModel : NotifyingViewModelBase, ITimerListener, IConfigurationChangeListener, ITileViewModel
     {
         private readonly Dictionary<string, Brush> _statusBrushes = new Dictionary<string, Brush>
         {
@@ -43,10 +43,11 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.AgentSta
         private readonly ILog _logger;
         private readonly object _syncRoot = new object();
         private readonly TeamCityAgentStatusTileControl _view;
+        private readonly IBuildAgentRepository _buildAgentRepository;
+        private IBuildAgent _buildAgent;
         private static int _nextInstanceId = 1;
 
-        public TeamCityAgentTileViewModel(TeamCityService service, TileConfiguration tile, IDashboardController dashboardController, TileLayoutController tileLayoutController, IServices services,
-            TeamCityAgentStatusTileControl view)
+        public TeamCityAgentTileViewModel(TeamCityService service, TileConfiguration tile, IDashboardController dashboardController, TileLayoutController tileLayoutController, IServices services, TeamCityAgentStatusTileControl view, IBuildAgentRepository buildAgentRepository)
         {
             lock (_syncRoot)
             {
@@ -56,22 +57,43 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.AgentSta
             Tile = tile;
             _service = service;
             _view = view;
+            _buildAgentRepository = buildAgentRepository;
             _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
             ConfigureServiceCommand = new TeamCityServiceConfigureCommand(service);
 
             var configurationParameters = GetConfigurationParameters();
             ConfigureCommand = new TileConfigureCommand(Tile, "Build Agent Configuration", configurationParameters, dashboardController, tileLayoutController, services);
+            GetBuildAgent();
 
             _view.DataContext = this;
 
             _timerToken = services.Timer.QueueCallback(TimeSpan.FromSeconds(_service.IsConnected ? 1 : 3), this);
         }
 
-        public ICommand ConfigureCommand { get; private set; }
+        private void GetBuildAgent()
+        {
+            BuildAgent = _buildAgentRepository.Get(_tileConfigurationConverter.GetString("AgentName"));
+        }
+
+        public IBuildAgent BuildAgent
+        {
+            get { return _buildAgent; }
+            private set
+            {
+                if (!ReferenceEquals(_buildAgent, value))
+                {
+                    _buildAgent = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public ICommand ConfigureCommand { get; }
 
         public void OnConfigurationChanged(TileConfigurationConverter converter)
         {
             _logger.Debug("Configuration changed.");
+            GetBuildAgent();
             _timerToken.Requeue(TimeSpan.FromMilliseconds(300));
         }
 
@@ -89,7 +111,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.AgentSta
             Task.Factory.StartNew(() => _service.GetAgents().Result).ContinueWith(x => _view.Dispatcher.InvokeAsync(() => Update(x.Result)));
         }
 
-        private void Update(Agent[] agents)
+        private void Update(IBuildAgent[] agents)
         {
             var agentName = _tileConfigurationConverter.GetString("AgentName");
             _view.agentName.Text = agentName;

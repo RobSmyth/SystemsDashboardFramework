@@ -24,14 +24,14 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
         private ITeamCityChannel _current;
         private ILog _logger;
 
-        public TeamCityService(DashboardConfigurationServices servicesConfiguration, RunOptions runOptions, IClock clock, IDashboardController dashboardController, IServices services)
+        public TeamCityService(DashboardConfigurationServices servicesConfiguration, RunOptions runOptions, IClock clock, IDashboardController dashboardController, IServices services, IBuildAgentRepository buildAgentRepository)
         {
             _dashboardController = dashboardController;
             _services = services;
             _configuration = new TeamCityServiceConfiguration(servicesConfiguration.GetService("TeamCity"));
             var client = new TeamCityClient(_configuration.Url);
-            _disconnectedState = new TeamCityChannelDisconnectedState(client, this, _configuration);
-            _connectedState = new TeamCityChannelConnectedState(client, clock);
+            _disconnectedState = new TeamCityChannelDisconnectedState(client, this, _configuration, buildAgentRepository, _services);
+            _connectedState = new TeamCityChannelConnectedState(client, clock, buildAgentRepository, _services);
             _current = runOptions.EmulateMode ? new TeamCityChannelEmulatedState() : _disconnectedState;
             _logger = LogManager.GetLogger("DateSources.TeamCity.Connected");
             _services.Timer.QueueCallback(TimeSpan.FromMilliseconds(10), this);
@@ -44,9 +44,14 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
             _current.Connect();
         }
 
-        public Task<Agent[]> GetAgents()
+        public Task<IBuildAgent[]> GetAgents()
         {
             return _current.GetAgents();
+        }
+
+        public Task<IBuildAgent> GetAgent(string name)
+        {
+            return _current.GetAgent(name);
         }
 
         public Task<Build> GetLastBuild(string projectName, string buildConfigurationName)

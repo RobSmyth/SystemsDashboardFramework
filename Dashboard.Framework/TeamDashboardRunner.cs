@@ -102,7 +102,7 @@ namespace NoeticTools.SystemsDashboard.Framework
                 new ImageFileWatcherTilePlugin(_dashboardController, _services), 
                 new DateTilePlugin(_timerService, _clock),
                 new MessageTilePlugin(_dashboardController, _services),
-                new TeamCityAgentStatusTilePlugin(teamCityService, _dashboardController, _services, buildAgentRepository), 
+                new TeamCityAgentStatusTilePlugin(teamCityService, _dashboardController, _services), 
                 new TeamCityLastBuildStatusTilePlugin(teamCityService, _dashboardController, _services),
                 new TeamCityLAvailbleBuildSTilePlugin(teamCityService, _dashboardController, _services),
                 new DaysLeftCountDownTilePlugin(_dashboardController, _clock, _services),

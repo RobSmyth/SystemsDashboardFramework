@@ -11,15 +11,13 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.AgentSta
         private readonly TeamCityService _service;
         private readonly IDashboardController _dashboardController;
         private readonly IServices _services;
-        private readonly IBuildAgentRepository _buildAgentRepository;
         public const string TileTypeId = "TeamCity.Agent.Status";
 
-        public TeamCityAgentStatusTilePlugin(TeamCityService service, IDashboardController dashboardController, IServices services, IBuildAgentRepository buildAgentRepository)
+        public TeamCityAgentStatusTilePlugin(TeamCityService service, IDashboardController dashboardController, IServices services)
         {
             _service = service;
             _dashboardController = dashboardController;
             _services = services;
-            _buildAgentRepository = buildAgentRepository;
         }
 
         public int Rank => 0;
@@ -34,7 +32,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.AgentSta
         public FrameworkElement CreateTile(TileConfiguration tile, TileLayoutController layoutController)
         {
             var view = new TeamCityAgentStatusTileControl();
-            new TeamCityAgentTileViewModel(_service, tile, _dashboardController, layoutController, _services, view, _buildAgentRepository);
+            new TeamCityAgentStatusTileViewModel(_service, tile, _dashboardController, layoutController, _services, view, _service);
             return view;
         }
 

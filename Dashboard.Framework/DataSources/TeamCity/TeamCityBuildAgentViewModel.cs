@@ -15,11 +15,13 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
         private readonly TimerToken _timerToken;
         private BuildAgentStatus _status;
         private bool _isRunning;
+        private string _statusText;
 
         public TeamCityBuildAgentViewModel(string name, TeamCityClient teamCityClient, ITimerService timer)
         {
             _teamCityClient = teamCityClient;
             Name = name;
+            _statusText = string.Empty;
             _timerToken = timer.QueueCallback(TimeSpan.FromMilliseconds(10), this);
         }
 
@@ -51,18 +53,48 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
             }
         }
 
+        public string StatusText
+        {
+            get { return _statusText; }
+            private set
+            {
+                if (!_statusText.Equals(value, StringComparison.InvariantCulture))
+                {
+                    _statusText = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         void ITimerListener.OnTimeElapsed(TimerToken token)
         {
+            token.Requeue(TimeSpan.FromDays(99));
             Update();
         }
 
         private void Update()
         {
-            Task.Run(() => { return _teamCityClient.Builds.ByBuildLocator(BuildLocator.WithDimensions(running: true)).Where(x => Name.Equals(x.Agent.Name, StringComparison.InvariantCultureIgnoreCase)).ToArray(); })
+            Task.Run(() =>
+            {
+                var runningBuilds = _teamCityClient.Builds.ByBuildLocator(BuildLocator.WithDimensions(running: true));
+                return runningBuilds.ToArray();
+            })
                 .ContinueWith(x =>
                 {
-                    IsRunning = x.Result.Length == 1;
-                    Status = IsRunning ? BuildAgentStatus.Running : BuildAgentStatus.Idle;
+                    var buildsUsingAgent = x.Result.Where(y => Name.Equals(y.Agent?.Name, StringComparison.InvariantCultureIgnoreCase)).ToArray();
+                    if (buildsUsingAgent.Length == 0 && x.Result.Any(y => y.Agent == null))
+                    {
+                        // TeamCity 7 does not give agent
+                        IsRunning = false;
+                        Status = BuildAgentStatus.Unknown;
+                        StatusText = "Unknown";
+                    }
+                    else
+                    {
+                        IsRunning = buildsUsingAgent.Length > 0;
+                        Status = IsRunning ? BuildAgentStatus.Running : BuildAgentStatus.Idle;
+                        StatusText = IsRunning ? "Running" : "Idle";
+                    }
                     _timerToken.Requeue(_tickPeriod);
                 });
         }

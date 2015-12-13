@@ -69,7 +69,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Time
 
         private TimerToken GetNextDueToken()
         {
-            return _callbacks.FirstOrDefault(x => x.DueDateTime <= _clock.UtcNow);
+            return _callbacks.FirstOrDefault(x => x != null && x.DueDateTime <= _clock.UtcNow);
         }
     }
 }

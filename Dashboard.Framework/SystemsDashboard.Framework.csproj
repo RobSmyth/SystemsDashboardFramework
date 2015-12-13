@@ -131,7 +131,7 @@
     <Compile Include="Plugins\Tiles\TeamCity\AgentStatus\TeamCityAgentStatusTileControl.xaml.cs">
       <DependentUpon>TeamCityAgentStatusTileControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Plugins\Tiles\TeamCity\AgentStatus\TeamCityAgentTileViewModel.cs" />
+    <Compile Include="Plugins\Tiles\TeamCity\AgentStatus\TeamCityAgentStatusTileViewModel.cs" />
     <Compile Include="Plugins\Tiles\TeamCity\AgentStatus\TeamCityAgentStatusTilePlugin.cs" />
     <Compile Include="Registries\IPropertyViewProvider.cs" />
     <Compile Include="Registries\IPropertyEditControlRegistry.cs" />

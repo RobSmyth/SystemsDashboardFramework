@@ -15,24 +15,24 @@ using TeamCitySharp.DomainEntities;
 
 namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.AgentStatus
 {
-    internal sealed class TeamCityAgentTileViewModel : NotifyingViewModelBase, ITimerListener, IConfigurationChangeListener, ITileViewModel
+    internal sealed class TeamCityAgentStatusTileViewModel : NotifyingViewModelBase, ITimerListener, IConfigurationChangeListener, ITileViewModel
     {
-        private readonly Dictionary<string, Brush> _statusBrushes = new Dictionary<string, Brush>
+        private readonly Dictionary<BuildAgentStatus, Brush> _statusBrushes = new Dictionary<BuildAgentStatus, Brush>
         {
-            {"DISABLED", Brushes.Gray},
-            {"RUNNING", Brushes.Yellow},
-            {"IDLE", (SolidColorBrush) (new BrushConverter().ConvertFrom("#FF448032"))},
-            {"FAILURE", Brushes.Firebrick},
-            {"UNKNOWN", Brushes.Gray}
+            {BuildAgentStatus.Disabled, Brushes.Gray},
+            {BuildAgentStatus.Running, Brushes.Yellow},
+            {BuildAgentStatus.Idle, (SolidColorBrush) (new BrushConverter().ConvertFrom("#FF448032"))},
+            {BuildAgentStatus.Unknown, Brushes.Gray},
+            {BuildAgentStatus.Offline, Brushes.Gray}
         };
 
-        private readonly Dictionary<string, Brush> _statusTextBrushes = new Dictionary<string, Brush>
+        private readonly Dictionary<BuildAgentStatus, Brush> _statusTextBrushes = new Dictionary<BuildAgentStatus, Brush>
         {
-            {"DISABLED", Brushes.White},
-            {"RUNNING", Brushes.DarkSlateGray},
-            {"IDLE", Brushes.White},
-            {"FAILURE", Brushes.White},
-            {"UNKNOWN", Brushes.White}
+            {BuildAgentStatus.Disabled, Brushes.White},
+            {BuildAgentStatus.Running, Brushes.DarkSlateGray},
+            {BuildAgentStatus.Idle, Brushes.White},
+            {BuildAgentStatus.Unknown, Brushes.White},
+            {BuildAgentStatus.Offline, Brushes.White}
         };
 
         private readonly TeamCityService _service;
@@ -43,11 +43,11 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.AgentSta
         private readonly ILog _logger;
         private readonly object _syncRoot = new object();
         private readonly TeamCityAgentStatusTileControl _view;
-        private readonly IBuildAgentRepository _buildAgentRepository;
+        private readonly ITeamCityChannel _teamCityService;
         private IBuildAgent _buildAgent;
         private static int _nextInstanceId = 1;
 
-        public TeamCityAgentTileViewModel(TeamCityService service, TileConfiguration tile, IDashboardController dashboardController, TileLayoutController tileLayoutController, IServices services, TeamCityAgentStatusTileControl view, IBuildAgentRepository buildAgentRepository)
+        public TeamCityAgentStatusTileViewModel(TeamCityService service, TileConfiguration tile, IDashboardController dashboardController, TileLayoutController tileLayoutController, IServices services, TeamCityAgentStatusTileControl view, ITeamCityChannel teamCityService)
         {
             lock (_syncRoot)
             {
@@ -57,7 +57,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.AgentSta
             Tile = tile;
             _service = service;
             _view = view;
-            _buildAgentRepository = buildAgentRepository;
+            _teamCityService = teamCityService;
             _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
             ConfigureServiceCommand = new TeamCityServiceConfigureCommand(service);
 
@@ -72,7 +72,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.AgentSta
 
         private void GetBuildAgent()
         {
-            BuildAgent = _buildAgentRepository.Get(_tileConfigurationConverter.GetString("AgentName"));
+            BuildAgent = _teamCityService.GetAgent(_tileConfigurationConverter.GetString("AgentName")).Result;
         }
 
         public IBuildAgent BuildAgent
@@ -114,7 +114,6 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.AgentSta
         private void Update(IBuildAgent[] agents)
         {
             var agentName = _tileConfigurationConverter.GetString("AgentName");
-            _view.agentName.Text = agentName;
 
             var agent = agents.FirstOrDefault(x => x.Name.Equals(agentName, StringComparison.InvariantCulture));
             if (agent == null)
@@ -124,14 +123,9 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.AgentSta
                 return;
             }
 
-            var running = false; //agent.Status.StartsWith("RUNNING");
+            _view.root.Background = _statusBrushes[BuildAgent.Status];
 
-            var status = "IDLE";
-            _view.headerText.Text = running ? "Running" : "Idle";
-            _view.root.Background = _statusBrushes[status];
-            SetTextForeground(running, status);
-
-            _logger.DebugFormat("Updated UI. Build is {0}.", status);
+            _logger.DebugFormat("Updated UI. Build is {0}.", BuildAgent.Status);
 
             _timerToken.Requeue(_connectedUpdatePeriod);
         }
@@ -139,9 +133,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.AgentSta
         private void SetUiToError()
         {
             _logger.Warn("Update UI - unable to get build state.");
-            _view.agentName.Text = "ERROR";
-            _view.headerText.Text = "";
-            _view.root.Background = _statusBrushes["UNKNOWN"];
+            _view.root.Background = _statusBrushes[BuildAgentStatus.Unknown];
         }
 
         private IPropertyViewModel[] GetConfigurationParameters()
@@ -151,12 +143,6 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.AgentSta
                 new PropertyViewModel("AgentName", "Text", _tileConfigurationConverter)
             };
             return configurationParameters;
-        }
-
-        private void SetTextForeground(bool running, string status)
-        {
-            var textBrush = running ? _statusTextBrushes[status] : _statusTextBrushes[status];
-            _view.headerText.Foreground = textBrush;
         }
 
         private TileConfiguration Tile { get; }

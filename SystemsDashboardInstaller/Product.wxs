@@ -4,7 +4,8 @@
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
-		<MediaTemplate />
+
+    <Media Id="1" Cabinet="cab1.cab" EmbedCab="yes" />
     
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="ProgramFilesFolder">
@@ -54,7 +55,10 @@
       <Component Id="TeamCitySharpdll" Guid="AA1E8016-FA60-4890-B435-0E790DB4B7DB">
         <File Id="TeamCitySharp.dll" Source=".\..\Output\TeamCitySharp.dll" KeyPath="yes" Checksum="yes"/>
       </Component>
-		</ComponentGroup>
+      <Component Id="log4netpdll" Guid="AA1E8016-AA60-4690-B435-0E790DB4B7DB">
+        <File Id="log4net.dll" Source=".\..\Output\log4net.dll" KeyPath="yes" Checksum="yes"/>
+      </Component>
+    </ComponentGroup>
 
     <Feature Id="ProductFeature" Title="Systems Dashboard" Level="1">
       <ComponentGroupRef Id="SystemsDashboard" />

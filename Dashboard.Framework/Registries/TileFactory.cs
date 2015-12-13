@@ -1,6 +1,5 @@
 using System.Linq;
 using System.Windows;
-using NoeticTools.SystemsDashboard.Framework;
 using NoeticTools.SystemsDashboard.Framework.Config;
 
 

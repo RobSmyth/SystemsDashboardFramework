@@ -1,4 +1,4 @@
-# TeamDashboard 
+# Systems Dashboard 
 
 A Windows application (C# WPF) wall team/systems dashboard.
 

@@ -3,9 +3,9 @@
 
 namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Image
 {
-    public partial class ImageTileControl : UserControl
+    public partial class ImageFileWatcherTileControl : UserControl
     {
-        public ImageTileControl()
+        public ImageFileWatcherTileControl()
         {
             InitializeComponent();
         }

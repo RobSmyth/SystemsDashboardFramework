@@ -5,13 +5,13 @@ using NoeticTools.SystemsDashboard.Framework.Config;
 
 namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Image
 {
-    internal sealed class ImageTilePlugin : IPlugin, ITileControllerProvider
+    internal sealed class ImageFileWatcherTilePlugin : IPlugin, ITileControllerProvider
     {
         private readonly IDashboardController _dashboardController;
         private readonly IServices _services;
         private const string TileTypeId = "Image.File.Watcher";
 
-        public ImageTilePlugin(IDashboardController dashboardController, IServices services)
+        public ImageFileWatcherTilePlugin(IDashboardController dashboardController, IServices services)
         {
             _dashboardController = dashboardController;
             _services = services;
@@ -19,7 +19,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Image
 
         public int Rank => 0;
 
-        public string Name => "Display image file";
+        public string Name => "Image file watcher";
 
         public bool MatchesId(string id)
         {
@@ -28,8 +28,8 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Image
 
         public FrameworkElement CreateTile(TileConfiguration tile, TileLayoutController layoutController)
         {
-            var view = new ImageTileControl();
-            new ImageViewModel(tile, _dashboardController, layoutController, _services, view);
+            var view = new ImageFileWatcherTileControl();
+            new ImageFileWatcherViewModel(tile, _dashboardController, layoutController, _services, view);
             return view;
         }
 

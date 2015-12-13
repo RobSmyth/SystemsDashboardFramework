@@ -14,9 +14,9 @@ using NoeticTools.SystemsDashboard.Framework.Config.Properties;
 
 namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Image
 {
-    internal sealed class ImageViewModel : NotifyingViewModelBase, IConfigurationChangeListener
+    internal sealed class ImageFileWatcherViewModel : NotifyingViewModelBase, IConfigurationChangeListener, ITileViewModel
     {
-        private readonly ImageTileControl _view;
+        private readonly ImageFileWatcherTileControl _view;
         private readonly TileConfigurationConverter _tileConfigurationConverter;
         private ImageSource _source;
         private string _imageFilePath = string.Empty;
@@ -24,7 +24,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Image
         private static int _nextInstanceId = 1;
         private readonly ILog _logger;
 
-        public ImageViewModel(TileConfiguration tile, IDashboardController dashboardController, TileLayoutController tileLayoutController, IServices services, ImageTileControl view)
+        public ImageFileWatcherViewModel(TileConfiguration tile, IDashboardController dashboardController, TileLayoutController tileLayoutController, IServices services, ImageFileWatcherTileControl view)
         {
             _view = view;
             _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
@@ -36,15 +36,15 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Image
                 IncludeSubdirectories = false,
                 EnableRaisingEvents = false
             };
-            _fileWatcher.Changed += _fileWatcher_Changed;
-            _fileWatcher.Deleted += _fileWatcher_Changed;
-            _fileWatcher.Created += _fileWatcher_Changed;
-            _fileWatcher.Renamed += _fileWatcher_Changed;
+            _fileWatcher.Changed += OnFileChanged;
+            _fileWatcher.Deleted += OnFileChanged;
+            _fileWatcher.Created += OnFileChanged;
+            _fileWatcher.Renamed += OnFileChanged;
             _view.DataContext = this;
             Update();
         }
 
-        private void _fileWatcher_Changed(object sender, FileSystemEventArgs e)
+        private void OnFileChanged(object sender, FileSystemEventArgs e)
         {
             _view.Dispatcher.InvokeAsync(Update);
         }

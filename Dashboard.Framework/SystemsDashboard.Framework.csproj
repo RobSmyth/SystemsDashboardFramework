@@ -116,11 +116,12 @@
       <DependentUpon>BlankTileControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Plugins\Tiles\BlankTile\BlankTilePlugin.cs" />
-    <Compile Include="Plugins\Tiles\Image\ImageTileControl.xaml.cs">
-      <DependentUpon>ImageTileControl.xaml</DependentUpon>
+    <Compile Include="Plugins\Tiles\Image\ImageFileWatcherTileControl.xaml.cs">
+      <DependentUpon>ImageFileWatcherTileControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Plugins\Tiles\Image\ImageTilePlugin.cs" />
-    <Compile Include="Plugins\Tiles\Image\ImageViewModel.cs" />
+    <Compile Include="Plugins\Tiles\Image\ImageFileWatcherTilePlugin.cs" />
+    <Compile Include="Plugins\Tiles\Image\ImageFileWatcherViewModel.cs" />
+    <Compile Include="Plugins\Tiles\ITileViewModel.cs" />
     <Compile Include="Plugins\Tiles\TeamCity\AgentStatus\TeamCityAgentStatusTileControl.xaml.cs">
       <DependentUpon>TeamCityAgentStatusTileControl.xaml</DependentUpon>
     </Compile>
@@ -266,7 +267,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Plugins\Tiles\Image\ImageTileControl.xaml">
+    <Page Include="Plugins\Tiles\Image\ImageFileWatcherTileControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

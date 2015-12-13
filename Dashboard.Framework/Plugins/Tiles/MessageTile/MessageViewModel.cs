@@ -6,7 +6,7 @@ using NoeticTools.SystemsDashboard.Framework.Config.Properties;
 
 namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.MessageTile
 {
-    internal sealed class MessageViewModel : NotifyingViewModelBase, IConfigurationChangeListener
+    internal sealed class MessageViewModel : NotifyingViewModelBase, IConfigurationChangeListener, ITileViewModel
     {
         private readonly TileConfigurationConverter _tileConfigurationConverter;
         private string _text;

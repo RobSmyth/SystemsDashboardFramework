@@ -10,7 +10,6 @@ using NoeticTools.SystemsDashboard.Framework.Config;
 using NoeticTools.SystemsDashboard.Framework.Config.Properties;
 using NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity;
 using NoeticTools.SystemsDashboard.Framework.Time;
-using TeamCitySharp.DomainEntities;
 
 
 namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.AgentStatus

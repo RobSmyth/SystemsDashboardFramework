@@ -145,6 +145,7 @@ namespace NoeticTools.SystemsDashboard.Framework
             newTile.SetLocation(tileToReplace);
             Remove(tileToReplace);
             AddTile(newTile);
+            AddToConfiguration(newTile);
         }
 
         private void AddToConfiguration(TileConfiguration tile)

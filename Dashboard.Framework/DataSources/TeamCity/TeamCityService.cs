@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Dashboard.Config;
 using log4net;
-using NoeticTools.SystemsDashboard.Framework;
 using NoeticTools.SystemsDashboard.Framework.Commands;
 using NoeticTools.SystemsDashboard.Framework.Config;
 using NoeticTools.SystemsDashboard.Framework.Config.Properties;

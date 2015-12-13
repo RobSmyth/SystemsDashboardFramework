@@ -68,7 +68,6 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
 
         void ITimerListener.OnTimeElapsed(TimerToken token)
         {
-            token.Requeue(TimeSpan.FromDays(99));
             Update();
         }
 

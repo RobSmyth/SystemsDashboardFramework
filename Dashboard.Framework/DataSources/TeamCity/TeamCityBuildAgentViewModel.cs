@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using NoeticTools.SystemsDashboard.Framework.Time;
 using TeamCitySharp;
+using TeamCitySharp.DomainEntities;
 using TeamCitySharp.Locators;
 
 
@@ -75,8 +76,15 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
         {
             Task.Run(() =>
             {
-                var runningBuilds = _teamCityClient.Builds.ByBuildLocator(BuildLocator.WithDimensions(running: true));
-                return runningBuilds.ToArray();
+                try
+                {
+                    var runningBuilds = _teamCityClient.Builds.ByBuildLocator(BuildLocator.WithDimensions(running: true));
+                    return runningBuilds.ToArray();
+                }
+                catch (Exception)
+                {
+                    return new Build[0];
+                }
             })
                 .ContinueWith(x =>
                 {

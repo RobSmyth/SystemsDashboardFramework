@@ -28,33 +28,31 @@
             </Grid.RowDefinitions>
 
             <TextBlock Name="serverName" Grid.Row="0"
-                   HorizontalAlignment="Center" TextAlignment="Center"
+                   HorizontalAlignment="Left" TextAlignment="Left"
                    FontSize="{Binding Path=ActualHeight, ElementName=root, 
-                                    Converter={StaticResource doubleConverter}, ConverterParameter=0.15}"
-                   FontWeight="Normal" Margin="2">
-            Server 1
-            </TextBlock>
+                                    Converter={StaticResource doubleConverter}, ConverterParameter=0.10}"
+                   FontWeight="Normal" Margin="5"
+                       Text="{Binding ServerName}"/>
 
-            <Ellipse Grid.Row="0" Fill="GreenYellow" HorizontalAlignment="Right" VerticalAlignment="Center"
+            <Ellipse Grid.Row="0" Name="statusLed"
+                     Fill="{Binding LedBrush}" HorizontalAlignment="Right" VerticalAlignment="Center"
                  Margin="3,3,10,3" Stroke="Black"
                  Height="{Binding Path=ActualHeight, ElementName=root, Converter={StaticResource doubleConverter}, ConverterParameter=0.15}"
                  Width="{Binding Path=ActualHeight, ElementName=root, Converter={StaticResource doubleConverter}, ConverterParameter=0.15}" />
 
-            <TextBlock Name="message" Grid.Row="1"
-                   HorizontalAlignment="Center" TextAlignment="Center"
+            <TextBlock Name="serviceName" Grid.Row="1"
+                   HorizontalAlignment="Center" TextAlignment="Center" VerticalAlignment="Center"
                    FontSize="{Binding Path=ActualHeight, ElementName=root, 
-                                    Converter={StaticResource doubleConverter}, ConverterParameter=0.3}"
-                   FontWeight="Bold" Margin="0,0,0,-3">
-            --
-            </TextBlock>
+                                    Converter={StaticResource doubleConverter}, ConverterParameter=0.12}"
+                   FontWeight="Bold" Margin="0,0,0,-3"
+                       Text="{Binding ServiceName}"/>
 
             <TextBlock Name="details" Grid.Row="2"
                    HorizontalAlignment="Center" VerticalAlignment="Bottom" TextAlignment="Center"
                    FontSize="{Binding Path=ActualHeight, ElementName=root, 
-                                    Converter={StaticResource doubleConverter}, ConverterParameter=0.10}"
-                   FontWeight="Normal" Margin="2">
-            2.0.2.123
-            </TextBlock>
+                                    Converter={StaticResource doubleConverter}, ConverterParameter=0.12}"
+                   FontWeight="Normal" Margin="2" 
+                       Text="{Binding Status}"/>
 
         </Grid>
     </Border>

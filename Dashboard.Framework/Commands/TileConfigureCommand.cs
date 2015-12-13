@@ -14,13 +14,13 @@ namespace NoeticTools.SystemsDashboard.Framework.Commands
     {
         private readonly IPropertyViewModel[] _parameters;
         private readonly IDashboardController _dashboardController;
-        private readonly TileLayoutController _tileLayoutController;
+        private readonly ITileLayoutController _tileLayoutController;
         private readonly IServices _services;
         private readonly TileConfiguration _tile;
         private readonly string _title;
         private bool _canExecute = true;
 
-        public TileConfigureCommand(TileConfiguration tile, string title, IPropertyViewModel[] parameters, IDashboardController dashboardController, TileLayoutController tileLayoutController, IServices services)
+        public TileConfigureCommand(TileConfiguration tile, string title, IPropertyViewModel[] parameters, IDashboardController dashboardController, ITileLayoutController tileLayoutController, IServices services)
         {
             _tile = tile;
             _title = title;

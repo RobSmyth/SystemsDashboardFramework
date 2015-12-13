@@ -107,7 +107,7 @@ namespace NoeticTools.SystemsDashboard.Framework
                 new TeamCityLAvailbleBuildSTilePlugin(teamCityService, _dashboardController, _services),
                 new DaysLeftCountDownTilePlugin(_dashboardController, _clock, _services),
                 new WebPageTilePlugin(_dashboardController, _services),
-                new ServerStatusTilePlugin()
+                new ServerStatusTilePlugin(_dashboardController, _services),
             };
 
             // todo - load third-party plug-ins via app config file

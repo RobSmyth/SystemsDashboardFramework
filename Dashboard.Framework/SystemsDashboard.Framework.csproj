@@ -67,6 +67,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
     <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
@@ -182,7 +183,7 @@
     <Compile Include="ITileControllerProvider.cs" />
     <Compile Include="Plugins\Tiles\MessageTile\MessageViewModel.cs" />
     <Compile Include="Plugins\Tiles\MessageTile\MessageTilePlugin.cs" />
-    <Compile Include="Plugins\Tiles\ServerStatus\ServerStatusTilePlugin.cs" />
+    <Compile Include="Plugins\Tiles\ServerStatus\WmiTilePlugin.cs" />
     <Compile Include="Plugins\Tiles\TeamCity\AvailableBuilds\TeamCityAvailableBuildsTilePlugin.cs" />
     <Compile Include="Plugins\IPlugin.cs" />
     <Compile Include="Plugins\Tiles\TeamCity\LastBuildStatus\TeamCityLastBuildStatusTilePlugin.cs" />
@@ -199,10 +200,10 @@
     <Compile Include="Plugins\Tiles\MessageTile\MessageTileControl.xaml.cs">
       <DependentUpon>MessageTileControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Plugins\Tiles\ServerStatus\ServerStatusTileControl.xaml.cs">
-      <DependentUpon>ServerStatusTileControl.xaml</DependentUpon>
+    <Compile Include="Plugins\Tiles\ServerStatus\WmiTileControl.xaml.cs">
+      <DependentUpon>WmiTileControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Plugins\Tiles\ServerStatus\ServerStatusTileViewModel.cs" />
+    <Compile Include="Plugins\Tiles\ServerStatus\WmiTileViewModel.cs" />
     <Compile Include="Plugins\Tiles\TeamCity\AvailableBuilds\TeamCityAvailableBuildsListControl.xaml.cs">
       <DependentUpon>TeamCityAvailableBuildsListControl.xaml</DependentUpon>
     </Compile>
@@ -318,7 +319,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Plugins\Tiles\ServerStatus\ServerStatusTileControl.xaml">
+    <Page Include="Plugins\Tiles\ServerStatus\WmiTileControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

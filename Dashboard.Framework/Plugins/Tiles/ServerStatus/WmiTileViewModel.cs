@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Management;
 using System.ServiceProcess;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media;
 using NoeticTools.SystemsDashboard.Framework.Commands;
 using NoeticTools.SystemsDashboard.Framework.Config;
-using NoeticTools.SystemsDashboard.Framework.Config.Commands;
 using NoeticTools.SystemsDashboard.Framework.Config.Properties;
 using NoeticTools.SystemsDashboard.Framework.Tiles.ServerStatus;
 using NoeticTools.SystemsDashboard.Framework.Time;
@@ -15,13 +15,13 @@ using NoeticTools.SystemsDashboard.Framework.Time;
 
 namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.ServerStatus
 {
-    internal sealed class ServerStatusTileViewModel : NotifyingViewModelBase, IConfigurationChangeListener, ITileViewModel, ITimerListener
+    internal sealed class WmiTileViewModel : NotifyingViewModelBase, IConfigurationChangeListener, ITileViewModel, ITimerListener
     {
         private readonly TimeSpan _tickPeriod = TimeSpan.FromMinutes(1);
         private readonly TileConfigurationConverter _tileConfigurationConverter;
-        private string _serverName = string.Empty;
-        private string _serviceName = string.Empty;
-        private TimerToken _timerToken;
+        private string _machineName = string.Empty;
+        private string _displayName = string.Empty;
+        private readonly TimerToken _timerToken;
         private string _status = string.Empty;
 
         private readonly Dictionary<ServiceControllerStatus, Brush> _statusBrushes = new Dictionary<ServiceControllerStatus, Brush>
@@ -46,15 +46,20 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.ServerStatus
             {ServiceControllerStatus.Stopped, Brushes.White},
         };
 
-        private Brush _ledBrush;
+        private Brush _ledBrush = Brushes.White;
+        private string _value = "-";
 
-        public ServerStatusTileViewModel(TileConfiguration tile, ServerStatusTileControl view, IDashboardController dashboardController, ITileLayoutController layoutController, IServices services)
+        public WmiTileViewModel(TileConfiguration tile, ServerStatusTileControl view, IDashboardController dashboardController, ITileLayoutController layoutController, IServices services)
         {
             _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
             var parameters = new IPropertyViewModel[]
             {
-                new PropertyViewModel("ServerName", "Text", _tileConfigurationConverter),
-                new PropertyViewModel("ServiceName", "Text", _tileConfigurationConverter),
+                new PropertyViewModel("Machine_Name", "Text", _tileConfigurationConverter),
+                new PropertyViewModel("Display_Name", "Text", _tileConfigurationConverter),
+                new PropertyViewModel("WMI_Class", "Text", _tileConfigurationConverter),
+                new PropertyViewModel("Name_Property", "Text", _tileConfigurationConverter),
+                new PropertyViewModel("Name", "Text", _tileConfigurationConverter),
+                new PropertyViewModel("Value_Property", "Text", _tileConfigurationConverter),
             };
 
             ConfigureCommand = new TileConfigureCommand(tile, "Message Tile Configuration", parameters, dashboardController, layoutController, services);
@@ -65,14 +70,14 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.ServerStatus
             _timerToken = services.Timer.QueueCallback(TimeSpan.FromMilliseconds(100), this);
         }
 
-        public string ServerName
+        public string MachineName
         {
-            get { return _serverName; }
+            get { return _machineName; }
             private set
             {
-                if (!_serverName.Equals(value, StringComparison.InvariantCulture))
+                if (!_machineName.Equals(value, StringComparison.InvariantCulture))
                 {
-                    _serverName = value;
+                    _machineName = value;
                     OnPropertyChanged();
                 }
             }
@@ -91,19 +96,6 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.ServerStatus
             }
         }
 
-        public string ServiceName
-        {
-            get { return _serviceName; }
-            private set
-            {
-                if (!_serviceName.Equals(value, StringComparison.InvariantCulture))
-                {
-                    _serviceName = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
         public string Status
         {
             get { return _status; }
@@ -117,20 +109,57 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.ServerStatus
             }
         }
 
+        public string DisplayName
+        {
+            get { return _displayName; }
+            private set
+            {
+                if (!_displayName.Equals(value, StringComparison.InvariantCulture))
+                {
+                    _displayName = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public string Value
+        {
+            get { return _value; }
+            private set
+            {
+                if (!_value.Equals(value, StringComparison.InvariantCulture))
+                {
+                    _value = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public ICommand ConfigureCommand { get; }
 
         private void Update()
         {
-            ServerName = _tileConfigurationConverter.GetString("ServerName");
-            ServiceName = _tileConfigurationConverter.GetString("ServiceName");
+            MachineName = _tileConfigurationConverter.GetString("Machine_Name");
+            DisplayName = _tileConfigurationConverter.GetString("Display_Name");
+            var wmiClass = _tileConfigurationConverter.GetString("WMI_Class");
+            var nameProperty = _tileConfigurationConverter.GetString("Name_Property");
+            var name = _tileConfigurationConverter.GetString("Name");
+            var valueProperty = _tileConfigurationConverter.GetString("Value_Property");
 
-            if (!string.IsNullOrWhiteSpace(ServerName) && !string.IsNullOrWhiteSpace(ServiceName))
+            if (!string.IsNullOrWhiteSpace(MachineName) && !string.IsNullOrWhiteSpace(DisplayName))
             {
                 Task.Run(() =>
                 {
+                    var scope = new ManagementScope($@"\\{MachineName}\root\cimv2");
+
                     try
                     {
-                        return ServiceController.GetServices(ServerName).SingleOrDefault(x => x.ServiceName.Equals(ServiceName, StringComparison.InvariantCulture));
+                        scope.Connect();
+                        var query = new ObjectQuery($"SELECT * FROM {wmiClass}");
+                        var searcher = new ManagementObjectSearcher(scope, query);
+                        var managementObjectCollection = searcher.Get().Cast<ManagementObject>().ToArray();
+                        var result = managementObjectCollection.FirstOrDefault(x => x.Properties.Cast<PropertyData>().Any(y => y.Name.Equals(nameProperty) && name.Equals(y.Value as string, StringComparison.InvariantCulture)));
+                        return (string)result?[valueProperty];
                     }
                     catch (Exception)
                     {
@@ -141,12 +170,13 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.ServerStatus
                 {
                     if (x.Result != null)
                     {
-                        Status = x.Result.Status.ToString();
-                        LedBrush = _statusBrushes[x.Result.Status];
+                        Value = x.Result;
+                        LedBrush = _statusBrushes[ServiceControllerStatus.Running];
+                        Status = "OK";
                     }
                     else
                     {
-                        Status = "ERROR";
+                        Value = "-";
                         LedBrush = Brushes.DarkRed;
                     }
                     _timerToken.Requeue(_tickPeriod);

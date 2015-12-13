@@ -6,13 +6,13 @@ using NoeticTools.SystemsDashboard.Framework.Tiles.ServerStatus;
 
 namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.ServerStatus
 {
-    internal sealed class ServerStatusTilePlugin : IPlugin, ITileControllerProvider
+    internal sealed class WmiTilePlugin : IPlugin, ITileControllerProvider
     {
         private const string TileTypeId = "Server.Status";
         private readonly IDashboardController _dashboardController;
         private readonly IServices _services;
 
-        public ServerStatusTilePlugin(IDashboardController dashboardController, IServices services)
+        public WmiTilePlugin(IDashboardController dashboardController, IServices services)
         {
             _dashboardController = dashboardController;
             _services = services;
@@ -30,7 +30,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.ServerStatus
         public FrameworkElement CreateTile(TileConfiguration tile, TileLayoutController layoutController)
         {
             var view = new ServerStatusTileControl();
-            new ServerStatusTileViewModel(tile, view, _dashboardController, layoutController, _services);
+            new WmiTileViewModel(tile, view, _dashboardController, layoutController, _services);
             return view;
         }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 
 namespace NoeticTools.SystemsDashboard.Framework.Config.Properties
@@ -8,7 +9,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Config.Properties
     {
         private readonly TileConfigurationConverter _tileConfigurationConverter;
         private readonly Func<object[]> _parametersFunc;
-        //private object[] _parameters;
+        private object[] _parameters;
 
         public PropertyViewModel(string name, string viewerName, TileConfigurationConverter tileConfigurationConverter, Func<object[]> parametersFunc = null)
         {
@@ -16,7 +17,6 @@ namespace NoeticTools.SystemsDashboard.Framework.Config.Properties
             _parametersFunc = parametersFunc;
             Name = name;
             ViewerName = viewerName;
-            //Parameters = parameters.Cast<object>().ToArray();
         }
 
         public object Value
@@ -34,6 +34,24 @@ namespace NoeticTools.SystemsDashboard.Framework.Config.Properties
         public string Name { get; }
         public string ViewerName { get; }
 
-        public object[] Parameters => _parametersFunc != null ? _parametersFunc() : new object[0];
+        public object[] Parameters
+        {
+            get
+            {
+                if (_parameters == null)
+                {
+                    Task.Factory.StartNew(() => _parametersFunc()).ContinueWith(x => Parameters = x.Result);
+                }
+                return _parameters ?? new object[0];
+            }
+            set
+            {
+                if (_parameters != value)
+                {
+                    _parameters = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
     }
 }

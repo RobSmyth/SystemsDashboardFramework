@@ -210,12 +210,7 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
                 {
                     if (!_buildConfigurations.ContainsKey(project))
                     {
-                        var timeCachedArray = new TimeCachedArray<BuildConfig>(() =>
-                        {
-                            var byProjectId = _teamCityClient.BuildConfigs.ByProjectId(project.Id);
-                            return byProjectId;
-                        }, TimeSpan.FromSeconds(30), _clock);
-
+                        var timeCachedArray = new TimeCachedArray<BuildConfig>(() => _teamCityClient.BuildConfigs.ByProjectId(project.Id), TimeSpan.FromHours(12), _clock);
                         _buildConfigurations.Add(project, timeCachedArray);
                     }
                     return _buildConfigurations[project];

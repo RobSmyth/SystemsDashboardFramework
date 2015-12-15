@@ -156,7 +156,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.LastBuil
             {
                 projectElementViewModel,
                 new DependantPropertyViewModel("Configuration", "TextFromCombobox", _tileConfigurationConverter, projectElementViewModel,
-                    x => x.Parameters = _service.GetConfigurationNames((string) projectElementViewModel.Value).Result),
+                    () => _service.GetConfigurationNames((string) projectElementViewModel.Value).Result.Cast<object>().ToArray()),
                 new PropertyViewModel("Description", "Text", _tileConfigurationConverter),
                 new HyperlinkPropertyViewModel("TeamCity service", ConfigureServiceCommand)
             };

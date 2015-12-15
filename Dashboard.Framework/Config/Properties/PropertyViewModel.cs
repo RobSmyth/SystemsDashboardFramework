@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 
 namespace NoeticTools.SystemsDashboard.Framework.Config.Properties
@@ -6,14 +7,16 @@ namespace NoeticTools.SystemsDashboard.Framework.Config.Properties
     public class PropertyViewModel : NotifyingViewModelBase, INotifyingElementViewModel
     {
         private readonly TileConfigurationConverter _tileConfigurationConverter;
-        private object[] _parameters;
+        private readonly Func<object[]> _parametersFunc;
+        //private object[] _parameters;
 
-        public PropertyViewModel(string name, string viewerName, TileConfigurationConverter tileConfigurationConverter, params string[] parameters)
+        public PropertyViewModel(string name, string viewerName, TileConfigurationConverter tileConfigurationConverter, Func<object[]> parametersFunc = null)
         {
             _tileConfigurationConverter = tileConfigurationConverter;
+            _parametersFunc = parametersFunc;
             Name = name;
             ViewerName = viewerName;
-            Parameters = parameters.Cast<object>().ToArray();
+            //Parameters = parameters.Cast<object>().ToArray();
         }
 
         public object Value
@@ -31,15 +34,6 @@ namespace NoeticTools.SystemsDashboard.Framework.Config.Properties
         public string Name { get; }
         public string ViewerName { get; }
 
-        public object[] Parameters
-        {
-            get { return _parameters; }
-            set
-            {
-                if (Equals(value, _parameters)) return;
-                _parameters = value;
-                OnPropertyChanged();
-            }
-        }
+        public object[] Parameters => _parametersFunc != null ? _parametersFunc() : new object[0];
     }
 }

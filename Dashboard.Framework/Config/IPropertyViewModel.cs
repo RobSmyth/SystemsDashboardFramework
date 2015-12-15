@@ -9,7 +9,7 @@
         /// </summary>
         string ViewerName { get; }
 
-        object[] Parameters { get; set; }
+        object[] Parameters { get; }
         object Value { get; set; }
     }
 }

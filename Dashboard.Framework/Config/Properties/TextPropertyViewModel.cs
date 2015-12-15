@@ -1,8 +1,11 @@
-﻿namespace NoeticTools.SystemsDashboard.Framework.Config.Properties
+﻿using System;
+
+
+namespace NoeticTools.SystemsDashboard.Framework.Config.Properties
 {
     public class TextPropertyViewModel : PropertyViewModel
     {
-        public TextPropertyViewModel(string name, TileConfigurationConverter tileConfigurationConverter, params string[] parameters) : base(name, "Text", tileConfigurationConverter, parameters)
+        public TextPropertyViewModel(string name, TileConfigurationConverter tileConfigurationConverter, Func<string[]> parametersFunc = null) : base(name, "Text", tileConfigurationConverter, parametersFunc)
         {
         }
     }

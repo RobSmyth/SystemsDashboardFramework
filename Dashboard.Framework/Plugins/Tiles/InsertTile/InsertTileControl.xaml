@@ -13,10 +13,10 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/NoeticTools.SystemsDashboard.Framework;component/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <Style TargetType="TextBlock" BasedOn="{StaticResource ConfigPanelStyle_Textbox}" />
-            <Style TargetType="Label" BasedOn="{StaticResource ConfigPanelStyle_Label}" />
-            <Style TargetType="Grid" BasedOn="{StaticResource ConfigPanelStyle_Grid}" />
-            <Style TargetType="Button" BasedOn="{StaticResource ConfigPanelStyle_Button}"/>
+            <Style TargetType="TextBlock" BasedOn="{StaticResource ConfigPanelStyleTextbox}" />
+            <Style TargetType="Label" BasedOn="{StaticResource ConfigPanelStyleLabel}" />
+            <Style TargetType="Grid" BasedOn="{StaticResource ConfigPanelStyleGrid}" />
+            <Style TargetType="Button" BasedOn="{StaticResource ConfigPanelStyleButton}"/>
         </ResourceDictionary>
 
     </UserControl.Resources>

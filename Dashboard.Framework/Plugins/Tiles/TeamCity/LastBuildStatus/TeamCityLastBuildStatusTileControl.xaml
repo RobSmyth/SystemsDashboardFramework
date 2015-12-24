@@ -14,14 +14,16 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/NoeticTools.SystemsDashboard.Framework;component/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <Style TargetType="TextBlock" BasedOn="{StaticResource DarkTileStyle_Textbox}" />
-            <Style TargetType="Grid" BasedOn="{StaticResource DarkTileStyle_Grid}" />
+            <Style TargetType="TextBlock" BasedOn="{StaticResource DarkTileStyleBuildStatusTextBlock}" />
+            <Style TargetType="Grid" BasedOn="{StaticResource DarkTileStyleBuildStatusGrid}" />
         </ResourceDictionary>
 
     </UserControl.Resources>
 
     <Border Name="FocusBorder" Style="{StaticResource FocusBorder}" Focusable="True">
+
         <Grid Name="root" Margin="0">
+            
             <TextBlock Name="headerText" HorizontalAlignment="Center" VerticalAlignment="Top"
                    FontSize="{Binding Path=ActualWidth, ElementName=root, 
                                 Converter={StaticResource doubleConverter}, ConverterParameter=0.05}"
@@ -53,6 +55,9 @@
                    Margin="5">
             0
             </TextBlock>
+            
         </Grid>
+        
     </Border>
+    
 </UserControl>

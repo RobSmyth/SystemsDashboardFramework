@@ -12,8 +12,8 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/NoeticTools.SystemsDashboard.Framework;component/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <Style TargetType="TextBlock" BasedOn="{StaticResource DarkTileStyle_Textbox}" />
-            <Style TargetType="Grid" BasedOn="{StaticResource DarkTileStyle_Grid}" />
+            <Style TargetType="TextBlock" BasedOn="{StaticResource DarkTileStyleTextbox}" />
+            <Style TargetType="Grid" BasedOn="{StaticResource DarkTileStyleGrid}" />
         </ResourceDictionary>
 
     </UserControl.Resources>

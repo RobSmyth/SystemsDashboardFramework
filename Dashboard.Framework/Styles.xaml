@@ -2,77 +2,127 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:converters="clr-namespace:NoeticTools.TeamDashboard.Converters">
 
+    <SolidColorBrush x:Key="RunningFailedForegroundColour" Color="White" />
+    <SolidColorBrush x:Key="RunningForegroundColour" Color="DarkSlateGray" />
+    <SolidColorBrush x:Key="SuccessForegroundColour" Color="White" />
+    <SolidColorBrush x:Key="FailureForegroundColour" Color="White" />
+    <SolidColorBrush x:Key="UnnkownForegroundColour" Color="White" />
+
+    <SolidColorBrush x:Key="RunningFailedBackgroundColour" Color="OrangeRed" />
+    <SolidColorBrush x:Key="RunningBackgroundColour" Color="Yellow" />
+    <SolidColorBrush x:Key="SuccessBackgroundColour" Color="#FF448032" />
+    <SolidColorBrush x:Key="FailureBackgroundColour" Color="Firebrick" />
+    <SolidColorBrush x:Key="UnnkownBackgroundColour" Color="Gray" />
+
     <!-- Dark tile style -->
-    <SolidColorBrush x:Key="DarkTileStyle_BackgroundBrush">#FF292929</SolidColorBrush>
-    <SolidColorBrush x:Key="DarkTileStyle_ForegroundBrush">WhiteSmoke</SolidColorBrush>
-    <SolidColorBrush x:Key="DarkTileStyle_GridHeaderRowBrush">#FF448032</SolidColorBrush>
-    <Style x:Key="DarkTileStyle_Textbox" TargetType="TextBlock">
-        <Setter Property="Foreground" Value="{StaticResource DarkTileStyle_ForegroundBrush}"/>
+    <SolidColorBrush x:Key="DarkTileStyleBackgroundBrush">#FF292929</SolidColorBrush>
+    <SolidColorBrush x:Key="DarkTileStyleForegroundBrush">WhiteSmoke</SolidColorBrush>
+    <SolidColorBrush x:Key="DarkTileStyleGridHeaderRowBrush">#FF448032</SolidColorBrush>
+    <Style x:Key="DarkTileStyleTextbox" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource DarkTileStyleForegroundBrush}"/>
     </Style>
-    <Style x:Key="DarkTileStyle_Grid" TargetType="Grid">
-        <Setter Property="Background" Value="{StaticResource DarkTileStyle_BackgroundBrush}"/>
+    <Style x:Key="DarkTileStyleGrid" TargetType="Grid">
+        <Setter Property="Background" Value="{StaticResource DarkTileStyleBackgroundBrush}"/>
+    </Style>
+    <Style x:Key="DarkTileStyleBuildStatusGrid" TargetType="Grid">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Status, Mode=OneWay}" Value="RUNNING">
+                <Setter Property="Background" Value="{StaticResource RunningBackgroundColour}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Status, Mode=OneWay}" Value="RUNNING FAILED">
+                <Setter Property="Background" Value="{StaticResource RunningFailedBackgroundColour}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Status, Mode=OneWay}" Value="SUCCESS">
+                <Setter Property="Background" Value="{StaticResource SuccessBackgroundColour}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Status, Mode=OneWay}" Value="FAILURE">
+                <Setter Property="Background" Value="{StaticResource FailureBackgroundColour}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Status, Mode=OneWay}" Value="UNKNOWN">
+                <Setter Property="Background" Value="{StaticResource UnnkownBackgroundColour}"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="DarkTileStyleBuildStatusTextBlock" TargetType="TextBlock">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Status, Mode=OneWay}" Value="RUNNING">
+                <Setter Property="Foreground" Value="{StaticResource RunningForegroundColour}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Status, Mode=OneWay}" Value="RUNNING FAILED">
+                <Setter Property="Foreground" Value="{StaticResource RunningFailedForegroundColour}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Status, Mode=OneWay}" Value="SUCCESS">
+                <Setter Property="Foreground" Value="{StaticResource SuccessForegroundColour}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Status, Mode=OneWay}" Value="FAILURE">
+                <Setter Property="Foreground" Value="{StaticResource FailureForegroundColour}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Status, Mode=OneWay}" Value="UNKNOWN">
+                <Setter Property="Foreground" Value="{StaticResource UnnkownForegroundColour}"/>
+            </DataTrigger>
+        </Style.Triggers>
     </Style>
 
     <!-- White tile style -->
-    <SolidColorBrush x:Key="WhiteTileStyle_BackgroundBrush">WhiteSmoke</SolidColorBrush>
-    <SolidColorBrush x:Key="WhiteTileStyle_ForegroundBrush">Teal</SolidColorBrush>
-    <Style x:Key="WhiteTileStyle_Textbox" TargetType="TextBlock">
-        <Setter Property="Foreground" Value="{StaticResource WhiteTileStyle_ForegroundBrush}"/>
+    <SolidColorBrush x:Key="WhiteTileStyleBackgroundBrush">WhiteSmoke</SolidColorBrush>
+    <SolidColorBrush x:Key="WhiteTileStyleForegroundBrush">Teal</SolidColorBrush>
+    <Style x:Key="WhiteTileStyleTextbox" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource WhiteTileStyleForegroundBrush}"/>
     </Style>
-    <Style x:Key="WhiteTileStyle_Grid" TargetType="Grid">
-        <Setter Property="Background" Value="{StaticResource WhiteTileStyle_BackgroundBrush}"/>
+    <Style x:Key="WhiteTileStyleGrid" TargetType="Grid">
+        <Setter Property="Background" Value="{StaticResource WhiteTileStyleBackgroundBrush}"/>
     </Style>
 
     <!-- Teal tile style -->
-    <SolidColorBrush x:Key="TealTileStyle_BackgroundBrush">Teal</SolidColorBrush>
-    <SolidColorBrush x:Key="TealTileStyle_ForegroundBrush">WhiteSmoke</SolidColorBrush>
-    <Style x:Key="TealTileStyle_Textbox" TargetType="TextBlock">
-        <Setter Property="Foreground" Value="{StaticResource TealTileStyle_ForegroundBrush}"/>
+    <SolidColorBrush x:Key="TealTileStyleBackgroundBrush">Teal</SolidColorBrush>
+    <SolidColorBrush x:Key="TealTileStyleForegroundBrush">WhiteSmoke</SolidColorBrush>
+    <Style x:Key="TealTileStyleTextbox" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource TealTileStyleForegroundBrush}"/>
     </Style>
-    <Style x:Key="TealTileStyle_Grid" TargetType="Grid">
-        <Setter Property="Background" Value="{StaticResource TealTileStyle_BackgroundBrush}"/>
+    <Style x:Key="TealTileStyleGrid" TargetType="Grid">
+        <Setter Property="Background" Value="{StaticResource TealTileStyleBackgroundBrush}"/>
     </Style>
 
     <!-- Tech tile style -->
-    <SolidColorBrush x:Key="TechTileStyle_BackgroundBrush">White</SolidColorBrush>
-    <SolidColorBrush x:Key="TechTileStyle_ForegroundBrush">Black</SolidColorBrush>
-    <SolidColorBrush x:Key="TechTilelStyle_DarkBackgroundBrush">LightGray</SolidColorBrush>
-    <Style x:Key="TechTileStyle_Textbox" TargetType="TextBox">
-        <Setter Property="Foreground" Value="{StaticResource TechTileStyle_ForegroundBrush}"/>
+    <SolidColorBrush x:Key="TechTileStyleBackgroundBrush">White</SolidColorBrush>
+    <SolidColorBrush x:Key="TechTileStyleForegroundBrush">Black</SolidColorBrush>
+    <SolidColorBrush x:Key="TechTilelStyleDarkBackgroundBrush">LightGray</SolidColorBrush>
+    <Style x:Key="TechTileStyleTextbox" TargetType="TextBox">
+        <Setter Property="Foreground" Value="{StaticResource TechTileStyleForegroundBrush}"/>
     </Style>
-    <Style x:Key="TechTileStyle_Textblock" TargetType="TextBlock">
-        <Setter Property="Foreground" Value="{StaticResource TechTileStyle_ForegroundBrush}"/>
+    <Style x:Key="TechTileStyleTextblock" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource TechTileStyleForegroundBrush}"/>
     </Style>
-    <Style x:Key="TechTileStyle_Grid" TargetType="Grid">
-        <Setter Property="Background" Value="{StaticResource TechTileStyle_BackgroundBrush}"/>
+    <Style x:Key="TechTileStyleGrid" TargetType="Grid">
+        <Setter Property="Background" Value="{StaticResource TechTileStyleBackgroundBrush}"/>
     </Style>
-    <Style x:Key="TechTileStyle_Button" TargetType="Button">
-        <Setter Property="Background" Value="{StaticResource ConfigPanelStyle_DarkBackgroundBrush}"/>
+    <Style x:Key="TechTileStyleButton" TargetType="Button">
+        <Setter Property="Background" Value="{StaticResource ConfigPanelStyleDarkBackgroundBrush}"/>
     </Style>
 
 
     <!-- Configuration tile style -->
-    <SolidColorBrush x:Key="ConfigPanelStyle_BackgroundBrush">Black</SolidColorBrush>
-    <SolidColorBrush x:Key="ConfigPanelStyle_ForegroundBrush">White</SolidColorBrush>
-    <SolidColorBrush x:Key="ConfigPanelStyle_DarkBackgroundBrush">Black</SolidColorBrush>
-    <Style x:Key="ConfigPanelStyle_Textbox" TargetType="TextBlock">
-        <Setter Property="Foreground" Value="{StaticResource ConfigPanelStyle_ForegroundBrush}"/>
+    <SolidColorBrush x:Key="ConfigPanelStyleBackgroundBrush">Black</SolidColorBrush>
+    <SolidColorBrush x:Key="ConfigPanelStyleForegroundBrush">White</SolidColorBrush>
+    <SolidColorBrush x:Key="ConfigPanelStyleDarkBackgroundBrush">Black</SolidColorBrush>
+    <Style x:Key="ConfigPanelStyleTextbox" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource ConfigPanelStyleForegroundBrush}"/>
     </Style>
-    <Style x:Key="ConfigPanelStyle_Label" TargetType="Label">
-        <Setter Property="Foreground" Value="{StaticResource ConfigPanelStyle_ForegroundBrush}"/>
+    <Style x:Key="ConfigPanelStyleLabel" TargetType="Label">
+        <Setter Property="Foreground" Value="{StaticResource ConfigPanelStyleForegroundBrush}"/>
     </Style>
-    <Style x:Key="ConfigPanelStyle_Grid" TargetType="Grid">
-        <Setter Property="Background" Value="{StaticResource ConfigPanelStyle_BackgroundBrush}"/>
+    <Style x:Key="ConfigPanelStyleGrid" TargetType="Grid">
+        <Setter Property="Background" Value="{StaticResource ConfigPanelStyleBackgroundBrush}"/>
     </Style>
-    <Style x:Key="ConfigPanelStyle_Button" TargetType="Button">
-        <Setter Property="Foreground" Value="{StaticResource ConfigPanelStyle_ForegroundBrush}"/>
-        <Setter Property="Background" Value="{StaticResource ConfigPanelStyle_DarkBackgroundBrush}"/>
+    <Style x:Key="ConfigPanelStyleButton" TargetType="Button">
+        <Setter Property="Foreground" Value="{StaticResource ConfigPanelStyleForegroundBrush}"/>
+        <Setter Property="Background" Value="{StaticResource ConfigPanelStyleDarkBackgroundBrush}"/>
     </Style>
-    <Style x:Key="ConfigPanelStyle_Combobox" TargetType="ComboBox">
-        <Setter Property="Background" Value="{StaticResource ConfigPanelStyle_DarkBackgroundBrush}"/>
+    <Style x:Key="ConfigPanelStyleCombobox" TargetType="ComboBox">
+        <Setter Property="Background" Value="{StaticResource ConfigPanelStyleDarkBackgroundBrush}"/>
     </Style>
-    <Style x:Key="ConfigpanelStyle_Hyperlink" TargetType="Hyperlink">
-        <Setter Property="Foreground" Value="{StaticResource ConfigPanelStyle_ForegroundBrush}"/>
+    <Style x:Key="ConfigpanelStyleHyperlink" TargetType="Hyperlink">
+        <Setter Property="Foreground" Value="{StaticResource ConfigPanelStyleForegroundBrush}"/>
     </Style>
 
     <!-- Side panel style -->

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -16,18 +17,9 @@ using TeamCitySharp.DomainEntities;
 
 namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.LastBuildStatus
 {
-    internal sealed class TeamCityLastBuildStatusTileViewModel : ITimerListener, IConfigurationChangeListener, ITileViewModel
+    internal sealed class TeamCityLastBuildStatusTileViewModel : NotifyingViewModelBase, ITimerListener, IConfigurationChangeListener, ITileViewModel
     {
         public const string TileTypeId = "TeamCity.Build.Status";
-
-        private readonly Dictionary<string, Brush> _statusBrushes = new Dictionary<string, Brush>
-        {
-            {"RUNNING FAILED", Brushes.OrangeRed},
-            {"RUNNING", Brushes.Yellow},
-            {"SUCCESS", (SolidColorBrush) (new BrushConverter().ConvertFrom("#FF448032"))},
-            {"FAILURE", Brushes.Firebrick},
-            {"UNKNOWN", Brushes.Gray}
-        };
 
         private readonly Dictionary<string, Brush> _statusTextBrushes = new Dictionary<string, Brush>
         {
@@ -43,11 +35,10 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.LastBuil
         private readonly TimeSpan _connectedUpdatePeriod = TimeSpan.FromSeconds(30);
         private readonly TimeSpan _disconnectedUpdatePeriod = TimeSpan.FromSeconds(2);
         private readonly TimerToken _timerToken;
-        private readonly IServices _services;
         private readonly TeamCityBuildStatusTileControl _view;
         private readonly ILog _logger;
         private readonly object _syncRoot = new object();
-        private readonly TileConfiguration _tile;
+        private string _status;
         private static int _nextInstanceId = 1;
 
         public TeamCityLastBuildStatusTileViewModel(TeamCityService service, TileConfiguration tile, IDashboardController dashboardController, TileLayoutController layoutController, IServices services,
@@ -58,16 +49,28 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.LastBuil
                 _logger = LogManager.GetLogger($"Tiles.TeamCity.LastBuildStatus.{_nextInstanceId++}");
             }
 
-            _tile = tile;
             _service = service;
-            _services = services;
             _view = view;
             _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
+            _status = "UNKNOWN";
             ConfigureServiceCommand = new TeamCityServiceConfigureCommand(service);
             var configurationParameters = GetConfigurationParameters();
-            ConfigureCommand = new TileConfigureCommand(_tile, "Last Build Status Tile Configuration", configurationParameters, dashboardController, layoutController, _services);
+            ConfigureCommand = new TileConfigureCommand(tile, "Last Build Status Tile Configuration", configurationParameters, dashboardController, layoutController, services);
             _view.DataContext = this;
             _timerToken = services.Timer.QueueCallback(TimeSpan.FromSeconds(_service.IsConnected ? 1 : 3), this);
+        }
+
+        public string Status
+        {
+            get { return _status; }
+            private set
+            {
+                if (!_status.Equals(value, StringComparison.InvariantCulture))
+                {
+                    _status = value;
+                    OnPropertyChanged();
+                }
+            }
         }
 
         public ICommand ConfigureCommand { get; private set; }
@@ -123,13 +126,15 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.LastBuil
                 return;
             }
 
+            Status = build.Status;
+
             var running = build.Status.StartsWith("RUNNING");
 
             var status = build.Status;
             _view.statusText.Text = _tileConfigurationConverter.GetString("Description");
             _view.buildVer.Text = build.Number;
             _view.headerText.Text = running ? "Running" : "";
-            _view.root.Background = _statusBrushes[status];
+            //_view.root.Background = _statusBrushes[status];
             _view.agentsCount.Visibility = running ? Visibility.Visible : Visibility.Collapsed;
             _view.agentsCount.Text = builds.Length.ToString();
             SetTextForeground(running, status);
@@ -142,10 +147,12 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.LastBuil
         private void SetUiToError()
         {
             _logger.Warn("Update UI - unable to get build state.");
+            Status = "UNKNOWN";
+
             _view.statusText.Text = "ERROR";
             _view.buildVer.Text = "";
             _view.headerText.Text = "";
-            _view.root.Background = _statusBrushes["UNKNOWN"];
+            //_view.root.Background = _statusBrushes["UNKNOWN"];
             _view.agentsCount.Visibility = Visibility.Collapsed;
         }
 

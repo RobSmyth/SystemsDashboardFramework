@@ -11,11 +11,11 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/NoeticTools.SystemsDashboard.Framework;component/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <Style TargetType="TextBlock" BasedOn="{StaticResource ConfigPanelStyle_Textbox}" />
-            <Style TargetType="Grid" BasedOn="{StaticResource ConfigPanelStyle_Grid}" />
-            <Style TargetType="Button" BasedOn="{StaticResource ConfigPanelStyle_Button}"/>
-            <Style TargetType="ComboBox" BasedOn="{StaticResource ConfigPanelStyle_Combobox}"/>
-            <Style TargetType="Hyperlink" BasedOn="{StaticResource ConfigpanelStyle_Hyperlink}"/>
+            <Style TargetType="TextBlock" BasedOn="{StaticResource ConfigPanelStyleTextbox}" />
+            <Style TargetType="Grid" BasedOn="{StaticResource ConfigPanelStyleGrid}" />
+            <Style TargetType="Button" BasedOn="{StaticResource ConfigPanelStyleButton}"/>
+            <Style TargetType="ComboBox" BasedOn="{StaticResource ConfigPanelStyleCombobox}"/>
+            <Style TargetType="Hyperlink" BasedOn="{StaticResource ConfigpanelStyleHyperlink}"/>
         </ResourceDictionary>
 
     </UserControl.Resources>
@@ -37,8 +37,8 @@
             </Grid.ColumnDefinitions>
             <TextBlock Name="Title" Grid.Column="0" FontSize="12" FontWeight="Bold" Margin="5" />
             <Button x:Name="CloseButton" Grid.Column="1" Margin="5" Width="20 " Command="ApplicationCommands.Close" BorderThickness="0" 
-                    Foreground="{StaticResource ConfigPanelStyle_ForegroundBrush}"
-                    Background="{StaticResource ConfigPanelStyle_DarkBackgroundBrush}">X</Button>
+                    Foreground="{StaticResource ConfigPanelStyleForegroundBrush}"
+                    Background="{StaticResource ConfigPanelStyleDarkBackgroundBrush}">X</Button>
         </Grid>
 
         <ScrollViewer Grid.Row="1" Grid.Column="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">

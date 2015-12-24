@@ -12,9 +12,9 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/NoeticTools.SystemsDashboard.Framework;component/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <Style TargetType="TextBlock" BasedOn="{StaticResource TechTileStyle_Textblock}" />
-            <Style TargetType="TextBox" BasedOn="{StaticResource TechTileStyle_Textbox}" />
-            <Style TargetType="Grid" BasedOn="{StaticResource TechTileStyle_Grid}" />
+            <Style TargetType="TextBlock" BasedOn="{StaticResource TechTileStyleTextblock}" />
+            <Style TargetType="TextBox" BasedOn="{StaticResource TechTileStyleTextbox}" />
+            <Style TargetType="Grid" BasedOn="{StaticResource TechTileStyleGrid}" />
         </ResourceDictionary>
 
     </UserControl.Resources>

@@ -13,8 +13,8 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/NoeticTools.SystemsDashboard.Framework;component/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <Style TargetType="TextBlock" BasedOn="{StaticResource DarkTileStyle_Textbox}" />
-            <Style TargetType="Grid" BasedOn="{StaticResource DarkTileStyle_Grid}" />
+            <Style TargetType="TextBlock" BasedOn="{StaticResource DarkTileStyleTextbox}" />
+            <Style TargetType="Grid" BasedOn="{StaticResource DarkTileStyleGrid}" />
         </ResourceDictionary>
 
     </UserControl.Resources>
@@ -40,7 +40,7 @@
                     </TextBlock>
 
                     <DataGrid Name="buildsList" BorderThickness="0" Background="Transparent"
-                      Foreground="{StaticResource DarkTileStyle_ForegroundBrush}"
+                      Foreground="{StaticResource DarkTileStyleForegroundBrush}"
                       HeadersVisibility="Column" RowHeaderWidth="0" Margin="5,2,5,2" AutoGenerateColumns="False"
                       Padding="5"
                       BorderBrush="{x:Null}" GridLinesVisibility="None" Height="Auto" CanUserAddRows="False"
@@ -50,8 +50,8 @@
 
                         <DataGrid.Resources>
                             <Style TargetType="{x:Type DataGridColumnHeader}">
-                                <Setter Property="Background" Value="{StaticResource DarkTileStyle_GridHeaderRowBrush}" />
-                                <Setter Property="Foreground" Value="{StaticResource DarkTileStyle_ForegroundBrush}" />
+                                <Setter Property="Background" Value="{StaticResource DarkTileStyleGridHeaderRowBrush}" />
+                                <Setter Property="Foreground" Value="{StaticResource DarkTileStyleForegroundBrush}" />
                                 <Setter Property="Padding" Value="5,2,5,2" />
                                 <Setter Property="FontSize"
                                 Value="{Binding Path=ActualHeight, ElementName=root, 
@@ -119,7 +119,7 @@
                             <Style TargetType="DataGridRow">
                                 <Setter Property="IsTabStop" Value="False"/>
                                 <Setter Property="Background" Value="Transparent" />
-                                <Setter Property="Foreground" Value="{StaticResource DarkTileStyle_ForegroundBrush}" />
+                                <Setter Property="Foreground" Value="{StaticResource DarkTileStyleForegroundBrush}" />
                                 <Setter Property="FontSize"
                                 Value="{Binding Path=ActualHeight, ElementName=root, 
                                     Converter={StaticResource doubleConverter}, ConverterParameter=0.06}" />

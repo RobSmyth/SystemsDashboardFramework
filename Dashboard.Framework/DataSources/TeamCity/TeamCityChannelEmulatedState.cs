@@ -53,15 +53,17 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
             {
                 var project = GetProject(projectName);
                 var buildConfiguration = GetBuildConfiguration(project, buildConfigurationName);
-                return CreateBuild(buildConfiguration, randomValue);
+                var build = CreateBuild(buildConfiguration, randomValue);
+                build.Status = _rand.Next(0, 5) <= 1 ? "FAILURE" : "SUCCESS";
+                return build;
             });
         }
 
         public async Task<Build[]> GetRunningBuilds(string projectName, string buildConfigurationName)
         {
-            if (_rand.Next(1, 10) <= 3)
+            if (_rand.Next(1, 10) <= 4)
             {
-                return null;
+                return new Build[0];
             }
 
             var randomValue = _rand.Next(0, _status.Length - 1);
@@ -70,7 +72,7 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
                 var project = GetProject(projectName);
                 var buildConfiguration = GetBuildConfiguration(project, buildConfigurationName);
                 var build = CreateBuild(buildConfiguration, randomValue);
-                build.Status = randomValue <= 1 ? "FAILURE" : "SUCCESS";
+                build.Status = randomValue <= 1 ? "RUNNING" : "RUNNING FAILED";
                 return new[] { build };
             });
         }

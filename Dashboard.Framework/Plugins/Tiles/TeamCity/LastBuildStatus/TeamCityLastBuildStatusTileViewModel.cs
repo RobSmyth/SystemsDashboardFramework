@@ -20,16 +20,6 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.LastBuil
     internal sealed class TeamCityLastBuildStatusTileViewModel : NotifyingViewModelBase, ITimerListener, IConfigurationChangeListener, ITileViewModel
     {
         public const string TileTypeId = "TeamCity.Build.Status";
-
-        private readonly Dictionary<string, Brush> _statusTextBrushes = new Dictionary<string, Brush>
-        {
-            {"RUNNING FAILED", Brushes.White},
-            {"RUNNING", Brushes.DarkSlateGray},
-            {"SUCCESS", Brushes.White},
-            {"FAILURE", Brushes.White},
-            {"UNKNOWN", Brushes.White}
-        };
-
         private readonly TeamCityService _service;
         private readonly TileConfigurationConverter _tileConfigurationConverter;
         private readonly TimeSpan _connectedUpdatePeriod = TimeSpan.FromSeconds(30);
@@ -39,7 +29,11 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.LastBuil
         private readonly ILog _logger;
         private readonly object _syncRoot = new object();
         private string _status;
+        private string _description;
         private static int _nextInstanceId = 1;
+        private string _buildVersion;
+        private int _agentsCount;
+        private string _runningStatus;
 
         public TeamCityLastBuildStatusTileViewModel(TeamCityService service, TileConfiguration tile, IDashboardController dashboardController, TileLayoutController layoutController, IServices services,
             TeamCityBuildStatusTileControl view)
@@ -53,6 +47,9 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.LastBuil
             _view = view;
             _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
             _status = "UNKNOWN";
+            _runningStatus = "UNKNOWN";
+            _description = "";
+            _buildVersion = "";
             ConfigureServiceCommand = new TeamCityServiceConfigureCommand(service);
             var configurationParameters = GetConfigurationParameters();
             ConfigureCommand = new TileConfigureCommand(tile, "Last Build Status Tile Configuration", configurationParameters, dashboardController, layoutController, services);
@@ -68,6 +65,58 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.LastBuil
                 if (!_status.Equals(value, StringComparison.InvariantCulture))
                 {
                     _status = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public string RunningStatus
+        {
+            get { return _runningStatus; }
+            private set
+            {
+                if (!_runningStatus.Equals(value, StringComparison.InvariantCulture))
+                {
+                    _runningStatus = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public string Description
+        {
+            get { return _description; }
+            private set
+            {
+                if (!_description.Equals(value, StringComparison.InvariantCulture))
+                {
+                    _description = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public string BuildVersion
+        {
+            get { return _buildVersion; }
+            private set
+            {
+                if (!_buildVersion.Equals(value, StringComparison.InvariantCulture))
+                {
+                    _buildVersion = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public int AgentsCount
+        {
+            get { return _agentsCount; }
+            private set
+            {
+                if (_agentsCount != value)
+                {
+                    _agentsCount = value;
                     OnPropertyChanged();
                 }
             }
@@ -131,13 +180,11 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.LastBuil
             var running = build.Status.StartsWith("RUNNING");
 
             var status = build.Status;
-            _view.statusText.Text = _tileConfigurationConverter.GetString("Description");
-            _view.buildVer.Text = build.Number;
-            _view.headerText.Text = running ? "Running" : "";
-            //_view.root.Background = _statusBrushes[status];
+            Description = _tileConfigurationConverter.GetString("Description");
+            BuildVersion = build.Number;
+            RunningStatus = running ? "Running" : "";
             _view.agentsCount.Visibility = running ? Visibility.Visible : Visibility.Collapsed;
-            _view.agentsCount.Text = builds.Length.ToString();
-            SetTextForeground(running, status);
+            AgentsCount = builds.Length;
 
             _logger.DebugFormat("Updated UI. Build is {0}.", status);
 
@@ -148,11 +195,9 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.LastBuil
         {
             _logger.Warn("Update UI - unable to get build state.");
             Status = "UNKNOWN";
-
-            _view.statusText.Text = "ERROR";
-            _view.buildVer.Text = "";
-            _view.headerText.Text = "";
-            //_view.root.Background = _statusBrushes["UNKNOWN"];
+            RunningStatus = "UNKNOWN";
+            Description = "ERROR";
+            BuildVersion = "";
             _view.agentsCount.Visibility = Visibility.Collapsed;
         }
 
@@ -168,15 +213,6 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.LastBuil
                 new HyperlinkPropertyViewModel("TeamCity service", ConfigureServiceCommand)
             };
             return configurationParameters;
-        }
-
-        private void SetTextForeground(bool running, string status)
-        {
-            var textBrush = running ? _statusTextBrushes[status] : _statusTextBrushes[status];
-            _view.headerText.Foreground = textBrush;
-            _view.statusText.Foreground = textBrush;
-            _view.buildVer.Foreground = textBrush;
-            _view.agentsCount.Foreground = textBrush;
         }
 
         private ICommand ConfigureServiceCommand { get; }

@@ -45,11 +45,13 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.BlankTile
         {
             try
             {
-                Background = new SolidColorBrush((Color) ColorConverter.ConvertFromString(_tileConfigurationConverter.GetString("Colour")));
+                var value = _tileConfigurationConverter.GetString("Colour", "Black");
+                Background = new SolidColorBrush((Color) ColorConverter.ConvertFromString(value));
             }
             catch (Exception)
             {
                 Background = Brushes.Red;
+                _tileConfigurationConverter.SetParameter("Colour", "Red");
             }
         }
     }

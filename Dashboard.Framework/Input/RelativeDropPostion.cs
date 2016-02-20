@@ -6,12 +6,22 @@ namespace NoeticTools.SystemsDashboard.Framework.Input
     [Flags]
     public enum RelativeDropPostion
     {
+        None = 0,
+
         OnTop = 1,
-        Top = 2,
-        Left = 4,
-        Right = 8,
-        Bottom = 16,
-        Horizontal = Top + Bottom,
-        Vertical = Left + Right
+        Above = 2,
+        ToLeft = 4,
+        ToRight = 8,
+        Below = 16,
+
+        TopHalf = 32,
+        BottomHalf = 64,
+        LeftHalf = 128,
+        RightHalf = 256,
+
+        Horizontal = Above + Below,
+        Vertical = ToLeft + ToRight,
+
+        NewGroup = TopHalf + BottomHalf + LeftHalf +RightHalf,
     }
 }

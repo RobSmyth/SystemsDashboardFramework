@@ -9,6 +9,7 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
         string[] ProjectNames { get; }
         bool IsConnected { get; }
         void Connect();
+        void Disconnect();
         Task<Build> GetLastBuild(string projectName, string buildConfigurationName);
         Task<Build> GetLastSuccessfulBuild(string projectName, string buildConfigurationName);
         Task<Build[]> GetRunningBuilds(string projectName, string buildConfigurationName, string branchName);

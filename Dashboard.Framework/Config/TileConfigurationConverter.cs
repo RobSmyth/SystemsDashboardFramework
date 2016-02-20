@@ -33,7 +33,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Config
 
         public string GetString(string name)
         {
-            return _inner.GetParameter(name, "X").Value;
+            return _inner.GetParameter(name, "").Value;
         }
 
         public bool GetBool(string name)
@@ -64,6 +64,12 @@ namespace NoeticTools.SystemsDashboard.Framework.Config
                 _inner.GetParameter(name, string.Empty).Value = textValue;
                 _listener.OnConfigurationChanged(this);
             }
+        }
+
+        public string GetString(string name, string defaultValue)
+        {
+            var value = GetString(name);
+            return string.IsNullOrWhiteSpace(value) ? defaultValue : value;
         }
     }
 }

@@ -13,7 +13,7 @@ using TeamCitySharp.DomainEntities;
 
 namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
 {
-    public class TeamCityService : ITeamCityChannel, IStateEngine<ITeamCityChannel>, IConfigurationChangeListener, ITimerListener
+    public class TeamCityService : ITeamCityChannel, IStateEngine<ITeamCityChannel>, IConfigurationChangeListener, ITimerListener, IService
     {
         private readonly IDashboardController _dashboardController;
         private readonly IServices _services;
@@ -30,7 +30,7 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
             _configuration = new TeamCityServiceConfiguration(servicesConfiguration.GetService("TeamCity"));
             var client = new TeamCityClient(_configuration.Url);
             _disconnectedState = new TeamCityChannelDisconnectedState(client, this, _configuration, buildAgentRepository, _services);
-            _connectedState = new TeamCityChannelConnectedState(client, clock, buildAgentRepository, _services);
+            _connectedState = new TeamCityChannelConnectedState(client, this, clock, buildAgentRepository, _services);
             _current = runOptions.EmulateMode ? new TeamCityChannelEmulatedState() : _disconnectedState;
             _logger = LogManager.GetLogger("DateSources.TeamCity.Connected");
             _services.Timer.QueueCallback(TimeSpan.FromMilliseconds(10), this);
@@ -41,6 +41,11 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
         public void Connect()
         {
             _current.Connect();
+        }
+
+        public void Disconnect()
+        {
+            _current.Disconnect();
         }
 
         public Task<IBuildAgent[]> GetAgents()
@@ -123,6 +128,20 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
             {
                 Connect();
             }
+        }
+
+        public void Stop()
+        {
+            if (IsConnected)
+            {
+                _current.Disconnect();
+            }
+            _current = new TeamCityChannelStoppedState();
+        }
+
+        public void Start()
+        {
+            _current = _disconnectedState;
         }
     }
 }

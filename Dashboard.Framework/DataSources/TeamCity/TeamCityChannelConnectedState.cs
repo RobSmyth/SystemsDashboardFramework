@@ -14,6 +14,7 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
     internal class TeamCityChannelConnectedState : ITeamCityChannel
     {
         private readonly TeamCityClient _teamCityClient;
+        private readonly IStateEngine<ITeamCityChannel> _stateEngine;
         private readonly IClock _clock;
         private readonly IBuildAgentRepository _buildAgentRepository;
         private readonly IServices _services;
@@ -22,9 +23,10 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
         private readonly ILog _logger;
         private readonly object _syncRoot = new object();
 
-        public TeamCityChannelConnectedState(TeamCityClient teamCityClient, IClock clock, IBuildAgentRepository buildAgentRepository, IServices services)
+        public TeamCityChannelConnectedState(TeamCityClient teamCityClient, IStateEngine<ITeamCityChannel> stateEngine, IClock clock, IBuildAgentRepository buildAgentRepository, IServices services)
         {
             _teamCityClient = teamCityClient;
+            _stateEngine = stateEngine;
             _clock = clock;
             _buildAgentRepository = buildAgentRepository;
             _services = services;
@@ -38,6 +40,11 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
 
         public void Connect()
         {
+        }
+
+        public void Disconnect()
+        {
+            _stateEngine.OnDisconnected();
         }
 
         public async Task<string[]> GetConfigurationNames(string projectName)

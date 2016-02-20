@@ -5,6 +5,6 @@ namespace NoeticTools.SystemsDashboard.Framework
         Above,
         Below,
         ToRight,
-        ToLeft
+        ToLeft,
     }
 }

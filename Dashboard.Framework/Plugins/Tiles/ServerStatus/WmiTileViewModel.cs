@@ -62,7 +62,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.ServerStatus
                 new PropertyViewModel("Value_Property", "Text", _tileConfigurationConverter),
             };
 
-            ConfigureCommand = new TileConfigureCommand(tile, "Message Tile Configuration", parameters, dashboardController, layoutController, services);
+            ConfigureCommand = new TileConfigureCommand(tile, "WMI Tile Configuration", parameters, dashboardController, layoutController, services);
 
             Update();
             view.DataContext = this;

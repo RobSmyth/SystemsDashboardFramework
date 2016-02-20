@@ -70,6 +70,10 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
             });
         }
 
+        public void Disconnect()
+        {
+        }
+
         public Task<Build> GetLastBuild(string projectName, string buildConfigurationName)
         {
             return Task.Run(() =>

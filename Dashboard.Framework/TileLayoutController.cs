@@ -55,7 +55,7 @@ namespace NoeticTools.SystemsDashboard.Framework
             RemoveEmptyRowsAndColumns();
         }
 
-        public void InsertTile(TileConfiguration tile, TileInsertAction insertAction, TileConfiguration currentTile)
+        public void InsertTile(TileConfiguration currentTile, TileConfiguration tile, TileInsertAction insertAction)
         {
             tile.ColumnNumber = currentTile.ColumnNumber;
             tile.RowNumber = currentTile.RowNumber;
@@ -113,18 +113,6 @@ namespace NoeticTools.SystemsDashboard.Framework
             }
         }
 
-        public void Remove()
-        {
-            foreach (var pair in _tileToView)
-            {
-                _dragAndDropController.DeRegister(pair.Value);
-            }
-            _tileToView.Clear();
-
-            _parent.RemoveTile(_tile);
-            Clear();
-        }
-
         public void Remove(TileConfiguration tile)
         {
             var row = tile.RowNumber;
@@ -140,6 +128,36 @@ namespace NoeticTools.SystemsDashboard.Framework
             RemoveEmptyRowsAndColumns();
         }
 
+        public bool ProvdesLayoutFor(UIElement element)
+        {
+            return ReferenceEquals(_tileGrid, element);
+        }
+
+        public void SplitTile(TileConfiguration tile, TileConfiguration newTile, TileInsertAction insertAction)
+        {
+            if (_tile.Tiles.Length == 1)
+            {
+                InsertTile(tile, newTile, insertAction);
+                return;
+            }
+
+            var panel = new TileConfiguration()
+            {
+                TypeId = TileConfiguration.PaneTileTypeId,
+                Tiles = new[] {tile}
+            };
+            panel.SetLocation(tile);
+            RemoveTile(tile);
+
+            tile.RowNumber = 1;
+            tile.ColumnNumber = 1;
+            AddTile(panel);
+            AddToConfiguration(panel);
+
+            var layoutController = _layoutControllerRegistry.GetAll().Single(x => x.ProvdesLayoutFor(_tileToView[panel]));
+            layoutController.InsertTile(tile, newTile, insertAction);
+        }
+
         public void Replace(TileConfiguration tileToReplace, TileConfiguration newTile)
         {
             newTile.SetLocation(tileToReplace);
@@ -153,7 +171,7 @@ namespace NoeticTools.SystemsDashboard.Framework
             _tile.Tiles = new List<TileConfiguration>(_tile.Tiles) {tile}.ToArray();
         }
 
-        private void AddTile(TileConfiguration tile)
+        public void AddTile(TileConfiguration tile)
         {
             if (tile.TypeId == TileConfiguration.PaneTileTypeId || tile.TypeId.Equals("6f1bf918-6080-42c2-b980-d562f77cb4e6", StringComparison.InvariantCultureIgnoreCase))
             {

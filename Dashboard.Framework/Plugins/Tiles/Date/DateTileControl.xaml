@@ -22,12 +22,12 @@
         <Grid Name="root" Margin="0">
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Height="Auto"
                     Margin="0">
-                <TextBlock Name="day" HorizontalAlignment="Center" TextAlignment="Center"
+                <TextBlock Name="day" HorizontalAlignment="Center" TextAlignment="Center" IsHitTestVisible="False"
                        FontSize="{Binding Path=ActualHeight, ElementName=root, 
                                     Converter={StaticResource doubleConverter}, ConverterParameter=0.4}"
                        FontWeight="Bold" Margin="0,0,0,-3"
                            Text="{Binding Day, Mode=OneWay}"/>
-                <TextBlock Name="month" HorizontalAlignment="Center" TextAlignment="Center"
+                <TextBlock Name="month" HorizontalAlignment="Center" TextAlignment="Center" IsHitTestVisible="False"
                        TextWrapping="WrapWithOverflow"
                        FontSize="{Binding Path=ActualHeight, ElementName=root, 
                                     Converter={StaticResource doubleConverter}, ConverterParameter=0.15}"

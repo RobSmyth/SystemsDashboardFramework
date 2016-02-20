@@ -1,4 +1,5 @@
-﻿using NoeticTools.SystemsDashboard.Framework.Config;
+﻿using System.Windows;
+using NoeticTools.SystemsDashboard.Framework.Config;
 
 
 namespace NoeticTools.SystemsDashboard.Framework
@@ -9,7 +10,10 @@ namespace NoeticTools.SystemsDashboard.Framework
         void ToggleShowGroupPanelDetailsMode();
         void Load(TileConfiguration tileConfiguration);
         void Replace(TileConfiguration tile, TileConfiguration newTile);
-        void InsertTile(TileConfiguration tile, TileInsertAction insertAction, TileConfiguration currentTile);
+        void InsertTile(TileConfiguration currentTile, TileConfiguration tile, TileInsertAction insertAction);
         void Remove(TileConfiguration tile);
+        void SplitTile(TileConfiguration tile, TileConfiguration newTile, TileInsertAction insertAction);
+        bool ProvdesLayoutFor(UIElement element);
+        void AddTile(TileConfiguration tile);
     }
 }

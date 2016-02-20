@@ -25,27 +25,30 @@
         <Grid Name="root" Margin="0">
 
             <TextBlock Name="statusTextBlock" HorizontalAlignment="Center" VerticalAlignment="Top"
-                   FontSize="{Binding Path=ActualWidth, ElementName=root, Converter={StaticResource doubleConverter}, ConverterParameter=0.05}"
-                   FontWeight="Bold" FontStyle="Italic" Margin="5"
+                       FontSize="{Binding Path=ActualWidth, ElementName=root, Converter={StaticResource doubleConverter}, ConverterParameter=0.05}"
+                       FontWeight="Bold" FontStyle="Italic" Margin="5"
                        Text="{Binding RunningStatus, Mode=OneWay}"/>
 
             <TextBlock Name="buildDescription" HorizontalAlignment="Center" VerticalAlignment="Center"
-                   FontSize="{Binding Path=ActualWidth, ElementName=root, Converter={StaticResource doubleConverter}, ConverterParameter=0.08}"
-                   FontWeight="Bold" Margin="5" 
+                       IsHitTestVisible="False"
+                       FontSize="{Binding Path=ActualWidth, ElementName=root, Converter={StaticResource doubleConverter}, ConverterParameter=0.08}"
+                       FontWeight="Bold" Margin="5"
                        Text="{Binding Description, Mode=OneWay}"/>
 
             <TextBlock Name="buildVer" HorizontalAlignment="Center" VerticalAlignment="Bottom" TextAlignment="Center"
-                   TextWrapping="WrapWithOverflow"
-                   FontSize="{Binding Path=ActualWidth, ElementName=root, Converter={StaticResource doubleConverter}, ConverterParameter=0.04}"
-                   FontWeight="Normal" Background="{x:Null}"
-                   Margin="5"
+                       IsHitTestVisible="False" 
+                       TextWrapping="WrapWithOverflow"
+                       FontSize="{Binding Path=ActualWidth, ElementName=root, Converter={StaticResource doubleConverter}, ConverterParameter=0.04}"
+                       FontWeight="Normal" Background="{x:Null}"
+                       Margin="5"
                        Text="{Binding BuildVersion, Mode=OneWay}"/>
 
             <TextBlock Name="agentsCount" HorizontalAlignment="Right" VerticalAlignment="Bottom" TextAlignment="Right"
-                   TextWrapping="WrapWithOverflow"
-                   FontSize="{Binding Path=ActualWidth, ElementName=root, Converter={StaticResource doubleConverter}, ConverterParameter=0.08}"
-                   FontWeight="Bold" Background="{x:Null}"
-                   Margin="5"/>
+                       IsHitTestVisible="False"
+                       TextWrapping="WrapWithOverflow"
+                       FontSize="{Binding Path=ActualWidth, ElementName=root, Converter={StaticResource doubleConverter}, ConverterParameter=0.08}"
+                       FontWeight="Bold" Background="{x:Null}"
+                       Margin="5"/>
             <!--
                         Text="{Binding AgentsCount, Mode=OneWay}"/>
             -->

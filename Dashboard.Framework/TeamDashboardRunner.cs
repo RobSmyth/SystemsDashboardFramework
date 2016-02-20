@@ -22,7 +22,6 @@ using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.AgentStatus;
 using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.AvailableBuilds;
 using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.LastBuildStatus;
 using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.WebPage;
-using NoeticTools.SystemsDashboard.Framework.Registries;
 
 
 namespace NoeticTools.SystemsDashboard.Framework
@@ -40,7 +39,7 @@ namespace NoeticTools.SystemsDashboard.Framework
         private readonly DashboardTileNavigator _tileNavigator;
         private readonly RunOptions _runOptions;
         private readonly Services _services;
-        private RoutedCommands _commands;
+        private readonly RoutedCommands _commands;
 
         public TeamDashboardRunner(Grid tileGrid, DockPanel sidePanel)
         {
@@ -74,6 +73,7 @@ namespace NoeticTools.SystemsDashboard.Framework
 
         public void Start()
         {
+            _services.Start();
             _dashboardController.Start();
             _loader.Load(_config.Configurations[_dashboardNavigator.CurrentDashboardIndex]);
         }
@@ -81,12 +81,15 @@ namespace NoeticTools.SystemsDashboard.Framework
         public void Stop()
         {
             _dashboardController.Stop();
+            _services.Stop();
         }
 
         private void RegisterPlugins()
         {
             var buildAgentRepository = new BuildAgentRepository();
             var teamCityService = new TeamCityService(_config.Services, _runOptions, _clock, _dashboardController, _services, buildAgentRepository);
+
+            _services.Register(teamCityService);
 
             var plugins = new IPlugin[]
             {

@@ -104,7 +104,9 @@
     <Compile Include="DataSources\TeamCity\IBuildAgentRepository.cs" />
     <Compile Include="DataSources\TeamCity\NullBuild.cs" />
     <Compile Include="DataSources\TeamCity\NullBuildAgent.cs" />
+    <Compile Include="DataSources\TeamCity\TeamCityChannelStoppedState.cs" />
     <Compile Include="Input\IDragSource.cs" />
+    <Compile Include="IService.cs" />
     <Compile Include="Plugins\KeyboardDashboardNavigationPlugin.cs" />
     <Compile Include="Plugins\KeyboardTileNavigationPlugin.cs" />
     <Compile Include="Input\LookupKeyboardHandler.cs" />

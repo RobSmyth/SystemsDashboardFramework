@@ -11,7 +11,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.AgentSta
         private readonly TeamCityService _service;
         private readonly IDashboardController _dashboardController;
         private readonly IServices _services;
-        public const string TileTypeId = "TeamCity.Agent.Status";
+        private const string TileTypeId = "TeamCity.Agent.Status";
 
         public TeamCityAgentStatusTilePlugin(TeamCityService service, IDashboardController dashboardController, IServices services)
         {

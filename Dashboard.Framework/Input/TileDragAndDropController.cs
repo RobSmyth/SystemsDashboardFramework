@@ -16,10 +16,14 @@ namespace NoeticTools.SystemsDashboard.Framework.Input
 
         private readonly Dictionary<RelativeDropPostion, TileInsertAction> _insertActionMap = new Dictionary<RelativeDropPostion, TileInsertAction>
         {
-            {RelativeDropPostion.Top, TileInsertAction.Above},
-            {RelativeDropPostion.Bottom, TileInsertAction.Below},
-            {RelativeDropPostion.Left, TileInsertAction.ToLeft},
-            {RelativeDropPostion.Right, TileInsertAction.ToRight}
+            {RelativeDropPostion.Above, TileInsertAction.Above},
+            {RelativeDropPostion.Below, TileInsertAction.Below},
+            {RelativeDropPostion.ToLeft, TileInsertAction.ToLeft},
+            {RelativeDropPostion.ToRight, TileInsertAction.ToRight},
+            {RelativeDropPostion.TopHalf, TileInsertAction.Above},
+            {RelativeDropPostion.BottomHalf, TileInsertAction.Below},
+            {RelativeDropPostion.LeftHalf, TileInsertAction.ToLeft},
+            {RelativeDropPostion.RightHalf, TileInsertAction.ToRight},
         };
 
         private Point _mouseDownPoint;
@@ -189,7 +193,15 @@ namespace NoeticTools.SystemsDashboard.Framework.Input
         {
             var layoutController = _elementToLayoutController[sender];
             var targetTile = _elementToTile[sender];
-            layoutController.InsertTile(newTile, _insertActionMap[dropPostion], targetTile);
+
+            if ((dropPostion & RelativeDropPostion.NewGroup) != RelativeDropPostion.None)
+            {
+                layoutController.SplitTile(targetTile, newTile, _insertActionMap[dropPostion]);
+            }
+            else
+            {
+                layoutController.InsertTile(targetTile, newTile, _insertActionMap[dropPostion]);
+            }
         }
 
         private void Remove(TileConfiguration tileBingMoved)
@@ -210,24 +222,41 @@ namespace NoeticTools.SystemsDashboard.Framework.Input
             {
                 if (normalisedPosition.Y > 1.0)
                 {
-                    return RelativeDropPostion.Bottom;
+                    return RelativeDropPostion.Below;
                 }
                 if (normalisedPosition.Y < -1.0)
                 {
-                    return RelativeDropPostion.Top;
+                    return RelativeDropPostion.Above;
+                }
+                if (normalisedPosition.Y < -0.5)
+                {
+                    return RelativeDropPostion.TopHalf;
+                }
+                if (normalisedPosition.Y > 0.5)
+                {
+                    return RelativeDropPostion.BottomHalf;
                 }
             }
             else
             {
                 if (normalisedPosition.X > 1.0)
                 {
-                    return RelativeDropPostion.Right;
+                    return RelativeDropPostion.ToRight;
                 }
                 if (normalisedPosition.X < -1.0)
                 {
-                    return RelativeDropPostion.Left;
+                    return RelativeDropPostion.ToLeft;
+                }
+                if (normalisedPosition.X > 0.5)
+                {
+                    return RelativeDropPostion.RightHalf;
+                }
+                if (normalisedPosition.X < -0.5)
+                {
+                    return RelativeDropPostion.LeftHalf;
                 }
             }
+
             return RelativeDropPostion.OnTop;
         }
 

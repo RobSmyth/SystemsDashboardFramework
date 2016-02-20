@@ -23,8 +23,9 @@
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Height="Auto"
                     Margin="0">
                 <TextBlock Name="message" HorizontalAlignment="Center" TextAlignment="Center"
-                       FontSize="{Binding Path=ActualHeight, ElementName=root, Converter={StaticResource doubleConverter}, ConverterParameter=0.3}"
-                       FontWeight="Bold" Margin="0,0,0,-3" Text="{Binding Text, Mode=OneWay}"/>
+                           IsHitTestVisible="False"
+                           FontSize="{Binding Path=ActualHeight, ElementName=root, Converter={StaticResource doubleConverter}, ConverterParameter=0.3}"
+                           FontWeight="Bold" Margin="0,0,0,-3" Text="{Binding Text, Mode=OneWay}"/>
             </StackPanel>
         </Grid>
     </Border>

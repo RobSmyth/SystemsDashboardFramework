@@ -19,7 +19,7 @@
     </UserControl.Resources>
 
     <Border Name="FocusBorder" Style="{StaticResource FocusBorder}">
-        <Grid Name="root" Margin="0">
+        <Grid Name="root" Margin="0" Background="{Binding Background}">
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Height="Auto"
                     Margin="0"/>
         </Grid>

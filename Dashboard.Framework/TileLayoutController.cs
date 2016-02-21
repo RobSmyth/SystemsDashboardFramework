@@ -8,6 +8,7 @@ using System.Windows.Input;
 using NoeticTools.SystemsDashboard.Framework.Adorners;
 using NoeticTools.SystemsDashboard.Framework.Commands;
 using NoeticTools.SystemsDashboard.Framework.Config;
+using NoeticTools.SystemsDashboard.Framework.Dashboards;
 using NoeticTools.SystemsDashboard.Framework.Input;
 using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.BlankTile;
 using NoeticTools.SystemsDashboard.Framework.Registries;

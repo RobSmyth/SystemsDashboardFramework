@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Input;
+using NoeticTools.SystemsDashboard.Framework.Dashboards;
 using NoeticTools.SystemsDashboard.Framework.Input;
 
 

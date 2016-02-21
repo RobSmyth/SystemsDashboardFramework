@@ -6,6 +6,7 @@ using NoeticTools.SystemsDashboard.Framework.Commands;
 using NoeticTools.SystemsDashboard.Framework.Config;
 using NoeticTools.SystemsDashboard.Framework.Config.Properties;
 using NoeticTools.SystemsDashboard.Framework.Config.Controllers;
+using NoeticTools.SystemsDashboard.Framework.Dashboards;
 using NoeticTools.SystemsDashboard.Framework.Services;
 using NoeticTools.SystemsDashboard.Framework.Time;
 using TeamCitySharp;

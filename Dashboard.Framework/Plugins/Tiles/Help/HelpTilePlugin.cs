@@ -1,4 +1,5 @@
 ﻿using System.Windows.Input;
+using NoeticTools.SystemsDashboard.Framework.Dashboards;
 
 
 namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Help

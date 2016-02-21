@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using NoeticTools.SystemsDashboard.Framework;
 using NoeticTools.SystemsDashboard.Framework.Commands;
 using NoeticTools.SystemsDashboard.Framework.Config;
+using NoeticTools.SystemsDashboard.Framework.Dashboards;
 using NoeticTools.SystemsDashboard.Framework.Input;
 
 

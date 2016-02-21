@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using NoeticTools.SystemsDashboard.Framework.Config;
+using NoeticTools.SystemsDashboard.Framework.Dashboards;
 
 
 namespace NoeticTools.SystemsDashboard.Framework.Tiles.Dashboards

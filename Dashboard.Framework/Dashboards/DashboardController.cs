@@ -2,7 +2,6 @@
 using System.Windows.Controls;
 using log4net;
 using NoeticTools.SystemsDashboard.Framework.Config;
-using NoeticTools.SystemsDashboard.Framework.Dashboards;
 using NoeticTools.SystemsDashboard.Framework.Input;
 using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Help;
 using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.InsertTile;
@@ -10,7 +9,7 @@ using NoeticTools.SystemsDashboard.Framework.Registries;
 using NoeticTools.SystemsDashboard.Framework.Time;
 
 
-namespace NoeticTools.SystemsDashboard.Framework
+namespace NoeticTools.SystemsDashboard.Framework.Dashboards
 {
     public sealed class DashboardController : IDashboardController
     {
@@ -21,7 +20,7 @@ namespace NoeticTools.SystemsDashboard.Framework
         private readonly DashboardConfigurationManager _configurationManager;
         private readonly ITimerService _timerService;
         private readonly DockPanel _sidePanel;
-        private ILog _logger;
+        private readonly ILog _logger;
 
         public DashboardController(DashboardConfigurationManager configurationManager, ITimerService timerService, DockPanel sidePanel,
             DashboardConfigurations config, IDashboardNavigator dashboardNavigator, TileProviderRegistry tileProviderRegistry,

@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 
 
-namespace NoeticTools.SystemsDashboard.Framework
+namespace NoeticTools.SystemsDashboard.Framework.Dashboards
 {
     public interface IDashboardController
     {

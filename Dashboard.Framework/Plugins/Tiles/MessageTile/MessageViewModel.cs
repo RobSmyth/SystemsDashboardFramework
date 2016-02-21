@@ -2,6 +2,7 @@
 using NoeticTools.SystemsDashboard.Framework.Commands;
 using NoeticTools.SystemsDashboard.Framework.Config;
 using NoeticTools.SystemsDashboard.Framework.Config.Properties;
+using NoeticTools.SystemsDashboard.Framework.Dashboards;
 
 
 namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.MessageTile

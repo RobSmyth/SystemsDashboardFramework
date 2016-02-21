@@ -1,4 +1,4 @@
-namespace NoeticTools.SystemsDashboard.Framework
+namespace NoeticTools.SystemsDashboard.Framework.Services
 {
     public interface IService
     {

@@ -1,22 +1,22 @@
 using System.Collections.Generic;
-using NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity;
 using NoeticTools.SystemsDashboard.Framework.Input;
 using NoeticTools.SystemsDashboard.Framework.Registries;
 using NoeticTools.SystemsDashboard.Framework.Time;
 
 
-namespace NoeticTools.SystemsDashboard.Framework
+namespace NoeticTools.SystemsDashboard.Framework.Services
 {
-    public class Services : IServices
+    public class ApplicationServices : IServices
     {
         private readonly IList<IService> _services = new List<IService>();
 
-        public Services(ITileProviderRegistry tileProviders, KeyboardHandler keyboardHandler, IPropertyEditControlRegistry propertyEditControlProviderRegistry, TimerService timerService)
+        public ApplicationServices(ITileProviderRegistry tileProviders, KeyboardHandler keyboardHandler, IPropertyEditControlRegistry propertyEditControlProviderRegistry, TimerService timerService)
         {
             TileProviders = tileProviders;
             KeyboardHandler = keyboardHandler;
             PropertyEditControlProviders = propertyEditControlProviderRegistry;
             Timer = timerService;
+
             Register(timerService);
         }
 

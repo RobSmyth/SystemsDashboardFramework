@@ -6,6 +6,7 @@ using NoeticTools.SystemsDashboard.Framework.Commands;
 using NoeticTools.SystemsDashboard.Framework.Config;
 using NoeticTools.SystemsDashboard.Framework.Config.Properties;
 using NoeticTools.SystemsDashboard.Framework.Config.Controllers;
+using NoeticTools.SystemsDashboard.Framework.Services;
 using NoeticTools.SystemsDashboard.Framework.Time;
 using TeamCitySharp;
 using TeamCitySharp.DomainEntities;
@@ -22,9 +23,11 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
         private readonly ITeamCityChannel _disconnectedState;
         private ITeamCityChannel _current;
         private ILog _logger;
+        private RunOptions _runOptions;
 
         public TeamCityService(DashboardConfigurationServices servicesConfiguration, RunOptions runOptions, IClock clock, IDashboardController dashboardController, IServices services, IBuildAgentRepository buildAgentRepository)
         {
+            _runOptions = runOptions;
             _dashboardController = dashboardController;
             _services = services;
             _configuration = new TeamCityServiceConfiguration(servicesConfiguration.GetService("TeamCity"));
@@ -132,6 +135,10 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
 
         public void Stop()
         {
+            if (_runOptions.EmulateMode)
+            {
+                return;
+            }
             if (IsConnected)
             {
                 _current.Disconnect();
@@ -141,6 +148,10 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
 
         public void Start()
         {
+            if (_runOptions.EmulateMode)
+            {
+                return;
+            }
             _current = _disconnectedState;
         }
     }

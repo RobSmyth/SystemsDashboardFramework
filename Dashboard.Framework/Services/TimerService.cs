@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows.Threading;
+using NoeticTools.SystemsDashboard.Framework.Time;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Time
+namespace NoeticTools.SystemsDashboard.Framework.Services
 {
     public sealed class TimerService : ITimerService, ITimerQueue, IService
     {

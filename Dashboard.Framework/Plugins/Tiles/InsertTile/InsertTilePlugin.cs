@@ -1,5 +1,6 @@
 ﻿using System.Windows.Input;
 using NoeticTools.SystemsDashboard.Framework.Input;
+using NoeticTools.SystemsDashboard.Framework.Services;
 
 
 namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.InsertTile
@@ -7,13 +8,13 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.InsertTile
     internal sealed class InsertTilePlugin : IPlugin, IKeyHandler
     {
         private readonly IDashboardController _dashboardController;
-        private readonly Services _services;
+        private readonly ApplicationServices _applicationServices;
         private readonly TileDragAndDropController _dragAndDropController;
 
-        public InsertTilePlugin(IDashboardController dashboardController, Services services, TileDragAndDropController dragAndDropController)
+        public InsertTilePlugin(IDashboardController dashboardController, ApplicationServices applicationServices, TileDragAndDropController dragAndDropController)
         {
             _dashboardController = dashboardController;
-            _services = services;
+            _applicationServices = applicationServices;
             _dragAndDropController = dragAndDropController;
         }
 
@@ -31,7 +32,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.InsertTile
 
         void IKeyHandler.Handle(Key key)
         {
-            _dashboardController.ShowOnSidePane(new InsertTileController(_services.TileProviders, _dragAndDropController).CreateView(), "Insert Tile");
+            _dashboardController.ShowOnSidePane(new InsertTileController(_applicationServices.TileProviders, _dragAndDropController).CreateView(), "Insert Tile");
         }
     }
 }

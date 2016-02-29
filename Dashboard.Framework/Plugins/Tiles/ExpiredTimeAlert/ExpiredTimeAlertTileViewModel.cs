@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Windows.Input;
 using NoeticTools.SystemsDashboard.Framework.Commands;
 using NoeticTools.SystemsDashboard.Framework.Config;
@@ -21,6 +22,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.ExpiredTimeAlert
         private readonly TimerToken _timerToken;
         private string _daysSince;
         private string _title;
+        private string _status = "Unknown";
 
         public ExpiredTimeAlertTileViewModel(TileConfiguration tile, IClock clock, IDashboardController dashboardController, ExpiredTimeAlertTileView view, TileLayoutController tileLayoutController,
             IServices services)
@@ -59,6 +61,19 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.ExpiredTimeAlert
             }
         }
 
+        public string Status
+        {
+            get { return _status; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(_status) || !_status.Equals(value, StringComparison.InvariantCulture))
+                {
+                    _status = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public string DaysSince
         {
             get { return _daysSince; }
@@ -92,8 +107,15 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.ExpiredTimeAlert
             if (File.Exists(touchFilePath))
             {
                 var fileInfo = new FileInfo(touchFilePath);
-                var daysExpired = (_clock.UtcNow - fileInfo.LastWriteTimeUtc).Days;
-                DaysSince = ((int)daysExpired).ToString();
+                var expired = (_clock.UtcNow - fileInfo.LastWriteTimeUtc);
+                DaysSince = ((int)expired.Days).ToString();
+
+                if (SetExceeeded("ALERT", expired, "Alert_after_time")) return;
+                if (SetExceeeded("NEAR ALERT", expired, "Warn_after_time")) return;
+
+                var warnAfter = _tileConfigurationConverter.GetTimeSpan("Warn_after_time");
+                
+                Status = "RECENT";
 
                 // TODO - SET COLOUR
             }
@@ -101,6 +123,17 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.ExpiredTimeAlert
             {
                 DaysSince = "ERROR";
             }
+        }
+
+        private bool SetExceeeded(string threshold, TimeSpan expired, string parameter)
+        {
+            var alertAfter = _tileConfigurationConverter.GetTimeSpan(parameter);
+            if (expired > alertAfter)
+            {
+                Status = threshold;
+                return true;
+            }
+            return false;
         }
 
         void ITimerListener.OnTimeElapsed(TimerToken token)

@@ -13,7 +13,7 @@
                 <ResourceDictionary Source="/NoeticTools.SystemsDashboard.Framework;component/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Style TargetType="TextBlock" BasedOn="{StaticResource TealTileStyleTextbox}" />
-            <Style TargetType="Grid" BasedOn="{StaticResource TealTileStyleGrid}" />
+            <Style TargetType="Grid" BasedOn="{StaticResource DarkTileStyleExpiredTimeAlertGrid}" />
         </ResourceDictionary>
 
     </UserControl.Resources>
@@ -25,26 +25,29 @@
                     Margin="0">
 
                 <TextBlock Name="header" HorizontalAlignment="Center" TextAlignment="Center" IsHitTestVisible="False"
-                       TextWrapping="WrapWithOverflow"
-                       FontSize="{Binding Path=ActualHeight, ElementName=root, 
-                                    Converter={StaticResource doubleConverter}, ConverterParameter=0.12}"
-                       FontWeight="Normal"
-                       Margin="0,5,0,-2"
-                       Text="{Binding Title, Mode=OneWay}"/>
+                           Style="{StaticResource DarkTileStyleExpiredTimeAlertTextBlock}"
+                           TextWrapping="WrapWithOverflow"
+                           FontSize="{Binding Path=ActualHeight, ElementName=root, 
+                                  Converter={StaticResource doubleConverter}, ConverterParameter=0.12}"
+                           FontWeight="Normal"
+                           Margin="0,5,0,-2"
+                           Text="{Binding Title, Mode=OneWay}"/>
 
                 <TextBlock Name="daysSince" HorizontalAlignment="Center" TextAlignment="Center" IsHitTestVisible="False"
-                       FontSize="{Binding Path=ActualHeight, ElementName=root, 
+                           Style="{StaticResource DarkTileStyleExpiredTimeAlertTextBlock}"
+                           FontSize="{Binding Path=ActualHeight, ElementName=root, 
                                     Converter={StaticResource doubleConverter}, ConverterParameter=0.4}"
-                       FontWeight="Bold"
-                       Margin="0,0,0,-3"
+                           FontWeight="Bold"
+                           Margin="0,0,0,-3"
                            Text="{Binding DaysSince, Mode=OneWay}"/>
 
                 <TextBlock Name="footer" HorizontalAlignment="Center" TextAlignment="Center" IsHitTestVisible="False"
-                       TextWrapping="WrapWithOverflow"
-                       FontSize="{Binding Path=ActualHeight, ElementName=root, 
+                           Style="{StaticResource DarkTileStyleExpiredTimeAlertTextBlock}"
+                           TextWrapping="WrapWithOverflow"
+                           FontSize="{Binding Path=ActualHeight, ElementName=root, 
                                     Converter={StaticResource doubleConverter}, ConverterParameter=0.10}"
-                       FontWeight="Normal"
-                       Margin="0,-2,0,5">
+                           FontWeight="Normal"
+                           Margin="0,-2,0,5">
                 Days since
                 </TextBlock>
             </StackPanel>

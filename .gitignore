@@ -16,3 +16,7 @@ obj
 /packages/PropertyTools.Wpf.2015.2.0/lib/net45
 /packages/PropertyTools.Wpf.2015.2.0/lib/portable-net40+sl5+wp8+win8
 /packages/PropertyTools.Wpf.2015.2.0
+/packages/Moq.4.2.1510.2205/Moq.4.2.1510.2205.nupkg
+/*.DotSettings
+/packages/Moq.4.2.1510.2205/lib/net35
+/Resharper/Dashboard.sln.Team.DotSettings

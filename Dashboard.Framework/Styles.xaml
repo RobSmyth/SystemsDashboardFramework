@@ -14,6 +14,8 @@
     <SolidColorBrush x:Key="FailureBackgroundColour" Color="Firebrick" />
     <SolidColorBrush x:Key="UnnkownBackgroundColour" Color="Gray" />
 
+    <SolidColorBrush x:Key="WarningForegroundColour" Color="Firebrick" />
+
     <!-- Dark tile style -->
     <SolidColorBrush x:Key="DarkTileStyleBackgroundBrush">#FF292929</SolidColorBrush>
     <SolidColorBrush x:Key="DarkTileStyleForegroundBrush">WhiteSmoke</SolidColorBrush>
@@ -24,6 +26,43 @@
     <Style x:Key="DarkTileStyleGrid" TargetType="Grid">
         <Setter Property="Background" Value="{StaticResource DarkTileStyleBackgroundBrush}"/>
     </Style>
+    
+    <Style x:Key="DarkTileStyleExpiredTimeAlertGrid" TargetType="Grid">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Status, Mode=OneWay}" Value="NEAR ALERT">
+                <Setter Property="Background" Value="{StaticResource RunningBackgroundColour}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Status, Mode=OneWay}" Value="RECENT">
+                <Setter Property="Background" Value="{StaticResource SuccessBackgroundColour}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Status, Mode=OneWay}" Value="ALERT">
+                <Setter Property="Background" Value="{StaticResource FailureBackgroundColour}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Status, Mode=OneWay}" Value="UNKNOWN">
+                <Setter Property="Background" Value="{StaticResource UnnkownBackgroundColour}"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="DarkTileStyleExpiredTimeAlertTextBlock" TargetType="TextBlock">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Status, Mode=OneWay}" Value="NEAR ALERT">
+                <Setter Property="Foreground" Value="{StaticResource WarningForegroundColour}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Status, Mode=OneWay}" Value="RECENT">
+                <Setter Property="Foreground" Value="{StaticResource RunningFailedForegroundColour}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Status, Mode=OneWay}" Value="SUCCESS">
+                <Setter Property="Foreground" Value="{StaticResource SuccessForegroundColour}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Status, Mode=OneWay}" Value="ALERT">
+                <Setter Property="Foreground" Value="{StaticResource FailureForegroundColour}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Status, Mode=OneWay}" Value="UNKNOWN">
+                <Setter Property="Foreground" Value="{StaticResource UnnkownForegroundColour}"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
     <Style x:Key="DarkTileStyleBuildStatusGrid" TargetType="Grid">
         <Style.Triggers>
             <DataTrigger Binding="{Binding Status, Mode=OneWay}" Value="RUNNING">

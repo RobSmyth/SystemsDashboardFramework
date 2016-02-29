@@ -1,9 +1,9 @@
 using System;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Time
+namespace NoeticTools.SystemsDashboard.Framework.Services.TimeServices
 {
-    public interface ITimerService
+    public interface ITimerService : IService
     {
         TimerToken QueueCallback(TimeSpan timeToCallback, ITimerListener listener);
         void FireAll();

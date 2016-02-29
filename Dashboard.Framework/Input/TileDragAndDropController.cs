@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Input;
 using NoeticTools.SystemsDashboard.Framework.Adorners;
 using NoeticTools.SystemsDashboard.Framework.Config;
+using NoeticTools.SystemsDashboard.Framework.Dashboards;
 
 
 namespace NoeticTools.SystemsDashboard.Framework.Input

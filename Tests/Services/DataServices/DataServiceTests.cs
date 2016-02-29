@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Moq;
-using NoeticTools.SystemsDashboard.Framework.Services;
+﻿using Moq;
 using NoeticTools.SystemsDashboard.Framework.Services.DataServices;
 using NUnit.Framework;
 
 
-namespace SystemsDashboard.Tests.Services
+namespace SystemsDashboard.Tests.Services.DataServices
 {
     [TestFixture]
     public class DataServiceTests : MockingTestFixtureBase
@@ -71,12 +65,12 @@ namespace SystemsDashboard.Tests.Services
             var sink1 = NewMock<IDataSink>();
             _sinkFactory.Setup(x => x.Create("A", 1)).Returns(sink1.Object);
             sink1.SetupGet(x => x.Name).Returns("A.1");
-            sink1.Setup(x => x.AddListener(It.IsAny<IChangeListener>()));
+            sink1.Setup(x => x.AddListener(It.IsAny<IDataChangeListener>()));
             _target.CreateDataSink("A");
 
             Assert.IsNotNull(_target.GetDataSource("A.1"));
 
-            sink1.Verify(x => x.AddListener(It.IsAny<IChangeListener>()), Times.Once());
+            sink1.Verify(x => x.AddListener(It.IsAny<IDataChangeListener>()), Times.Once());
         }
 
         [Test]
@@ -85,13 +79,13 @@ namespace SystemsDashboard.Tests.Services
             var sink1 = NewMock<IDataSink>();
             _sinkFactory.Setup(x => x.Create("A", 1)).Returns(sink1.Object);
             sink1.SetupGet(x => x.Name).Returns("A.1");
-            sink1.Setup(x => x.AddListener(It.IsAny<IChangeListener>()));
+            sink1.Setup(x => x.AddListener(It.IsAny<IDataChangeListener>()));
             _target.CreateDataSink("A");
 
             Assert.IsNotNull(_target.GetDataSource("A.1"));
             Assert.IsNotNull(_target.GetDataSource("A.1"));
 
-            sink1.Verify(x => x.AddListener(It.IsAny<IChangeListener>()), Times.Exactly(2));
+            sink1.Verify(x => x.AddListener(It.IsAny<IDataChangeListener>()), Times.Exactly(2));
         }
     }
 }

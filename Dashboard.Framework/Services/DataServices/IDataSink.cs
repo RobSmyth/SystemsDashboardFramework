@@ -4,6 +4,6 @@ namespace NoeticTools.SystemsDashboard.Framework.Services.DataServices
     {
         string Name { get; }
         string ShortName { get; }
-        void AddListener(IChangeListener listener);
+        void AddListener(IDataChangeListener listener);
     }
 }

@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Windows;
 using NoeticTools.SystemsDashboard.Framework.Config;
-using NoeticTools.SystemsDashboard.Framework.Time;
+using NoeticTools.SystemsDashboard.Framework.Dashboards;
+using NoeticTools.SystemsDashboard.Framework.Services.TimeServices;
 
 
 namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Date

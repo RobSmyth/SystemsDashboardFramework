@@ -16,14 +16,14 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.PropertyEditControls
             return elementType.Equals("DateTime", StringComparison.InvariantCulture);
         }
 
-        public FrameworkElement Create(IPropertyViewModel propertyViewModel, int rowIndex, string elementName)
+        public FrameworkElement Create(IPropertyViewModel viewModel, int rowIndex, string elementName)
         {
             var textbox = new TextBox
             {
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 FontSize = 12.0,
                 Name = elementName,
-                DataContext = propertyViewModel
+                DataContext = viewModel
             };
 
             var binding = new Binding("Value") {Converter = new UtcDateTimeValueConverter(), StringFormat = "d", ConverterCulture = CultureInfo.CurrentCulture};

@@ -1,39 +1,45 @@
 using System;
+using System.Diagnostics;
+using System.IO;
 using System.Windows.Input;
 using NoeticTools.SystemsDashboard.Framework.Commands;
 using NoeticTools.SystemsDashboard.Framework.Config;
 using NoeticTools.SystemsDashboard.Framework.Config.Properties;
 using NoeticTools.SystemsDashboard.Framework.Dashboards;
+using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.DaysLeftCountDown;
 using NoeticTools.SystemsDashboard.Framework.Services.TimeServices;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.DaysLeftCountDown
+namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.ExpiredTimeAlert
 {
-    internal sealed class DaysLeftCountDownTileViewModel : NotifyingViewModelBase, IConfigurationChangeListener, ITimerListener, ITileViewModel
+    internal sealed class ExpiredTimeAlertTileViewModel : NotifyingViewModelBase, IConfigurationChangeListener, ITimerListener, ITileViewModel
     {
         private readonly IClock _clock;
         private readonly TimeSpan _tickPeriod = TimeSpan.FromSeconds(30);
         private readonly TileConfigurationConverter _tileConfigurationConverter;
-        private readonly ExpiredTimeAlert.ExpiredTimeAlertTileView _view;
+        private readonly ExpiredTimeAlertTileView _view;
         private readonly TimerToken _timerToken;
-        private string _daysRemaining;
+        private string _daysSince;
         private string _title;
 
-        public DaysLeftCountDownTileViewModel(TileConfiguration tile, IClock clock, IDashboardController dashboardController, ExpiredTimeAlert.ExpiredTimeAlertTileView view, TileLayoutController tileLayoutController,
+        public ExpiredTimeAlertTileViewModel(TileConfiguration tile, IClock clock, IDashboardController dashboardController, ExpiredTimeAlertTileView view, TileLayoutController tileLayoutController,
             IServices services)
         {
             _clock = clock;
             _view = view;
             _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
-            ConfigureCommand = new TileConfigureCommand(tile, "Days Count Down Configuration",
+            ConfigureCommand = new TileConfigureCommand(tile, "Expired Time Alert Configuration",
                 new IPropertyViewModel[]
                 {
                     new PropertyViewModel("Title", "Text", _tileConfigurationConverter),
-                    new PropertyViewModel("End_date", "DateTime", _tileConfigurationConverter),
+                    new PropertyViewModel("File_path", "Text", _tileConfigurationConverter),
+                    new PropertyViewModel("Warn_after_time", "TimeSpan", _tileConfigurationConverter),
+                    new PropertyViewModel("Alert_after_time", "TimeSpan", _tileConfigurationConverter),
+                    new PropertyViewModel("Disabled_Text", "Text", _tileConfigurationConverter),
                     new PropertyViewModel("Disabled", "Checkbox", _tileConfigurationConverter)
                 },
-                dashboardController, tileLayoutController, services);
-            DaysRemaining = "";
+            dashboardController, tileLayoutController, services);
+            DaysSince = "";
             _view.DataContext = this;
             _timerToken = services.Timer.QueueCallback(TimeSpan.FromMilliseconds(10), this);
         }
@@ -53,14 +59,14 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.DaysLeftCountDown
             }
         }
 
-        public string DaysRemaining
+        public string DaysSince
         {
-            get { return _daysRemaining; }
+            get { return _daysSince; }
             private set
             {
-                if (_daysRemaining != value)
+                if (_daysSince != value)
                 {
-                    _daysRemaining = value;
+                    _daysSince = value;
                     OnPropertyChanged();
                 }
             }
@@ -73,18 +79,28 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.DaysLeftCountDown
 
         private void UpdateView()
         {
-            var disabled = _tileConfigurationConverter.GetBool("Disabled");
-            var endDate = _tileConfigurationConverter.GetDateTime("End_date");
-            var now = _clock.Now;
-            var daysRemaining = Math.Abs((endDate - now).Days);
-            var weeksRemaining = daysRemaining/7;
-            var workingDaysRemaining = (weeksRemaining*5) + daysRemaining%7;
-            if (now > endDate)
-            {
-                workingDaysRemaining = -workingDaysRemaining;
-            }
-            DaysRemaining = disabled ? "-" : workingDaysRemaining.ToString();
             Title = _tileConfigurationConverter.GetString("Title");
+
+            var disabled = _tileConfigurationConverter.GetBool("Disabled");
+            if (disabled)
+            {
+                DaysSince = _tileConfigurationConverter.GetString("Disabled_Text");
+                return;
+            }
+
+            var touchFilePath = _tileConfigurationConverter.GetString("File_path").Trim('"');
+            if (File.Exists(touchFilePath))
+            {
+                var fileInfo = new FileInfo(touchFilePath);
+                var daysExpired = (_clock.UtcNow - fileInfo.LastWriteTimeUtc).Days;
+                DaysSince = ((int)daysExpired).ToString();
+
+                // TODO - SET COLOUR
+            }
+            else
+            {
+                DaysSince = "ERROR";
+            }
         }
 
         void ITimerListener.OnTimeElapsed(TimerToken token)

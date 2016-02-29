@@ -1,7 +1,8 @@
 using NoeticTools.SystemsDashboard.Framework.Input;
 using NoeticTools.SystemsDashboard.Framework.Registries;
-using NoeticTools.SystemsDashboard.Framework.Time;
 using NoeticTools.SystemsDashboard.Framework.Registries;
+using NoeticTools.SystemsDashboard.Framework.Services.DataServices;
+using NoeticTools.SystemsDashboard.Framework.Services.TimeServices;
 
 
 namespace NoeticTools.SystemsDashboard.Framework
@@ -12,5 +13,6 @@ namespace NoeticTools.SystemsDashboard.Framework
         ITileProviderRegistry TileProviders { get; }
         IPropertyEditControlRegistry PropertyEditControlProviders { get; }
         ITimerService Timer { get; }
+        IDataService DataService { get; }
     }
 }

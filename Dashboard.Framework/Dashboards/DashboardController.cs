@@ -6,7 +6,7 @@ using NoeticTools.SystemsDashboard.Framework.Input;
 using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Help;
 using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.InsertTile;
 using NoeticTools.SystemsDashboard.Framework.Registries;
-using NoeticTools.SystemsDashboard.Framework.Time;
+using NoeticTools.SystemsDashboard.Framework.Services.TimeServices;
 
 
 namespace NoeticTools.SystemsDashboard.Framework.Dashboards

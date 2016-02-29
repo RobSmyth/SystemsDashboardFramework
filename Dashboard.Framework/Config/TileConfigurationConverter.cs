@@ -31,6 +31,17 @@ namespace NoeticTools.SystemsDashboard.Framework.Config
             return DateTime.Parse(value, CultureInfo.CurrentCulture);
         }
 
+        public TimeSpan GetTimeSpan(string name)
+        {
+            var value = _inner.GetParameter(name, string.Empty).Value;
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return TimeSpan.Zero;
+            }
+
+            return TimeSpan.Parse(value, CultureInfo.CurrentCulture);
+        }
+
         public string GetString(string name)
         {
             return _inner.GetParameter(name, "").Value;

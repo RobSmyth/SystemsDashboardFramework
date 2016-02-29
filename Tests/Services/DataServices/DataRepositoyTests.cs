@@ -41,7 +41,7 @@ namespace SystemsDashboard.Tests.Services.DataServices
         [Test]
         public void SetValue_NotifiesListener()
         {
-            var listener = NewMock<IChangeListener>();
+            var listener = NewMock<IDataChangeListener>();
             _target.AddListener(listener.Object);
             listener.Setup(x => x.OnChanged());
 

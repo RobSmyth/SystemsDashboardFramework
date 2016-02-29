@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace NoeticTools.SystemsDashboard.Framework.Services.DataServices
 {
-    public class DataService : IService
+    public class DataService : IDataService
     {
         private readonly IDataRepositoryFactory _repositoryFactory;
         private readonly IList<IDataSource> _sources = new List<IDataSource>();
@@ -45,7 +45,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Services.DataServices
         {
             public string Name => "";
             public string ShortName => "";
-            public void AddListener(IChangeListener listener) {}
+            public void AddListener(IDataChangeListener listener) {}
         }
 
         void IService.Stop()

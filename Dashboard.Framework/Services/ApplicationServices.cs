@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using NoeticTools.SystemsDashboard.Framework.Input;
 using NoeticTools.SystemsDashboard.Framework.Registries;
-using NoeticTools.SystemsDashboard.Framework.Time;
+using NoeticTools.SystemsDashboard.Framework.Services.DataServices;
+using NoeticTools.SystemsDashboard.Framework.Services.TimeServices;
 
 
 namespace NoeticTools.SystemsDashboard.Framework.Services
@@ -10,17 +11,23 @@ namespace NoeticTools.SystemsDashboard.Framework.Services
     {
         private readonly IList<IService> _services = new List<IService>();
 
-        public ApplicationServices(ITileProviderRegistry tileProviders, KeyboardHandler keyboardHandler, IPropertyEditControlRegistry propertyEditControlProviderRegistry, TimerService timerService)
+        public ApplicationServices(ITileProviderRegistry tileProviders, KeyboardHandler keyboardHandler, 
+            IPropertyEditControlRegistry propertyEditControlProviderRegistry, 
+            ITimerService timerService, 
+            IDataService dataService)
         {
             TileProviders = tileProviders;
             KeyboardHandler = keyboardHandler;
             PropertyEditControlProviders = propertyEditControlProviderRegistry;
             Timer = timerService;
+            DataService = dataService;
 
             Register(timerService);
+            Register(dataService);
         }
 
         public ITimerService Timer { get; }
+        public IDataService DataService { get; }
         public ITileProviderRegistry TileProviders { get; }
         public IPropertyEditControlRegistry PropertyEditControlProviders { get; }
         public KeyboardHandler KeyboardHandler { get; }

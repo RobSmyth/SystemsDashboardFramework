@@ -7,7 +7,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Services.DataServices
     public class NamedDataRepositoy : IDataSink, IDataSource
     {
         private readonly IDictionary<string, object> _values = new Dictionary<string, object>();
-        private readonly IList<IChangeListener> _listeners = new List<IChangeListener>();
+        private readonly IList<IDataChangeListener> _listeners = new List<IDataChangeListener>();
 
         public NamedDataRepositoy(string name, int id)
         {
@@ -18,7 +18,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Services.DataServices
         public string ShortName { get; }
         public string Name { get; }
 
-        public void AddListener(IChangeListener listener)
+        public void AddListener(IDataChangeListener listener)
         {
             _listeners.Add(listener);
         }

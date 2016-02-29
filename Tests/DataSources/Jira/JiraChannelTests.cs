@@ -1,8 +1,8 @@
 ﻿using System;
 using System.IO;
 using NoeticTools.SystemsDashboard.Framework;
-using NoeticTools.SystemsDashboard.Framework.Time;
 using NoeticTools.SystemsDashboard.Framework.DataSources.Jira;
+using NoeticTools.SystemsDashboard.Framework.Services.TimeServices;
 using NUnit.Framework;
 
 

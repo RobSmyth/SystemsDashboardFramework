@@ -15,14 +15,14 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.PropertyEditControls
             return elementType.Equals("TextFromCombobox", StringComparison.InvariantCulture);
         }
 
-        public FrameworkElement Create(IPropertyViewModel propertyViewModel, int rowIndex, string elementName)
+        public FrameworkElement Create(IPropertyViewModel viewModel, int rowIndex, string elementName)
         {
             var textbox = new ComboBox
             {
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 FontSize = 12.0,
                 Name = elementName,
-                DataContext = propertyViewModel
+                DataContext = viewModel
             };
 
             BindingOperations.SetBinding(textbox, ComboBox.SelectedItemProperty, new Binding("Value"));

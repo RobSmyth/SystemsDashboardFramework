@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Time
+namespace NoeticTools.SystemsDashboard.Framework.Services.TimeServices
 {
     public sealed class TimerToken
     {

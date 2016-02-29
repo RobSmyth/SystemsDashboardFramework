@@ -115,6 +115,14 @@
     <Compile Include="Dashboards\IDashboardNavigator.cs" />
     <Compile Include="Dashboards\IDashboardTileNavigator.cs" />
     <Compile Include="Input\IDragSource.cs" />
+    <Compile Include="Plugins\PropertyEditControls\TimeSpanPropertyViewPlugin.cs" />
+    <Compile Include="Plugins\PropertyEditControls\TimeSpanPropertyViewProvider.cs" />
+    <Compile Include="Plugins\Tiles\ExpiredTimeAlert\ExpiredTimeAlertTilePlugin.cs" />
+    <Compile Include="Plugins\Tiles\ExpiredTimeAlert\ExpiredTimeAlertTileView.xaml.cs">
+      <DependentUpon>ExpiredTimeAlertTileView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\Tiles\ExpiredTimeAlert\ExpiredTimeAlertTileViewModel.cs" />
+    <Compile Include="Services\DataServices\IDataService.cs" />
     <Compile Include="Services\DataServices\NamedDataRepositoy.cs" />
     <Compile Include="Services\DataServices\DataService.cs" />
     <Compile Include="Services\DataServices\DataRepositoryFactory.cs" />
@@ -122,7 +130,7 @@
     <Compile Include="Services\DataServices\IDataSink.cs" />
     <Compile Include="Services\DataServices\IDataRepositoryFactory.cs" />
     <Compile Include="Services\DataServices\IDataSource.cs" />
-    <Compile Include="Services\DataServices\IChangeListener.cs" />
+    <Compile Include="Services\DataServices\IDataChangeListener.cs" />
     <Compile Include="Services\IService.cs" />
     <Compile Include="ITileControllerProvider.cs" />
     <Compile Include="ITileLayoutController.cs" />
@@ -202,8 +210,8 @@
     <Compile Include="Plugins\Tiles\Date\DateTileControl.xaml.cs">
       <DependentUpon>DateTileControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Plugins\Tiles\DaysLeftCountDown\DaysLeftCountDownTileView.xaml.cs">
-      <DependentUpon>DaysLeftCountDownTileView.xaml</DependentUpon>
+    <Compile Include="Plugins\Tiles\DaysLeftCountDown\ExpiredTimeAlertTileView.xaml.cs">
+      <DependentUpon>ExpiredTimeAlertTileView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Plugins\Tiles\MessageTile\MessageTileControl.xaml.cs">
       <DependentUpon>MessageTileControl.xaml</DependentUpon>
@@ -225,9 +233,9 @@
       <DependentUpon>WebPageTileControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Plugins\Tiles\WebPage\WebPageTileViewModel.cs" />
-    <Compile Include="TileInsertAction.cs" />
-    <Compile Include="TileLayoutController.cs" />
-    <Compile Include="Time\Clock.cs" />
+    <Compile Include="Dashboards\TileInsertAction.cs" />
+    <Compile Include="Dashboards\TileLayoutController.cs" />
+    <Compile Include="Services\TimeServices\Clock.cs" />
     <Compile Include="Commands\NullCommand.cs" />
     <Compile Include="Commands\TileConfigureCommand.cs" />
     <Compile Include="Config\DashboardConfiguration.cs" />
@@ -257,11 +265,11 @@
     <Compile Include="DataSources\TeamCity\TeamCityService.cs" />
     <Compile Include="DataSources\TeamCity\TeamCItyServiceConfiguration.cs" />
     <Compile Include="DataSources\TeamCity\TeamCityServiceConfigureCommand.cs" />
-    <Compile Include="Time\IClock.cs" />
-    <Compile Include="Time\ITimerListener.cs" />
-    <Compile Include="Time\ITimerQueue.cs" />
-    <Compile Include="Time\ITimerService.cs" />
-    <Compile Include="Time\NullTimerListener.cs" />
+    <Compile Include="Services\TimeServices\IClock.cs" />
+    <Compile Include="Services\TimeServices\ITimerListener.cs" />
+    <Compile Include="Services\TimeServices\ITimerQueue.cs" />
+    <Compile Include="Services\TimeServices\ITimerService.cs" />
+    <Compile Include="Services\TimeServices\NullTimerListener.cs" />
     <Compile Include="Plugins\Tiles\Help\HelpTileControl.xaml.cs">
       <DependentUpon>HelpTileControl.xaml</DependentUpon>
     </Compile>
@@ -273,7 +281,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RunOptions.cs" />
     <Compile Include="Services\TimerService.cs" />
-    <Compile Include="Time\TimerToken.cs" />
+    <Compile Include="Services\TimeServices\TimerToken.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="dashboard.config.default.xml">
@@ -282,6 +290,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Plugins\Tiles\BlankTile\BlankTileControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Plugins\Tiles\ExpiredTimeAlert\ExpiredTimeAlertTileView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -305,7 +317,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Plugins\Tiles\DaysLeftCountDown\DaysLeftCountDownTileView.xaml">
+    <Page Include="Plugins\Tiles\DaysLeftCountDown\ExpiredTimeAlertTileView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -391,6 +403,18 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\server128x128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Cog1_20x20.png" />
+    <Resource Include="Images\Cog1_24x24.png" />
+    <Resource Include="Images\Cog1_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Cog1_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Data1_16x16.png" />
+    <Resource Include="Images\Data1_24x24.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

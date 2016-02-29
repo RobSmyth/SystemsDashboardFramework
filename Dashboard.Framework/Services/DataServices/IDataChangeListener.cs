@@ -1,6 +1,6 @@
 namespace NoeticTools.SystemsDashboard.Framework.Services.DataServices
 {
-    public interface IChangeListener
+    public interface IDataChangeListener
     {
         void OnChanged();
     }

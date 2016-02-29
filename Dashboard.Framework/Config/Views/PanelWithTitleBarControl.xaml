@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             Height="200" Width="200" Margin="5">
+             Height="200" Width="500" Margin="5">
 
     <UserControl.Resources>
 
@@ -31,14 +31,37 @@
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Row="0" Margin="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <TextBlock Name="Title" Grid.Column="0" FontSize="12" FontWeight="Bold" Margin="5" />
-            <Button x:Name="CloseButton" Grid.Column="1" Margin="5" Width="20 " Command="ApplicationCommands.Close" BorderThickness="0" 
+            <TextBlock Name="Title" Grid.Row="0" Grid.Column="0" FontSize="12" FontWeight="Bold" Margin="5" />
+            <Button x:Name="CloseButton" Grid.Row="0" Grid.Column="1" Margin="5" Width="20 " Command="ApplicationCommands.Close" BorderThickness="0" 
                     Foreground="{StaticResource ConfigPanelStyleForegroundBrush}"
                     Background="{StaticResource ConfigPanelStyleDarkBackgroundBrush}">X</Button>
+            
+            <!-- work in progress -->
+            <ToolBarTray Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
+                <ToolBar Band="1" BandIndex="1"  >
+                    <Button Padding="2">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Height="12" Source="/NoeticTools.SystemsDashboard.Framework;component/Images/Data1_16x16.png" VerticalAlignment="Center"/>
+                            <TextBlock Foreground="Black" VerticalAlignment="Center" Padding="2">Sources (todo)</TextBlock>
+                        </StackPanel>
+                    </Button>
+                    <Button Padding="2">
+                        <StackPanel Orientation="Horizontal">
+                        <Image Height="12" Source="/NoeticTools.SystemsDashboard.Framework;component/Images/Cog1_16x16.png" VerticalAlignment="Center"/>
+                            <TextBlock Foreground="Black" VerticalAlignment="Center" Padding="2">Settings (todo)</TextBlock>
+                        </StackPanel>
+                    </Button>
+                </ToolBar>
+            </ToolBarTray>
+            
         </Grid>
 
         <ScrollViewer Grid.Row="1" Grid.Column="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
@@ -48,7 +71,7 @@
         <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom"
                     Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right"
                     Margin="10" Height="Auto" Visibility="Visible">
-            <Button Name="deleeteButton" Margin="5" Padding="5" Command="ApplicationCommands.Delete">Remove</Button>
+            <Button Name="deleteButton" Margin="5" Padding="5" Command="ApplicationCommands.Delete">Remove</Button>
             <Button Name="applyButton" Margin="5" Padding="5" Command="ApplicationCommands.Save" IsDefault="True">Apply</Button>
         </StackPanel>
     </Grid>

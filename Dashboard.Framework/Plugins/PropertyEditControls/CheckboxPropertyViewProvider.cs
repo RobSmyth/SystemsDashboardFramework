@@ -14,15 +14,15 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.PropertyEditControls
             return elementType == "Checkbox";
         }
 
-        public FrameworkElement Create(IPropertyViewModel propertyViewModel, int rowIndex, string elementName)
+        public FrameworkElement Create(IPropertyViewModel viewModel, int rowIndex, string elementName)
         {
-            var value = (string) propertyViewModel.Value;
+            var value = (string) viewModel.Value;
             var isChecked = !string.IsNullOrWhiteSpace(value) && bool.Parse(value);
             var checkbox = new CheckBox
             {
                 IsChecked = isChecked,
                 Name = elementName,
-                DataContext = propertyViewModel
+                DataContext = viewModel
             };
 
             var binding = new Binding("Value");

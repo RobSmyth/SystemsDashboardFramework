@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows.Threading;
-using NoeticTools.SystemsDashboard.Framework.Time;
+using NoeticTools.SystemsDashboard.Framework.Services.TimeServices;
 
 
 namespace NoeticTools.SystemsDashboard.Framework.Services
 {
-    public sealed class TimerService : ITimerService, ITimerQueue, IService
+    public sealed class TimerService : ITimerService, ITimerQueue
     {
         private readonly IClock _clock;
         private readonly List<TimerToken> _callbacks = new List<TimerToken>();

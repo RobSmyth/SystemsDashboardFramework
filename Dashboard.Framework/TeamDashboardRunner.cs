@@ -7,13 +7,13 @@ using NoeticTools.SystemsDashboard.Framework.Config;
 using NoeticTools.SystemsDashboard.Framework.Dashboards;
 using NoeticTools.SystemsDashboard.Framework.Input;
 using NoeticTools.SystemsDashboard.Framework.Registries;
-using NoeticTools.SystemsDashboard.Framework.Time;
 using NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity;
 using NoeticTools.SystemsDashboard.Framework.Plugins;
 using NoeticTools.SystemsDashboard.Framework.Plugins.PropertyEditControls;
 using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.BlankTile;
 using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Date;
 using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.DaysLeftCountDown;
+using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.ExpiredTimeAlert;
 using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Help;
 using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Image;
 using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.InsertTile;
@@ -24,6 +24,8 @@ using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.AvailableBui
 using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.LastBuildStatus;
 using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.WebPage;
 using NoeticTools.SystemsDashboard.Framework.Services;
+using NoeticTools.SystemsDashboard.Framework.Services.DataServices;
+using NoeticTools.SystemsDashboard.Framework.Services.TimeServices;
 
 
 namespace NoeticTools.SystemsDashboard.Framework
@@ -64,7 +66,7 @@ namespace NoeticTools.SystemsDashboard.Framework
             _dashboardNavigator = new DashboardNavigator(loaderConduit, _config, tileLayoutControllerRegistry);
             _dashboardController = new DashboardController(dashboardConfigurationManager, _timerService, sidePanel, _config, _dashboardNavigator, tileProviderRegistry, _dragAndDropController);
             KeyboardHandler = new KeyboardHandler(_dashboardController);
-            _applicationServices = new ApplicationServices(tileProviderRegistry, KeyboardHandler, propertyEditControlRegistry, _timerService);
+            _applicationServices = new ApplicationServices(tileProviderRegistry, KeyboardHandler, propertyEditControlRegistry, _timerService, new DataService(new DataRepositoryFactory()));
 
             var rootTileLayoutController = new TileLayoutController(tileGrid, tileControllerFactory, tileLayoutControllerRegistry, new Thickness(0), _dragAndDropController, _tileNavigator, null, _commands);
             _loader = new DashBoardLoader(rootTileLayoutController);
@@ -97,6 +99,7 @@ namespace NoeticTools.SystemsDashboard.Framework
             {
                 new TextPropertyViewPlugin(),
                 new DatePropertyViewPlugin(),
+                new TimeSpanPropertyViewPlugin(), 
                 new CheckboxPropertyViewPlugin(),
                 new ComboboxTextPropertyViewPlugin(),
                 new KeyboardTileNavigationPlugin(_tileNavigator),
@@ -113,6 +116,7 @@ namespace NoeticTools.SystemsDashboard.Framework
                 new DaysLeftCountDownTilePlugin(_dashboardController, _clock, _applicationServices),
                 new WebPageTilePlugin(_dashboardController, _applicationServices),
                 new WmiTilePlugin(_dashboardController, _applicationServices),
+                new ExpiredTimeAlertTilePlugin(_dashboardController, _clock, _applicationServices),
             };
 
             // todo - load third-party plug-ins via app config file

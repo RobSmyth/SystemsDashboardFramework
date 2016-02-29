@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -8,11 +9,11 @@ using NoeticTools.SystemsDashboard.Framework.Registries;
 
 namespace NoeticTools.SystemsDashboard.Framework.Plugins.PropertyEditControls
 {
-    public class TextPropertyViewProvider : IPropertyViewProvider
+    public class TimeSpanPropertyViewProvider : IPropertyViewProvider
     {
         public bool CanHandle(string elementType)
         {
-            return elementType.Equals("Text", StringComparison.InvariantCulture);
+            return elementType.Equals("TimeSpan", StringComparison.InvariantCulture);
         }
 
         public FrameworkElement Create(IPropertyViewModel viewModel, int rowIndex, string elementName)

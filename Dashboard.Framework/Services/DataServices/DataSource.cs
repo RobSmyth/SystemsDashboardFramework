@@ -3,7 +3,7 @@ using System;
 
 namespace NoeticTools.SystemsDashboard.Framework.Services.DataServices
 {
-    public class DataSource : IDataSource, IChangeListener
+    public class DataSource : IDataSource, IDataChangeListener
     {
         public string Name { get; }
 
@@ -12,7 +12,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Services.DataServices
             Name = name;
         }
 
-        public void AddListener(IChangeListener listener)
+        public void AddListener(IDataChangeListener listener)
         {
             throw new NotImplementedException();
         }

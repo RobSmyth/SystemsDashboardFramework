@@ -1,4 +1,4 @@
-﻿namespace NoeticTools.SystemsDashboard.Framework.Time
+﻿namespace NoeticTools.SystemsDashboard.Framework.Services.TimeServices
 {
     public class NullTimerListener : ITimerListener
     {

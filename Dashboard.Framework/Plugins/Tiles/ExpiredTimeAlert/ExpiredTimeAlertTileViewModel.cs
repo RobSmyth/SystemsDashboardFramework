@@ -13,6 +13,9 @@ using NoeticTools.SystemsDashboard.Framework.Services.TimeServices;
 
 namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.ExpiredTimeAlert
 {
+    /// <summary>
+    /// Tile to show days since a file was touched. May also be configured to change colour on expired time thresholds.
+    /// </summary>
     internal sealed class ExpiredTimeAlertTileViewModel : NotifyingViewModelBase, IConfigurationChangeListener, ITimerListener, ITileViewModel
     {
         private readonly IClock _clock;

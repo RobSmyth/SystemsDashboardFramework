@@ -10,13 +10,12 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.BlankTile
     public class BlankTilePlugin : IPlugin, ITileControllerProvider
     {
         private readonly IDashboardController _dashboardController;
-        private readonly IServices _services;
+        private IServices _services;
         public const string TileTypeId = "Blank.Tile";
 
-        public BlankTilePlugin(IDashboardController dashboardController, IServices services)
+        public BlankTilePlugin(IDashboardController dashboardController)
         {
             _dashboardController = dashboardController;
-            _services = services;
         }
 
         public string Name => "Blank";
@@ -25,6 +24,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.BlankTile
 
         public void Register(IServices services)
         {
+            _services = services;
             services.TileProviders.Register(this);
         }
 

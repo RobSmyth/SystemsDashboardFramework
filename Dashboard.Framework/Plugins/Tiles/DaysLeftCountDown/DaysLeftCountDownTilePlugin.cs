@@ -11,14 +11,12 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.DaysLeftCountDown
     {
         private const string TileTypeId = "TimeLeft.Days.Count";
         private readonly IDashboardController _dashboardController;
-        private readonly IClock _clock;
-        private readonly IServices _services;
+        private IClock _clock;
+        private IServices _services;
 
-        public DaysLeftCountDownTilePlugin(IDashboardController dashboardController, IClock clock, IServices services)
+        public DaysLeftCountDownTilePlugin(IDashboardController dashboardController)
         {
             _dashboardController = dashboardController;
-            _clock = clock;
-            _services = services;
         }
 
         public int Rank => 0;
@@ -49,6 +47,8 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.DaysLeftCountDown
 
         public void Register(IServices services)
         {
+            _clock = services.Clock;
+            _services = services;
             services.TileProviders.Register(this);
         }
     }

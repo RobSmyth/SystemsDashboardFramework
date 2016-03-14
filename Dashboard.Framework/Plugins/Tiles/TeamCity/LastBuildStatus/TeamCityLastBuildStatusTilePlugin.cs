@@ -11,13 +11,12 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.LastBuil
     {
         private readonly TeamCityService _service;
         private readonly IDashboardController _dashboardController;
-        private readonly IServices _services;
+        private IServices _services;
 
-        public TeamCityLastBuildStatusTilePlugin(TeamCityService service, IDashboardController dashboardController, IServices services)
+        public TeamCityLastBuildStatusTilePlugin(TeamCityService service, IDashboardController dashboardController)
         {
             _service = service;
             _dashboardController = dashboardController;
-            _services = services;
         }
 
         public int Rank => 0;
@@ -48,6 +47,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.LastBuil
 
         public void Register(IServices services)
         {
+            _services = services;
             services.TileProviders.Register(this);
         }
     }

@@ -2,7 +2,6 @@
 using System.Windows;
 using NoeticTools.SystemsDashboard.Framework.Config;
 using NoeticTools.SystemsDashboard.Framework.Dashboards;
-using NoeticTools.SystemsDashboard.Framework.Services.TimeServices;
 
 
 namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Date
@@ -10,19 +9,13 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Date
     public sealed class DateTilePlugin : IPlugin, ITileControllerProvider
     {
         private const string TileTypeId = "Date.Now";
-        private readonly ITimerService _timerService;
-        private readonly IClock _clock;
-
-        public DateTilePlugin(ITimerService timerService, IClock clock)
-        {
-            _timerService = timerService;
-            _clock = clock;
-        }
+        private IServices _services;
 
         public int Rank => 0;
 
         public void Register(IServices services)
         {
+            _services = services;
             services.TileProviders.Register(this);
         }
 
@@ -36,7 +29,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Date
         public FrameworkElement CreateTile(TileConfiguration tile, TileLayoutController layoutController)
         {
             var view = new DateTileControl();
-            new DateTileViewModel(_timerService, _clock, view);
+            new DateTileViewModel(_services.Timer, _services.Clock, view);
             return view;
         }
 

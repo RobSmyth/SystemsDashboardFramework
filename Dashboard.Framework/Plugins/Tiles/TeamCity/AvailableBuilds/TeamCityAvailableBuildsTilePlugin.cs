@@ -13,14 +13,13 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.Availabl
     {
         private readonly TeamCityService _service;
         private readonly IDashboardController _dashboardController;
-        private readonly IServices _services;
+        private IServices _services;
         private ILog _logger;
 
-        public TeamCityLAvailbleBuildSTilePlugin(TeamCityService service, IDashboardController dashboardController, IServices services)
+        public TeamCityLAvailbleBuildSTilePlugin(TeamCityService service, IDashboardController dashboardController)
         {
             _service = service;
             _dashboardController = dashboardController;
-            _services = services;
             _logger = LogManager.GetLogger("Plugin.TeamCity.AvailableBuilds");
         }
 
@@ -52,6 +51,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.Availabl
 
         public void Register(IServices services)
         {
+            _services = services;
             services.TileProviders.Register(this);
         }
     }

@@ -20,3 +20,6 @@ obj
 /*.DotSettings
 /packages/Moq.4.2.1510.2205/lib/net35
 /Resharper/Dashboard.sln.Team.DotSettings
+/packages/HtmlRenderer.Core.1.5.0.5
+/packages/Moq.4.2.1510.2205/lib/sl5
+/packages/Moq.4.2.1510.2205/lib/net40

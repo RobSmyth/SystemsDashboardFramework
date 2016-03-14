@@ -24,7 +24,7 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
         private readonly ITeamCityChannel _disconnectedState;
         private ITeamCityChannel _current;
         private ILog _logger;
-        private RunOptions _runOptions;
+        private readonly RunOptions _runOptions;
 
         public TeamCityService(DashboardConfigurationServices servicesConfiguration, RunOptions runOptions, IClock clock, IDashboardController dashboardController, IServices services, IBuildAgentRepository buildAgentRepository)
         {

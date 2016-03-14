@@ -2,35 +2,33 @@
 using System.Windows;
 using NoeticTools.SystemsDashboard.Framework.Config;
 using NoeticTools.SystemsDashboard.Framework.Dashboards;
-using NoeticTools.SystemsDashboard.Framework.Tiles.ServerStatus;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.ServerStatus
+namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.ExpiredTimeAlert
 {
-    internal sealed class WmiTilePlugin : IPlugin, ITileControllerProvider
+    public class ExpiredTimeAlertTileProvider : ITileControllerProvider
     {
-        private const string TileTypeId = "Server.Status";
+        private const string TileTypeId = "ExpiredTime.Alert";
         private readonly IDashboardController _dashboardController;
-        private IServices _services;
+        private readonly IServices _services;
 
-        public WmiTilePlugin(IDashboardController dashboardController)
+        public ExpiredTimeAlertTileProvider(IDashboardController dashboardController, IServices services)
         {
             _dashboardController = dashboardController;
+            _services = services;
         }
 
-        public int Rank => 0;
-
-        public string Name => "Server status";
+        public string Name => "Expired time alert (ALPHA)";
 
         public bool MatchesId(string id)
         {
-            return id == TileTypeId;
+            return id.Equals(TileTypeId, StringComparison.InvariantCulture);
         }
 
         public FrameworkElement CreateTile(TileConfiguration tile, TileLayoutController layoutController)
         {
-            var view = new ServerStatusTileControl();
-            new WmiTileViewModel(tile, view, _dashboardController, layoutController, _services);
+            var view = new ExpiredTimeAlert.ExpiredTimeAlertTileView();
+            new ExpiredTimeAlertTileViewModel(tile, _services.Clock, _dashboardController, view, layoutController, _services);
             return view;
         }
 
@@ -42,12 +40,6 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.ServerStatus
                 Id = Guid.NewGuid(),
                 Tiles = new TileConfiguration[0]
             };
-        }
-
-        public void Register(IServices services)
-        {
-            _services = services;
-            services.TileProviders.Register(this);
         }
     }
 }

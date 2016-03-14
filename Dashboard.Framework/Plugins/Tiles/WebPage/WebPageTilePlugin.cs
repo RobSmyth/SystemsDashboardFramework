@@ -10,12 +10,11 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.WebPage
     public class WebPageTilePlugin : IPlugin, ITileControllerProvider
     {
         private readonly IDashboardController _dashboardController;
-        private readonly IServices _services;
+        private IServices _services;
 
-        public WebPageTilePlugin(IDashboardController dashboardController, IServices services)
+        public WebPageTilePlugin(IDashboardController dashboardController)
         {
             _dashboardController = dashboardController;
-            _services = services;
         }
 
         public int Rank => 0;
@@ -46,6 +45,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.WebPage
 
         public void Register(IServices services)
         {
+            _services = services;
             services.TileProviders.Register(this);
         }
     }

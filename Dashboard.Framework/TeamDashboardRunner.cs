@@ -5,10 +5,12 @@ using NoeticTools.SystemsDashboard.Framework;
 using NoeticTools.SystemsDashboard.Framework.Commands;
 using NoeticTools.SystemsDashboard.Framework.Config;
 using NoeticTools.SystemsDashboard.Framework.Dashboards;
+using NoeticTools.SystemsDashboard.Framework.DataSources;
 using NoeticTools.SystemsDashboard.Framework.Input;
 using NoeticTools.SystemsDashboard.Framework.Registries;
 using NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity;
 using NoeticTools.SystemsDashboard.Framework.Plugins;
+using NoeticTools.SystemsDashboard.Framework.Plugins.DataSources.StaticProperties;
 using NoeticTools.SystemsDashboard.Framework.Plugins.PropertyEditControls;
 using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.BlankTile;
 using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Date;
@@ -66,7 +68,9 @@ namespace NoeticTools.SystemsDashboard.Framework
             _dashboardNavigator = new DashboardNavigator(loaderConduit, _config, tileLayoutControllerRegistry);
             _dashboardController = new DashboardController(dashboardConfigurationManager, _timerService, sidePanel, _config, _dashboardNavigator, tileProviderRegistry, _dragAndDropController);
             KeyboardHandler = new KeyboardHandler(_dashboardController);
-            _applicationServices = new ApplicationServices(tileProviderRegistry, KeyboardHandler, propertyEditControlRegistry, _timerService, new DataService(new DataRepositoryFactory()));
+            _applicationServices = new ApplicationServices(tileProviderRegistry, KeyboardHandler, propertyEditControlRegistry, _timerService, 
+                new DataService(new DataRepositoryFactory()), 
+                new DataPropertiesRepository(new DataPropertyViewModelFactory()), _clock);
 
             var rootTileLayoutController = new TileLayoutController(tileGrid, tileControllerFactory, tileLayoutControllerRegistry, new Thickness(0), _dragAndDropController, _tileNavigator, null, _commands);
             _loader = new DashBoardLoader(rootTileLayoutController);
@@ -90,6 +94,7 @@ namespace NoeticTools.SystemsDashboard.Framework
 
         private void RegisterPlugins()
         {
+            var propertiesService = new StaticPropertiesService(_applicationServices);
             var buildAgentRepository = new BuildAgentRepository();
             var teamCityService = new TeamCityService(_config.Services, _runOptions, _clock, _dashboardController, _applicationServices, buildAgentRepository);
 
@@ -97,6 +102,7 @@ namespace NoeticTools.SystemsDashboard.Framework
 
             var plugins = new IPlugin[]
             {
+                new StaticPropertiesServicePlugIn(), 
                 new TextPropertyViewPlugin(),
                 new DatePropertyViewPlugin(),
                 new TimeSpanPropertyViewPlugin(), 
@@ -104,19 +110,19 @@ namespace NoeticTools.SystemsDashboard.Framework
                 new ComboboxTextPropertyViewPlugin(),
                 new KeyboardTileNavigationPlugin(_tileNavigator),
                 new KeyboardDashboardNavigationPlugin(_dashboardNavigator, _dashboardController),
-                new InsertTilePlugin(_dashboardController, _applicationServices, _dragAndDropController),
+                new InsertTilePlugin(_dashboardController, _dragAndDropController),
                 new HelpTilePlugin(_dashboardController),
-                new BlankTilePlugin(_dashboardController, _applicationServices),
+                new BlankTilePlugin(_dashboardController),
                 new ImageFileWatcherTilePlugin(_dashboardController, _applicationServices), 
-                new DateTilePlugin(_timerService, _clock),
-                new MessageTilePlugin(_dashboardController, _applicationServices),
-                new TeamCityAgentStatusTilePlugin(teamCityService, _dashboardController, _applicationServices), 
-                new TeamCityLastBuildStatusTilePlugin(teamCityService, _dashboardController, _applicationServices),
-                new TeamCityLAvailbleBuildSTilePlugin(teamCityService, _dashboardController, _applicationServices),
-                new DaysLeftCountDownTilePlugin(_dashboardController, _clock, _applicationServices),
-                new WebPageTilePlugin(_dashboardController, _applicationServices),
-                new WmiTilePlugin(_dashboardController, _applicationServices),
-                new ExpiredTimeAlertTilePlugin(_dashboardController, _clock, _applicationServices),
+                new DateTilePlugin(),
+                new MessageTilePlugin(_dashboardController),
+                new TeamCityAgentStatusTilePlugin(teamCityService, _dashboardController), 
+                new TeamCityLastBuildStatusTilePlugin(teamCityService, _dashboardController),
+                new TeamCityLAvailbleBuildSTilePlugin(teamCityService, _dashboardController),
+                new DaysLeftCountDownTilePlugin(_dashboardController),
+                new WebPageTilePlugin(_dashboardController),
+                new WmiTilePlugin(_dashboardController),
+                new ExpiredTimeAlertTilePlugin(_dashboardController),
             };
 
             // todo - load third-party plug-ins via app config file

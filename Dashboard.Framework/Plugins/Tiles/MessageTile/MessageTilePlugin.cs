@@ -9,13 +9,12 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.MessageTile
     internal sealed class MessageTilePlugin : IPlugin, ITileControllerProvider
     {
         private readonly IDashboardController _dashboardController;
-        private readonly IServices _services;
+        private IServices _services;
         public static readonly string TileTypeId = "Message";
 
-        public MessageTilePlugin(IDashboardController dashboardController, IServices services)
+        public MessageTilePlugin(IDashboardController dashboardController)
         {
             _dashboardController = dashboardController;
-            _services = services;
         }
 
         public int Rank => 0;
@@ -44,6 +43,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.MessageTile
 
         public void Register(IServices services)
         {
+            _services = services;
             services.TileProviders.Register(this);
         }
     }

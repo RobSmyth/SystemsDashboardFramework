@@ -1,3 +1,4 @@
+using NoeticTools.SystemsDashboard.Framework.DataSources;
 using NoeticTools.SystemsDashboard.Framework.Input;
 using NoeticTools.SystemsDashboard.Framework.Registries;
 using NoeticTools.SystemsDashboard.Framework.Registries;
@@ -14,5 +15,7 @@ namespace NoeticTools.SystemsDashboard.Framework
         IPropertyEditControlRegistry PropertyEditControlProviders { get; }
         ITimerService Timer { get; }
         IDataService DataService { get; }
+        IPropertiesDataService Properties { get; }
+        IClock Clock { get; set; }
     }
 }

@@ -9,13 +9,12 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.InsertTile
     internal sealed class InsertTilePlugin : IPlugin, IKeyHandler
     {
         private readonly IDashboardController _dashboardController;
-        private readonly ApplicationServices _applicationServices;
+        private IServices _applicationServices;
         private readonly TileDragAndDropController _dragAndDropController;
 
-        public InsertTilePlugin(IDashboardController dashboardController, ApplicationServices applicationServices, TileDragAndDropController dragAndDropController)
+        public InsertTilePlugin(IDashboardController dashboardController, TileDragAndDropController dragAndDropController)
         {
             _dashboardController = dashboardController;
-            _applicationServices = applicationServices;
             _dragAndDropController = dragAndDropController;
         }
 
@@ -23,6 +22,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.InsertTile
 
         public void Register(IServices services)
         {
+            _applicationServices = services;
             services.KeyboardHandler.Register(this);
         }
 

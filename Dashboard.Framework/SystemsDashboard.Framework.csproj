@@ -102,6 +102,14 @@
     <Compile Include="Dashboards\DashBoardLoaderConduit.cs" />
     <Compile Include="Dashboards\DashboardNavigator.cs" />
     <Compile Include="Dashboards\DashboardTileNavigator.cs" />
+    <Compile Include="DataSources\IPropertiesDataService.cs" />
+    <Compile Include="DataSources\IPropertyViewModel.cs" />
+    <Compile Include="DataSources\IDataPropertyViewModelFactory.cs" />
+    <Compile Include="DataSources\NullDataPropertyViewModel.cs" />
+    <Compile Include="DataSources\DataPropertiesRepository.cs" />
+    <Compile Include="DataSources\DataPropertyViewModel.cs" />
+    <Compile Include="DataSources\DataPropertyViewModelFactory.cs" />
+    <Compile Include="Plugins\DataSources\StaticProperties\StaticPropertiesService.cs" />
     <Compile Include="DataSources\TeamCity\BuildAgentStatus.cs" />
     <Compile Include="DataSources\TeamCity\TeamCityBuildAgentViewModel.cs" />
     <Compile Include="DataSources\TeamCity\BuildAgentRepository.cs" />
@@ -115,9 +123,11 @@
     <Compile Include="Dashboards\IDashboardNavigator.cs" />
     <Compile Include="Dashboards\IDashboardTileNavigator.cs" />
     <Compile Include="Input\IDragSource.cs" />
+    <Compile Include="Plugins\DataSources\StaticProperties\StaticPropertiesServicePlugIn.cs" />
     <Compile Include="Plugins\PropertyEditControls\TimeSpanPropertyViewPlugin.cs" />
     <Compile Include="Plugins\PropertyEditControls\TimeSpanPropertyViewProvider.cs" />
     <Compile Include="Plugins\Tiles\ExpiredTimeAlert\ExpiredTimeAlertTilePlugin.cs" />
+    <Compile Include="Plugins\Tiles\ExpiredTimeAlert\ExpiredTimeAlertTileProvider.cs" />
     <Compile Include="Plugins\Tiles\ExpiredTimeAlert\ExpiredTimeAlertTileView.xaml.cs">
       <DependentUpon>ExpiredTimeAlertTileView.xaml</DependentUpon>
     </Compile>

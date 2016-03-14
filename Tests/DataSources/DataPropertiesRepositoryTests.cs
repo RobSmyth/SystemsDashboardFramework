@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Moq;
+﻿using Moq;
 using NoeticTools.SystemsDashboard.Framework.DataSources;
 using NUnit.Framework;
-using NUnit.Framework.Api;
 
 
 namespace SystemsDashboard.Tests.DataSources
@@ -67,6 +61,19 @@ namespace SystemsDashboard.Tests.DataSources
             var property2 = _target.Get<int>("Provider2.PropertyD");
 
             Assert.AreNotSame(property1, property2);
+        }
+
+        [TestCase("Provider1")]
+        [TestCase("Provider1_PropertyD")]
+        [TestCase("PropertyD")]
+        [TestCase("")]
+        public void Get_ReturnsNullPropertys_IfNameInvalid(string invalidPropertyName)
+        {
+            SetupSampleProperties();
+
+            var property1 = _target.Get<int>(invalidPropertyName);
+
+            Assert.AreEqual(typeof(NullDataPropertyViewModel<int>), property1.GetType());
         }
 
         [Test]

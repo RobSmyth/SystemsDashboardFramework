@@ -103,7 +103,7 @@
     <Compile Include="Dashboards\DashboardNavigator.cs" />
     <Compile Include="Dashboards\DashboardTileNavigator.cs" />
     <Compile Include="DataSources\IPropertiesDataService.cs" />
-    <Compile Include="DataSources\IPropertyViewModel.cs" />
+    <Compile Include="DataSources\IDataPropertyViewModel.cs" />
     <Compile Include="DataSources\IDataPropertyViewModelFactory.cs" />
     <Compile Include="DataSources\NullDataPropertyViewModel.cs" />
     <Compile Include="DataSources\DataPropertiesRepository.cs" />

@@ -1,7 +1,22 @@
-﻿namespace NoeticTools.SystemsDashboard.Framework.DataSources
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
+
+
+namespace NoeticTools.SystemsDashboard.Framework.DataSources
 {
-    public class DataPropertyViewModel<T> : IDataPropertyViewModel<T>
+    public class DataPropertyViewModel<T> : NotifyingViewModelBase, IDataPropertyViewModel<T>
     {
-        public T Value { get; }
+        private T _value;
+
+        public T Value
+        {
+            get { return _value; }
+            set
+            {
+                if (Equals(value, _value)) return;
+                _value = value;
+                OnPropertyChanged();
+            }
+        }
     }
 }

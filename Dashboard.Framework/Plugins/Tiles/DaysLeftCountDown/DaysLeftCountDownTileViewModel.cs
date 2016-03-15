@@ -14,12 +14,12 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.DaysLeftCountDown
         private readonly IClock _clock;
         private readonly TimeSpan _tickPeriod = TimeSpan.FromSeconds(30);
         private readonly TileConfigurationConverter _tileConfigurationConverter;
-        private readonly ExpiredTimeAlert.ExpiredTimeAlertTileView _view;
+        private readonly DaysLeftCoundDownTileView _view;
         private readonly TimerToken _timerToken;
         private string _daysRemaining;
         private string _title;
 
-        public DaysLeftCountDownTileViewModel(TileConfiguration tile, IClock clock, IDashboardController dashboardController, ExpiredTimeAlert.ExpiredTimeAlertTileView view, TileLayoutController tileLayoutController,
+        public DaysLeftCountDownTileViewModel(TileConfiguration tile, IClock clock, IDashboardController dashboardController, DaysLeftCoundDownTileView view, TileLayoutController tileLayoutController,
             IServices services)
         {
             _clock = clock;

@@ -3,9 +3,9 @@
 
 namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.DaysLeftCountDown
 {
-    public partial class ExpiredTimeAlertTileView : UserControl
+    public partial class DaysLeftCoundDownTileView : UserControl
     {
-        public ExpiredTimeAlertTileView()
+        public DaysLeftCoundDownTileView()
         {
             InitializeComponent();
         }

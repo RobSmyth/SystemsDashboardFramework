@@ -132,6 +132,10 @@
       <DependentUpon>ExpiredTimeAlertTileView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Plugins\Tiles\ExpiredTimeAlert\ExpiredTimeAlertTileViewModel.cs" />
+    <Compile Include="Plugins\Tiles\TeamCity\AgentStatus\TeamCityAgentStatusTileProvider.cs" />
+    <Compile Include="Plugins\Tiles\TeamCity\AvailableBuilds\TeamCityLAvailbleBuildSTileProvider.cs" />
+    <Compile Include="Plugins\Tiles\TeamCity\LastBuildStatus\TeamCityLastBuildStatusTileProvider.cs" />
+    <Compile Include="Plugins\Tiles\WebPage\WebPageTileProvider.cs" />
     <Compile Include="Services\DataServices\IDataService.cs" />
     <Compile Include="Services\DataServices\NamedDataRepositoy.cs" />
     <Compile Include="Services\DataServices\DataService.cs" />

@@ -1,6 +1,4 @@
-﻿using Moq;
-using NoeticTools.SystemsDashboard.Framework.Config.Properties;
-using NoeticTools.SystemsDashboard.Framework.DataSources;
+﻿using NoeticTools.SystemsDashboard.Framework.DataSources;
 using NUnit.Framework;
 
 

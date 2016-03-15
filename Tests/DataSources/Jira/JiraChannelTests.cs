@@ -81,6 +81,7 @@ namespace SystemsDashboard.Tests.DataSources.Jira
         }
 
         [Test]
+        [Explicit]
         public void CanReadCustomFields()
         {
             foreach (var customField in _target.GetCustomFields())
@@ -90,6 +91,7 @@ namespace SystemsDashboard.Tests.DataSources.Jira
         }
 
         [Test]
+        [Explicit]
         public void CanReadFilters()
         {
             foreach (var filter in _target.Filters)
@@ -99,6 +101,7 @@ namespace SystemsDashboard.Tests.DataSources.Jira
         }
 
         [Test]
+        [Explicit]
         public void CanReadIssuesForProject()
         {
             var issues = _target.GetIssues(_projectName);
@@ -109,6 +112,7 @@ namespace SystemsDashboard.Tests.DataSources.Jira
         }
 
         [Test]
+        [Explicit]
         public void CanReadIssuesFromFilter()
         {
             var issues = _target.GetIssuesFromFilter(_filterName);
@@ -120,6 +124,7 @@ namespace SystemsDashboard.Tests.DataSources.Jira
         }
 
         [Test]
+        [Explicit]
         public void CanReadProjects()
         {
             foreach (var project in _target.Projects)

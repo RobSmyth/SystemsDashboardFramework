@@ -8,7 +8,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.DataSources.StaticPrope
 {
     public class VizBoardPropertiesService : ITimerListener
     {
-        private readonly TimeSpan _tickTime = TimeSpan.FromSeconds(5);
+        private readonly TimeSpan _tickTime = TimeSpan.FromSeconds(1);
         private readonly VizBoardPropertiesServicesConfiguration _configuration;
         private readonly TimerToken _timerToken;
 

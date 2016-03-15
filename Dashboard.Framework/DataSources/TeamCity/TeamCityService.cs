@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Dashboard.Config;
 using log4net;
 using NoeticTools.SystemsDashboard.Framework.Commands;
 using NoeticTools.SystemsDashboard.Framework.Config;
@@ -26,7 +25,7 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
         private ILog _logger;
         private readonly RunOptions _runOptions;
 
-        public TeamCityService(DashboardConfigurationServices servicesConfiguration, RunOptions runOptions, IClock clock, IDashboardController dashboardController, IServices services, IBuildAgentRepository buildAgentRepository)
+        public TeamCityService(IDashboardConfigurationServices servicesConfiguration, RunOptions runOptions, IClock clock, IDashboardController dashboardController, IServices services, IBuildAgentRepository buildAgentRepository)
         {
             _runOptions = runOptions;
             _dashboardController = dashboardController;

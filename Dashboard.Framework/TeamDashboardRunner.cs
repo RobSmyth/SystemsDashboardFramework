@@ -95,7 +95,7 @@ namespace NoeticTools.SystemsDashboard.Framework
 
         private void RegisterPlugins()
         {
-            var propertiesService = new StaticPropertiesService(_applicationServices);
+            var propertiesService = new StaticPropertiesServices(_config.Services);
             var buildAgentRepository = new BuildAgentRepository();
             var teamCityService = new TeamCityService(_config.Services, _runOptions, _clock, _dashboardController, _applicationServices, buildAgentRepository);
 

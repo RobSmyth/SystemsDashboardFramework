@@ -88,6 +88,7 @@
     <Compile Include="Commands\RoutedCommands.cs" />
     <Compile Include="Commands\SaveConfigurationParametersCommand.cs" />
     <Compile Include="Commands\CloseCommand.cs" />
+    <Compile Include="Config\IDashboardConfigurationServices.cs" />
     <Compile Include="Config\IItemConfiguration.cs" />
     <Compile Include="Config\INotifyingElementViewModel.cs" />
     <Compile Include="Config\ItemConfigurationBase.cs" />
@@ -109,7 +110,7 @@
     <Compile Include="DataSources\DataPropertiesRepository.cs" />
     <Compile Include="DataSources\DataPropertyViewModel.cs" />
     <Compile Include="DataSources\DataPropertyViewModelFactory.cs" />
-    <Compile Include="Plugins\DataSources\StaticProperties\StaticPropertiesService.cs" />
+    <Compile Include="Plugins\DataSources\StaticProperties\StaticPropertiesServices.cs" />
     <Compile Include="DataSources\TeamCity\BuildAgentStatus.cs" />
     <Compile Include="DataSources\TeamCity\TeamCityBuildAgentViewModel.cs" />
     <Compile Include="DataSources\TeamCity\BuildAgentRepository.cs" />
@@ -124,6 +125,7 @@
     <Compile Include="Dashboards\IDashboardTileNavigator.cs" />
     <Compile Include="Input\IDragSource.cs" />
     <Compile Include="Plugins\DataSources\StaticProperties\StaticPropertiesServicePlugIn.cs" />
+    <Compile Include="Plugins\DataSources\StaticProperties\StaticPropertiesServicesConfiguration.cs" />
     <Compile Include="Plugins\PropertyEditControls\TimeSpanPropertyViewPlugin.cs" />
     <Compile Include="Plugins\PropertyEditControls\TimeSpanPropertyViewProvider.cs" />
     <Compile Include="Plugins\Tiles\BlankTile\BlankTileProvider.cs" />

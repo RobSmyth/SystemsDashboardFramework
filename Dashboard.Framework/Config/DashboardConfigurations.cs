@@ -1,5 +1,4 @@
 ﻿using System.Xml.Serialization;
-using Dashboard.Config;
 
 
 namespace NoeticTools.SystemsDashboard.Framework.Config

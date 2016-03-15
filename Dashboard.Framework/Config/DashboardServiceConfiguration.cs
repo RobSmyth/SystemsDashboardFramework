@@ -15,9 +15,10 @@ namespace NoeticTools.SystemsDashboard.Framework.Config
         {
             TypeId = Guid.Parse(DefaultGuid);
             Name = string.Empty;
-            Values = new[] {new DashboardConfigValuePair {Key = "A", Value = "1"}};
+            Values = new DashboardConfigValuePair[0];
         }
 
+        [XmlIgnore]
         [XmlAttribute(AttributeName = "typeId")]
         public Guid TypeId { get; set; }
 

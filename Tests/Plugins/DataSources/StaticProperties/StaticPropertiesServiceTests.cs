@@ -12,11 +12,13 @@ namespace SystemsDashboard.Tests.Plugins.DataSources.StaticProperties
     {
         private StaticPropertiesServices _target;
         private Mock<IDashboardConfigurationServices> _configServices;
+        private Mock<IServices> _applicationServices;
 
         protected override void TearDown()
         {
             _configServices = NewMock<IDashboardConfigurationServices>();
-            _target = new StaticPropertiesServices(_configServices.Object);
+            _applicationServices = NewMock<IServices>();
+            _target = new StaticPropertiesServices(_configServices.Object, _applicationServices.Object);
         }
 
         protected override void SetUp()

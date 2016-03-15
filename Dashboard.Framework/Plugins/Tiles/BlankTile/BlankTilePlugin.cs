@@ -2,12 +2,11 @@
 using System.Windows;
 using NoeticTools.SystemsDashboard.Framework.Config;
 using NoeticTools.SystemsDashboard.Framework.Dashboards;
-using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Date;
 
 
 namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.BlankTile
 {
-    public class BlankTilePlugin : IPlugin, ITileControllerProvider
+    public class BlankTilePlugin : IPlugin
     {
         private readonly IDashboardController _dashboardController;
         private IServices _services;
@@ -18,36 +17,12 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.BlankTile
             _dashboardController = dashboardController;
         }
 
-        public string Name => "Blank";
-
         public int Rank => 0;
 
         public void Register(IServices services)
         {
             _services = services;
-            services.TileProviders.Register(this);
-        }
-
-        public bool MatchesId(string id)
-        {
-            return id == TileTypeId;
-        }
-
-        public FrameworkElement CreateTile(TileConfiguration tile, TileLayoutController layoutController)
-        {
-            var view = new BlankTileControl();
-            new BlankTileViewModel(tile, _dashboardController, layoutController, _services, view);
-            return view;
-        }
-
-        public TileConfiguration CreateDefaultConfiguration()
-        {
-            return new TileConfiguration
-            {
-                TypeId = TileTypeId,
-                Id = Guid.NewGuid(),
-                Tiles = new TileConfiguration[0]
-            };
+            services.TileProviders.Register(new BlankTileProvider(_dashboardController, _services));
         }
     }
 }

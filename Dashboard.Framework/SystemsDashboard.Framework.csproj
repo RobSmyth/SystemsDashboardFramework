@@ -126,6 +126,7 @@
     <Compile Include="Plugins\DataSources\StaticProperties\StaticPropertiesServicePlugIn.cs" />
     <Compile Include="Plugins\PropertyEditControls\TimeSpanPropertyViewPlugin.cs" />
     <Compile Include="Plugins\PropertyEditControls\TimeSpanPropertyViewProvider.cs" />
+    <Compile Include="Plugins\Tiles\BlankTile\BlankTileProvider.cs" />
     <Compile Include="Plugins\Tiles\ExpiredTimeAlert\ExpiredTimeAlertTilePlugin.cs" />
     <Compile Include="Plugins\Tiles\ExpiredTimeAlert\ExpiredTimeAlertTileProvider.cs" />
     <Compile Include="Plugins\Tiles\ExpiredTimeAlert\ExpiredTimeAlertTileView.xaml.cs">

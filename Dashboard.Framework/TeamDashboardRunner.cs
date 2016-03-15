@@ -66,9 +66,12 @@ namespace NoeticTools.SystemsDashboard.Framework
             _dashboardNavigator = new DashboardNavigator(loaderConduit, _config, tileLayoutControllerRegistry);
             _dashboardController = new DashboardController(dashboardConfigurationManager, timerService, sidePanel, _config, _dashboardNavigator, tileProviderRegistry, _dragAndDropController);
             KeyboardHandler = new KeyboardHandler(_dashboardController);
-            _applicationServices = new ApplicationServices(tileProviderRegistry, KeyboardHandler, propertyEditControlRegistry, timerService, 
+            _applicationServices = new ApplicationServices(
+                tileProviderRegistry, KeyboardHandler, propertyEditControlRegistry, timerService, 
                 new DataService(new DataRepositoryFactory()), 
-                new DataPropertiesRepository(new DataPropertyViewModelFactory()), _clock);
+                new DataPropertiesRepository(new DataPropertyViewModelFactory()), 
+                _clock,
+                _dashboardController);
 
             var rootTileLayoutController = new TileLayoutController(tileGrid, tileControllerFactory, tileLayoutControllerRegistry, new Thickness(0), _dragAndDropController, _tileNavigator, null, commands);
             _loader = new DashBoardLoader(rootTileLayoutController);
@@ -109,21 +112,19 @@ namespace NoeticTools.SystemsDashboard.Framework
                 new KeyboardTileNavigationPlugin(_tileNavigator),
                 new KeyboardDashboardNavigationPlugin(_dashboardNavigator, _dashboardController),
                 new InsertTilePlugin(_dashboardController, _dragAndDropController),
-                new HelpTilePlugin(_dashboardController),
-                new BlankTilePlugin(_dashboardController),
+                new HelpTilePlugin(),
+                new BlankTilePlugin(),
                 new ImageFileWatcherTilePlugin(_dashboardController, _applicationServices), 
                 new DateTilePlugin(),
-                new MessageTilePlugin(_dashboardController),
+                new MessageTilePlugin(),
                 new TeamCityAgentStatusTilePlugin(teamCityService, _dashboardController), 
                 new TeamCityLastBuildStatusTilePlugin(teamCityService, _dashboardController),
                 new TeamCityLAvailbleBuildSTilePlugin(teamCityService, _dashboardController),
-                new DaysLeftCountDownTilePlugin(_dashboardController),
-                new WebPageTilePlugin(_dashboardController),
-                new WmiTilePlugin(_dashboardController),
-                new ExpiredTimeAlertTilePlugin(_dashboardController),
+                new DaysLeftCountDownTilePlugin(),
+                new WebPageTilePlugin(),
+                new WmiTilePlugin(),
+                new ExpiredTimeAlertTilePlugin(),
             };
-
-            // todo - load third-party plug-ins via app config file
 
             foreach (var plugin in plugins.OrderBy(x => x.Rank))
             {

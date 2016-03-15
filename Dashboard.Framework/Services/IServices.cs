@@ -1,3 +1,4 @@
+using NoeticTools.SystemsDashboard.Framework.Dashboards;
 using NoeticTools.SystemsDashboard.Framework.DataSources;
 using NoeticTools.SystemsDashboard.Framework.Input;
 using NoeticTools.SystemsDashboard.Framework.Registries;
@@ -17,5 +18,6 @@ namespace NoeticTools.SystemsDashboard.Framework
         IDataService DataService { get; }
         IPropertiesDataService Properties { get; }
         IClock Clock { get; set; }
+        IDashboardController DashboardController { get; set; }
     }
 }

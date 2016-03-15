@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using NoeticTools.SystemsDashboard.Framework.Dashboards;
 using NoeticTools.SystemsDashboard.Framework.DataSources;
 using NoeticTools.SystemsDashboard.Framework.Input;
 using NoeticTools.SystemsDashboard.Framework.Registries;
@@ -12,7 +13,9 @@ namespace NoeticTools.SystemsDashboard.Framework.Services
     {
         private readonly IList<IService> _services = new List<IService>();
 
-        public ApplicationServices(ITileProviderRegistry tileProviders, KeyboardHandler keyboardHandler, IPropertyEditControlRegistry propertyEditControlProviderRegistry, ITimerService timerService, IDataService dataService, IPropertiesDataService properties, IClock clock)
+        public ApplicationServices(ITileProviderRegistry tileProviders, KeyboardHandler keyboardHandler, 
+            IPropertyEditControlRegistry propertyEditControlProviderRegistry, ITimerService timerService, 
+            IDataService dataService, IPropertiesDataService properties, IClock clock, IDashboardController dashboardController)
         {
             TileProviders = tileProviders;
             KeyboardHandler = keyboardHandler;
@@ -21,6 +24,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Services
             DataService = dataService;
             Properties = properties;
             Clock = clock;
+            DashboardController = dashboardController;
 
             Register(timerService);
             Register(dataService);
@@ -33,6 +37,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Services
         public KeyboardHandler KeyboardHandler { get; }
         public IPropertiesDataService Properties { get; }
         public IClock Clock { get; set; }
+        public IDashboardController DashboardController { get; set; }
 
         public void Register(IService service)
         {

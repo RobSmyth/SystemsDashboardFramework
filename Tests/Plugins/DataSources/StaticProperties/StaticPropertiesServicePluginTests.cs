@@ -8,7 +8,7 @@ namespace SystemsDashboard.Tests.Plugins.DataSources.StaticProperties
     [TestFixture]
     public class StaticPropertiesServicePluginTests : MockingTestFixtureBase
     {
-        private StaticPropertiesServicePlugIn _target;
+        private VizBoardPropertiesServicePlugIn _target;
 
         protected override void TearDown()
         {
@@ -16,7 +16,7 @@ namespace SystemsDashboard.Tests.Plugins.DataSources.StaticProperties
 
         protected override void SetUp()
         {
-            _target = new StaticPropertiesServicePlugIn();
+            _target = new VizBoardPropertiesServicePlugIn();
         }
 
         [Test]

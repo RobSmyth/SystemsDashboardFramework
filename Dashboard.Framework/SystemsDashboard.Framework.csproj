@@ -110,7 +110,7 @@
     <Compile Include="DataSources\DataPropertiesRepository.cs" />
     <Compile Include="DataSources\DataPropertyViewModel.cs" />
     <Compile Include="DataSources\DataPropertyViewModelFactory.cs" />
-    <Compile Include="Plugins\DataSources\StaticProperties\StaticPropertiesServices.cs" />
+    <Compile Include="Plugins\DataSources\StaticProperties\VizBoardPropertiesService.cs" />
     <Compile Include="DataSources\TeamCity\BuildAgentStatus.cs" />
     <Compile Include="DataSources\TeamCity\TeamCityBuildAgentViewModel.cs" />
     <Compile Include="DataSources\TeamCity\BuildAgentRepository.cs" />
@@ -124,8 +124,8 @@
     <Compile Include="Dashboards\IDashboardNavigator.cs" />
     <Compile Include="Dashboards\IDashboardTileNavigator.cs" />
     <Compile Include="Input\IDragSource.cs" />
-    <Compile Include="Plugins\DataSources\StaticProperties\StaticPropertiesServicePlugIn.cs" />
-    <Compile Include="Plugins\DataSources\StaticProperties\StaticPropertiesServicesConfiguration.cs" />
+    <Compile Include="Plugins\DataSources\StaticProperties\VizBoardPropertiesServicePlugIn.cs" />
+    <Compile Include="Plugins\DataSources\StaticProperties\VizBoardPropertiesServicesConfiguration.cs" />
     <Compile Include="Plugins\PropertyEditControls\TimeSpanPropertyViewPlugin.cs" />
     <Compile Include="Plugins\PropertyEditControls\TimeSpanPropertyViewProvider.cs" />
     <Compile Include="Plugins\Tiles\BlankTile\BlankTileProvider.cs" />

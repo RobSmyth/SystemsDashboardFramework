@@ -3,11 +3,11 @@ using NoeticTools.SystemsDashboard.Framework.Config;
 
 namespace NoeticTools.SystemsDashboard.Framework.Plugins.DataSources.StaticProperties
 {
-    public class StaticPropertiesServicesConfiguration : IItemConfiguration
+    public class VizBoardPropertiesServicesConfiguration : IItemConfiguration
     {
         private readonly DashboardServiceConfiguration _inner;
 
-        public StaticPropertiesServicesConfiguration(DashboardServiceConfiguration inner)
+        public VizBoardPropertiesServicesConfiguration(DashboardServiceConfiguration inner)
         {
             _inner = inner;
         }

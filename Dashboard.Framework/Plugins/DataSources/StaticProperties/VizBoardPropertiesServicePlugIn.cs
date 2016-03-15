@@ -1,6 +1,6 @@
 ﻿namespace NoeticTools.SystemsDashboard.Framework.Plugins.DataSources.StaticProperties
 {
-    public class StaticPropertiesServicePlugIn : IPlugin
+    public class VizBoardPropertiesServicePlugIn : IPlugin
     {
         public void Register(IServices services)
         {

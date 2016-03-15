@@ -10,7 +10,7 @@ namespace SystemsDashboard.Tests.Plugins.DataSources.StaticProperties
     [TestFixture]
     public class StaticPropertiesServiceTests : MockingTestFixtureBase
     {
-        private StaticPropertiesServices _target;
+        private VizBoardPropertiesService _target;
         private Mock<IDashboardConfigurationServices> _configServices;
         private Mock<IServices> _applicationServices;
 
@@ -18,7 +18,7 @@ namespace SystemsDashboard.Tests.Plugins.DataSources.StaticProperties
         {
             _configServices = NewMock<IDashboardConfigurationServices>();
             _applicationServices = NewMock<IServices>();
-            _target = new StaticPropertiesServices(_configServices.Object, _applicationServices.Object);
+            _target = new VizBoardPropertiesService(_configServices.Object, _applicationServices.Object);
         }
 
         protected override void SetUp()

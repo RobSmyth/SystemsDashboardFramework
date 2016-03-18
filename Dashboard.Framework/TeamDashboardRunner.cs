@@ -114,7 +114,7 @@ namespace NoeticTools.SystemsDashboard.Framework
                 new InsertTilePlugin(_dashboardController, _dragAndDropController),
                 new HelpTilePlugin(),
                 new BlankTilePlugin(),
-                new ImageFileWatcherTilePlugin(_dashboardController, _applicationServices), 
+                new ImageFileWatcherTilePlugin(_dashboardController), 
                 new DateTilePlugin(),
                 new MessageTilePlugin(),
                 new TeamCityAgentStatusTilePlugin(teamCityService, _dashboardController), 

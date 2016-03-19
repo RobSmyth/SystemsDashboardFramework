@@ -4,7 +4,7 @@ using TeamCitySharp.DomainEntities;
 
 namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
 {
-    internal interface ITeamCityChannel
+    public interface ITeamCityChannel
     {
         string[] ProjectNames { get; }
         bool IsConnected { get; }

@@ -3,6 +3,7 @@ using System.Windows;
 using NoeticTools.SystemsDashboard.Framework.Config;
 using NoeticTools.SystemsDashboard.Framework.Dashboards;
 using NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity;
+using NoeticTools.SystemsDashboard.Framework.Services;
 
 
 namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.AgentStatus

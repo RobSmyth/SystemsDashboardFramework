@@ -1,4 +1,7 @@
-﻿namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Help
+﻿using NoeticTools.SystemsDashboard.Framework.Services;
+
+
+namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Help
 {
     public sealed class HelpTilePlugin : IPlugin
     {

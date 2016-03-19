@@ -14,27 +14,29 @@ namespace NoeticTools.SystemsDashboard.Framework.Dashboards
     public sealed class DashboardController : IDashboardController
     {
         private readonly DashboardConfigurations _config;
-        private readonly IDashboardNavigator _dashboardNavigator;
         private readonly TileProviderRegistry _tileProviderRegistry;
-        private readonly TileDragAndDropController _dragAndDropController;
         private readonly DashboardConfigurationManager _configurationManager;
         private readonly ITimerService _timerService;
         private readonly DockPanel _sidePanel;
         private readonly ILog _logger;
 
-        public DashboardController(DashboardConfigurationManager configurationManager, ITimerService timerService, DockPanel sidePanel,
-            DashboardConfigurations config, IDashboardNavigator dashboardNavigator, TileProviderRegistry tileProviderRegistry,
-            TileDragAndDropController dragAndDropController)
+        public DashboardController(DashboardConfigurationManager configurationManager, ITimerService timerService, DockPanel sidePanel, DashboardConfigurations config, IDashboardNavigator dashboardNavigator,
+            TileProviderRegistry tileProviderRegistry, ITileDragAndDropController dragAndDropController, IDashboardTileNavigator tileNavigator)
         {
             _configurationManager = configurationManager;
             _timerService = timerService;
             _sidePanel = sidePanel;
             _config = config;
-            _dashboardNavigator = dashboardNavigator;
+            DashboardNavigator = dashboardNavigator;
+            TileNavigator = tileNavigator;
             _tileProviderRegistry = tileProviderRegistry;
-            _dragAndDropController = dragAndDropController;
+            DragAndDropController = dragAndDropController;
             _logger = LogManager.GetLogger("UI.Dashboard");
         }
+
+        public IDashboardNavigator DashboardNavigator { get; }
+        public IDashboardTileNavigator TileNavigator { get; }
+        public ITileDragAndDropController DragAndDropController { get; }
 
         public void Start()
         {
@@ -53,7 +55,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Dashboards
         public void ShowNavigationPane()
         {
             _logger.Info("Show navigation.");
-            ShowOnSidePane(new DashboardsNavigationViewController(_config, _dashboardNavigator).CreateView(), "Dashboards Navigation");
+            ShowOnSidePane(new DashboardsNavigationViewController(_config, DashboardNavigator).CreateView(), "Dashboards Navigation");
         }
 
         public void ShowOnSidePane(FrameworkElement view, string title)
@@ -76,13 +78,13 @@ namespace NoeticTools.SystemsDashboard.Framework.Dashboards
 
         public void ToggleGroupPanelsEditMode()
         {
-            _dashboardNavigator.ToggleShowGroupPanelsDetailsMode();
+            DashboardNavigator.ToggleShowGroupPanelsDetailsMode();
             //ShowOnSidePane(new GroupPanelsEditTileViewModel(_config, _tileRegistryConduit));
         }
 
         public void ShowInsertPanel()
         {
-            ShowOnSidePane(new InsertTileController(_tileProviderRegistry, _dragAndDropController).CreateView(), "Help");
+            ShowOnSidePane(new InsertTileController(_tileProviderRegistry, DragAndDropController).CreateView(), "Help");
         }
 
         private void Save()

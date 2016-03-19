@@ -1,4 +1,7 @@
-﻿namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.CustomTile
+﻿using NoeticTools.SystemsDashboard.Framework.Services;
+
+
+namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.CustomTile
 {
     internal sealed class CustomTilePlugin : IPlugin
     {

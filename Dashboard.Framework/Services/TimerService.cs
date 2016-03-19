@@ -75,6 +75,8 @@ namespace NoeticTools.SystemsDashboard.Framework.Services
             return _callbacks.FirstOrDefault(x => x != null && x.DueDateTime <= _clock.UtcNow);
         }
 
+        public string Name => "Timer";
+
         public void Stop()
         {
             _timer.Stop();

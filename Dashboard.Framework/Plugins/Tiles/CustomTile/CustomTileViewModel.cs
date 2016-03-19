@@ -4,6 +4,7 @@ using NoeticTools.SystemsDashboard.Framework.Commands;
 using NoeticTools.SystemsDashboard.Framework.Config;
 using NoeticTools.SystemsDashboard.Framework.Config.Properties;
 using NoeticTools.SystemsDashboard.Framework.Dashboards;
+using NoeticTools.SystemsDashboard.Framework.Services;
 
 
 namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.CustomTile

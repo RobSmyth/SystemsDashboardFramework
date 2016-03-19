@@ -10,7 +10,7 @@ using NoeticTools.SystemsDashboard.Framework.Dashboards;
 
 namespace NoeticTools.SystemsDashboard.Framework.Input
 {
-    public sealed class TileDragAndDropController
+    public sealed class TileDragAndDropController : ITileDragAndDropController
     {
         private readonly IDictionary<object, ITileLayoutController> _elementToLayoutController = new Dictionary<object, ITileLayoutController>();
         private readonly IDictionary<object, TileConfiguration> _elementToTile = new Dictionary<object, TileConfiguration>();

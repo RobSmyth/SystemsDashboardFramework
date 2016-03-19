@@ -66,7 +66,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Config
         private void SaveDefaultConfiguration(string configPath)
         {
             var assembly = Assembly.GetExecutingAssembly();
-            var resourceName = "NoeticTools.SystemsDashboard.Framework.dashboard.config.default.xml";
+            const string resourceName = "NoeticTools.SystemsDashboard.Framework.dashboard.config.default.xml";
 
             using (var stream = assembly.GetManifestResourceStream(resourceName))
             using (var reader = new StreamReader(stream))

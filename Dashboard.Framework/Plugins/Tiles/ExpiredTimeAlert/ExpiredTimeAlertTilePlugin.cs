@@ -1,5 +1,8 @@
 ﻿
 
+using NoeticTools.SystemsDashboard.Framework.Services;
+
+
 namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.ExpiredTimeAlert
 {
     public class ExpiredTimeAlertTilePlugin : IPlugin

@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace NoeticTools.SystemsDashboard.Framework
 {
-    public class RunOptions
+    public class RunOptions : IRunOptions
     {
         public bool EmulateMode
         {

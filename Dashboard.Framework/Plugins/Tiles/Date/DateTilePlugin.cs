@@ -1,4 +1,7 @@
-﻿namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Date
+﻿using NoeticTools.SystemsDashboard.Framework.Services;
+
+
+namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Date
 {
     public sealed class DateTilePlugin : IPlugin
     {

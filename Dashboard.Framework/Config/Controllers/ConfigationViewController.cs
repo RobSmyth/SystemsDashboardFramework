@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Input;
 using NoeticTools.SystemsDashboard.Framework.Commands;
 using NoeticTools.SystemsDashboard.Framework.Config.Views;
+using NoeticTools.SystemsDashboard.Framework.Services;
 
 
 namespace NoeticTools.SystemsDashboard.Framework.Config.Controllers

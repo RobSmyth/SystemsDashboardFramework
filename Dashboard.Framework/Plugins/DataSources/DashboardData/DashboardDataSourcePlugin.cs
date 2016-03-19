@@ -1,4 +1,4 @@
-﻿using NoeticTools.SystemsDashboard.Framework.Config;
+﻿using NoeticTools.SystemsDashboard.Framework.Services;
 using NoeticTools.SystemsDashboard.Framework.Services.DataServices;
 
 
@@ -6,18 +6,11 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.DataSources.DashboardDa
 {
     public class DashboardDataSourcePlugin : IPlugin
     {
-        private readonly IDashboardConfigurationServices _configurationServices;
-
-        public DashboardDataSourcePlugin(IDashboardConfigurationServices configurationServices)
-        {
-            _configurationServices = configurationServices;
-        }
-
         public int Rank => 100;
 
         public void Register(IServices services)
         {
-            services.DataService.Register("Dashboard", new DashboardDataSource(_configurationServices, services, new DataRepositoy("DashboardInner")));
+            services.DataService.Register("Dashboard", new DashboardDataSource(services.Configuration.Services, services, new DataRepositoy("DashboardInner")));
         }
     }
 }

@@ -9,9 +9,9 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.InsertTile
 {
     internal sealed class InsertTileController
     {
-        private readonly TileDragAndDropController _dragAndDropController;
+        private readonly ITileDragAndDropController _dragAndDropController;
 
-        public InsertTileController(ITileProviderRegistry tileProviderRegistry, TileDragAndDropController dragAndDropController)
+        public InsertTileController(ITileProviderRegistry tileProviderRegistry, ITileDragAndDropController dragAndDropController)
         {
             _dragAndDropController = dragAndDropController;
             TileProviders = tileProviderRegistry.GetAll();

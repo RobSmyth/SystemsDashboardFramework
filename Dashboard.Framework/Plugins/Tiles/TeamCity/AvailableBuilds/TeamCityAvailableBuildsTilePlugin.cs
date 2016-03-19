@@ -1,20 +1,17 @@
 ﻿using log4net;
 using NoeticTools.SystemsDashboard.Framework.Dashboards;
 using NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity;
+using NoeticTools.SystemsDashboard.Framework.Services;
 
 
 namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.AvailableBuilds
 {
     public sealed class TeamCityLAvailbleBuildSTilePlugin : IPlugin
     {
-        private readonly TeamCityService _service;
-        private readonly IDashboardController _dashboardController;
         private ILog _logger;
 
-        public TeamCityLAvailbleBuildSTilePlugin(TeamCityService service, IDashboardController dashboardController)
+        public TeamCityLAvailbleBuildSTilePlugin()
         {
-            _service = service;
-            _dashboardController = dashboardController;
             _logger = LogManager.GetLogger("Plugin.TeamCity.AvailableBuilds");
         }
 
@@ -22,7 +19,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.Availabl
 
         public void Register(IServices services)
         {
-            services.TileProviders.Register(new TeamCityLAvailbleBuildSTileProvider(_service, _dashboardController, services));
+            services.TileProviders.Register(new TeamCityLAvailbleBuildSTileProvider(services.GetService<TeamCityService>("TeamCity"), services.DashboardController, services));
         }
     }
 }

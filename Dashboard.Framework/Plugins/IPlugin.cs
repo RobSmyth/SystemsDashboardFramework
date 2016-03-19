@@ -1,3 +1,6 @@
+using NoeticTools.SystemsDashboard.Framework.Services;
+
+
 namespace NoeticTools.SystemsDashboard.Framework.Plugins
 {
     public interface IPlugin

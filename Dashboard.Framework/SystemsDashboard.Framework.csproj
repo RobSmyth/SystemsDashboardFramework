@@ -88,6 +88,7 @@
     <Compile Include="Commands\RoutedCommands.cs" />
     <Compile Include="Commands\SaveConfigurationParametersCommand.cs" />
     <Compile Include="Commands\CloseCommand.cs" />
+    <Compile Include="Config\IDashboardConfigurations.cs" />
     <Compile Include="Config\IDashboardConfigurationServices.cs" />
     <Compile Include="Config\IItemConfiguration.cs" />
     <Compile Include="Config\INotifyingElementViewModel.cs" />
@@ -110,6 +111,10 @@
     <Compile Include="DataSources\DataPropertiesRepository.cs" />
     <Compile Include="DataSources\DataPropertyViewModel.cs" />
     <Compile Include="DataSources\DataPropertyViewModelFactory.cs" />
+    <Compile Include="DataSources\TeamCity\ITeamCityService.cs" />
+    <Compile Include="DataSources\TeamCity\TeamCityServicePlugin.cs" />
+    <Compile Include="Input\ITileDragAndDropController.cs" />
+    <Compile Include="IRunOptions.cs" />
     <Compile Include="Plugins\DataSources\DashboardData\DashboardDataSource.cs" />
     <Compile Include="DataSources\TeamCity\BuildAgentStatus.cs" />
     <Compile Include="DataSources\TeamCity\TeamCityBuildAgentViewModel.cs" />
@@ -145,6 +150,7 @@
     <Compile Include="Plugins\Tiles\ExpiredTimeAlert\ExpiredTimeAlertTileViewModel.cs" />
     <Compile Include="Plugins\Tiles\Help\HelpTileKeyHandler.cs" />
     <Compile Include="Plugins\Tiles\Image\ImageFileWatcherTileProvider.cs" />
+    <Compile Include="Plugins\Tiles\InsertTile\InsertTileKeyHandler.cs" />
     <Compile Include="Plugins\Tiles\MessageTile\MessageTileProvider.cs" />
     <Compile Include="Plugins\Tiles\ServerStatus\WmiTileProvider.cs" />
     <Compile Include="Plugins\Tiles\TeamCity\AgentStatus\TeamCityAgentStatusTileProvider.cs" />
@@ -154,7 +160,7 @@
     <Compile Include="Services\DataServices\IDataService.cs" />
     <Compile Include="Services\DataServices\DataRepositoy.cs" />
     <Compile Include="Services\DataServices\DataServer.cs" />
-    <Compile Include="Services\DataServices\PropertiesRepositoryFactory.cs" />
+    <Compile Include="Services\DataServices\DataRepositoryFactory.cs" />
     <Compile Include="Services\DataServices\NullDataSource.cs" />
     <Compile Include="Services\DataServices\IDataRepositoryFactory.cs" />
     <Compile Include="Services\DataServices\IDataSource.cs" />

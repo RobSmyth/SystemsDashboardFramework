@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using NoeticTools.SystemsDashboard.Framework.Input;
 
 
 namespace NoeticTools.SystemsDashboard.Framework.Dashboards
@@ -13,5 +14,8 @@ namespace NoeticTools.SystemsDashboard.Framework.Dashboards
         void Refresh();
         void ToggleGroupPanelsEditMode();
         void ShowInsertPanel();
+        IDashboardNavigator DashboardNavigator { get; }
+        IDashboardTileNavigator TileNavigator { get; }
+        ITileDragAndDropController DragAndDropController { get; }
     }
 }

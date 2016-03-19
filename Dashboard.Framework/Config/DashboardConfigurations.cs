@@ -5,7 +5,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Config
 {
     [XmlRoot("Dashboards", Namespace = "http://www.cpandl.com", IsNullable = false)]
     [XmlType("configurations")]
-    public class DashboardConfigurations
+    public class DashboardConfigurations : IDashboardConfigurations
     {
         public DashboardConfigurations()
         {

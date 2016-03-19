@@ -1,5 +1,8 @@
 ﻿
 
+using NoeticTools.SystemsDashboard.Framework.Services;
+
+
 namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.ServerStatus
 {
     internal sealed class WmiTilePlugin : IPlugin

@@ -1,4 +1,5 @@
 ﻿using NoeticTools.SystemsDashboard.Framework.Dashboards;
+using NoeticTools.SystemsDashboard.Framework.Services;
 
 
 namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.MessageTile

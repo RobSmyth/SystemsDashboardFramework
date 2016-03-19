@@ -21,15 +21,17 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.DataSources.DashboardDa
             _innerDataSource = innerDataSource;
             _configuration = new DashboardDataConfiguration(configurationServices.GetService("Dashboard"));
 
-            _configuration.GetParameter("Version", string.Empty).Value = "1.0.0";
-            _configuration.GetParameter("MachineName", string.Empty).Value = Environment.MachineName;
-            _configuration.GetParameter("LocalStartDateTime", string.Empty).Value = DateTime.Now.ToString(CultureInfo.CurrentCulture);
-
-            _innerDataSource.Write("Version", _configuration.GetParameter("Version", string.Empty).Value);
-            _innerDataSource.Write("MachineName", _configuration.GetParameter("MachineName", string.Empty).Value);
-            _innerDataSource.Write("LocalStartDateTime", _configuration.GetParameter("LocalStartDateTime", string.Empty).Value);
+            SetParameter("Version", "1.0.0");
+            SetParameter("MachineName", Environment.MachineName);
+            SetParameter("StartDateTime", DateTime.Now.ToString(CultureInfo.CurrentCulture));
 
             _timerToken = services.Timer.QueueCallback(_tickTime, this);
+        }
+
+        private void SetParameter(string name, string value)
+        {
+            _configuration.GetParameter(name, string.Empty).Value = value;
+            _innerDataSource.Write(name, _configuration.GetParameter(name, string.Empty).Value);
         }
 
         void ITimerListener.OnTimeElapsed(TimerToken token)

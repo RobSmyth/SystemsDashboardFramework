@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using NoeticTools.SystemsDashboard.Framework.Commands;
 using NoeticTools.SystemsDashboard.Framework.Config;
 using NoeticTools.SystemsDashboard.Framework.Config.Properties;
@@ -7,27 +6,20 @@ using NoeticTools.SystemsDashboard.Framework.Dashboards;
 using NoeticTools.SystemsDashboard.Framework.Services;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.CustomTile
+namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.DataTiles.TextTile
 {
-    internal sealed class CustomTileViewModel : NotifyingViewModelBase, IConfigurationChangeListener, ITileViewModel
+    internal sealed class TextDataTileViewModel : NotifyingViewModelBase, IConfigurationChangeListener, ITileViewModel
     {
         private readonly IServices _services;
         private readonly TileConfigurationConverter _tileConfigurationConverter;
         private string _text;
 
-        public CustomTileViewModel(TileConfiguration tile, IDashboardController dashboardController, TileLayoutController layoutController, IServices services)
+        public TextDataTileViewModel(TileConfiguration tile, IDashboardController dashboardController, TileLayoutController layoutController, IServices services)
         {
             _services = services;
             _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
-            var parameters = new IPropertyViewModel[]
-            {
-                new PropertyViewModel("Address1", "Text", _tileConfigurationConverter),
-                new PropertyViewModel("Address1", "Text", _tileConfigurationConverter),
-                new PropertyViewModel("Address1", "Text", _tileConfigurationConverter),
-                new PropertyViewModel("Address1", "Text", _tileConfigurationConverter),
-                new PropertyViewModel("Address1", "Text", _tileConfigurationConverter),
-            };
-            ConfigureCommand = new TileConfigureCommand(tile, "Custom Tile Configuration", parameters, dashboardController, layoutController, services);
+            var parameters = new IPropertyViewModel[] {new PropertyViewModel("PropertyAddress", "Text", _tileConfigurationConverter)};
+            ConfigureCommand = new TileConfigureCommand(tile, "Text Data Tile Configuration", parameters, dashboardController, layoutController, services);
             Update();
         }
 
@@ -51,7 +43,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.CustomTile
 
         private void Update()
         {
-            var propertyAddress = _tileConfigurationConverter.GetString("Address1");
+            var propertyAddress = _tileConfigurationConverter.GetString("PropertyAddress");
             Text = _services.DataService.Read<string>(propertyAddress);
         }
     }

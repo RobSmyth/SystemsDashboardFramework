@@ -2,25 +2,24 @@ using System;
 using System.Windows;
 using NoeticTools.SystemsDashboard.Framework.Config;
 using NoeticTools.SystemsDashboard.Framework.Dashboards;
-using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.MessageTile;
 using NoeticTools.SystemsDashboard.Framework.Services;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.CustomTile
+namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.DataTiles.TextTile
 {
-    internal sealed class CustomTileProvider : ITileControllerProvider
+    internal sealed class TextDataTileProvider : ITileControllerProvider
     {
         private readonly IDashboardController _dashboardController;
         private readonly IServices _services;
-        private static readonly string TileTypeId = "CustomTile";
+        private static readonly string TileTypeId = "TextData";
 
-        public CustomTileProvider(IDashboardController dashboardController, IServices services)
+        public TextDataTileProvider(IDashboardController dashboardController, IServices services)
         {
             _dashboardController = dashboardController;
             _services = services;
         }
 
-        public string Name => "Custom";
+        public string Name => "Text property panel";
 
         public bool MatchesId(string id)
         {
@@ -29,7 +28,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.CustomTile
 
         public FrameworkElement CreateTile(TileConfiguration tile, TileLayoutController layoutController)
         {
-            return new MessageTileControl { DataContext = new CustomTileViewModel(tile, _dashboardController, layoutController, _services) };
+            return new TextDataTileControl { DataContext = new TextDataTileViewModel(tile, _dashboardController, layoutController, _services) };
         }
 
         public TileConfiguration CreateDefaultConfiguration()
@@ -37,7 +36,6 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.CustomTile
             return new TileConfiguration
             {
                 TypeId = TileTypeId,
-                Id = Guid.NewGuid(),
                 Tiles = new TileConfiguration[0]
             };
         }

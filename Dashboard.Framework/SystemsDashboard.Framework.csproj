@@ -134,12 +134,12 @@
     <Compile Include="Plugins\PropertyEditControls\TimeSpanPropertyViewPlugin.cs" />
     <Compile Include="Plugins\PropertyEditControls\TimeSpanPropertyViewProvider.cs" />
     <Compile Include="Plugins\Tiles\BlankTile\BlankTileProvider.cs" />
-    <Compile Include="Plugins\Tiles\CustomTile\CustomTileControl.xaml.cs">
-      <DependentUpon>CustomTileControl.xaml</DependentUpon>
+    <Compile Include="Plugins\Tiles\DataTiles\TextTile\TextDataTileControl.xaml.cs">
+      <DependentUpon>TextDataTileControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Plugins\Tiles\CustomTile\CustomTilePlugin.cs" />
-    <Compile Include="Plugins\Tiles\CustomTile\CustomTileProvider.cs" />
-    <Compile Include="Plugins\Tiles\CustomTile\CustomTileViewModel.cs" />
+    <Compile Include="Plugins\Tiles\DataTiles\TextTile\TextDataTilePlugin.cs" />
+    <Compile Include="Plugins\Tiles\DataTiles\TextTile\TextDataTileProvider.cs" />
+    <Compile Include="Plugins\Tiles\DataTiles\TextTile\TextDataTileViewModel.cs" />
     <Compile Include="Plugins\Tiles\Date\DateTileProvider.cs" />
     <Compile Include="Plugins\Tiles\DaysLeftCountDown\DaysLeftCountDownTileProvider.cs" />
     <Compile Include="Plugins\Tiles\ExpiredTimeAlert\ExpiredTimeAlertTilePlugin.cs" />
@@ -233,7 +233,7 @@
     <Compile Include="DataSources\Jira\JiraChannelEmulateState.cs" />
     <Compile Include="DataSources\Jira\JiraChannelState.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="Plugins\Tiles\MessageTile\MessageViewModel.cs" />
+    <Compile Include="Plugins\Tiles\MessageTile\MessageTileViewModel.cs" />
     <Compile Include="Plugins\Tiles\MessageTile\MessageTilePlugin.cs" />
     <Compile Include="Plugins\Tiles\ServerStatus\WmiTilePlugin.cs" />
     <Compile Include="Plugins\Tiles\TeamCity\AvailableBuilds\TeamCityAvailableBuildsTilePlugin.cs" />
@@ -327,7 +327,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Plugins\Tiles\CustomTile\CustomTileControl.xaml">
+    <Page Include="Plugins\Tiles\DataTiles\TextTile\TextDataTileControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

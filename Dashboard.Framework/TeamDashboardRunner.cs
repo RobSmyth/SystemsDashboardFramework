@@ -5,16 +5,14 @@ using NoeticTools.SystemsDashboard.Framework;
 using NoeticTools.SystemsDashboard.Framework.Commands;
 using NoeticTools.SystemsDashboard.Framework.Config;
 using NoeticTools.SystemsDashboard.Framework.Dashboards;
-using NoeticTools.SystemsDashboard.Framework.DataSources;
 using NoeticTools.SystemsDashboard.Framework.Input;
 using NoeticTools.SystemsDashboard.Framework.Registries;
 using NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity;
 using NoeticTools.SystemsDashboard.Framework.Plugins;
 using NoeticTools.SystemsDashboard.Framework.Plugins.DataSources.DashboardData;
-using NoeticTools.SystemsDashboard.Framework.Plugins.DataSources.StaticProperties;
 using NoeticTools.SystemsDashboard.Framework.Plugins.PropertyEditControls;
 using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.BlankTile;
-using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.CustomTile;
+using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.DataTiles.TextTile;
 using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Date;
 using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.DaysLeftCountDown;
 using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.ExpiredTimeAlert;
@@ -41,15 +39,12 @@ namespace NoeticTools.SystemsDashboard.Framework
         private readonly DashboardConfigurations _config;
         private readonly DashboardNavigator _dashboardNavigator;
         public readonly KeyboardHandler KeyboardHandler;
-        private readonly TileDragAndDropController _dragAndDropController;
-        private readonly DashboardTileNavigator _tileNavigator;
         private readonly ApplicationServices _applicationServices;
 
         public TeamDashboardRunner(Grid tileGrid, DockPanel sidePanel)
         {
-            _dragAndDropController = new TileDragAndDropController();
-            _tileNavigator = new DashboardTileNavigator(tileGrid);
-
+            var dragAndDropController = new TileDragAndDropController();
+            var tileNavigator = new DashboardTileNavigator(tileGrid);
             var clock = new Clock();
             var timerService = new TimerService(clock);
             var commands = new RoutedCommands();
@@ -61,9 +56,9 @@ namespace NoeticTools.SystemsDashboard.Framework
             _config = dashboardConfigurationManager.Load();
             var loaderConduit = new DashBoardLoaderConduit();
 
-            var tileLayoutControllerRegistry = new TileLayoutControllerRegistry(tileControllerFactory, _dragAndDropController, _tileNavigator, commands);
+            var tileLayoutControllerRegistry = new TileLayoutControllerRegistry(tileControllerFactory, dragAndDropController, tileNavigator, commands);
             _dashboardNavigator = new DashboardNavigator(loaderConduit, _config, tileLayoutControllerRegistry);
-            _dashboardController = new DashboardController(dashboardConfigurationManager, timerService, sidePanel, _config, _dashboardNavigator, tileProviderRegistry, _dragAndDropController, _tileNavigator);
+            _dashboardController = new DashboardController(dashboardConfigurationManager, timerService, sidePanel, _config, _dashboardNavigator, tileProviderRegistry, dragAndDropController, tileNavigator);
             KeyboardHandler = new KeyboardHandler(_dashboardController);
 
             _applicationServices = new ApplicationServices(
@@ -74,7 +69,7 @@ namespace NoeticTools.SystemsDashboard.Framework
                 _config,
                 new RunOptions());
 
-            var rootTileLayoutController = new TileLayoutController(tileGrid, tileControllerFactory, tileLayoutControllerRegistry, new Thickness(0), _dragAndDropController, _tileNavigator, null, commands);
+            var rootTileLayoutController = new TileLayoutController(tileGrid, tileControllerFactory, tileLayoutControllerRegistry, new Thickness(0), dragAndDropController, tileNavigator, null, commands);
             _loader = new DashBoardLoader(rootTileLayoutController);
             loaderConduit.SetTarget(_loader);
 
@@ -110,9 +105,9 @@ namespace NoeticTools.SystemsDashboard.Framework
                 new InsertTilePlugin(),
                 new HelpTilePlugin(),
                 new BlankTilePlugin(),
+                new TextDataTilePlugin(), 
                 new ImageFileWatcherTilePlugin(), 
                 new DateTilePlugin(),
-                new CustomTilePlugin(), 
                 new MessageTilePlugin(),
                 new TeamCityAgentStatusTilePlugin(), 
                 new TeamCityLastBuildStatusTilePlugin(),

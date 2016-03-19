@@ -24,6 +24,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Config
         ///     The tile's unique ID.
         /// </summary>
         [XmlAttribute(AttributeName = "id")]
+        [XmlIgnore]
         public Guid Id { get; set; }
 
         /// <summary>

@@ -10,7 +10,6 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.PropertyEditControls
         public void Register(IServices services)
         {
             services.PropertyEditControlProviders.Register(new ComboboxTextPropertyViewProvider());
-            ;
         }
     }
 }

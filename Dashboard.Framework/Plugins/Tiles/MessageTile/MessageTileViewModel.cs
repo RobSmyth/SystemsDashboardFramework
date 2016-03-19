@@ -8,12 +8,12 @@ using NoeticTools.SystemsDashboard.Framework.Services;
 
 namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.MessageTile
 {
-    internal sealed class MessageViewModel : NotifyingViewModelBase, IConfigurationChangeListener, ITileViewModel
+    internal sealed class MessageTileViewModel : NotifyingViewModelBase, IConfigurationChangeListener, ITileViewModel
     {
         private readonly TileConfigurationConverter _tileConfigurationConverter;
         private string _text;
 
-        public MessageViewModel(TileConfiguration tile, IDashboardController dashboardController, TileLayoutController layoutController, IServices services)
+        public MessageTileViewModel(TileConfiguration tile, IDashboardController dashboardController, TileLayoutController layoutController, IServices services)
         {
             _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
             var parameters = new IPropertyViewModel[] {new PropertyViewModel("Message", "Text", _tileConfigurationConverter)};

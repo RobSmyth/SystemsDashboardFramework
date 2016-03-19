@@ -28,7 +28,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.MessageTile
 
         public FrameworkElement CreateTile(TileConfiguration tile, TileLayoutController layoutController)
         {
-            return new MessageTileControl { DataContext = new MessageViewModel(tile, _dashboardController, layoutController, _services) };
+            return new MessageTileControl { DataContext = new MessageTileViewModel(tile, _dashboardController, layoutController, _services) };
         }
 
         public TileConfiguration CreateDefaultConfiguration()

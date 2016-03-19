@@ -23,7 +23,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.DataSources.DashboardDa
 
             SetParameter("Version", "1.0.0");
             SetParameter("MachineName", Environment.MachineName);
-            SetParameter("StartDateTime", DateTime.Now.ToString(CultureInfo.CurrentCulture));
+            SetParameter("StartDateTime", DateTime.UtcNow.ToString("u"));
 
             _timerToken = services.Timer.QueueCallback(_tickTime, this);
         }

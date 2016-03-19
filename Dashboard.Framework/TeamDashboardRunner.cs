@@ -12,6 +12,7 @@ using NoeticTools.SystemsDashboard.Framework.Plugins;
 using NoeticTools.SystemsDashboard.Framework.Plugins.DataSources.DashboardData;
 using NoeticTools.SystemsDashboard.Framework.Plugins.PropertyEditControls;
 using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.BlankTile;
+using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.DataTiles.DateTimeTile;
 using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.DataTiles.TextTile;
 using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Date;
 using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.DaysLeftCountDown;
@@ -106,6 +107,7 @@ namespace NoeticTools.SystemsDashboard.Framework
                 new HelpTilePlugin(),
                 new BlankTilePlugin(),
                 new TextDataTilePlugin(), 
+                new DateTimeDataTilePlugin(), 
                 new ImageFileWatcherTilePlugin(), 
                 new DateTilePlugin(),
                 new MessageTilePlugin(),

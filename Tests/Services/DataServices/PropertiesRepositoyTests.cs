@@ -5,24 +5,23 @@ using NUnit.Framework;
 namespace SystemsDashboard.Tests.Services.DataServices
 {
     [TestFixture]
-    public class DataRepositoyTests : MockingTestFixtureBase
+    public class PropertiesRepositoyTests : MockingTestFixtureBase
     {
-        private NamedDataRepositoy _target;
+        private DataRepositoy _target;
 
         protected override void SetUp()
         {
-            _target = new NamedDataRepositoy("A", 1);
+            _target = new DataRepositoy("A");
         }
-
+            
         protected override void TearDown()
         {
         }
 
         [Test]
-        public void NameFormat()
+        public void Name()
         {
-            Assert.AreEqual("A", _target.ShortName);
-            Assert.AreEqual("A.1", _target.Name);
+            Assert.AreEqual("A", _target.Name);
         }
 
         [Test]

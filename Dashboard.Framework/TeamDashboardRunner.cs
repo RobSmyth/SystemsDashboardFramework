@@ -10,9 +10,11 @@ using NoeticTools.SystemsDashboard.Framework.Input;
 using NoeticTools.SystemsDashboard.Framework.Registries;
 using NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity;
 using NoeticTools.SystemsDashboard.Framework.Plugins;
+using NoeticTools.SystemsDashboard.Framework.Plugins.DataSources.DashboardData;
 using NoeticTools.SystemsDashboard.Framework.Plugins.DataSources.StaticProperties;
 using NoeticTools.SystemsDashboard.Framework.Plugins.PropertyEditControls;
 using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.BlankTile;
+using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.CustomTile;
 using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Date;
 using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.DaysLeftCountDown;
 using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.ExpiredTimeAlert;
@@ -68,7 +70,7 @@ namespace NoeticTools.SystemsDashboard.Framework
             KeyboardHandler = new KeyboardHandler(_dashboardController);
             _applicationServices = new ApplicationServices(
                 tileProviderRegistry, KeyboardHandler, propertyEditControlRegistry, timerService, 
-                new DataService(new DataRepositoryFactory()), 
+                new DataServer(new PropertiesRepositoryFactory()), 
                 new DataPropertiesRepository(new DataPropertyViewModelFactory()), 
                 _clock,
                 _dashboardController);
@@ -95,15 +97,13 @@ namespace NoeticTools.SystemsDashboard.Framework
 
         private void RegisterPlugins()
         {
-            var propertiesService = new VizBoardPropertiesService(_config.Services, _applicationServices);
             var buildAgentRepository = new BuildAgentRepository();
             var teamCityService = new TeamCityService(_config.Services, _runOptions, _clock, _dashboardController, _applicationServices, buildAgentRepository);
-
             _applicationServices.Register(teamCityService);
 
             var plugins = new IPlugin[]
             {
-                new VizBoardPropertiesServicePlugIn(), 
+                new DashboardDataSourcePlugin(_config.Services), 
                 new TextPropertyViewPlugin(),
                 new DatePropertyViewPlugin(),
                 new TimeSpanPropertyViewPlugin(), 
@@ -116,6 +116,7 @@ namespace NoeticTools.SystemsDashboard.Framework
                 new BlankTilePlugin(),
                 new ImageFileWatcherTilePlugin(_dashboardController), 
                 new DateTilePlugin(),
+                new CustomTilePlugin(), 
                 new MessageTilePlugin(),
                 new TeamCityAgentStatusTilePlugin(teamCityService, _dashboardController), 
                 new TeamCityLastBuildStatusTilePlugin(teamCityService, _dashboardController),

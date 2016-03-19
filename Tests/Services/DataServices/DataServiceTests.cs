@@ -8,7 +8,7 @@ namespace SystemsDashboard.Tests.Services.DataServices
     [TestFixture]
     public class DataServiceTests : MockingTestFixtureBase
     {
-        private DataService _target;
+        private DataServer _target;
         private Mock<IDataRepositoryFactory> _sinkFactory;
 
         protected override void TearDown()
@@ -18,32 +18,7 @@ namespace SystemsDashboard.Tests.Services.DataServices
         protected override void SetUp()
         {
             _sinkFactory = NewMock<IDataRepositoryFactory>();
-            _target = new DataService(_sinkFactory.Object);
-        }
-
-        [Test]
-        public void RegisterSource_ReturnsSink()
-        {
-            var sink = NewMock<IDataSink>();
-            _sinkFactory.Setup(x => x.Create("A", 1)).Returns(sink.Object);
-            sink.SetupGet(x => x.Name).Returns("A.1");
-
-            Assert.AreSame(sink.Object, _target.CreateDataSink("A"));
-        }
-
-        [Test]
-        public void RegisterSource_ReturnsSink_WhenDuplicateName()
-        {
-            var sink1 = NewMock<IDataSink>();
-            _sinkFactory.Setup(x => x.Create("SourceA", 1)).Returns(sink1.Object);
-            sink1.SetupGet(x => x.ShortName).Returns("SourceA");
-            sink1.SetupGet(x => x.Name).Returns("SourceA.1");
-            var sink2 = NewMock<IDataSink>();
-            _sinkFactory.Setup(x => x.Create("SourceA", 2)).Returns(sink2.Object);
-            sink2.SetupGet(x => x.Name).Returns("SourceA.2");
-
-            Assert.AreSame(sink1.Object, _target.CreateDataSink("SourceA"));
-            Assert.AreSame(sink2.Object, _target.CreateDataSink("SourceA"));
+            _target = new DataServer(_sinkFactory.Object);
         }
 
         [Test]
@@ -62,30 +37,24 @@ namespace SystemsDashboard.Tests.Services.DataServices
         [Test]
         public void GetDataSource_CreatesSourceAndRegistersWithSink_WhenSinkExsists()
         {
-            var sink1 = NewMock<IDataSink>();
+            var sink1 = NewMock<IDataSource>();
             _sinkFactory.Setup(x => x.Create("A", 1)).Returns(sink1.Object);
             sink1.SetupGet(x => x.Name).Returns("A.1");
-            sink1.Setup(x => x.AddListener(It.IsAny<IDataChangeListener>()));
-            _target.CreateDataSink("A");
+            _target.GetDataSource("A");
 
             Assert.IsNotNull(_target.GetDataSource("A.1"));
-
-            sink1.Verify(x => x.AddListener(It.IsAny<IDataChangeListener>()), Times.Once());
         }
 
         [Test]
         public void GetDataSource_ReturnsDifferentSourcesRegisteredWithSink_WhenDuplicateNameAndSinkExists()
         {
-            var sink1 = NewMock<IDataSink>();
+            var sink1 = NewMock<IDataSource>();
             _sinkFactory.Setup(x => x.Create("A", 1)).Returns(sink1.Object);
             sink1.SetupGet(x => x.Name).Returns("A.1");
-            sink1.Setup(x => x.AddListener(It.IsAny<IDataChangeListener>()));
-            _target.CreateDataSink("A");
+            _target.GetDataSource("A");
 
             Assert.IsNotNull(_target.GetDataSource("A.1"));
             Assert.IsNotNull(_target.GetDataSource("A.1"));
-
-            sink1.Verify(x => x.AddListener(It.IsAny<IDataChangeListener>()), Times.Exactly(2));
         }
     }
 }

@@ -4,18 +4,16 @@ using System.Linq;
 
 namespace NoeticTools.SystemsDashboard.Framework.Services.DataServices
 {
-    public class NamedDataRepositoy : IDataSink, IDataSource
+    public class DataRepositoy : IDataSource
     {
         private readonly IDictionary<string, object> _values = new Dictionary<string, object>();
         private readonly IList<IDataChangeListener> _listeners = new List<IDataChangeListener>();
 
-        public NamedDataRepositoy(string name, int id)
+        public DataRepositoy(string name)
         {
-            ShortName = name;
-            Name = $"{name}.{id}";
+            Name = name;
         }
 
-        public string ShortName { get; }
         public string Name { get; }
 
         public void AddListener(IDataChangeListener listener)

@@ -21,8 +21,8 @@ namespace SystemsDashboard.Tests.DataSources
         [Test]
         public void Value_IsDefault_Initially()
         {
-            Assert.AreEqual(default(int), new DataPropertyViewModel<int>());
-            Assert.AreEqual(default(string), new DataPropertyViewModel<string>());
+            Assert.AreEqual(default(int), new DataPropertyViewModel<int>().Value);
+            Assert.AreEqual(default(string), new DataPropertyViewModel<string>().Value);
         }
 
         [Test]

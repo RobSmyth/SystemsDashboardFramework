@@ -2,6 +2,6 @@
 {
     public interface IDataRepositoryFactory
     {
-        IDataSink Create(string name, int id);
+        IDataSource Create(string name, int id);
     }
 }

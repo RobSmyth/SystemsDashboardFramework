@@ -110,7 +110,7 @@
     <Compile Include="DataSources\DataPropertiesRepository.cs" />
     <Compile Include="DataSources\DataPropertyViewModel.cs" />
     <Compile Include="DataSources\DataPropertyViewModelFactory.cs" />
-    <Compile Include="Plugins\DataSources\StaticProperties\VizBoardPropertiesService.cs" />
+    <Compile Include="Plugins\DataSources\DashboardData\DashboardDataSource.cs" />
     <Compile Include="DataSources\TeamCity\BuildAgentStatus.cs" />
     <Compile Include="DataSources\TeamCity\TeamCityBuildAgentViewModel.cs" />
     <Compile Include="DataSources\TeamCity\BuildAgentRepository.cs" />
@@ -124,11 +124,17 @@
     <Compile Include="Dashboards\IDashboardNavigator.cs" />
     <Compile Include="Dashboards\IDashboardTileNavigator.cs" />
     <Compile Include="Input\IDragSource.cs" />
-    <Compile Include="Plugins\DataSources\StaticProperties\VizBoardPropertiesServicePlugIn.cs" />
-    <Compile Include="Plugins\DataSources\StaticProperties\VizBoardPropertiesServicesConfiguration.cs" />
+    <Compile Include="Plugins\DataSources\DashboardData\DashboardDataSourcePlugin.cs" />
+    <Compile Include="Plugins\DataSources\DashboardData\DashboardDataConfiguration.cs" />
     <Compile Include="Plugins\PropertyEditControls\TimeSpanPropertyViewPlugin.cs" />
     <Compile Include="Plugins\PropertyEditControls\TimeSpanPropertyViewProvider.cs" />
     <Compile Include="Plugins\Tiles\BlankTile\BlankTileProvider.cs" />
+    <Compile Include="Plugins\Tiles\CustomTile\CustomTileControl.xaml.cs">
+      <DependentUpon>CustomTileControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\Tiles\CustomTile\CustomTilePlugin.cs" />
+    <Compile Include="Plugins\Tiles\CustomTile\CustomTileProvider.cs" />
+    <Compile Include="Plugins\Tiles\CustomTile\CustomTileViewModel.cs" />
     <Compile Include="Plugins\Tiles\Date\DateTileProvider.cs" />
     <Compile Include="Plugins\Tiles\DaysLeftCountDown\DaysLeftCountDownTileProvider.cs" />
     <Compile Include="Plugins\Tiles\ExpiredTimeAlert\ExpiredTimeAlertTilePlugin.cs" />
@@ -146,11 +152,10 @@
     <Compile Include="Plugins\Tiles\TeamCity\LastBuildStatus\TeamCityLastBuildStatusTileProvider.cs" />
     <Compile Include="Plugins\Tiles\WebPage\WebPageTileProvider.cs" />
     <Compile Include="Services\DataServices\IDataService.cs" />
-    <Compile Include="Services\DataServices\NamedDataRepositoy.cs" />
-    <Compile Include="Services\DataServices\DataService.cs" />
-    <Compile Include="Services\DataServices\DataRepositoryFactory.cs" />
-    <Compile Include="Services\DataServices\DataSource.cs" />
-    <Compile Include="Services\DataServices\IDataSink.cs" />
+    <Compile Include="Services\DataServices\DataRepositoy.cs" />
+    <Compile Include="Services\DataServices\DataServer.cs" />
+    <Compile Include="Services\DataServices\PropertiesRepositoryFactory.cs" />
+    <Compile Include="Services\DataServices\NullDataSource.cs" />
     <Compile Include="Services\DataServices\IDataRepositoryFactory.cs" />
     <Compile Include="Services\DataServices\IDataSource.cs" />
     <Compile Include="Services\DataServices\IDataChangeListener.cs" />
@@ -313,6 +318,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Plugins\Tiles\BlankTile\BlankTileControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Plugins\Tiles\CustomTile\CustomTileControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

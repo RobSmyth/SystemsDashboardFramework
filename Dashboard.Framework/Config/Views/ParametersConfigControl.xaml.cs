@@ -23,7 +23,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.Views
             InitializeComponent();
         }
 
-        public ParametersConfigControl(ApplicationCommandsBindings commandsBindings, IEnumerable<IPropertyViewModel> elementViewModels, IServices services) : this()
+        public ParametersConfigControl(TsbCommands commandsBindings, IEnumerable<IPropertyViewModel> elementViewModels, IServices services) : this()
         {
             _services = services;
             CommandBindings.Add(commandsBindings.SaveCommandBinding);

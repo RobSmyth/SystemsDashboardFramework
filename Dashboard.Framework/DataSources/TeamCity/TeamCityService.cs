@@ -103,7 +103,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.DataSources.TeamCity
             };
 
             const string title = "TeamCity Server Configuration";
-            var controller = new ConfigationViewController(title, new ApplicationCommandsBindings(), parameters, _services);
+            var controller = new ConfigationViewController(title, new TsbCommands(), parameters, _services);
             _dashboardController.ShowOnSidePane(controller.CreateView(), title);
         }
 

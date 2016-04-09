@@ -1,10 +1,9 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using NoeticTools.SystemsDashboard.Framework.Commands;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Config.Views
+namespace NoeticTools.TeamStatusBoard.Framework.Config.Views
 {
     public partial class PaneWithTitleBarControl : UserControl
     {
@@ -13,11 +12,9 @@ namespace NoeticTools.SystemsDashboard.Framework.Config.Views
             InitializeComponent();
         }
 
-        public PaneWithTitleBarControl(string title, UIElement childView, ApplicationCommandsBindings commandsBindings) : this()
+        public PaneWithTitleBarControl(string title, UIElement childView, IApplicationCommands commands) : this()
         {
-            CommandBindings.Add(commandsBindings.CloseCommandBinding);
-            CommandBindings.Add(commandsBindings.SaveCommandBinding);
-            CommandBindings.Add(commandsBindings.DeleteCommandBinding);
+            commands.BindViewToAllCommands(this);
             PlaceholderGrid.Children.Add(childView);
             Title.Text = title;
         }

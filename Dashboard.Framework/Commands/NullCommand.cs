@@ -2,18 +2,24 @@ using System;
 using System.Windows.Input;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Config.Commands
+namespace NoeticTools.TeamStatusBoard.Framework.Commands
 {
     public class NullCommand : ICommand
     {
+        private readonly bool _canExecute;
+
+        public NullCommand(bool canExecute = false)
+        {
+            _canExecute = canExecute;
+        }
+
         public bool CanExecute(object parameter)
         {
-            return false;
+            return _canExecute;
         }
 
         public void Execute(object parameter)
         {
-            throw new InvalidOperationException();
         }
 
         public event EventHandler CanExecuteChanged;

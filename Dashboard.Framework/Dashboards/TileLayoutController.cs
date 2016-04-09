@@ -28,19 +28,17 @@ namespace NoeticTools.TeamStatusBoard.Framework.Dashboards
         private readonly ITileLayoutControllerRegistry _layoutControllerRegistry;
         private readonly ITileFactory _tileFactory;
         private readonly IDictionary<TileConfiguration, UIElement> _tileToView = new Dictionary<TileConfiguration, UIElement>();
-        private readonly TileLayoutController _parent;
-        private readonly ApplicationCommandsBindings _commandsBindings;
+        private readonly TsbCommands _commandsBindings;
         private TileConfiguration _tile;
 
         public TileLayoutController(Grid tileGrid, ITileFactory tileFactory, ITileLayoutControllerRegistry layoutControllerRegistry, Thickness normalMargin, 
-            TileDragAndDropController dragAndDropController, DashboardTileNavigator tileNavigator, TileLayoutController parent, ApplicationCommandsBindings commandsBindings)
+            TileDragAndDropController dragAndDropController, DashboardTileNavigator tileNavigator, TileLayoutController parent, TsbCommands commandsBindings)
         {
             _tileFactory = tileFactory;
             _layoutControllerRegistry = layoutControllerRegistry;
             _normalMargin = normalMargin;
             _dragAndDropController = dragAndDropController;
             _tileNavigator = tileNavigator;
-            _parent = parent;
             _commandsBindings = commandsBindings;
             _tileGrid = tileGrid;
             _tileGrid.Margin = _normalMargin;

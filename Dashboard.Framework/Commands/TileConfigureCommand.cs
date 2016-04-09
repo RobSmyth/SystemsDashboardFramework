@@ -48,7 +48,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Commands
 
         public void Execute(object parameter)
         {
-            var routedCommands = new ApplicationCommandsBindings();
+            var routedCommands = new TsbCommands();
             routedCommands.DeleteCommandBinding.Executed += DeleteCommandBinding_Executed;
             var controller = new ConfigationViewController(_title, routedCommands, _parameters, _services);
             _dashboardController.ShowOnSidePane(controller.CreateView(), _title);

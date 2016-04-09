@@ -18,10 +18,10 @@ namespace NoeticTools.TeamStatusBoard.Framework.Registries
         private readonly ITileFactory _tileFactory;
         private readonly TileDragAndDropController _dragAndDropController;
         private readonly DashboardTileNavigator _tileNavigator;
-        private readonly ApplicationCommandsBindings _commandsBindings;
+        private readonly TsbCommands _commandsBindings;
         private readonly IList<ITileLayoutController> _layoutControllers = new List<ITileLayoutController>();
 
-        public TileLayoutControllerRegistry(ITileFactory tileFactory, TileDragAndDropController dragAndDropController, DashboardTileNavigator tileNavigator, ApplicationCommandsBindings commandsBindings)
+        public TileLayoutControllerRegistry(ITileFactory tileFactory, TileDragAndDropController dragAndDropController, DashboardTileNavigator tileNavigator, TsbCommands commandsBindings)
         {
             _tileFactory = tileFactory;
             _dragAndDropController = dragAndDropController;

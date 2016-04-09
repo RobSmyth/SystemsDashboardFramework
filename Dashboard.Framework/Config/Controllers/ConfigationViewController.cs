@@ -3,8 +3,8 @@ using System.Windows;
 using System.Windows.Input;
 using NoeticTools.SystemsDashboard.Framework;
 using NoeticTools.SystemsDashboard.Framework.Config;
-using NoeticTools.SystemsDashboard.Framework.Config.Views;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
+using NoeticTools.TeamStatusBoard.Framework.Config.Views;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 using ParametersConfigControl = NoeticTools.TeamStatusBoard.Framework.Config.Views.ParametersConfigControl;
 
@@ -16,10 +16,10 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.Controllers
         private readonly IEnumerable<IPropertyViewModel> _parameters;
         private readonly IServices _services;
         private readonly string _title;
-        private readonly ApplicationCommandsBindings _appCommandsBindings;
+        private readonly TsbCommands _appCommandsBindings;
         private PaneWithTitleBarControl _panelView;
 
-        public ConfigationViewController(string title, ApplicationCommandsBindings appCommandsBindings, IEnumerable<IPropertyViewModel> parameters, IServices services)
+        public ConfigationViewController(string title, TsbCommands appCommandsBindings, IEnumerable<IPropertyViewModel> parameters, IServices services)
         {
             _title = title;
             _appCommandsBindings = appCommandsBindings;

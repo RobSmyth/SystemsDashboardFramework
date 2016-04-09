@@ -85,7 +85,9 @@
   <ItemGroup>
     <Compile Include="Adorners\DropTargetAdorner.cs" />
     <Compile Include="Adorners\GroupPanelDetailsAdorner.cs" />
-    <Compile Include="Commands\ApplicationCommandsBindings.cs" />
+    <Compile Include="Commands\CommandConduit.cs" />
+    <Compile Include="Commands\TsbCommands.cs" />
+    <Compile Include="Commands\IApplicationCommands.cs" />
     <Compile Include="Commands\SaveConfigurationParametersCommand.cs" />
     <Compile Include="Commands\CloseCommand.cs" />
     <Compile Include="Commands\ShowDataSourcesCommand.cs" />

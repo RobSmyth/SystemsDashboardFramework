@@ -51,7 +51,7 @@ namespace NoeticTools.TeamStatusBoard.Framework
             var tileNavigator = new DashboardTileNavigator(tileGrid);
             var clock = new Clock();
             var timerService = new TimerService(clock);
-            var commands = new ApplicationCommandsBindings();
+            var commands = new TsbCommands();
             var tileProviderRegistry = new TileProviderRegistry();
             var tileControllerFactory = new TileFactory(tileProviderRegistry);
             var propertyEditControlRegistry = new PropertyEditControlRegistry();
@@ -64,6 +64,8 @@ namespace NoeticTools.TeamStatusBoard.Framework
             _dashboardNavigator = new DashboardNavigator(loaderConduit, _config, tileLayoutControllerRegistry);
             _dashboardController = new DashboardController(dashboardConfigurationManager, timerService, sidePanel, _config, _dashboardNavigator, tileProviderRegistry, dragAndDropController, tileNavigator);
             KeyboardHandler = new KeyboardHandler(_dashboardController);
+
+            TsbCommands.SetDefaultShowDataSources(new ShowDataSourcesCommand(_dashboardController));
 
             _applicationServices = new ApplicationServices(
                 tileProviderRegistry, KeyboardHandler, propertyEditControlRegistry, timerService, 

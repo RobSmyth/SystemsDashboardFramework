@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Input;
-using NoeticTools.SystemsDashboard.Framework.Config.Commands;
 using NoeticTools.SystemsDashboard.Framework.Tiles.Help;
+using NoeticTools.TeamStatusBoard.Framework.Commands;
 
 
 namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Help

@@ -3,7 +3,6 @@ using System.Windows.Input;
 using NoeticTools.SystemsDashboard.Framework;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
 using NoeticTools.TeamStatusBoard.Framework.Config.Views;
-using NoeticTools.TeamStatusBoard.Framework.Services;
 using DataSourcesConfigControl = NoeticTools.TeamStatusBoard.Framework.Config.Views.DataSourcesConfigControl;
 
 
@@ -21,7 +20,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.Controllers
 
         public FrameworkElement CreateView()
         {
-            //_commands.CloseCommandBinding.Executed += CloseCommandBinding_Executed;
+            _commands.CloseCommandBinding.Executed += CloseCommandBinding_Executed;
 
             var view = new DataSourcesConfigControl(_commands) { DataContext = this };
 

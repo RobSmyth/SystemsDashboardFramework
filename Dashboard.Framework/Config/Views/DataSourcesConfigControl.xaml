@@ -4,11 +4,32 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d" 
-             d:DesignHeight="100" d:DesignWidth="100">
-    <Grid Name="PlaceholderGrid" Height="Auto" Margin="5,10,5,5" VerticalAlignment="Top">
+             d:DesignHeight="300" d:DesignWidth="300">
+    
+    <Grid Name="root" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Transparent">
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" MaxHeight="200"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="4*"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
+        
+        <DataGrid x:Name="sourcesGrid" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,5,0,2">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" />
+                <DataGridTextColumn Header="Description" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <TextBlock Grid.Row="1" Foreground="White">Parameters</TextBlock>
+        <DataGrid x:Name="propertiesGrid" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,2,0,2">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Parameter name" />
+                <DataGridTextColumn Header="Value" />
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
+    
 </UserControl>

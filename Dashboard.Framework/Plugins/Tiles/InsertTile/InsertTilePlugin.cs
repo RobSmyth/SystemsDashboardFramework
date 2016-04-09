@@ -1,8 +1,8 @@
-﻿using NoeticTools.SystemsDashboard.Framework.Input;
-using NoeticTools.SystemsDashboard.Framework.Services;
+﻿using NoeticTools.SystemsDashboard.Framework.Plugins;
+using NoeticTools.TeamStatusBoard.Framework.Services;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.InsertTile
+namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.InsertTile
 {
     internal sealed class InsertTilePlugin : IPlugin
     {

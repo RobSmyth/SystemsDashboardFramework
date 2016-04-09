@@ -4,7 +4,7 @@ using NoeticTools.SystemsDashboard.Framework.Config;
 using NoeticTools.SystemsDashboard.Framework.Input;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.InsertTile
+namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.InsertTile
 {
     public partial class InsertTileControl : UserControl, IDragSource
     {

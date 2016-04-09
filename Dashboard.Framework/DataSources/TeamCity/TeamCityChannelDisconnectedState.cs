@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
 using log4net;
-using NoeticTools.SystemsDashboard.Framework.Services;
+using NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity;
+using NoeticTools.TeamStatusBoard.Framework.Services;
 using TeamCitySharp;
 using TeamCitySharp.DomainEntities;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
+namespace NoeticTools.TeamStatusBoard.Framework.DataSources.TeamCity
 {
     internal class TeamCityChannelDisconnectedState : ITeamCityChannel
     {

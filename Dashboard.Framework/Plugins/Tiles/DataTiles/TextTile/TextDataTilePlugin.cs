@@ -1,7 +1,8 @@
-﻿using NoeticTools.SystemsDashboard.Framework.Services;
+﻿using NoeticTools.SystemsDashboard.Framework.Plugins;
+using NoeticTools.TeamStatusBoard.Framework.Services;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.DataTiles.TextTile
+namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.DataTiles.TextTile
 {
     internal sealed class TextDataTilePlugin : IPlugin
     {

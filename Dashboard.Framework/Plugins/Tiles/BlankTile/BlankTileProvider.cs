@@ -3,10 +3,11 @@ using System.Windows;
 using NoeticTools.SystemsDashboard.Framework.Config;
 using NoeticTools.SystemsDashboard.Framework.Dashboards;
 using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Date;
-using NoeticTools.SystemsDashboard.Framework.Services;
+using NoeticTools.TeamStatusBoard.Framework.Dashboards;
+using NoeticTools.TeamStatusBoard.Framework.Services;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.BlankTile
+namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.BlankTile
 {
     public sealed class BlankTileProvider : ITileControllerProvider
     {

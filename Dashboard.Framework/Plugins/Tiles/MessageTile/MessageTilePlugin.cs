@@ -1,8 +1,8 @@
-﻿using NoeticTools.SystemsDashboard.Framework.Dashboards;
-using NoeticTools.SystemsDashboard.Framework.Services;
+﻿using NoeticTools.SystemsDashboard.Framework.Plugins;
+using NoeticTools.TeamStatusBoard.Framework.Services;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.MessageTile
+namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.MessageTile
 {
     internal sealed class MessageTilePlugin : IPlugin
     {

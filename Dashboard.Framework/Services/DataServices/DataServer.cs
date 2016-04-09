@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
+using NoeticTools.SystemsDashboard.Framework.Services;
+using NoeticTools.SystemsDashboard.Framework.Services.DataServices;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Services.DataServices
+namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
 {
     public class DataServer : IDataService
     {

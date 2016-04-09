@@ -2,12 +2,12 @@
 using System.Globalization;
 using NoeticTools.SystemsDashboard.Framework.Config;
 using NoeticTools.SystemsDashboard.Framework.Plugins.DataSources.StaticProperties;
-using NoeticTools.SystemsDashboard.Framework.Services;
 using NoeticTools.SystemsDashboard.Framework.Services.DataServices;
 using NoeticTools.SystemsDashboard.Framework.Services.TimeServices;
+using NoeticTools.TeamStatusBoard.Framework.Services;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Plugins.DataSources.DashboardData
+namespace NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.DashboardData
 {
     public class DashboardDataSource : ITimerListener, IDataSource
     {

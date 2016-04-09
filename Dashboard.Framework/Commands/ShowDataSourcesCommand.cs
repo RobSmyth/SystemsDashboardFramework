@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+using System;
 using System.Windows.Input;
 using NoeticTools.SystemsDashboard.Framework;
 using NoeticTools.SystemsDashboard.Framework.Config;
-using NoeticTools.SystemsDashboard.Framework.Config.Properties;
 using NoeticTools.SystemsDashboard.Framework.Dashboards;
-using NoeticTools.TeamStatusBoard.Framework.Config.Controllers;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Commands
 {
-    public class TileConfigureCommand : ICommand
+    public class ShowDataSourcesCommand : ICommand
     {
-        private readonly IPropertyViewModel[] _parameters;
         private readonly IDashboardController _dashboardController;
         private readonly ITileLayoutController _tileLayoutController;
         private readonly IServices _services;
@@ -21,16 +17,10 @@ namespace NoeticTools.TeamStatusBoard.Framework.Commands
         private readonly string _title;
         private bool _canExecute = true;
 
-        public TileConfigureCommand(TileConfiguration tile, string title, IPropertyViewModel[] parameters, IDashboardController dashboardController, ITileLayoutController tileLayoutController, IServices services)
+        public ShowDataSourcesCommand(TileConfiguration tile, string title, IDashboardController dashboardController, ITileLayoutController tileLayoutController, IServices services)
         {
             _tile = tile;
             _title = title;
-            _parameters = new List<IPropertyViewModel>(parameters)
-            {
-                new DividerPropertyViewModel(),
-                new TileRowSpanViewModel(tile),
-                new TileColumnSpanViewModel(tile)
-            }.ToArray();
             _dashboardController = dashboardController;
             _tileLayoutController = tileLayoutController;
             _services = services;
@@ -40,7 +30,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Commands
         {
             if (parameter is bool)
             {
-                _canExecute = (bool) parameter;
+                _canExecute = (bool)parameter;
                 OnChanExecuteChanged();
             }
             return _canExecute;
@@ -48,10 +38,10 @@ namespace NoeticTools.TeamStatusBoard.Framework.Commands
 
         public void Execute(object parameter)
         {
-            var routedCommands = new ApplicationCommandsBindings();
-            routedCommands.DeleteCommandBinding.Executed += DeleteCommandBinding_Executed;
-            var controller = new ConfigationViewController(_title, routedCommands, _parameters, _services);
-            _dashboardController.ShowOnSidePane(controller.CreateView(), _title);
+            //var routedCommands = new ApplicationCommandsBindings();
+            //routedCommands.DeleteCommandBinding.Executed += DeleteCommandBinding_Executed;
+            //var controller = new DataSourcesViewController(_title, routedCommands, _services);
+            //_dashboardController.ShowOnSidePane(controller.CreateView(), _title);
         }
 
         private void DeleteCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)

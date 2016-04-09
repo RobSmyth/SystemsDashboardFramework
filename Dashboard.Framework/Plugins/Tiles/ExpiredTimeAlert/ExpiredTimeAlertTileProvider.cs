@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Windows;
+using NoeticTools.SystemsDashboard.Framework;
 using NoeticTools.SystemsDashboard.Framework.Config;
 using NoeticTools.SystemsDashboard.Framework.Dashboards;
-using NoeticTools.SystemsDashboard.Framework.Services;
+using NoeticTools.TeamStatusBoard.Framework.Dashboards;
+using NoeticTools.TeamStatusBoard.Framework.Services;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.ExpiredTimeAlert
+namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.ExpiredTimeAlert
 {
     public class ExpiredTimeAlertTileProvider : ITileControllerProvider
     {
@@ -28,7 +30,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.ExpiredTimeAlert
 
         public FrameworkElement CreateTile(TileConfiguration tile, TileLayoutController layoutController)
         {
-            var view = new ExpiredTimeAlert.ExpiredTimeAlertTileView();
+            var view = new SystemsDashboard.Framework.Plugins.Tiles.ExpiredTimeAlert.ExpiredTimeAlertTileView();
             new ExpiredTimeAlertTileViewModel(tile, _services.Clock, _dashboardController, view, layoutController, _services);
             return view;
         }

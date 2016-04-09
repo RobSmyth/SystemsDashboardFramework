@@ -1,8 +1,11 @@
-﻿using NoeticTools.SystemsDashboard.Framework.Plugins;
+﻿using NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity;
+using NoeticTools.SystemsDashboard.Framework.Plugins;
 using NoeticTools.SystemsDashboard.Framework.Services;
+using NoeticTools.TeamStatusBoard.Framework.Plugins;
+using NoeticTools.TeamStatusBoard.Framework.Services;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
+namespace NoeticTools.TeamStatusBoard.Framework.DataSources.TeamCity
 {
     public class TeamCityServicePlugin : IPlugin
     {

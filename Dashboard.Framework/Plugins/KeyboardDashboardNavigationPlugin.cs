@@ -2,10 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Input;
 using NoeticTools.SystemsDashboard.Framework.Input;
-using NoeticTools.SystemsDashboard.Framework.Services;
+using NoeticTools.SystemsDashboard.Framework.Plugins;
+using NoeticTools.TeamStatusBoard.Framework.Services;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Plugins
+namespace NoeticTools.TeamStatusBoard.Framework.Plugins
 {
     public class KeyboardDashboardNavigationPlugin : IPlugin
     {

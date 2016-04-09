@@ -12,24 +12,23 @@ using NoeticTools.TeamStatusBoard.Framework.Services;
 
 namespace NoeticTools.TeamStatusBoard.Framework.Config.Views
 {
-    public partial class ParametersConfigControl : UserControl
+    public partial class DataSourcesConfigControl : UserControl
     {
         private readonly IServices _services;
         private readonly IEnumerable<IPropertyViewModel> _elementViewModels;
         private readonly Thickness _elementMargin = new Thickness(5, 3, 5, 3);
 
-        public ParametersConfigControl()
+        public DataSourcesConfigControl()
         {
             InitializeComponent();
         }
 
-        public ParametersConfigControl(ApplicationCommandsBindings commandsBindings, IEnumerable<IPropertyViewModel> elementViewModels, IServices services) : this()
+        public DataSourcesConfigControl(ApplicationCommandsBindings commandsBindings, IServices services) : this()
         {
             _services = services;
             CommandBindings.Add(commandsBindings.SaveCommandBinding);
             commandsBindings.SaveCommandBinding.Executed += SaveCommandBinding_Executed;
 
-            _elementViewModels = elementViewModels.ToArray();
             foreach (var parameter in _elementViewModels)
             {
                 Add(parameter);

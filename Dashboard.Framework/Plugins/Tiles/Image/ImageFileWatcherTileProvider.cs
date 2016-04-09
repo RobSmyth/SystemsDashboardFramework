@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Windows;
+using NoeticTools.SystemsDashboard.Framework;
 using NoeticTools.SystemsDashboard.Framework.Config;
 using NoeticTools.SystemsDashboard.Framework.Dashboards;
-using NoeticTools.SystemsDashboard.Framework.Services;
+using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Image;
+using NoeticTools.TeamStatusBoard.Framework.Dashboards;
+using NoeticTools.TeamStatusBoard.Framework.Services;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Image
+namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Image
 {
     internal sealed class ImageFileWatcherTileProvider : ITileControllerProvider
     {

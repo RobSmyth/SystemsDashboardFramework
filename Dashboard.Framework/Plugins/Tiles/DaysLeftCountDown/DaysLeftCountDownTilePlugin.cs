@@ -1,9 +1,8 @@
-﻿
+﻿using NoeticTools.SystemsDashboard.Framework.Plugins;
+using NoeticTools.TeamStatusBoard.Framework.Services;
 
-using NoeticTools.SystemsDashboard.Framework.Services;
 
-
-namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.DaysLeftCountDown
+namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.DaysLeftCountDown
 {
     public sealed class DaysLeftCountDownTilePlugin : IPlugin
     {

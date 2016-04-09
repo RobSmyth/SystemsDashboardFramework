@@ -2,14 +2,15 @@
 using System.Windows.Controls;
 using log4net;
 using NoeticTools.SystemsDashboard.Framework.Config;
+using NoeticTools.SystemsDashboard.Framework.Dashboards;
 using NoeticTools.SystemsDashboard.Framework.Input;
 using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Help;
-using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.InsertTile;
-using NoeticTools.SystemsDashboard.Framework.Registries;
 using NoeticTools.SystemsDashboard.Framework.Services.TimeServices;
+using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.InsertTile;
+using NoeticTools.TeamStatusBoard.Framework.Registries;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Dashboards
+namespace NoeticTools.TeamStatusBoard.Framework.Dashboards
 {
     public sealed class DashboardController : IDashboardController
     {

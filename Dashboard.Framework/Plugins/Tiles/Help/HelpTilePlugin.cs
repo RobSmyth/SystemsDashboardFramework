@@ -1,7 +1,9 @@
-﻿using NoeticTools.SystemsDashboard.Framework.Services;
+﻿using NoeticTools.SystemsDashboard.Framework.Plugins;
+using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Help;
+using NoeticTools.TeamStatusBoard.Framework.Services;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Help
+namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Help
 {
     public sealed class HelpTilePlugin : IPlugin
     {

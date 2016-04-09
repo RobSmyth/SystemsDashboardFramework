@@ -1,15 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using NoeticTools.SystemsDashboard.Framework;
 using NoeticTools.SystemsDashboard.Framework.Config;
 using NoeticTools.SystemsDashboard.Framework.Dashboards;
 using NoeticTools.SystemsDashboard.Framework.Input;
 using NoeticTools.SystemsDashboard.Framework.Registries;
-using NoeticTools.SystemsDashboard.Framework.Services.DataServices;
+using NoeticTools.SystemsDashboard.Framework.Services;
 using NoeticTools.SystemsDashboard.Framework.Services.TimeServices;
+using NoeticTools.TeamStatusBoard.Framework.Registries;
+using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Services
+namespace NoeticTools.TeamStatusBoard.Framework.Services
 {
     public class ApplicationServices : IServices
     {

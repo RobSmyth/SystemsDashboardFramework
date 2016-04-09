@@ -1,9 +1,8 @@
-﻿
+﻿using NoeticTools.SystemsDashboard.Framework.Plugins;
+using NoeticTools.TeamStatusBoard.Framework.Services;
 
-using NoeticTools.SystemsDashboard.Framework.Services;
 
-
-namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.WebPage
+namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.WebPage
 {
     public sealed class WebPageTilePlugin : IPlugin
     {

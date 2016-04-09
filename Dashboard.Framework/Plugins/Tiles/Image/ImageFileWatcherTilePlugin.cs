@@ -1,7 +1,8 @@
-﻿using NoeticTools.SystemsDashboard.Framework.Services;
+﻿using NoeticTools.SystemsDashboard.Framework.Plugins;
+using NoeticTools.TeamStatusBoard.Framework.Services;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Image
+namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Image
 {
     internal sealed class ImageFileWatcherTilePlugin : IPlugin
     {

@@ -6,12 +6,12 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 
-[assembly: AssemblyTitle("Dashboard.Framework")]
+[assembly: AssemblyTitle("TeamStatusBoard.Framework")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Robert Smyth")]
-[assembly: AssemblyProduct("Dashboard.Framework")]
-[assembly: AssemblyCopyright("Copyright © Robert Smyth 2015")]
+[assembly: AssemblyProduct("TeamStatusBoard.Framework")]
+[assembly: AssemblyCopyright("Copyright © Robert Smyth 2015, 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

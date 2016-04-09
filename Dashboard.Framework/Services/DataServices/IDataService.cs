@@ -1,7 +1,8 @@
-using NoeticTools.SystemsDashboard.Framework.Plugins.DataSources.DashboardData;
+using NoeticTools.SystemsDashboard.Framework.Services;
+using NoeticTools.SystemsDashboard.Framework.Services.DataServices;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Services.DataServices
+namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
 {
     public interface IDataService : IService, IDataSource
     {

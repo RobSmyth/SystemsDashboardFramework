@@ -1,7 +1,7 @@
-using NoeticTools.SystemsDashboard.Framework.Services;
+using NoeticTools.TeamStatusBoard.Framework.Services;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Plugins
+namespace NoeticTools.TeamStatusBoard.Framework.Plugins
 {
     public interface IPlugin
     {

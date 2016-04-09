@@ -7,8 +7,8 @@
     <ProjectGuid>{1F19C0DE-E777-48E9-856B-7376A7527EC0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NoeticTools.SystemsDashboard.Framework</RootNamespace>
-    <AssemblyName>NoeticTools.SystemsDashboard.Framework</AssemblyName>
+    <RootNamespace>NoeticTools.TeamStatusBoard.Framework</RootNamespace>
+    <AssemblyName>NoeticTools.TeamStatusBoard.Framework</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -85,9 +85,11 @@
   <ItemGroup>
     <Compile Include="Adorners\DropTargetAdorner.cs" />
     <Compile Include="Adorners\GroupPanelDetailsAdorner.cs" />
-    <Compile Include="Commands\RoutedCommands.cs" />
+    <Compile Include="Commands\ApplicationCommandsBindings.cs" />
     <Compile Include="Commands\SaveConfigurationParametersCommand.cs" />
     <Compile Include="Commands\CloseCommand.cs" />
+    <Compile Include="Commands\ShowDataSourcesCommand.cs" />
+    <Compile Include="Config\Controllers\DataSourcesViewController.cs" />
     <Compile Include="Config\IDashboardConfigurations.cs" />
     <Compile Include="Config\IDashboardConfigurationServices.cs" />
     <Compile Include="Config\IItemConfiguration.cs" />
@@ -99,6 +101,12 @@
     <Compile Include="Config\Properties\TextPropertyViewModel.cs" />
     <Compile Include="Config\Properties\TileColumnSpanViewModel.cs" />
     <Compile Include="Config\Properties\TileRowSpanViewModel.cs" />
+    <Compile Include="Config\Views\PanelWithTitleBarControl.xaml.cs">
+      <DependentUpon>PanelWithTitleBarControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Config\Views\DataSourcesConfigControl.xaml.cs">
+      <DependentUpon>DataSourcesConfigControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dashboards\DashboardController.cs" />
     <Compile Include="Dashboards\DashBoardLoader.cs" />
     <Compile Include="Dashboards\DashBoardLoaderConduit.cs" />
@@ -289,9 +297,6 @@
     <Compile Include="Config\IPropertyViewModel.cs" />
     <Compile Include="Config\TileConfigurationConverter.cs" />
     <Compile Include="Config\Controllers\ConfigationViewController.cs" />
-    <Compile Include="Config\Views\PanelWithTitleBarControl.xaml.cs">
-      <DependentUpon>PanelWithTitleBarControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Converters\DoubleValueConverter.cs" />
     <Compile Include="DataSources\Jira\JiraChannel.cs" />
     <Compile Include="DataSources\TeamCity\IStateEngine.cs" />
@@ -326,6 +331,14 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Config\Views\PanelWithTitleBarControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Config\Views\DataSourcesConfigControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Plugins\Tiles\BlankTile\BlankTileControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -349,10 +362,6 @@
     <Page Include="Config\Views\ParametersConfigControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Config\Views\PanelWithTitleBarControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Plugins\Tiles\Date\DateTileControl.xaml">
       <Generator>MSBuild:Compile</Generator>

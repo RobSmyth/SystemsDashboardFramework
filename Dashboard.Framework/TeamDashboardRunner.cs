@@ -2,36 +2,39 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using NoeticTools.SystemsDashboard.Framework;
-using NoeticTools.SystemsDashboard.Framework.Commands;
 using NoeticTools.SystemsDashboard.Framework.Config;
 using NoeticTools.SystemsDashboard.Framework.Dashboards;
 using NoeticTools.SystemsDashboard.Framework.Input;
-using NoeticTools.SystemsDashboard.Framework.Registries;
-using NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity;
-using NoeticTools.SystemsDashboard.Framework.Plugins;
-using NoeticTools.SystemsDashboard.Framework.Plugins.DataSources.DashboardData;
-using NoeticTools.SystemsDashboard.Framework.Plugins.PropertyEditControls;
-using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.BlankTile;
-using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.DataTiles.DateTimeTile;
-using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.DataTiles.TextTile;
-using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Date;
-using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.DaysLeftCountDown;
-using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.ExpiredTimeAlert;
-using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Help;
-using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Image;
-using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.InsertTile;
-using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.MessageTile;
-using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.ServerStatus;
-using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.AgentStatus;
-using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.AvailableBuilds;
-using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.LastBuildStatus;
-using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.WebPage;
 using NoeticTools.SystemsDashboard.Framework.Services;
 using NoeticTools.SystemsDashboard.Framework.Services.DataServices;
 using NoeticTools.SystemsDashboard.Framework.Services.TimeServices;
+using NoeticTools.TeamStatusBoard.Framework.Commands;
+using NoeticTools.TeamStatusBoard.Framework.Dashboards;
+using NoeticTools.TeamStatusBoard.Framework.DataSources.TeamCity;
+using NoeticTools.TeamStatusBoard.Framework.Plugins;
+using NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.DashboardData;
+using NoeticTools.TeamStatusBoard.Framework.Plugins.PropertyEditControls;
+using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.BlankTile;
+using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.DataTiles.DateTimeTile;
+using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.DataTiles.TextTile;
+using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Date;
+using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.DaysLeftCountDown;
+using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.ExpiredTimeAlert;
+using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Help;
+using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Image;
+using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.InsertTile;
+using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.MessageTile;
+using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.ServerStatus;
+using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.TeamCity.AgentStatus;
+using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.TeamCity.AvailableBuilds;
+using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.TeamCity.LastBuildStatus;
+using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.WebPage;
+using NoeticTools.TeamStatusBoard.Framework.Registries;
+using NoeticTools.TeamStatusBoard.Framework.Services;
+using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 
 
-namespace NoeticTools.SystemsDashboard.Framework
+namespace NoeticTools.TeamStatusBoard.Framework
 {
     public sealed class TeamDashboardRunner
     {
@@ -48,7 +51,7 @@ namespace NoeticTools.SystemsDashboard.Framework
             var tileNavigator = new DashboardTileNavigator(tileGrid);
             var clock = new Clock();
             var timerService = new TimerService(clock);
-            var commands = new RoutedCommands();
+            var commands = new ApplicationCommandsBindings();
             var tileProviderRegistry = new TileProviderRegistry();
             var tileControllerFactory = new TileFactory(tileProviderRegistry);
             var propertyEditControlRegistry = new PropertyEditControlRegistry();

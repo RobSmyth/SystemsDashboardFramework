@@ -27,7 +27,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dashboard.Framework\SystemsDashboard.Framework.csproj">
-      <Name>SystemsDashboard.Framework</Name>
+      <Name>TeamStatusBoard.Framework</Name>
       <Project>{1f19c0de-e777-48e9-856b-7376a7527ec0}</Project>
       <Private>True</Private>
       <DoNotHarvest>True</DoNotHarvest>

@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Windows;
+using NoeticTools.SystemsDashboard.Framework;
 using NoeticTools.SystemsDashboard.Framework.Config;
 using NoeticTools.SystemsDashboard.Framework.Dashboards;
-using NoeticTools.SystemsDashboard.Framework.Services;
 using NoeticTools.SystemsDashboard.Framework.Tiles.ServerStatus;
+using NoeticTools.TeamStatusBoard.Framework.Dashboards;
+using NoeticTools.TeamStatusBoard.Framework.Services;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.ServerStatus
+namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.ServerStatus
 {
     internal sealed class WmiTileProvider : ITileControllerProvider
     {

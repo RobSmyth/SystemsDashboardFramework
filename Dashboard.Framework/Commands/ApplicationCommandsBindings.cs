@@ -1,19 +1,20 @@
 ﻿using System.Windows;
 using System.Windows.Input;
+using NoeticTools.SystemsDashboard.Framework;
 using NoeticTools.SystemsDashboard.Framework.Config;
 using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Commands
+namespace NoeticTools.TeamStatusBoard.Framework.Commands
 {
-    public class RoutedCommands
+    public class ApplicationCommandsBindings
     {
         public readonly CommandBinding SaveCommandBinding = new CommandBinding(ApplicationCommands.Save);
         public readonly CommandBinding CloseCommandBinding = new CommandBinding(ApplicationCommands.Close);
         public readonly CommandBinding DeleteCommandBinding = new CommandBinding(ApplicationCommands.Delete);
         public readonly CommandBinding OpenCommandBinding = new CommandBinding(ApplicationCommands.Open);
 
-        public RoutedCommands()
+        public ApplicationCommandsBindings()
         {
             ApplicationCommands.Open.InputGestures.Add(new MouseGesture(MouseAction.LeftDoubleClick));
             ApplicationCommands.Open.InputGestures.Add(new KeyGesture(Key.Enter));
@@ -24,7 +25,6 @@ namespace NoeticTools.SystemsDashboard.Framework.Commands
         {
             BindViewToDeleteCommand(tile, view, layoutController);
             BindViewToOpenCommand(view);
-            
         }
 
         private void BindViewToDeleteCommand(TileConfiguration tile, UIElement view, ITileLayoutController layoutController)
@@ -32,8 +32,8 @@ namespace NoeticTools.SystemsDashboard.Framework.Commands
             view.CommandBindings.Add(DeleteCommandBinding);
             DeleteCommandBinding.Executed += (sender, args) =>
             {
-                var frameworkElement = ((FrameworkElement)sender);
-                if (ReferenceEquals(view, frameworkElement) && frameworkElement.IsKeyboardFocusWithin)
+                var senderElement = ((FrameworkElement)sender);
+                if (ReferenceEquals(view, senderElement) && senderElement.IsKeyboardFocusWithin)
                 {
                     layoutController.Remove(tile);
                 }
@@ -45,8 +45,8 @@ namespace NoeticTools.SystemsDashboard.Framework.Commands
             view.CommandBindings.Add(OpenCommandBinding);
             OpenCommandBinding.Executed += (sender, args) =>
             {
-                var frameworkElement = ((FrameworkElement)sender);
-                if (ReferenceEquals(view, frameworkElement) && frameworkElement.IsKeyboardFocusWithin)
+                var senderElement = ((FrameworkElement)sender);
+                if (ReferenceEquals(view, senderElement) && senderElement.IsKeyboardFocusWithin)
                 {
                     var viewModel = view.DataContext as ITileViewModel;
                     if (viewModel != null && viewModel.ConfigureCommand.CanExecute(null))

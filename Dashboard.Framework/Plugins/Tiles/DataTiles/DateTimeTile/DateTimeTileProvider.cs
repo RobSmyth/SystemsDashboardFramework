@@ -1,11 +1,13 @@
 using System.Windows;
+using NoeticTools.SystemsDashboard.Framework;
 using NoeticTools.SystemsDashboard.Framework.Config;
 using NoeticTools.SystemsDashboard.Framework.Dashboards;
 using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.DataTiles.TextTile;
-using NoeticTools.SystemsDashboard.Framework.Services;
+using NoeticTools.TeamStatusBoard.Framework.Dashboards;
+using NoeticTools.TeamStatusBoard.Framework.Services;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.DataTiles.DateTimeTile
+namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.DataTiles.DateTimeTile
 {
     internal sealed class DateTimeDataTileProvider : ITileControllerProvider
     {

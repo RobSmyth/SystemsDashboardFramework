@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Threading.Tasks;
 using log4net;
-using NoeticTools.SystemsDashboard.Framework.Commands;
 using NoeticTools.SystemsDashboard.Framework.Config;
 using NoeticTools.SystemsDashboard.Framework.Config.Properties;
-using NoeticTools.SystemsDashboard.Framework.Config.Controllers;
 using NoeticTools.SystemsDashboard.Framework.Dashboards;
+using NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity;
 using NoeticTools.SystemsDashboard.Framework.Services;
 using NoeticTools.SystemsDashboard.Framework.Services.TimeServices;
+using NoeticTools.TeamStatusBoard.Framework.Commands;
+using NoeticTools.TeamStatusBoard.Framework.Config.Controllers;
+using NoeticTools.TeamStatusBoard.Framework.Services;
 using TeamCitySharp;
 using TeamCitySharp.DomainEntities;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
+namespace NoeticTools.TeamStatusBoard.Framework.DataSources.TeamCity
 {
     public sealed class TeamCityService : IStateEngine<ITeamCityChannel>, IConfigurationChangeListener, ITimerListener, ITeamCityService
     {
@@ -101,7 +103,7 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
             };
 
             const string title = "TeamCity Server Configuration";
-            var controller = new ConfigationViewController(title, new RoutedCommands(), parameters, _services);
+            var controller = new ConfigationViewController(title, new ApplicationCommandsBindings(), parameters, _services);
             _dashboardController.ShowOnSidePane(controller.CreateView(), title);
         }
 

@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
+using NoeticTools.SystemsDashboard.Framework;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Registries
+namespace NoeticTools.TeamStatusBoard.Framework.Registries
 {
     public sealed class TileProviderRegistry : ITileProviderRegistry
     {

@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Windows.Input;
+using NoeticTools.SystemsDashboard.Framework;
 using NoeticTools.SystemsDashboard.Framework.Commands;
 using NoeticTools.SystemsDashboard.Framework.Config;
 using NoeticTools.SystemsDashboard.Framework.Config.Properties;
 using NoeticTools.SystemsDashboard.Framework.Dashboards;
-using NoeticTools.SystemsDashboard.Framework.Services;
+using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles;
+using NoeticTools.TeamStatusBoard.Framework.Commands;
+using NoeticTools.TeamStatusBoard.Framework.Services;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.DataTiles.DateTimeTile
+namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.DataTiles.DateTimeTile
 {
     internal sealed class DateTimeDataTileViewModel : NotifyingViewModelBase, IConfigurationChangeListener, ITileViewModel
     {
@@ -15,7 +18,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.DataTiles.DateTim
         private readonly TileConfigurationConverter _tileConfigurationConverter;
         private string _text;
 
-        public DateTimeDataTileViewModel(TileConfiguration tile, IDashboardController dashboardController, TileLayoutController layoutController, IServices services)
+        public DateTimeDataTileViewModel(TileConfiguration tile, IDashboardController dashboardController, ITileLayoutController layoutController, IServices services)
         {
             _services = services;
             _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
@@ -48,13 +51,13 @@ namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.DataTiles.DateTim
 
         private void Update()
         {
-            var propertyAddress = _tileConfigurationConverter.GetString("PropertyAddress");
             var dateTimeFormat = _tileConfigurationConverter.GetString("DateTimeFormat");
             if (string.IsNullOrWhiteSpace(dateTimeFormat))
             {
                 dateTimeFormat = "M";
                 _tileConfigurationConverter.SetParameter("DateTimeFormat", dateTimeFormat);
             }
+            var propertyAddress = _tileConfigurationConverter.GetString("PropertyAddress");
             var utcTime = _services.DataService.Read<string>(propertyAddress);
             DateTime dateTime;
             if (!DateTime.TryParse(utcTime, out dateTime))

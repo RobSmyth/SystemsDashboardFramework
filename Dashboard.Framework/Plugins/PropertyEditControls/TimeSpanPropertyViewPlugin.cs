@@ -1,7 +1,9 @@
-﻿using NoeticTools.SystemsDashboard.Framework.Services;
+﻿using NoeticTools.SystemsDashboard.Framework.Plugins;
+using NoeticTools.SystemsDashboard.Framework.Plugins.PropertyEditControls;
+using NoeticTools.TeamStatusBoard.Framework.Services;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Plugins.PropertyEditControls
+namespace NoeticTools.TeamStatusBoard.Framework.Plugins.PropertyEditControls
 {
     public class TimeSpanPropertyViewPlugin : IPlugin
     {

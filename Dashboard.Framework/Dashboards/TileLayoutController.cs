@@ -5,15 +5,18 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
+using NoeticTools.SystemsDashboard.Framework;
 using NoeticTools.SystemsDashboard.Framework.Adorners;
-using NoeticTools.SystemsDashboard.Framework.Commands;
 using NoeticTools.SystemsDashboard.Framework.Config;
+using NoeticTools.SystemsDashboard.Framework.Dashboards;
 using NoeticTools.SystemsDashboard.Framework.Input;
-using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.BlankTile;
 using NoeticTools.SystemsDashboard.Framework.Registries;
+using NoeticTools.TeamStatusBoard.Framework.Commands;
+using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.BlankTile;
+using NoeticTools.TeamStatusBoard.Framework.Registries;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Dashboards
+namespace NoeticTools.TeamStatusBoard.Framework.Dashboards
 {
     public sealed class TileLayoutController : ITileLayoutController
     {
@@ -26,11 +29,11 @@ namespace NoeticTools.SystemsDashboard.Framework.Dashboards
         private readonly ITileFactory _tileFactory;
         private readonly IDictionary<TileConfiguration, UIElement> _tileToView = new Dictionary<TileConfiguration, UIElement>();
         private readonly TileLayoutController _parent;
-        private readonly RoutedCommands _commands;
+        private readonly ApplicationCommandsBindings _commandsBindings;
         private TileConfiguration _tile;
 
         public TileLayoutController(Grid tileGrid, ITileFactory tileFactory, ITileLayoutControllerRegistry layoutControllerRegistry, Thickness normalMargin, 
-            TileDragAndDropController dragAndDropController, DashboardTileNavigator tileNavigator, TileLayoutController parent, RoutedCommands commands)
+            TileDragAndDropController dragAndDropController, DashboardTileNavigator tileNavigator, TileLayoutController parent, ApplicationCommandsBindings commandsBindings)
         {
             _tileFactory = tileFactory;
             _layoutControllerRegistry = layoutControllerRegistry;
@@ -38,7 +41,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Dashboards
             _dragAndDropController = dragAndDropController;
             _tileNavigator = tileNavigator;
             _parent = parent;
-            _commands = commands;
+            _commandsBindings = commandsBindings;
             _tileGrid = tileGrid;
             _tileGrid.Margin = _normalMargin;
         }
@@ -389,7 +392,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Dashboards
 
             panel.Children.Add(view);
 
-            _commands.BindView(tile, view, this);
+            _commandsBindings.BindView(tile, view, this);
 
             _dragAndDropController.RegisterTarget(view, this, tile);
             _dragAndDropController.Register(view);

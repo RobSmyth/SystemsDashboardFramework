@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using NoeticTools.SystemsDashboard.Framework.Registries;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Registries

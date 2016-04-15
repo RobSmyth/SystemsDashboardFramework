@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SystemsDashboard", "Dashboard\SystemsDashboard.csproj", "{804D7391-F138-4CBD-8D72-8B3D07BF011A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamStatusBoard", "Dashboard\TeamStatusBoard.csproj", "{804D7391-F138-4CBD-8D72-8B3D07BF011A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SystemsDashboard.Tests", "Tests\SystemsDashboard.Tests.csproj", "{52DDAE2D-F8C4-4462-A6F6-C63867ACD86D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamStatusBoard.Tests", "Tests\TeamStatusBoard.Tests.csproj", "{52DDAE2D-F8C4-4462-A6F6-C63867ACD86D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamStatusBoard.Framework", "Dashboard.Framework\TeamStatusBoard.Framework.csproj", "{1F19C0DE-E777-48E9-856B-7376A7527EC0}"
 EndProject

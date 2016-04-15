@@ -42,7 +42,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.TeamCity
             _repository.Write("Service.URL", _configuration.Url);
             _repository.Write("Service.Status", services.RunOptions.EmulateMode ? "Connected" : "Stopped");
             _repository.Write("Service.Connected", false);
-            _repository.Write("Service.Mode", services.RunOptions.EmulateMode ? "Emulated" : "Real");
+            _repository.Write("Service.Mode", services.RunOptions.EmulateMode ? "Emulated" : "Run");
         }
 
         public string[] ProjectNames => _current.ProjectNames;

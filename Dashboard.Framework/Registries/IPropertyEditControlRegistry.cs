@@ -1,4 +1,4 @@
-namespace NoeticTools.SystemsDashboard.Framework.Registries
+namespace NoeticTools.TeamStatusBoard.Framework.Registries
 {
     public interface IPropertyEditControlRegistry
     {

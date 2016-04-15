@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
+using NoeticTools.SystemsDashboard.Framework.DataSources;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.DataSources
+namespace NoeticTools.TeamStatusBoard.Framework.DataSources
 {
     public class DataPropertiesRepository : IPropertiesDataService
     {

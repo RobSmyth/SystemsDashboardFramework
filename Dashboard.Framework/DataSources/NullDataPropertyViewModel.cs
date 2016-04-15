@@ -1,4 +1,7 @@
-﻿namespace NoeticTools.SystemsDashboard.Framework.DataSources
+﻿using NoeticTools.SystemsDashboard.Framework;
+
+
+namespace NoeticTools.TeamStatusBoard.Framework.DataSources
 {
     public class NullDataPropertyViewModel<T> : NotifyingViewModelBase, IDataPropertyViewModel<T>
     {

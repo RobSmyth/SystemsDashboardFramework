@@ -11,6 +11,7 @@ using NoeticTools.TeamStatusBoard.Framework.Commands;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Plugins;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.DashboardData;
+using NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.FileSystem;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.TeamCity;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.PropertyEditControls;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.BlankTile;
@@ -100,6 +101,7 @@ namespace NoeticTools.TeamStatusBoard.Framework
             {
                 new TeamCityServicePlugin(),
                 new DashboardDataSourcePlugin(), 
+                new FileReaderDataSourcePlugin(), 
                 new TextPropertyViewPlugin(),
                 new DatePropertyViewPlugin(),
                 new TimeSpanPropertyViewPlugin(), 

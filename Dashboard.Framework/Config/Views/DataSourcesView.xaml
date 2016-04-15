@@ -6,8 +6,31 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     
-    <Grid Name="root" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Transparent">
+    <UserControl.Resources>
+
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/NoeticTools.TeamStatusBoard.Framework;component/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="TextBlock" BasedOn="{StaticResource ConfigPanelStyleTextbox}" />
+            <Style TargetType="Grid" BasedOn="{StaticResource ConfigPanelStyleGrid}" />
+            <Style TargetType="Button" BasedOn="{StaticResource ConfigPanelStyleButton}"/>
+            <Style TargetType="ComboBox" BasedOn="{StaticResource ConfigPanelStyleCombobox}"/>
+            <Style TargetType="Hyperlink" BasedOn="{StaticResource ConfigpanelStyleHyperlink}"/>
+        </ResourceDictionary>
         
+    </UserControl.Resources>
+    
+    <Grid Name="root" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Transparent">
+
+        <Grid.Resources>
+            <DataTemplate x:Key="EditingDataSourceTemplate">
+                <TextBlock Margin="2,0,2,0">
+                    <Hyperlink>Configure</Hyperlink>
+                </TextBlock>
+            </DataTemplate>
+        </Grid.Resources>
+
         <Grid.RowDefinitions>
             <RowDefinition Height="*" MaxHeight="200"/>
             <RowDefinition Height="Auto"/>
@@ -21,17 +44,25 @@
                   ItemsSource="{Binding DataSources, Mode=OneWay}"
                   AutoGenerateColumns="False"
                   CanUserAddRows="False" CanUserDeleteRows="False" SelectionMode="Single" SelectionUnit="FullRow"
-                  CanUserSortColumns="True">
+                  CanUserSortColumns="True"
+                  GridLinesVisibility="Horizontal"
+                  RowHeaderWidth="0">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*" SortMemberPath="Name" />
+                <DataGridTemplateColumn CellTemplate="{StaticResource EditingDataSourceTemplate}" />
             </DataGrid.Columns>
         </DataGrid>
         <TextBlock Grid.Row="1" Foreground="White">Parameters</TextBlock>
         <DataGrid x:Name="propertiesGrid" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,2,0,2"
                   ItemsSource="{Binding ElementName=sourcesGrid, Path=SelectedItem.Properties}"
-                  AutoGenerateColumns="True"
+                  AutoGenerateColumns="False"
                   CanUserAddRows="False" CanUserDeleteRows="False" SelectionMode="Single" SelectionUnit="FullRow"
-                  CanUserSortColumns="True">
+                  CanUserSortColumns="True"
+                  RowHeaderWidth="0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" SortMemberPath="Name" />
+                <DataGridTextColumn Header="Value" Binding="{Binding Value}" Width="*" />
+            </DataGrid.Columns>
         </DataGrid>
     </Grid>
     

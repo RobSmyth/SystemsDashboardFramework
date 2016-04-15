@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.DataSources
+namespace NoeticTools.TeamStatusBoard.Framework.DataSources
 {
     public interface IDataPropertyViewModel : INotifyPropertyChanged
     { }

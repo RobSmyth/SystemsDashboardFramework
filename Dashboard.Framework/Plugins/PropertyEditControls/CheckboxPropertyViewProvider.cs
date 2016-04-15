@@ -2,10 +2,10 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using NoeticTools.SystemsDashboard.Framework.Config;
-using NoeticTools.SystemsDashboard.Framework.Registries;
+using NoeticTools.TeamStatusBoard.Framework.Registries;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Plugins.PropertyEditControls
+namespace NoeticTools.TeamStatusBoard.Framework.Plugins.PropertyEditControls
 {
     public class CheckboxPropertyViewProvider : IPropertyViewProvider
     {

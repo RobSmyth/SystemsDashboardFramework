@@ -126,6 +126,8 @@
     <Compile Include="DataSources\DataPropertiesRepository.cs" />
     <Compile Include="DataSources\DataPropertyViewModel.cs" />
     <Compile Include="DataSources\DataPropertyViewModelFactory.cs" />
+    <Compile Include="Plugins\DataSources\FileSystem\FileReaderDataSourcePlugin.cs" />
+    <Compile Include="Plugins\DataSources\FileSystem\FileReaderService.cs" />
     <Compile Include="Plugins\DataSources\TeamCity\ITeamCityService.cs" />
     <Compile Include="Plugins\DataSources\TeamCity\TeamCityServicePlugin.cs" />
     <Compile Include="Input\ITileDragAndDropController.cs" />

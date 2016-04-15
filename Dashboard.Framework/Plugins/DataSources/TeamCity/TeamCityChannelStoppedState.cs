@@ -1,9 +1,8 @@
 using System.Threading.Tasks;
-using System.Windows.Navigation;
 using TeamCitySharp.DomainEntities;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
+namespace NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.TeamCity
 {
     internal class TeamCityChannelStoppedState : ITeamCityChannel
     {
@@ -20,12 +19,12 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
 
         public Task<Build> GetLastBuild(string projectName, string buildConfigurationName)
         {
-            return Task.Run(() => (Build)null);
+            return Task.Run(() => (Build) null);
         }
 
         public Task<Build> GetLastSuccessfulBuild(string projectName, string buildConfigurationName)
         {
-            return Task.Run(() => (Build)null);
+            return Task.Run(() => (Build) null);
         }
 
         public Task<Build[]> GetRunningBuilds(string projectName, string buildConfigurationName, string branchName)
@@ -50,7 +49,7 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
 
         public Task<IBuildAgent> GetAgent(string name)
         {
-            return Task.Run(() => (IBuildAgent)null);
+            return Task.Run(() => (IBuildAgent) null);
         }
     }
 }

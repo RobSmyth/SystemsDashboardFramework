@@ -4,16 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using log4net;
 using NoeticTools.SystemsDashboard.Framework.DataSources.Jira;
-using NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity;
 using NoeticTools.SystemsDashboard.Framework.Services.TimeServices;
 using NoeticTools.TeamStatusBoard.Framework.Services;
-using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 using TeamCitySharp;
 using TeamCitySharp.DomainEntities;
 using TeamCitySharp.Locators;
 
 
-namespace NoeticTools.TeamStatusBoard.Framework.DataSources.TeamCity
+namespace NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.TeamCity
 {
     internal class TeamCityChannelConnectedState : ITeamCityChannel
     {
@@ -81,18 +79,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.DataSources.TeamCity
 
                 return agents;
             });
-        }
-
-        private void UpdateBuildAgentRepository()
-        {
-            var teamCityAgents = _teamCityClient.Agents.All();
-            foreach (var teamCityAgent in teamCityAgents)
-            {
-                if (!_buildAgentRepository.Has(teamCityAgent.Name))
-                {
-                    _buildAgentRepository.Add(new TeamCityBuildAgentViewModel(teamCityAgent.Name, _teamCityClient, _services.Timer));
-                }
-            }
         }
 
         public async Task<Build> GetLastBuild(string projectName, string buildConfigurationName)
@@ -207,6 +193,27 @@ namespace NoeticTools.TeamStatusBoard.Framework.DataSources.TeamCity
             });
         }
 
+        public void Enter()
+        {
+            Task.Run(() => GetAgents());
+            if (ProjectNames.Length > 0)
+            {
+                Task.Run(() => GetConfigurationNames(ProjectNames.First()));
+            }
+        }
+
+        private void UpdateBuildAgentRepository()
+        {
+            var teamCityAgents = _teamCityClient.Agents.All();
+            foreach (var teamCityAgent in teamCityAgents)
+            {
+                if (!_buildAgentRepository.Has(teamCityAgent.Name))
+                {
+                    _buildAgentRepository.Add(new TeamCityBuildAgentViewModel(teamCityAgent.Name, _teamCityClient, _services.Timer));
+                }
+            }
+        }
+
         private async Task<BuildConfig> GetConfiguration(Project project, string buildConfigurationName)
         {
             var buildConfigurations = await GetConfigurations(project);
@@ -229,15 +236,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.DataSources.TeamCity
                     return _buildConfigurations[project];
                 }
             });
-        }
-
-        public void Enter()
-        {
-            Task.Run(() => GetAgents());
-            if (ProjectNames.Length > 0)
-            {
-                Task.Run(() => GetConfigurationNames(ProjectNames.First()));
-            }
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
+﻿namespace NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.TeamCity
 {
     internal interface IStateEngine<T>
     {

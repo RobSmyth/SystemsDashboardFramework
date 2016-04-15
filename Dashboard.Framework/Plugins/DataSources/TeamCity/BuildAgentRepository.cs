@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity;
 using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 
 
-namespace NoeticTools.TeamStatusBoard.Framework.DataSources.TeamCity
+namespace NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.TeamCity
 {
     public sealed class BuildAgentRepository : IBuildAgentRepository
     {

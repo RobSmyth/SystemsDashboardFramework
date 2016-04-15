@@ -4,7 +4,6 @@ using log4net;
 using NoeticTools.SystemsDashboard.Framework.Config;
 using NoeticTools.SystemsDashboard.Framework.Config.Properties;
 using NoeticTools.SystemsDashboard.Framework.Dashboards;
-using NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity;
 using NoeticTools.SystemsDashboard.Framework.Services.TimeServices;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
 using NoeticTools.TeamStatusBoard.Framework.Config.Controllers;
@@ -14,7 +13,7 @@ using TeamCitySharp;
 using TeamCitySharp.DomainEntities;
 
 
-namespace NoeticTools.TeamStatusBoard.Framework.DataSources.TeamCity
+namespace NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.TeamCity
 {
     public sealed class TeamCityService : IStateEngine<ITeamCityChannel>, IConfigurationChangeListener, ITimerListener, ITeamCityService
     {
@@ -23,9 +22,9 @@ namespace NoeticTools.TeamStatusBoard.Framework.DataSources.TeamCity
         private readonly TeamCityServiceConfiguration _configuration;
         private readonly TeamCityChannelConnectedState _connectedState;
         private readonly ITeamCityChannel _disconnectedState;
+        private readonly IDataSource _repository;
         private ITeamCityChannel _current;
         private ILog _logger;
-        private readonly IDataSource _repository;
 
         public TeamCityService(IServices services, IBuildAgentRepository buildAgentRepository, IDataSource repository)
         {
@@ -47,6 +46,13 @@ namespace NoeticTools.TeamStatusBoard.Framework.DataSources.TeamCity
         }
 
         public string[] ProjectNames => _current.ProjectNames;
+
+        public bool IsConnected
+        {
+            get { return _current.IsConnected; }
+        }
+
+        public string Name => "TeamCity";
 
         public void Connect()
         {
@@ -95,11 +101,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.DataSources.TeamCity
             return _current.GetConfigurationNames(projectName);
         }
 
-        public bool IsConnected
-        {
-            get { return _current.IsConnected; }
-        }
-
         public void Configure()
         {
             var configurationConverter = new TileConfigurationConverter(_configuration, this);
@@ -120,33 +121,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.DataSources.TeamCity
         {
             _configuration.Password = converter.GetString("Password");
         }
-
-        void IStateEngine<ITeamCityChannel>.OnConnected()
-        {
-            _current = _connectedState;
-            _repository.Write("Service.Status", "Connected");
-            _repository.Write("Service.Connected", true);
-            _connectedState.Enter();
-        }
-
-        void IStateEngine<ITeamCityChannel>.OnDisconnected()
-        {
-            _current = _disconnectedState;
-            _repository.Write("Service.Status", "Disconnected");
-            _repository.Write("Service.Connected", false);
-        }
-
-        ITeamCityChannel IStateEngine<ITeamCityChannel>.Current => _current;
-
-        void ITimerListener.OnTimeElapsed(TimerToken token)
-        {
-            if (!IsConnected)
-            {
-                Connect();
-            }
-        }
-
-        public string Name => "TeamCity";
 
         public void Stop()
         {
@@ -169,5 +143,30 @@ namespace NoeticTools.TeamStatusBoard.Framework.DataSources.TeamCity
             }
             _current = _disconnectedState;
         }
+
+        void IStateEngine<ITeamCityChannel>.OnConnected()
+        {
+            _current = _connectedState;
+            _repository.Write("Service.Status", "Connected");
+            _repository.Write("Service.Connected", true);
+            _connectedState.Enter();
+        }
+
+        void IStateEngine<ITeamCityChannel>.OnDisconnected()
+        {
+            _current = _disconnectedState;
+            _repository.Write("Service.Status", "Disconnected");
+            _repository.Write("Service.Connected", false);
+        }
+
+        void ITimerListener.OnTimeElapsed(TimerToken token)
+        {
+            if (!IsConnected)
+            {
+                Connect();
+            }
+        }
+
+        ITeamCityChannel IStateEngine<ITeamCityChannel>.Current => _current;
     }
 }

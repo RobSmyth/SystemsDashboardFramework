@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
 using log4net;
-using NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity;
 using NoeticTools.TeamStatusBoard.Framework.Services;
-using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 using TeamCitySharp;
 using TeamCitySharp.DomainEntities;
 
 
-namespace NoeticTools.TeamStatusBoard.Framework.DataSources.TeamCity
+namespace NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.TeamCity
 {
     internal class TeamCityChannelDisconnectedState : ITeamCityChannel
     {
@@ -17,10 +15,11 @@ namespace NoeticTools.TeamStatusBoard.Framework.DataSources.TeamCity
         private readonly IBuildAgentRepository _buildAgentRepository;
         private readonly IServices _services;
         private readonly IStateEngine<ITeamCityChannel> _stateEngine;
-        private bool _testingConnection;
         private readonly ILog _logger;
+        private bool _testingConnection;
 
-        public TeamCityChannelDisconnectedState(TeamCityClient teamCityClient, IStateEngine<ITeamCityChannel> stateEngine, TeamCityServiceConfiguration configuration, IBuildAgentRepository buildAgentRepository, IServices services)
+        public TeamCityChannelDisconnectedState(TeamCityClient teamCityClient, IStateEngine<ITeamCityChannel> stateEngine, TeamCityServiceConfiguration configuration, IBuildAgentRepository buildAgentRepository,
+            IServices services)
         {
             _teamCityClient = teamCityClient;
             _stateEngine = stateEngine;
@@ -44,33 +43,30 @@ namespace NoeticTools.TeamStatusBoard.Framework.DataSources.TeamCity
 
             _logger.Debug("Attempt to connect.");
 
-            Task.Run(() =>
-            {
-                _teamCityClient.Connect(_configuration.UserName, _configuration.Password);
-            })
-            .ContinueWith(x =>
-            {
-                try
+            Task.Run(() => { _teamCityClient.Connect(_configuration.UserName, _configuration.Password); })
+                .ContinueWith(x =>
                 {
-                    if (_teamCityClient.Authenticate())
+                    try
                     {
-                        _logger.Info("Has connected.");
-                        _stateEngine.OnConnected();
+                        if (_teamCityClient.Authenticate())
+                        {
+                            _logger.Info("Has connected.");
+                            _stateEngine.OnConnected();
+                        }
+                        else
+                        {
+                            _logger.Debug("Connection failed.");
+                        }
                     }
-                    else
+                    catch (Exception exception)
                     {
-                        _logger.Debug("Connection failed.");
+                        _logger.Debug("Connection failed.", exception);
                     }
-                }
-                catch (Exception exception)
-                {
-                    _logger.Debug("Connection failed.", exception);
-                }
-                finally
-                {
-                    _testingConnection = false;
-                }
-            });
+                    finally
+                    {
+                        _testingConnection = false;
+                    }
+                });
         }
 
         public void Disconnect()
@@ -82,7 +78,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.DataSources.TeamCity
             return Task.Run(() =>
             {
                 Connect();
-                return (Build)null;
+                return (Build) null;
             });
         }
 
@@ -91,7 +87,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.DataSources.TeamCity
             return Task.Run(() =>
             {
                 Connect();
-                return (Build)null;
+                return (Build) null;
             });
         }
 

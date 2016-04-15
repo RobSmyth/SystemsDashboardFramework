@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using log4net;
 using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
-using TeamCitySharp;
 using TeamCitySharp.DomainEntities;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
+namespace NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.TeamCity
 {
     internal class TeamCityChannelEmulatedState : ITeamCityChannel
     {
@@ -16,7 +15,7 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
         private readonly Dictionary<string, Project> _projects = new Dictionary<string, Project>();
         private readonly Random _rand;
         private readonly object _syncRoot = new object();
-        private readonly string[] _status = new[] { "SUCCESS", "SUCCESS", "SUCCESS", "SUCCESS", "FAILURE", "UNKNOWN" };
+        private readonly string[] _status = {"SUCCESS", "SUCCESS", "SUCCESS", "SUCCESS", "FAILURE", "UNKNOWN"};
         private ILog _logger;
 
         public TeamCityChannelEmulatedState(IDataSource repository)
@@ -81,7 +80,7 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
                 var buildConfiguration = GetBuildConfiguration(project, buildConfigurationName);
                 var build = CreateBuild(buildConfiguration, randomValue);
                 build.Status = randomValue <= 1 ? "RUNNING" : "RUNNING FAILED";
-                return new[] { build };
+                return new[] {build};
             });
         }
 

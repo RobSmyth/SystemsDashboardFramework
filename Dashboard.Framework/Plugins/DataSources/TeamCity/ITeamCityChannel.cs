@@ -2,7 +2,7 @@
 using TeamCitySharp.DomainEntities;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
+namespace NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.TeamCity
 {
     public interface ITeamCityChannel
     {

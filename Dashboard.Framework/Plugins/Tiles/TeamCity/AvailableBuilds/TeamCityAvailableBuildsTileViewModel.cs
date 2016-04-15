@@ -15,7 +15,7 @@ using NoeticTools.SystemsDashboard.Framework.Services.TimeServices;
 using NoeticTools.SystemsDashboard.Framework.Tiles.TeamCityAvailableBuilds;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
-using NoeticTools.TeamStatusBoard.Framework.DataSources.TeamCity;
+using NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.TeamCity;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 
 

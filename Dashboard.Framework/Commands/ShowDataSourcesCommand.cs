@@ -2,17 +2,18 @@ using System;
 using System.Windows.Input;
 using NoeticTools.SystemsDashboard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Config.Controllers;
+using NoeticTools.TeamStatusBoard.Framework.Services;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Commands
 {
     public class ShowDataSourcesCommand : ICommand
     {
-        private readonly IDashboardController _dashboardController;
+        private readonly IServices _services;
 
-        public ShowDataSourcesCommand(IDashboardController dashboardController)
+        public ShowDataSourcesCommand(IServices services)
         {
-            _dashboardController = dashboardController;
+            _services = services;
         }
 
         public bool CanExecute(object parameter)
@@ -28,8 +29,8 @@ namespace NoeticTools.TeamStatusBoard.Framework.Commands
                 y.CanExecute = false;
                 y.Handled = true;
             };
-            var controller = new DataSourcesViewController(commands);
-            _dashboardController.ShowOnSidePane(controller.CreateView(), "Data Sources");
+            var controller = new DataSourcesViewProvider(commands, _services);
+            _services.DashboardController.ShowOnSidePane(controller.CreateView(), "Data Sources");
         }
 
         public event EventHandler CanExecuteChanged;

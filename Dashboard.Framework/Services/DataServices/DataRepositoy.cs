@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
+using NoeticTools.SystemsDashboard.Framework.Services.DataServices;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Services.DataServices
+namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
 {
     public class DataRepositoy : IDataSource
     {
@@ -19,6 +20,11 @@ namespace NoeticTools.SystemsDashboard.Framework.Services.DataServices
         public void AddListener(IDataChangeListener listener)
         {
             _listeners.Add(listener);
+        }
+
+        public IEnumerable<string> GetAllNames()
+        {
+            return _values.Keys.ToArray();
         }
 
         public void Write<T>(string name, T value)

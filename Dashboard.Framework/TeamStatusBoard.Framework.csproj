@@ -91,7 +91,9 @@
     <Compile Include="Commands\SaveConfigurationParametersCommand.cs" />
     <Compile Include="Commands\CloseCommand.cs" />
     <Compile Include="Commands\ShowDataSourcesCommand.cs" />
-    <Compile Include="Config\Controllers\DataSourcesViewController.cs" />
+    <Compile Include="Config\Controllers\DataSourcesViewProvider.cs" />
+    <Compile Include="Config\ViewModels\DataSourcePropertyViewModel.cs" />
+    <Compile Include="Config\ViewModels\DataSourcesViewModel.cs" />
     <Compile Include="Config\IDashboardConfigurations.cs" />
     <Compile Include="Config\IDashboardConfigurationServices.cs" />
     <Compile Include="Config\IItemConfiguration.cs" />
@@ -103,11 +105,14 @@
     <Compile Include="Config\Properties\TextPropertyViewModel.cs" />
     <Compile Include="Config\Properties\TileColumnSpanViewModel.cs" />
     <Compile Include="Config\Properties\TileRowSpanViewModel.cs" />
+    <Compile Include="Config\ViewModels\DataSourceViewModel.cs" />
+    <Compile Include="Config\ViewModels\IDataSourcePropertyViewModel.cs" />
+    <Compile Include="Config\ViewModels\IDataSourceViewModel.cs" />
     <Compile Include="Config\Views\PanelWithTitleBarControl.xaml.cs">
       <DependentUpon>PanelWithTitleBarControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Config\Views\DataSourcesConfigControl.xaml.cs">
-      <DependentUpon>DataSourcesConfigControl.xaml</DependentUpon>
+    <Compile Include="Config\Views\DataSourcesView.xaml.cs">
+      <DependentUpon>DataSourcesView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dashboards\DashboardController.cs" />
     <Compile Include="Dashboards\DashBoardLoader.cs" />
@@ -337,7 +342,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Config\Views\DataSourcesConfigControl.xaml">
+    <Page Include="Config\Views\DataSourcesView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

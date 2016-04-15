@@ -17,18 +17,16 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         
-        <DataGrid x:Name="sourcesGrid" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,5,0,2">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" />
-                <DataGridTextColumn Header="Description" />
-            </DataGrid.Columns>
+        <DataGrid x:Name="sourcesGrid" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,5,0,2"
+                  ItemsSource="{Binding DataSources, Mode=OneWay}"
+                  AutoGenerateColumns="True"
+                  CanUserAddRows="False" CanUserDeleteRows="False" SelectionMode="Single" SelectionUnit="FullRow">
         </DataGrid>
         <TextBlock Grid.Row="1" Foreground="White">Parameters</TextBlock>
-        <DataGrid x:Name="propertiesGrid" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,2,0,2">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Parameter name" />
-                <DataGridTextColumn Header="Value" />
-            </DataGrid.Columns>
+        <DataGrid x:Name="propertiesGrid" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,2,0,2"
+                  ItemsSource="{Binding ElementName=sourcesGrid, Path=SelectedItem.Properties}"
+                  AutoGenerateColumns="True"
+                  CanUserAddRows="False" CanUserDeleteRows="False" SelectionMode="Single" SelectionUnit="FullRow">
         </DataGrid>
     </Grid>
     

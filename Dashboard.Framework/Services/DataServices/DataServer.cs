@@ -37,6 +37,16 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
             return GetDataSource(sourceName).Read<T>(propertyName);
         }
 
+        public IEnumerable<string> GetAllNames()
+        {
+            return _sources.Keys.ToArray();
+        }
+
+        public IEnumerable<IDataSource> GetAllDataSources()
+        {
+            return _sources.Values.ToArray();
+        }
+
         public IDataSource GetDataSource(string name)
         {
             if (!_sources.ContainsKey(name))

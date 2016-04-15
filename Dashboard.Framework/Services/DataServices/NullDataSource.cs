@@ -1,7 +1,8 @@
-using System;
+using System.Collections.Generic;
+using NoeticTools.SystemsDashboard.Framework.Services.DataServices;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Services.DataServices
+namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
 {
     public class NullDataSource : IDataSource, IDataChangeListener
     {
@@ -23,6 +24,11 @@ namespace NoeticTools.SystemsDashboard.Framework.Services.DataServices
         public T Read<T>(string name)
         {
             return default(T);
+        }
+
+        public IEnumerable<string> GetAllNames()
+        {
+            return new string[0];
         }
     }
 }

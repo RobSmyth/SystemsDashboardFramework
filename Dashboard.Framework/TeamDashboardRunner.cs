@@ -65,8 +65,6 @@ namespace NoeticTools.TeamStatusBoard.Framework
             _dashboardController = new DashboardController(dashboardConfigurationManager, timerService, sidePanel, _config, _dashboardNavigator, tileProviderRegistry, dragAndDropController, tileNavigator);
             KeyboardHandler = new KeyboardHandler(_dashboardController);
 
-            TsbCommands.SetDefaultShowDataSources(new ShowDataSourcesCommand(_dashboardController));
-
             _applicationServices = new ApplicationServices(
                 tileProviderRegistry, KeyboardHandler, propertyEditControlRegistry, timerService, 
                 new DataServer(new DataRepositoryFactory()), 
@@ -74,6 +72,8 @@ namespace NoeticTools.TeamStatusBoard.Framework
                 _dashboardController,
                 _config,
                 new RunOptions());
+
+            TsbCommands.SetDefaultShowDataSources(new ShowDataSourcesCommand(_applicationServices));
 
             var rootTileLayoutController = new TileLayoutController(tileGrid, tileControllerFactory, tileLayoutControllerRegistry, new Thickness(0), dragAndDropController, tileNavigator, null, commands);
             _loader = new DashBoardLoader(rootTileLayoutController);

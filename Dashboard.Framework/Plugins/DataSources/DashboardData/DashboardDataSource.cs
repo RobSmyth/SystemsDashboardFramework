@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using NoeticTools.SystemsDashboard.Framework.Config;
 using NoeticTools.SystemsDashboard.Framework.Plugins.DataSources.StaticProperties;
 using NoeticTools.SystemsDashboard.Framework.Services.DataServices;
 using NoeticTools.SystemsDashboard.Framework.Services.TimeServices;
 using NoeticTools.TeamStatusBoard.Framework.Services;
+using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.DashboardData
@@ -50,6 +52,11 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.DashboardDat
         public T Read<T>(string name)
         {
             return _innerDataSource.Read<T>(name);
+        }
+
+        public IEnumerable<string> GetAllNames()
+        {
+            return _innerDataSource.GetAllNames();
         }
     }
 }

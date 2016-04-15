@@ -1,28 +1,31 @@
 ﻿using System.Windows;
 using System.Windows.Input;
-using NoeticTools.SystemsDashboard.Framework;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
+using NoeticTools.TeamStatusBoard.Framework.Config.ViewModels;
 using NoeticTools.TeamStatusBoard.Framework.Config.Views;
+using NoeticTools.TeamStatusBoard.Framework.Services;
 using DataSourcesConfigControl = NoeticTools.TeamStatusBoard.Framework.Config.Views.DataSourcesConfigControl;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Config.Controllers
 {
-    public sealed class DataSourcesViewController : NotifyingViewModelBase
+    public sealed class DataSourcesViewProvider
     {
         private readonly TsbCommands _commands;
+        private readonly IServices _services;
         private PaneWithTitleBarControl _panelView;
 
-        public DataSourcesViewController(TsbCommands commands)
+        public DataSourcesViewProvider(TsbCommands commands, IServices services)
         {
             _commands = commands;
+            _services = services;
         }
 
         public FrameworkElement CreateView()
         {
             _commands.CloseCommandBinding.Executed += CloseCommandBinding_Executed;
 
-            var view = new DataSourcesConfigControl(_commands) { DataContext = this };
+            var view = new DataSourcesConfigControl(_commands) { DataContext = new DataSourcesViewModel(_services) };
 
             _panelView = new PaneWithTitleBarControl("Data sources", view, _commands)
             {

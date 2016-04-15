@@ -58,5 +58,10 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.DashboardDat
         {
             return _innerDataSource.GetAllNames();
         }
+
+        public void AddListener(IDataChangeListener listener)
+        {
+            _innerDataSource.AddListener(listener);
+        }
     }
 }

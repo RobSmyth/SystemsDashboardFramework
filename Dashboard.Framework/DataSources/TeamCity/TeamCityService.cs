@@ -5,11 +5,11 @@ using NoeticTools.SystemsDashboard.Framework.Config;
 using NoeticTools.SystemsDashboard.Framework.Config.Properties;
 using NoeticTools.SystemsDashboard.Framework.Dashboards;
 using NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity;
-using NoeticTools.SystemsDashboard.Framework.Services;
 using NoeticTools.SystemsDashboard.Framework.Services.TimeServices;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
 using NoeticTools.TeamStatusBoard.Framework.Config.Controllers;
 using NoeticTools.TeamStatusBoard.Framework.Services;
+using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 using TeamCitySharp;
 using TeamCitySharp.DomainEntities;
 
@@ -25,29 +25,38 @@ namespace NoeticTools.TeamStatusBoard.Framework.DataSources.TeamCity
         private readonly ITeamCityChannel _disconnectedState;
         private ITeamCityChannel _current;
         private ILog _logger;
+        private readonly IDataSource _repository;
 
-        public TeamCityService(IServices services, IBuildAgentRepository buildAgentRepository)
+        public TeamCityService(IServices services, IBuildAgentRepository buildAgentRepository, IDataSource repository)
         {
+            _repository = repository;
             _dashboardController = services.DashboardController;
             _services = services;
             _configuration = new TeamCityServiceConfiguration(services.Configuration.Services.GetService("TeamCity"));
             var client = new TeamCityClient(_configuration.Url);
             _disconnectedState = new TeamCityChannelDisconnectedState(client, this, _configuration, buildAgentRepository, _services);
-            _connectedState = new TeamCityChannelConnectedState(client, this, services.Clock, buildAgentRepository, _services);
-            _current = services.RunOptions.EmulateMode ? new TeamCityChannelEmulatedState() : _disconnectedState;
+            _connectedState = new TeamCityChannelConnectedState(client, this, buildAgentRepository, _services);
+            _current = services.RunOptions.EmulateMode ? new TeamCityChannelEmulatedState(repository) : _disconnectedState;
             _logger = LogManager.GetLogger("DateSources.TeamCity.Connected");
             _services.Timer.QueueCallback(TimeSpan.FromMilliseconds(10), this);
+
+            _repository.Write("Service.URL", _configuration.Url);
+            _repository.Write("Service.Status", services.RunOptions.EmulateMode ? "Connected" : "Stopped");
+            _repository.Write("Service.Connected", false);
+            _repository.Write("Service.Mode", services.RunOptions.EmulateMode ? "Emulated" : "Real");
         }
 
         public string[] ProjectNames => _current.ProjectNames;
 
         public void Connect()
         {
+            _repository.Write("Service.Status", "Connecting");
             _current.Connect();
         }
 
         public void Disconnect()
         {
+            _repository.Write("Service.Status", "Disconnecting");
             _current.Disconnect();
         }
 
@@ -115,12 +124,16 @@ namespace NoeticTools.TeamStatusBoard.Framework.DataSources.TeamCity
         void IStateEngine<ITeamCityChannel>.OnConnected()
         {
             _current = _connectedState;
+            _repository.Write("Service.Status", "Connected");
+            _repository.Write("Service.Connected", true);
             _connectedState.Enter();
         }
 
         void IStateEngine<ITeamCityChannel>.OnDisconnected()
         {
             _current = _disconnectedState;
+            _repository.Write("Service.Status", "Disconnected");
+            _repository.Write("Service.Connected", false);
         }
 
         ITeamCityChannel IStateEngine<ITeamCityChannel>.Current => _current;

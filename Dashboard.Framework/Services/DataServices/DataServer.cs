@@ -42,6 +42,11 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
             return _sources.Keys.ToArray();
         }
 
+        public void AddListener(IDataChangeListener listener)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<IDataSource> GetAllDataSources()
         {
             return _sources.Values.ToArray();

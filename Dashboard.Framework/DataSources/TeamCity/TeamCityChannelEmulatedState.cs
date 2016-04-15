@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using log4net;
+using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 using TeamCitySharp;
 using TeamCitySharp.DomainEntities;
 
@@ -18,10 +19,17 @@ namespace NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity
         private readonly string[] _status = new[] { "SUCCESS", "SUCCESS", "SUCCESS", "SUCCESS", "FAILURE", "UNKNOWN" };
         private ILog _logger;
 
-        public TeamCityChannelEmulatedState()
+        public TeamCityChannelEmulatedState(IDataSource repository)
         {
             _rand = new Random(DateTime.Now.Millisecond);
             _logger = LogManager.GetLogger("DateSources.TeamCity.Emulated");
+
+            repository.Write("Projects.Count", 0);
+            foreach (var projectName in ProjectNames)
+            {
+                repository.Write($"Project.{projectName}.Status", "Emulated");
+            }
+            repository.Write("Projects.Count", ProjectNames.Length);
         }
 
         public string[] ProjectNames => new[] {"Project A", "Project B"};

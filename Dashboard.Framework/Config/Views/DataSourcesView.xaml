@@ -19,14 +19,19 @@
         
         <DataGrid x:Name="sourcesGrid" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,5,0,2"
                   ItemsSource="{Binding DataSources, Mode=OneWay}"
-                  AutoGenerateColumns="True"
-                  CanUserAddRows="False" CanUserDeleteRows="False" SelectionMode="Single" SelectionUnit="FullRow">
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False" CanUserDeleteRows="False" SelectionMode="Single" SelectionUnit="FullRow"
+                  CanUserSortColumns="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*" SortMemberPath="Name" />
+            </DataGrid.Columns>
         </DataGrid>
         <TextBlock Grid.Row="1" Foreground="White">Parameters</TextBlock>
         <DataGrid x:Name="propertiesGrid" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,2,0,2"
                   ItemsSource="{Binding ElementName=sourcesGrid, Path=SelectedItem.Properties}"
                   AutoGenerateColumns="True"
-                  CanUserAddRows="False" CanUserDeleteRows="False" SelectionMode="Single" SelectionUnit="FullRow">
+                  CanUserAddRows="False" CanUserDeleteRows="False" SelectionMode="Single" SelectionUnit="FullRow"
+                  CanUserSortColumns="True">
         </DataGrid>
     </Grid>
     

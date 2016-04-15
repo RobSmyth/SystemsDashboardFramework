@@ -30,5 +30,9 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
         {
             return new string[0];
         }
+
+        public void AddListener(IDataChangeListener listener)
+        {
+        }
     }
 }

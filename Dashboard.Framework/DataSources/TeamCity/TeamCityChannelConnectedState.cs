@@ -7,6 +7,7 @@ using NoeticTools.SystemsDashboard.Framework.DataSources.Jira;
 using NoeticTools.SystemsDashboard.Framework.DataSources.TeamCity;
 using NoeticTools.SystemsDashboard.Framework.Services.TimeServices;
 using NoeticTools.TeamStatusBoard.Framework.Services;
+using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 using TeamCitySharp;
 using TeamCitySharp.DomainEntities;
 using TeamCitySharp.Locators;
@@ -26,15 +27,15 @@ namespace NoeticTools.TeamStatusBoard.Framework.DataSources.TeamCity
         private readonly ILog _logger;
         private readonly object _syncRoot = new object();
 
-        public TeamCityChannelConnectedState(TeamCityClient teamCityClient, IStateEngine<ITeamCityChannel> stateEngine, IClock clock, IBuildAgentRepository buildAgentRepository, IServices services)
+        public TeamCityChannelConnectedState(TeamCityClient teamCityClient, IStateEngine<ITeamCityChannel> stateEngine, IBuildAgentRepository buildAgentRepository, IServices services)
         {
             _teamCityClient = teamCityClient;
             _stateEngine = stateEngine;
-            _clock = clock;
+            _clock = services.Clock;
             _buildAgentRepository = buildAgentRepository;
             _services = services;
             _logger = LogManager.GetLogger("DateSources.TeamCity.Connected");
-            _projects = new TimeCachedArray<Project>(() => _teamCityClient.Projects.All(), TimeSpan.FromMinutes(5), clock);
+            _projects = new TimeCachedArray<Project>(() => _teamCityClient.Projects.All(), TimeSpan.FromMinutes(5), _clock);
         }
 
         public string[] ProjectNames => _projects.Items.Select(x => x.Name).ToArray();
@@ -76,7 +77,9 @@ namespace NoeticTools.TeamStatusBoard.Framework.DataSources.TeamCity
             return Task.Run(() =>
             {
                 UpdateBuildAgentRepository();
-                return _buildAgentRepository.GetAll();
+                var agents = _buildAgentRepository.GetAll();
+
+                return agents;
             });
         }
 

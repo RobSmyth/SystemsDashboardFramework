@@ -28,7 +28,8 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.DashboardDat
             _timerToken = services.Timer.QueueCallback(_tickTime, this);
         }
 
-        public string Name => "Dashboard";
+        public string TypeName => "Dashboard";
+        public string Name => "";
 
         public void Write<T>(string name, T value)
         {

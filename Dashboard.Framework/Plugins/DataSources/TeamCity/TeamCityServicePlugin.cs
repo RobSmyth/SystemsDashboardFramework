@@ -10,9 +10,9 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.TeamCity
 
         public void Register(IServices services)
         {
-            var dataSource = new DataRepositoryFactory().Create("TeamCity", 1);
+            var dataSource = new DataRepositoryFactory().Create("TeamCity", "0");
             services.Register(new TeamCityService(services, new BuildAgentRepository(dataSource), dataSource));
-            services.DataService.Register("TeamCity", dataSource);
+            services.DataService.Register("TeamCity", dataSource, new NullTileControllerProvider());
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Input;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
+using NoeticTools.TeamStatusBoard.Framework.Config.ViewModels;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Config.Views

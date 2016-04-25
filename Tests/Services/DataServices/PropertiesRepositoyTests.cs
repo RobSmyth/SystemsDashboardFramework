@@ -11,7 +11,7 @@ namespace NoeticTools.TeamStatusBoard.Tests.Services.DataServices
 
         protected override void SetUp()
         {
-            _target = new DataRepositoy("A");
+            _target = new DataRepositoy("1", "A");
         }
 
         protected override void TearDown()

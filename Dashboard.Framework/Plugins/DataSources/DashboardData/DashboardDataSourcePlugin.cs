@@ -10,7 +10,8 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.DashboardDat
 
         public void Register(IServices services)
         {
-            services.DataService.Register("Dashboard", new DashboardDataSource(services.Configuration.Services, services, new DataRepositoy("DashboardInner")));
+            services.DataService.Register("Dashboard", new DashboardDataSource(services.Configuration.Services, services, 
+                new DataRepositoy("DashboardInner", "")), new NullTileControllerProvider());
         }
     }
 }

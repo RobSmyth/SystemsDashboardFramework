@@ -1,4 +1,5 @@
-﻿using NoeticTools.TeamStatusBoard.Framework.Services;
+﻿using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.BlankTile;
+using NoeticTools.TeamStatusBoard.Framework.Services;
 using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 
 
@@ -10,9 +11,11 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.FileSystem
 
         public void Register(IServices services)
         {
-            var dataSource = new DataRepositoryFactory().Create("FileReader", 1);
+            var dataSource = new DataRepositoryFactory().Create("FileReader", "0");
             services.Register(new FileReaderService(services, dataSource));
-            services.DataService.Register("FileReader", dataSource);
+            services.DataService.Register("FileReader", dataSource, new FileReaderDataSourceConfigurationTileProvider(dataSource));
+
+            // todo - user should be able to add any number of FileReader datasources
         }
     }
 }

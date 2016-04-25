@@ -9,10 +9,13 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
         private readonly IDictionary<string, object> _values = new Dictionary<string, object>();
         private readonly IList<IDataChangeListener> _listeners = new List<IDataChangeListener>();
 
-        public DataRepositoy(string name)
+        public DataRepositoy(string typeName, string name)
         {
+            TypeName = typeName;
             Name = name;
         }
+
+        public string TypeName { get; }
 
         public string Name { get; }
 

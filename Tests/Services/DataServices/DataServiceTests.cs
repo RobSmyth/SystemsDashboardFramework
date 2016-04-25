@@ -24,37 +24,37 @@ namespace NoeticTools.TeamStatusBoard.Tests.Services.DataServices
         [Test]
         public void GetDataSource_CreatesSink_WhenNoSinkExists()
         {
-            Assert.IsNotNull(_target.GetDataSource("A"));
+            Assert.IsNotNull(_target.GetDataSource("1", "A"));
         }
 
         [Test]
         public void GetDataSource_CreatesSourceAndRegistersWithSink_WhenSinkExsists()
         {
             var sink1 = NewMock<IDataSource>();
-            _sinkFactory.Setup(x => x.Create("A", 1)).Returns(sink1.Object);
+            _sinkFactory.Setup(x => x.Create("1", "A")).Returns(sink1.Object);
             sink1.SetupGet(x => x.Name).Returns("A.1");
-            _target.GetDataSource("A");
+            _target.GetDataSource("1", "A");
 
-            Assert.IsNotNull(_target.GetDataSource("A.1"));
+            Assert.IsNotNull(_target.GetDataSource("1", "A.1"));
         }
 
         [Test]
         public void GetDataSource_ReturnsDifferentSource_WhenDuplicateNameAndNoSinkExists()
         {
-            Assert.IsNotNull(_target.GetDataSource("A"));
-            Assert.IsNotNull(_target.GetDataSource("A"));
+            Assert.IsNotNull(_target.GetDataSource("1", "A"));
+            Assert.IsNotNull(_target.GetDataSource("1", "A"));
         }
 
         [Test]
         public void GetDataSource_ReturnsDifferentSourcesRegisteredWithSink_WhenDuplicateNameAndSinkExists()
         {
             var sink1 = NewMock<IDataSource>();
-            _sinkFactory.Setup(x => x.Create("A", 1)).Returns(sink1.Object);
+            _sinkFactory.Setup(x => x.Create("1", "A")).Returns(sink1.Object);
             sink1.SetupGet(x => x.Name).Returns("A.1");
-            _target.GetDataSource("A");
+            _target.GetDataSource("1", "A");
 
-            Assert.IsNotNull(_target.GetDataSource("A.1"));
-            Assert.IsNotNull(_target.GetDataSource("A.1"));
+            Assert.IsNotNull(_target.GetDataSource("1", "A.1"));
+            Assert.IsNotNull(_target.GetDataSource("1", "A.1"));
         }
     }
 }

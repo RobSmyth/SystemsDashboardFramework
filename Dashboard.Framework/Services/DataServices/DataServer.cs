@@ -15,7 +15,8 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
             _repositoryFactory = repositoryFactory;
         }
 
-        public string Name => "DataServer";
+        public string TypeName => "DataServer";
+        public string Name => "";
 
         public void Write<T>(string name, T value)
         {
@@ -25,14 +26,15 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
         public T Read<T>(string address)
         {
             var elements = address.Split('.');
-            if (elements.Length < 2)
+            if (elements.Length < 3)
             {
                 return default(T);
             }
 
-            var sourceName = elements.First();
-            var propertyName = address.Substring(sourceName.Length + 1);
-            return GetDataSource(sourceName).Read<T>(propertyName);
+            var typeName = elements[0];
+            var sourceName = elements[1];
+            var propertyName = address.Substring(typeName.Length + sourceName.Length + 2);
+            return GetDataSource(typeName, sourceName).Read<T>(propertyName);
         }
 
         public IEnumerable<string> GetAllNames()
@@ -50,16 +52,16 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
             return _sources.Values.ToArray();
         }
 
-        public IDataSource GetDataSource(string name)
+        public IDataSource GetDataSource(string typeName, string name)
         {
             if (!_sources.ContainsKey(name))
             {
-                return new NullDataSource(name);
+                return new NullDataSource(typeName, name);
             }
             return _sources[name];
         }
 
-        public void Register(string name, IDataSource dataSource)
+        public void Register(string name, IDataSource dataSource, ITileControllerProvider configurationTileProvider)
         {
             _sources.Add(name, dataSource);
         }

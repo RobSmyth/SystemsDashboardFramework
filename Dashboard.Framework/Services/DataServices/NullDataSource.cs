@@ -5,11 +5,13 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
 {
     public class NullDataSource : IDataSource, IDataChangeListener
     {
-        public NullDataSource(string name)
+        public NullDataSource(string typeName, string name)
         {
+            TypeName = typeName;
             Name = name;
         }
 
+        public string TypeName { get; }
         public string Name { get; }
 
         public void OnChanged()

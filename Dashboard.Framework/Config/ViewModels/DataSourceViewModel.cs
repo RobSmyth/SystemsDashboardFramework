@@ -17,7 +17,15 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.ViewModels
             _dataSource.AddListener(this);
         }
 
-        public string Name => _dataSource.Name;
+        public string TypeName
+        {
+            get { return _dataSource.TypeName; }
+        }
+
+        public string Name
+        {
+            get { return _dataSource.Name; }
+        }
 
         public ObservableCollection<IDataSourcePropertyViewModel> Properties { get; }
 

@@ -61,12 +61,6 @@
                             <TextBlock Foreground="Black" VerticalAlignment="Center" Padding="2">Sources</TextBlock>
                         </StackPanel>
                     </Button>
-                    <Button Padding="2" Style="{StaticResource ConfigPanelStyleToolbarButton}">
-                        <StackPanel Orientation="Horizontal">
-                        <Image Height="12" Source="/NoeticTools.TeamStatusBoard.Framework;component/Images/Cog1_16x16.png" VerticalAlignment="Center"/>
-                            <TextBlock Foreground="Black" VerticalAlignment="Center" Padding="2">Settings (todo)</TextBlock>
-                        </StackPanel>
-                    </Button>
                 </ToolBar>
             </ToolBarTray>
             

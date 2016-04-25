@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Input;
-using NoeticTools.SystemsDashboard.Framework.Input;
-using NoeticTools.SystemsDashboard.Framework.Plugins;
+using NoeticTools.TeamStatusBoard.Framework.Input;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 
 

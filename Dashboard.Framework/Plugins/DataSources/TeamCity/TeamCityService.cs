@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Threading.Tasks;
 using log4net;
-using NoeticTools.SystemsDashboard.Framework.Config;
-using NoeticTools.SystemsDashboard.Framework.Config.Properties;
-using NoeticTools.SystemsDashboard.Framework.Dashboards;
-using NoeticTools.SystemsDashboard.Framework.Services.TimeServices;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
+using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Config.Controllers;
+using NoeticTools.TeamStatusBoard.Framework.Config.Properties;
+using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
+using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
 using TeamCitySharp;
 using TeamCitySharp.DomainEntities;
 

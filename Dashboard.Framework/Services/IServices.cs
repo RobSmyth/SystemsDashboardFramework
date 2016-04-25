@@ -1,11 +1,9 @@
-using NoeticTools.SystemsDashboard.Framework;
-using NoeticTools.SystemsDashboard.Framework.Config;
-using NoeticTools.SystemsDashboard.Framework.Dashboards;
-using NoeticTools.SystemsDashboard.Framework.Input;
-using NoeticTools.SystemsDashboard.Framework.Services;
-using NoeticTools.SystemsDashboard.Framework.Services.TimeServices;
+using NoeticTools.TeamStatusBoard.Framework.Config;
+using NoeticTools.TeamStatusBoard.Framework.Dashboards;
+using NoeticTools.TeamStatusBoard.Framework.Input;
 using NoeticTools.TeamStatusBoard.Framework.Registries;
 using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
+using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Services

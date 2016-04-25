@@ -1,23 +1,18 @@
 using System;
 using System.IO;
 using System.Windows.Input;
-using NoeticTools.SystemsDashboard.Framework;
-using NoeticTools.SystemsDashboard.Framework.Commands;
-using NoeticTools.SystemsDashboard.Framework.Config;
-using NoeticTools.SystemsDashboard.Framework.Config.Properties;
-using NoeticTools.SystemsDashboard.Framework.Dashboards;
-using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles;
-using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.ExpiredTimeAlert;
-using NoeticTools.SystemsDashboard.Framework.Services.TimeServices;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
+using NoeticTools.TeamStatusBoard.Framework.Config;
+using NoeticTools.TeamStatusBoard.Framework.Config.Properties;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Services;
+using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.ExpiredTimeAlert
 {
     /// <summary>
-    /// Tile to show days since a file was touched. May also be configured to change colour on expired time thresholds.
+    ///     Tile to show days since a file was touched. May also be configured to change colour on expired time thresholds.
     /// </summary>
     internal sealed class ExpiredTimeAlertTileViewModel : NotifyingViewModelBase, IConfigurationChangeListener, ITimerListener, ITileViewModel
     {
@@ -46,7 +41,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.ExpiredTimeAlert
                     new PropertyViewModel("Disabled_Text", "Text", _tileConfigurationConverter),
                     new PropertyViewModel("Disabled", "Checkbox", _tileConfigurationConverter)
                 },
-            dashboardController, tileLayoutController, services);
+                dashboardController, tileLayoutController, services);
             DaysSince = "";
             _view.DataContext = this;
             _timerToken = services.Timer.QueueCallback(TimeSpan.FromMilliseconds(10), this);
@@ -114,13 +109,13 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.ExpiredTimeAlert
             {
                 var fileInfo = new FileInfo(touchFilePath);
                 var expired = (_clock.UtcNow - fileInfo.LastWriteTimeUtc);
-                DaysSince = ((int)expired.Days).ToString();
+                DaysSince = expired.Days.ToString();
 
                 if (SetExceeeded("ALERT", expired, "Alert_after_time")) return;
                 if (SetExceeeded("NEAR ALERT", expired, "Warn_after_time")) return;
 
                 var warnAfter = _tileConfigurationConverter.GetTimeSpan("Warn_after_time");
-                
+
                 Status = "RECENT";
 
                 // TODO - SET COLOUR

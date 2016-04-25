@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
-using NoeticTools.SystemsDashboard.Framework.Annotations;
-using NoeticTools.SystemsDashboard.Framework.Input;
+using NoeticTools.TeamStatusBoard.Framework.Annotations;
+using NoeticTools.TeamStatusBoard.Framework.Input;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Adorners
+namespace NoeticTools.TeamStatusBoard.Framework.Adorners
 {
     public class DropTargetAdorner : Adorner
     {
@@ -24,10 +24,6 @@ namespace NoeticTools.SystemsDashboard.Framework.Adorners
             IsHitTestVisible = false;
             _relativeDropPostion = RelativeDropPostion.None;
             _drawHandler = NullDrawHandler;
-        }
-
-        private void NullDrawHandler(DrawingContext arg1, Rect arg2, SolidColorBrush arg3, Pen arg4, double arg5)
-        {
         }
 
         public void Attach()
@@ -62,12 +58,16 @@ namespace NoeticTools.SystemsDashboard.Framework.Adorners
                 {RelativeDropPostion.TopHalf, DrawInsertDockHint},
                 {RelativeDropPostion.BottomHalf, DrawInsertDockHint},
                 {RelativeDropPostion.LeftHalf, DrawInsertDockHint},
-                {RelativeDropPostion.RightHalf, DrawInsertDockHint},
+                {RelativeDropPostion.RightHalf, DrawInsertDockHint}
             };
 
             _drawHandler = lookup[relativeDropPostion];
 
             InvalidateVisual();
+        }
+
+        private void NullDrawHandler(DrawingContext arg1, Rect arg2, SolidColorBrush arg3, Pen arg4, double arg5)
+        {
         }
 
         private static void DrawBottomInsertHint(DrawingContext drawingContext, Rect adornedElementRect, SolidColorBrush renderBrush, Pen renderPen, double thickness)
@@ -118,9 +118,9 @@ namespace NoeticTools.SystemsDashboard.Framework.Adorners
                 DrawRectangle(drawingContext, renderPen, rect, false);
                 if (highlight)
                 {
-                    DrawRectangle(drawingContext, renderPen, 
-                        new Rect(adornedElementRect.TopLeft, 
-                        new Size(adornedElementRect.Width, adornedElementRect.Height / 2.0)), true);
+                    DrawRectangle(drawingContext, renderPen,
+                        new Rect(adornedElementRect.TopLeft,
+                            new Size(adornedElementRect.Width, adornedElementRect.Height/2.0)), true);
                 }
             }
 
@@ -130,9 +130,9 @@ namespace NoeticTools.SystemsDashboard.Framework.Adorners
                 DrawRectangle(drawingContext, renderPen, rect, false);
                 if (highlight)
                 {
-                    DrawRectangle(drawingContext, renderPen, 
-                        new Rect(new Point(adornedElementRect.Left, adornedElementRect.Top + adornedElementRect.Height/2.0), 
-                        new Size(adornedElementRect.Width, adornedElementRect.Height / 2.0)), true);
+                    DrawRectangle(drawingContext, renderPen,
+                        new Rect(new Point(adornedElementRect.Left, adornedElementRect.Top + adornedElementRect.Height/2.0),
+                            new Size(adornedElementRect.Width, adornedElementRect.Height/2.0)), true);
                 }
             }
 
@@ -142,9 +142,9 @@ namespace NoeticTools.SystemsDashboard.Framework.Adorners
                 DrawRectangle(drawingContext, renderPen, rect, false);
                 if (highlight)
                 {
-                    DrawRectangle(drawingContext, renderPen, 
-                        new Rect(adornedElementRect.TopLeft, 
-                        new Size(adornedElementRect.Width / 2.0, adornedElementRect.Height)), true);
+                    DrawRectangle(drawingContext, renderPen,
+                        new Rect(adornedElementRect.TopLeft,
+                            new Size(adornedElementRect.Width/2.0, adornedElementRect.Height)), true);
                 }
             }
 
@@ -154,16 +154,16 @@ namespace NoeticTools.SystemsDashboard.Framework.Adorners
                 DrawRectangle(drawingContext, renderPen, rect, false);
                 if (highlight)
                 {
-                    DrawRectangle(drawingContext, renderPen, 
-                        new Rect(new Point(adornedElementRect.Left + adornedElementRect.Width / 2.0, adornedElementRect.Top),
-                        new Size(adornedElementRect.Width / 2.0, adornedElementRect.Height)), true);
+                    DrawRectangle(drawingContext, renderPen,
+                        new Rect(new Point(adornedElementRect.Left + adornedElementRect.Width/2.0, adornedElementRect.Top),
+                            new Size(adornedElementRect.Width/2.0, adornedElementRect.Height)), true);
                 }
             }
         }
 
         private void DrawRectangle(DrawingContext drawingContext, Pen renderPen, Rect rect, bool highlight)
         {
-            var brush = new SolidColorBrush(FillColour) { Opacity = highlight ? HintOpacity : HintOpacity / 4.0 };
+            var brush = new SolidColorBrush(FillColour) {Opacity = highlight ? HintOpacity : HintOpacity/4.0};
             drawingContext.DrawRectangle(brush, renderPen, rect);
         }
 
@@ -232,7 +232,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Adorners
         protected override void OnRender(DrawingContext drawingContext)
         {
             var adornedElementRect = new Rect(AdornedElement.RenderSize);
-            var renderBrush = new SolidColorBrush(FillColour) {Opacity = HintOpacity };
+            var renderBrush = new SolidColorBrush(FillColour) {Opacity = HintOpacity};
             var renderPen = new Pen(new SolidColorBrush(LineColour) {Opacity = 0.6}, 1.5);
             var thickness = (_relativeDropPostion & RelativeDropPostion.Horizontal) != 0 ? adornedElementRect.Width : adornedElementRect.Height;
             thickness = Math.Max(MinimumThickness, thickness/20.0);

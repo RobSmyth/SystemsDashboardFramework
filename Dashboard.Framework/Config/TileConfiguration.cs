@@ -2,7 +2,7 @@
 using System.Xml.Serialization;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Config
+namespace NoeticTools.TeamStatusBoard.Framework.Config
 {
     [XmlType("tile")]
     public sealed class TileConfiguration : ItemConfigurationBase

@@ -1,7 +1,7 @@
 ﻿using System.Windows.Controls;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Tiles.TeamCityAvailableBuilds
+namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.TeamCity.AvailableBuilds
 {
     public partial class TeamCityAvailableBuildsListControl : UserControl
     {

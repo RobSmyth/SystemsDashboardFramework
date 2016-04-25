@@ -2,18 +2,14 @@
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Threading;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using log4net;
-using NoeticTools.SystemsDashboard.Framework;
-using NoeticTools.SystemsDashboard.Framework.Commands;
-using NoeticTools.SystemsDashboard.Framework.Config;
-using NoeticTools.SystemsDashboard.Framework.Config.Properties;
-using NoeticTools.SystemsDashboard.Framework.Dashboards;
-using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles;
-using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Image;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
+using NoeticTools.TeamStatusBoard.Framework.Config;
+using NoeticTools.TeamStatusBoard.Framework.Config.Properties;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 
@@ -24,11 +20,11 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Image
     {
         private readonly ImageFileWatcherTileControl _view;
         private readonly TileConfigurationConverter _tileConfigurationConverter;
+        private readonly FileSystemWatcher _fileWatcher;
+        private readonly ILog _logger;
         private ImageSource _source;
         private string _imageFilePath = string.Empty;
-        private readonly FileSystemWatcher _fileWatcher;
         private static int _nextInstanceId = 1;
-        private readonly ILog _logger;
 
         public ImageFileWatcherViewModel(TileConfiguration tile, IDashboardController dashboardController, TileLayoutController tileLayoutController, IServices services, ImageFileWatcherTileControl view)
         {
@@ -50,11 +46,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Image
             Update();
         }
 
-        private void OnFileChanged(object sender, FileSystemEventArgs e)
-        {
-            _view.Dispatcher.InvokeAsync(Update);
-        }
-
         public ImageSource Source
         {
             get { return _source; }
@@ -66,18 +57,23 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Image
             }
         }
 
-        public ICommand ConfigureCommand { get; private set; }
+        public ICommand ConfigureCommand { get; }
 
         public void OnConfigurationChanged(TileConfigurationConverter converter)
         {
             Update();
         }
 
+        private void OnFileChanged(object sender, FileSystemEventArgs e)
+        {
+            _view.Dispatcher.InvokeAsync(Update);
+        }
+
         private void Update()
         {
             try
             {
-                System.Threading.Thread.Sleep(50);
+                Thread.Sleep(50);
                 var imageFilePath = _tileConfigurationConverter.GetString("ImagePath").Trim('"');
 
                 _logger.Info($"Setting image source to {imageFilePath}");

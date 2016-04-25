@@ -1,6 +1,5 @@
 using System;
 using System.Windows.Input;
-using NoeticTools.SystemsDashboard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Config.Controllers;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 

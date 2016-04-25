@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Windows.Input;
-using NoeticTools.SystemsDashboard.Framework;
-using NoeticTools.SystemsDashboard.Framework.Commands;
-using NoeticTools.SystemsDashboard.Framework.Config;
-using NoeticTools.SystemsDashboard.Framework.Config.Properties;
-using NoeticTools.SystemsDashboard.Framework.Dashboards;
-using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
+using NoeticTools.TeamStatusBoard.Framework.Config;
+using NoeticTools.TeamStatusBoard.Framework.Config.Properties;
+using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 
 
@@ -25,7 +22,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.DataTiles.DateTime
             var parameters = new IPropertyViewModel[]
             {
                 new PropertyViewModel("PropertyAddress", "Text", _tileConfigurationConverter),
-                new PropertyViewModel("DateTimeFormat", "Text", _tileConfigurationConverter),
+                new PropertyViewModel("DateTimeFormat", "Text", _tileConfigurationConverter)
             };
             ConfigureCommand = new TileConfigureCommand(tile, "Text Data Tile Configuration", parameters, dashboardController, layoutController, services);
             Update();
@@ -42,7 +39,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.DataTiles.DateTime
             }
         }
 
-        public ICommand ConfigureCommand { get; private set; }
+        public ICommand ConfigureCommand { get; }
 
         public void OnConfigurationChanged(TileConfigurationConverter converter)
         {

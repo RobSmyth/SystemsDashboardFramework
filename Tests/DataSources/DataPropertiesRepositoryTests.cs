@@ -1,10 +1,9 @@
 ﻿using Moq;
-using NoeticTools.SystemsDashboard.Framework.DataSources;
 using NoeticTools.TeamStatusBoard.Framework.DataSources;
 using NUnit.Framework;
 
 
-namespace SystemsDashboard.Tests.DataSources
+namespace NoeticTools.TeamStatusBoard.Tests.DataSources
 {
     [TestFixture]
     public class DataPropertiesRepositoryTests : MockingTestFixtureBase
@@ -21,12 +20,6 @@ namespace SystemsDashboard.Tests.DataSources
 
         protected override void TearDown()
         {
-        }
-
-        [Test]
-        public void Has_ReturnsFalse_IfNoPropertyRegistered()
-        {
-            Assert.IsFalse(_target.Has<int>("Provider1.PropertyB"));
         }
 
         [TestCase("Provider1.PropertyA")]
@@ -53,17 +46,6 @@ namespace SystemsDashboard.Tests.DataSources
             Assert.IsTrue(_target.Has<int>(propertyName));
         }
 
-        [Test]
-        public void Get_ReturnsDifferentPropertys_IfSameNameButDifferentProvider()
-        {
-            SetupSampleProperties();
-
-            var property1 = _target.Get<int>("Provider1.PropertyD");
-            var property2 = _target.Get<int>("Provider2.PropertyD");
-
-            Assert.AreNotSame(property1, property2);
-        }
-
         [TestCase("Provider1")]
         [TestCase("Provider1_PropertyD")]
         [TestCase("PropertyD")]
@@ -74,7 +56,44 @@ namespace SystemsDashboard.Tests.DataSources
 
             var property1 = _target.Get<int>(invalidPropertyName);
 
-            Assert.AreEqual(typeof(NullDataPropertyViewModel<int>), property1.GetType());
+            Assert.AreEqual(typeof (NullDataPropertyViewModel<int>), property1.GetType());
+        }
+
+        private void SetupSampleProperties()
+        {
+            var property1 = NewMock<IDataPropertyViewModel<int>>();
+            var property2 = NewMock<IDataPropertyViewModel<int>>();
+            var property3 = NewMock<IDataPropertyViewModel<int>>();
+            var property4 = NewMock<IDataPropertyViewModel<int>>();
+            var stringProperty1 = NewMock<IDataPropertyViewModel<string>>();
+            var stringProperty2 = NewMock<IDataPropertyViewModel<string>>();
+            _factory.Setup(x => x.Create<int>("Provider1.PropertyB")).Returns(property1.Object);
+            _factory.Setup(x => x.Create<int>("Provider1.PropertyC")).Returns(property2.Object);
+            _factory.Setup(x => x.Create<int>("Provider1.PropertyD")).Returns(property3.Object);
+            _factory.Setup(x => x.Create<int>("Provider2.PropertyD")).Returns(property4.Object);
+            _factory.Setup(x => x.Create<string>("Provider1.StringA")).Returns(stringProperty1.Object);
+            _factory.Setup(x => x.Create<string>("Provider2.StringB")).Returns(stringProperty2.Object);
+
+            _target.Add("Provider1", "PropertyB", 7);
+            _target.Add("Provider1", "PropertyC", 11);
+            _target.Add("Provider1", "PropertyD", 13);
+            _target.Add("Provider1", "StringA", "my Value");
+            _target.Add("Provider2", "StringB", "my Value");
+            _target.Add("Provider2", "PropertyD", 17);
+
+            _factory.Verify(x => x.Create<int>(It.IsAny<string>()), Times.Exactly(4));
+            _factory.Verify(x => x.Create<string>(It.IsAny<string>()), Times.Exactly(2));
+        }
+
+        [Test]
+        public void Get_ReturnsDifferentPropertys_IfSameNameButDifferentProvider()
+        {
+            SetupSampleProperties();
+
+            var property1 = _target.Get<int>("Provider1.PropertyD");
+            var property2 = _target.Get<int>("Provider2.PropertyD");
+
+            Assert.AreNotSame(property1, property2);
         }
 
         [Test]
@@ -116,30 +135,10 @@ namespace SystemsDashboard.Tests.DataSources
             _factory.Verify(x => x.Create<int>("Provider1.PropertyZ"), Times.Once);
         }
 
-        private void SetupSampleProperties()
+        [Test]
+        public void Has_ReturnsFalse_IfNoPropertyRegistered()
         {
-            var property1 = NewMock<IDataPropertyViewModel<int>>();
-            var property2 = NewMock<IDataPropertyViewModel<int>>();
-            var property3 = NewMock<IDataPropertyViewModel<int>>();
-            var property4 = NewMock<IDataPropertyViewModel<int>>();
-            var stringProperty1 = NewMock<IDataPropertyViewModel<string>>();
-            var stringProperty2 = NewMock<IDataPropertyViewModel<string>>();
-            _factory.Setup(x => x.Create<int>("Provider1.PropertyB")).Returns(property1.Object);
-            _factory.Setup(x => x.Create<int>("Provider1.PropertyC")).Returns(property2.Object);
-            _factory.Setup(x => x.Create<int>("Provider1.PropertyD")).Returns(property3.Object);
-            _factory.Setup(x => x.Create<int>("Provider2.PropertyD")).Returns(property4.Object);
-            _factory.Setup(x => x.Create<string>("Provider1.StringA")).Returns(stringProperty1.Object);
-            _factory.Setup(x => x.Create<string>("Provider2.StringB")).Returns(stringProperty2.Object);
-
-            _target.Add("Provider1", "PropertyB", 7);
-            _target.Add("Provider1", "PropertyC", 11);
-            _target.Add("Provider1", "PropertyD", 13);
-            _target.Add("Provider1", "StringA", "my Value");
-            _target.Add("Provider2", "StringB", "my Value");
-            _target.Add("Provider2", "PropertyD", 17);
-
-            _factory.Verify(x => x.Create<int>(It.IsAny<string>()), Times.Exactly(4));
-            _factory.Verify(x => x.Create<string>(It.IsAny<string>()), Times.Exactly(2));
+            Assert.IsFalse(_target.Has<int>("Provider1.PropertyB"));
         }
     }
 }

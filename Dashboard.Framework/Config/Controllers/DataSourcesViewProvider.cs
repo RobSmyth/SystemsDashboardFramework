@@ -4,7 +4,6 @@ using NoeticTools.TeamStatusBoard.Framework.Commands;
 using NoeticTools.TeamStatusBoard.Framework.Config.ViewModels;
 using NoeticTools.TeamStatusBoard.Framework.Config.Views;
 using NoeticTools.TeamStatusBoard.Framework.Services;
-using DataSourcesConfigControl = NoeticTools.TeamStatusBoard.Framework.Config.Views.DataSourcesConfigControl;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Config.Controllers
@@ -25,7 +24,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.Controllers
         {
             _commands.CloseCommandBinding.Executed += CloseCommandBinding_Executed;
 
-            var view = new DataSourcesConfigControl(_commands) { DataContext = new DataSourcesViewModel(_services) };
+            var view = new DataSourcesConfigControl(_commands) {DataContext = new DataSourcesViewModel(_services)};
 
             _panelView = new PaneWithTitleBarControl("Data sources", view, _commands)
             {

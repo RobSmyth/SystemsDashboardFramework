@@ -1,6 +1,6 @@
 using System.Linq;
 using System.Windows;
-using NoeticTools.SystemsDashboard.Framework.Config;
+using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 
 

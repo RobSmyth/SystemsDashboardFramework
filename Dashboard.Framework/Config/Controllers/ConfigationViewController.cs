@@ -1,12 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
-using NoeticTools.SystemsDashboard.Framework;
-using NoeticTools.SystemsDashboard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
 using NoeticTools.TeamStatusBoard.Framework.Config.Views;
 using NoeticTools.TeamStatusBoard.Framework.Services;
-using ParametersConfigControl = NoeticTools.TeamStatusBoard.Framework.Config.Views.ParametersConfigControl;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Config.Controllers

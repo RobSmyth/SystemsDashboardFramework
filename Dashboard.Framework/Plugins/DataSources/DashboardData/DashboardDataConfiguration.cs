@@ -1,7 +1,7 @@
-using NoeticTools.SystemsDashboard.Framework.Config;
+using NoeticTools.TeamStatusBoard.Framework.Config;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Plugins.DataSources.StaticProperties
+namespace NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.DashboardData
 {
     public class DashboardDataConfiguration : IItemConfiguration
     {

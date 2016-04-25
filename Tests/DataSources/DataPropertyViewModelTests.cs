@@ -1,9 +1,9 @@
-﻿using NoeticTools.SystemsDashboard.Framework.DataSources;
+﻿using System.ComponentModel;
 using NoeticTools.TeamStatusBoard.Framework.DataSources;
 using NUnit.Framework;
 
 
-namespace SystemsDashboard.Tests.DataSources
+namespace NoeticTools.TeamStatusBoard.Tests.DataSources
 {
     [TestFixture]
     public class DataPropertyViewModelTests : MockingTestFixtureBase
@@ -19,11 +19,9 @@ namespace SystemsDashboard.Tests.DataSources
             _propertyChangedLog = string.Empty;
         }
 
-        [Test]
-        public void Value_IsDefault_Initially()
+        private void Target_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            Assert.AreEqual(default(int), new DataPropertyViewModel<int>().Value);
-            Assert.AreEqual(default(string), new DataPropertyViewModel<string>().Value);
+            _propertyChangedLog += e.PropertyName + ",";
         }
 
         [Test]
@@ -38,9 +36,11 @@ namespace SystemsDashboard.Tests.DataSources
             Assert.AreEqual(7, target.Value);
         }
 
-        private void Target_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        [Test]
+        public void Value_IsDefault_Initially()
         {
-            _propertyChangedLog += e.PropertyName + ",";
+            Assert.AreEqual(default(int), new DataPropertyViewModel<int>().Value);
+            Assert.AreEqual(default(string), new DataPropertyViewModel<string>().Value);
         }
     }
 }

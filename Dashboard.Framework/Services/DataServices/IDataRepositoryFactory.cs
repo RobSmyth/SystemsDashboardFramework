@@ -1,7 +1,4 @@
-﻿using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
-
-
-namespace NoeticTools.SystemsDashboard.Framework.Services.DataServices
+﻿namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
 {
     public interface IDataRepositoryFactory
     {

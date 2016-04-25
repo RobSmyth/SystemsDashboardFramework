@@ -1,4 +1,4 @@
-﻿namespace NoeticTools.SystemsDashboard.Framework
+﻿namespace NoeticTools.TeamStatusBoard.Framework
 {
     public interface IRunOptions
     {

@@ -1,7 +1,7 @@
 ﻿using System.Windows.Controls;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.DataTiles.TextTile
+namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.DataTiles.TextTile
 {
     public partial class TextDataTileControl : UserControl
     {

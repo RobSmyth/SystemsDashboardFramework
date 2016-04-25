@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using NoeticTools.SystemsDashboard.Framework.Services.DataServices;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
@@ -33,6 +32,15 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
             NotifyValueChanged();
         }
 
+        public T Read<T>(string name)
+        {
+            if (!_values.ContainsKey(name))
+            {
+                _values.Add(name, default(T));
+            }
+            return (T) _values[name];
+        }
+
         private void NotifyValueChanged()
         {
             var listeners = _listeners.ToArray();
@@ -40,15 +48,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
             {
                 listener.OnChanged();
             }
-        }
-
-        public T Read<T>(string name)
-        {
-            if (!_values.ContainsKey(name))
-            {
-                _values.Add(name, default(T));
-            }
-            return (T)_values[name];
         }
     }
 }

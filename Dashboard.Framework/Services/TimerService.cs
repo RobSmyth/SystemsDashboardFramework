@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows.Threading;
-using NoeticTools.SystemsDashboard.Framework.Services.TimeServices;
+using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Services
+namespace NoeticTools.TeamStatusBoard.Framework.Services
 {
     public sealed class TimerService : ITimerService, ITimerQueue
     {
@@ -22,6 +22,8 @@ namespace NoeticTools.SystemsDashboard.Framework.Services
             _timer = new DispatcherTimer();
             _timer.Tick += _timer_Tick;
         }
+
+        public string Name => "Timer";
 
         public TimerToken QueueCallback(TimeSpan timeToCallback, ITimerListener listener)
         {
@@ -46,6 +48,19 @@ namespace NoeticTools.SystemsDashboard.Framework.Services
             {
                 dueCallback.Listener.OnTimeElapsed(dueCallback);
             }
+        }
+
+        public void Stop()
+        {
+            _timer.Stop();
+            _stopped = true;
+        }
+
+        public void Start()
+        {
+            _stopped = false;
+            _timer.Interval = TimeSpan.FromMilliseconds(100);
+            _timer.Start();
         }
 
         private void _timer_Tick(object sender, EventArgs e)
@@ -73,21 +88,6 @@ namespace NoeticTools.SystemsDashboard.Framework.Services
         private TimerToken GetNextDueToken()
         {
             return _callbacks.FirstOrDefault(x => x != null && x.DueDateTime <= _clock.UtcNow);
-        }
-
-        public string Name => "Timer";
-
-        public void Stop()
-        {
-            _timer.Stop();
-            _stopped = true;
-        }
-
-        public void Start()
-        {
-            _stopped = false;
-            _timer.Interval = TimeSpan.FromMilliseconds(100);
-            _timer.Start();
         }
     }
 }

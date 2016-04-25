@@ -1,7 +1,7 @@
 using System;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Input
+namespace NoeticTools.TeamStatusBoard.Framework.Input
 {
     [Flags]
     public enum RelativeDropPostion
@@ -22,6 +22,6 @@ namespace NoeticTools.SystemsDashboard.Framework.Input
         Horizontal = Above + Below,
         Vertical = ToLeft + ToRight,
 
-        NewGroup = TopHalf + BottomHalf + LeftHalf +RightHalf,
+        NewGroup = TopHalf + BottomHalf + LeftHalf + RightHalf
     }
 }

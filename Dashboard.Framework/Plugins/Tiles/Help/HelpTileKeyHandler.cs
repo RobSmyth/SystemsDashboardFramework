@@ -1,8 +1,9 @@
 using System.Windows.Input;
-using NoeticTools.SystemsDashboard.Framework.Dashboards;
+using NoeticTools.TeamStatusBoard.Framework.Dashboards;
+using NoeticTools.TeamStatusBoard.Framework.Input;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Help
+namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Help
 {
     public sealed class HelpTileKeyHandler : IKeyHandler
     {

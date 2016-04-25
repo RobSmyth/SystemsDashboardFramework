@@ -1,16 +1,11 @@
 using System;
 using System.Windows.Input;
-using NoeticTools.SystemsDashboard.Framework;
-using NoeticTools.SystemsDashboard.Framework.Commands;
-using NoeticTools.SystemsDashboard.Framework.Config;
-using NoeticTools.SystemsDashboard.Framework.Config.Properties;
-using NoeticTools.SystemsDashboard.Framework.Dashboards;
-using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles;
-using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.DaysLeftCountDown;
-using NoeticTools.SystemsDashboard.Framework.Services.TimeServices;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
+using NoeticTools.TeamStatusBoard.Framework.Config;
+using NoeticTools.TeamStatusBoard.Framework.Config.Properties;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Services;
+using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.DaysLeftCountDown

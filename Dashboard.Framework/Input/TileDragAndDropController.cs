@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-using NoeticTools.SystemsDashboard.Framework.Adorners;
-using NoeticTools.SystemsDashboard.Framework.Config;
-using NoeticTools.SystemsDashboard.Framework.Dashboards;
+using NoeticTools.TeamStatusBoard.Framework.Adorners;
+using NoeticTools.TeamStatusBoard.Framework.Config;
+using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Input
+namespace NoeticTools.TeamStatusBoard.Framework.Input
 {
     public sealed class TileDragAndDropController : ITileDragAndDropController
     {
@@ -24,7 +24,7 @@ namespace NoeticTools.SystemsDashboard.Framework.Input
             {RelativeDropPostion.TopHalf, TileInsertAction.Above},
             {RelativeDropPostion.BottomHalf, TileInsertAction.Below},
             {RelativeDropPostion.LeftHalf, TileInsertAction.ToLeft},
-            {RelativeDropPostion.RightHalf, TileInsertAction.ToRight},
+            {RelativeDropPostion.RightHalf, TileInsertAction.ToRight}
         };
 
         private Point _mouseDownPoint;

@@ -1,7 +1,7 @@
 ﻿using System.Windows.Controls;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Date
+namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Date
 {
     public partial class DateTileControl : UserControl
     {

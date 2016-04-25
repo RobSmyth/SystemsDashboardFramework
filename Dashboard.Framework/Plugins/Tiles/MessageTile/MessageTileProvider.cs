@@ -1,9 +1,6 @@
 using System;
 using System.Windows;
-using NoeticTools.SystemsDashboard.Framework;
-using NoeticTools.SystemsDashboard.Framework.Config;
-using NoeticTools.SystemsDashboard.Framework.Dashboards;
-using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.MessageTile;
+using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 
@@ -31,7 +28,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.MessageTile
 
         public FrameworkElement CreateTile(TileConfiguration tile, TileLayoutController layoutController)
         {
-            return new MessageTileControl { DataContext = new MessageTileViewModel(tile, _dashboardController, layoutController, _services) };
+            return new MessageTileControl {DataContext = new MessageTileViewModel(tile, _dashboardController, layoutController, _services)};
         }
 
         public TileConfiguration CreateDefaultConfiguration()

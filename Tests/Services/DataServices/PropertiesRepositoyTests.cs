@@ -1,9 +1,8 @@
-﻿using NoeticTools.SystemsDashboard.Framework.Services.DataServices;
-using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
+﻿using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 using NUnit.Framework;
 
 
-namespace SystemsDashboard.Tests.Services.DataServices
+namespace NoeticTools.TeamStatusBoard.Tests.Services.DataServices
 {
     [TestFixture]
     public class PropertiesRepositoyTests : MockingTestFixtureBase
@@ -14,7 +13,7 @@ namespace SystemsDashboard.Tests.Services.DataServices
         {
             _target = new DataRepositoy("A");
         }
-            
+
         protected override void TearDown()
         {
         }
@@ -26,16 +25,16 @@ namespace SystemsDashboard.Tests.Services.DataServices
         }
 
         [Test]
+        public void Read_ReturnsDefault_IfNotSet()
+        {
+            Assert.AreEqual(0, _target.Read<int>("Value.1"));
+        }
+
+        [Test]
         public void SetValue_CanBeRead()
         {
             _target.Write("Value.1", 11);
             Assert.AreEqual(11, _target.Read<int>("Value.1"));
-        }
-
-        [Test]
-        public void Read_ReturnsDefault_IfNotSet()
-        {
-            Assert.AreEqual(0, _target.Read<int>("Value.1"));
         }
 
         [Test]

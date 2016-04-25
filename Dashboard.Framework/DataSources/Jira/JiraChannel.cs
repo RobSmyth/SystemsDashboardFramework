@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using Atlassian.Jira;
-using NoeticTools.SystemsDashboard.Framework;
-using NoeticTools.SystemsDashboard.Framework.Services.TimeServices;
+using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.DataSources.Jira
+namespace NoeticTools.TeamStatusBoard.Framework.DataSources.Jira
 {
     public class JiraChannel : IJiraChannel
     {

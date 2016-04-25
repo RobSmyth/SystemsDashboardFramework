@@ -1,7 +1,7 @@
 using System.Windows.Input;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles
+namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles
 {
     internal interface ITileViewModel
     {

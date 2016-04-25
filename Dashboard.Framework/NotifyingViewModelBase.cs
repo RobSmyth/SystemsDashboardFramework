@@ -1,9 +1,9 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using NoeticTools.SystemsDashboard.Framework.Annotations;
+using NoeticTools.TeamStatusBoard.Framework.Annotations;
 
 
-namespace NoeticTools.SystemsDashboard.Framework
+namespace NoeticTools.TeamStatusBoard.Framework
 {
     public abstract class NotifyingViewModelBase : INotifyPropertyChanged
     {

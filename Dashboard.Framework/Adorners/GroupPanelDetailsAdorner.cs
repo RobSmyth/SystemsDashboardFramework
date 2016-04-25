@@ -2,10 +2,10 @@
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
-using NoeticTools.SystemsDashboard.Framework.Annotations;
+using NoeticTools.TeamStatusBoard.Framework.Annotations;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Adorners
+namespace NoeticTools.TeamStatusBoard.Framework.Adorners
 {
     public class GroupPanelDetailsAdorner : Adorner
     {

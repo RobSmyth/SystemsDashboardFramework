@@ -5,12 +5,10 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
-using NoeticTools.SystemsDashboard.Framework;
-using NoeticTools.SystemsDashboard.Framework.Adorners;
-using NoeticTools.SystemsDashboard.Framework.Config;
-using NoeticTools.SystemsDashboard.Framework.Dashboards;
-using NoeticTools.SystemsDashboard.Framework.Input;
+using NoeticTools.TeamStatusBoard.Framework.Adorners;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
+using NoeticTools.TeamStatusBoard.Framework.Config;
+using NoeticTools.TeamStatusBoard.Framework.Input;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.BlankTile;
 using NoeticTools.TeamStatusBoard.Framework.Registries;
 
@@ -30,7 +28,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Dashboards
         private readonly TsbCommands _commandsBindings;
         private TileConfiguration _tile;
 
-        public TileLayoutController(Grid tileGrid, ITileFactory tileFactory, ITileLayoutControllerRegistry layoutControllerRegistry, Thickness normalMargin, 
+        public TileLayoutController(Grid tileGrid, ITileFactory tileFactory, ITileLayoutControllerRegistry layoutControllerRegistry, Thickness normalMargin,
             TileDragAndDropController dragAndDropController, DashboardTileNavigator tileNavigator, TileLayoutController parent, TsbCommands commandsBindings)
         {
             _tileFactory = tileFactory;
@@ -141,7 +139,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Dashboards
                 return;
             }
 
-            var panel = new TileConfiguration()
+            var panel = new TileConfiguration
             {
                 TypeId = TileConfiguration.PaneTileTypeId,
                 Tiles = new[] {tile}
@@ -166,11 +164,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.Dashboards
             AddToConfiguration(newTile);
         }
 
-        private void AddToConfiguration(TileConfiguration tile)
-        {
-            _tile.Tiles = new List<TileConfiguration>(_tile.Tiles) {tile}.ToArray();
-        }
-
         public void AddTile(TileConfiguration tile)
         {
             if (tile.TypeId == TileConfiguration.PaneTileTypeId || tile.TypeId.Equals("6f1bf918-6080-42c2-b980-d562f77cb4e6", StringComparison.InvariantCultureIgnoreCase))
@@ -182,6 +175,11 @@ namespace NoeticTools.TeamStatusBoard.Framework.Dashboards
             {
                 _tileToView.Add(tile, AddTile(tile, _tileFactory.Create(tile, this)));
             }
+        }
+
+        private void AddToConfiguration(TileConfiguration tile)
+        {
+            _tile.Tiles = new List<TileConfiguration>(_tile.Tiles) {tile}.ToArray();
         }
 
         private void RemoveEmptyRowsAndColumns()

@@ -1,22 +1,21 @@
 ﻿using System.Windows;
 using System.Windows.Input;
-using NoeticTools.SystemsDashboard.Framework;
-using NoeticTools.SystemsDashboard.Framework.Config;
-using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles;
+using NoeticTools.TeamStatusBoard.Framework.Config;
+using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Commands
 {
     public class TsbCommands : IApplicationCommands
     {
-        public static readonly RoutedUICommand ShowDataSources = new RoutedUICommand("Show data sources", "ShowDataSourcesCommand", typeof(TsbCommands));
-        private static ICommand _defaultShowDataSourcesCommand;
+        public static readonly RoutedUICommand ShowDataSources = new RoutedUICommand("Show data sources", "ShowDataSourcesCommand", typeof (TsbCommands));
 
         public readonly CommandBinding SaveCommandBinding = new CommandBinding(ApplicationCommands.Save);
         public readonly CommandBinding CloseCommandBinding = new CommandBinding(ApplicationCommands.Close);
         public readonly CommandBinding DeleteCommandBinding = new CommandBinding(ApplicationCommands.Delete);
         public readonly CommandBinding OpenCommandBinding = new CommandBinding(ApplicationCommands.Open);
         public readonly CommandBinding ShowDataSourcesBinding = new CommandBinding(ShowDataSources);
+        private static ICommand _defaultShowDataSourcesCommand;
 
         static TsbCommands()
         {
@@ -33,17 +32,28 @@ namespace NoeticTools.TeamStatusBoard.Framework.Commands
                 y.CanExecute = _defaultShowDataSourcesCommand.CanExecute(y.Parameter);
                 y.Handled = false;
             };
-            ShowDataSourcesBinding.Executed += (x, y) =>
-            {
-                _defaultShowDataSourcesCommand.Execute(y.Parameter);
-            };
-
+            ShowDataSourcesBinding.Executed += (x, y) => { _defaultShowDataSourcesCommand.Execute(y.Parameter); };
         }
 
-        public CommandBinding SaveCommand { get { return SaveCommandBinding; } }
-        public CommandBinding CloseCommand { get { return CloseCommandBinding; } }
-        public CommandBinding DeleteCommand { get { return DeleteCommandBinding; } }
-        public CommandBinding OpenCommand { get { return OpenCommandBinding; } }
+        public CommandBinding SaveCommand
+        {
+            get { return SaveCommandBinding; }
+        }
+
+        public CommandBinding CloseCommand
+        {
+            get { return CloseCommandBinding; }
+        }
+
+        public CommandBinding DeleteCommand
+        {
+            get { return DeleteCommandBinding; }
+        }
+
+        public CommandBinding OpenCommand
+        {
+            get { return OpenCommandBinding; }
+        }
 
         public void BindView(TileConfiguration tile, FrameworkElement view, ITileLayoutController layoutController)
         {
@@ -52,37 +62,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.Commands
             view.CommandBindings.Add(ShowDataSourcesBinding);
             view.CommandBindings.Add(CloseCommandBinding);
             view.CommandBindings.Add(SaveCommandBinding);
-        }
-
-        private void BindViewToDeleteCommand(TileConfiguration tile, UIElement view, ITileLayoutController layoutController)
-        {
-            view.CommandBindings.Add(DeleteCommandBinding);
-            DeleteCommandBinding.Executed += (sender, args) =>
-            {
-                var senderElement = ((FrameworkElement)sender);
-                if (ReferenceEquals(view, senderElement) && senderElement.IsKeyboardFocusWithin)
-                {
-                    layoutController.Remove(tile);
-                }
-            };
-        }
-
-        private void BindViewToOpenCommand(FrameworkElement view)
-        {
-            view.CommandBindings.Add(OpenCommandBinding);
-            OpenCommandBinding.Executed += (sender, args) =>
-            {
-                var senderElement = ((FrameworkElement)sender);
-                if (ReferenceEquals(view, senderElement) && senderElement.IsKeyboardFocusWithin)
-                {
-                    var viewModel = view.DataContext as ITileViewModel;
-                    if (viewModel != null && viewModel.ConfigureCommand.CanExecute(null))
-                    {
-                        viewModel.ConfigureCommand.Execute(null);
-                        args.Handled = true;
-                    }
-                }
-            };
         }
 
         public void BindViewToAllCommands(UIElement element)
@@ -96,6 +75,37 @@ namespace NoeticTools.TeamStatusBoard.Framework.Commands
         public static void SetDefaultShowDataSources(ICommand showDataSourcesCommand)
         {
             _defaultShowDataSourcesCommand = showDataSourcesCommand;
+        }
+
+        private void BindViewToDeleteCommand(TileConfiguration tile, UIElement view, ITileLayoutController layoutController)
+        {
+            view.CommandBindings.Add(DeleteCommandBinding);
+            DeleteCommandBinding.Executed += (sender, args) =>
+            {
+                var senderElement = ((FrameworkElement) sender);
+                if (ReferenceEquals(view, senderElement) && senderElement.IsKeyboardFocusWithin)
+                {
+                    layoutController.Remove(tile);
+                }
+            };
+        }
+
+        private void BindViewToOpenCommand(FrameworkElement view)
+        {
+            view.CommandBindings.Add(OpenCommandBinding);
+            OpenCommandBinding.Executed += (sender, args) =>
+            {
+                var senderElement = ((FrameworkElement) sender);
+                if (ReferenceEquals(view, senderElement) && senderElement.IsKeyboardFocusWithin)
+                {
+                    var viewModel = view.DataContext as ITileViewModel;
+                    if (viewModel != null && viewModel.ConfigureCommand.CanExecute(null))
+                    {
+                        viewModel.ConfigureCommand.Execute(null);
+                        args.Handled = true;
+                    }
+                }
+            };
         }
     }
 }

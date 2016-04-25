@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Input;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Input
+namespace NoeticTools.TeamStatusBoard.Framework.Input
 {
     public class LookupKeyboardHandler : IKeyHandler
     {

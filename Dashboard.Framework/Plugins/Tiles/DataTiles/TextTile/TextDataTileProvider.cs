@@ -1,8 +1,5 @@
 using System.Windows;
-using NoeticTools.SystemsDashboard.Framework;
-using NoeticTools.SystemsDashboard.Framework.Config;
-using NoeticTools.SystemsDashboard.Framework.Dashboards;
-using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.DataTiles.TextTile;
+using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 
@@ -30,7 +27,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.DataTiles.TextTile
 
         public FrameworkElement CreateTile(TileConfiguration tile, TileLayoutController layoutController)
         {
-            return new TextDataTileControl { DataContext = new TextDataTileViewModel(tile, _dashboardController, layoutController, _services) };
+            return new TextDataTileControl {DataContext = new TextDataTileViewModel(tile, _dashboardController, layoutController, _services)};
         }
 
         public TileConfiguration CreateDefaultConfiguration()

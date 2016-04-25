@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Windows.Input;
-using NoeticTools.SystemsDashboard.Framework.Services.TimeServices;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
+using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Date
+namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Date
 {
     internal sealed class DateTileViewModel : NotifyingViewModelBase, ITimerListener, ITileViewModel
     {

@@ -1,7 +1,7 @@
 using System.Windows;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Input
+namespace NoeticTools.TeamStatusBoard.Framework.Input
 {
     public interface IDragSource
     {

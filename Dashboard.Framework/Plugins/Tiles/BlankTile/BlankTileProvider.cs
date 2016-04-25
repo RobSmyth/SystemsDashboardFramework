@@ -1,8 +1,6 @@
 using System;
 using System.Windows;
-using NoeticTools.SystemsDashboard.Framework.Config;
-using NoeticTools.SystemsDashboard.Framework.Dashboards;
-using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Date;
+using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 
@@ -11,9 +9,9 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.BlankTile
 {
     public sealed class BlankTileProvider : ITileControllerProvider
     {
+        private const string TileTypeId = "Blank.Tile";
         private readonly IDashboardController _dashboardController;
         private readonly IServices _services;
-        private const string TileTypeId = "Blank.Tile";
 
         public BlankTileProvider(IDashboardController dashboardController, IServices services)
         {

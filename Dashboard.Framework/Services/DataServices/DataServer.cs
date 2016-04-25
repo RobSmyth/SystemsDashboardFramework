@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using NoeticTools.SystemsDashboard.Framework.Services;
-using NoeticTools.SystemsDashboard.Framework.Services.DataServices;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
@@ -10,7 +8,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
     public class DataServer : IDataService
     {
         private readonly IDataRepositoryFactory _repositoryFactory;
-        private readonly IDictionary<string, IDataSource>  _sources = new Dictionary<string, IDataSource>();
+        private readonly IDictionary<string, IDataSource> _sources = new Dictionary<string, IDataSource>();
 
         public DataServer(IDataRepositoryFactory repositoryFactory)
         {

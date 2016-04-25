@@ -1,6 +1,4 @@
-﻿using NoeticTools.SystemsDashboard.Framework.Plugins;
-using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Help;
-using NoeticTools.TeamStatusBoard.Framework.Services;
+﻿using NoeticTools.TeamStatusBoard.Framework.Services;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Help

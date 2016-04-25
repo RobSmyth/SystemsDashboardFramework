@@ -2,7 +2,7 @@
 using System.Globalization;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Config
+namespace NoeticTools.TeamStatusBoard.Framework.Config
 {
     public sealed class TileConfigurationConverter
     {
@@ -67,6 +67,12 @@ namespace NoeticTools.SystemsDashboard.Framework.Config
             SetParameter(name, value.ToString());
         }
 
+        public string GetString(string name, string defaultValue)
+        {
+            var value = GetString(name);
+            return string.IsNullOrWhiteSpace(value) ? defaultValue : value;
+        }
+
         private void SetParameter<T>(string name, T value)
         {
             var textValue = value.ToString();
@@ -75,12 +81,6 @@ namespace NoeticTools.SystemsDashboard.Framework.Config
                 _inner.GetParameter(name, string.Empty).Value = textValue;
                 _listener.OnConfigurationChanged(this);
             }
-        }
-
-        public string GetString(string name, string defaultValue)
-        {
-            var value = GetString(name);
-            return string.IsNullOrWhiteSpace(value) ? defaultValue : value;
         }
     }
 }

@@ -2,19 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using log4net;
-using NoeticTools.SystemsDashboard.Framework.Services.TimeServices;
+using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.DataSources.Jira
+namespace NoeticTools.TeamStatusBoard.Framework.DataSources.Jira
 {
     public class TimeCachedArray<T>
     {
         private readonly Func<IEnumerable<T>> _loader;
         private readonly TimeSpan _lifeTime;
         private readonly IClock _clock;
+        private readonly ILog _logger;
         private DateTime _nextRefresh;
         private T[] _items = new T[0];
-        private ILog _logger;
 
         public TimeCachedArray(Func<IEnumerable<T>> loader, TimeSpan lifeTime, IClock clock)
         {

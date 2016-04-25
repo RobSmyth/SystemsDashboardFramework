@@ -2,7 +2,7 @@
 using Atlassian.Jira;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.DataSources.Jira
+namespace NoeticTools.TeamStatusBoard.Framework.DataSources.Jira
 {
     public class JiraChannelEmulateState : IJiraChannel
     {

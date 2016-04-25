@@ -1,12 +1,11 @@
 ﻿using NUnit.Framework;
 
 
-namespace SystemsDashboard.Tests.Services
+namespace NoeticTools.TeamStatusBoard.Tests.Services.DataServices
 {
     [TestFixture]
     public class DataSourceTests : MockingTestFixtureBase
     {
-
         protected override void SetUp()
         {
         }

@@ -6,17 +6,13 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using log4net;
-using NoeticTools.SystemsDashboard.Framework.Commands;
-using NoeticTools.SystemsDashboard.Framework.Config;
-using NoeticTools.SystemsDashboard.Framework.Config.Properties;
-using NoeticTools.SystemsDashboard.Framework.Dashboards;
-using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles;
-using NoeticTools.SystemsDashboard.Framework.Services.TimeServices;
-using NoeticTools.SystemsDashboard.Framework.Tiles.TeamCityAvailableBuilds;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
+using NoeticTools.TeamStatusBoard.Framework.Config;
+using NoeticTools.TeamStatusBoard.Framework.Config.Properties;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.TeamCity;
 using NoeticTools.TeamStatusBoard.Framework.Services;
+using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.TeamCity.AvailableBuilds
@@ -57,7 +53,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.TeamCity.Available
             _services.Timer.QueueCallback(TimeSpan.FromSeconds(_service.IsConnected ? 1 : 4), this);
         }
 
-        public ICommand ConfigureCommand { get; private set; }
+        public ICommand ConfigureCommand { get; }
         public ObservableCollection<BuildDetails> Builds { get; }
 
         public void OnConfigurationChanged(TileConfigurationConverter converter)
@@ -146,14 +142,14 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.TeamCity.Available
                         var ageInDays = (DateTime.Now - build.StartDate).Days;
                         var imageSource = ageInDays < 2
                             ? new BitmapImage(
-                                new Uri("pack://application:,,,/NoeticTools.SystemsDashboard.Framework;component/Images/YellowStar_32x32.png"))
+                                new Uri("pack://application:,,,/NoeticTools.TeamStatusBoard.Framework;component/Images/YellowStar_32x32.png"))
                             : ageInDays < 7
                                 ? new BitmapImage(
-                                    new Uri("pack://application:,,,/NoeticTools.SystemsDashboard.Framework;component/Images/WhiteStar_20x20.png"))
+                                    new Uri("pack://application:,,,/NoeticTools.TeamStatusBoard.Framework;component/Images/WhiteStar_20x20.png"))
                                 : ageInDays < 14
                                     ? new BitmapImage(
                                         new Uri(
-                                            "pack://application:,,,/NoeticTools.SystemsDashboard.Framework;component/Images/TransparentStar_20x20.png"))
+                                            "pack://application:,,,/NoeticTools.TeamStatusBoard.Framework;component/Images/TransparentStar_20x20.png"))
                                     : new BitmapImage();
 
                         builds.Add(new BuildDetails

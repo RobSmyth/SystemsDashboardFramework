@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
-using NoeticTools.SystemsDashboard.Framework.Dashboards;
+using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Input
+namespace NoeticTools.TeamStatusBoard.Framework.Input
 {
     public class KeyboardHandler : IKeyboardHandler
     {

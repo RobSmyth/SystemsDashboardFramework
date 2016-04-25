@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Services.TimeServices
+namespace NoeticTools.TeamStatusBoard.Framework.Services.TimeServices
 {
     public class Clock : IClock
     {

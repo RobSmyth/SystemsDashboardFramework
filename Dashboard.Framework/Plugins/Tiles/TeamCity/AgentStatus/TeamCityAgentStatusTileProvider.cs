@@ -1,9 +1,6 @@
 using System;
 using System.Windows;
-using NoeticTools.SystemsDashboard.Framework;
-using NoeticTools.SystemsDashboard.Framework.Config;
-using NoeticTools.SystemsDashboard.Framework.Dashboards;
-using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.AgentStatus;
+using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.TeamCity;
 using NoeticTools.TeamStatusBoard.Framework.Services;
@@ -13,10 +10,10 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.TeamCity.AgentStat
 {
     public sealed class TeamCityAgentStatusTileProvider : ITileControllerProvider
     {
+        private const string TileTypeId = "TeamCity.Agent.Status";
         private readonly TeamCityService _service;
         private readonly IDashboardController _dashboardController;
         private readonly IServices _services;
-        private const string TileTypeId = "TeamCity.Agent.Status";
 
         public TeamCityAgentStatusTileProvider(TeamCityService service, IDashboardController dashboardController, IServices services)
         {

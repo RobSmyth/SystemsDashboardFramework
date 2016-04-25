@@ -1,10 +1,9 @@
 ﻿using Moq;
-using NoeticTools.SystemsDashboard.Framework.Services.DataServices;
 using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 using NUnit.Framework;
 
 
-namespace SystemsDashboard.Tests.Services.DataServices
+namespace NoeticTools.TeamStatusBoard.Tests.Services.DataServices
 {
     [TestFixture]
     public class DataServiceTests : MockingTestFixtureBase
@@ -29,13 +28,6 @@ namespace SystemsDashboard.Tests.Services.DataServices
         }
 
         [Test]
-        public void GetDataSource_ReturnsDifferentSource_WhenDuplicateNameAndNoSinkExists()
-        {
-            Assert.IsNotNull(_target.GetDataSource("A"));
-            Assert.IsNotNull(_target.GetDataSource("A"));
-        }
-
-        [Test]
         public void GetDataSource_CreatesSourceAndRegistersWithSink_WhenSinkExsists()
         {
             var sink1 = NewMock<IDataSource>();
@@ -44,6 +36,13 @@ namespace SystemsDashboard.Tests.Services.DataServices
             _target.GetDataSource("A");
 
             Assert.IsNotNull(_target.GetDataSource("A.1"));
+        }
+
+        [Test]
+        public void GetDataSource_ReturnsDifferentSource_WhenDuplicateNameAndNoSinkExists()
+        {
+            Assert.IsNotNull(_target.GetDataSource("A"));
+            Assert.IsNotNull(_target.GetDataSource("A"));
         }
 
         [Test]

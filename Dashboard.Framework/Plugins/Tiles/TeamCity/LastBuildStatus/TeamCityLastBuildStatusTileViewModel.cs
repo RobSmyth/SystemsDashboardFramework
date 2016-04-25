@@ -4,20 +4,13 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using log4net;
-using NoeticTools.SystemsDashboard.Framework;
-using NoeticTools.SystemsDashboard.Framework.Commands;
-using NoeticTools.SystemsDashboard.Framework.Config;
-using NoeticTools.SystemsDashboard.Framework.Config.Properties;
-using NoeticTools.SystemsDashboard.Framework.Dashboards;
-using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles;
-using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity;
-using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.LastBuildStatus;
-using NoeticTools.SystemsDashboard.Framework.Services;
-using NoeticTools.SystemsDashboard.Framework.Services.TimeServices;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
+using NoeticTools.TeamStatusBoard.Framework.Config;
+using NoeticTools.TeamStatusBoard.Framework.Config.Properties;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.TeamCity;
 using NoeticTools.TeamStatusBoard.Framework.Services;
+using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
 using TeamCitySharp.DomainEntities;
 
 
@@ -128,7 +121,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.TeamCity.LastBuild
             }
         }
 
-        public ICommand ConfigureCommand { get; private set; }
+        public ICommand ConfigureCommand { get; }
 
         public void OnConfigurationChanged(TileConfigurationConverter converter)
         {

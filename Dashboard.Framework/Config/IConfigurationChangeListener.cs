@@ -1,4 +1,4 @@
-namespace NoeticTools.SystemsDashboard.Framework.Config
+namespace NoeticTools.TeamStatusBoard.Framework.Config
 {
     public interface IConfigurationChangeListener
     {

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Config
+namespace NoeticTools.TeamStatusBoard.Framework.Config
 {
     public interface INotifyingElementViewModel : IPropertyViewModel, INotifyPropertyChanged
     {

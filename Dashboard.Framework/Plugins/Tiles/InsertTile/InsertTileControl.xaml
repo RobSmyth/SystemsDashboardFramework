@@ -10,7 +10,7 @@
 
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/NoeticTools.SystemsDashboard.Framework;component/Styles.xaml" />
+                <ResourceDictionary Source="/NoeticTools.TeamStatusBoard.Framework;component/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Style TargetType="TextBlock" BasedOn="{StaticResource ConfigPanelStyleTextbox}" />
             <Style TargetType="Label" BasedOn="{StaticResource ConfigPanelStyleLabel}" />
@@ -47,27 +47,27 @@
             </Grid.ColumnDefinitions>
 
             <Button Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5" ToolTip="Insert in new row to left">
-                <Image Source="/NoeticTools.SystemsDashboard.Framework;component/Images/Insert row to left.png" Width="32" Height="32"/>
+                <Image Source="/NoeticTools.TeamStatusBoard.Framework;component/Images/Insert row to left.png" Width="32" Height="32"/>
             </Button>
             
             <Button Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5" ToolTip="Insert in new row to right">
-                <Image Source="/NoeticTools.SystemsDashboard.Framework;component/Images/Insert row to right.png" Width="32" Height="32"/>
+                <Image Source="/NoeticTools.TeamStatusBoard.Framework;component/Images/Insert row to right.png" Width="32" Height="32"/>
             </Button>
             
             <Button Grid.Row="0" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5" ToolTip="Insert in new row above">
-                <Image Source="/NoeticTools.SystemsDashboard.Framework;component/Images/Insert row above.png" Width="32" Height="32"/>
+                <Image Source="/NoeticTools.TeamStatusBoard.Framework;component/Images/Insert row above.png" Width="32" Height="32"/>
             </Button>
             
             <Button Grid.Row="0" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5" ToolTip="Insert in new row below">
-                <Image Source="/NoeticTools.SystemsDashboard.Framework;component/Images/Insert row below.png" Width="32" Height="32"/>
+                <Image Source="/NoeticTools.TeamStatusBoard.Framework;component/Images/Insert row below.png" Width="32" Height="32"/>
             </Button>
 
             <Button Grid.Row="0" Grid.Column="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5" ToolTip="Delete column">
-                <Image Source="/NoeticTools.SystemsDashboard.Framework;component/Images/Delete column.png" Width="32" Height="32"/>
+                <Image Source="/NoeticTools.TeamStatusBoard.Framework;component/Images/Delete column.png" Width="32" Height="32"/>
             </Button>
             
             <Button Grid.Row="0" Grid.Column="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5" ToolTip="Delete row">
-                <Image Source="/NoeticTools.SystemsDashboard.Framework;component/Images/Delete row.png" Width="32" Height="32"/>
+                <Image Source="/NoeticTools.TeamStatusBoard.Framework;component/Images/Delete row.png" Width="32" Height="32"/>
             </Button>
 
         </Grid>

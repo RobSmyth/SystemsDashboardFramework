@@ -2,7 +2,7 @@
 using NUnit.Framework;
 
 
-namespace SystemsDashboard.Tests
+namespace NoeticTools.TeamStatusBoard.Tests
 {
     public abstract class MockingTestFixtureBase
     {

@@ -1,6 +1,4 @@
-﻿using NoeticTools.SystemsDashboard.Framework.Plugins;
-using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.AgentStatus;
-using NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.TeamCity;
+﻿using NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.TeamCity;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 
 

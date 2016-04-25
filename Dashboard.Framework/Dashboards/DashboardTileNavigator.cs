@@ -4,7 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Dashboards
+namespace NoeticTools.TeamStatusBoard.Framework.Dashboards
 {
     public class DashboardTileNavigator : IDashboardTileNavigator
     {

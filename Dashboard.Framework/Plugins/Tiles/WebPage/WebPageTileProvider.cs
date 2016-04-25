@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Windows;
-using NoeticTools.SystemsDashboard.Framework;
-using NoeticTools.SystemsDashboard.Framework.Config;
-using NoeticTools.SystemsDashboard.Framework.Dashboards;
-using NoeticTools.SystemsDashboard.Framework.Tiles.WebPage;
+using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 
@@ -30,7 +27,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.WebPage
 
         public FrameworkElement CreateTile(TileConfiguration tile, TileLayoutController layoutController)
         {
-            var view = new WebPageTileControl { DataContext = this };
+            var view = new WebPageTileControl {DataContext = this};
             new WebPageTileViewModel(tile, _dashboardController, layoutController, _services, view);
             return view;
         }

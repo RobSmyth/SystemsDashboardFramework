@@ -57,13 +57,13 @@
                 <ToolBar Band="1" BandIndex="1" >
                     <Button Padding="2"  Command="commands:TsbCommands.ShowDataSources" Style="{StaticResource ConfigPanelStyleToolbarButton}">
                         <StackPanel Orientation="Horizontal">
-                            <Image Height="12" Source="/NoeticTools.SystemsDashboard.Framework;component/Images/Data1_16x16.png" VerticalAlignment="Center"/>
+                            <Image Height="12" Source="/NoeticTools.TeamStatusBoard.Framework;component/Images/Data1_16x16.png" VerticalAlignment="Center"/>
                             <TextBlock Foreground="Black" VerticalAlignment="Center" Padding="2">Sources</TextBlock>
                         </StackPanel>
                     </Button>
                     <Button Padding="2" Style="{StaticResource ConfigPanelStyleToolbarButton}">
                         <StackPanel Orientation="Horizontal">
-                        <Image Height="12" Source="/NoeticTools.SystemsDashboard.Framework;component/Images/Cog1_16x16.png" VerticalAlignment="Center"/>
+                        <Image Height="12" Source="/NoeticTools.TeamStatusBoard.Framework;component/Images/Cog1_16x16.png" VerticalAlignment="Center"/>
                             <TextBlock Foreground="Black" VerticalAlignment="Center" Padding="2">Settings (todo)</TextBlock>
                         </StackPanel>
                     </Button>

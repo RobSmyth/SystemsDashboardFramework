@@ -1,7 +1,4 @@
-﻿using NoeticTools.SystemsDashboard.Framework.DataSources;
-
-
-namespace NoeticTools.TeamStatusBoard.Framework.DataSources
+﻿namespace NoeticTools.TeamStatusBoard.Framework.DataSources
 {
     public sealed class DataPropertyViewModelFactory : IDataPropertyViewModelFactory
     {

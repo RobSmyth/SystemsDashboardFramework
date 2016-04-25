@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Config.Properties
+namespace NoeticTools.TeamStatusBoard.Framework.Config.Properties
 {
     public class PropertyViewModel : NotifyingViewModelBase, INotifyingElementViewModel
     {

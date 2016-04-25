@@ -1,4 +1,4 @@
-﻿<Window x:Class="NoeticTools.SystemsDashboard.MainWindow"
+﻿<Window x:Class="NoeticTools.TeamStatusBoard.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -13,7 +13,7 @@
 
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/NoeticTools.SystemsDashboard.Framework;component/Styles.xaml" />
+                <ResourceDictionary Source="/NoeticTools.TeamStatusBoard.Framework;component/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 

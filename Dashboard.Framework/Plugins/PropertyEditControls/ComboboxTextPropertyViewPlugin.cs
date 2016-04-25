@@ -1,5 +1,3 @@
-using NoeticTools.SystemsDashboard.Framework.Plugins;
-using NoeticTools.SystemsDashboard.Framework.Plugins.PropertyEditControls;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 
 

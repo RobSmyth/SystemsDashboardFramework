@@ -1,9 +1,8 @@
 ﻿using System.Collections.ObjectModel;
-using NoeticTools.SystemsDashboard.Framework.Config;
-using NoeticTools.SystemsDashboard.Framework.Dashboards;
+using NoeticTools.TeamStatusBoard.Framework.Config;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Tiles.Dashboards
+namespace NoeticTools.TeamStatusBoard.Framework.Dashboards
 {
     public class DashboardsNavigationViewModel : NotifyingViewModelBase
     {

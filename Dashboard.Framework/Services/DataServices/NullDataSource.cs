@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using NoeticTools.SystemsDashboard.Framework.Services.DataServices;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
@@ -11,11 +10,11 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
             Name = name;
         }
 
+        public string Name { get; }
+
         public void OnChanged()
         {
         }
-
-        public string Name { get; }
 
         public void Write<T>(string name, T value)
         {

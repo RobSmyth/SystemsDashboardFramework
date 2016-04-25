@@ -1,11 +1,14 @@
 ﻿using System.Windows;
-using NoeticTools.SystemsDashboard.Framework.Input;
+using NoeticTools.TeamStatusBoard.Framework.Input;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Dashboards
+namespace NoeticTools.TeamStatusBoard.Framework.Dashboards
 {
     public interface IDashboardController
     {
+        IDashboardNavigator DashboardNavigator { get; }
+        IDashboardTileNavigator TileNavigator { get; }
+        ITileDragAndDropController DragAndDropController { get; }
         void Start();
         void Stop();
         void ShowHelpPane();
@@ -14,8 +17,5 @@ namespace NoeticTools.SystemsDashboard.Framework.Dashboards
         void Refresh();
         void ToggleGroupPanelsEditMode();
         void ShowInsertPanel();
-        IDashboardNavigator DashboardNavigator { get; }
-        IDashboardTileNavigator TileNavigator { get; }
-        ITileDragAndDropController DragAndDropController { get; }
     }
 }

@@ -1,9 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using NoeticTools.SystemsDashboard.Framework;
-using NoeticTools.SystemsDashboard.Framework.Services.DataServices;
 using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 
 

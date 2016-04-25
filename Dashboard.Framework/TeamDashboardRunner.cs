@@ -1,14 +1,10 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using NoeticTools.SystemsDashboard.Framework;
-using NoeticTools.SystemsDashboard.Framework.Config;
-using NoeticTools.SystemsDashboard.Framework.Dashboards;
-using NoeticTools.SystemsDashboard.Framework.Input;
-using NoeticTools.SystemsDashboard.Framework.Services;
-using NoeticTools.SystemsDashboard.Framework.Services.TimeServices;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
+using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
+using NoeticTools.TeamStatusBoard.Framework.Input;
 using NoeticTools.TeamStatusBoard.Framework.Plugins;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.DashboardData;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.FileSystem;
@@ -32,6 +28,7 @@ using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.WebPage;
 using NoeticTools.TeamStatusBoard.Framework.Registries;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
+using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework
@@ -66,8 +63,8 @@ namespace NoeticTools.TeamStatusBoard.Framework
             KeyboardHandler = new KeyboardHandler(_dashboardController);
 
             _applicationServices = new ApplicationServices(
-                tileProviderRegistry, KeyboardHandler, propertyEditControlRegistry, timerService, 
-                new DataServer(new DataRepositoryFactory()), 
+                tileProviderRegistry, KeyboardHandler, propertyEditControlRegistry, timerService,
+                new DataServer(new DataRepositoryFactory()),
                 clock,
                 _dashboardController,
                 _config,
@@ -100,11 +97,11 @@ namespace NoeticTools.TeamStatusBoard.Framework
             var plugins = new IPlugin[]
             {
                 new TeamCityServicePlugin(),
-                new DashboardDataSourcePlugin(), 
-                new FileReaderDataSourcePlugin(), 
+                new DashboardDataSourcePlugin(),
+                new FileReaderDataSourcePlugin(),
                 new TextPropertyViewPlugin(),
                 new DatePropertyViewPlugin(),
-                new TimeSpanPropertyViewPlugin(), 
+                new TimeSpanPropertyViewPlugin(),
                 new CheckboxPropertyViewPlugin(),
                 new ComboboxTextPropertyViewPlugin(),
                 new KeyboardTileNavigationPlugin(),
@@ -112,18 +109,18 @@ namespace NoeticTools.TeamStatusBoard.Framework
                 new InsertTilePlugin(),
                 new HelpTilePlugin(),
                 new BlankTilePlugin(),
-                new TextDataTilePlugin(), 
-                new DateTimeDataTilePlugin(), 
-                new ImageFileWatcherTilePlugin(), 
+                new TextDataTilePlugin(),
+                new DateTimeDataTilePlugin(),
+                new ImageFileWatcherTilePlugin(),
                 new DateTilePlugin(),
                 new MessageTilePlugin(),
-                new TeamCityAgentStatusTilePlugin(), 
+                new TeamCityAgentStatusTilePlugin(),
                 new TeamCityLastBuildStatusTilePlugin(),
                 new TeamCityLAvailbleBuildSTilePlugin(),
                 new DaysLeftCountDownTilePlugin(),
                 new WebPageTilePlugin(),
                 new WmiTilePlugin(),
-                new ExpiredTimeAlertTilePlugin(),
+                new ExpiredTimeAlertTilePlugin()
             };
 
             foreach (var plugin in plugins.OrderByDescending(x => x.Rank))

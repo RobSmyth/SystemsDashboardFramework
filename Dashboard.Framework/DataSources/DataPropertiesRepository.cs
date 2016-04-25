@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using NoeticTools.SystemsDashboard.Framework.DataSources;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.DataSources
@@ -37,9 +36,9 @@ namespace NoeticTools.TeamStatusBoard.Framework.DataSources
                     return new NullDataPropertyViewModel<T>();
                 }
                 var providerName = nameParts[0];
-                return Add<T>(providerName, propertyName.Remove(0, providerName.Length+1), default(T));
+                return Add(providerName, propertyName.Remove(0, providerName.Length + 1), default(T));
             }
-            return (IDataPropertyViewModel<T>)_properties[propertyName];
+            return (IDataPropertyViewModel<T>) _properties[propertyName];
         }
 
         public IDataPropertyViewModel<T> Get<T>(string providerName, string propertyname)

@@ -1,8 +1,8 @@
 using System.Windows;
-using NoeticTools.SystemsDashboard.Framework.Config;
+using NoeticTools.TeamStatusBoard.Framework.Config;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Input
+namespace NoeticTools.TeamStatusBoard.Framework.Input
 {
     public interface ITileDragAndDropController
     {

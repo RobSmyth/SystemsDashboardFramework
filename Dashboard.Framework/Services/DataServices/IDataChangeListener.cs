@@ -1,4 +1,4 @@
-namespace NoeticTools.SystemsDashboard.Framework.Services.DataServices
+namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
 {
     public interface IDataChangeListener
     {

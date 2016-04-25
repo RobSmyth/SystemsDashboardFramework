@@ -2,11 +2,10 @@
 using System.Windows;
 using System.Windows.Input;
 using log4net;
-using NoeticTools.SystemsDashboard.Framework;
 using NoeticTools.TeamStatusBoard.Framework;
 
 
-namespace NoeticTools.SystemsDashboard
+namespace NoeticTools.TeamStatusBoard
 {
     public partial class MainWindow : Window
     {

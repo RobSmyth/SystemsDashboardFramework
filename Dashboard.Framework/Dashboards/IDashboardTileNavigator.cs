@@ -1,4 +1,4 @@
-﻿namespace NoeticTools.SystemsDashboard.Framework.Dashboards
+﻿namespace NoeticTools.TeamStatusBoard.Framework.Dashboards
 {
     public interface IDashboardTileNavigator
     {

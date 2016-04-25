@@ -1,7 +1,7 @@
 ﻿using System.Windows.Controls;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Dashboards
+namespace NoeticTools.TeamStatusBoard.Framework.Dashboards
 {
     public partial class DashboardNavigationTileControl : UserControl
     {

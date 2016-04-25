@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Input;
-using NoeticTools.SystemsDashboard.Framework;
-using NoeticTools.SystemsDashboard.Framework.Config;
-using NoeticTools.SystemsDashboard.Framework.Config.Properties;
-using NoeticTools.SystemsDashboard.Framework.Dashboards;
+using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Config.Controllers;
+using NoeticTools.TeamStatusBoard.Framework.Config.Properties;
+using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 
 
@@ -21,7 +20,8 @@ namespace NoeticTools.TeamStatusBoard.Framework.Commands
         private readonly string _title;
         private bool _canExecute = true;
 
-        public TileConfigureCommand(TileConfiguration tile, string title, IPropertyViewModel[] parameters, IDashboardController dashboardController, ITileLayoutController tileLayoutController, IServices services)
+        public TileConfigureCommand(TileConfiguration tile, string title, IPropertyViewModel[] parameters, IDashboardController dashboardController, ITileLayoutController tileLayoutController,
+            IServices services)
         {
             _tile = tile;
             _title = title;

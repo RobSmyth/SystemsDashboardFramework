@@ -1,9 +1,9 @@
-﻿<UserControl x:Class="NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.AgentStatus.TeamCityAgentStatusTileControl"
+﻿<UserControl x:Class="NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.TeamCity.AgentStatus.TeamCityAgentStatusTileControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:converters="clr-NoeticTools.SystemsDashboard.Framework.Converters"
+             xmlns:converters="clr-NoeticTools.TeamStatusBoard.Framework.Converters"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300"
              Name="TeamCityBuildStatus">
@@ -12,7 +12,7 @@
 
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/NoeticTools.SystemsDashboard.Framework;component/Styles.xaml" />
+                <ResourceDictionary Source="/NoeticTools.TeamStatusBoard.Framework;component/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Style TargetType="TextBlock" BasedOn="{StaticResource DarkTileStyleTextbox}" />
             <Style TargetType="Grid" BasedOn="{StaticResource DarkTileStyleGrid}" />
@@ -28,7 +28,7 @@
                 <RowDefinition Height="3*"/>
             </Grid.RowDefinitions>
 
-            <Image Grid.Row="0" Grid.RowSpan="3" Source="/NoeticTools.SystemsDashboard.Framework;component/Images/server128x128.png" 
+            <Image Grid.Row="0" Grid.RowSpan="3" Source="/NoeticTools.TeamStatusBoard.Framework;component/Images/server128x128.png" 
                    
                    Opacity="0.7" 
                    HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10"/>

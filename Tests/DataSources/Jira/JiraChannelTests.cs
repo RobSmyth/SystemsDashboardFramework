@@ -1,12 +1,12 @@
 ﻿using System;
 using System.IO;
-using NoeticTools.SystemsDashboard.Framework;
-using NoeticTools.SystemsDashboard.Framework.DataSources.Jira;
-using NoeticTools.SystemsDashboard.Framework.Services.TimeServices;
+using NoeticTools.TeamStatusBoard.Framework;
+using NoeticTools.TeamStatusBoard.Framework.DataSources.Jira;
+using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
 using NUnit.Framework;
 
 
-namespace SystemsDashboard.Tests.DataSources.Jira
+namespace NoeticTools.TeamStatusBoard.Tests.DataSources.Jira
 {
     [TestFixture]
     public class JiraChannelTests

@@ -4,7 +4,8 @@
 namespace NoeticTools.TeamStatusBoard.Framework.DataSources
 {
     public interface IDataPropertyViewModel : INotifyPropertyChanged
-    { }
+    {
+    }
 
     public interface IDataPropertyViewModel<T> : IDataPropertyViewModel
     {

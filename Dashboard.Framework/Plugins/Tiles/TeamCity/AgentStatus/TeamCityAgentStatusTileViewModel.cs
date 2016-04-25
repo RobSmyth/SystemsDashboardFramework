@@ -5,18 +5,13 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media;
 using log4net;
-using NoeticTools.SystemsDashboard.Framework;
-using NoeticTools.SystemsDashboard.Framework.Commands;
-using NoeticTools.SystemsDashboard.Framework.Config;
-using NoeticTools.SystemsDashboard.Framework.Config.Properties;
-using NoeticTools.SystemsDashboard.Framework.Dashboards;
-using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles;
-using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.TeamCity.AgentStatus;
-using NoeticTools.SystemsDashboard.Framework.Services.TimeServices;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
+using NoeticTools.TeamStatusBoard.Framework.Config;
+using NoeticTools.TeamStatusBoard.Framework.Config.Properties;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.TeamCity;
 using NoeticTools.TeamStatusBoard.Framework.Services;
+using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.TeamCity.AgentStatus
@@ -53,7 +48,8 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.TeamCity.AgentStat
         private IBuildAgent _buildAgent;
         private static int _nextInstanceId = 1;
 
-        public TeamCityAgentStatusTileViewModel(TeamCityService service, TileConfiguration tile, IDashboardController dashboardController, TileLayoutController tileLayoutController, IServices services, TeamCityAgentStatusTileControl view, ITeamCityChannel teamCityService)
+        public TeamCityAgentStatusTileViewModel(TeamCityService service, TileConfiguration tile, IDashboardController dashboardController, TileLayoutController tileLayoutController, IServices services,
+            TeamCityAgentStatusTileControl view, ITeamCityChannel teamCityService)
         {
             lock (_syncRoot)
             {
@@ -74,11 +70,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.TeamCity.AgentStat
             _view.DataContext = this;
 
             _timerToken = services.Timer.QueueCallback(TimeSpan.FromSeconds(_service.IsConnected ? 1 : 3), this);
-        }
-
-        private void GetBuildAgent()
-        {
-            BuildAgent = _teamCityService.GetAgent(_tileConfigurationConverter.GetString("AgentName")).Result;
         }
 
         public IBuildAgent BuildAgent
@@ -115,6 +106,11 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.TeamCity.AgentStat
             _logger.Debug("Timer elapsed. Update.");
 
             Task.Factory.StartNew(() => _service.GetAgents().Result).ContinueWith(x => _view.Dispatcher.InvokeAsync(() => Update(x.Result)));
+        }
+
+        private void GetBuildAgent()
+        {
+            BuildAgent = _teamCityService.GetAgent(_tileConfigurationConverter.GetString("AgentName")).Result;
         }
 
         private void Update(IBuildAgent[] agents)

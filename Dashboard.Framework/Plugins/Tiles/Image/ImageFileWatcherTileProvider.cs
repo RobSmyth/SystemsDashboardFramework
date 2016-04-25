@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Windows;
-using NoeticTools.SystemsDashboard.Framework;
-using NoeticTools.SystemsDashboard.Framework.Config;
-using NoeticTools.SystemsDashboard.Framework.Dashboards;
-using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Image;
+using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 
@@ -12,9 +9,9 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Image
 {
     internal sealed class ImageFileWatcherTileProvider : ITileControllerProvider
     {
+        private const string TileTypeId = "Image.File.Watcher";
         private readonly IDashboardController _dashboardController;
         private readonly IServices _services;
-        private const string TileTypeId = "Image.File.Watcher";
 
         public ImageFileWatcherTileProvider(IDashboardController dashboardController, IServices services)
         {

@@ -6,16 +6,12 @@ using System.ServiceProcess;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media;
-using NoeticTools.SystemsDashboard.Framework;
-using NoeticTools.SystemsDashboard.Framework.Commands;
-using NoeticTools.SystemsDashboard.Framework.Config;
-using NoeticTools.SystemsDashboard.Framework.Config.Properties;
-using NoeticTools.SystemsDashboard.Framework.Dashboards;
-using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles;
-using NoeticTools.SystemsDashboard.Framework.Services.TimeServices;
-using NoeticTools.SystemsDashboard.Framework.Tiles.ServerStatus;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
+using NoeticTools.TeamStatusBoard.Framework.Config;
+using NoeticTools.TeamStatusBoard.Framework.Config.Properties;
+using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Services;
+using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.ServerStatus
@@ -24,10 +20,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.ServerStatus
     {
         private readonly TimeSpan _tickPeriod = TimeSpan.FromMinutes(1);
         private readonly TileConfigurationConverter _tileConfigurationConverter;
-        private string _machineName = string.Empty;
-        private string _displayName = string.Empty;
         private readonly TimerToken _timerToken;
-        private string _status = string.Empty;
 
         private readonly Dictionary<ServiceControllerStatus, Brush> _statusBrushes = new Dictionary<ServiceControllerStatus, Brush>
         {
@@ -37,7 +30,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.ServerStatus
             {ServiceControllerStatus.Paused, Brushes.Gray},
             {ServiceControllerStatus.StartPending, Brushes.Yellow},
             {ServiceControllerStatus.StopPending, Brushes.DarkSlateGray},
-            {ServiceControllerStatus.Stopped, Brushes.Black},
+            {ServiceControllerStatus.Stopped, Brushes.Black}
         };
 
         private readonly Dictionary<ServiceControllerStatus, Brush> _statusTextBrushes = new Dictionary<ServiceControllerStatus, Brush>
@@ -48,8 +41,12 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.ServerStatus
             {ServiceControllerStatus.Paused, Brushes.Firebrick},
             {ServiceControllerStatus.StartPending, Brushes.DarkSlateGray},
             {ServiceControllerStatus.StopPending, Brushes.White},
-            {ServiceControllerStatus.Stopped, Brushes.White},
+            {ServiceControllerStatus.Stopped, Brushes.White}
         };
+
+        private string _machineName = string.Empty;
+        private string _displayName = string.Empty;
+        private string _status = string.Empty;
 
         private Brush _ledBrush = Brushes.White;
         private string _value = "-";
@@ -64,7 +61,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.ServerStatus
                 new PropertyViewModel("WMI_Class", "Text", _tileConfigurationConverter),
                 new PropertyViewModel("Name_Property", "Text", _tileConfigurationConverter),
                 new PropertyViewModel("Name", "Text", _tileConfigurationConverter),
-                new PropertyViewModel("Value_Property", "Text", _tileConfigurationConverter),
+                new PropertyViewModel("Value_Property", "Text", _tileConfigurationConverter)
             };
 
             ConfigureCommand = new TileConfigureCommand(tile, "WMI Tile Configuration", parameters, dashboardController, layoutController, services);
@@ -93,7 +90,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.ServerStatus
             get { return _ledBrush; }
             private set
             {
-                if (_ledBrush !=  value)
+                if (_ledBrush != value)
                 {
                     _ledBrush = value;
                     OnPropertyChanged();
@@ -163,29 +160,31 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.ServerStatus
                         var query = new ObjectQuery($"SELECT * FROM {wmiClass}");
                         var searcher = new ManagementObjectSearcher(scope, query);
                         var managementObjectCollection = searcher.Get().Cast<ManagementObject>().ToArray();
-                        var result = managementObjectCollection.FirstOrDefault(x => x.Properties.Cast<PropertyData>().Any(y => y.Name.Equals(nameProperty) && name.Equals(y.Value as string, StringComparison.InvariantCulture)));
-                        return (string)result?[valueProperty];
+                        var result =
+                            managementObjectCollection.FirstOrDefault(
+                                x => x.Properties.Cast<PropertyData>().Any(y => y.Name.Equals(nameProperty) && name.Equals(y.Value as string, StringComparison.InvariantCulture)));
+                        return (string) result?[valueProperty];
                     }
                     catch (Exception)
                     {
                         return null;
                     }
                 })
-                .ContinueWith(x =>
-                {
-                    if (x.Result != null)
+                    .ContinueWith(x =>
                     {
-                        Value = x.Result;
-                        LedBrush = _statusBrushes[ServiceControllerStatus.Running];
-                        Status = "OK";
-                    }
-                    else
-                    {
-                        Value = "-";
-                        LedBrush = Brushes.DarkRed;
-                    }
-                    _timerToken.Requeue(_tickPeriod);
-                });
+                        if (x.Result != null)
+                        {
+                            Value = x.Result;
+                            LedBrush = _statusBrushes[ServiceControllerStatus.Running];
+                            Status = "OK";
+                        }
+                        else
+                        {
+                            Value = "-";
+                            LedBrush = Brushes.DarkRed;
+                        }
+                        _timerToken.Requeue(_tickPeriod);
+                    });
             }
             else
             {

@@ -1,4 +1,3 @@
-using NoeticTools.SystemsDashboard.Framework;
 using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 
 
@@ -16,6 +15,9 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.ViewModels
 
         public string Name { get; }
 
-        public object Value { get { return _dataSource.Read<object>(Name); } }
+        public object Value
+        {
+            get { return _dataSource.Read<object>(Name); }
+        }
     }
 }

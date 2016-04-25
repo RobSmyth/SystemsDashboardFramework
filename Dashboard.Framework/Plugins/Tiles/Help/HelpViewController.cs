@@ -1,10 +1,9 @@
 ﻿using System.Windows;
 using System.Windows.Input;
-using NoeticTools.SystemsDashboard.Framework.Tiles.Help;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Help
+namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Help
 {
     public class HelpViewController
     {

@@ -1,7 +1,7 @@
 ﻿using System.Windows.Controls;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Tiles.ServerStatus
+namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.ServerStatus
 {
     public partial class ServerStatusTileControl : UserControl
     {

@@ -1,13 +1,12 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using log4net;
-using NoeticTools.SystemsDashboard.Framework.Config;
-using NoeticTools.SystemsDashboard.Framework.Dashboards;
-using NoeticTools.SystemsDashboard.Framework.Input;
-using NoeticTools.SystemsDashboard.Framework.Plugins.Tiles.Help;
-using NoeticTools.SystemsDashboard.Framework.Services.TimeServices;
+using NoeticTools.TeamStatusBoard.Framework.Config;
+using NoeticTools.TeamStatusBoard.Framework.Input;
+using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Help;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.InsertTile;
 using NoeticTools.TeamStatusBoard.Framework.Registries;
+using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Dashboards

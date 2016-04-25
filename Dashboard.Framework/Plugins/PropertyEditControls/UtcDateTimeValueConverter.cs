@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows.Data;
 
 
-namespace NoeticTools.SystemsDashboard.Framework.Plugins.PropertyEditControls
+namespace NoeticTools.TeamStatusBoard.Framework.Plugins.PropertyEditControls
 {
     /// <summary>
     ///     Convert between UTC file time (long) and displayed date text.

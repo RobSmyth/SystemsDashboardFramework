@@ -1,6 +1,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Input;
 using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 
 
@@ -26,6 +27,8 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.ViewModels
         {
             get { return _dataSource.Name; }
         }
+
+        public ICommand ConfigureCommand { get; }
 
         public ObservableCollection<IDataSourcePropertyViewModel> Properties { get; }
 

@@ -1,3 +1,6 @@
+using System.Windows.Input;
+
+
 namespace NoeticTools.TeamStatusBoard.Framework.Config.ViewModels
 {
     public sealed class NewDataSourceViewModel : NotifyingViewModelBase, IDataSourceViewModel
@@ -5,5 +8,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.ViewModels
         public string TypeName { get; set; }
 
         public string Name { get; set; }
+
+        public ICommand ConfigureCommand { get; }
     }
 }

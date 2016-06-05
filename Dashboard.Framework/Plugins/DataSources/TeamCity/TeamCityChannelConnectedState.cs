@@ -159,7 +159,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.TeamCity
                     return new Build[0];
                 }
 
-                var builds = _teamCityClient.Builds.ByBuildLocator(BuildLocator.WithDimensions(running: true)).Where(x => x.WebUrl.EndsWith(buildConfiguration.Id)).ToArray();
+                var builds = _teamCityClient.Builds.ByBuildLocator(BuildLocator.WithDimensions(running: true, branch: "default:any")).Where(x => x.WebUrl.EndsWith(buildConfiguration.Id)).ToArray();
 
                 foreach (var build in builds)
                 {

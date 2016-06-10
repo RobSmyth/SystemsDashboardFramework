@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using log4net;
 using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
+using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.Agents;
 using TeamCitySharp.DomainEntities;
 
 
-namespace NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.TeamCity
+namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
 {
     internal class TeamCityChannelEmulatedState : ITeamCityChannel
     {
-        private readonly Build _nullBuild = new NullBuild();
         private readonly Dictionary<string, BuildConfig> _buildConfigurations = new Dictionary<string, BuildConfig>();
         private readonly Dictionary<string, Project> _projects = new Dictionary<string, Project>();
         private readonly Random _rand;

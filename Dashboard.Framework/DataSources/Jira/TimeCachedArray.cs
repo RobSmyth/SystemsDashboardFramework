@@ -7,7 +7,7 @@ using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
 
 namespace NoeticTools.TeamStatusBoard.Framework.DataSources.Jira
 {
-    public class TimeCachedArray<T>
+    public class TimeCachedArray<T> : ITimeCachedArray<T>
     {
         private readonly Func<IEnumerable<T>> _loader;
         private readonly TimeSpan _lifeTime;

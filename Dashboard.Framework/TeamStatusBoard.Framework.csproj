@@ -131,19 +131,9 @@
     <Compile Include="Plugins\DataSources\FileSystem\FileReaderDataSourceConfigurationTileProvider.cs" />
     <Compile Include="Plugins\DataSources\FileSystem\FileReaderDataSourcePlugin.cs" />
     <Compile Include="Plugins\DataSources\FileSystem\FileReaderService.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\ITeamCityService.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\TeamCityServicePlugin.cs" />
     <Compile Include="Input\ITileDragAndDropController.cs" />
     <Compile Include="IRunOptions.cs" />
     <Compile Include="Plugins\DataSources\DashboardData\DashboardDataSource.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\BuildAgentStatus.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\TeamCityBuildAgentViewModel.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\BuildAgentRepository.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\IBuildAgent.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\IBuildAgentRepository.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\NullBuild.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\NullBuildAgent.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\TeamCityChannelStoppedState.cs" />
     <Compile Include="Dashboards\IDashboardController.cs" />
     <Compile Include="Dashboards\IDashBoardLoader.cs" />
     <Compile Include="Dashboards\IDashboardNavigator.cs" />
@@ -176,10 +166,8 @@
     <Compile Include="Plugins\Tiles\InsertTile\InsertTileKeyHandler.cs" />
     <Compile Include="Plugins\Tiles\MessageTile\MessageTileProvider.cs" />
     <Compile Include="Plugins\Tiles\ServerStatus\WmiTileProvider.cs" />
-    <Compile Include="Plugins\Tiles\TeamCity\AgentStatus\TeamCityAgentStatusTileProvider.cs" />
-    <Compile Include="Plugins\Tiles\TeamCity\AvailableBuilds\TeamCityLAvailbleBuildSTileProvider.cs" />
-    <Compile Include="Plugins\Tiles\TeamCity\LastBuildStatus\TeamCityLastBuildStatusTileProvider.cs" />
     <Compile Include="Plugins\Tiles\WebPage\WebPageTileProvider.cs" />
+    <Compile Include="RunOptions.cs" />
     <Compile Include="Services\DataServices\IDataService.cs" />
     <Compile Include="Services\DataServices\DataRepositoy.cs" />
     <Compile Include="Services\DataServices\DataServer.cs" />
@@ -216,11 +204,6 @@
     <Compile Include="Plugins\Tiles\Image\ImageFileWatcherTilePlugin.cs" />
     <Compile Include="Plugins\Tiles\Image\ImageFileWatcherViewModel.cs" />
     <Compile Include="Plugins\Tiles\ITileViewModel.cs" />
-    <Compile Include="Plugins\Tiles\TeamCity\AgentStatus\TeamCityAgentStatusTileControl.xaml.cs">
-      <DependentUpon>TeamCityAgentStatusTileControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Plugins\Tiles\TeamCity\AgentStatus\TeamCityAgentStatusTileViewModel.cs" />
-    <Compile Include="Plugins\Tiles\TeamCity\AgentStatus\TeamCityAgentStatusTilePlugin.cs" />
     <Compile Include="Registries\IPropertyViewProvider.cs" />
     <Compile Include="Registries\IPropertyEditControlRegistry.cs" />
     <Compile Include="Registries\ITileProviderRegistry.cs" />
@@ -228,9 +211,7 @@
     <Compile Include="Registries\TileProviderRegistry.cs" />
     <Compile Include="Input\RelativeDropPostion.cs" />
     <Compile Include="Services\ApplicationServices.cs" />
-    <Compile Include="TeamDashboardRunner.cs" />
     <Compile Include="Input\TileDragAndDropController.cs" />
-    <Compile Include="Plugins\Tiles\TeamCity\TeamCityProjectPropertyViewModel.cs" />
     <Compile Include="Input\IKeyboardHandler.cs" />
     <Compile Include="Input\IKeyHandler.cs" />
     <Compile Include="Services\IServices.cs" />
@@ -259,9 +240,7 @@
     <Compile Include="Plugins\Tiles\MessageTile\MessageTileViewModel.cs" />
     <Compile Include="Plugins\Tiles\MessageTile\MessageTilePlugin.cs" />
     <Compile Include="Plugins\Tiles\ServerStatus\WmiTilePlugin.cs" />
-    <Compile Include="Plugins\Tiles\TeamCity\AvailableBuilds\TeamCityAvailableBuildsTilePlugin.cs" />
     <Compile Include="Plugins\IPlugin.cs" />
-    <Compile Include="Plugins\Tiles\TeamCity\LastBuildStatus\TeamCityLastBuildStatusTilePlugin.cs" />
     <Compile Include="Registries\TileLayoutControllerRegistry.cs" />
     <Compile Include="Registries\TileFactory.cs" />
     <Compile Include="Plugins\Tiles\Date\DateTileControl.xaml.cs">
@@ -277,14 +256,6 @@
       <DependentUpon>WmiTileControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Plugins\Tiles\ServerStatus\WmiTileViewModel.cs" />
-    <Compile Include="Plugins\Tiles\TeamCity\AvailableBuilds\TeamCityAvailableBuildsListControl.xaml.cs">
-      <DependentUpon>TeamCityAvailableBuildsListControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Plugins\Tiles\TeamCity\AvailableBuilds\TeamCityAvailableBuildsTileViewModel.cs" />
-    <Compile Include="Plugins\Tiles\TeamCity\LastBuildStatus\TeamCityLastBuildStatusTileControl.xaml.cs">
-      <DependentUpon>TeamCityLastBuildStatusTileControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Plugins\Tiles\TeamCity\LastBuildStatus\TeamCityLastBuildStatusTileViewModel.cs" />
     <Compile Include="Plugins\Tiles\WebPage\WebPageTilePlugin.cs" />
     <Compile Include="Plugins\Tiles\WebPage\WebPageTileControl.xaml.cs">
       <DependentUpon>WebPageTileControl.xaml</DependentUpon>
@@ -311,14 +282,6 @@
     <Compile Include="Config\Controllers\ConfigationViewController.cs" />
     <Compile Include="Converters\DoubleValueConverter.cs" />
     <Compile Include="DataSources\Jira\JiraChannel.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\IStateEngine.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\ITeamCityChannel.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\TeamCityChannelConnectedState.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\TeamCityChannelDisconnectedState.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\TeamCityChannelEmulatedState.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\TeamCityService.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\TeamCItyServiceConfiguration.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\TeamCityServiceConfigureCommand.cs" />
     <Compile Include="Services\TimeServices\IClock.cs" />
     <Compile Include="Services\TimeServices\ITimerListener.cs" />
     <Compile Include="Services\TimeServices\ITimerQueue.cs" />
@@ -333,7 +296,6 @@
     </Compile>
     <Compile Include="Dashboards\DashboardsNavigationViewController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RunOptions.cs" />
     <Compile Include="Services\TimerService.cs" />
     <Compile Include="Services\TimeServices\TimerToken.cs" />
   </ItemGroup>
@@ -391,10 +353,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Plugins\Tiles\TeamCity\AgentStatus\TeamCityAgentStatusTileControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Styles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -404,14 +362,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Plugins\Tiles\ServerStatus\WmiTileControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Plugins\Tiles\TeamCity\AvailableBuilds\TeamCityAvailableBuildsListControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Plugins\Tiles\TeamCity\LastBuildStatus\TeamCityLastBuildStatusTileControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -3,7 +3,7 @@
 
 namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Image
 {
-    internal sealed class ImageFileWatcherTilePlugin : IPlugin
+    public sealed class ImageFileWatcherTilePlugin : IPlugin
     {
         public int Rank => 0;
 

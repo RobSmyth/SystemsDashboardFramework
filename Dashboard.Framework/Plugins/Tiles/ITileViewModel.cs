@@ -3,7 +3,7 @@ using System.Windows.Input;
 
 namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles
 {
-    internal interface ITileViewModel
+    public interface ITileViewModel
     {
         ICommand ConfigureCommand { get; }
     }

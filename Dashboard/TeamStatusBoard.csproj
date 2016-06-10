@@ -151,6 +151,10 @@
       <Project>{1f19c0de-e777-48e9-856b-7376a7527ec0}</Project>
       <Name>TeamStatusBoard.Framework</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TeamStatusBoard.Runner\TeamStatusBoard.Runner.csproj">
+      <Project>{41191791-ddb3-4bc4-9c37-a73e037ddc3a}</Project>
+      <Name>TeamStatusBoard.Runner</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">

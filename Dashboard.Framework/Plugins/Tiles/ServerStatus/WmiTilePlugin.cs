@@ -3,7 +3,7 @@
 
 namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.ServerStatus
 {
-    internal sealed class WmiTilePlugin : IPlugin
+    public sealed class WmiTilePlugin : IPlugin
     {
         public int Rank => 0;
 

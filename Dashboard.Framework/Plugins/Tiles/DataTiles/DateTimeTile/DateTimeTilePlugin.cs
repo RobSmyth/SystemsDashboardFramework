@@ -3,7 +3,7 @@
 
 namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.DataTiles.DateTimeTile
 {
-    internal sealed class DateTimeDataTilePlugin : IPlugin
+    public sealed class DateTimeDataTilePlugin : IPlugin
     {
         public int Rank => 0;
 

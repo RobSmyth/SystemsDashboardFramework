@@ -3,7 +3,7 @@
 
 namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.DataTiles.TextTile
 {
-    internal sealed class TextDataTilePlugin : IPlugin
+    public sealed class TextDataTilePlugin : IPlugin
     {
         public int Rank => 0;
 

@@ -3,7 +3,7 @@
 
 namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.InsertTile
 {
-    internal sealed class InsertTilePlugin : IPlugin
+    public sealed class InsertTilePlugin : IPlugin
     {
         public int Rank => 25;
 

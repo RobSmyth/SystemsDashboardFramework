@@ -3,7 +3,7 @@
 
 namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.MessageTile
 {
-    internal sealed class MessageTilePlugin : IPlugin
+    public sealed class MessageTilePlugin : IPlugin
     {
         public int Rank => 0;
 

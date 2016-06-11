@@ -2,23 +2,25 @@
 using System.Threading.Tasks;
 using log4net;
 using NoeticTools.TeamStatusBoard.Framework.Services;
+using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.Agents;
+using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.TcSharpInterop;
 using TeamCitySharp;
 using TeamCitySharp.DomainEntities;
 
 
-namespace NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.TeamCity
+namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
 {
     internal class TeamCityChannelDisconnectedState : ITeamCityChannel
     {
-        private readonly TeamCityClient _teamCityClient;
-        private readonly TeamCityServiceConfiguration _configuration;
+        private readonly ITcSharpTeamCityClient _teamCityClient;
+        private readonly ITeamCityServiceConfiguration _configuration;
         private readonly IBuildAgentRepository _buildAgentRepository;
         private readonly IServices _services;
         private readonly IStateEngine<ITeamCityChannel> _stateEngine;
         private readonly ILog _logger;
         private bool _testingConnection;
 
-        public TeamCityChannelDisconnectedState(TeamCityClient teamCityClient, IStateEngine<ITeamCityChannel> stateEngine, TeamCityServiceConfiguration configuration, IBuildAgentRepository buildAgentRepository,
+        public TeamCityChannelDisconnectedState(ITcSharpTeamCityClient teamCityClient, IStateEngine<ITeamCityChannel> stateEngine, ITeamCityServiceConfiguration configuration, IBuildAgentRepository buildAgentRepository,
             IServices services)
         {
             _teamCityClient = teamCityClient;

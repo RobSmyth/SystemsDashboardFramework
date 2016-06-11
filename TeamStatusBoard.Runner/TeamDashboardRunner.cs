@@ -1,6 +1,11 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity;
+using NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AgentStatus;
+using NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AvailableBuilds;
+using NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.LastBuildStatus;
+using NoeticTools.TeamStatusBoard.Framework;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
 using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
@@ -8,7 +13,6 @@ using NoeticTools.TeamStatusBoard.Framework.Input;
 using NoeticTools.TeamStatusBoard.Framework.Plugins;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.DashboardData;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.FileSystem;
-using NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.TeamCity;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.PropertyEditControls;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.BlankTile;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.DataTiles.DateTimeTile;
@@ -21,9 +25,6 @@ using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Image;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.InsertTile;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.MessageTile;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.ServerStatus;
-using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.TeamCity.AgentStatus;
-using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.TeamCity.AvailableBuilds;
-using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.TeamCity.LastBuildStatus;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.WebPage;
 using NoeticTools.TeamStatusBoard.Framework.Registries;
 using NoeticTools.TeamStatusBoard.Framework.Services;
@@ -31,7 +32,7 @@ using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
 
 
-namespace NoeticTools.TeamStatusBoard.Framework
+namespace NoeticTools.TeamStatusBoard.Runner
 {
     public sealed class TeamDashboardRunner
     {

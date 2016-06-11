@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Input;
 using log4net;
-using NoeticTools.TeamStatusBoard.Framework;
+using NoeticTools.TeamStatusBoard.Runner;
 
 
 namespace NoeticTools.TeamStatusBoard

@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Windows;
+using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity;
+using NoeticTools.TeamStatusBoard.Framework;
 using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
-using NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.TeamCity;
+using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.TeamCity.LastBuildStatus;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 
 
-namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.TeamCity.LastBuildStatus
+namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.LastBuildStatus
 {
     public sealed class TeamCityLastBuildStatusTileProvider : ITileControllerProvider
     {

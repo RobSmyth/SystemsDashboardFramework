@@ -5,16 +5,20 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media;
 using log4net;
+using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity;
+using NoeticTools.TeamStatusBoard.Framework;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
 using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Config.Properties;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
-using NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.TeamCity;
+using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles;
+using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.TeamCity.AgentStatus;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
+using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.Agents;
 
 
-namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.TeamCity.AgentStatus
+namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AgentStatus
 {
     internal sealed class TeamCityAgentStatusTileViewModel : NotifyingViewModelBase, ITimerListener, IConfigurationChangeListener, ITileViewModel
     {

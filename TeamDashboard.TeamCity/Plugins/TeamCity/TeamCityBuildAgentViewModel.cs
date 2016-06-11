@@ -1,24 +1,26 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using NoeticTools.TeamStatusBoard.Framework;
 using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
-using TeamCitySharp;
+using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.Agents;
+using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.TcSharpInterop;
 using TeamCitySharp.DomainEntities;
 using TeamCitySharp.Locators;
 
 
-namespace NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.TeamCity
+namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
 {
     public class TeamCityBuildAgentViewModel : NotifyingViewModelBase, IBuildAgent, ITimerListener
     {
         private readonly TimeSpan _tickPeriod = TimeSpan.FromSeconds(30);
-        private readonly TeamCityClient _teamCityClient;
+        private readonly ITcSharpTeamCityClient _teamCityClient;
         private readonly TimerToken _timerToken;
         private BuildAgentStatus _status;
         private bool _isRunning;
         private string _statusText;
 
-        public TeamCityBuildAgentViewModel(string name, TeamCityClient teamCityClient, ITimerService timer)
+        public TeamCityBuildAgentViewModel(string name, ITcSharpTeamCityClient teamCityClient, ITimerService timer)
         {
             _teamCityClient = teamCityClient;
             Name = name;

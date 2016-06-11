@@ -9,32 +9,33 @@ using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
+using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.Agents;
+using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.TcSharpInterop;
 using TeamCitySharp;
 using TeamCitySharp.DomainEntities;
 
 
-namespace NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.TeamCity
+namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
 {
     public sealed class TeamCityService : IStateEngine<ITeamCityChannel>, IConfigurationChangeListener, ITimerListener, ITeamCityService
     {
         private readonly IDashboardController _dashboardController;
         private readonly IServices _services;
-        private readonly TeamCityServiceConfiguration _configuration;
+        private readonly ITeamCityServiceConfiguration _configuration;
         private readonly TeamCityChannelConnectedState _connectedState;
         private readonly ITeamCityChannel _disconnectedState;
         private readonly IDataSource _repository;
         private ITeamCityChannel _current;
         private ILog _logger;
 
-        public TeamCityService(IServices services, IBuildAgentRepository buildAgentRepository, IDataSource repository)
+        public TeamCityService(IServices services, ITcSharpTeamCityClient teamCityClient, IBuildAgentRepository buildAgentRepository, IDataSource repository, ITeamCityServiceConfiguration configuration)
         {
             _repository = repository;
             _dashboardController = services.DashboardController;
             _services = services;
-            _configuration = new TeamCityServiceConfiguration(services.Configuration.Services.GetService("TeamCity"));
-            var client = new TeamCityClient(_configuration.Url);
-            _disconnectedState = new TeamCityChannelDisconnectedState(client, this, _configuration, buildAgentRepository, _services);
-            _connectedState = new TeamCityChannelConnectedState(client, this, buildAgentRepository, _services);
+            _configuration = configuration;
+            _disconnectedState = new TeamCityChannelDisconnectedState(teamCityClient, this, _configuration, buildAgentRepository, _services);
+            _connectedState = new TeamCityChannelConnectedState(teamCityClient, this, buildAgentRepository, _services);
             _current = services.RunOptions.EmulateMode ? new TeamCityChannelEmulatedState(repository) : _disconnectedState;
             _logger = LogManager.GetLogger("DateSources.TeamCity.Connected");
             _services.Timer.QueueCallback(TimeSpan.FromMilliseconds(10), this);

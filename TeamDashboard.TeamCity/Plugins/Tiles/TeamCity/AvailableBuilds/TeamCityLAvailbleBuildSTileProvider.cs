@@ -1,13 +1,15 @@
 using System;
 using System.Windows;
 using log4net;
+using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity;
+using NoeticTools.TeamStatusBoard.Framework;
 using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
-using NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.TeamCity;
+using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.TeamCity.AvailableBuilds;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 
 
-namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.TeamCity.AvailableBuilds
+namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AvailableBuilds
 {
     public sealed class TeamCityLAvailbleBuildSTileProvider : ITileControllerProvider
     {

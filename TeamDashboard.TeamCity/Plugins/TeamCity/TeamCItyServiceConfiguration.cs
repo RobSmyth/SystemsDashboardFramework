@@ -1,9 +1,9 @@
 using NoeticTools.TeamStatusBoard.Framework.Config;
 
 
-namespace NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.TeamCity
+namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
 {
-    public class TeamCityServiceConfiguration : IItemConfiguration
+    public class TeamCityServiceConfiguration : ITeamCityServiceConfiguration
     {
         private readonly DashboardServiceConfiguration _inner;
 

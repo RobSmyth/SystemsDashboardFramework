@@ -4,17 +4,21 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using log4net;
+using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity;
+using NoeticTools.TeamStatusBoard.Framework;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
 using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Config.Properties;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
-using NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.TeamCity;
+using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles;
+using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.TeamCity;
+using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.TeamCity.LastBuildStatus;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
 using TeamCitySharp.DomainEntities;
 
 
-namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.TeamCity.LastBuildStatus
+namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.LastBuildStatus
 {
     internal sealed class TeamCityLastBuildStatusTileViewModel : NotifyingViewModelBase, ITimerListener, IConfigurationChangeListener, ITileViewModel
     {

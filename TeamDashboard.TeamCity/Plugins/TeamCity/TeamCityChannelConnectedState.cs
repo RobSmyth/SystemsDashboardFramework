@@ -6,16 +6,18 @@ using log4net;
 using NoeticTools.TeamStatusBoard.Framework.DataSources.Jira;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
+using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.Agents;
+using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.TcSharpInterop;
 using TeamCitySharp;
 using TeamCitySharp.DomainEntities;
 using TeamCitySharp.Locators;
 
 
-namespace NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.TeamCity
+namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
 {
     internal class TeamCityChannelConnectedState : ITeamCityChannel
     {
-        private readonly TeamCityClient _teamCityClient;
+        private readonly ITcSharpTeamCityClient _teamCityClient;
         private readonly IStateEngine<ITeamCityChannel> _stateEngine;
         private readonly IClock _clock;
         private readonly IBuildAgentRepository _buildAgentRepository;
@@ -25,7 +27,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.TeamCity
         private readonly ILog _logger;
         private readonly object _syncRoot = new object();
 
-        public TeamCityChannelConnectedState(TeamCityClient teamCityClient, IStateEngine<ITeamCityChannel> stateEngine, IBuildAgentRepository buildAgentRepository, IServices services)
+        public TeamCityChannelConnectedState(ITcSharpTeamCityClient teamCityClient, IStateEngine<ITeamCityChannel> stateEngine, IBuildAgentRepository buildAgentRepository, IServices services)
         {
             _teamCityClient = teamCityClient;
             _stateEngine = stateEngine;

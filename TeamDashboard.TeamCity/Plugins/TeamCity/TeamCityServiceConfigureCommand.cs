@@ -2,7 +2,7 @@
 using System.Windows.Input;
 
 
-namespace NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.TeamCity
+namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
 {
     public class TeamCityServiceConfigureCommand : ICommand
     {

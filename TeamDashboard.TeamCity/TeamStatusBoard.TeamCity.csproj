@@ -7,7 +7,7 @@
     <ProjectGuid>{C02D0605-1460-486C-8943-46C090D0E9BB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NoeticTool.sTeamStatusBoard.TeamCity</RootNamespace>
+    <RootNamespace>NoeticTools.TeamStatusBoard.TeamCity</RootNamespace>
     <AssemblyName>NoeticTools.TeamStatusBoard.TeamCity</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -68,8 +68,11 @@
     <Compile Include="Plugins\TeamCity\IStateEngine.cs" />
     <Compile Include="Plugins\TeamCity\ITeamCityChannel.cs" />
     <Compile Include="Plugins\TeamCity\ITeamCityService.cs" />
+    <Compile Include="Plugins\TeamCity\ITeamCityServiceConfiguration.cs" />
     <Compile Include="Plugins\TeamCity\NullBuild.cs" />
     <Compile Include="Plugins\TeamCity\Agents\NullBuildAgent.cs" />
+    <Compile Include="Plugins\TeamCity\TcSharpInterop\ITcSharpTeamCityClient.cs" />
+    <Compile Include="Plugins\TeamCity\TcSharpInterop\TcSharpTeamCityClient.cs" />
     <Compile Include="Plugins\TeamCity\TeamCityBuildAgentViewModel.cs" />
     <Compile Include="Plugins\TeamCity\TeamCityChannelConnectedState.cs" />
     <Compile Include="Plugins\TeamCity\TeamCityChannelDisconnectedState.cs" />

@@ -6,16 +6,18 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using log4net;
+using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
 using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Config.Properties;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
-using NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.TeamCity;
+using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles;
+using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.TeamCity.AvailableBuilds;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
 
 
-namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.TeamCity.AvailableBuilds
+namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AvailableBuilds
 {
     internal sealed class TeamCityAvailableBuildsTileViewModel : ITimerListener, IConfigurationChangeListener, ITileViewModel
     {

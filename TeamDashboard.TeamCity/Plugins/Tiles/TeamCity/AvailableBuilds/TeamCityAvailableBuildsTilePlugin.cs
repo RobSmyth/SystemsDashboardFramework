@@ -1,9 +1,10 @@
 ﻿using log4net;
-using NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.TeamCity;
+using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity;
+using NoeticTools.TeamStatusBoard.Framework.Plugins;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 
 
-namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.TeamCity.AvailableBuilds
+namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AvailableBuilds
 {
     public sealed class TeamCityLAvailbleBuildSTilePlugin : IPlugin
     {

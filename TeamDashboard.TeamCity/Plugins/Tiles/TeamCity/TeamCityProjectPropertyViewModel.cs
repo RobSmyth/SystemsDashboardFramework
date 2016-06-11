@@ -1,10 +1,10 @@
 ﻿using System.Linq;
+using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity;
 using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Config.Properties;
-using NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.TeamCity;
 
 
-namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.TeamCity
+namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity
 {
     public sealed class TeamCityProjectPropertyViewModel : PropertyViewModel
     {

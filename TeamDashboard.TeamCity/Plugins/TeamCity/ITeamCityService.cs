@@ -1,8 +1,7 @@
-﻿using NoeticTool.sTeamStatusBoard.TeamCity.Plugins.TeamCity;
-using NoeticTools.TeamStatusBoard.Framework.Services;
+﻿using NoeticTools.TeamStatusBoard.Framework.Services;
 
 
-namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
+namespace NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.TeamCity
 {
     public interface ITeamCityService : ITeamCityChannel, IService
     {

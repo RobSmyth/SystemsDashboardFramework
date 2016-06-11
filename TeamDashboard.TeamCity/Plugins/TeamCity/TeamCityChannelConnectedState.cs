@@ -3,19 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using log4net;
-using NoeticTool.sTeamStatusBoard.TeamCity.Plugins.TeamCity;
 using NoeticTools.TeamStatusBoard.Framework.DataSources.Jira;
 using NoeticTools.TeamStatusBoard.Framework.Services;
-using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
-using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.Agents;
-using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.Projects;
 using TeamCitySharp;
 using TeamCitySharp.DomainEntities;
 using TeamCitySharp.Locators;
 
 
-namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
+namespace NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.TeamCity
 {
     internal class TeamCityChannelConnectedState : ITeamCityChannel
     {
@@ -24,24 +20,23 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
         private readonly IClock _clock;
         private readonly IBuildAgentRepository _buildAgentRepository;
         private readonly IServices _services;
-        private readonly IDataSource _dataSource;
-        private IProjectRepository _projectRepository;
-        private readonly Dictionary<Project, ITimeCachedArray<BuildConfig>> _buildConfigurations = new Dictionary<Project, ITimeCachedArray<BuildConfig>>();
+        private readonly TimeCachedArray<Project> _projects;
+        private readonly Dictionary<Project, TimeCachedArray<BuildConfig>> _buildConfigurations = new Dictionary<Project, TimeCachedArray<BuildConfig>>();
         private readonly ILog _logger;
         private readonly object _syncRoot = new object();
 
-        public TeamCityChannelConnectedState(TeamCityClient teamCityClient, IStateEngine<ITeamCityChannel> stateEngine, IBuildAgentRepository buildAgentRepository, IServices services, IDataSource dataSource)
+        public TeamCityChannelConnectedState(TeamCityClient teamCityClient, IStateEngine<ITeamCityChannel> stateEngine, IBuildAgentRepository buildAgentRepository, IServices services)
         {
             _teamCityClient = teamCityClient;
             _stateEngine = stateEngine;
             _clock = services.Clock;
             _buildAgentRepository = buildAgentRepository;
             _services = services;
-            _dataSource = dataSource;
             _logger = LogManager.GetLogger("DateSources.TeamCity.Connected");
+            _projects = new TimeCachedArray<Project>(() => _teamCityClient.Projects.All(), TimeSpan.FromMinutes(5), _clock);
         }
 
-        public string[] ProjectNames => _projectRepository.GetAll().Select(x => x.Name).ToArray();
+        public string[] ProjectNames => _projects.Items.Select(x => x.Name).ToArray();
 
         public bool IsConnected => true;
 
@@ -58,8 +53,8 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
         {
             _logger.DebugFormat("Request for configuration names for project {0}", projectName);
 
-            var project = _projectRepository.Get(projectName);
-            var configurations = await GetConfigurations(project.Inner);
+            var project = _projects.Items.SingleOrDefault(x => x.Name.Equals(projectName, StringComparison.CurrentCultureIgnoreCase));
+            var configurations = await GetConfigurations(project);
             return project == null ? new string[0] : configurations.Items.Select(x => x.Name).ToArray();
         }
 
@@ -92,7 +87,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
 
             try
             {
-                var project = _projectRepository.Get(projectName).Inner;
+                var project = _projects.Items.SingleOrDefault(x => x.Name.Equals(projectName, StringComparison.InvariantCultureIgnoreCase));
                 if (project == null)
                 {
                     return null;
@@ -103,8 +98,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
                     return null;
                 }
                 var builds = _teamCityClient.Builds.ByBuildConfigId(buildConfiguration.Id);
-                var build = builds.FirstOrDefault(x => x.Status != "UNKNOWN");
-                return build;
+                return builds.FirstOrDefault(x => x.Status != "UNKNOWN");
             }
             catch (Exception)
             {
@@ -122,7 +116,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
                 {
                     try
                     {
-                        var project = _projectRepository.Get(projectName).Inner;
+                        var project = _projects.Items.Single(x => x.Name.Equals(projectName, StringComparison.InvariantCultureIgnoreCase));
                         var buildConfiguration = _teamCityClient.BuildConfigs.ByProjectIdAndConfigurationName(project.Id, buildConfigurationName);
                         var builds = _teamCityClient.Builds.SuccessfulBuildsByBuildConfigId(buildConfiguration.Id);
                         var lastBuild = builds.FirstOrDefault();
@@ -151,7 +145,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
 
             try
             {
-                var project = _projectRepository.Get(projectName).Inner;
+                var project = _projects.Items.SingleOrDefault(x => x.Name.Equals(projectName, StringComparison.InvariantCultureIgnoreCase));
                 if (project == null)
                 {
                     _logger.WarnFormat("Could not find project {0}.", projectName);
@@ -201,9 +195,6 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
 
         public void Enter()
         {
-            var projectCache = new TimeCachedArray<Project>(() => _teamCityClient.Projects.All(), TimeSpan.FromMinutes(5), _services.Clock);
-            _projectRepository = new ProjectRepository(_dataSource, projectCache);
-
             Task.Run(() => GetAgents());
             if (ProjectNames.Length > 0)
             {
@@ -229,7 +220,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
             return buildConfigurations.Items.SingleOrDefault(x => x.Name.Equals(buildConfigurationName, StringComparison.InvariantCultureIgnoreCase));
         }
 
-        private Task<ITimeCachedArray<BuildConfig>> GetConfigurations(Project project)
+        private Task<TimeCachedArray<BuildConfig>> GetConfigurations(Project project)
         {
             _logger.DebugFormat("Request for configurations on project {0}.", project.Name);
 

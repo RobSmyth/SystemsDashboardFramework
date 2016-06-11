@@ -1,4 +1,4 @@
-﻿namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.Agents
+﻿namespace NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.TeamCity
 {
     public enum BuildAgentStatus
     {

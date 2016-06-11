@@ -1,24 +1,19 @@
 ﻿using System;
 using System.Threading.Tasks;
 using log4net;
-using NoeticTool.sTeamStatusBoard.TeamCity.Plugins.TeamCity;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
 using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Config.Controllers;
 using NoeticTools.TeamStatusBoard.Framework.Config.Properties;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
-using NoeticTools.TeamStatusBoard.Framework.DataSources.Jira;
-using NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.TeamCity;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
-using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.Agents;
-using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.Projects;
 using TeamCitySharp;
 using TeamCitySharp.DomainEntities;
 
 
-namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
+namespace NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.TeamCity
 {
     public sealed class TeamCityService : IStateEngine<ITeamCityChannel>, IConfigurationChangeListener, ITimerListener, ITeamCityService
     {
@@ -39,7 +34,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
             _configuration = new TeamCityServiceConfiguration(services.Configuration.Services.GetService("TeamCity"));
             var client = new TeamCityClient(_configuration.Url);
             _disconnectedState = new TeamCityChannelDisconnectedState(client, this, _configuration, buildAgentRepository, _services);
-            _connectedState = new TeamCityChannelConnectedState(client, this, buildAgentRepository, _services, repository);
+            _connectedState = new TeamCityChannelConnectedState(client, this, buildAgentRepository, _services);
             _current = services.RunOptions.EmulateMode ? new TeamCityChannelEmulatedState(repository) : _disconnectedState;
             _logger = LogManager.GetLogger("DateSources.TeamCity.Connected");
             _services.Timer.QueueCallback(TimeSpan.FromMilliseconds(10), this);

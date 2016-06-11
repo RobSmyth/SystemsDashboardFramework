@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using log4net;
-using NoeticTool.sTeamStatusBoard.TeamCity.Plugins.TeamCity;
 using NoeticTools.TeamStatusBoard.Framework.Services;
-using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity;
-using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.Agents;
 using TeamCitySharp;
 using TeamCitySharp.DomainEntities;
 

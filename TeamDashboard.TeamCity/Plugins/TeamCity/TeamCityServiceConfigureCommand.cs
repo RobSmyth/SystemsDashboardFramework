@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Input;
-using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.TeamCity

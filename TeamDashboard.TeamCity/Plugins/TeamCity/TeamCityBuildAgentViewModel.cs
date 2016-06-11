@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using NoeticTools.TeamStatusBoard.Framework;
+using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.Agents;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.TcSharpInterop;
@@ -15,17 +16,22 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
     {
         private readonly TimeSpan _tickPeriod = TimeSpan.FromSeconds(30);
         private readonly ITcSharpTeamCityClient _teamCityClient;
-        private readonly TimerToken _timerToken;
+        private readonly ITimerService _timer;
+        private readonly IDataSource _outerRepository;
+        private TimerToken _timerToken;
         private BuildAgentStatus _status;
         private bool _isRunning;
         private string _statusText;
 
-        public TeamCityBuildAgentViewModel(string name, ITcSharpTeamCityClient teamCityClient, ITimerService timer)
+        public TeamCityBuildAgentViewModel(string name, ITcSharpTeamCityClient teamCityClient, ITimerService timer, IDataSource outerRepository, IChannelConnectionStateBroadcaster channelStateBroadcaster)
         {
             _teamCityClient = teamCityClient;
+            _timer = timer;
+            _outerRepository = outerRepository;
             Name = name;
             _statusText = string.Empty;
-            _timerToken = timer.QueueCallback(TimeSpan.FromMilliseconds(10), this);
+            channelStateBroadcaster.OnDisconnected.AddListener(OnDisconnected);
+            channelStateBroadcaster.OnConnected.AddListener(OnConnected);
         }
 
         public string Name { get; }
@@ -85,6 +91,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
                 }
                 catch (Exception)
                 {
+                    StatusText = "Error";
                     return new Build[0];
                 }
             })
@@ -104,8 +111,25 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
                         Status = IsRunning ? BuildAgentStatus.Running : BuildAgentStatus.Idle;
                         StatusText = IsRunning ? "Running" : "Idle";
                     }
+                    UpdateBuildAgentParameters();
                     _timerToken.Requeue(_tickPeriod);
                 });
+        }
+
+        private void UpdateBuildAgentParameters()
+        {
+            _outerRepository.Write($"Agent.{Name}.Status", Status);
+        }
+
+        private void OnConnected()
+        {
+            _timerToken = _timer.QueueCallback(TimeSpan.FromMilliseconds(10), this);
+        }
+
+        private void OnDisconnected()
+        {
+            _timerToken.Cancel();
+            _timerToken = null;
         }
     }
 }

@@ -65,8 +65,11 @@
     <Compile Include="Plugins\TeamCity\Agents\BuildAgentStatus.cs" />
     <Compile Include="Plugins\TeamCity\Agents\IBuildAgent.cs" />
     <Compile Include="Plugins\TeamCity\Agents\IBuildAgentRepository.cs" />
+    <Compile Include="Plugins\TeamCity\ChannelConnectionStateBroadcaster.cs" />
+    <Compile Include="Plugins\TeamCity\IChannelConnectionStateBroadcaster.cs" />
     <Compile Include="Plugins\TeamCity\IStateEngine.cs" />
     <Compile Include="Plugins\TeamCity\ITeamCityChannel.cs" />
+    <Compile Include="Plugins\TeamCity\ITeamCityChannelState.cs" />
     <Compile Include="Plugins\TeamCity\ITeamCityService.cs" />
     <Compile Include="Plugins\TeamCity\ITeamCityServiceConfiguration.cs" />
     <Compile Include="Plugins\TeamCity\NullBuild.cs" />
@@ -77,6 +80,7 @@
     <Compile Include="Plugins\TeamCity\TeamCityChannelConnectedState.cs" />
     <Compile Include="Plugins\TeamCity\TeamCityChannelDisconnectedState.cs" />
     <Compile Include="Plugins\TeamCity\TeamCityChannelEmulatedState.cs" />
+    <Compile Include="Plugins\TeamCity\TeamCityChannelStateEngine.cs" />
     <Compile Include="Plugins\TeamCity\TeamCityChannelStoppedState.cs" />
     <Compile Include="Plugins\TeamCity\TeamCityService.cs" />
     <Compile Include="Plugins\TeamCity\TeamCItyServiceConfiguration.cs" />

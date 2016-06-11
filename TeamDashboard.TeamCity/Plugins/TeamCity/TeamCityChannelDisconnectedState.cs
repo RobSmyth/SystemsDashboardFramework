@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using log4net;
+using NoeticTools.TeamStatusBoard.Framework;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.Agents;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.TcSharpInterop;
@@ -10,24 +11,25 @@ using TeamCitySharp.DomainEntities;
 
 namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
 {
-    internal class TeamCityChannelDisconnectedState : ITeamCityChannel
+    internal class TeamCityChannelDisconnectedState : ITeamCityChannelState
     {
         private readonly ITcSharpTeamCityClient _teamCityClient;
         private readonly ITeamCityServiceConfiguration _configuration;
         private readonly IBuildAgentRepository _buildAgentRepository;
         private readonly IServices _services;
+        private readonly IChannelConnectionStateBroadcaster _channelStateBroadcaster;
         private readonly IStateEngine<ITeamCityChannel> _stateEngine;
         private readonly ILog _logger;
         private bool _testingConnection;
 
-        public TeamCityChannelDisconnectedState(ITcSharpTeamCityClient teamCityClient, IStateEngine<ITeamCityChannel> stateEngine, ITeamCityServiceConfiguration configuration, IBuildAgentRepository buildAgentRepository,
-            IServices services)
+        public TeamCityChannelDisconnectedState(ITcSharpTeamCityClient teamCityClient, IStateEngine<ITeamCityChannel> stateEngine, ITeamCityServiceConfiguration configuration, IBuildAgentRepository buildAgentRepository, IServices services, IChannelConnectionStateBroadcaster channelStateBroadcaster)
         {
             _teamCityClient = teamCityClient;
             _stateEngine = stateEngine;
             _configuration = configuration;
             _buildAgentRepository = buildAgentRepository;
             _services = services;
+            _channelStateBroadcaster = channelStateBroadcaster;
 
             _logger = LogManager.GetLogger("DateSources.TeamCity.Disconnected");
         }
@@ -41,6 +43,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
             {
                 return;
             }
+
             _testingConnection = true;
 
             _logger.Debug("Attempt to connect.");
@@ -123,14 +126,16 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
 
         public Task<IBuildAgent> GetAgent(string name)
         {
-            return Task.Run(() =>
-            {
-                if (!_buildAgentRepository.Has(name))
-                {
-                    _buildAgentRepository.Add(new TeamCityBuildAgentViewModel(name, _teamCityClient, _services.Timer));
-                }
-                return _buildAgentRepository.Get(name);
-            });
+            return Task.Run(() => _buildAgentRepository.Get(name));
+        }
+
+        void ITeamCityChannelState.Leave()
+        {
+        }
+
+        void ITeamCityChannelState.Enter()
+        {
+            _channelStateBroadcaster.OnDisconnected.Fire();
         }
     }
 }

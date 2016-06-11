@@ -9,7 +9,7 @@ using TeamCitySharp.DomainEntities;
 
 namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
 {
-    internal class TeamCityChannelEmulatedState : ITeamCityChannel
+    internal class TeamCityChannelEmulatedState : ITeamCityChannelState
     {
         private readonly Build _nullBuild = new NullBuild();
         private readonly Dictionary<string, BuildConfig> _buildConfigurations = new Dictionary<string, BuildConfig>();
@@ -98,6 +98,14 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
         public Task<IBuildAgent> GetAgent(string name)
         {
             return Task.Run<IBuildAgent>(() => new NullBuildAgent(name));
+        }
+
+        void ITeamCityChannelState.Leave()
+        {
+        }
+
+        void ITeamCityChannelState.Enter()
+        {
         }
 
         public async Task<Build[]> GetRunningBuilds(string projectName, string buildConfigurationName, string branchName)

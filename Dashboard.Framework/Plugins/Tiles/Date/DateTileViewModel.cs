@@ -64,6 +64,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Date
             UpdateView();
             var now = _clock.Now;
             var timeToNextMinuteChange = TimeSpan.FromSeconds(60.1 - now.Second);
+            Console.WriteLine(string.Format("== {0} seconds to next", timeToNextMinuteChange));
             _timerService.QueueCallback(timeToNextMinuteChange, this);
         }
     }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using log4net;
+using NoeticTools.TeamStatusBoard.Framework;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
 using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Config.Controllers;
@@ -17,26 +18,22 @@ using TeamCitySharp.DomainEntities;
 
 namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
 {
-    public sealed class TeamCityService : IStateEngine<ITeamCityChannel>, IConfigurationChangeListener, ITimerListener, ITeamCityService
+    public sealed class TeamCityService : IConfigurationChangeListener, ITimerListener, ITeamCityService
     {
         private readonly IDashboardController _dashboardController;
         private readonly IServices _services;
         private readonly ITeamCityServiceConfiguration _configuration;
-        private readonly TeamCityChannelConnectedState _connectedState;
-        private readonly ITeamCityChannel _disconnectedState;
         private readonly IDataSource _repository;
-        private ITeamCityChannel _current;
         private ILog _logger;
+        private readonly IStateEngine<ITeamCityChannel> _stateEngine;
 
-        public TeamCityService(IServices services, ITcSharpTeamCityClient teamCityClient, IBuildAgentRepository buildAgentRepository, IDataSource repository, ITeamCityServiceConfiguration configuration)
+        public TeamCityService(IServices services, IDataSource repository, ITeamCityServiceConfiguration configuration, IStateEngine<ITeamCityChannel> stateEngine)
         {
             _repository = repository;
             _dashboardController = services.DashboardController;
             _services = services;
             _configuration = configuration;
-            _disconnectedState = new TeamCityChannelDisconnectedState(teamCityClient, this, _configuration, buildAgentRepository, _services);
-            _connectedState = new TeamCityChannelConnectedState(teamCityClient, this, buildAgentRepository, _services);
-            _current = services.RunOptions.EmulateMode ? new TeamCityChannelEmulatedState(repository) : _disconnectedState;
+            _stateEngine = stateEngine;
             _logger = LogManager.GetLogger("DateSources.TeamCity.Connected");
             _services.Timer.QueueCallback(TimeSpan.FromMilliseconds(10), this);
 
@@ -46,11 +43,11 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
             _repository.Write("Service.Mode", services.RunOptions.EmulateMode ? "Emulated" : "Run");
         }
 
-        public string[] ProjectNames => _current.ProjectNames;
+        public string[] ProjectNames => _stateEngine.Current.ProjectNames;
 
         public bool IsConnected
         {
-            get { return _current.IsConnected; }
+            get { return _stateEngine.Current.IsConnected; }
         }
 
         public string Name => "TeamCity";
@@ -58,48 +55,48 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
         public void Connect()
         {
             _repository.Write("Service.Status", "Connecting");
-            _current.Connect();
+            _stateEngine.Current.Connect();
         }
 
         public void Disconnect()
         {
             _repository.Write("Service.Status", "Disconnecting");
-            _current.Disconnect();
+            _stateEngine.Current.Disconnect();
         }
 
         public Task<IBuildAgent[]> GetAgents()
         {
-            return _current.GetAgents();
+            return _stateEngine.Current.GetAgents();
         }
 
         public Task<IBuildAgent> GetAgent(string name)
         {
-            return _current.GetAgent(name);
+            return _stateEngine.Current.GetAgent(name);
         }
 
         public Task<Build> GetLastBuild(string projectName, string buildConfigurationName)
         {
-            return _current.GetLastBuild(projectName, buildConfigurationName);
+            return _stateEngine.Current.GetLastBuild(projectName, buildConfigurationName);
         }
 
         public Task<Build> GetLastSuccessfulBuild(string projectName, string buildConfigurationName)
         {
-            return _current.GetLastSuccessfulBuild(projectName, buildConfigurationName);
+            return _stateEngine.Current.GetLastSuccessfulBuild(projectName, buildConfigurationName);
         }
 
         public Task<Build[]> GetRunningBuilds(string projectName, string buildConfigurationName, string branchName)
         {
-            return _current.GetRunningBuilds(projectName, buildConfigurationName, branchName);
+            return _stateEngine.Current.GetRunningBuilds(projectName, buildConfigurationName, branchName);
         }
 
         public Task<Build[]> GetRunningBuilds(string projectName, string buildConfigurationName)
         {
-            return _current.GetRunningBuilds(projectName, buildConfigurationName);
+            return _stateEngine.Current.GetRunningBuilds(projectName, buildConfigurationName);
         }
 
         public Task<string[]> GetConfigurationNames(string projectName)
         {
-            return _current.GetConfigurationNames(projectName);
+            return _stateEngine.Current.GetConfigurationNames(projectName);
         }
 
         public void Configure()
@@ -131,9 +128,9 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
             }
             if (IsConnected)
             {
-                _current.Disconnect();
+                _stateEngine.Current.Disconnect();
             }
-            _current = new TeamCityChannelStoppedState();
+            _stateEngine.Stop();
         }
 
         public void Start()
@@ -142,22 +139,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
             {
                 return;
             }
-            _current = _disconnectedState;
-        }
-
-        void IStateEngine<ITeamCityChannel>.OnConnected()
-        {
-            _current = _connectedState;
-            _repository.Write("Service.Status", "Connected");
-            _repository.Write("Service.Connected", true);
-            _connectedState.Enter();
-        }
-
-        void IStateEngine<ITeamCityChannel>.OnDisconnected()
-        {
-            _current = _disconnectedState;
-            _repository.Write("Service.Status", "Disconnected");
-            _repository.Write("Service.Connected", false);
+            _stateEngine.Start();
         }
 
         void ITimerListener.OnTimeElapsed(TimerToken token)
@@ -167,7 +149,5 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
                 Connect();
             }
         }
-
-        ITeamCityChannel IStateEngine<ITeamCityChannel>.Current => _current;
     }
 }

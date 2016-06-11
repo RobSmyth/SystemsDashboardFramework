@@ -27,14 +27,15 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services
 
         public TimerToken QueueCallback(TimeSpan timeToCallback, ITimerListener listener)
         {
-            var callback = new TimerToken(listener, _clock, this);
-            callback.Requeue(timeToCallback);
-            _callbacks.Add(callback);
-            return callback;
+            Console.WriteLine("== 3: QueueCallback");
+            var token = new TimerToken(listener, _clock, this);
+            token.Requeue(timeToCallback);
+            return token;
         }
 
         public void Queue(TimerToken token)
         {
+            Console.WriteLine("== 3: Queue");
             if (!_callbacks.Contains(token))
             {
                 _callbacks.Add(token);
@@ -44,6 +45,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services
         public void FireAll()
         {
             var dueCallbacks = _callbacks.ToArray();
+            _callbacks.Clear();
             foreach (var dueCallback in dueCallbacks)
             {
                 dueCallback.Listener.OnTimeElapsed(dueCallback);
@@ -73,7 +75,9 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services
             var dueCallback = GetNextDueToken();
             while (dueCallback != null && stopwatch.Elapsed <= TimeSpan.FromSeconds(0.5) && !_stopped)
             {
+                Console.WriteLine("== 2a: {0}", _callbacks.Count);
                 _callbacks.Remove(dueCallback);
+                Console.WriteLine("== 2b: {0}", _callbacks.Count);
                 dueCallback.Listener.OnTimeElapsed(dueCallback);
                 dueCallback = GetNextDueToken();
             }

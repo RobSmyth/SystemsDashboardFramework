@@ -127,6 +127,8 @@
     <Compile Include="DataSources\DataPropertiesRepository.cs" />
     <Compile Include="DataSources\DataPropertyViewModel.cs" />
     <Compile Include="DataSources\DataPropertyViewModelFactory.cs" />
+    <Compile Include="EventBroadcaster.cs" />
+    <Compile Include="IEventBroadcaster.cs" />
     <Compile Include="NullTileControllerProvider.cs" />
     <Compile Include="Plugins\DataSources\FileSystem\FileReaderDataSourceConfigurationTileProvider.cs" />
     <Compile Include="Plugins\DataSources\FileSystem\FileReaderDataSourcePlugin.cs" />

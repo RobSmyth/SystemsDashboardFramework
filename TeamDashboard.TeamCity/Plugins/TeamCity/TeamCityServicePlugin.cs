@@ -17,8 +17,12 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
         {
             var dataSource = new DataRepositoryFactory().Create("TeamCity", "0");
             var configuration = new TeamCityServiceConfiguration(services.Configuration.Services.GetService("TeamCity"));
-            services.Register(new TeamCityService(services, 
-                new TcSharpTeamCityClient(new TeamCityClient(configuration.Url)), new BuildAgentRepository(dataSource), dataSource, configuration));
+            var channelStateBroadcaster = new ChannelConnectionStateBroadcaster(new EventBroadcaster(), new EventBroadcaster());
+            var teamCityClient = new TcSharpTeamCityClient(new TeamCityClient(configuration.Url));
+            var buildAgentRepository = new BuildAgentRepository(dataSource, teamCityClient, services, channelStateBroadcaster);
+            var stateEngine = new TeamCityChannelStateEngine(services, teamCityClient, buildAgentRepository, dataSource, configuration, channelStateBroadcaster);
+
+            services.Register(new TeamCityService(services, dataSource, configuration, stateEngine));
             services.DataService.Register("TeamCity", dataSource, new NullTileControllerProvider());
         }
     }

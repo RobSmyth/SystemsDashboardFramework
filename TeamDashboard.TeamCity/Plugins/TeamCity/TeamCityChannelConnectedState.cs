@@ -3,42 +3,44 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using log4net;
+using NoeticTools.TeamStatusBoard.Framework;
 using NoeticTools.TeamStatusBoard.Framework.DataSources.Jira;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.Agents;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.TcSharpInterop;
-using TeamCitySharp;
 using TeamCitySharp.DomainEntities;
 using TeamCitySharp.Locators;
 
 
 namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
 {
-    internal class TeamCityChannelConnectedState : ITeamCityChannel
+    internal sealed class TeamCityChannelConnectedState : ITeamCityChannelState
     {
         private readonly ITcSharpTeamCityClient _teamCityClient;
         private readonly IStateEngine<ITeamCityChannel> _stateEngine;
         private readonly IClock _clock;
         private readonly IBuildAgentRepository _buildAgentRepository;
         private readonly IServices _services;
-        private readonly TimeCachedArray<Project> _projects;
+        private readonly IChannelConnectionStateBroadcaster _channelStateBroadcaster;
+        private readonly TimeCachedArray<Project> _projectCache;
         private readonly Dictionary<Project, TimeCachedArray<BuildConfig>> _buildConfigurations = new Dictionary<Project, TimeCachedArray<BuildConfig>>();
         private readonly ILog _logger;
         private readonly object _syncRoot = new object();
 
-        public TeamCityChannelConnectedState(ITcSharpTeamCityClient teamCityClient, IStateEngine<ITeamCityChannel> stateEngine, IBuildAgentRepository buildAgentRepository, IServices services)
+        public TeamCityChannelConnectedState(ITcSharpTeamCityClient teamCityClient, IStateEngine<ITeamCityChannel> stateEngine, IBuildAgentRepository buildAgentRepository, IServices services, IChannelConnectionStateBroadcaster channelStateBroadcaster)
         {
             _teamCityClient = teamCityClient;
             _stateEngine = stateEngine;
             _clock = services.Clock;
             _buildAgentRepository = buildAgentRepository;
             _services = services;
+            _channelStateBroadcaster = channelStateBroadcaster;
             _logger = LogManager.GetLogger("DateSources.TeamCity.Connected");
-            _projects = new TimeCachedArray<Project>(() => _teamCityClient.Projects.All(), TimeSpan.FromMinutes(5), _clock);
+            _projectCache = new TimeCachedArray<Project>(() => _teamCityClient.Projects.All(), TimeSpan.FromMinutes(5), _clock);
         }
 
-        public string[] ProjectNames => _projects.Items.Select(x => x.Name).ToArray();
+        public string[] ProjectNames => _projectCache.Items.Select(x => x.Name).ToArray();
 
         public bool IsConnected => true;
 
@@ -55,21 +57,14 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
         {
             _logger.DebugFormat("Request for configuration names for project {0}", projectName);
 
-            var project = _projects.Items.SingleOrDefault(x => x.Name.Equals(projectName, StringComparison.CurrentCultureIgnoreCase));
+            var project = _projectCache.Items.SingleOrDefault(x => x.Name.Equals(projectName, StringComparison.CurrentCultureIgnoreCase));
             var configurations = await GetConfigurations(project);
             return project == null ? new string[0] : configurations.Items.Select(x => x.Name).ToArray();
         }
 
         public Task<IBuildAgent> GetAgent(string name)
         {
-            return Task.Run(() =>
-            {
-                if (!_buildAgentRepository.Has(name))
-                {
-                    _buildAgentRepository.Add(new TeamCityBuildAgentViewModel(name, _teamCityClient, _services.Timer));
-                }
-                return _buildAgentRepository.Get(name);
-            });
+            return Task.Run(() => _buildAgentRepository.Get(name));
         }
 
         public Task<IBuildAgent[]> GetAgents()
@@ -89,7 +84,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
 
             try
             {
-                var project = _projects.Items.SingleOrDefault(x => x.Name.Equals(projectName, StringComparison.InvariantCultureIgnoreCase));
+                var project = _projectCache.Items.SingleOrDefault(x => x.Name.Equals(projectName, StringComparison.InvariantCultureIgnoreCase));
                 if (project == null)
                 {
                     return null;
@@ -118,7 +113,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
                 {
                     try
                     {
-                        var project = _projects.Items.Single(x => x.Name.Equals(projectName, StringComparison.InvariantCultureIgnoreCase));
+                        var project = _projectCache.Items.Single(x => x.Name.Equals(projectName, StringComparison.InvariantCultureIgnoreCase));
                         var buildConfiguration = _teamCityClient.BuildConfigs.ByProjectIdAndConfigurationName(project.Id, buildConfigurationName);
                         var builds = _teamCityClient.Builds.SuccessfulBuildsByBuildConfigId(buildConfiguration.Id);
                         var lastBuild = builds.FirstOrDefault();
@@ -147,7 +142,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
 
             try
             {
-                var project = _projects.Items.SingleOrDefault(x => x.Name.Equals(projectName, StringComparison.InvariantCultureIgnoreCase));
+                var project = _projectCache.Items.SingleOrDefault(x => x.Name.Equals(projectName, StringComparison.InvariantCultureIgnoreCase));
                 if (project == null)
                 {
                     _logger.WarnFormat("Could not find project {0}.", projectName);
@@ -173,7 +168,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
             catch (Exception exception)
             {
                 _logger.Error("Exception while getting running build.", exception);
-                return null;
+                return new Build[0];
             }
         }
 
@@ -195,13 +190,20 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
             });
         }
 
-        public void Enter()
+        void ITeamCityChannelState.Leave()
         {
-            Task.Run(() => GetAgents());
+            _buildAgentRepository.StopWatching();
+            _projectCache.StopWatching();
+        }
+
+        void ITeamCityChannelState.Enter()
+        {
+            Task.Run(GetAgents);
             if (ProjectNames.Length > 0)
             {
                 Task.Run(() => GetConfigurationNames(ProjectNames.First()));
             }
+            _channelStateBroadcaster.OnConnected.Fire();
         }
 
         private void UpdateBuildAgentRepository()
@@ -209,10 +211,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
             var teamCityAgents = _teamCityClient.Agents.All();
             foreach (var teamCityAgent in teamCityAgents)
             {
-                if (!_buildAgentRepository.Has(teamCityAgent.Name))
-                {
-                    _buildAgentRepository.Add(new TeamCityBuildAgentViewModel(teamCityAgent.Name, _teamCityClient, _services.Timer));
-                }
+                _buildAgentRepository.Get(teamCityAgent.Name); // todo - move this functionality to the repository
             }
         }
 

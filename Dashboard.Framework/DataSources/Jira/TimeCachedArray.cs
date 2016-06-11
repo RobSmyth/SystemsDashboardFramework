@@ -49,5 +49,10 @@ namespace NoeticTools.TeamStatusBoard.Framework.DataSources.Jira
                 return _items;
             }
         }
+
+        public void StopWatching()
+        {
+            _items = new T[0];
+        }
     }
 }

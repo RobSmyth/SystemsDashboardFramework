@@ -5,7 +5,7 @@ using TeamCitySharp.DomainEntities;
 
 namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
 {
-    internal class TeamCityChannelStoppedState : ITeamCityChannel
+    internal class TeamCityChannelStoppedState : ITeamCityChannelState
     {
         public string[] ProjectNames { get; }
         public bool IsConnected { get; }
@@ -51,6 +51,14 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
         public Task<IBuildAgent> GetAgent(string name)
         {
             return Task.Run(() => (IBuildAgent) null);
+        }
+
+        void ITeamCityChannelState.Leave()
+        {
+        }
+
+        void ITeamCityChannelState.Enter()
+        {
         }
     }
 }

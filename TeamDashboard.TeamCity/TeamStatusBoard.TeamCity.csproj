@@ -61,15 +61,15 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Plugins\TeamCity\BuildAgentRepository.cs" />
-    <Compile Include="Plugins\TeamCity\BuildAgentStatus.cs" />
-    <Compile Include="Plugins\TeamCity\IBuildAgent.cs" />
-    <Compile Include="Plugins\TeamCity\IBuildAgentRepository.cs" />
+    <Compile Include="Plugins\TeamCity\Agents\BuildAgentRepository.cs" />
+    <Compile Include="Plugins\TeamCity\Agents\BuildAgentStatus.cs" />
+    <Compile Include="Plugins\TeamCity\Agents\IBuildAgent.cs" />
+    <Compile Include="Plugins\TeamCity\Agents\IBuildAgentRepository.cs" />
     <Compile Include="Plugins\TeamCity\IStateEngine.cs" />
     <Compile Include="Plugins\TeamCity\ITeamCityChannel.cs" />
     <Compile Include="Plugins\TeamCity\ITeamCityService.cs" />
     <Compile Include="Plugins\TeamCity\NullBuild.cs" />
-    <Compile Include="Plugins\TeamCity\NullBuildAgent.cs" />
+    <Compile Include="Plugins\TeamCity\Agents\NullBuildAgent.cs" />
     <Compile Include="Plugins\TeamCity\TeamCityBuildAgentViewModel.cs" />
     <Compile Include="Plugins\TeamCity\TeamCityChannelConnectedState.cs" />
     <Compile Include="Plugins\TeamCity\TeamCityChannelDisconnectedState.cs" />
@@ -122,6 +122,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Plugins\TeamCity\Projects\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

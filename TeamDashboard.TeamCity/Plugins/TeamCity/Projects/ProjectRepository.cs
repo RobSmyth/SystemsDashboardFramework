@@ -44,10 +44,11 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.Projects
 
         public IProject Get(string name)
         {
-            return _projectCache.Items.SingleOrDefault(x => x.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
+            var project = _projectCache.Items.SingleOrDefault(x => x.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
+            return project ?? new NullProject();
         }
 
-        public async Task<Build[]> GetRunningBuilds(string projectName, string buildConfigurationName)
+        public Build[] GetRunningBuilds(string projectName, string buildConfigurationName)
         {
             _logger.DebugFormat("Request for running build: {0} / {1}.", projectName, buildConfigurationName);
 
@@ -59,7 +60,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.Projects
                     _logger.WarnFormat("Could not find project {0}.", projectName);
                     return new Build[0];
                 }
-                return await project.GetRunningBuilds(buildConfigurationName);
+                return project.GetRunningBuilds(buildConfigurationName);
             }
             catch (Exception exception)
             {

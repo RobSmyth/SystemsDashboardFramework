@@ -15,7 +15,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.Projects
         public string WebUrl { get; set; }
         public BuildTypeWrapper BuildTypes { get; set; }
         public Parameters Parameters { get; set; }
-        public async Task<Build[]> GetRunningBuilds(string buildConfigurationName)
+        public Build[] GetRunningBuilds(string buildConfigurationName)
         {
             return new Build[0];
         }

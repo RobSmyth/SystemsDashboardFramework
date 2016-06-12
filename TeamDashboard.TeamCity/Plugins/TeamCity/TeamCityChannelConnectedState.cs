@@ -79,23 +79,19 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
             });
         }
 
-        public async Task<Build> GetLastBuild(string projectName, string buildConfigurationName)
+        public Build GetLastBuild(string projectName, string buildConfigurationName)
         {
             _logger.DebugFormat("Request for last build: {0} / {1}.", projectName, buildConfigurationName);
 
             try
             {
                 var project = _projectRepository.Get(projectName);
-                if (project == null)
-                {
-                    return null;
-                }
-                var buildConfiguration = await GetConfiguration(project, buildConfigurationName);
+                var buildConfiguration = GetConfiguration(project, buildConfigurationName);
                 if (buildConfiguration == null)
                 {
                     return null;
                 }
-                var builds = _teamCityClient.Builds.ByBuildConfigId(buildConfiguration.Id);
+                var builds = _teamCityClient.Builds.ByBuildConfigId(buildConfiguration.Result.Id);
                 return builds.FirstOrDefault(x => x.Status != "UNKNOWN");
             }
             catch (Exception)
@@ -104,67 +100,43 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
             }
         }
 
-        public Task<Build> GetLastSuccessfulBuild(string projectName, string buildConfigurationName)
+        public Build GetLastSuccessfulBuild(string projectName, string buildConfigurationName)
         {
             _logger.DebugFormat("Request for last successful build: {0} / {1}.", projectName, buildConfigurationName);
 
-            return Task.Run(() =>
+            lock (_syncRoot)
             {
-                lock (_syncRoot)
+                try
                 {
-                    try
+                    var project = _projectRepository.Get(projectName);
+                    var buildConfiguration = _teamCityClient.BuildConfigs.ByProjectIdAndConfigurationName(project.Id, buildConfigurationName);
+                    var builds = _teamCityClient.Builds.SuccessfulBuildsByBuildConfigId(buildConfiguration.Id);
+                    var lastBuild = builds.FirstOrDefault();
+                    if (lastBuild == null)
                     {
-                        var project = _projectRepository.Get(projectName);
-                        var buildConfiguration = _teamCityClient.BuildConfigs.ByProjectIdAndConfigurationName(project.Id, buildConfigurationName);
-                        var builds = _teamCityClient.Builds.SuccessfulBuildsByBuildConfigId(buildConfiguration.Id);
-                        var lastBuild = builds.FirstOrDefault();
-                        if (lastBuild == null)
-                        {
-                            _logger.WarnFormat("Could not find a last successful build for: {0} / {1}.", projectName, buildConfigurationName);
-                        }
-                        else
-                        {
-                            _logger.DebugFormat("Last successful build was run at {2} for: {0} / {1}.", projectName, buildConfigurationName, lastBuild.StartDate);
-                        }
-                        return lastBuild;
+                        _logger.WarnFormat("Could not find a last successful build for: {0} / {1}.", projectName, buildConfigurationName);
                     }
-                    catch (Exception exception)
+                    else
                     {
-                        _logger.Error("Exception getting last successful build.", exception);
-                        return null;
+                        _logger.DebugFormat("Last successful build was run at {2} for: {0} / {1}.", projectName, buildConfigurationName, lastBuild.StartDate);
                     }
+                    return lastBuild;
                 }
-            });
+                catch (Exception exception)
+                {
+                    _logger.Error("Exception getting last successful build.", exception);
+                    return null;
+                }
+            }
         }
 
-        public async Task<Build[]> GetRunningBuilds(string projectName, string buildConfigurationName)
+        public Build[] GetRunningBuilds(string projectName, string buildConfigurationName)
         {
             _logger.DebugFormat("Request for running build: {0} / {1}.", projectName, buildConfigurationName);
 
             try
             {
-                var project = _projectRepository.Get(projectName);
-                if (project == null)
-                {
-                    _logger.WarnFormat("Could not find project {0}.", projectName);
-                    return new Build[0];
-                }
-
-                var buildConfiguration = await GetConfiguration(project, buildConfigurationName);
-                if (buildConfiguration == null)
-                {
-                    _logger.WarnFormat("Could not find configuration: {0} / {1}.", projectName, buildConfigurationName);
-                    return new Build[0];
-                }
-
-                var builds = _teamCityClient.Builds.ByBuildLocator(BuildLocator.WithDimensions(running: true, branch: "default:any")).Where(x => x.WebUrl.EndsWith(buildConfiguration.Id)).ToArray();
-
-                foreach (var build in builds)
-                {
-                    build.Status = build.Status == "FAILED" ? "RUNNING FAILED" : "RUNNING";
-                }
-
-                return builds;
+                return _projectRepository.Get(projectName).GetRunningBuilds(buildConfigurationName);
             }
             catch (Exception exception)
             {
@@ -173,22 +145,19 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
             }
         }
 
-        public Task<Build[]> GetRunningBuilds(string projectName, string buildConfigurationName, string branchName)
+        public Build[] GetRunningBuilds(string projectName, string buildConfigurationName, string branchName)
         {
             _logger.DebugFormat("Request for last build on branch {2}: {0} / {1}.", projectName, buildConfigurationName, branchName);
 
-            return Task.Run(() =>
+            try
             {
-                try
-                {
-                    var builds = _teamCityClient.Builds.ByBuildLocator(BuildLocator.WithDimensions(running: true, branch: branchName));
-                    return builds.ToArray();
-                }
-                catch (Exception)
-                {
-                    return null;
-                }
-            });
+                var builds = _teamCityClient.Builds.ByBuildLocator(BuildLocator.WithDimensions(running: true, branch: branchName));
+                return builds.ToArray();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         void ITeamCityChannelState.Leave()

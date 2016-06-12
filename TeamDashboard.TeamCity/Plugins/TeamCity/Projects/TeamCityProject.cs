@@ -6,7 +6,6 @@ using NoeticTools.TeamStatusBoard.Framework.DataSources.Jira;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.TcSharpInterop;
 using TeamCitySharp.DomainEntities;
-using TeamCitySharp.Locators;
 
 
 namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.Projects
@@ -17,6 +16,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.Projects
         private readonly ITcSharpTeamCityClient _teamCityClient;
         private readonly ILog _logger;
         private readonly TimeCachedArray<IBuildConfiguration> _buildsCache;
+        private readonly object _syncRoot = new object();
 
         public TeamCityProject(Project inner, ITcSharpTeamCityClient teamCityClient, IServices services)
         {
@@ -26,13 +26,13 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.Projects
             _logger = LogManager.GetLogger("Repositories.Projects.Project");
         }
 
-        public async Task<Build[]> GetRunningBuilds(string buildConfigurationName)
+        public Build[] GetRunningBuilds(string buildConfigurationName)
         {
             _logger.DebugFormat("Request for running build: {0} / {1}.", Name, buildConfigurationName);
 
             try
             {
-                var buildConfiguration = await GetConfiguration( buildConfigurationName);
+                var buildConfiguration = GetConfiguration( buildConfigurationName);
                 if (buildConfiguration == null)
                 {
                     _logger.WarnFormat("Could not find configuration: {0} / {1}.", Name, buildConfigurationName);
@@ -45,6 +45,12 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.Projects
                 _logger.Error("Exception while getting running build.", exception);
                 return new Build[0];
             }
+        }
+
+        public IBuildConfiguration[] GetConfigurations()
+        {
+            _logger.DebugFormat("Request for configurations on project {0}.", Name);
+            return _buildsCache.Items;
         }
 
         public bool Archived
@@ -95,16 +101,9 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.Projects
             set { _inner.Parameters = value; }
         }
 
-        private async Task<IBuildConfiguration> GetConfiguration(string buildConfigurationName)
+        private IBuildConfiguration GetConfiguration(string buildConfigurationName)
         {
-            var buildConfigurations = await GetConfigurations();
-            return buildConfigurations.Items.SingleOrDefault(x => x.Name.Equals(buildConfigurationName, StringComparison.InvariantCultureIgnoreCase));
-        }
-
-        private Task<TimeCachedArray<IBuildConfiguration>> GetConfigurations()
-        {
-            _logger.DebugFormat("Request for configurations on project {0}.", Name);
-            return Task.Run(() => _buildsCache);
+            return _buildsCache.Items.SingleOrDefault(x => x.Name.Equals(buildConfigurationName, StringComparison.InvariantCultureIgnoreCase));
         }
     }
 }

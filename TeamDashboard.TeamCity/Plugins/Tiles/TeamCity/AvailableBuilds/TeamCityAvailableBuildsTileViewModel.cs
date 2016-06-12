@@ -106,26 +106,23 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AvailableB
             return version.Substring(0, length);
         }
 
-        private async void UpdateView()
+        private void UpdateView()
         {
             _logger.Debug("Update UI.");
 
-            await GetCurrentBuilds().ContinueWith(x =>
+            var builds = GetCurrentBuilds();
+            _view.Dispatcher.InvokeAsync(() =>
             {
-                var builds = x.Result;
-                _view.Dispatcher.InvokeAsync(() =>
+                Builds.Clear();
+                foreach (var build in builds)
                 {
-                    Builds.Clear();
-                    foreach (var build in builds)
-                    {
-                        Builds.Add(build);
-                    }
-                    _services.Timer.QueueCallback(_tickPeriod, this);
-                });
+                    Builds.Add(build);
+                }
+                _services.Timer.QueueCallback(_tickPeriod, this);
             });
         }
 
-        private async Task<BuildDetails[]> GetCurrentBuilds()
+        private BuildDetails[] GetCurrentBuilds()
         {
             var builds = new List<BuildDetails>();
 
@@ -138,7 +135,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AvailableB
                 if (!string.IsNullOrWhiteSpace(displayName) &&
                     !displayName.Equals("EMPTY", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    var build = await _service.GetLastSuccessfulBuild(projectName, configurationName);
+                    var build = _service.GetLastSuccessfulBuild(projectName, configurationName);
                     if (build != null)
                     {
                         var ageInDays = (DateTime.Now - build.StartDate).Days;

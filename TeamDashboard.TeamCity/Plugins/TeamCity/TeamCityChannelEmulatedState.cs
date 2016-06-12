@@ -11,7 +11,6 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
 {
     internal class TeamCityChannelEmulatedState : ITeamCityChannelState
     {
-        private readonly Build _nullBuild = new NullBuild();
         private readonly Dictionary<string, BuildConfig> _buildConfigurations = new Dictionary<string, BuildConfig>();
         private readonly Dictionary<string, Project> _projects = new Dictionary<string, Project>();
         private readonly Random _rand;
@@ -43,31 +42,25 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
         {
         }
 
-        public async Task<Build> GetLastBuild(string projectName, string buildConfigurationName)
+        public Build GetLastBuild(string projectName, string buildConfigurationName)
         {
             var randomValue = _rand.Next(0, _status.Length - 1);
-            return await Task.Run(() =>
-            {
-                var project = GetProject(projectName);
-                var buildConfiguration = GetBuildConfiguration(project, buildConfigurationName);
-                return CreateBuild(buildConfiguration, randomValue);
-            });
+            var project = GetProject(projectName);
+            var buildConfiguration = GetBuildConfiguration(project, buildConfigurationName);
+            return CreateBuild(buildConfiguration, randomValue);
         }
 
-        public async Task<Build> GetLastSuccessfulBuild(string projectName, string buildConfigurationName)
+        public Build GetLastSuccessfulBuild(string projectName, string buildConfigurationName)
         {
             var randomValue = _rand.Next(0, _status.Length - 1);
-            return await Task.Run(() =>
-            {
-                var project = GetProject(projectName);
-                var buildConfiguration = GetBuildConfiguration(project, buildConfigurationName);
-                var build = CreateBuild(buildConfiguration, randomValue);
-                build.Status = _rand.Next(0, 5) <= 1 ? "FAILURE" : "SUCCESS";
-                return build;
-            });
+            var project = GetProject(projectName);
+            var buildConfiguration = GetBuildConfiguration(project, buildConfigurationName);
+            var build = CreateBuild(buildConfiguration, randomValue);
+            build.Status = _rand.Next(0, 5) <= 1 ? "FAILURE" : "SUCCESS";
+            return build;
         }
 
-        public async Task<Build[]> GetRunningBuilds(string projectName, string buildConfigurationName)
+        public Build[] GetRunningBuilds(string projectName, string buildConfigurationName)
         {
             if (_rand.Next(1, 10) <= 4)
             {
@@ -75,14 +68,12 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
             }
 
             var randomValue = _rand.Next(0, _status.Length - 1);
-            return await Task.Run(() =>
-            {
-                var project = GetProject(projectName);
-                var buildConfiguration = GetBuildConfiguration(project, buildConfigurationName);
-                var build = CreateBuild(buildConfiguration, randomValue);
-                build.Status = randomValue <= 1 ? "RUNNING" : "RUNNING FAILED";
-                return new[] {build};
-            });
+
+            var project = GetProject(projectName);
+            var buildConfiguration = GetBuildConfiguration(project, buildConfigurationName);
+            var build = CreateBuild(buildConfiguration, randomValue);
+            build.Status = randomValue <= 1 ? "RUNNING" : "RUNNING FAILED";
+            return new[] {build};
         }
 
         public Task<string[]> GetConfigurationNames(string projectName)
@@ -108,9 +99,9 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
         {
         }
 
-        public async Task<Build[]> GetRunningBuilds(string projectName, string buildConfigurationName, string branchName)
+        public Build[] GetRunningBuilds(string projectName, string buildConfigurationName, string branchName)
         {
-            return await GetRunningBuilds(projectName, buildConfigurationName);
+            return GetRunningBuilds(projectName, buildConfigurationName);
         }
 
         private Build CreateBuild(BuildConfig buildConfiguration, int randomValue)

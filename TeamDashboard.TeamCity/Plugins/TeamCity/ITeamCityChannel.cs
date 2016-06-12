@@ -11,10 +11,10 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
         bool IsConnected { get; }
         void Connect();
         void Disconnect();
-        Task<Build> GetLastBuild(string projectName, string buildConfigurationName);
-        Task<Build> GetLastSuccessfulBuild(string projectName, string buildConfigurationName);
-        Task<Build[]> GetRunningBuilds(string projectName, string buildConfigurationName, string branchName);
-        Task<Build[]> GetRunningBuilds(string projectName, string buildConfigurationName);
+        Build GetLastBuild(string projectName, string buildConfigurationName);
+        Build GetLastSuccessfulBuild(string projectName, string buildConfigurationName);
+        Build[] GetRunningBuilds(string projectName, string buildConfigurationName, string branchName);
+        Build[] GetRunningBuilds(string projectName, string buildConfigurationName);
         Task<string[]> GetConfigurationNames(string projectName);
         Task<IBuildAgent[]> GetAgents();
         Task<IBuildAgent> GetAgent(string name);

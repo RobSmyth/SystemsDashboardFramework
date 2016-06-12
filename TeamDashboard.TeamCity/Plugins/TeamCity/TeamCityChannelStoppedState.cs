@@ -18,24 +18,24 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
         {
         }
 
-        public Task<Build> GetLastBuild(string projectName, string buildConfigurationName)
+        public Build GetLastBuild(string projectName, string buildConfigurationName)
         {
-            return Task.Run(() => (Build) null);
+            return (Build) null;
         }
 
-        public Task<Build> GetLastSuccessfulBuild(string projectName, string buildConfigurationName)
+        public Build GetLastSuccessfulBuild(string projectName, string buildConfigurationName)
         {
-            return Task.Run(() => (Build) null);
+            return (Build) null;
         }
 
-        public Task<Build[]> GetRunningBuilds(string projectName, string buildConfigurationName, string branchName)
+        public Build[] GetRunningBuilds(string projectName, string buildConfigurationName, string branchName)
         {
-            return Task.Run(() => new Build[0]);
+            return new Build[0];
         }
 
-        public Task<Build[]> GetRunningBuilds(string projectName, string buildConfigurationName)
+        public Build[] GetRunningBuilds(string projectName, string buildConfigurationName)
         {
-            return Task.Run(() => new Build[0]);
+            return new Build[0];
         }
 
         public Task<string[]> GetConfigurationNames(string projectName)

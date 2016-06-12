@@ -152,14 +152,14 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.LastBuildS
 
         private Build[] GetBuilds(string projectName, string configurationName)
         {
-            var build = _service.GetRunningBuilds(projectName, configurationName).Result;
+            var build = _service.GetRunningBuilds(projectName, configurationName);
             if (build.Any())
             {
                 return build;
             }
 
             _logger.Debug("No build running, getting last build.");
-            var lastBuild = _service.GetLastBuild(projectName, configurationName).Result;
+            var lastBuild = _service.GetLastBuild(projectName, configurationName);
             if (lastBuild == null)
             {
                 return new Build[0];

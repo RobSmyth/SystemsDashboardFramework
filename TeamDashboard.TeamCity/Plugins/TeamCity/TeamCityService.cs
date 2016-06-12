@@ -72,22 +72,22 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
             return _stateEngine.Current.GetAgent(name);
         }
 
-        public Task<Build> GetLastBuild(string projectName, string buildConfigurationName)
+        public Build GetLastBuild(string projectName, string buildConfigurationName)
         {
             return _stateEngine.Current.GetLastBuild(projectName, buildConfigurationName);
         }
 
-        public Task<Build> GetLastSuccessfulBuild(string projectName, string buildConfigurationName)
+        public Build GetLastSuccessfulBuild(string projectName, string buildConfigurationName)
         {
             return _stateEngine.Current.GetLastSuccessfulBuild(projectName, buildConfigurationName);
         }
 
-        public Task<Build[]> GetRunningBuilds(string projectName, string buildConfigurationName, string branchName)
+        public Build[] GetRunningBuilds(string projectName, string buildConfigurationName, string branchName)
         {
             return _stateEngine.Current.GetRunningBuilds(projectName, buildConfigurationName, branchName);
         }
 
-        public Task<Build[]> GetRunningBuilds(string projectName, string buildConfigurationName)
+        public Build[] GetRunningBuilds(string projectName, string buildConfigurationName)
         {
             return _stateEngine.Current.GetRunningBuilds(projectName, buildConfigurationName);
         }

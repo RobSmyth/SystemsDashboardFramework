@@ -3,6 +3,7 @@ using NoeticTools.TeamStatusBoard.Framework;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.Agents;
+using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.Projects;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.TcSharpInterop;
 
 
@@ -12,16 +13,18 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
     {
         private readonly IServices _services;
         private readonly ITcSharpTeamCityClient _teamCityClient;
+        private readonly IProjectRepository _projectRepository;
         private readonly IBuildAgentRepository _buildAgentRepository;
         private readonly IDataSource _repository;
         private readonly ITeamCityServiceConfiguration _configuration;
         private readonly ChannelConnectionStateBroadcaster _channelStateBroadcaster;
         private readonly object _syncRoot = new object();
 
-        public TeamCityChannelStateEngine(IServices services, ITcSharpTeamCityClient teamCityClient, IBuildAgentRepository buildAgentRepository, IDataSource repository, ITeamCityServiceConfiguration configuration, ChannelConnectionStateBroadcaster channelStateBroadcaster)
+        public TeamCityChannelStateEngine(IServices services, ITcSharpTeamCityClient teamCityClient, IProjectRepository projectRepository, IBuildAgentRepository buildAgentRepository, IDataSource repository, ITeamCityServiceConfiguration configuration, ChannelConnectionStateBroadcaster channelStateBroadcaster)
         {
             _services = services;
             _teamCityClient = teamCityClient;
+            _projectRepository = projectRepository;
             _buildAgentRepository = buildAgentRepository;
             _repository = repository;
             _configuration = configuration;
@@ -35,7 +38,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
         {
             _repository.Write("Service.Status", "Connected");
             _repository.Write("Service.Connected", true);
-            ChangeState(new TeamCityChannelConnectedState(_teamCityClient, this, _buildAgentRepository, _services, _channelStateBroadcaster));
+            ChangeState(new TeamCityChannelConnectedState(_teamCityClient, this, _projectRepository, _buildAgentRepository, _services, _channelStateBroadcaster));
         }
 
         public void OnDisconnected()

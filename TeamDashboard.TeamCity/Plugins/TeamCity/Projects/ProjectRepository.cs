@@ -15,35 +15,36 @@ using TeamCitySharp.Locators;
 
 namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.Projects
 {
-    public sealed class ProjectRepository : IChannelConnectionStateListener, ITimerListener
+    public sealed class ProjectRepository : IChannelConnectionStateListener, ITimerListener, IProjectRepository
     {
         private readonly TimeSpan _updatePeriod = TimeSpan.FromMinutes(1);
-        private readonly IDataSource _outerRepository;
-        private TcSharpTeamCityClient _teamCityClient;
-        private IServices _services;
-        private IChannelConnectionStateBroadcaster _channelStateBroadcaster;
+        private readonly ITcSharpTeamCityClient _teamCityClient;
+        private readonly IServices _services;
         private Action _onConnected = () => { };
         private Action _onDisconnected = () => { };
         private ITimerToken _timerToken = new NullTimerToken();
         private readonly ILog _logger;
-        private readonly object _syncRoot = new object();
-        private readonly Dictionary<Project, TimeCachedArray<BuildConfig>> _buildConfigurations = new Dictionary<Project, TimeCachedArray<BuildConfig>>();
+        private readonly TimeCachedArray<IProject> _projectCache;
 
-        public ProjectRepository(IDataSource outerRepository, TcSharpTeamCityClient teamCityClient, IServices services, IChannelConnectionStateBroadcaster channelStateBroadcaster)
+        public ProjectRepository(IDataSource outerRepository, ITcSharpTeamCityClient teamCityClient, IServices services, IChannelConnectionStateBroadcaster channelStateBroadcaster)
         {
-            _outerRepository = outerRepository;
             _teamCityClient = teamCityClient;
             _services = services;
-            _channelStateBroadcaster = channelStateBroadcaster;
-            _channelStateBroadcaster.Add(this);
-            _outerRepository.Write($"Agents.Count", 0);
+            channelStateBroadcaster.Add(this);
+            outerRepository.Write($"Agents.Count", 0);
             _logger = LogManager.GetLogger("Repositories.Projects");
+            _projectCache = new TimeCachedArray<IProject>(() => _teamCityClient.Projects.All().Select(x => new TeamCityProject(x, _teamCityClient, _services)).ToArray(), TimeSpan.FromMinutes(5), _services.Clock);
             SetDisconnectedState();
         }
 
-        public Project[] GetRunningBuilds()
+        public IProject[] GetAll()
         {
-            return new Project[0];
+            return _projectCache.Items;
+        }
+
+        public IProject Get(string name)
+        {
+            return _projectCache.Items.SingleOrDefault(x => x.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
         }
 
         public async Task<Build[]> GetRunningBuilds(string projectName, string buildConfigurationName)
@@ -52,28 +53,13 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.Projects
 
             try
             {
-                var project = _teamCityClient.Projects.ByName(projectName);
+                var project = _projectCache.Items.SingleOrDefault(x => x.Name.Equals(projectName));
                 if (project == null)
                 {
                     _logger.WarnFormat("Could not find project {0}.", projectName);
                     return new Build[0];
                 }
-
-                var buildConfiguration = await GetConfiguration(project, buildConfigurationName);
-                if (buildConfiguration == null)
-                {
-                    _logger.WarnFormat("Could not find configuration: {0} / {1}.", projectName, buildConfigurationName);
-                    return new Build[0];
-                }
-
-                var builds = _teamCityClient.Builds.ByBuildLocator(BuildLocator.WithDimensions(running: true, branch: "default:any")).Where(x => x.WebUrl.EndsWith(buildConfiguration.Id)).ToArray();
-
-                foreach (var build in builds)
-                {
-                    build.Status = build.Status == "FAILED" ? "RUNNING FAILED" : "RUNNING";
-                }
-
-                return builds;
+                return await project.GetRunningBuilds(buildConfigurationName);
             }
             catch (Exception exception)
             {
@@ -82,33 +68,9 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.Projects
             }
         }
 
-        private async Task<BuildConfig> GetConfiguration(Project project, string buildConfigurationName)
-        {
-            var buildConfigurations = await GetConfigurations(project);
-            return buildConfigurations.Items.SingleOrDefault(x => x.Name.Equals(buildConfigurationName, StringComparison.InvariantCultureIgnoreCase));
-        }
-
-        private Task<TimeCachedArray<BuildConfig>> GetConfigurations(Project project)
-        {
-            _logger.DebugFormat("Request for configurations on project {0}.", project.Name);
-
-            return Task.Run(() =>
-            {
-                lock (_syncRoot)
-                {
-                    if (!_buildConfigurations.ContainsKey(project))
-                    {
-                        var timeCachedArray = new TimeCachedArray<BuildConfig>(() => _teamCityClient.BuildConfigs.ByProjectId(project.Id), TimeSpan.FromHours(12), _services.Clock);
-                        _buildConfigurations.Add(project, timeCachedArray);
-                    }
-                    return _buildConfigurations[project];
-                }
-            });
-        }
-
         private void Update()
         {
-            // todo - get running builds
+            // todo
         }
 
         void IChannelConnectionStateListener.OnConnected()
@@ -139,6 +101,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.Projects
         {
             _onDisconnected = () =>
             {
+                _projectCache.StopWatching();
                 var token = _timerToken;
                 _timerToken = new NullTimerToken();
                 token.Cancel();

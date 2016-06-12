@@ -1,36 +1,55 @@
 ﻿using System;
+using System.Linq;
 using NoeticTools.TeamStatusBoard.Framework;
 using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.Agents;
+using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.TcSharpInterop;
+using TeamCitySharp.Locators;
 
 
 namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
 {
-    public class TeamCityBuildAgentViewModel : NotifyingViewModelBase, IBuildAgent, ITimerListener
+    public class TeamCityBuildAgentViewModel : NotifyingViewModelBase, IBuildAgent, ITimerListener, IChannelConnectionStateListener
     {
         private readonly TimeSpan _tickPeriod = TimeSpan.FromSeconds(30);
         private readonly ITimerService _timer;
         private readonly IDataSource _outerRepository;
+        private readonly ITcSharpTeamCityClient _teamCityClient;
         private ITimerToken _timerToken = new NullTimerToken();
         private BuildAgentStatus _status;
         private bool _isRunning;
         private string _statusText;
         private Action _onDisconnectAction = () => { };
         private Action _onConnectAction = () => { };
+        private bool _isOnline;
 
-        public TeamCityBuildAgentViewModel(string name, ITimerService timer, IDataSource outerRepository, IChannelConnectionStateBroadcaster channelStateBroadcaster)
+        public TeamCityBuildAgentViewModel(string name, ITimerService timer, IDataSource outerRepository, IChannelConnectionStateBroadcaster channelStateBroadcaster, ITcSharpTeamCityClient teamCityClient)
         {
             _timer = timer;
             _outerRepository = outerRepository;
+            _teamCityClient = teamCityClient;
             Name = name;
             _statusText = string.Empty;
             SetDisconnectedStateActions();
-            channelStateBroadcaster.OnDisconnected.AddListener(OnDisconnected);
-            channelStateBroadcaster.OnConnected.AddListener(OnConnected);
+            channelStateBroadcaster.Add(this);
         }
 
         public string Name { get; }
+
+        // todo - needs to check agent's online state from server
+        public bool IsOnline
+        {
+            get { return _isOnline; }
+            set
+            {
+                if (_isOnline != value)
+                {
+                    _isOnline = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         public bool IsRunning
         {
@@ -50,6 +69,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
             Status = BuildAgentStatus.Unknown;
             StatusText = "Unknown";
             IsRunning = false;
+            IsOnline = false;
         }
 
         public BuildAgentStatus Status
@@ -85,6 +105,11 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
 
         private void Update()
         {
+            var runningProjects = _teamCityClient.Builds.ByBuildLocator(BuildLocator.WithDimensions(running: true, branch: "default:any", agentName:Name)).ToArray();
+            IsRunning = runningProjects.Length == 1;
+            Status = IsRunning ? BuildAgentStatus.Running : BuildAgentStatus.Idle;
+            StatusText = IsRunning ? "Running" : "Idle";
+
             UpdateBuildAgentParameters();
             _timerToken.Requeue(_tickPeriod);
         }
@@ -94,14 +119,14 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
             _outerRepository.Write($"Agent.{Name}.Status", Status);
         }
 
-        private void OnConnected()
+        void IChannelConnectionStateListener.OnConnected()
         {
             var action = _onConnectAction;
             SetConnectedStateActions();
             action();
         }
 
-        private void OnDisconnected()
+        void IChannelConnectionStateListener.OnDisconnected()
         {
             var action = _onDisconnectAction;
             SetDisconnectedStateActions();
@@ -116,6 +141,9 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
                 var token = _timerToken;
                 _timerToken = new NullTimerToken();
                 token.Cancel();
+                Status = BuildAgentStatus.Unknown;
+                StatusText = "Unknown";
+                IsOnline = false;
             };
         }
 

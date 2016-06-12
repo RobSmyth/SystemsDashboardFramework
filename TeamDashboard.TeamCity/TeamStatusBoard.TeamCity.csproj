@@ -67,6 +67,7 @@
     <Compile Include="Plugins\TeamCity\Agents\IBuildAgentRepository.cs" />
     <Compile Include="Plugins\TeamCity\ChannelConnectionStateBroadcaster.cs" />
     <Compile Include="Plugins\TeamCity\IChannelConnectionStateBroadcaster.cs" />
+    <Compile Include="Plugins\TeamCity\IChannelConnectionStateListener.cs" />
     <Compile Include="Plugins\TeamCity\IStateEngine.cs" />
     <Compile Include="Plugins\TeamCity\ITeamCityChannel.cs" />
     <Compile Include="Plugins\TeamCity\ITeamCityChannelState.cs" />
@@ -74,6 +75,7 @@
     <Compile Include="Plugins\TeamCity\ITeamCityServiceConfiguration.cs" />
     <Compile Include="Plugins\TeamCity\NullBuild.cs" />
     <Compile Include="Plugins\TeamCity\Agents\NullBuildAgent.cs" />
+    <Compile Include="Plugins\TeamCity\Projects\ProjectRepository.cs" />
     <Compile Include="Plugins\TeamCity\TcSharpInterop\ITcSharpTeamCityClient.cs" />
     <Compile Include="Plugins\TeamCity\TcSharpInterop\TcSharpTeamCityClient.cs" />
     <Compile Include="Plugins\TeamCity\TeamCityBuildAgentViewModel.cs" />
@@ -130,9 +132,7 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Plugins\TeamCity\Projects\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

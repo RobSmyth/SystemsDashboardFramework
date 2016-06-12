@@ -7,5 +7,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
     {
         EventBroadcaster OnConnected { get; }
         EventBroadcaster OnDisconnected { get; }
+        void Add(IChannelConnectionStateListener listener);
+        void Remove(IChannelConnectionStateListener listener);
     }
 }

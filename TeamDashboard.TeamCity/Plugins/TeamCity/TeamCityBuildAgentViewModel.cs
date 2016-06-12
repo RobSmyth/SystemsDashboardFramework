@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
 using NoeticTools.TeamStatusBoard.Framework;
 using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.Agents;
-using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.TcSharpInterop;
-using TeamCitySharp.DomainEntities;
-using TeamCitySharp.Locators;
 
 
 namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
@@ -15,21 +10,22 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
     public class TeamCityBuildAgentViewModel : NotifyingViewModelBase, IBuildAgent, ITimerListener
     {
         private readonly TimeSpan _tickPeriod = TimeSpan.FromSeconds(30);
-        private readonly ITcSharpTeamCityClient _teamCityClient;
         private readonly ITimerService _timer;
         private readonly IDataSource _outerRepository;
-        private TimerToken _timerToken;
+        private ITimerToken _timerToken = new NullTimerToken();
         private BuildAgentStatus _status;
         private bool _isRunning;
         private string _statusText;
+        private Action _onDisconnectAction = () => { };
+        private Action _onConnectAction = () => { };
 
-        public TeamCityBuildAgentViewModel(string name, ITcSharpTeamCityClient teamCityClient, ITimerService timer, IDataSource outerRepository, IChannelConnectionStateBroadcaster channelStateBroadcaster)
+        public TeamCityBuildAgentViewModel(string name, ITimerService timer, IDataSource outerRepository, IChannelConnectionStateBroadcaster channelStateBroadcaster)
         {
-            _teamCityClient = teamCityClient;
             _timer = timer;
             _outerRepository = outerRepository;
             Name = name;
             _statusText = string.Empty;
+            SetDisconnectedStateActions();
             channelStateBroadcaster.OnDisconnected.AddListener(OnDisconnected);
             channelStateBroadcaster.OnConnected.AddListener(OnConnected);
         }
@@ -47,6 +43,13 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
                     OnPropertyChanged();
                 }
             }
+        }
+
+        public void IsNotKnown()
+        {
+            Status = BuildAgentStatus.Unknown;
+            StatusText = "Unknown";
+            IsRunning = false;
         }
 
         public BuildAgentStatus Status
@@ -82,38 +85,8 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
 
         private void Update()
         {
-            Task.Run(() =>
-            {
-                try
-                {
-                    var runningBuilds = _teamCityClient.Builds.ByBuildLocator(BuildLocator.WithDimensions(running: true));
-                    return runningBuilds.ToArray();
-                }
-                catch (Exception)
-                {
-                    StatusText = "Error";
-                    return new Build[0];
-                }
-            })
-                .ContinueWith(x =>
-                {
-                    var buildsUsingAgent = x.Result.Where(y => Name.Equals(y.Agent?.Name, StringComparison.InvariantCultureIgnoreCase)).ToArray();
-                    if (buildsUsingAgent.Length == 0 && x.Result.Any(y => y.Agent == null))
-                    {
-                        // TeamCity 7 does not give agent
-                        IsRunning = false;
-                        Status = BuildAgentStatus.Unknown;
-                        StatusText = "Unknown";
-                    }
-                    else
-                    {
-                        IsRunning = buildsUsingAgent.Length > 0;
-                        Status = IsRunning ? BuildAgentStatus.Running : BuildAgentStatus.Idle;
-                        StatusText = IsRunning ? "Running" : "Idle";
-                    }
-                    UpdateBuildAgentParameters();
-                    _timerToken.Requeue(_tickPeriod);
-                });
+            UpdateBuildAgentParameters();
+            _timerToken.Requeue(_tickPeriod);
         }
 
         private void UpdateBuildAgentParameters()
@@ -123,13 +96,37 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
 
         private void OnConnected()
         {
-            _timerToken = _timer.QueueCallback(TimeSpan.FromMilliseconds(10), this);
+            var action = _onConnectAction;
+            SetConnectedStateActions();
+            action();
         }
 
         private void OnDisconnected()
         {
-            _timerToken.Cancel();
-            _timerToken = null;
+            var action = _onDisconnectAction;
+            SetDisconnectedStateActions();
+            action();
+        }
+
+        private void SetConnectedStateActions()
+        {
+            _onConnectAction = () => { };
+            _onDisconnectAction = () =>
+            {
+                var token = _timerToken;
+                _timerToken = new NullTimerToken();
+                token.Cancel();
+            };
+        }
+
+        private void SetDisconnectedStateActions()
+        {
+            _onConnectAction = () =>
+            {
+                _timerToken.Cancel();
+                _onDisconnectAction = () => { };
+                _timerToken = _timer.QueueCallback(TimeSpan.FromMilliseconds(10), this);
+            };
         }
     }
 }

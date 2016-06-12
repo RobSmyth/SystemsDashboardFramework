@@ -4,7 +4,7 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace NoeticTools.TeamStatusBoard.Framework.Services.TimeServices
 {
-    public sealed class TimerToken
+    public sealed class TimerToken : ITimerToken
     {
         private readonly IClock _clock;
         private readonly ITimerQueue _queue;

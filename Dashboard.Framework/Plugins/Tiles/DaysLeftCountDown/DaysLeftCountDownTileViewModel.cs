@@ -16,7 +16,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.DaysLeftCountDown
         private readonly TimeSpan _tickPeriod = TimeSpan.FromSeconds(30);
         private readonly TileConfigurationConverter _tileConfigurationConverter;
         private readonly DaysLeftCoundDownTileView _view;
-        private readonly TimerToken _timerToken;
+        private readonly ITimerToken _timerToken;
         private string _daysRemaining;
         private string _title;
 

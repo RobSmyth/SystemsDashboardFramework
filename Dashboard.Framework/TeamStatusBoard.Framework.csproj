@@ -288,6 +288,7 @@
     <Compile Include="Services\TimeServices\ITimerListener.cs" />
     <Compile Include="Services\TimeServices\ITimerQueue.cs" />
     <Compile Include="Services\TimeServices\ITimerService.cs" />
+    <Compile Include="Services\TimeServices\ITimerToken.cs" />
     <Compile Include="Services\TimeServices\NullTimerListener.cs" />
     <Compile Include="Plugins\Tiles\Help\HelpTileControl.xaml.cs">
       <DependentUpon>HelpTileControl.xaml</DependentUpon>
@@ -299,6 +300,7 @@
     <Compile Include="Dashboards\DashboardsNavigationViewController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\TimerService.cs" />
+    <Compile Include="Services\TimeServices\NullTimerToken.cs" />
     <Compile Include="Services\TimeServices\TimerToken.cs" />
   </ItemGroup>
   <ItemGroup>

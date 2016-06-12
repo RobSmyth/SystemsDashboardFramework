@@ -10,5 +10,8 @@
         public string Name { get; }
         public BuildAgentStatus Status => BuildAgentStatus.Unknown;
         public bool IsRunning => false;
+        public void IsNotKnown()
+        {
+        }
     }
 }

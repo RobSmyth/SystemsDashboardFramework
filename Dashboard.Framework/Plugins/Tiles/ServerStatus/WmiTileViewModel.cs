@@ -20,7 +20,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.ServerStatus
     {
         private readonly TimeSpan _tickPeriod = TimeSpan.FromMinutes(1);
         private readonly TileConfigurationConverter _tileConfigurationConverter;
-        private readonly TimerToken _timerToken;
+        private readonly ITimerToken _timerToken;
 
         private readonly Dictionary<ServiceControllerStatus, Brush> _statusBrushes = new Dictionary<ServiceControllerStatus, Brush>
         {

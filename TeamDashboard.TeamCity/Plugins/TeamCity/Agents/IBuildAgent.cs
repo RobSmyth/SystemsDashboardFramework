@@ -5,5 +5,6 @@
         string Name { get; }
         BuildAgentStatus Status { get; }
         bool IsRunning { get; }
+        void IsNotKnown();
     }
 }

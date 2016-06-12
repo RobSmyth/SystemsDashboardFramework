@@ -44,7 +44,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AgentStatu
         private readonly TileConfigurationConverter _tileConfigurationConverter;
         private readonly TimeSpan _connectedUpdatePeriod = TimeSpan.FromSeconds(30);
         private readonly TimeSpan _disconnectedUpdatePeriod = TimeSpan.FromSeconds(2);
-        private readonly TimerToken _timerToken;
+        private readonly ITimerToken _timerToken;
         private readonly ILog _logger;
         private readonly object _syncRoot = new object();
         private readonly TeamCityAgentStatusTileControl _view;

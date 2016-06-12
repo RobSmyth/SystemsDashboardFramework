@@ -6,6 +6,5 @@
         void Add(IBuildAgent buildAgent);
         IBuildAgent Get(string name);
         bool Has(string name);
-        void StopWatching();
     }
 }

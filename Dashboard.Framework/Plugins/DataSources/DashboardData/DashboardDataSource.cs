@@ -14,7 +14,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.DashboardDat
         private readonly IDataSource _innerDataSource;
         private readonly TimeSpan _tickTime = TimeSpan.FromSeconds(1);
         private readonly DashboardDataConfiguration _configuration;
-        private readonly TimerToken _timerToken;
+        private readonly ITimerToken _timerToken;
 
         public DashboardDataSource(IDashboardConfigurationServices configurationServices, IServices services, IDataSource innerDataSource)
         {

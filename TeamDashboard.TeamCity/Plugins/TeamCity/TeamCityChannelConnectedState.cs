@@ -192,7 +192,6 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
 
         void ITeamCityChannelState.Leave()
         {
-            _buildAgentRepository.StopWatching();
             _projectCache.StopWatching();
         }
 

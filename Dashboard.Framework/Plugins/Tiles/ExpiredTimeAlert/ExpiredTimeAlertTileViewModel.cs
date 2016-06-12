@@ -20,7 +20,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.ExpiredTimeAlert
         private readonly TimeSpan _tickPeriod = TimeSpan.FromSeconds(30);
         private readonly TileConfigurationConverter _tileConfigurationConverter;
         private readonly ExpiredTimeAlertTileView _view;
-        private readonly TimerToken _timerToken;
+        private readonly ITimerToken _timerToken;
         private string _daysSince;
         private string _title;
         private string _status = "Unknown";

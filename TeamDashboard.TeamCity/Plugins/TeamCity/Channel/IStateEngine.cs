@@ -1,4 +1,4 @@
-﻿namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
+﻿namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.Channel
 {
     public interface IStateEngine<T>
     {

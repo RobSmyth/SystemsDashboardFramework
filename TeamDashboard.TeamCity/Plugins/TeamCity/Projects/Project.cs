@@ -3,6 +3,7 @@ using System.Linq;
 using log4net;
 using NoeticTools.TeamStatusBoard.Framework.DataSources.Jira;
 using NoeticTools.TeamStatusBoard.Framework.Services;
+using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.Channel;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.Configurations;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.TcSharpInterop;
 using TeamCitySharp.DomainEntities;

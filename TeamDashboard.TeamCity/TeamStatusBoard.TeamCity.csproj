@@ -65,11 +65,11 @@
     <Compile Include="Plugins\TeamCity\Agents\BuildAgentStatus.cs" />
     <Compile Include="Plugins\TeamCity\Agents\IBuildAgent.cs" />
     <Compile Include="Plugins\TeamCity\Agents\IBuildAgentRepository.cs" />
-    <Compile Include="Plugins\TeamCity\ChannelConnectionStateBroadcaster.cs" />
+    <Compile Include="Plugins\TeamCity\Channel\ChannelConnectionStateBroadcaster.cs" />
     <Compile Include="Plugins\TeamCity\Channel\ITeamCityIOChannel.cs" />
-    <Compile Include="Plugins\TeamCity\IChannelConnectionStateBroadcaster.cs" />
-    <Compile Include="Plugins\TeamCity\IChannelConnectionStateListener.cs" />
-    <Compile Include="Plugins\TeamCity\IStateEngine.cs" />
+    <Compile Include="Plugins\TeamCity\Channel\IChannelConnectionStateBroadcaster.cs" />
+    <Compile Include="Plugins\TeamCity\Channel\IChannelConnectionStateListener.cs" />
+    <Compile Include="Plugins\TeamCity\Channel\IStateEngine.cs" />
     <Compile Include="Plugins\TeamCity\Channel\ITeamCityChannel.cs" />
     <Compile Include="Plugins\TeamCity\Channel\ITeamCityChannelState.cs" />
     <Compile Include="Plugins\TeamCity\ITeamCityService.cs" />

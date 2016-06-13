@@ -11,7 +11,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.LastBuildS
 
         public void Register(IServices services)
         {
-            services.TileProviders.Register(new TeamCityLastBuildStatusTileProvider(services.GetService<TeamCityService>("TeamCity"), services.DashboardController, services));
+            services.TileProviders.Register(new TeamCityLastBuildStatusTileProvider(services.GetService<ITeamCityService>("TeamCity").Channel, services.DashboardController, services));
         }
     }
 }

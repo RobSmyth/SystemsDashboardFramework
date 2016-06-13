@@ -1,5 +1,3 @@
-using System;
-using NoeticTools.TeamStatusBoard.Framework;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.Agents;
@@ -7,11 +5,10 @@ using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.Projects;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.TcSharpInterop;
 
 
-namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
+namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.Channel
 {
-    public class TeamCityChannelStateEngine : IStateEngine<ITeamCityChannel>
+    public class ChannelStateEngine : IStateEngine<ITeamCityIoChannel>
     {
-        private readonly IServices _services;
         private readonly ITcSharpTeamCityClient _teamCityClient;
         private readonly IProjectRepository _projectRepository;
         private readonly IBuildAgentRepository _buildAgentRepository;
@@ -20,25 +17,24 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
         private readonly ChannelConnectionStateBroadcaster _channelStateBroadcaster;
         private readonly object _syncRoot = new object();
 
-        public TeamCityChannelStateEngine(IServices services, ITcSharpTeamCityClient teamCityClient, IProjectRepository projectRepository, IBuildAgentRepository buildAgentRepository, IDataSource repository, ITeamCityServiceConfiguration configuration, ChannelConnectionStateBroadcaster channelStateBroadcaster)
+        public ChannelStateEngine(IServices services, ITcSharpTeamCityClient teamCityClient, IProjectRepository projectRepository, IBuildAgentRepository buildAgentRepository, IDataSource repository, ITeamCityServiceConfiguration configuration, ChannelConnectionStateBroadcaster channelStateBroadcaster)
         {
-            _services = services;
             _teamCityClient = teamCityClient;
             _projectRepository = projectRepository;
             _buildAgentRepository = buildAgentRepository;
             _repository = repository;
             _configuration = configuration;
             _channelStateBroadcaster = channelStateBroadcaster;
-            Current = services.RunOptions.EmulateMode ? new TeamCityChannelEmulatedState(repository) : CreateDisconnectedState();
+            Current = services.RunOptions.EmulateMode ? new ChannelEmulatedState(repository) : CreateDisconnectedState();
         }
 
-        public ITeamCityChannel Current { get; private set; }
+        public ITeamCityIoChannel Current { get; private set; }
 
         public void OnConnected()
         {
             _repository.Write("Service.Status", "Connected");
             _repository.Write("Service.Connected", true);
-            ChangeState(new TeamCityChannelConnectedState(_teamCityClient, this, _projectRepository, _buildAgentRepository, _services, _channelStateBroadcaster));
+            ChangeState(new ChannelConnectedState(_teamCityClient, this, _projectRepository, _buildAgentRepository, _channelStateBroadcaster));
         }
 
         public void OnDisconnected()
@@ -52,7 +48,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
         {
             _repository.Write("Service.Status", "Stopped");
             _repository.Write("Service.Connected", false);
-            ChangeState(new TeamCityChannelStoppedState());
+            ChangeState(new ChannelStoppedState());
         }
 
         public void Start()
@@ -62,7 +58,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
 
         private ITeamCityChannelState CreateDisconnectedState()
         {
-            return new TeamCityChannelDisconnectedState(_teamCityClient, this, _configuration, _buildAgentRepository, _services, _channelStateBroadcaster);
+            return new ChannelDisconnectedState(_teamCityClient, this, _configuration, _buildAgentRepository, _channelStateBroadcaster);
         }
 
         private void ChangeState(ITeamCityChannelState nextState)

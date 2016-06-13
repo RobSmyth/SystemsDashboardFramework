@@ -6,6 +6,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using log4net;
+using NoeticTools.TeamStatusBoard.Framework;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
 using NoeticTools.TeamStatusBoard.Framework.Config;
@@ -15,6 +16,7 @@ using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.TeamCity.AvailableBuilds;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
+using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.Channel;
 
 
 namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AvailableBuilds
@@ -31,7 +33,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AvailableB
 
         private const int MaxNumberOfBuilds = 8;
         public const string TileTypeId = "TeamCity.AvailableBuilds";
-        private readonly TeamCityService _service;
+        private readonly ITeamCityChannel _channel;
         private readonly TimeSpan _tickPeriod = TimeSpan.FromSeconds(15);
         private readonly TileConfigurationConverter _tileConfigurationConverter;
         private readonly IServices _services;
@@ -39,10 +41,10 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AvailableB
         private readonly TeamCityAvailableBuildsListControl _view;
         private static int _nextInstanceId = 1;
 
-        public TeamCityAvailableBuildsTileViewModel(TeamCityService service, TileConfiguration tile, IDashboardController dashboardController, TileLayoutController layoutController, IServices services,
-            TeamCityAvailableBuildsListControl view)
+        public TeamCityAvailableBuildsTileViewModel(ITeamCityChannel channel, TileConfiguration tile, IDashboardController dashboardController, 
+            ITileLayoutController layoutController, IServices services, TeamCityAvailableBuildsListControl view)
         {
-            _service = service;
+            _channel = channel;
             _services = services;
             _view = view;
             _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
@@ -52,7 +54,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AvailableB
             ConfigureCommand = new TileConfigureCommand(tile, "TeamCity Available Builds Tile", parameters, dashboardController, layoutController, _services);
             _view.DataContext = this;
             _view.buildsList.ItemsSource = Builds;
-            _services.Timer.QueueCallback(TimeSpan.FromSeconds(_service.IsConnected ? 1 : 4), this);
+            _services.Timer.QueueCallback(TimeSpan.FromSeconds(_channel.IsConnected ? 1 : 4), this);
         }
 
         public ICommand ConfigureCommand { get; }
@@ -135,7 +137,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AvailableB
                 if (!string.IsNullOrWhiteSpace(displayName) &&
                     !displayName.Equals("EMPTY", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    var build = _service.GetLastSuccessfulBuild(projectName, configurationName);
+                    var build = _channel.Projects.Get(projectName).GetConfiguration(configurationName).GetLastSuccessfulBuild();
                     if (build != null)
                     {
                         var ageInDays = (DateTime.Now - build.StartDate).Days;

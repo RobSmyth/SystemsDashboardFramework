@@ -66,31 +66,33 @@
     <Compile Include="Plugins\TeamCity\Agents\IBuildAgent.cs" />
     <Compile Include="Plugins\TeamCity\Agents\IBuildAgentRepository.cs" />
     <Compile Include="Plugins\TeamCity\ChannelConnectionStateBroadcaster.cs" />
+    <Compile Include="Plugins\TeamCity\Channel\ITeamCityIOChannel.cs" />
     <Compile Include="Plugins\TeamCity\IChannelConnectionStateBroadcaster.cs" />
     <Compile Include="Plugins\TeamCity\IChannelConnectionStateListener.cs" />
     <Compile Include="Plugins\TeamCity\IStateEngine.cs" />
-    <Compile Include="Plugins\TeamCity\ITeamCityChannel.cs" />
-    <Compile Include="Plugins\TeamCity\ITeamCityChannelState.cs" />
+    <Compile Include="Plugins\TeamCity\Channel\ITeamCityChannel.cs" />
+    <Compile Include="Plugins\TeamCity\Channel\ITeamCityChannelState.cs" />
     <Compile Include="Plugins\TeamCity\ITeamCityService.cs" />
     <Compile Include="Plugins\TeamCity\ITeamCityServiceConfiguration.cs" />
     <Compile Include="Plugins\TeamCity\NullBuild.cs" />
     <Compile Include="Plugins\TeamCity\Agents\NullBuildAgent.cs" />
-    <Compile Include="Plugins\TeamCity\Projects\IBuildConfiguration.cs" />
+    <Compile Include="Plugins\TeamCity\Configurations\IBuildConfiguration.cs" />
     <Compile Include="Plugins\TeamCity\Projects\IProject.cs" />
     <Compile Include="Plugins\TeamCity\Projects\IProjectRepository.cs" />
-    <Compile Include="Plugins\TeamCity\Projects\NullBuildConfiguration.cs" />
-    <Compile Include="Plugins\TeamCity\Projects\NullProject.cs" />
+    <Compile Include="Plugins\TeamCity\Configurations\NullBuildConfiguration.cs" />
+    <Compile Include="Plugins\TeamCity\Projects\NullInteropProject.cs" />
     <Compile Include="Plugins\TeamCity\Projects\ProjectRepository.cs" />
-    <Compile Include="Plugins\TeamCity\Projects\TeamCityBuildConfiguration.cs" />
-    <Compile Include="Plugins\TeamCity\Projects\TeamCityProject.cs" />
+    <Compile Include="Plugins\TeamCity\Configurations\BuildConfiguration.cs" />
+    <Compile Include="Plugins\TeamCity\Projects\Project.cs" />
     <Compile Include="Plugins\TeamCity\TcSharpInterop\ITcSharpTeamCityClient.cs" />
     <Compile Include="Plugins\TeamCity\TcSharpInterop\TcSharpTeamCityClient.cs" />
     <Compile Include="Plugins\TeamCity\TeamCityBuildAgentViewModel.cs" />
-    <Compile Include="Plugins\TeamCity\TeamCityChannelConnectedState.cs" />
-    <Compile Include="Plugins\TeamCity\TeamCityChannelDisconnectedState.cs" />
-    <Compile Include="Plugins\TeamCity\TeamCityChannelEmulatedState.cs" />
-    <Compile Include="Plugins\TeamCity\TeamCityChannelStateEngine.cs" />
-    <Compile Include="Plugins\TeamCity\TeamCityChannelStoppedState.cs" />
+    <Compile Include="Plugins\TeamCity\Channel\ChannelConnectedState.cs" />
+    <Compile Include="Plugins\TeamCity\Channel\ChannelDisconnectedState.cs" />
+    <Compile Include="Plugins\TeamCity\Channel\ChannelEmulatedState.cs" />
+    <Compile Include="Plugins\TeamCity\Channel\ChannelStateEngine.cs" />
+    <Compile Include="Plugins\TeamCity\Channel\ChannelStoppedState.cs" />
+    <Compile Include="Plugins\TeamCity\Channel\TeamCityChannel.cs" />
     <Compile Include="Plugins\TeamCity\TeamCityService.cs" />
     <Compile Include="Plugins\TeamCity\TeamCItyServiceConfiguration.cs" />
     <Compile Include="Plugins\TeamCity\TeamCityServiceConfigureCommand.cs" />
@@ -106,7 +108,7 @@
     </Compile>
     <Compile Include="Plugins\Tiles\TeamCity\AvailableBuilds\TeamCityAvailableBuildsTilePlugin.cs" />
     <Compile Include="Plugins\Tiles\TeamCity\AvailableBuilds\TeamCityAvailableBuildsTileViewModel.cs" />
-    <Compile Include="Plugins\Tiles\TeamCity\AvailableBuilds\TeamCityLAvailbleBuildSTileProvider.cs" />
+    <Compile Include="Plugins\Tiles\TeamCity\AvailableBuilds\TeamCityAvailbleBuildsTileProvider.cs" />
     <Compile Include="Plugins\Tiles\TeamCity\LastBuildStatus\TeamCityLastBuildStatusTileControl.xaml.cs">
       <DependentUpon>TeamCityLastBuildStatusTileControl.xaml</DependentUpon>
     </Compile>

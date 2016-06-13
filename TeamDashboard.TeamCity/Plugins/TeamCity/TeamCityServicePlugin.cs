@@ -3,6 +3,7 @@ using NoeticTools.TeamStatusBoard.Framework;
 using NoeticTools.TeamStatusBoard.Framework.Plugins;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
+using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.Channel;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.Projects;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.TcSharpInterop;
 using TeamCitySharp;
@@ -22,9 +23,10 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
             var teamCityClient = new TcSharpTeamCityClient(new TeamCityClient(configuration.Url));
             var buildAgentRepository = new BuildAgentRepository(dataSource, teamCityClient, services, channelStateBroadcaster);
             var projectRepository = new ProjectRepository(dataSource, teamCityClient, services, channelStateBroadcaster);
-            var stateEngine = new TeamCityChannelStateEngine(services, teamCityClient, projectRepository, buildAgentRepository, dataSource, configuration, channelStateBroadcaster);
+            var stateEngine = new ChannelStateEngine(services, teamCityClient, projectRepository, buildAgentRepository, dataSource, configuration, channelStateBroadcaster);
 
-            services.Register(new TeamCityService(services, dataSource, configuration, stateEngine));
+            var channel = new TeamCityChannel(services, dataSource, configuration, stateEngine, projectRepository);
+            services.Register(new TeamCityService(channel));
             services.DataService.Register("TeamCity", dataSource, new NullTileControllerProvider());
         }
     }

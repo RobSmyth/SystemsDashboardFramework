@@ -11,7 +11,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AgentStatu
 
         public void Register(IServices services)
         {
-            services.TileProviders.Register(new TeamCityAgentStatusTileProvider(services.GetService<TeamCityService>("TeamCity"), services.DashboardController, services));
+            services.TileProviders.Register(new TeamCityAgentStatusTileProvider(services.GetService<ITeamCityService>("TeamCity").Channel, services.DashboardController, services));
         }
     }
 }

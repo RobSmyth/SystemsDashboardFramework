@@ -1,34 +1,28 @@
 ﻿using System;
 using System.Threading.Tasks;
 using log4net;
-using NoeticTools.TeamStatusBoard.Framework;
-using NoeticTools.TeamStatusBoard.Framework.Services;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.Agents;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.TcSharpInterop;
-using TeamCitySharp;
-using TeamCitySharp.DomainEntities;
 
 
-namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
+namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.Channel
 {
-    internal class TeamCityChannelDisconnectedState : ITeamCityChannelState
+    internal class ChannelDisconnectedState : ITeamCityChannelState
     {
         private readonly ITcSharpTeamCityClient _teamCityClient;
         private readonly ITeamCityServiceConfiguration _configuration;
         private readonly IBuildAgentRepository _buildAgentRepository;
-        private readonly IServices _services;
         private readonly IChannelConnectionStateBroadcaster _channelStateBroadcaster;
-        private readonly IStateEngine<ITeamCityChannel> _stateEngine;
+        private readonly IStateEngine<ITeamCityIoChannel> _stateEngine;
         private readonly ILog _logger;
         private bool _testingConnection;
 
-        public TeamCityChannelDisconnectedState(ITcSharpTeamCityClient teamCityClient, IStateEngine<ITeamCityChannel> stateEngine, ITeamCityServiceConfiguration configuration, IBuildAgentRepository buildAgentRepository, IServices services, IChannelConnectionStateBroadcaster channelStateBroadcaster)
+        public ChannelDisconnectedState(ITcSharpTeamCityClient teamCityClient, IStateEngine<ITeamCityIoChannel> stateEngine, ITeamCityServiceConfiguration configuration, IBuildAgentRepository buildAgentRepository, IChannelConnectionStateBroadcaster channelStateBroadcaster)
         {
             _teamCityClient = teamCityClient;
             _stateEngine = stateEngine;
             _configuration = configuration;
             _buildAgentRepository = buildAgentRepository;
-            _services = services;
             _channelStateBroadcaster = channelStateBroadcaster;
 
             _logger = LogManager.GetLogger("DateSources.TeamCity.Disconnected");
@@ -78,33 +72,9 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
         {
         }
 
-        public Build GetLastBuild(string projectName, string buildConfigurationName)
+        public string[] GetConfigurationNames(string projectName)
         {
-            Connect();
-            return (Build) null;
-        }
-
-        public Build GetLastSuccessfulBuild(string projectName, string buildConfigurationName)
-        {
-            Connect();
-            return (Build) null;
-        }
-
-        public Build[] GetRunningBuilds(string projectName, string buildConfigurationName, string branchName)
-        {
-            Connect();
-            return new Build[0];
-        }
-
-        public Build[] GetRunningBuilds(string projectName, string buildConfigurationName)
-        {
-            Connect();
-            return new Build[0];
-        }
-
-        public Task<string[]> GetConfigurationNames(string projectName)
-        {
-            return Task.Run(() => new string[0]);
+            return new string[0];
         }
 
         public Task<IBuildAgent[]> GetAgents()

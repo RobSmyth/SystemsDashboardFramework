@@ -39,6 +39,12 @@ namespace NoeticTools.TeamStatusBoard.Framework.DataSources.Jira
             //_jira = Atlassian.Jira.Jira.CreateSoapClient(_url, _username, _password);
             _jira = Atlassian.Jira.Jira.CreateRestClient(_url, _username, _password);
             _jira.MaxIssuesPerRequest = MaxIssuesPerRequest;
+            _filters.Start();
+            _projects.Start();
+            foreach (var filterItem in _filterItems)
+            {
+                filterItem.Value.Start();
+            }
         }
 
         public IEnumerable<CustomField> GetCustomFields()
@@ -68,6 +74,12 @@ namespace NoeticTools.TeamStatusBoard.Framework.DataSources.Jira
 
         public void Disconnect()
         {
+            _filters.Stop();
+            _projects.Stop();
+            foreach (var filterItem in _filterItems)
+            {
+                filterItem.Value.Stop();
+            }
         }
     }
 }

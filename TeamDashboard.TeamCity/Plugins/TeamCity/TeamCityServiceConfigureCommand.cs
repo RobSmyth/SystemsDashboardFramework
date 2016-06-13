@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Windows.Input;
+using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.Channel;
 
 
 namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity
 {
     public class TeamCityServiceConfigureCommand : ICommand
     {
-        private readonly TeamCityService _service;
+        private readonly ITeamCityChannel _service;
 
-        public TeamCityServiceConfigureCommand(TeamCityService service)
+        public TeamCityServiceConfigureCommand(ITeamCityChannel service)
         {
             _service = service;
         }

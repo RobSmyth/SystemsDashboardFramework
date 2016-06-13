@@ -6,19 +6,20 @@ using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.TeamCity.LastBuildStatus;
 using NoeticTools.TeamStatusBoard.Framework.Services;
+using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.Channel;
 
 
 namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.LastBuildStatus
 {
     public sealed class TeamCityLastBuildStatusTileProvider : ITileControllerProvider
     {
-        private readonly TeamCityService _service;
+        private readonly ITeamCityChannel _channel;
         private readonly IDashboardController _dashboardController;
         private readonly IServices _services;
 
-        public TeamCityLastBuildStatusTileProvider(TeamCityService service, IDashboardController dashboardController, IServices services)
+        public TeamCityLastBuildStatusTileProvider(ITeamCityChannel channel, IDashboardController dashboardController, IServices services)
         {
-            _service = service;
+            _channel = channel;
             _dashboardController = dashboardController;
             _services = services;
         }
@@ -33,7 +34,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.LastBuildS
         public FrameworkElement CreateTile(TileConfiguration tile, TileLayoutController layoutController)
         {
             var view = new TeamCityBuildStatusTileControl();
-            new TeamCityLastBuildStatusTileViewModel(_service, tile, _dashboardController, layoutController, _services, view);
+            new TeamCityLastBuildStatusTileViewModel(_channel, tile, _dashboardController, layoutController, _services, view);
             return view;
         }
 

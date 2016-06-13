@@ -1,11 +1,11 @@
 using System;
 using System.Windows;
-using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity;
 using NoeticTools.TeamStatusBoard.Framework;
 using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.TeamCity.AgentStatus;
 using NoeticTools.TeamStatusBoard.Framework.Services;
+using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.Channel;
 
 
 namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AgentStatus
@@ -13,13 +13,13 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AgentStatu
     public sealed class TeamCityAgentStatusTileProvider : ITileControllerProvider
     {
         private const string TileTypeId = "TeamCity.Agent.Status";
-        private readonly TeamCityService _service;
+        private readonly ITeamCityChannel _channel;
         private readonly IDashboardController _dashboardController;
         private readonly IServices _services;
 
-        public TeamCityAgentStatusTileProvider(TeamCityService service, IDashboardController dashboardController, IServices services)
+        public TeamCityAgentStatusTileProvider(ITeamCityChannel channel, IDashboardController dashboardController, IServices services)
         {
-            _service = service;
+            _channel = channel;
             _dashboardController = dashboardController;
             _services = services;
         }
@@ -34,7 +34,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AgentStatu
         public FrameworkElement CreateTile(TileConfiguration tile, TileLayoutController layoutController)
         {
             var view = new TeamCityAgentStatusTileControl();
-            new TeamCityAgentStatusTileViewModel(_service, tile, _dashboardController, layoutController, _services, view, _service);
+            new TeamCityAgentStatusTileViewModel(_channel, tile, _dashboardController, layoutController, _services, view, _channel);
             return view;
         }
 

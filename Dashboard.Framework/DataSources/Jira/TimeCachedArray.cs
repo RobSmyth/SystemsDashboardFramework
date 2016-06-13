@@ -15,6 +15,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.DataSources.Jira
         private readonly ILog _logger;
         private DateTime _nextRefresh;
         private T[] _items = new T[0];
+        private Func<IEnumerable<T>> _getItems = () => new T[0];
 
         public TimeCachedArray(Func<IEnumerable<T>> loader, TimeSpan lifeTime, IClock clock)
         {
@@ -35,7 +36,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.DataSources.Jira
                     _nextRefresh = now.Add(TimeSpan.FromMinutes(5));
                     try
                     {
-                        _items = _loader().ToArray();
+                        _items = _getItems().ToArray();
                     }
                     catch (Exception exception)
                     {
@@ -50,8 +51,14 @@ namespace NoeticTools.TeamStatusBoard.Framework.DataSources.Jira
             }
         }
 
-        public void StopWatching()
+        public void Start()
         {
+            _getItems = _loader;
+        }
+
+        public void Stop()
+        {
+            _getItems = () => new T[0];
             _items = new T[0];
         }
     }

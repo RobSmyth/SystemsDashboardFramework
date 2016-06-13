@@ -19,7 +19,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AvailableB
 
         public void Register(IServices services)
         {
-            services.TileProviders.Register(new TeamCityLAvailbleBuildSTileProvider(services.GetService<TeamCityService>("TeamCity"), services.DashboardController, services));
+            services.TileProviders.Register(new TeamCityAvailbleBuildsTileProvider(services.GetService<ITeamCityService>("TeamCity").Channel, services.DashboardController, services));
         }
     }
 }

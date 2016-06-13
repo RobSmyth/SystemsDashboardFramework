@@ -16,6 +16,7 @@ using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.TeamCity.AgentStatus;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.Agents;
+using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.Channel;
 
 
 namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AgentStatus
@@ -40,7 +41,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AgentStatu
             {BuildAgentStatus.Offline, Brushes.White}
         };
 
-        private readonly TeamCityService _service;
+        private readonly ITeamCityChannel _channel;
         private readonly TileConfigurationConverter _tileConfigurationConverter;
         private readonly TimeSpan _connectedUpdatePeriod = TimeSpan.FromSeconds(30);
         private readonly TimeSpan _disconnectedUpdatePeriod = TimeSpan.FromSeconds(2);
@@ -52,7 +53,8 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AgentStatu
         private IBuildAgent _buildAgent;
         private static int _nextInstanceId = 1;
 
-        public TeamCityAgentStatusTileViewModel(TeamCityService service, TileConfiguration tile, IDashboardController dashboardController, TileLayoutController tileLayoutController, IServices services,
+        public TeamCityAgentStatusTileViewModel(ITeamCityChannel channel, TileConfiguration tile, IDashboardController dashboardController, 
+            ITileLayoutController tileLayoutController, IServices services,
             TeamCityAgentStatusTileControl view, ITeamCityChannel teamCityService)
         {
             lock (_syncRoot)
@@ -61,11 +63,11 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AgentStatu
             }
 
             Tile = tile;
-            _service = service;
+            _channel = channel;
             _view = view;
             _teamCityService = teamCityService;
             _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
-            ConfigureServiceCommand = new TeamCityServiceConfigureCommand(service);
+            ConfigureServiceCommand = new TeamCityServiceConfigureCommand(channel);
 
             var configurationParameters = GetConfigurationParameters();
             ConfigureCommand = new TileConfigureCommand(Tile, "Build Agent Configuration", configurationParameters, dashboardController, tileLayoutController, services);
@@ -73,7 +75,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AgentStatu
 
             _view.DataContext = this;
 
-            _timerToken = services.Timer.QueueCallback(TimeSpan.FromSeconds(_service.IsConnected ? 1 : 3), this);
+            _timerToken = services.Timer.QueueCallback(TimeSpan.FromSeconds(_channel.IsConnected ? 1 : 3), this);
         }
 
         public IBuildAgent BuildAgent
@@ -100,7 +102,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AgentStatu
 
         public void OnTimeElapsed(TimerToken token)
         {
-            if (!_service.IsConnected)
+            if (!_channel.IsConnected)
             {
                 SetUiToError();
                 _timerToken.Requeue(_disconnectedUpdatePeriod);
@@ -109,7 +111,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AgentStatu
 
             _logger.Debug("Timer elapsed. Update.");
 
-            Task.Factory.StartNew(() => _service.GetAgents().Result).ContinueWith(x => _view.Dispatcher.InvokeAsync(() => Update(x.Result)));
+            Task.Factory.StartNew(() => _channel.GetAgents().Result).ContinueWith(x => _view.Dispatcher.InvokeAsync(() => Update(x.Result)));
         }
 
         private void GetBuildAgent()

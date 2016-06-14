@@ -15,8 +15,9 @@ using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.TeamCity.AgentStatus;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
-using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.Agents;
-using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.Channel;
+using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity;
+using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Agents;
+using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Channel;
 
 
 namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AgentStatus
@@ -67,7 +68,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AgentStatu
             _view = view;
             _teamCityService = teamCityService;
             _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
-            ConfigureServiceCommand = new TeamCityServiceConfigureCommand(channel);
+            ConfigureServiceCommand = new DataSourceConfigureCommand(channel);
 
             var configurationParameters = GetConfigurationParameters();
             ConfigureCommand = new TileConfigureCommand(Tile, "Build Agent Configuration", configurationParameters, dashboardController, tileLayoutController, services);

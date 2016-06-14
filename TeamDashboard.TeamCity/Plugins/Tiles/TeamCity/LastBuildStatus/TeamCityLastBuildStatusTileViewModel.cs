@@ -15,7 +15,8 @@ using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.TeamCity;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.TeamCity.LastBuildStatus;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
-using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.Channel;
+using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity;
+using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Channel;
 using TeamCitySharp.DomainEntities;
 
 
@@ -54,7 +55,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.LastBuildS
             _runningStatus = "UNKNOWN";
             _description = "";
             _buildVersion = "";
-            ConfigureServiceCommand = new TeamCityServiceConfigureCommand(channel);
+            ConfigureServiceCommand = new DataSourceConfigureCommand(channel);
             var configurationParameters = GetConfigurationParameters();
             ConfigureCommand = new TileConfigureCommand(tile, "Last Build Status Tile Configuration", configurationParameters, dashboardController, layoutController, services);
             _view.DataContext = this;

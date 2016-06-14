@@ -30,6 +30,7 @@ using NoeticTools.TeamStatusBoard.Framework.Registries;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
+using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity;
 
 
 namespace NoeticTools.TeamStatusBoard.Runner
@@ -97,7 +98,7 @@ namespace NoeticTools.TeamStatusBoard.Runner
         {
             var plugins = new IPlugin[]
             {
-                new TeamCityServicePlugin(),
+                new TeamCityDataSourcePlugin(),
                 new DashboardDataSourcePlugin(),
                 new FileReaderDataSourcePlugin(),
                 new TextPropertyViewPlugin(),

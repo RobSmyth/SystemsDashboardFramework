@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using log4net;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Projects;
-using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.TcSharpInterop;
+using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.TcSharpInterop;
 using TeamCitySharp.DomainEntities;
 using TeamCitySharp.Locators;
 

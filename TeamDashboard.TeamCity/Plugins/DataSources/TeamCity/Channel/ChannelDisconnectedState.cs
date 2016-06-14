@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using log4net;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Agents;
-using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.TcSharpInterop;
+using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.TcSharpInterop;
 
 
 namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Channel
@@ -72,14 +72,9 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Chan
         {
         }
 
-        public string[] GetConfigurationNames(string projectName)
+        public IBuildAgent[] GetAgents()
         {
-            return new string[0];
-        }
-
-        public Task<IBuildAgent[]> GetAgents()
-        {
-            return Task.Run(() => new IBuildAgent[0]);
+            return new IBuildAgent[0];
         }
 
         public Task<IBuildAgent> GetAgent(string name)

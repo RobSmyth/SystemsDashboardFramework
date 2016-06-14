@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media;
 using log4net;
-using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity;
 using NoeticTools.TeamStatusBoard.Framework;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
 using NoeticTools.TeamStatusBoard.Framework.Config;
@@ -50,13 +48,13 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AgentStatu
         private readonly ILog _logger;
         private readonly object _syncRoot = new object();
         private readonly TeamCityAgentStatusTileControl _view;
-        private readonly ITeamCityChannel _teamCityService;
+        private readonly ITeamCityChannel _teamCityChannel;
         private IBuildAgent _buildAgent;
         private static int _nextInstanceId = 1;
 
         public TeamCityAgentStatusTileViewModel(ITeamCityChannel channel, TileConfiguration tile, IDashboardController dashboardController, 
             ITileLayoutController tileLayoutController, IServices services,
-            TeamCityAgentStatusTileControl view, ITeamCityChannel teamCityService)
+            TeamCityAgentStatusTileControl view, ITeamCityChannel teamCityChannel)
         {
             lock (_syncRoot)
             {
@@ -66,7 +64,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AgentStatu
             Tile = tile;
             _channel = channel;
             _view = view;
-            _teamCityService = teamCityService;
+            _teamCityChannel = teamCityChannel;
             _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
             ConfigureServiceCommand = new DataSourceConfigureCommand(channel);
 
@@ -112,19 +110,19 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AgentStatu
 
             _logger.Debug("Timer elapsed. Update.");
 
-            Task.Factory.StartNew(() => _channel.GetAgents().Result).ContinueWith(x => _view.Dispatcher.InvokeAsync(() => Update(x.Result)));
+            Update();
         }
 
         private void GetBuildAgent()
         {
-            BuildAgent = _teamCityService.GetAgent(_tileConfigurationConverter.GetString("AgentName")).Result;
+            BuildAgent = _teamCityChannel.GetAgent(_tileConfigurationConverter.GetString("AgentName")).Result;
         }
 
-        private void Update(IBuildAgent[] agents)
+        private void Update()
         {
             var agentName = _tileConfigurationConverter.GetString("AgentName");
 
-            var agent = agents.FirstOrDefault(x => x.Name.Equals(agentName, StringComparison.InvariantCulture));
+            var agent = _channel.Agents.Get(agentName);
             if (agent == null)
             {
                 SetUiToError();

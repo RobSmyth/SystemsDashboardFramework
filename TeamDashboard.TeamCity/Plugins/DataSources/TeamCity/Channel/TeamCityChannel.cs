@@ -24,10 +24,13 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Chan
         private ILog _logger;
         private readonly IStateEngine<ITeamCityIoChannel> _stateEngine;
 
-        public TeamCityChannel(IServices services, IDataSource repository, ITeamCityServiceConfiguration configuration, IStateEngine<ITeamCityIoChannel> stateEngine, 
-            IProjectRepository projects)
+        public TeamCityChannel(IServices services, IDataSource repository, ITeamCityServiceConfiguration configuration, 
+            IStateEngine<ITeamCityIoChannel> stateEngine, IProjectRepository projects, 
+            IBuildAgentRepository buildAgentRepository, ChannelConnectionStateBroadcaster stateBroadcaster)
         {
             Projects = projects;
+            Agents = buildAgentRepository;
+            StateBroadcaster = stateBroadcaster;
             _repository = repository;
             _dashboardController = services.DashboardController;
             _services = services;
@@ -58,9 +61,9 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Chan
             _stateEngine.Current.Disconnect();
         }
 
-        public Task<IBuildAgent[]> GetAgents()
+        public IBuildAgent[] GetAgents()
         {
-            return Current.GetAgents();
+            return Agents.GetAll();
         }
 
         public Task<IBuildAgent> GetAgent(string name)
@@ -69,11 +72,8 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Chan
         }
 
         public IProjectRepository Projects { get; }
-
-        public string[] GetConfigurationNames(string projectName)
-        {
-            return Current.GetConfigurationNames(projectName);
-        }
+        public IBuildAgentRepository Agents { get; }
+        public IChannelConnectionStateBroadcaster StateBroadcaster { get; set; }
 
         public void Configure()
         {

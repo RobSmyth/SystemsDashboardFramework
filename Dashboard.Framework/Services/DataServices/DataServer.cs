@@ -7,13 +7,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
 {
     public class DataServer : IDataService
     {
-        private readonly IDataRepositoryFactory _repositoryFactory;
         private readonly IDictionary<string, IDataSource> _sources = new Dictionary<string, IDataSource>();
-
-        public DataServer(IDataRepositoryFactory repositoryFactory)
-        {
-            _repositoryFactory = repositoryFactory;
-        }
 
         public string TypeName => "DataServer";
         public string Name => "";
@@ -61,7 +55,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
             return _sources[name];
         }
 
-        public void Register(string name, IDataSource dataSource, ITileControllerProvider configurationTileProvider)
+        public void Register(string name, IDataSource dataSource)
         {
             _sources.Add(name, dataSource);
         }

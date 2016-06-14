@@ -7,7 +7,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using log4net;
 using NoeticTools.TeamStatusBoard.Framework;
-using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
 using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Config.Properties;
@@ -21,8 +20,11 @@ using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Channel;
 
 namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AvailableBuilds
 {
-    internal sealed class TeamCityAvailableBuildsTileViewModel : ITimerListener, IConfigurationChangeListener, ITileViewModel
+    internal sealed class TeamCityAvailableBuildsTileViewModel : ITimerListener, IConfigurationChangeListener, ITileViewModel, IChannelConnectionStateListener
     {
+        private readonly TimeSpan _updateDelayOnConnection = TimeSpan.FromSeconds(1);
+        private readonly TimeSpan _updatePeriod = TimeSpan.FromSeconds(15);
+
         public class BuildDetails
         {
             public string BuildConfiguration { get; set; }
@@ -34,12 +36,14 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AvailableB
         private const int MaxNumberOfBuilds = 8;
         public const string TileTypeId = "TeamCity.AvailableBuilds";
         private readonly ITeamCityChannel _channel;
-        private readonly TimeSpan _tickPeriod = TimeSpan.FromSeconds(15);
         private readonly TileConfigurationConverter _tileConfigurationConverter;
         private readonly IServices _services;
         private readonly ILog _logger;
         private readonly TeamCityAvailableBuildsListControl _view;
         private static int _nextInstanceId = 1;
+        private Action _onConnected = () => { };
+        private Action _onDisconnected = () => {};
+        private ITimerToken _timerToken = new NullTimerToken();
 
         public TeamCityAvailableBuildsTileViewModel(ITeamCityChannel channel, TileConfiguration tile, IDashboardController dashboardController, 
             ITileLayoutController layoutController, IServices services, TeamCityAvailableBuildsListControl view)
@@ -54,7 +58,8 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AvailableB
             ConfigureCommand = new TileConfigureCommand(tile, "TeamCity Available Builds Tile", parameters, dashboardController, layoutController, _services);
             _view.DataContext = this;
             _view.buildsList.ItemsSource = Builds;
-            _services.Timer.QueueCallback(TimeSpan.FromSeconds(_channel.IsConnected ? 1 : 4), this);
+            _channel.StateBroadcaster.Add(this);
+            // _services.Timer.QueueCallback(TimeSpan.FromSeconds(_channel.IsConnected ? 1 : 4), this); // todo - redundant given StateBroadcaster
         }
 
         public ICommand ConfigureCommand { get; }
@@ -70,12 +75,12 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AvailableB
             }
 
             _view.Dispatcher.InvokeAsync(() => _view.projectName.Text = _tileConfigurationConverter.GetString("Title"));
-            UpdateView();
+            Update();
         }
 
         public void OnTimeElapsed(TimerToken token)
         {
-            UpdateView();
+            Update();
         }
 
         private IPropertyViewModel[] GetConfigurtionParameters()
@@ -108,7 +113,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AvailableB
             return version.Substring(0, length);
         }
 
-        private void UpdateView()
+        private void Update()
         {
             _logger.Debug("Update UI.");
 
@@ -120,7 +125,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AvailableB
                 {
                     Builds.Add(build);
                 }
-                _services.Timer.QueueCallback(_tickPeriod, this);
+                _timerToken = _services.Timer.QueueCallback(_updatePeriod, this);
             });
         }
 
@@ -165,6 +170,39 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AvailableB
             }
 
             return builds.ToArray();
+        }
+
+        void IChannelConnectionStateListener.OnConnected()
+        {
+            var action = _onConnected;
+            EnterConnectedState();
+            action();
+
+            Update();
+        }
+
+        void IChannelConnectionStateListener.OnDisconnected()
+        {
+            var action = _onDisconnected;
+            EnterDisconnectedState();
+            action();
+        }
+
+        private void EnterConnectedState()
+        {
+            _onConnected = () => { };
+            _onDisconnected = () => { };
+        }
+
+        private void EnterDisconnectedState()
+        {
+            _onConnected = () =>
+            {
+                _timerToken.Cancel();
+                _timerToken = _services.Timer.QueueCallback(_updateDelayOnConnection, this);
+                Update();
+            };
+            _onDisconnected = () => { };
         }
     }
 }

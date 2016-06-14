@@ -1,4 +1,5 @@
-﻿using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Projects;
+﻿using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Agents;
+using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Projects;
 
 
 namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Channel
@@ -9,5 +10,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Chan
         void Start();
         void Configure();
         IProjectRepository Projects { get; }
+        IBuildAgentRepository Agents { get; }
+        IChannelConnectionStateBroadcaster StateBroadcaster { get; set; }
     }
 }

@@ -7,13 +7,14 @@ using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Channel;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Projects;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.TcSharpInterop;
-using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.TcSharpInterop;
 
 
 namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Configurations
 {
     public sealed class BuildConfigurationRepository : IChannelConnectionStateListener, ITimerListener, IBuildConfigurationRepository
     {
+        private readonly TimeSpan _updateDelayOnConnection = TimeSpan.FromMilliseconds(10);
+        private readonly TimeSpan _updatePeriod = TimeSpan.FromMinutes(10);
         private readonly ITcSharpTeamCityClient _teamCityClient;
         private readonly IServices _services;
         private readonly IProject _project;
@@ -21,7 +22,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Conf
         private Action _onConnected = () => { };
         private Action _onDisconnected = () => { };
         private readonly IDictionary<string, IBuildConfiguration> _configurations = new Dictionary<string, IBuildConfiguration>();
-        private object _syncRoot = new object();
+        private readonly object _syncRoot = new object();
 
         public BuildConfigurationRepository(ITcSharpTeamCityClient teamCityClient, IServices services, IChannelConnectionStateBroadcaster channelStateBroadcaster, IProject project)
         {
@@ -32,6 +33,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Conf
             channelStateBroadcaster.Add(this);
         }
 
+        // todo - duplication, see Project.cs
         void IChannelConnectionStateListener.OnConnected()
         {
             var action = _onConnected;
@@ -39,6 +41,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Conf
             action();
         }
 
+        // todo - duplication, see Project.cs
         void IChannelConnectionStateListener.OnDisconnected()
         {
             var action = _onDisconnected;
@@ -60,12 +63,18 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Conf
             _onConnected = () =>
             {
                 _timerToken.Cancel();
-                _timerToken = _services.Timer.QueueCallback(TimeSpan.FromMilliseconds(10), this);
+                _timerToken = _services.Timer.QueueCallback(_updateDelayOnConnection, this);
             };
             _onDisconnected = () => { };
         }
 
         void ITimerListener.OnTimeElapsed(TimerToken token)
+        {
+            Update();
+            _timerToken = _services.Timer.QueueCallback(_updatePeriod, this);
+        }
+
+        private void Update()
         {
             try
             {
@@ -97,8 +106,6 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Conf
             {
                 // todo - log exception
             }
-
-            _timerToken = _services.Timer.QueueCallback(TimeSpan.FromMinutes(10), this);
         }
 
         public IBuildConfiguration[] GetAll()

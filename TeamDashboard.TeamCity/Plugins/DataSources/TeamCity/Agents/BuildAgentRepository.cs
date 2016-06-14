@@ -5,33 +5,34 @@ using NoeticTools.TeamStatusBoard.Framework.Services;
 using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Channel;
-using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.TcSharpInterop;
+using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.TcSharpInterop;
 
 
 namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Agents
 {
     public sealed class BuildAgentRepository : IBuildAgentRepository, ITimerListener, IChannelConnectionStateListener
     {
+        private readonly TimeSpan _updateDelayOnConnection = TimeSpan.FromMilliseconds(100);
         private readonly TimeSpan _updatePeriod = TimeSpan.FromMinutes(5);
         private readonly IDataSource _outerRepository;
-        private readonly ITcSharpTeamCityClient _teamCityClient;
+        private readonly ITcSharpTeamCityClient _teamCitySharpClient;
         private readonly IServices _services;
         private readonly IChannelConnectionStateBroadcaster _channelStateBroadcaster;
         private readonly IDictionary<string, IBuildAgent> _buildAgents = new Dictionary<string, IBuildAgent>();
         private Action _onDisconnected = () => { };
         private Action _onConnected = () => { };
         private ITimerToken _timerToken = new NullTimerToken();
-        private object _syncRoot = new object();
+        private readonly object _syncRoot = new object();
 
-        public BuildAgentRepository(IDataSource outerRepository, ITcSharpTeamCityClient teamCityClient, IServices services, IChannelConnectionStateBroadcaster channelStateBroadcaster)
+        public BuildAgentRepository(IDataSource outerRepository, ITcSharpTeamCityClient teamCitySharpClient, IServices services, IChannelConnectionStateBroadcaster channelStateBroadcaster)
         {
             _outerRepository = outerRepository;
-            _teamCityClient = teamCityClient;
+            _teamCitySharpClient = teamCitySharpClient;
             _services = services;
             _channelStateBroadcaster = channelStateBroadcaster;
             _channelStateBroadcaster.Add(this);
             _outerRepository.Write($"Agents.Count", 0);
-            SetDisconnectedState();
+            EnterDisconnectedState();
         }
 
         public IBuildAgent[] GetAll()
@@ -52,7 +53,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Agen
             {
                 if (!Has(normalisedName))
                 {
-                    var buildAgent = new TeamCityBuildAgentViewModel(name, _services.Timer, _outerRepository, _channelStateBroadcaster, _teamCityClient);
+                    var buildAgent = new TeamCityBuildAgentViewModel(name, _services.Timer, _outerRepository, _channelStateBroadcaster, _teamCitySharpClient);
                     Add(buildAgent);
                     return buildAgent;
                 }
@@ -67,7 +68,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Agen
 
         private void Update()
         {
-            var currentAgents = _teamCityClient.Agents.All();
+            var currentAgents = _teamCitySharpClient.Agents.All();
             foreach (var teamCityAgent in currentAgents)
             {
                 Get(teamCityAgent.Name);
@@ -80,15 +81,19 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Agen
             }
         }
 
+        // todo - duplication, see Project.cs
         void IChannelConnectionStateListener.OnDisconnected()
         {
-            _onDisconnected();
+            var action = _onDisconnected;
+            EnterDisconnectedState();
+            action();
         }
 
+        // todo - duplication, see Project.cs
         void IChannelConnectionStateListener.OnConnected()
         {
             var action = _onConnected;
-            SetConnectedState();
+            EnterConnectedState();
             action();
         }
 
@@ -98,19 +103,18 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Agen
             _timerToken = _services.Timer.QueueCallback(_updatePeriod, this);
         }
 
-        // todo - duplication with ProjectRepository
-        private void SetDisconnectedState()
+        private void EnterDisconnectedState()
         {
             _onDisconnected = () => { };
             _onConnected = () =>
             {
                 _timerToken.Cancel();
-                _timerToken = _services.Timer.QueueCallback(TimeSpan.FromMilliseconds(10), this);
+                _timerToken = _services.Timer.QueueCallback(_updateDelayOnConnection, this);
             };
         }
 
         // todo - duplication with ProjectRepository
-        private void SetConnectedState()
+        private void EnterConnectedState()
         {
             _onDisconnected = () =>
             {

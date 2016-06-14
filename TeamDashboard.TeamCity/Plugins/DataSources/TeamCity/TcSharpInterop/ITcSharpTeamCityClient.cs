@@ -1,7 +1,7 @@
 ﻿using TeamCitySharp.ActionTypes;
 
 
-namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.TcSharpInterop
+namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.TcSharpInterop
 {
     public interface ITcSharpTeamCityClient
     {

@@ -1,7 +1,6 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AgentStatus;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AvailableBuilds;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.LastBuildStatus;
@@ -66,7 +65,7 @@ namespace NoeticTools.TeamStatusBoard.Runner
 
             _applicationServices = new ApplicationServices(
                 tileProviderRegistry, KeyboardHandler, propertyEditControlRegistry, timerService,
-                new DataServer(new DataRepositoryFactory()),
+                new DataServer(),
                 clock,
                 _dashboardController,
                 _config,

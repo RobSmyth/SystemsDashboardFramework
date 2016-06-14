@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using log4net;
-using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity;
 using NoeticTools.TeamStatusBoard.Framework;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
 using NoeticTools.TeamStatusBoard.Framework.Config;
@@ -211,9 +210,10 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.LastBuildS
             var projectElementViewModel = new TeamCityProjectPropertyViewModel("Project", _tileConfigurationConverter, _channel);
             var configurationParameters = new IPropertyViewModel[]
             {
+                
                 projectElementViewModel,
                 new DependantPropertyViewModel("Configuration", "TextFromCombobox", _tileConfigurationConverter, projectElementViewModel,
-                    () => _channel.GetConfigurationNames((string) projectElementViewModel.Value).Cast<object>().ToArray()),
+                    () => _channel.Projects.Get((string) projectElementViewModel.Value).Configurations.Select(x => x.Name).Cast<object>().ToArray()),
                 new PropertyViewModel("Description", "Text", _tileConfigurationConverter),
                 new HyperlinkPropertyViewModel("TeamCity service", ConfigureServiceCommand)
             };

@@ -19,14 +19,9 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Chan
 
         public void Disconnect() {}
 
-        public string[] GetConfigurationNames(string projectName)
+        public IBuildAgent[] GetAgents()
         {
-            return new string[0];
-        }
-
-        public Task<IBuildAgent[]> GetAgents()
-        {
-            return Task.Run(() => new IBuildAgent[0]);
+            return new IBuildAgent[0];
         }
 
         public Task<IBuildAgent> GetAgent(string name)

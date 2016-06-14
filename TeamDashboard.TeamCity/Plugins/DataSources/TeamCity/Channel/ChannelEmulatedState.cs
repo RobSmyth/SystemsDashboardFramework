@@ -8,7 +8,6 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Chan
 {
     internal class ChannelEmulatedState : ITeamCityChannelState
     {
-        private readonly object _syncRoot = new object();
         private readonly string[] _status = {"SUCCESS", "SUCCESS", "SUCCESS", "SUCCESS", "FAILURE", "UNKNOWN"};
         private ILog _logger;
 
@@ -40,9 +39,9 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Chan
             return new[] {"Configuration 1", "Configuration 2", "Configuration 3"};
         }
 
-        public Task<IBuildAgent[]> GetAgents()
+        public IBuildAgent[] GetAgents()
         {
-            return Task.Run(() => new IBuildAgent[0]);
+            return new IBuildAgent[0];
         }
 
         public Task<IBuildAgent> GetAgent(string name)

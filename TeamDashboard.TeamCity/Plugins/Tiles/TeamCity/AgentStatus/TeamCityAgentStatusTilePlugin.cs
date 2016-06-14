@@ -1,5 +1,4 @@
-﻿using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity;
-using NoeticTools.TeamStatusBoard.Framework.Plugins;
+﻿using NoeticTools.TeamStatusBoard.Framework.Plugins;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity;
 

@@ -3,7 +3,7 @@ using NoeticTools.TeamStatusBoard.Framework;
 using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Channel;
-using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.TcSharpInterop;
+using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.TcSharpInterop;
 using TeamCitySharp.Locators;
 
 
@@ -11,7 +11,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Agen
 {
     public class TeamCityBuildAgentViewModel : NotifyingViewModelBase, IBuildAgent, ITimerListener, IChannelConnectionStateListener
     {
-        private readonly TimeSpan _tickPeriod = TimeSpan.FromSeconds(30);
+        private readonly TimeSpan _updatePeriod = TimeSpan.FromSeconds(30);
         private readonly ITimerService _timer;
         private readonly IDataSource _outerRepository;
         private readonly ITcSharpTeamCityClient _teamCityClient;
@@ -110,7 +110,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Agen
             StatusText = IsRunning ? "Running" : "Idle";
 
             UpdateBuildAgentParameters();
-            _timerToken.Requeue(_tickPeriod);
+            _timerToken.Requeue(_updatePeriod);
         }
 
         private void UpdateBuildAgentParameters()

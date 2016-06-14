@@ -18,7 +18,7 @@ namespace NoeticTools.TeamStatusBoard.Tests.Services.DataServices
         protected override void SetUp()
         {
             _sinkFactory = NewMock<IDataRepositoryFactory>();
-            _target = new DataServer(_sinkFactory.Object);
+            _target = new DataServer();
         }
 
         [Test]

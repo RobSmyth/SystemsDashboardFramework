@@ -7,7 +7,6 @@ using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Channel;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.TcSharpInterop;
-using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.TcSharpInterop;
 
 
 namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Projects
@@ -23,7 +22,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Proj
         private ITimerToken _timerToken = new NullTimerToken();
         private readonly ILog _logger;
         private readonly IDictionary<string, IProject> _projects = new Dictionary<string, IProject>();
-        private object _syncRoot = new object();
+        private readonly object _syncRoot = new object();
 
         public ProjectRepository(IDataSource outerRepository, ITcSharpTeamCityClient teamCityClient, IServices services, IChannelConnectionStateBroadcaster channelStateBroadcaster)
         {
@@ -33,7 +32,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Proj
             _channelStateBroadcaster.Add(this);
             outerRepository.Write($"Agents.Count", 0);
             _logger = LogManager.GetLogger("Repositories.Projects");
-            SetDisconnectedState();
+            EnterDisconnectedState();
         }
 
         public IProject[] GetAll()
@@ -78,18 +77,18 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Proj
         void IChannelConnectionStateListener.OnConnected()
         {
             var action = _onConnected;
-            SetConnectedState();
+            EnterConnectedState();
             action();
         }
 
         void IChannelConnectionStateListener.OnDisconnected()
         {
             var action = _onDisconnected;
-            SetDisconnectedState();
+            EnterDisconnectedState();
             action();
         }
 
-        private void SetDisconnectedState()
+        private void EnterDisconnectedState()
         {
             _onDisconnected = () => { };
             _onConnected = () =>
@@ -99,7 +98,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Proj
             };
         }
 
-        private void SetConnectedState()
+        private void EnterConnectedState()
         {
             _onDisconnected = () =>
             {

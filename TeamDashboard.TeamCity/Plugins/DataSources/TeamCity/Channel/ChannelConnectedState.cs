@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using log4net;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Agents;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Projects;
-using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.TcSharpInterop;
+using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.TcSharpInterop;
 
 
 namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Channel
@@ -39,39 +39,24 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Chan
             _stateEngine.OnDisconnected();
         }
 
-        public string[] GetConfigurationNames(string projectName)
-        {
-            _logger.DebugFormat("Request for configuration names for project {0}", projectName);
-
-            var configurations = _projectRepository.Get(projectName).Configurations;
-            return configurations.Select(x => x.Name).ToArray();
-        }
-
         public Task<IBuildAgent> GetAgent(string name)
         {
             return Task.Run(() => _buildAgentRepository.Get(name));
         }
 
-        public Task<IBuildAgent[]> GetAgents()
+        public IBuildAgent[] GetAgents()
         {
-            return Task.Run(() =>
-            {
-                UpdateBuildAgentRepository();
-                var agents = _buildAgentRepository.GetAll();
+            UpdateBuildAgentRepository();
+            var agents = _buildAgentRepository.GetAll();
 
-                return agents;
-            });
+            return agents;
         }
 
         void ITeamCityChannelState.Leave() {}
 
         void ITeamCityChannelState.Enter()
         {
-            Task.Run(GetAgents);
-            if (ProjectNames.Length > 0)
-            {
-                Task.Run(() => GetConfigurationNames(ProjectNames.First()));
-            }
+            Task.Run(() => GetAgents());
             _channelStateBroadcaster.OnConnected.Fire();
         }
 
@@ -84,4 +69,5 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Chan
             }
         }
     }
+
 }

@@ -2,5 +2,6 @@
 {
     public interface IBuildConfigurationRepository
     {
+        IBuildConfiguration[] GetAll();
     }
 }

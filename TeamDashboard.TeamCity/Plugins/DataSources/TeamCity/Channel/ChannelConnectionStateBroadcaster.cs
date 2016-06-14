@@ -15,10 +15,10 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Chan
             OnDisconnected = onDisconnectedBroadcaster;
             _onConnectedListenerAdded = x => { };
             _onDisconnectedListenerAdded = x => { };
-            onConnectedBroadcaster.AddListener(OnConnectedHandler);
-            onDisconnectedBroadcaster.AddListener(OnDisconnectedHandler);
-            onConnectedBroadcaster.AddListenersAddedListener(OnConnectedListenerAdded);
-            onDisconnectedBroadcaster.AddListenersAddedListener(OnDisconnectedListenerAdded);
+            OnConnected.AddListener(EnterConnectedState);
+            OnDisconnected.AddListener(EnterDisconnectedState);
+            OnConnected.AddListenersAddedListener(OnConnectedListenerAdded);
+            OnDisconnected.AddListenersAddedListener(OnDisconnectedListenerAdded);
         }
 
         public EventBroadcaster OnConnected { get; }
@@ -38,21 +38,21 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Chan
 
         private void OnDisconnectedListenerAdded(Action callback)
         {
-            _onConnectedListenerAdded(callback);
+            _onDisconnectedListenerAdded(callback);
         }
 
         private void OnConnectedListenerAdded(Action callback)
         {
-            _onDisconnectedListenerAdded(callback);
+            _onConnectedListenerAdded(callback);
         }
 
-        private void OnDisconnectedHandler()
+        private void EnterDisconnectedState()
         {
-            _onDisconnectedListenerAdded = x => {};
-            _onConnectedListenerAdded = x => x();
+            _onDisconnectedListenerAdded = x => x();
+            _onConnectedListenerAdded = x => {};
         }
 
-        private void OnConnectedHandler()
+        private void EnterConnectedState()
         {
             _onDisconnectedListenerAdded = x => {};
             _onConnectedListenerAdded = x => x();

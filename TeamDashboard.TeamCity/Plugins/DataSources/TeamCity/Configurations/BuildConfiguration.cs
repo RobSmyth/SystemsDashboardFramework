@@ -1,18 +1,17 @@
 using System;
 using System.Linq;
 using log4net;
-using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Configurations;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Projects;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.TcSharpInterop;
 using TeamCitySharp.DomainEntities;
 using TeamCitySharp.Locators;
 
 
-namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.Configurations
+namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Configurations
 {
     public sealed class BuildConfiguration : IBuildConfiguration
     {
-        private readonly BuildConfig _inner;
+        private BuildConfig _inner;
         private readonly IProject _project;
         private readonly ITcSharpTeamCityClient _teamCityClient;
         private readonly ILog _logger;
@@ -131,6 +130,11 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.Configurations
                     return null;
                 }
             }
+        }
+
+        public void Update(BuildConfig tcsConfiguration)
+        {
+            _inner = tcsConfiguration;
         }
 
         public Build[] GetRunningBuilds()

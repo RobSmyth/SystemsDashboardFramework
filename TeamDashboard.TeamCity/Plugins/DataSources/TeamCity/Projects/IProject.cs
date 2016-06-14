@@ -1,5 +1,4 @@
 ﻿using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Configurations;
-using NoeticTools.TeamStatusBoard.TeamCity.Plugins.TeamCity.Configurations;
 using TeamCitySharp.DomainEntities;
 
 

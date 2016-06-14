@@ -23,6 +23,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Proj
         private ITimerToken _timerToken = new NullTimerToken();
         private readonly ILog _logger;
         private readonly IDictionary<string, IProject> _projects = new Dictionary<string, IProject>();
+        private object _syncRoot = new object();
 
         public ProjectRepository(IDataSource outerRepository, ITcSharpTeamCityClient teamCityClient, IServices services, IChannelConnectionStateBroadcaster channelStateBroadcaster)
         {
@@ -42,11 +43,14 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Proj
 
         public IProject Get(string name)
         {
-            if (!_projects.ContainsKey(name.ToLower()))
+            lock (_syncRoot)
             {
-                _projects.Add(name.ToLower(), new Project(new NullInteropProject(name), _teamCityClient, _services, _channelStateBroadcaster));
+                if (!_projects.ContainsKey(name.ToLower()))
+                {
+                    _projects.Add(name.ToLower(), new Project(new NullInteropProject(name), _teamCityClient, _services, _channelStateBroadcaster));
+                }
+                return _projects[name.ToLower()];
             }
-            return _projects[name.ToLower()];
         }
 
         private void Update()

@@ -22,5 +22,6 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Conf
         Build[] GetRunningBuilds();
         Build GetLastBuild();
         Build GetLastSuccessfulBuild();
+        void Update(BuildConfig tcsConfiguration);
     }
 }

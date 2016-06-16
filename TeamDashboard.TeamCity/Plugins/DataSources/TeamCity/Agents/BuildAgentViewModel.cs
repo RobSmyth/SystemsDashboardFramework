@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using NoeticTools.TeamStatusBoard.Framework;
 using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
@@ -21,7 +22,8 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Agen
         private string _statusText;
         private Action _onDisconnectAction = () => { };
         private Action _onConnectAction = () => { };
-        private bool _isOnline;
+        private bool? _isOnline;
+        private bool? _isAuthorised;
 
         public TeamCityBuildAgentViewModel(string name, ITimerService timer, IDataSource outerRepository, IChannelConnectionStateBroadcaster channelStateBroadcaster, ITcSharpTeamCityClient teamCityClient)
         {
@@ -30,6 +32,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Agen
             _teamCityClient = teamCityClient;
             Name = name;
             _statusText = string.Empty;
+            Status = BuildAgentStatus.Offline;
             SetDisconnectedStateActions();
             channelStateBroadcaster.Add(this);
         }
@@ -39,13 +42,47 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Agen
         // todo - needs to check agent's online state from server
         public bool IsOnline
         {
-            get { return _isOnline; }
+            get { return _isOnline.HasValue && _isOnline.Value; }
             set
             {
-                if (_isOnline != value)
+                if (!_isOnline.HasValue || _isOnline != value)
                 {
                     _isOnline = value;
                     OnPropertyChanged();
+                    if (Status == BuildAgentStatus.NotAuthorised)
+                    {
+                        return;
+                    }
+
+                    if (!IsOnline)
+                    {
+                        Status = BuildAgentStatus.Offline;
+                    }
+                    else if (Status == BuildAgentStatus.Offline || Status == BuildAgentStatus.Unknown)
+                    {
+                        Status = BuildAgentStatus.Idle;
+                    }
+                }
+            }
+        }
+
+        public bool IsAuthorised
+        {
+            get { return _isAuthorised.HasValue && _isAuthorised.Value; }
+            set
+            {
+                if (!_isAuthorised.HasValue || _isAuthorised != value)
+                {
+                    _isAuthorised = value;
+                    OnPropertyChanged();
+                    if (!IsAuthorised)
+                    {
+                        Status = BuildAgentStatus.NotAuthorised;
+                    }
+                    else
+                    {
+                        Status = BuildAgentStatus.Idle;
+                    }
                 }
             }
         }
@@ -59,16 +96,16 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Agen
                 {
                     _isRunning = value;
                     OnPropertyChanged();
+                    if (IsRunning)
+                    {
+                        Status = BuildAgentStatus.Running;
+                    }
+                    else if (Status == BuildAgentStatus.Running)
+                    {
+                        Status = BuildAgentStatus.Idle;
+                    }
                 }
             }
-        }
-
-        public void IsNotKnown()
-        {
-            Status = BuildAgentStatus.Unknown;
-            StatusText = "Unknown";
-            IsRunning = false;
-            IsOnline = false;
         }
 
         public BuildAgentStatus Status
@@ -80,6 +117,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Agen
                 {
                     _status = value;
                     OnPropertyChanged();
+                    UpdateStateText();
                 }
             }
         }
@@ -106,8 +144,6 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Agen
         {
             var runningProjects = _teamCityClient.Builds.ByBuildLocator(BuildLocator.WithDimensions(running: true, branch: "default:any", agentName:Name)).ToArray();
             IsRunning = runningProjects.Length == 1;
-            Status = IsRunning ? BuildAgentStatus.Running : BuildAgentStatus.Idle;
-            StatusText = IsRunning ? "Running" : "Idle";
 
             UpdateBuildAgentParameters();
             _timerToken.Requeue(_updatePeriod);
@@ -116,6 +152,20 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Agen
         private void UpdateBuildAgentParameters()
         {
             _outerRepository.Write($"Agent.{Name}.Status", Status);
+        }
+
+        private void UpdateStateText()
+        {
+            var lookup = new Dictionary<BuildAgentStatus, string>()
+            {
+                {BuildAgentStatus.Unknown, "Unknown" },
+                {BuildAgentStatus.Idle, "Idle" },
+                {BuildAgentStatus.Offline, "Off-line" },
+                {BuildAgentStatus.Disabled, "Disabled" },
+                {BuildAgentStatus.NotAuthorised, "NotAuthorised" },
+                {BuildAgentStatus.Running, "Running" },
+            };
+            StatusText = lookup[Status];
         }
 
         void IChannelConnectionStateListener.OnConnected()

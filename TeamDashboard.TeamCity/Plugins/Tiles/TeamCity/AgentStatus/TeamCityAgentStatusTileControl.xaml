@@ -35,7 +35,7 @@
 
             <TextBlock Name="headerText" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="0"
                    FontSize="{Binding Path=ActualWidth, ElementName=root, 
-                                Converter={StaticResource doubleConverter}, ConverterParameter=0.05}"
+                                Converter={StaticResource doubleConverter}, ConverterParameter=0.06}"
                    FontWeight="Bold" FontStyle="Italic" Margin="5"
                        Text="{Binding BuildAgent.StatusText, Mode=OneWay}"/>
             

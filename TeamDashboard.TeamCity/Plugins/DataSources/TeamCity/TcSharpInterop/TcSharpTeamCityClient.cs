@@ -72,15 +72,5 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.TcSh
         {
             get { return _inner.Artifacts; }
         }
-
-        public ITestOccurrences TestOccurrences
-        {
-            get { return _inner.TestOccurrences; }
-        }
-
-        public IStatistics Statistics
-        {
-            get { return _inner.Statistics; }
-        }
     }
 }

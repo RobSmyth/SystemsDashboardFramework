@@ -22,13 +22,14 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AgentStatu
 {
     internal sealed class TeamCityAgentStatusTileViewModel : NotifyingViewModelBase, ITimerListener, IConfigurationChangeListener, ITileViewModel
     {
-        private readonly Dictionary<BuildAgentStatus, Brush> _statusBrushes = new Dictionary<BuildAgentStatus, Brush>
+        private readonly Dictionary<BuildAgentStatus, Brush> _statusBackgroundBrushes = new Dictionary<BuildAgentStatus, Brush>
         {
             {BuildAgentStatus.Disabled, Brushes.Gray},
             {BuildAgentStatus.Running, Brushes.Yellow},
             {BuildAgentStatus.Idle, (SolidColorBrush) (new BrushConverter().ConvertFrom("#FF448032"))},
             {BuildAgentStatus.Unknown, Brushes.Gray},
-            {BuildAgentStatus.Offline, Brushes.Gray}
+            {BuildAgentStatus.Offline, Brushes.Firebrick},
+            {BuildAgentStatus.NotAuthorised, Brushes.Black},
         };
 
         private readonly Dictionary<BuildAgentStatus, Brush> _statusTextBrushes = new Dictionary<BuildAgentStatus, Brush>
@@ -37,7 +38,8 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AgentStatu
             {BuildAgentStatus.Running, Brushes.DarkSlateGray},
             {BuildAgentStatus.Idle, Brushes.White},
             {BuildAgentStatus.Unknown, Brushes.White},
-            {BuildAgentStatus.Offline, Brushes.White}
+            {BuildAgentStatus.Offline, Brushes.White},
+            {BuildAgentStatus.NotAuthorised, Brushes.White},
         };
 
         private readonly ITeamCityChannel _channel;
@@ -74,7 +76,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AgentStatu
 
             _view.DataContext = this;
 
-            _timerToken = services.Timer.QueueCallback(TimeSpan.FromSeconds(_channel.IsConnected ? 1 : 3), this);
+            _timerToken = services.Timer.QueueCallback(TimeSpan.FromSeconds(_channel.IsConnected ? 1 : 5), this);
         }
 
         public IBuildAgent BuildAgent
@@ -121,18 +123,28 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AgentStatu
         private void Update()
         {
             var agentName = _tileConfigurationConverter.GetString("AgentName");
-
-            var agent = _channel.Agents.Get(agentName);
-            if (agent == null)
+            if (string.IsNullOrWhiteSpace(agentName))
             {
-                SetUiToError();
-                _timerToken.Requeue(_disconnectedUpdatePeriod);
-                return;
+                _view.root.Background = _statusBackgroundBrushes[BuildAgentStatus.Unknown];
+                _view.agentName.Foreground = _statusTextBrushes[BuildAgentStatus.Unknown];
+                _view.headerText.Foreground = _statusTextBrushes[BuildAgentStatus.Unknown];
             }
+            else
+            {
+                var agent = _channel.Agents.Get(agentName);
+                if (agent == null)
+                {
+                    SetUiToError();
+                    _timerToken.Requeue(_disconnectedUpdatePeriod);
+                    return;
+                }
 
-            _view.root.Background = _statusBrushes[BuildAgent.Status];
+                _view.root.Background = _statusBackgroundBrushes[BuildAgent.Status];
+                _view.agentName.Foreground = _statusTextBrushes[BuildAgent.Status];
+                _view.headerText.Foreground = _statusTextBrushes[BuildAgent.Status];
 
-            _logger.DebugFormat("Updated UI. Build is {0}.", BuildAgent.Status);
+                _logger.DebugFormat("Updated UI. Build is {0}.", BuildAgent.Status);
+            }
 
             _timerToken.Requeue(_connectedUpdatePeriod);
         }
@@ -140,7 +152,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AgentStatu
         private void SetUiToError()
         {
             _logger.Warn("Update UI - unable to get build state.");
-            _view.root.Background = _statusBrushes[BuildAgentStatus.Unknown];
+            _view.root.Background = _statusBackgroundBrushes[BuildAgentStatus.Unknown];
         }
 
         private IPropertyViewModel[] GetConfigurationParameters()

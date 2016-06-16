@@ -12,8 +12,8 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Agen
 {
     public sealed class BuildAgentRepository : IBuildAgentRepository, ITimerListener, IChannelConnectionStateListener
     {
-        private readonly TimeSpan _updateDelayOnConnection = TimeSpan.FromMilliseconds(100);
-        private readonly TimeSpan _updatePeriod = TimeSpan.FromMinutes(5);
+        private readonly TimeSpan _updateDelayOnConnection = TimeSpan.FromMilliseconds(200);
+        private readonly TimeSpan _updatePeriod = TimeSpan.FromMinutes(1);
         private readonly IDataSource _outerRepository;
         private readonly ITcSharpTeamCityClient _teamCitySharpClient;
         private readonly IServices _services;
@@ -68,16 +68,19 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Agen
 
         private void Update()
         {
-            var currentAgents = _teamCitySharpClient.Agents.All();
-            foreach (var teamCityAgent in currentAgents)
+            var authorisedAgents = _teamCitySharpClient.Agents.AllAuthorised();
+            foreach (var agent in _buildAgents.Values)
             {
-                Get(teamCityAgent.Name);
+                var isAuthorised = authorisedAgents.Any(x => x.Name.Equals(agent.Name, StringComparison.CurrentCultureIgnoreCase));
+                Get(agent.Name).IsAuthorised = isAuthorised;
             }
 
-            var orphanedagents = _buildAgents.Values.Where(x => !currentAgents.Any(y => y.Name.Equals(x.Name, StringComparison.InvariantCultureIgnoreCase)));
-            foreach (var orphanedagent in orphanedagents)
+            var connectedAgents = _teamCitySharpClient.Agents.AllConnected();
+            foreach (var agent in _buildAgents.Values)
             {
-                orphanedagent.IsNotKnown();
+                var buildAgent = Get(agent.Name);
+                var isOnline = connectedAgents.Any(x => x.Name.Equals(agent.Name, StringComparison.CurrentCultureIgnoreCase));
+                buildAgent.IsOnline = isOnline;
             }
         }
 

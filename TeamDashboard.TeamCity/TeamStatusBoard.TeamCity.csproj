@@ -55,8 +55,8 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="TeamCitySharp, Version=0.3.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\TeamCitySharp-forked.1.0.0.5\lib\net40\TeamCitySharp.dll</HintPath>
-      <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libraries\TeamCitySharp.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>

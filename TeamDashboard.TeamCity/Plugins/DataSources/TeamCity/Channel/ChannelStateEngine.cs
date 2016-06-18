@@ -13,11 +13,11 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Chan
         private readonly IProjectRepository _projectRepository;
         private readonly IBuildAgentRepository _buildAgentRepository;
         private readonly IDataSource _repository;
-        private readonly ITeamCityServiceConfiguration _configuration;
+        private readonly ITeamCityDataSourceConfiguration _configuration;
         private readonly ChannelConnectionStateBroadcaster _channelStateBroadcaster;
         private readonly object _syncRoot = new object();
 
-        public ChannelStateEngine(IServices services, ITcSharpTeamCityClient teamCityClient, IProjectRepository projectRepository, IBuildAgentRepository buildAgentRepository, IDataSource repository, ITeamCityServiceConfiguration configuration, ChannelConnectionStateBroadcaster channelStateBroadcaster)
+        public ChannelStateEngine(IServices services, ITcSharpTeamCityClient teamCityClient, IProjectRepository projectRepository, IBuildAgentRepository buildAgentRepository, IDataSource repository, ITeamCityDataSourceConfiguration configuration, ChannelConnectionStateBroadcaster channelStateBroadcaster)
         {
             _teamCityClient = teamCityClient;
             _projectRepository = projectRepository;

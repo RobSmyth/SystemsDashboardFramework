@@ -19,6 +19,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Chan
             OnDisconnected.AddListener(EnterDisconnectedState);
             OnConnected.AddListenersAddedListener(OnConnectedListenerAdded);
             OnDisconnected.AddListenersAddedListener(OnDisconnectedListenerAdded);
+            EnterDisconnectedState();
         }
 
         public EventBroadcaster OnConnected { get; }

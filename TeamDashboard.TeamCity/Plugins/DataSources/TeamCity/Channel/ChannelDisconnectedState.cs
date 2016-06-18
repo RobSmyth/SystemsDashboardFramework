@@ -7,17 +7,17 @@ using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.TcSharpI
 
 namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Channel
 {
-    internal class ChannelDisconnectedState : ITeamCityChannelState
+    internal sealed class ChannelDisconnectedState : ITeamCityChannelState
     {
         private readonly ITcSharpTeamCityClient _teamCityClient;
-        private readonly ITeamCityServiceConfiguration _configuration;
+        private readonly ITeamCityDataSourceConfiguration _configuration;
         private readonly IBuildAgentRepository _buildAgentRepository;
         private readonly IChannelConnectionStateBroadcaster _channelStateBroadcaster;
         private readonly IStateEngine<ITeamCityIoChannel> _stateEngine;
         private readonly ILog _logger;
         private bool _testingConnection;
 
-        public ChannelDisconnectedState(ITcSharpTeamCityClient teamCityClient, IStateEngine<ITeamCityIoChannel> stateEngine, ITeamCityServiceConfiguration configuration, IBuildAgentRepository buildAgentRepository, IChannelConnectionStateBroadcaster channelStateBroadcaster)
+        public ChannelDisconnectedState(ITcSharpTeamCityClient teamCityClient, IStateEngine<ITeamCityIoChannel> stateEngine, ITeamCityDataSourceConfiguration configuration, IBuildAgentRepository buildAgentRepository, IChannelConnectionStateBroadcaster channelStateBroadcaster)
         {
             _teamCityClient = teamCityClient;
             _stateEngine = stateEngine;

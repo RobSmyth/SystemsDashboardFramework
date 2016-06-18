@@ -3,7 +3,7 @@ using NoeticTools.TeamStatusBoard.Framework.Config;
 
 namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity
 {
-    public class DataSourceConfiguration : ITeamCityServiceConfiguration
+    public sealed class DataSourceConfiguration : ITeamCityDataSourceConfiguration
     {
         private readonly DashboardServiceConfiguration _inner;
 

@@ -19,12 +19,12 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Chan
     {
         private readonly IDashboardController _dashboardController;
         private readonly IServices _services;
-        private readonly ITeamCityServiceConfiguration _configuration;
+        private readonly ITeamCityDataSourceConfiguration _configuration;
         private readonly IDataSource _repository;
         private ILog _logger;
         private readonly IStateEngine<ITeamCityIoChannel> _stateEngine;
 
-        public TeamCityChannel(IServices services, IDataSource repository, ITeamCityServiceConfiguration configuration, 
+        public TeamCityChannel(IServices services, IDataSource repository, ITeamCityDataSourceConfiguration configuration, 
             IStateEngine<ITeamCityIoChannel> stateEngine, IProjectRepository projects, 
             IBuildAgentRepository buildAgentRepository, ChannelConnectionStateBroadcaster stateBroadcaster)
         {

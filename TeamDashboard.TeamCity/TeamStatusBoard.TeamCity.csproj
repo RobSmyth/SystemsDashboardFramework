@@ -63,8 +63,12 @@
   <ItemGroup>
     <Compile Include="Plugins\DataSources\TeamCity\Agents\BuildAgentRepository.cs" />
     <Compile Include="Plugins\DataSources\TeamCity\Agents\BuildAgentStatus.cs" />
+    <Compile Include="Plugins\DataSources\TeamCity\Agents\BuildAgentViewModelFactory.cs" />
+    <Compile Include="Plugins\DataSources\TeamCity\Agents\ConnectedStateTicker.cs" />
     <Compile Include="Plugins\DataSources\TeamCity\Agents\IBuildAgent.cs" />
     <Compile Include="Plugins\DataSources\TeamCity\Agents\IBuildAgentRepository.cs" />
+    <Compile Include="Plugins\DataSources\TeamCity\Agents\IBuildAgentViewModelFactory.cs" />
+    <Compile Include="Plugins\DataSources\TeamCity\Agents\IConnectedStateTicker.cs" />
     <Compile Include="Plugins\DataSources\TeamCity\Channel\ChannelConnectionStateBroadcaster.cs" />
     <Compile Include="Plugins\DataSources\TeamCity\Channel\ITeamCityIOChannel.cs" />
     <Compile Include="Plugins\DataSources\TeamCity\Channel\IChannelConnectionStateBroadcaster.cs" />

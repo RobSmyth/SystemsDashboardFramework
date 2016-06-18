@@ -82,12 +82,17 @@
     <Compile Include="Plugins\DataSources\TeamCity\Projects\IProject.cs" />
     <Compile Include="Plugins\DataSources\TeamCity\Projects\IProjectRepository.cs" />
     <Compile Include="Plugins\DataSources\TeamCity\Configurations\NullBuildConfiguration.cs" />
+    <Compile Include="Plugins\DataSources\TeamCity\TcSharpInterop\NullInteripUsers.cs" />
+    <Compile Include="Plugins\DataSources\TeamCity\TcSharpInterop\NullInteropAgents.cs" />
     <Compile Include="Plugins\DataSources\TeamCity\TcSharpInterop\NullInteropBuildConfig.cs" />
+    <Compile Include="Plugins\DataSources\TeamCity\TcSharpInterop\NullInteropBuildConfigs.cs" />
+    <Compile Include="Plugins\DataSources\TeamCity\TcSharpInterop\NullInteropBuilds.cs" />
     <Compile Include="Plugins\DataSources\TeamCity\TcSharpInterop\NullInteropProject.cs" />
     <Compile Include="Plugins\DataSources\TeamCity\Projects\ProjectRepository.cs" />
     <Compile Include="Plugins\DataSources\TeamCity\Configurations\BuildConfiguration.cs" />
     <Compile Include="Plugins\DataSources\TeamCity\Projects\Project.cs" />
     <Compile Include="Plugins\DataSources\TeamCity\TcSharpInterop\ITcSharpTeamCityClient.cs" />
+    <Compile Include="Plugins\DataSources\TeamCity\TcSharpInterop\NullInteropProjects.cs" />
     <Compile Include="Plugins\DataSources\TeamCity\TcSharpInterop\TcSharpTeamCityClient.cs" />
     <Compile Include="Plugins\DataSources\TeamCity\Agents\BuildAgentViewModel.cs" />
     <Compile Include="Plugins\DataSources\TeamCity\Channel\ChannelConnectedState.cs" />

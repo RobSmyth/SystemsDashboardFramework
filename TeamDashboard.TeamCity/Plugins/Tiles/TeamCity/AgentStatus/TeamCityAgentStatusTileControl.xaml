@@ -35,14 +35,14 @@
 
             <TextBlock Name="headerText" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="0"
                    FontSize="{Binding Path=ActualWidth, ElementName=root, 
-                                Converter={StaticResource doubleConverter}, ConverterParameter=0.06}"
+                                Converter={StaticResource doubleConverter}, ConverterParameter=0.07}"
                    FontWeight="Bold" FontStyle="Italic" Margin="5"
                        Text="{Binding BuildAgent.StatusText, Mode=OneWay}"/>
             
 
             <TextBlock Name="agentName" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1"
                    FontSize="{Binding Path=ActualWidth, ElementName=root, 
-                                Converter={StaticResource doubleConverter}, ConverterParameter=0.08}"
+                                Converter={StaticResource doubleConverter}, ConverterParameter=0.09}"
                    FontWeight="Bold" Margin="5"
                        Text="{Binding BuildAgent.Name, Mode=OneWay}"/>
             

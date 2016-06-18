@@ -162,7 +162,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Agen
                 {BuildAgentStatus.Idle, "Idle" },
                 {BuildAgentStatus.Offline, "Off-line" },
                 {BuildAgentStatus.Disabled, "Disabled" },
-                {BuildAgentStatus.NotAuthorised, "NotAuthorised" },
+                {BuildAgentStatus.NotAuthorised, "Not authorised" },
                 {BuildAgentStatus.Running, "Running" },
             };
             StatusText = lookup[Status];

@@ -22,7 +22,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AvailableB
 {
     internal sealed class TeamCityAvailableBuildsTileViewModel : ITimerListener, IConfigurationChangeListener, ITileViewModel, IChannelConnectionStateListener
     {
-        private readonly TimeSpan _updateDelayOnConnection = TimeSpan.FromSeconds(1);
+        private readonly TimeSpan _updateDelayOnConnection = TimeSpan.FromSeconds(10);
         private readonly TimeSpan _updatePeriod = TimeSpan.FromSeconds(15);
 
         public class BuildDetails
@@ -59,7 +59,6 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AvailableB
             _view.DataContext = this;
             _view.buildsList.ItemsSource = Builds;
             _channel.StateBroadcaster.Add(this);
-            // _services.Timer.QueueCallback(TimeSpan.FromSeconds(_channel.IsConnected ? 1 : 4), this); // todo - redundant given StateBroadcaster
         }
 
         public ICommand ConfigureCommand { get; }

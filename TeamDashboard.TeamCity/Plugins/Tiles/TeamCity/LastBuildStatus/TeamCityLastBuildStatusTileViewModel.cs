@@ -10,12 +10,12 @@ using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Config.Properties;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles;
-using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.TeamCity;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.TeamCity.LastBuildStatus;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Channel;
+using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Projects;
 using TeamCitySharp.DomainEntities;
 
 
@@ -27,9 +27,10 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.LastBuildS
         private readonly ITeamCityChannel _channel;
         private readonly TileConfigurationConverter _tileConfigurationConverter;
         private readonly TimeSpan _connectedUpdatePeriod = TimeSpan.FromSeconds(30);
-        private readonly TimeSpan _disconnectedUpdatePeriod = TimeSpan.FromSeconds(2);
+        private readonly TimeSpan _disconnectedUpdatePeriod = TimeSpan.FromSeconds(5);
         private readonly ITimerToken _timerToken;
         private readonly TeamCityBuildStatusTileControl _view;
+        private readonly IProjectRepository _projectRepository;
         private readonly ILog _logger;
         private readonly object _syncRoot = new object();
         private string _status;
@@ -39,8 +40,8 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.LastBuildS
         private int _agentsCount;
         private string _runningStatus;
 
-        public TeamCityLastBuildStatusTileViewModel(ITeamCityChannel channel, TileConfiguration tile, IDashboardController dashboardController, TileLayoutController layoutController, IServices services,
-            TeamCityBuildStatusTileControl view)
+        public TeamCityLastBuildStatusTileViewModel(ITeamCityChannel channel, TileConfiguration tile, IDashboardController dashboardController, 
+            ITileLayoutController layoutController, IServices services, TeamCityBuildStatusTileControl view, IProjectRepository projectRepository)
         {
             lock (_syncRoot)
             {
@@ -49,6 +50,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.LastBuildS
 
             _channel = channel;
             _view = view;
+            _projectRepository = projectRepository;
             _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
             _status = "UNKNOWN";
             _runningStatus = "UNKNOWN";
@@ -58,7 +60,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.LastBuildS
             var configurationParameters = GetConfigurationParameters();
             ConfigureCommand = new TileConfigureCommand(tile, "Last Build Status Tile Configuration", configurationParameters, dashboardController, layoutController, services);
             _view.DataContext = this;
-            _timerToken = services.Timer.QueueCallback(TimeSpan.FromSeconds(_channel.IsConnected ? 1 : 3), this);
+            _timerToken = services.Timer.QueueCallback(TimeSpan.FromSeconds(3.0), this);
         }
 
         public string Status
@@ -153,7 +155,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.LastBuildS
 
         private Build[] GetBuilds(string projectName, string configurationName)
         {
-            var build = _channel.Projects.Get(projectName).GetConfiguration(configurationName).GetRunningBuilds();
+            var build = _projectRepository.Get(projectName).GetConfiguration(configurationName).GetRunningBuilds();
             if (build.Any())
             {
                 return build;

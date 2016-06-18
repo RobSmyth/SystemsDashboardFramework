@@ -5,7 +5,9 @@ using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.TeamCity.LastBuildStatus;
 using NoeticTools.TeamStatusBoard.Framework.Services;
+using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Channel;
+using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Projects;
 
 
 namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.LastBuildStatus
@@ -32,8 +34,9 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.LastBuildS
 
         public FrameworkElement CreateTile(TileConfiguration tile, TileLayoutController layoutController)
         {
+            var projectRepository = _services.GetService<ITeamCityService>("TeamCity").Projects;
             var view = new TeamCityBuildStatusTileControl();
-            new TeamCityLastBuildStatusTileViewModel(_channel, tile, _dashboardController, layoutController, _services, view);
+            new TeamCityLastBuildStatusTileViewModel(_channel, tile, _dashboardController, layoutController, _services, view, projectRepository);
             return view;
         }
 

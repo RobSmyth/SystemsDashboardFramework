@@ -1,4 +1,5 @@
 ﻿using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Channel;
+using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Projects;
 
 
 namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity
@@ -7,12 +8,14 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity
     {
         public string Name => "TeamCity";
 
-        public TeamCityDataSource(ITeamCityChannel channel)
+        public TeamCityDataSource(ITeamCityChannel channel, IProjectRepository projectRepository)
         {
             Channel = channel;
+            Projects = projectRepository;
         }
 
         public ITeamCityChannel Channel { get; }
+        public IProjectRepository Projects { get; set; }
 
         public void Stop()
         {

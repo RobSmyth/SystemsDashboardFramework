@@ -1,6 +1,9 @@
-﻿namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Agents
+﻿using System.ComponentModel;
+
+
+namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Agents
 {
-    public interface IBuildAgent
+    public interface IBuildAgent : INotifyPropertyChanged
     {
         string Name { get; }
         BuildAgentStatus Status { get; }

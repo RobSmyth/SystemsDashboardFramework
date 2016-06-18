@@ -378,6 +378,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\server128x128.png" />
     <Resource Include="NoeticTools.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -418,9 +419,6 @@
     <Resource Include="Images\Delete column.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\server128x128.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\Cog1_20x20.png" />
     <Resource Include="Images\Cog1_24x24.png" />
     <Resource Include="Images\Cog1_32x32.png" />
@@ -432,7 +430,9 @@
     <Resource Include="Images\Data1_16x16.png" />
     <Resource Include="Images\Data1_24x24.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\server128x128_light.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

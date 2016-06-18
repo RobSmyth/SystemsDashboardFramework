@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:converters="clr-NoeticTools.TeamStatusBoard.Framework.Converters"
+             xmlns:loc="clr-namespace:NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Agents"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300"
              Name="TeamCityBuildStatus">
@@ -16,29 +17,87 @@
             </ResourceDictionary.MergedDictionaries>
             <Style TargetType="TextBlock" BasedOn="{StaticResource DarkTileStyleTextbox}" />
             <Style TargetType="Grid" BasedOn="{StaticResource DarkTileStyleGrid}" />
-        </ResourceDictionary>
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
 
+            <Style x:Key="TileBackground" TargetType="{x:Type Grid}">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Path=BuildAgent.Status}" Value="{x:Static loc:BuildAgentStatus.Disabled}">
+                        <Setter Property="Background" Value="Gray"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Path=BuildAgent.Status}" Value="{x:Static loc:BuildAgentStatus.Running}">
+                        <Setter Property="Background" Value="Yellow"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Path=BuildAgent.Status}" Value="{x:Static loc:BuildAgentStatus.Idle}">
+                        <Setter Property="Background" Value="#FF448032"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Path=BuildAgent.Status}" Value="{x:Static loc:BuildAgentStatus.Unknown}">
+                        <Setter Property="Background" Value="#FF292929"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Path=BuildAgent.Status}" Value="{x:Static loc:BuildAgentStatus.Offline}">
+                        <Setter Property="Background" Value="Firebrick"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Path=BuildAgent.Status}" Value="{x:Static loc:BuildAgentStatus.NotAuthorised}">
+                        <Setter Property="Background" Value="DarkCyan"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="TileText" TargetType="{x:Type TextBlock}">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Path=BuildAgent.Status}" Value="{x:Static loc:BuildAgentStatus.Disabled}">
+                        <Setter Property="Foreground" Value="White"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Path=BuildAgent.Status}" Value="{x:Static loc:BuildAgentStatus.Running}">
+                        <Setter Property="Foreground" Value="DarkSlateGray"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Path=BuildAgent.Status}" Value="{x:Static loc:BuildAgentStatus.Idle}">
+                        <Setter Property="Foreground" Value="White"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Path=BuildAgent.Status}" Value="{x:Static loc:BuildAgentStatus.Unknown}">
+                        <Setter Property="Foreground" Value="White"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Path=BuildAgent.Status}" Value="{x:Static loc:BuildAgentStatus.Offline}">
+                        <Setter Property="Foreground" Value="White"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Path=BuildAgent.Status}" Value="{x:Static loc:BuildAgentStatus.NotAuthorised}">
+                        <Setter Property="Foreground" Value="DarkCyan"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="BuildAgentImage" TargetType="{x:Type Image}">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Path=BuildAgent.IsOnline}" Value="True">
+                        <Setter Property="Source" Value="/NoeticTools.TeamStatusBoard.Framework;component/Images/server128x128.png" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Path=BuildAgent.IsOnline}" Value="False">
+                        <Setter Property="Source" Value="/NoeticTools.TeamStatusBoard.Framework;component/Images/server128x128_light.png" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+        </ResourceDictionary>
+        
     </UserControl.Resources>
 
     <Border Name="FocusBorder" Style="{StaticResource FocusBorder}" Focusable="True">
-        <Grid Name="root" Margin="0">
+        <Grid Name="root" Margin="0" Style="{StaticResource TileBackground}">
+            
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*" MinHeight="20"/>
                 <RowDefinition Height="3*"/>
             </Grid.RowDefinitions>
-
-            <Image Grid.Row="0" Grid.RowSpan="3" Source="/NoeticTools.TeamStatusBoard.Framework;component/Images/server128x128.png" 
-                   
-                   Opacity="0.7" 
-                   HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10"/>
+            
+            <Image Name="agentImage" Grid.Row="0" Grid.RowSpan="3" Source="/NoeticTools.TeamStatusBoard.Framework;component/Images/server128x128.png" 
+                   Opacity="0.9" MaxWidth="48" MaxHeight="48" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="15,15,10,10"
+                   Style="{StaticResource BuildAgentImage}" />
 
             <TextBlock Name="headerText" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="0"
                    FontSize="{Binding Path=ActualWidth, ElementName=root, 
-                                Converter={StaticResource doubleConverter}, ConverterParameter=0.07}"
+                                Converter={StaticResource doubleConverter}, ConverterParameter=0.08}"
                    FontWeight="Bold" FontStyle="Italic" Margin="5"
                        Text="{Binding BuildAgent.StatusText, Mode=OneWay}"/>
-            
 
             <TextBlock Name="agentName" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1"
                    FontSize="{Binding Path=ActualWidth, ElementName=root, 

@@ -38,7 +38,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Agen
             _teamCityClient = teamCityClient;
             Name = name;
             _statusText = string.Empty;
-            Status = BuildAgentStatus.Offline;
+            Status = BuildAgentStatus.Unknown;
             SetDisconnectedStateActions();
             connectedStateTicker.AddListener(OnTick);
             channelStateBroadcaster.Add(this);
@@ -46,7 +46,6 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Agen
 
         public string Name { get; }
 
-        // todo - needs to check agent's online state from server
         public bool IsOnline
         {
             get { return _isOnline.HasValue && _isOnline.Value; }

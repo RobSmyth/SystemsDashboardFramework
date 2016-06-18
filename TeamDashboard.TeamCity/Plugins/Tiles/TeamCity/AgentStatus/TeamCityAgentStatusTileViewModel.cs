@@ -20,38 +20,13 @@ using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Channel;
 
 namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AgentStatus
 {
-    internal sealed class TeamCityAgentStatusTileViewModel : NotifyingViewModelBase, ITimerListener, IConfigurationChangeListener, ITileViewModel
+    internal sealed class TeamCityAgentStatusTileViewModel : NotifyingViewModelBase, IConfigurationChangeListener, ITileViewModel
     {
-        private readonly Dictionary<BuildAgentStatus, Brush> _statusBackgroundBrushes = new Dictionary<BuildAgentStatus, Brush>
-        {
-            {BuildAgentStatus.Disabled, Brushes.Gray},
-            {BuildAgentStatus.Running, Brushes.Yellow},
-            {BuildAgentStatus.Idle, (SolidColorBrush) (new BrushConverter().ConvertFrom("#FF448032"))},
-            {BuildAgentStatus.Unknown, Brushes.Gray},
-            {BuildAgentStatus.Offline, Brushes.Firebrick},
-            {BuildAgentStatus.NotAuthorised, Brushes.Black},
-        };
-
-        private readonly Dictionary<BuildAgentStatus, Brush> _statusTextBrushes = new Dictionary<BuildAgentStatus, Brush>
-        {
-            {BuildAgentStatus.Disabled, Brushes.White},
-            {BuildAgentStatus.Running, Brushes.DarkSlateGray},
-            {BuildAgentStatus.Idle, Brushes.White},
-            {BuildAgentStatus.Unknown, Brushes.White},
-            {BuildAgentStatus.Offline, Brushes.White},
-            {BuildAgentStatus.NotAuthorised, Brushes.White},
-        };
-
-        private readonly ITeamCityChannel _channel;
         private readonly TileConfigurationConverter _tileConfigurationConverter;
-        private readonly TimeSpan _connectedUpdatePeriod = TimeSpan.FromSeconds(30);
-        private readonly TimeSpan _disconnectedUpdatePeriod = TimeSpan.FromSeconds(2);
-        private readonly ITimerToken _timerToken;
         private readonly ILog _logger;
         private readonly object _syncRoot = new object();
-        private readonly TeamCityAgentStatusTileControl _view;
         private readonly ITeamCityChannel _teamCityChannel;
-        private IBuildAgent _buildAgent;
+        private IBuildAgent _buildAgent = new NullBuildAgent("");
         private static int _nextInstanceId = 1;
 
         public TeamCityAgentStatusTileViewModel(ITeamCityChannel channel, TileConfiguration tile, IDashboardController dashboardController, 
@@ -64,8 +39,6 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AgentStatu
             }
 
             Tile = tile;
-            _channel = channel;
-            _view = view;
             _teamCityChannel = teamCityChannel;
             _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
             ConfigureServiceCommand = new DataSourceConfigureCommand(channel);
@@ -74,9 +47,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AgentStatu
             ConfigureCommand = new TileConfigureCommand(Tile, "Build Agent Configuration", configurationParameters, dashboardController, tileLayoutController, services);
             GetBuildAgent();
 
-            _view.DataContext = this;
-
-            _timerToken = services.Timer.QueueCallback(TimeSpan.FromSeconds(_channel.IsConnected ? 1 : 5), this);
+            view.DataContext = this;
         }
 
         public IBuildAgent BuildAgent
@@ -98,61 +69,11 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AgentStatu
         {
             _logger.Debug("Configuration changed.");
             GetBuildAgent();
-            _timerToken.Requeue(TimeSpan.FromMilliseconds(300));
-        }
-
-        public void OnTimeElapsed(TimerToken token)
-        {
-            if (!_channel.IsConnected)
-            {
-                SetUiToError();
-                _timerToken.Requeue(_disconnectedUpdatePeriod);
-                return;
-            }
-
-            _logger.Debug("Timer elapsed. Update.");
-
-            Update();
         }
 
         private void GetBuildAgent()
         {
             BuildAgent = _teamCityChannel.GetAgent(_tileConfigurationConverter.GetString("AgentName")).Result;
-        }
-
-        private void Update()
-        {
-            var agentName = _tileConfigurationConverter.GetString("AgentName");
-            if (string.IsNullOrWhiteSpace(agentName))
-            {
-                _view.root.Background = _statusBackgroundBrushes[BuildAgentStatus.Unknown];
-                _view.agentName.Foreground = _statusTextBrushes[BuildAgentStatus.Unknown];
-                _view.headerText.Foreground = _statusTextBrushes[BuildAgentStatus.Unknown];
-            }
-            else
-            {
-                var agent = _channel.Agents.Get(agentName);
-                if (agent == null)
-                {
-                    SetUiToError();
-                    _timerToken.Requeue(_disconnectedUpdatePeriod);
-                    return;
-                }
-
-                _view.root.Background = _statusBackgroundBrushes[BuildAgent.Status];
-                _view.agentName.Foreground = _statusTextBrushes[BuildAgent.Status];
-                _view.headerText.Foreground = _statusTextBrushes[BuildAgent.Status];
-
-                _logger.DebugFormat("Updated UI. Build is {0}.", BuildAgent.Status);
-            }
-
-            _timerToken.Requeue(_connectedUpdatePeriod);
-        }
-
-        private void SetUiToError()
-        {
-            _logger.Warn("Update UI - unable to get build state.");
-            _view.root.Background = _statusBackgroundBrushes[BuildAgentStatus.Unknown];
         }
 
         private IPropertyViewModel[] GetConfigurationParameters()

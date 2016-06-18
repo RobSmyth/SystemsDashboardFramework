@@ -1,9 +1,10 @@
 ﻿using System;
+using NoeticTools.TeamStatusBoard.Framework;
 
 
 namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Agents
 {
-    public class NullBuildAgent : IBuildAgent
+    public class NullBuildAgent : NotifyingViewModelBase, IBuildAgent
     {
         public NullBuildAgent(string name)
         {
@@ -15,13 +16,5 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Agen
         public bool IsRunning => false;
         public bool IsOnline { get { return false; } set { throw new InvalidOperationException(); } }
         public bool IsAuthorised { get { return false; } set { throw new InvalidOperationException(); } }
-
-        public void IsNotKnown()
-        {
-        }
-
-        public void IsKnown()
-        {
-        }
     }
 }

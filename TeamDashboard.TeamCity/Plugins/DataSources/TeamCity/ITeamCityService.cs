@@ -1,4 +1,5 @@
 ﻿using NoeticTools.TeamStatusBoard.Framework.Services;
+using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Agents;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Channel;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Projects;
 
@@ -9,5 +10,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity
     {
         ITeamCityChannel Channel { get; }
         IProjectRepository Projects { get; set; }
+        IChannelConnectionStateBroadcaster StateBroadcaster { get; }
+        IConnectedStateTicker ConnectedTicker { get; set; }
     }
 }

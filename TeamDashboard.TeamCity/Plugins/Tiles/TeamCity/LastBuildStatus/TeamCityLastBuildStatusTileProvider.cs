@@ -34,9 +34,9 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.LastBuildS
 
         public FrameworkElement CreateTile(TileConfiguration tile, TileLayoutController layoutController)
         {
-            var projectRepository = _services.GetService<ITeamCityService>("TeamCity").Projects;
+            var teamCityService = _services.GetService<ITeamCityService>("TeamCity");
             var view = new TeamCityBuildStatusTileControl();
-            new TeamCityLastBuildStatusTileViewModel(_channel, tile, _dashboardController, layoutController, _services, view, projectRepository);
+            new TeamCityLastBuildStatusTileViewModel(_channel, tile, _dashboardController, layoutController, _services, view, teamCityService);
             return view;
         }
 

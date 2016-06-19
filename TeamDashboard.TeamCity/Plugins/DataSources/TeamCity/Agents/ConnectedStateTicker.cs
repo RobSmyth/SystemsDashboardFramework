@@ -8,7 +8,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Agen
 {
     public sealed class ConnectedStateTicker : IChannelConnectionStateListener, ITimerListener, IConnectedStateTicker
     {
-        private readonly TimeSpan _updateDelayOnConnection = TimeSpan.FromMilliseconds(200);
+        private readonly TimeSpan _updateDelayOnConnection = TimeSpan.FromSeconds(1.0);
         private readonly IEventBroadcaster _broadcaster;
         private readonly ITimerService _timerService;
         private readonly TimeSpan _tickPeriod;

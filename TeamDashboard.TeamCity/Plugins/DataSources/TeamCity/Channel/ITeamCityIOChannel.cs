@@ -10,7 +10,6 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Chan
         bool IsConnected { get; }
         void Connect();
         void Disconnect();
-        IBuildAgent[] GetAgents();
         Task<IBuildAgent> GetAgent(string name);
     }
 }

@@ -9,8 +9,9 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity
     public interface ITeamCityService : IService
     {
         ITeamCityChannel Channel { get; }
-        IProjectRepository Projects { get; set; }
+        IProjectRepository Projects { get; }
         IChannelConnectionStateBroadcaster StateBroadcaster { get; }
-        IConnectedStateTicker ConnectedTicker { get; set; }
+        IConnectedStateTicker ConnectedTicker { get; }
+        BuildAgentRepository Agents { get; }
     }
 }

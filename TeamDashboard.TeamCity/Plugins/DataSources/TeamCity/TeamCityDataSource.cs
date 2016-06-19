@@ -9,18 +9,21 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity
     {
         public string Name => "TeamCity";
 
-        public TeamCityDataSource(ITeamCityChannel channel, IProjectRepository projectRepository, IChannelConnectionStateBroadcaster stateBroadcaster, IConnectedStateTicker connectedTicker)
+        public TeamCityDataSource(ITeamCityChannel channel, IChannelConnectionStateBroadcaster stateBroadcaster, 
+            IConnectedStateTicker connectedTicker, IProjectRepository projectRepository, BuildAgentRepository buildAgentRepository)
         {
             Channel = channel;
             Projects = projectRepository;
+            Agents = buildAgentRepository;
             StateBroadcaster = stateBroadcaster;
             ConnectedTicker = connectedTicker;
         }
 
         public ITeamCityChannel Channel { get; }
-        public IProjectRepository Projects { get; set; }
+        public IProjectRepository Projects { get; }
+        public BuildAgentRepository Agents { get; }
         public IChannelConnectionStateBroadcaster StateBroadcaster { get; }
-        public IConnectedStateTicker ConnectedTicker { get; set; }
+        public IConnectedStateTicker ConnectedTicker { get; }
 
         public void Stop()
         {

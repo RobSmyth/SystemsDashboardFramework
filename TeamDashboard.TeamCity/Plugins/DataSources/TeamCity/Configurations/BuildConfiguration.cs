@@ -139,12 +139,19 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Conf
 
         public Build[] GetRunningBuilds()
         {
-            var builds = _teamCityClient.Builds.ByBuildLocator(BuildLocator.WithDimensions(running: true, branch: "default:any")).Where(x => x.WebUrl.EndsWith(Id)).ToArray();
-            foreach (var build in builds)
+            try
             {
-                build.Status = build.Status == "FAILED" ? "RUNNING FAILED" : "RUNNING";
+                var builds = _teamCityClient.Builds.ByBuildLocator(BuildLocator.WithDimensions(running: true, branch: "default:any")).Where(x => x.WebUrl.EndsWith(Id)).ToArray();
+                foreach (var build in builds)
+                {
+                    build.Status = build.Status == "FAILED" ? "RUNNING FAILED" : "RUNNING";
+                }
+                return builds;
             }
-            return builds;
+            catch (Exception)
+            {
+                return new Build[0];
+            }
         }
     }
 }

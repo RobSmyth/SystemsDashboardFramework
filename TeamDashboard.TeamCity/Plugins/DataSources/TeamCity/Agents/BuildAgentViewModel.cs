@@ -143,10 +143,15 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Agen
 
         private void OnTick()
         {
-            var runningProjects = _teamCityClient.Builds.ByBuildLocator(BuildLocator.WithDimensions(running: true, branch: "default:any", agentName:Name)).ToArray();
-            IsRunning = runningProjects.Length == 1;
-
-            UpdateBuildAgentParameters();
+            try
+            {
+                var runningProjects = _teamCityClient.Builds.ByBuildLocator(BuildLocator.WithDimensions(running: true, branch: "default:any", agentName: Name)).ToArray();
+                IsRunning = runningProjects.Length == 1;
+                UpdateBuildAgentParameters();
+            }
+            catch (Exception)
+            {
+            }
         }
 
         private void UpdateBuildAgentParameters()

@@ -19,9 +19,8 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Agen
         private readonly IDictionary<string, IBuildAgent> _buildAgents = new Dictionary<string, IBuildAgent>();
         private readonly object _syncRoot = new object();
 
-        public BuildAgentRepository(IDataSource outerRepository, ITcSharpTeamCityClient teamCitySharpClient, IServices services, 
-            IChannelConnectionStateBroadcaster channelStateBroadcaster, 
-            IConnectedStateTicker ticker, IBuildAgentViewModelFactory buildAgentFactory)
+        public BuildAgentRepository(IDataSource outerRepository, ITcSharpTeamCityClient teamCitySharpClient, 
+            IChannelConnectionStateBroadcaster channelStateBroadcaster, IConnectedStateTicker ticker, IBuildAgentViewModelFactory buildAgentFactory)
         {
             _outerRepository = outerRepository;
             _teamCitySharpClient = teamCitySharpClient;

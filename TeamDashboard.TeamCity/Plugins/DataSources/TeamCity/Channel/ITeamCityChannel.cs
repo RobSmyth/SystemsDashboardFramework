@@ -9,8 +9,5 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Chan
         void Stop();
         void Start();
         void Configure();
-        IProjectRepository Projects { get; }
-        IBuildAgentRepository Agents { get; }
-        IChannelConnectionStateBroadcaster StateBroadcaster { get; set; }
     }
 }

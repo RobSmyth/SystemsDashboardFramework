@@ -28,7 +28,6 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Chan
             IStateEngine<ITeamCityIoChannel> stateEngine, IProjectRepository projects, 
             IBuildAgentRepository buildAgentRepository, ChannelConnectionStateBroadcaster stateBroadcaster)
         {
-            Projects = projects;
             Agents = buildAgentRepository;
             StateBroadcaster = stateBroadcaster;
             _repository = repository;
@@ -61,19 +60,13 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Chan
             _stateEngine.Current.Disconnect();
         }
 
-        public IBuildAgent[] GetAgents()
-        {
-            return Agents.GetAll();
-        }
-
         public Task<IBuildAgent> GetAgent(string name)
         {
             return Current.GetAgent(name);
         }
 
-        public IProjectRepository Projects { get; }
-        public IBuildAgentRepository Agents { get; }
-        public IChannelConnectionStateBroadcaster StateBroadcaster { get; set; }
+        private IBuildAgentRepository Agents { get; }
+        private IChannelConnectionStateBroadcaster StateBroadcaster { get; set; }
 
         public void Configure()
         {

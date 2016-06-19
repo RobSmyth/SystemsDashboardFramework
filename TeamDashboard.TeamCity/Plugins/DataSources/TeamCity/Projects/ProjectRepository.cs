@@ -5,34 +5,28 @@ using log4net;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
+using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Agents;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Channel;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.TcSharpInterop;
 
 
 namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Projects
 {
-    public sealed class ProjectRepository : IChannelConnectionStateListener, ITimerListener, IProjectRepository
+    public sealed class ProjectRepository : IProjectRepository
     {
-        private readonly TimeSpan _updatePeriod = TimeSpan.FromMinutes(1);
         private readonly ITcSharpTeamCityClient _teamCityClient;
-        private readonly IServices _services;
-        private readonly IChannelConnectionStateBroadcaster _channelStateBroadcaster;
-        private Action _onConnected = () => { };
-        private Action _onDisconnected = () => { };
-        private ITimerToken _timerToken = new NullTimerToken();
+        private readonly ProjectFactory _projectFactory;
         private readonly ILog _logger;
         private readonly IDictionary<string, IProject> _projects = new Dictionary<string, IProject>();
         private readonly object _syncRoot = new object();
 
-        public ProjectRepository(IDataSource outerRepository, ITcSharpTeamCityClient teamCityClient, IServices services, IChannelConnectionStateBroadcaster channelStateBroadcaster)
+        public ProjectRepository(IDataSource outerRepository, ITcSharpTeamCityClient teamCityClient, ProjectFactory projectFactory, IConnectedStateTicker connectedTicker)
         {
             _teamCityClient = teamCityClient;
-            _services = services;
-            _channelStateBroadcaster = channelStateBroadcaster;
-            _channelStateBroadcaster.Add(this);
+            _projectFactory = projectFactory;
             outerRepository.Write($"Agents.Count", 0);
             _logger = LogManager.GetLogger("Repositories.Projects");
-            EnterDisconnectedState();
+            connectedTicker.AddListener(Update);
         }
 
         public IProject[] GetAll()
@@ -46,7 +40,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Proj
             {
                 if (!_projects.ContainsKey(name.ToLower()))
                 {
-                    _projects.Add(name.ToLower(), new Project(new NullInteropProject(name), _teamCityClient, _services, _channelStateBroadcaster));
+                    _projects.Add(name.ToLower(), _projectFactory.Create(new NullInteropProject(name)));
                 }
                 return _projects[name.ToLower()];
             }
@@ -56,9 +50,10 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Proj
         {
             var updated = new List<IProject>();
             var teamCityProjects = _teamCityClient.Projects.All();
-            foreach (var teamCityProject in teamCityProjects.Where(teamCityProject => !_projects.ContainsKey(teamCityProject.Name.ToLower())))
+
+            foreach (var teamCitySharpProject in teamCityProjects.Where(teamCityProject => !_projects.ContainsKey(teamCityProject.Name.ToLower())))
             {
-                _projects.Add(teamCityProject.Name.ToLower(), new Project(teamCityProject, _teamCityClient, _services, _channelStateBroadcaster));
+                _projects.Add(teamCitySharpProject.Name.ToLower(), _projectFactory.Create(teamCitySharpProject));
             }
 
             foreach (var teamCityProject in teamCityProjects)
@@ -72,47 +67,6 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Proj
             {
                 orphanedProject.Update(new NullInteropProject(orphanedProject.Name));
             }
-        }
-
-        void IChannelConnectionStateListener.OnConnected()
-        {
-            var action = _onConnected;
-            EnterConnectedState();
-            action();
-        }
-
-        void IChannelConnectionStateListener.OnDisconnected()
-        {
-            var action = _onDisconnected;
-            EnterDisconnectedState();
-            action();
-        }
-
-        private void EnterDisconnectedState()
-        {
-            _onDisconnected = () => { };
-            _onConnected = () =>
-            {
-                _timerToken.Cancel();
-                _timerToken = _services.Timer.QueueCallback(TimeSpan.FromMilliseconds(10), this);
-            };
-        }
-
-        private void EnterConnectedState()
-        {
-            _onDisconnected = () =>
-            {
-                var token = _timerToken;
-                _timerToken = new NullTimerToken();
-                token.Cancel();
-            };
-            _onConnected = () => { };
-        }
-
-        void ITimerListener.OnTimeElapsed(TimerToken token)
-        {
-            Update();
-            _timerToken = _services.Timer.QueueCallback(_updatePeriod, this);
         }
     }
 }

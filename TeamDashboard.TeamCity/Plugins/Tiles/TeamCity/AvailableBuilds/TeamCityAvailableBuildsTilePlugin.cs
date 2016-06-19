@@ -1,7 +1,6 @@
 ﻿using log4net;
 using NoeticTools.TeamStatusBoard.Framework.Plugins;
 using NoeticTools.TeamStatusBoard.Framework.Services;
-using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity;
 
 
 namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AvailableBuilds
@@ -19,8 +18,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AvailableB
 
         public void Register(IServices services)
         {
-            var teamCityDataSourceChannel = services.GetService<ITeamCityService>("TeamCity").Channel;
-            services.TileProviders.Register(new TeamCityAvailbleBuildsTileProvider(teamCityDataSourceChannel, services.DashboardController, services));
+            services.TileProviders.Register(new TeamCityAvailbleBuildsTileProvider(services.DashboardController, services));
         }
     }
 }

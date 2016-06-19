@@ -11,21 +11,17 @@ using TeamCitySharp.DomainEntities;
 
 namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Projects
 {
-    public sealed class Project : IProject, IChannelConnectionStateListener
+    public sealed class Project : IProject
     {
         private TeamCitySharp.DomainEntities.Project _inner;
         private readonly ILog _logger;
         private readonly IBuildConfigurationRepository _configurations;
-        private Action _onDisconnected = () => { };
-        private Action _onConnected = () => { };
 
-        public Project(TeamCitySharp.DomainEntities.Project inner, ITcSharpTeamCityClient teamCityClient, IServices services, IChannelConnectionStateBroadcaster channelStateBroadcaster)
+        public Project(TeamCitySharp.DomainEntities.Project inner, IBuildConfigurationRepositoryFactory buildConfigurationRepositoryFactory)
         {
             _inner = inner;
             _logger = LogManager.GetLogger("Repositories.Projects.Project");
-            EnterDisconnectedState();
-            channelStateBroadcaster.Add(this);
-            _configurations = new BuildConfigurationRepository(teamCityClient, services, channelStateBroadcaster, this);
+            _configurations = buildConfigurationRepositoryFactory.Create(this);
         }
 
         public IBuildConfiguration GetConfiguration(string name)
@@ -38,7 +34,6 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Proj
             _inner = project;
         }
 
-        // todo - use BuildTypes property instead when inner Project is periodically updated.
         public IBuildConfiguration[] Configurations => _configurations.GetAll();
 
         public bool Archived => _inner.Archived;
@@ -54,31 +49,5 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Proj
         public string WebUrl => _inner.WebUrl;
 
         public Parameters Parameters => _inner.Parameters;
-
-        void IChannelConnectionStateListener.OnConnected()
-        {
-            var action = _onConnected;
-            EnterConnectedState();
-            action();
-        }
-
-        void IChannelConnectionStateListener.OnDisconnected()
-        {
-            var action = _onDisconnected;
-            EnterDisconnectedState();
-            action();
-        }
-
-        private void EnterConnectedState()
-        {
-            _onConnected = () => { };
-            _onDisconnected = () => { };
-        }
-
-        private void EnterDisconnectedState()
-        {
-            _onConnected = () => { };
-            _onDisconnected = () => { };
-        }
     }
 }

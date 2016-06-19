@@ -5,6 +5,7 @@ using NoeticTools.TeamStatusBoard.Framework.Services;
 using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Agents;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Channel;
+using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Configurations;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Projects;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.TcSharpInterop;
 using TeamCitySharp;
@@ -21,16 +22,19 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity
             var dataSource = new DataRepositoryFactory().Create("TeamCity", "0");
             var configuration = new DataSourceConfiguration(services.Configuration.Services.GetService("TeamCity"));
             var channelStateBroadcaster = new ChannelConnectionStateBroadcaster(new EventBroadcaster(), new EventBroadcaster());
+            var verySlowConnectedTicker = new ConnectedStateTicker(new EventBroadcaster(), services.Timer, TimeSpan.FromMinutes(10), channelStateBroadcaster);
             var slowConnectedTicker = new ConnectedStateTicker(new EventBroadcaster(), services.Timer, TimeSpan.FromMinutes(1), channelStateBroadcaster);
             var fastConnectedTicker = new ConnectedStateTicker(new EventBroadcaster(), services.Timer, TimeSpan.FromSeconds(30), channelStateBroadcaster);
             var teamCityClient = new TcSharpTeamCityClient(new TeamCityClient(configuration.Url));
             var buildAgentFactory = new BuildAgentViewModelFactory(services, dataSource, fastConnectedTicker, teamCityClient);
-            var buildAgentRepository = new BuildAgentRepository(dataSource, teamCityClient, services, channelStateBroadcaster, slowConnectedTicker, buildAgentFactory);
-            var projectRepository = new ProjectRepository(dataSource, teamCityClient, services, channelStateBroadcaster);
+            var buildAgentRepository = new BuildAgentRepository(dataSource, teamCityClient, channelStateBroadcaster, slowConnectedTicker, buildAgentFactory);
+            var buildConfigurationRepositoryFactory = new BuildConfigurationRepositoryFactory(teamCityClient, services, channelStateBroadcaster, verySlowConnectedTicker);
+            var projectFactory = new ProjectFactory(buildConfigurationRepositoryFactory);
+            var projectRepository = new ProjectRepository(dataSource, teamCityClient, projectFactory, slowConnectedTicker);
             var stateEngine = new ChannelStateEngine(services, teamCityClient, projectRepository, buildAgentRepository, dataSource, configuration, channelStateBroadcaster);
 
             var channel = new TeamCityChannel(services, dataSource, configuration, stateEngine, projectRepository, buildAgentRepository, channelStateBroadcaster);
-            services.Register(new TeamCityDataSource(channel, projectRepository, channelStateBroadcaster, fastConnectedTicker));
+            services.Register(new TeamCityDataSource(channel, channelStateBroadcaster, fastConnectedTicker, projectRepository, buildAgentRepository));
 
             services.DataService.Register("TeamCity", dataSource);
         }

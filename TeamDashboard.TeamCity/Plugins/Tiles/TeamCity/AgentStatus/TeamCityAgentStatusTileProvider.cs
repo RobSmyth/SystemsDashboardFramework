@@ -5,6 +5,7 @@ using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.TeamCity.AgentStatus;
 using NoeticTools.TeamStatusBoard.Framework.Services;
+using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Channel;
 
 
@@ -33,8 +34,9 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AgentStatu
 
         public FrameworkElement CreateTile(TileConfiguration tile, TileLayoutController layoutController)
         {
+            var teamCityService = _services.GetService<ITeamCityService>("TeamCity");
             var view = new TeamCityAgentStatusTileControl();
-            new TeamCityAgentStatusTileViewModel(_channel, tile, _dashboardController, layoutController, _services, view, _channel);
+            new TeamCityAgentStatusTileViewModel(_channel, tile, _dashboardController, layoutController, _services, view, teamCityService);
             return view;
         }
 

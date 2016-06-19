@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
-using System.Windows.Media;
 using log4net;
 using NoeticTools.TeamStatusBoard.Framework;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
@@ -12,7 +10,6 @@ using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.TeamCity.AgentStatus;
 using NoeticTools.TeamStatusBoard.Framework.Services;
-using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Agents;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Channel;
@@ -25,13 +22,13 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AgentStatu
         private readonly TileConfigurationConverter _tileConfigurationConverter;
         private readonly ILog _logger;
         private readonly object _syncRoot = new object();
-        private readonly ITeamCityChannel _teamCityChannel;
+        private readonly ITeamCityService _teamCityService;
         private IBuildAgent _buildAgent = new NullBuildAgent("");
         private static int _nextInstanceId = 1;
 
-        public TeamCityAgentStatusTileViewModel(ITeamCityChannel channel, TileConfiguration tile, IDashboardController dashboardController, 
-            ITileLayoutController tileLayoutController, IServices services,
-            TeamCityAgentStatusTileControl view, ITeamCityChannel teamCityChannel)
+        public TeamCityAgentStatusTileViewModel(ITeamCityChannel channel, TileConfiguration tile, 
+            IDashboardController dashboardController, ITileLayoutController tileLayoutController, IServices services, 
+            TeamCityAgentStatusTileControl view, ITeamCityService teamCityService)
         {
             lock (_syncRoot)
             {
@@ -39,7 +36,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AgentStatu
             }
 
             Tile = tile;
-            _teamCityChannel = teamCityChannel;
+            _teamCityService = teamCityService;
             _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
             ConfigureServiceCommand = new DataSourceConfigureCommand(channel);
 
@@ -73,7 +70,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AgentStatu
 
         private void GetBuildAgent()
         {
-            BuildAgent = _teamCityChannel.GetAgent(_tileConfigurationConverter.GetString("AgentName")).Result;
+            BuildAgent = _teamCityService.Agents.Get(_tileConfigurationConverter.GetString("AgentName"));
         }
 
         private IPropertyViewModel[] GetConfigurationParameters()

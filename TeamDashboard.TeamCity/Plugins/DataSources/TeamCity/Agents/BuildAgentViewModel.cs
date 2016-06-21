@@ -55,19 +55,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Agen
                 {
                     _isOnline = value;
                     OnPropertyChanged();
-                    if (Status == BuildAgentStatus.NotAuthorised)
-                    {
-                        return;
-                    }
-
-                    if (!IsOnline)
-                    {
-                        Status = BuildAgentStatus.Offline;
-                    }
-                    else if (Status == BuildAgentStatus.Offline || Status == BuildAgentStatus.Unknown)
-                    {
-                        Status = BuildAgentStatus.Idle;
-                    }
+                    UpdateStatus();
                 }
             }
         }
@@ -81,14 +69,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Agen
                 {
                     _isAuthorised = value;
                     OnPropertyChanged();
-                    if (!IsAuthorised)
-                    {
-                        Status = BuildAgentStatus.NotAuthorised;
-                    }
-                    else
-                    {
-                        Status = BuildAgentStatus.Idle;
-                    }
+                    UpdateStatus();
                 }
             }
         }
@@ -102,14 +83,43 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Agen
                 {
                     _isRunning = value;
                     OnPropertyChanged();
-                    if (IsRunning)
-                    {
-                        Status = BuildAgentStatus.Running;
-                    }
-                    else if (Status == BuildAgentStatus.Running)
-                    {
-                        Status = BuildAgentStatus.Idle;
-                    }
+                    UpdateStatus();
+                }
+            }
+        }
+
+        private void UpdateStatus()
+        {
+            if (string.IsNullOrWhiteSpace(Name))
+            {
+                Status = BuildAgentStatus.Unknown;
+                return;
+            }
+
+            if (!IsAuthorised)
+            {
+                Status = BuildAgentStatus.NotAuthorised;
+                return;
+            }
+
+            if (!IsOnline)
+            {
+                Status = BuildAgentStatus.Offline;
+            }
+            else if (Status == BuildAgentStatus.Offline || Status == BuildAgentStatus.Unknown)
+            {
+                Status = BuildAgentStatus.Idle;
+            }
+
+            if (Status != BuildAgentStatus.Offline)
+            {
+                if (IsRunning)
+                {
+                    Status = BuildAgentStatus.Running;
+                }
+                else if (Status == BuildAgentStatus.Running)
+                {
+                    Status = BuildAgentStatus.Idle;
                 }
             }
         }

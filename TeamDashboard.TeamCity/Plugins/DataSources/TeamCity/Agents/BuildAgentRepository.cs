@@ -66,13 +66,14 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Agen
             var namedAgents = _buildAgents.Values.Where(x => !string.IsNullOrWhiteSpace(x.Name)).ToArray();
 
             var authorisedAgents = _teamCitySharpClient.Agents.AllAuthorised();
+            var connectedAgents = _teamCitySharpClient.Agents.AllConnected();
+
             foreach (var agent in namedAgents)
             {
                 var isAuthorised = authorisedAgents.Any(x => x.Name.Equals(agent.Name, StringComparison.CurrentCultureIgnoreCase));
                 Get(agent.Name).IsAuthorised = isAuthorised;
             }
 
-            var connectedAgents = _teamCitySharpClient.Agents.AllConnected();
             foreach (var agent in namedAgents)
             {
                 var buildAgent = Get(agent.Name);

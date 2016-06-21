@@ -44,7 +44,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.TcSh
 
         public IAgents Agents
         {
-            get { return SafeInvokeWithNullType<IAgents, NullInteropAgents>(() => _inner.Agents); }
+            get { return new TxSharpAgents(SafeInvokeWithNullType<IAgents, NullInteropAgents>(() => _inner.Agents)); }
         }
 
         public IVcsRoots VcsRoots

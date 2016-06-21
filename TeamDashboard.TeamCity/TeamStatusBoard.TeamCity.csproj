@@ -109,6 +109,7 @@
     <Compile Include="Plugins\DataSources\TeamCity\Channel\ChannelStateEngine.cs" />
     <Compile Include="Plugins\DataSources\TeamCity\Channel\ChannelStoppedState.cs" />
     <Compile Include="Plugins\DataSources\TeamCity\Channel\TeamCityChannel.cs" />
+    <Compile Include="Plugins\DataSources\TeamCity\TcSharpInterop\TxSharpAgents.cs" />
     <Compile Include="Plugins\DataSources\TeamCity\TeamCityDataSource.cs" />
     <Compile Include="Plugins\DataSources\TeamCity\DataSourceConfiguration.cs" />
     <Compile Include="Plugins\DataSources\TeamCity\DataSourceConfigureCommand.cs" />

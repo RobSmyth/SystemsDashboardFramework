@@ -60,7 +60,7 @@
                         <Setter Property="Foreground" Value="White"/>
                     </DataTrigger>
                     <DataTrigger Binding="{Binding Path=BuildAgent.Status}" Value="{x:Static loc:BuildAgentStatus.NotAuthorised}">
-                        <Setter Property="Foreground" Value="DarkCyan"/>
+                        <Setter Property="Foreground" Value="White"/>
                     </DataTrigger>
                 </Style.Triggers>
             </Style>
@@ -94,16 +94,16 @@
                    Style="{StaticResource BuildAgentImage}" />
 
             <TextBlock Name="headerText" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="0"
-                   FontSize="{Binding Path=ActualWidth, ElementName=root, 
+                       Style="{StaticResource TileText}"
+                       FontSize="{Binding Path=ActualWidth, ElementName=root, 
                                 Converter={StaticResource doubleConverter}, ConverterParameter=0.08}"
-                   FontWeight="Bold" FontStyle="Italic" Margin="5"
-                       Text="{Binding BuildAgent.StatusText, Mode=OneWay}"/>
+                       FontWeight="Bold" FontStyle="Italic" Margin="5" Text="{Binding BuildAgent.StatusText, Mode=OneWay}"/>
 
             <TextBlock Name="agentName" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1"
-                   FontSize="{Binding Path=ActualWidth, ElementName=root, 
+                       Style="{StaticResource TileText}"
+                       FontSize="{Binding Path=ActualWidth, ElementName=root, 
                                 Converter={StaticResource doubleConverter}, ConverterParameter=0.09}"
-                   FontWeight="Bold" Margin="5"
-                       Text="{Binding BuildAgent.Name, Mode=OneWay}"/>
+                       FontWeight="Bold" Margin="5" Text="{Binding BuildAgent.Name, Mode=OneWay}"/>
             
         </Grid>
     </Border>

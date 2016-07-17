@@ -20,6 +20,8 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.WebPage
 
         public string Name => "Web page";
 
+        public string TypeId => WebPageTileViewModel.TileTypeId;
+
         public bool MatchesId(string id)
         {
             return id == WebPageTileViewModel.TileTypeId || id.Equals("92CE0D61-4748-4427-8EB7-DC8B8B741C15", StringComparison.InvariantCultureIgnoreCase);

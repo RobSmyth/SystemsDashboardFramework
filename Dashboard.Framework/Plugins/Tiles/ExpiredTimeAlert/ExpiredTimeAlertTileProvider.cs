@@ -21,6 +21,8 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.ExpiredTimeAlert
 
         public string Name => "Expired time alert (ALPHA)";
 
+        public string TypeId => ExpiredTimeAlertTileProvider.TileTypeId;
+
         public bool MatchesId(string id)
         {
             return id.Equals(TileTypeId, StringComparison.InvariantCulture);

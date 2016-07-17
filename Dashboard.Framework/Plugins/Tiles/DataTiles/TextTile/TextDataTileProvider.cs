@@ -20,6 +20,8 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.DataTiles.TextTile
 
         public string Name => "Text property panel";
 
+        public string TypeId => TextDataTileProvider.TileTypeId;
+
         public bool MatchesId(string id)
         {
             return id == TileTypeId;

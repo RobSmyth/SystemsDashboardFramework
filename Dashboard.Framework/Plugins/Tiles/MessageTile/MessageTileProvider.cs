@@ -21,6 +21,8 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.MessageTile
 
         public string Name => "Message";
 
+        public string TypeId => MessageTileProvider.TileTypeId;
+
         public bool MatchesId(string id)
         {
             return id == TileTypeId || id.Equals("0FFACE9A-8B68-4DBC-8B42-0255F51368B3", StringComparison.InvariantCultureIgnoreCase);
@@ -36,7 +38,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.MessageTile
             return new TileConfiguration
             {
                 TypeId = TileTypeId,
-                Id = Guid.NewGuid(),
                 Tiles = new TileConfiguration[0]
             };
         }

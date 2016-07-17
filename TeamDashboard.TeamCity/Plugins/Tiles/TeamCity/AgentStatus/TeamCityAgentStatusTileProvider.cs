@@ -27,6 +27,8 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AgentStatu
 
         public string Name => "TeamCity build agent status (future)";
 
+        public string TypeId => TeamCityAgentStatusTileProvider.TileTypeId;
+
         public bool MatchesId(string id)
         {
             return id == TileTypeId;

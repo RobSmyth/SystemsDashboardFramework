@@ -21,6 +21,8 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.BlankTile
 
         public string Name => "Blank";
 
+        public string TypeId => BlankTileProvider.TileTypeId;
+
         public bool MatchesId(string id)
         {
             return id == TileTypeId;

@@ -21,6 +21,8 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.DataTiles.DateTime
 
         public string Name => "Date & time property panel";
 
+        public string TypeId => DateTimeDataTileProvider.TileTypeId;
+
         public bool MatchesId(string id)
         {
             return id == TileTypeId;

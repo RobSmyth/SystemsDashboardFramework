@@ -9,6 +9,8 @@ namespace NoeticTools.TeamStatusBoard.Framework
     {
         public string Name { get; }
 
+        public string TypeId => "";
+
         public bool MatchesId(string id)
         {
             return false;

@@ -15,6 +15,8 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.FileSystem
 
         public string Name { get; }
 
+        public string TypeId => "";
+
         public bool MatchesId(string id)
         {
             throw new System.NotImplementedException();

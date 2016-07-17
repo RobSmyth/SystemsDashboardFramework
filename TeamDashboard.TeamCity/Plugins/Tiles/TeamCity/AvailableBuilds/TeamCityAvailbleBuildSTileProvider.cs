@@ -26,6 +26,8 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AvailableB
 
         public string Name => "TeamCity available builds";
 
+        public string TypeId => TeamCityAvailableBuildsTileViewModel.TileTypeId;
+
         public bool MatchesId(string id)
         {
             return id == TeamCityAvailableBuildsTileViewModel.TileTypeId || id.Equals("0FFACE9A-8B68-4DBC-8B42-0255F51368B6", StringComparison.InvariantCultureIgnoreCase);

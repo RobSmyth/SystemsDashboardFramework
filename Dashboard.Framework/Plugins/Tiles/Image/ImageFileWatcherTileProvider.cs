@@ -21,6 +21,8 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Image
 
         public string Name => "Image file watcher";
 
+        public string TypeId => ImageFileWatcherTileProvider.TileTypeId;
+
         public bool MatchesId(string id)
         {
             return id == TileTypeId;

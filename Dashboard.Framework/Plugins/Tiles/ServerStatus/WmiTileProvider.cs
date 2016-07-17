@@ -19,9 +19,9 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.ServerStatus
             _services = services;
         }
 
-        public int Rank => 0;
-
         public string Name => "Server status";
+
+        public string TypeId => WmiTileProvider.TileTypeId;
 
         public bool MatchesId(string id)
         {

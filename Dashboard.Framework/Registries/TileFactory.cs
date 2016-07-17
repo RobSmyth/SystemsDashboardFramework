@@ -18,6 +18,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Registries
         public FrameworkElement Create(TileConfiguration tileConfiguration, TileLayoutController tileLayoutController)
         {
             var plugin = _tileProviderRegistry.GetAll().Single(x => x.MatchesId(tileConfiguration.TypeId));
+            tileConfiguration.TypeId = plugin.TypeId;
             return plugin.CreateTile(tileConfiguration, tileLayoutController);
         }
     }

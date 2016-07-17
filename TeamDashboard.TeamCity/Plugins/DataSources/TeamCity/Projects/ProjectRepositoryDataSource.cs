@@ -25,22 +25,23 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Proj
 
         public void Start()
         {
-            _dataSource.Write($"Count", 0);
-            UpdateProjectNames();
+            UpdateProjects();
             _projectRepository.AddListener(this);
         }
 
-        private void UpdateProjectNames() // todo - make this on change in repository (needs change notification)
+        private void UpdateProjects()
         {
-            foreach (var projectName in _projectRepository.GetAll().Select(x => x.Name).ToArray())
+            var projects = _projectRepository.GetAll();
+            _dataSource.Write($"Count", projects.Length);
+            foreach (var project in projects)
             {
-                _dataSource.Write("Project." + projectName, 0);
+                _dataSource.Write("Project." + project.Name, "-");
             }
         }
 
         void IDataChangeListener.OnChanged()
         {
-            UpdateProjectNames();
+            UpdateProjects();
         }
     }
 }

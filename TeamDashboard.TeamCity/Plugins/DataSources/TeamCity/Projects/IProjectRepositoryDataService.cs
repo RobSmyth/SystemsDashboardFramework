@@ -1,12 +1,10 @@
+using NoeticTools.TeamStatusBoard.Framework.Services;
 using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 
 
 namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Projects
 {
-    public interface IProjectRepository
+    public interface IProjectRepositoryDataService : IService
     {
-        IProject Get(string name);
-        IProject[] GetAll();
-        void AddListener(IDataChangeListener listener);
     }
 }

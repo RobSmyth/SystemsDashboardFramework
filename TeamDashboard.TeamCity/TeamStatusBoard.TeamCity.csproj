@@ -89,7 +89,9 @@
     <Compile Include="Plugins\DataSources\TeamCity\Projects\IProjectFactory.cs" />
     <Compile Include="Plugins\DataSources\TeamCity\Projects\IProjectRepository.cs" />
     <Compile Include="Plugins\DataSources\TeamCity\Configurations\NullBuildConfiguration.cs" />
+    <Compile Include="Plugins\DataSources\TeamCity\Projects\IProjectRepositoryDataService.cs" />
     <Compile Include="Plugins\DataSources\TeamCity\Projects\ProjectFactory.cs" />
+    <Compile Include="Plugins\DataSources\TeamCity\Projects\ProjectRepositoryDataSource.cs" />
     <Compile Include="Plugins\DataSources\TeamCity\TcSharpInterop\NullInteripUsers.cs" />
     <Compile Include="Plugins\DataSources\TeamCity\TcSharpInterop\NullInteropAgents.cs" />
     <Compile Include="Plugins\DataSources\TeamCity\TcSharpInterop\NullInteropBuildConfig.cs" />

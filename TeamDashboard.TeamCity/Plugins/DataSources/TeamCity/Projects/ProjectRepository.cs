@@ -19,6 +19,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Proj
         private readonly ILog _logger;
         private readonly IDictionary<string, IProject> _projects = new Dictionary<string, IProject>();
         private readonly object _syncRoot = new object();
+        private readonly IList<IDataChangeListener> _listeners = new List<IDataChangeListener>();
 
         public ProjectRepository(IDataSource outerRepository, ITcSharpTeamCityClient teamCityClient, ProjectFactory projectFactory, IConnectedStateTicker connectedTicker)
         {
@@ -27,6 +28,11 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Proj
             outerRepository.Write($"Agents.Count", 0);
             _logger = LogManager.GetLogger("Repositories.Projects");
             connectedTicker.AddListener(Update);
+        }
+
+        public void AddListener(IDataChangeListener listener)
+        {
+            _listeners.Add(listener);
         }
 
         public IProject[] GetAll()
@@ -41,6 +47,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Proj
                 if (!_projects.ContainsKey(name.ToLower()))
                 {
                     _projects.Add(name.ToLower(), _projectFactory.Create(new NullInteropProject(name)));
+                    NotifyValueChanged();
                 }
                 return _projects[name.ToLower()];
             }
@@ -50,10 +57,12 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Proj
         {
             var updated = new List<IProject>();
             var teamCityProjects = _teamCityClient.Projects.All();
+            var changed = false;
 
             foreach (var teamCitySharpProject in teamCityProjects.Where(teamCityProject => !_projects.ContainsKey(teamCityProject.Name.ToLower())))
             {
                 _projects.Add(teamCitySharpProject.Name.ToLower(), _projectFactory.Create(teamCitySharpProject));
+                changed = true;
             }
 
             foreach (var teamCityProject in teamCityProjects)
@@ -62,10 +71,25 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Proj
                 project.Update(teamCityProject);
                 updated.Add(project);
             }
+            changed |= updated.Any();
 
             foreach (var orphanedProject in _projects.Values.ToArray().Except(updated))
             {
                 orphanedProject.Update(new NullInteropProject(orphanedProject.Name));
+            }
+
+            if (changed)
+            {
+                NotifyValueChanged();       
+            }
+        }
+
+        private void NotifyValueChanged()
+        {
+            var listeners = _listeners.ToArray();
+            foreach (var listener in listeners)
+            {
+                listener.OnChanged();
             }
         }
     }

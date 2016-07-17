@@ -23,7 +23,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.DataSources.Jira
             _lifeTime = lifeTime;
             _clock = clock;
             _nextRefresh = DateTime.MinValue;
-            _logger = LogManager.GetLogger("TimeCachedArrary");
+            _logger = LogManager.GetLogger("TeamStatusBoard.TimeCachedArrary");
         }
 
         public T[] Items

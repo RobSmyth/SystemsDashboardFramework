@@ -12,8 +12,9 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.FileSystem
         public void Register(IServices services)
         {
             var dataSource = new DataRepositoryFactory().Create("FileReader", "0");
-            services.Register(new FileReaderService(services, dataSource));
-            services.DataService.Register("FileReader", dataSource);
+            var dataService = new FileReaderDataService(services, dataSource);
+            services.Register(dataService);
+            services.DataService.Register(dataService.Name, dataSource);
 
             // todo - user should be able to add any number of FileReader datasources
         }

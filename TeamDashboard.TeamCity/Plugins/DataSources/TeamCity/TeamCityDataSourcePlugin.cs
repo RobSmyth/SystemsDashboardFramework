@@ -34,9 +34,10 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity
             var stateEngine = new ChannelStateEngine(services, teamCityClient, projectRepository, buildAgentRepository, dataSource, configuration, channelStateBroadcaster);
 
             var channel = new TeamCityChannel(services, dataSource, configuration, stateEngine, projectRepository, buildAgentRepository, channelStateBroadcaster);
-            services.Register(new TeamCityDataSource(channel, channelStateBroadcaster, fastConnectedTicker, projectRepository, buildAgentRepository));
+            var teamCityDataSource = new TeamCityDataService(channel, channelStateBroadcaster, fastConnectedTicker, projectRepository, buildAgentRepository);
+            services.Register(teamCityDataSource);
 
-            services.DataService.Register("TeamCity", dataSource);
+            services.DataService.Register(teamCityDataSource.Name, dataSource);
         }
     }
 }

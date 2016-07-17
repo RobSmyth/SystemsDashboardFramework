@@ -132,7 +132,7 @@
     <Compile Include="NullTileControllerProvider.cs" />
     <Compile Include="Plugins\DataSources\FileSystem\FileReaderDataSourceConfigurationTileProvider.cs" />
     <Compile Include="Plugins\DataSources\FileSystem\FileReaderDataSourcePlugin.cs" />
-    <Compile Include="Plugins\DataSources\FileSystem\FileReaderService.cs" />
+    <Compile Include="Plugins\DataSources\FileSystem\FileReaderDataService.cs" />
     <Compile Include="Input\ITileDragAndDropController.cs" />
     <Compile Include="IRunOptions.cs" />
     <Compile Include="Plugins\DataSources\DashboardData\DashboardDataSource.cs" />

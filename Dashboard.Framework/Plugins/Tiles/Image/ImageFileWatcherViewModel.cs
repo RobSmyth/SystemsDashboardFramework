@@ -26,7 +26,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Image
         private string _imageFilePath = string.Empty;
         private static int _nextInstanceId = 1;
 
-        public ImageFileWatcherViewModel(TileConfiguration tile, IDashboardController dashboardController, TileLayoutController tileLayoutController, IServices services, ImageFileWatcherTileControl view)
+        public ImageFileWatcherViewModel(TileConfiguration tile, IDashboardController dashboardController, ITileLayoutController tileLayoutController, IServices services, ImageFileWatcherTileControl view)
         {
             _view = view;
             _tileConfigurationConverter = new TileConfigurationConverter(tile, this);

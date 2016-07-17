@@ -5,11 +5,11 @@ using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Projects
 
 namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity
 {
-    public sealed class TeamCityDataSource : ITeamCityService
+    public sealed class TeamCityDataService : ITeamCityService
     {
         public string Name => "TeamCity";
 
-        public TeamCityDataSource(ITeamCityChannel channel, IChannelConnectionStateBroadcaster stateBroadcaster, 
+        public TeamCityDataService(ITeamCityChannel channel, IChannelConnectionStateBroadcaster stateBroadcaster, 
             IConnectedStateTicker connectedTicker, IProjectRepository projectRepository, BuildAgentRepository buildAgentRepository)
         {
             Channel = channel;

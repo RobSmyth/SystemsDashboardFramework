@@ -52,7 +52,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Date
             }
         }
 
-        private void UpdateView()
+        private void Update()
         {
             var now = _clock.Now;
             Day = now.Day;
@@ -61,7 +61,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Date
 
         void ITimerListener.OnTimeElapsed(TimerToken token)
         {
-            UpdateView();
+            Update();
             var now = _clock.Now;
             var timeToNextMinuteChange = TimeSpan.FromSeconds(60.1 - now.Second);
             _timerService.QueueCallback(timeToNextMinuteChange, this);

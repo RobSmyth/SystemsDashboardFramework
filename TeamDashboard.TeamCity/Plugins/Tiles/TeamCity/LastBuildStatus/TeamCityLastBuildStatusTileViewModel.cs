@@ -25,6 +25,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.LastBuildS
     {
         public const string TileTypeId = "TeamCity.Build.Status";
         private readonly ITeamCityChannel _channel;
+        private readonly IServices _services;
         private readonly TileConfigurationConverter _tileConfigurationConverter;
         private readonly TeamCityBuildStatusTileControl _view;
         private readonly ITeamCityService _teamCityService;
@@ -45,6 +46,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.LastBuildS
             }
 
             _channel = channel;
+            _services = services;
             _view = view;
             _teamCityService = teamCityService;
             _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
@@ -204,13 +206,14 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.LastBuildS
         private IPropertyViewModel[] GetConfigurationParameters()
         {
             var projectElementViewModel = new TeamCityProjectPropertyViewModel("Project", _tileConfigurationConverter, _channel);
+
             var configurationParameters = new IPropertyViewModel[]
             {
                 projectElementViewModel,
                 new DependantPropertyViewModel("Configuration", "TextFromCombobox", _tileConfigurationConverter, projectElementViewModel,
                     () => _teamCityService.Projects.Get((string) projectElementViewModel.Value).Configurations.Select(x => x.Name).Cast<object>().ToArray()),
                 new PropertyViewModel("Description", "Text", _tileConfigurationConverter),
-                new HyperlinkPropertyViewModel("TeamCity service", ConfigureServiceCommand)
+                new HyperlinkPropertyViewModel("TeamCity service", ConfigureServiceCommand),
             };
             return configurationParameters;
         }

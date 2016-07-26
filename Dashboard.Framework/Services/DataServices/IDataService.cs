@@ -7,5 +7,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
     {
         void Register(string name, IDataSource dataSource);
         IEnumerable<IDataSource> GetAllDataSources();
+        IDataSource Get(string name);
     }
 }

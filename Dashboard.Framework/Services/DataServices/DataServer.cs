@@ -46,6 +46,15 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
             return _sources.Values.ToArray();
         }
 
+        public IDataSource Get(string name)
+        {
+            if (!_sources.ContainsKey(name))
+            {
+                return new NullDataSource(name, "");
+            }
+            return _sources[name];
+        }
+
         public IDataSource GetDataSource(string typeName, string name)
         {
             if (!_sources.ContainsKey(name))

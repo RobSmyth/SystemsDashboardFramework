@@ -62,9 +62,14 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config
             return GetString(name);
         }
 
+        public object GetParameter(string name, object defaultValue)
+        {
+            return GetString(name, defaultValue as string);
+        }
+
         public void SetParameter(string name, object value)
         {
-            SetParameter(name, value.ToString());
+            SetParameter(name, value?.ToString() ?? "");
         }
 
         public string GetString(string name, string defaultValue)

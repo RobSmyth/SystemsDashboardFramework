@@ -14,6 +14,7 @@ using NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.DashboardData;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.FileSystem;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.PropertyEditControls;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.BlankTile;
+using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.DataTiles.DataValueTile;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.DataTiles.DateTimeTile;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.DataTiles.TextTile;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Date;
@@ -98,6 +99,7 @@ namespace NoeticTools.TeamStatusBoard.Runner
             var plugins = new IPlugin[]
             {
                 new TeamCityDataSourcePlugin(),
+                new DataSourceTypePropertyViewPlugin(), 
                 new DashboardDataSourcePlugin(),
                 new FileReaderDataSourcePlugin(),
                 new TextPropertyViewPlugin(),
@@ -111,6 +113,7 @@ namespace NoeticTools.TeamStatusBoard.Runner
                 new HelpTilePlugin(),
                 new BlankTilePlugin(),
                 new TextDataTilePlugin(),
+                new DataValueTilePlugin(),
                 new DateTimeDataTilePlugin(),
                 new ImageFileWatcherTilePlugin(),
                 new DateTilePlugin(),

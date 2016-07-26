@@ -8,30 +8,27 @@ using NoeticTools.TeamStatusBoard.Framework.Registries;
 
 namespace NoeticTools.TeamStatusBoard.Framework.Plugins.PropertyEditControls
 {
-    public class ComboboxTextPropertyViewProvider : IPropertyViewProvider
+    public class DataSourceTypePropertyViewProvider : IPropertyViewProvider
     {
         public bool CanHandle(string elementType)
         {
-            return elementType.Equals("TextFromCombobox", StringComparison.InvariantCulture);
+            return elementType.Equals("DataSourceType", StringComparison.InvariantCulture);
         }
 
         public FrameworkElement Create(IPropertyViewModel viewModel, int rowIndex, string elementName)
         {
-            var comboBox = new ComboBox
+            var textbox = new TextBox
             {
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 FontSize = 12.0,
-                Name = elementName.Replace('.','_'),
+                Name = elementName,
                 DataContext = viewModel
             };
 
+            var binding = new Binding("Value");
+            BindingOperations.SetBinding(textbox, TextBox.TextProperty, binding);
 
-            BindingOperations.SetBinding(comboBox, ComboBox.SelectedItemProperty, new Binding("Value"));
-            BindingOperations.SetBinding(comboBox, ComboBox.ItemsSourceProperty, new Binding("Parameters"));
-
-            comboBox.SelectionChanged += (a, b) => viewModel.Value = comboBox.SelectedItem;//>>>
-
-            return comboBox;
+            return textbox;
         }
     }
 }

@@ -44,7 +44,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity
             // todo - add data sources for agents
         }
 
-        private void RegisterProjectsDataSource(IServices services, IProjectRepository projectRepository)
+        private static void RegisterProjectsDataSource(IServices services, IProjectRepository projectRepository)
         {
             var dataSource = new DataRepositoryFactory().Create("TeamCity.Projects", "0");
             var projectRepositoryDataService = new ProjectRepositoryDataService(projectRepository, dataSource);

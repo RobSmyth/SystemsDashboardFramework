@@ -39,7 +39,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.Properties
             {
                 if (_parameters == null)
                 {
-                    Task.Factory.StartNew(() => _parametersFunc()).ContinueWith(x => Parameters = x.Result);
+                    UpdateParameters();
                 }
                 return _parameters ?? new object[0];
             }
@@ -51,6 +51,11 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.Properties
                     OnPropertyChanged();
                 }
             }
+        }
+
+        protected void UpdateParameters()
+        {
+            Task.Factory.StartNew(() => _parametersFunc()).ContinueWith(x => Parameters = x.Result);
         }
     }
 }

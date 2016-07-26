@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -41,7 +42,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
             {
                 _values.Add(name, default(T));
             }
-            return (T) _values[name];
+            return (T) Convert.ChangeType(_values[name], typeof (T));
         }
 
         private void NotifyValueChanged()

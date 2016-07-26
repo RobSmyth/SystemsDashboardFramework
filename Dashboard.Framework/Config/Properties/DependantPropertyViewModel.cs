@@ -14,6 +14,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.Properties
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
+            UpdateParameters();
             OnPropertyChanged("Parameters");
         }
     }

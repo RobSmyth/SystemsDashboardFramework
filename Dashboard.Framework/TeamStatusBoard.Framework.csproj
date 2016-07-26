@@ -92,6 +92,7 @@
     <Compile Include="Commands\CloseCommand.cs" />
     <Compile Include="Commands\ShowDataSourcesCommand.cs" />
     <Compile Include="Config\Controllers\DataSourcesViewProvider.cs" />
+    <Compile Include="Config\Properties\DataSourceTypePropertyViewModel.cs" />
     <Compile Include="Config\ViewModels\DataSourcePropertyViewModel.cs" />
     <Compile Include="Config\ViewModels\DataSourcesViewModel.cs" />
     <Compile Include="Config\IDashboardConfigurations.cs" />
@@ -143,9 +144,14 @@
     <Compile Include="Input\IDragSource.cs" />
     <Compile Include="Plugins\DataSources\DashboardData\DashboardDataSourcePlugin.cs" />
     <Compile Include="Plugins\DataSources\DashboardData\DashboardDataConfiguration.cs" />
+    <Compile Include="Plugins\PropertyEditControls\DataSourceTypePropertyViewPlugin.cs" />
+    <Compile Include="Plugins\PropertyEditControls\DataSourceTypePropertyViewProvider.cs" />
     <Compile Include="Plugins\PropertyEditControls\TimeSpanPropertyViewPlugin.cs" />
     <Compile Include="Plugins\PropertyEditControls\TimeSpanPropertyViewProvider.cs" />
     <Compile Include="Plugins\Tiles\BlankTile\BlankTileProvider.cs" />
+    <Compile Include="Plugins\Tiles\DataTiles\DataValueTile\DataValueTilePlugin.cs" />
+    <Compile Include="Plugins\Tiles\DataTiles\DataValueTile\DataValueTileProvider.cs" />
+    <Compile Include="Plugins\Tiles\DataTiles\DataValueTile\DataValueTileViewModel.cs" />
     <Compile Include="Plugins\Tiles\DataTiles\DateTimeTile\DateTimeTilePlugin.cs" />
     <Compile Include="Plugins\Tiles\DataTiles\DateTimeTile\DateTimeTileProvider.cs" />
     <Compile Include="Plugins\Tiles\DataTiles\DateTimeTile\DateTimeTileViewModel.cs" />

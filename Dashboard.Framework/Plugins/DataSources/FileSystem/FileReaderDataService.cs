@@ -6,11 +6,11 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.FileSystem
 {
     public class FileReaderDataService : IService
     {
-        public FileReaderDataService(IServices services, IDataSource innerDataSource)
+        public FileReaderDataService(IServices services, IDataSource dataSource)
         {
-            innerDataSource.Write("Service.Name", "FileReader");
-            innerDataSource.Write("Service.Mode", "Run");
-            innerDataSource.Write("Service.Status", "Stopped");
+            dataSource.Write("Service.Name", "FileReader");
+            dataSource.Write("Service.Mode", "Run");
+            dataSource.Write("Service.Status", "Stopped");
 
             // todo - ability to configure a service from services view
         }

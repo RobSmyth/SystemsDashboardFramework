@@ -12,21 +12,21 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Agen
 {
     public sealed class BuildAgentRepository : IBuildAgentRepository
     {
-        private readonly IDataSource _outerRepository;
+        private readonly IDataSource _dataSource;
         private readonly ITcSharpTeamCityClient _teamCitySharpClient;
         private readonly IChannelConnectionStateBroadcaster _channelStateBroadcaster;
         private readonly IBuildAgentViewModelFactory _buildAgentFactory;
         private readonly IDictionary<string, IBuildAgent> _buildAgents = new Dictionary<string, IBuildAgent>();
         private readonly object _syncRoot = new object();
 
-        public BuildAgentRepository(IDataSource outerRepository, ITcSharpTeamCityClient teamCitySharpClient, 
+        public BuildAgentRepository(IDataSource dataSource, ITcSharpTeamCityClient teamCitySharpClient, 
             IChannelConnectionStateBroadcaster channelStateBroadcaster, IConnectedStateTicker ticker, IBuildAgentViewModelFactory buildAgentFactory)
         {
-            _outerRepository = outerRepository;
+            _dataSource = dataSource;
             _teamCitySharpClient = teamCitySharpClient;
             _channelStateBroadcaster = channelStateBroadcaster;
             _buildAgentFactory = buildAgentFactory;
-            _outerRepository.Write($"Agents.Count", 0);
+            UpdateCounts();
             ticker.AddListener(OnTick);
         }
 
@@ -38,7 +38,8 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Agen
         public void Add(IBuildAgent buildAgent)
         {
             _buildAgents.Add(buildAgent.Name.ToLower(), buildAgent);
-            _outerRepository.Write($"Agents.Count", _buildAgents.Count);
+            UpdateAgentData(buildAgent);
+            UpdateCounts();
         }
 
         public IBuildAgent Get(string name)
@@ -80,11 +81,35 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Agen
                 var isOnline = connectedAgents.Any(x => x.Name.Equals(agent.Name, StringComparison.CurrentCultureIgnoreCase));
                 buildAgent.IsOnline = isOnline;
             }
+
+            foreach (var buildAgent in GetAll())
+            {
+                UpdateAgentData(buildAgent);
+            }
+
+            UpdateCounts();
         }
 
         private void OnTick()
         {
             Update();
+        }
+
+        private void UpdateAgentData(IBuildAgent buildAgent)
+        {
+            _dataSource.Write($"Agent({buildAgent.Name})", "");
+            _dataSource.Write($"Agent({buildAgent.Name}).IsAuthorised", buildAgent.IsAuthorised);
+            _dataSource.Write($"Agent({buildAgent.Name}).IsOnline", buildAgent.IsOnline);
+            _dataSource.Write($"Agent({buildAgent.Name}).IsRunning", buildAgent.IsRunning);
+        }
+
+        private void UpdateCounts()
+        {
+            var buildAgents = GetAll();
+            _dataSource.Write($"Count", buildAgents.Length);
+            _dataSource.Write($"Count.Authorised", buildAgents.Count(x => x.IsAuthorised));
+            _dataSource.Write($"Count.Online", buildAgents.Count(x => x.IsOnline));
+            _dataSource.Write($"Count.Running", buildAgents.Count(x => x.IsRunning));
         }
     }
 }

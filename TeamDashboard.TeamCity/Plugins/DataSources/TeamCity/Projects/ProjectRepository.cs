@@ -21,12 +21,11 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Proj
         private readonly object _syncRoot = new object();
         private readonly IList<IDataChangeListener> _listeners = new List<IDataChangeListener>();
 
-        public ProjectRepository(IDataSource outerRepository, ITcSharpTeamCityClient teamCityClient, ProjectFactory projectFactory, IConnectedStateTicker connectedTicker)
+        public ProjectRepository(ITcSharpTeamCityClient teamCityClient, ProjectFactory projectFactory, IConnectedStateTicker connectedTicker)
         {
             _teamCityClient = teamCityClient;
             _projectFactory = projectFactory;
-            outerRepository.Write($"Agents.Count", 0);
-            _logger = LogManager.GetLogger("Repositories.Projects");
+            _logger = LogManager.GetLogger("Repositories.TeamCity.Projects");
             connectedTicker.AddListener(Update);
         }
 

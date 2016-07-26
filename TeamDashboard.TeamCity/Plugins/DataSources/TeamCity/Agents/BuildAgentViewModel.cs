@@ -21,7 +21,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Agen
                 {BuildAgentStatus.Running, "Running" },
             };
 
-        private readonly IDataSource _outerRepository;
+        private readonly IDataSource _agentsRepository;
         private readonly ITcSharpTeamCityClient _teamCityClient;
         private BuildAgentStatus _status;
         private bool _isRunning;
@@ -31,10 +31,10 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Agen
         private bool? _isOnline;
         private bool? _isAuthorised;
 
-        public BuildAgentViewModel(string name, IDataSource outerRepository, IChannelConnectionStateBroadcaster channelStateBroadcaster, 
+        public BuildAgentViewModel(string name, IDataSource agentsRepository, IChannelConnectionStateBroadcaster channelStateBroadcaster, 
             ITcSharpTeamCityClient teamCityClient, IConnectedStateTicker connectedStateTicker)
         {
-            _outerRepository = outerRepository;
+            _agentsRepository = agentsRepository;
             _teamCityClient = teamCityClient;
             Name = name;
             _statusText = string.Empty;
@@ -166,7 +166,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Agen
 
         private void UpdateBuildAgentParameters()
         {
-            _outerRepository.Write($"Agent.{Name}.Status", Status);
+            _agentsRepository.Write($"Agent.{Name}.Status", Status);
         }
 
         void IChannelConnectionStateListener.OnConnected()

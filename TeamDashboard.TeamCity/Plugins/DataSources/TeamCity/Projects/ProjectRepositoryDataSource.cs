@@ -35,7 +35,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Proj
             _dataSource.Write($"Count", projects.Length);
             foreach (var project in projects)
             {
-                _dataSource.Write("Project." + project.Name, "-");
+                _dataSource.Write($"Project({project.Name})", "-");
             }
         }
 

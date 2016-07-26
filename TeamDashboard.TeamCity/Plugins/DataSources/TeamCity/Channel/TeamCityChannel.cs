@@ -35,13 +35,13 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Chan
             _services = services;
             _configuration = configuration;
             _stateEngine = stateEngine;
-            _logger = LogManager.GetLogger("DateSources.TeamCity.Connected");
+            _logger = LogManager.GetLogger("DataSources.TeamCity.Channel");
             _services.Timer.QueueCallback(TimeSpan.FromMilliseconds(10), this);
 
-            _repository.Write("Service.URL", _configuration.Url);
-            _repository.Write("Service.Status", services.RunOptions.EmulateMode ? "Connected" : "Stopped");
-            _repository.Write("Service.Connected", false);
-            _repository.Write("Service.Mode", services.RunOptions.EmulateMode ? "Emulated" : "Run");
+            _repository.Write("URL", _configuration.Url);
+            _repository.Write("Status", services.RunOptions.EmulateMode ? "Connected" : "Stopped");
+            _repository.Write("Connected", false);
+            _repository.Write("Mode", services.RunOptions.EmulateMode ? "Emulated" : "Run");
         }
 
         public string[] ProjectNames => _stateEngine.Current.ProjectNames;
@@ -50,13 +50,13 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Chan
 
         public void Connect()
         {
-            _repository.Write("Service.Status", "Connecting");
+            _repository.Write("Status", "Connecting");
             _stateEngine.Current.Connect();
         }
 
         public void Disconnect()
         {
-            _repository.Write("Service.Status", "Disconnecting");
+            _repository.Write("Status", "Disconnecting");
             _stateEngine.Current.Disconnect();
         }
 

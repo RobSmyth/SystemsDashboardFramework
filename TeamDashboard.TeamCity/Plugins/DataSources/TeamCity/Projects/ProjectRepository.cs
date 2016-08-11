@@ -55,7 +55,15 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Proj
         private void Update()
         {
             var updated = new List<IProject>();
-            var teamCityProjects = _teamCityClient.Projects.All();
+            List<TeamCitySharp.DomainEntities.Project> teamCityProjects;
+            try
+            {
+                teamCityProjects = _teamCityClient.Projects.All();
+            }
+            catch (Exception)
+            {
+                teamCityProjects = new List<TeamCitySharp.DomainEntities.Project>();                
+            }
             var changed = false;
 
             foreach (var teamCitySharpProject in teamCityProjects.Where(teamCityProject => !_projects.ContainsKey(teamCityProject.Name.ToLower())))

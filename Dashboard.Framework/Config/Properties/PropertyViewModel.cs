@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace NoeticTools.TeamStatusBoard.Framework.Config.Properties
 {
-    public class PropertyViewModel : NotifyingViewModelBase, INotifyingElementViewModel
+    public class PropertyViewModel : NotifyingViewModelBase, INotifyingPropertyViewModel
     {
         private readonly TileConfigurationConverter _tileConfigurationConverter;
         private readonly Func<object[]> _parametersFunc;

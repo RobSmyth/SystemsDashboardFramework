@@ -3,7 +3,7 @@
 
 namespace NoeticTools.TeamStatusBoard.Framework.Config
 {
-    public interface INotifyingElementViewModel : IPropertyViewModel, INotifyPropertyChanged
+    public interface INotifyingPropertyViewModel : IPropertyViewModel, INotifyPropertyChanged
     {
     }
 }

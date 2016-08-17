@@ -1,6 +1,6 @@
 namespace NoeticTools.TeamStatusBoard.Framework.Config.Properties
 {
-    public class TileRowSpanViewModel : NotifyingViewModelBase, INotifyingElementViewModel
+    public class TileRowSpanViewModel : NotifyingViewModelBase, INotifyingPropertyViewModel
     {
         private const int MaxSpan = 50;
         private readonly TileConfiguration _tile;

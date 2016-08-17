@@ -18,6 +18,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.ViewModels
         public object Value
         {
             get { return _dataSource.Read<object>(Name); }
+            set {  _dataSource.Write<object>(Name, value);}
         }
     }
 }

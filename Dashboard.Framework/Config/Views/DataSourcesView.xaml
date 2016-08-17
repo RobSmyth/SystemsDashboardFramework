@@ -81,11 +81,12 @@
                   ItemsSource="{Binding ElementName=sourcesGrid, Path=SelectedItem.Properties}"
                   AutoGenerateColumns="False"
                   CanUserAddRows="False" CanUserDeleteRows="False" SelectionMode="Single" SelectionUnit="FullRow"
+                  IsReadOnly="False"
                   CanUserSortColumns="True"
                   RowHeaderWidth="0">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Binding="{Binding Name}" SortMemberPath="Name" />
-                <DataGridTextColumn Header="Value" Binding="{Binding Value}" Width="*" />
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" SortMemberPath="Name" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Value" Binding="{Binding Value, Mode=TwoWay}" Width="*" IsReadOnly="False" />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

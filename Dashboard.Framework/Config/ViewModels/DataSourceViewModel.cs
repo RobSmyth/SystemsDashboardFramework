@@ -14,25 +14,25 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.ViewModels
         public DataSourceViewModel(IDataSource dataSource)
         {
             _dataSource = dataSource;
-            Properties = new ObservableCollection<IDataSourcePropertyViewModel>(_dataSource.GetAllNames().Select(x => new DataSourcePropertyViewModel(_dataSource, x)));
+            Properties = new ObservableCollection<IDataSourcePropertyViewModel>();
+            UpdateProperties();
             _dataSource.AddListener(this);
         }
 
-        public string TypeName
-        {
-            get { return _dataSource.TypeName; }
-        }
+        public string TypeName => _dataSource.TypeName;
 
-        public string Name
-        {
-            get { return _dataSource.Name; }
-        }
+        public string Name => _dataSource.Name;
 
         public ICommand ConfigureCommand { get; }
 
         public ObservableCollection<IDataSourcePropertyViewModel> Properties { get; }
 
         void IDataChangeListener.OnChanged()
+        {
+            UpdateProperties();
+        }
+
+        private void UpdateProperties()
         {
             var propertyNames = _dataSource.GetAllNames();
             foreach (var name in propertyNames)

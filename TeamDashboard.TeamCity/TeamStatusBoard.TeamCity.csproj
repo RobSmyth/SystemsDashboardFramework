@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Plugins\DataSources\TeamCity\Agents\BuildAgentRepository.cs" />
+    <Compile Include="Plugins\DataSources\TeamCity\Agents\BuildAgentRepositoryDataService.cs" />
     <Compile Include="Plugins\DataSources\TeamCity\Agents\BuildAgentStatus.cs" />
     <Compile Include="Plugins\DataSources\TeamCity\Agents\BuildAgentViewModelFactory.cs" />
     <Compile Include="Plugins\DataSources\TeamCity\Agents\ConnectedStateTicker.cs" />
@@ -91,7 +92,7 @@
     <Compile Include="Plugins\DataSources\TeamCity\Configurations\NullBuildConfiguration.cs" />
     <Compile Include="Plugins\DataSources\TeamCity\Projects\IProjectRepositoryDataService.cs" />
     <Compile Include="Plugins\DataSources\TeamCity\Projects\ProjectFactory.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\Projects\ProjectRepositoryDataSource.cs" />
+    <Compile Include="Plugins\DataSources\TeamCity\Projects\ProjectRepositoryDataService.cs" />
     <Compile Include="Plugins\DataSources\TeamCity\TcSharpInterop\NullInteripUsers.cs" />
     <Compile Include="Plugins\DataSources\TeamCity\TcSharpInterop\NullInteropAgents.cs" />
     <Compile Include="Plugins\DataSources\TeamCity\TcSharpInterop\NullInteropBuildConfig.cs" />

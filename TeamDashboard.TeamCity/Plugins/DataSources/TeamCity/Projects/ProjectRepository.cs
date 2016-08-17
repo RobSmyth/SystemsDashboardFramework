@@ -4,9 +4,7 @@ using System.Linq;
 using log4net;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
-using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Agents;
-using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Channel;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.TcSharpInterop;
 
 
@@ -21,12 +19,12 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Proj
         private readonly object _syncRoot = new object();
         private readonly IList<IDataChangeListener> _listeners = new List<IDataChangeListener>();
 
-        public ProjectRepository(ITcSharpTeamCityClient teamCityClient, ProjectFactory projectFactory, IConnectedStateTicker connectedTicker)
+        public ProjectRepository(ITcSharpTeamCityClient teamCityClient, ProjectFactory projectFactory, IConnectedStateTicker tiker)
         {
             _teamCityClient = teamCityClient;
             _projectFactory = projectFactory;
             _logger = LogManager.GetLogger("Repositories.TeamCity.Projects");
-            connectedTicker.AddListener(Update);
+            tiker.AddListener(Update);
         }
 
         public void AddListener(IDataChangeListener listener)

@@ -8,12 +8,12 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Proj
 {
     public sealed class ProjectRepositoryDataService : IProjectRepositoryDataService, IDataChangeListener
     {
-        private readonly IProjectRepository _projectRepository;
+        private readonly IProjectRepository _repository;
         private readonly IDataSource _dataSource;
 
-        public ProjectRepositoryDataService(IProjectRepository projectRepository, IDataSource dataSource)
+        public ProjectRepositoryDataService(IProjectRepository repository, IDataSource dataSource)
         {
-            _projectRepository = projectRepository;
+            _repository = repository;
             _dataSource = dataSource;
         }
 
@@ -26,12 +26,12 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Proj
         public void Start()
         {
             UpdateProjects();
-            _projectRepository.AddListener(this);
+            _repository.AddListener(this);
         }
 
         private void UpdateProjects()
         {
-            var projects = _projectRepository.GetAll();
+            var projects = _repository.GetAll();
             _dataSource.Write($"Count", projects.Length);
             foreach (var project in projects)
             {

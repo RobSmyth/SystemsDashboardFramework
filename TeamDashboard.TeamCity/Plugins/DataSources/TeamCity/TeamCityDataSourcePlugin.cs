@@ -48,19 +48,21 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity
         private static BuildAgentRepository GetBuildAgentRepository(IServices services, ConnectedStateTicker fastConnectedTicker, ITcSharpTeamCityClient teamCityClient, 
             IChannelConnectionStateBroadcaster channelStateBroadcaster, IConnectedStateTicker slowConnectedTicker)
         {
-            var agentsDataSource = new DataRepositoryFactory().Create("TeamCity.Agents", "0");
-            var buildAgentFactory = new BuildAgentViewModelFactory(services, agentsDataSource, fastConnectedTicker, teamCityClient);
-            var buildAgentRepository = new BuildAgentRepository(agentsDataSource, teamCityClient, channelStateBroadcaster, slowConnectedTicker, buildAgentFactory);
-            services.DataService.Register(agentsDataSource.Name, agentsDataSource);
+            var dataSource = new DataRepositoryFactory().Create("TeamCity.Agents", "0");
+            var buildAgentFactory = new BuildAgentViewModelFactory(services, dataSource, fastConnectedTicker, teamCityClient);
+            var buildAgentRepository = new BuildAgentRepository(dataSource, teamCityClient, channelStateBroadcaster, slowConnectedTicker, buildAgentFactory);
+            var dataService = new BuildAgentRepositoryDataService(buildAgentRepository, dataSource);
+            services.DataService.Register(dataService.Name, dataSource);
+            services.Register(dataService);
             return buildAgentRepository;
         }
 
         private static void RegisterProjectsDataSource(IServices services, IProjectRepository projectRepository)
         {
             var dataSource = new DataRepositoryFactory().Create("TeamCity.Projects", "0");
-            var projectRepositoryDataService = new ProjectRepositoryDataService(projectRepository, dataSource);
-            services.DataService.Register(projectRepositoryDataService.Name, dataSource);
-            services.Register(projectRepositoryDataService);
+            var dataService = new ProjectRepositoryDataService(projectRepository, dataSource);
+            services.DataService.Register(dataService.Name, dataSource);
+            services.Register(dataService);
         }
     }
 }

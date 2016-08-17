@@ -18,6 +18,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Agen
         private readonly IBuildAgentViewModelFactory _buildAgentFactory;
         private readonly IDictionary<string, IBuildAgent> _buildAgents = new Dictionary<string, IBuildAgent>();
         private readonly object _syncRoot = new object();
+        private readonly IList<IDataChangeListener> _listeners = new List<IDataChangeListener>();
 
         public BuildAgentRepository(IDataSource dataSource, ITcSharpTeamCityClient teamCitySharpClient, 
             IChannelConnectionStateBroadcaster channelStateBroadcaster, IConnectedStateTicker ticker, IBuildAgentViewModelFactory buildAgentFactory)
@@ -62,6 +63,12 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Agen
             return _buildAgents.ContainsKey(name.ToLower());
         }
 
+        public void AddListener(IDataChangeListener listener)
+        {
+            _listeners.Add(listener);
+            listener.OnChanged();
+        }
+
         private void Update()
         {
             var namedAgents = _buildAgents.Values.Where(x => !string.IsNullOrWhiteSpace(x.Name)).ToArray();
@@ -88,6 +95,8 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Agen
             }
 
             UpdateCounts();
+
+            NotifyValueChanged(); // todo
         }
 
         private void OnTick()
@@ -97,6 +106,11 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Agen
 
         private void UpdateAgentData(IBuildAgent buildAgent)
         {
+            if (string.IsNullOrWhiteSpace(buildAgent.Name))
+            {
+                return;
+            }
+
             _dataSource.Write($"Agent({buildAgent.Name})", "");
             _dataSource.Write($"Agent({buildAgent.Name}).IsAuthorised", buildAgent.IsAuthorised);
             _dataSource.Write($"Agent({buildAgent.Name}).IsOnline", buildAgent.IsOnline);
@@ -110,6 +124,16 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Agen
             _dataSource.Write($"Count.Authorised", buildAgents.Count(x => x.IsAuthorised));
             _dataSource.Write($"Count.Online", buildAgents.Count(x => x.IsOnline));
             _dataSource.Write($"Count.Running", buildAgents.Count(x => x.IsRunning));
+            NotifyValueChanged();
+        }
+
+        private void NotifyValueChanged()
+        {
+            var listeners = _listeners.ToArray();
+            foreach (var listener in listeners)
+            {
+                listener.OnChanged();
+            }
         }
     }
 }

@@ -26,7 +26,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.Guage180deg
         {
             _services = services;
             _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
-            Value = 35.0;
             Formatter = x => x + " %";
             Label = "Running Build Agents";
             Maximum = 100.0;
@@ -45,8 +44,10 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.Guage180deg
             var parameters = new IPropertyViewModel[]
             {
                 dataSourceTypeViewModel,
-                new DependantPropertyViewModel("Property", "TextFromCombobox", _tileConfigurationConverter, dataSourceTypeViewModel,
-                    () => _services.DataService.Get((string) dataSourceTypeViewModel.Value).GetAllNames().Cast<object>().ToArray())
+                new DependantPropertyViewModel("Value", "TextFromCombobox", _tileConfigurationConverter, dataSourceTypeViewModel,
+                    () => _services.DataService.Get((string) dataSourceTypeViewModel.Value).GetAllNames().Cast<object>().ToArray()),
+                new DependantPropertyViewModel("Maximum", "TextFromCombobox", _tileConfigurationConverter, dataSourceTypeViewModel,
+                    () => _services.DataService.Get((string) dataSourceTypeViewModel.Value).GetAllNames().Cast<object>().ToArray()),
             };
             return parameters;
         }
@@ -78,6 +79,10 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.Guage180deg
             get { return _maximum; }
             set
             {
+                if (double.IsNaN(value) || value <= Minimum)
+                {
+                    return;
+                }
                 _maximum = value;
                 OnPropertyChanged();
             }
@@ -113,9 +118,9 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.Guage180deg
 
         private void Update()
         {
-            Value = 40.0;
             var datasource = _services.DataService.Get(_tileConfigurationConverter.GetString("Datasource"));
-            Text = datasource.Read<string>(_tileConfigurationConverter.GetString("Property"));
+            Value = datasource.Read<double>(_tileConfigurationConverter.GetString("Value"));
+            Maximum = datasource.Read<double>(_tileConfigurationConverter.GetString("Maximum"));
         }
 
         void ITimerListener.OnTimeElapsed(TimerToken token)

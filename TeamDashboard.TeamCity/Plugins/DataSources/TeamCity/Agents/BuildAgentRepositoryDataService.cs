@@ -29,9 +29,9 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Agen
 
         private void UpdateBuildAgents()
         {
-            var BuildAgents = _repository.GetAll();
-            _dataSource.Write($"Count", BuildAgents.Length);
-            foreach (var buildAgent in BuildAgents)
+            var buildAgents = _repository.GetAll();
+            _dataSource.Write($"Count", buildAgents.Length);
+            foreach (var buildAgent in buildAgents)
             {
                 if (string.IsNullOrWhiteSpace(buildAgent.Name))
                 {

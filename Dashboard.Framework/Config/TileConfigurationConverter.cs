@@ -47,6 +47,24 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config
             return _inner.GetParameter(name, "").Value;
         }
 
+        public string GetString(string name, string defaultValue)
+        {
+            var value = GetString(name);
+            return string.IsNullOrWhiteSpace(value) ? defaultValue : value;
+        }
+
+        public double GetDouble(string name, double defaultValue = 0.0)
+        {
+            var value = _inner.GetParameter(name, string.Empty).Value;
+            var returnValue = 0.0;
+            if (double.TryParse(value, out returnValue))
+            {
+                return returnValue;
+            }
+            SetParameter(name, defaultValue);
+            return defaultValue;
+        }
+
         public bool GetBool(string name)
         {
             var value = _inner.GetParameter(name, string.Empty).Value;
@@ -70,12 +88,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config
         public void SetParameter(string name, object value)
         {
             SetParameter(name, value?.ToString() ?? "");
-        }
-
-        public string GetString(string name, string defaultValue)
-        {
-            var value = GetString(name);
-            return string.IsNullOrWhiteSpace(value) ? defaultValue : value;
         }
 
         private void SetParameter<T>(string name, T value)

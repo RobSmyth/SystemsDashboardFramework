@@ -16,20 +16,17 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.Guage180deg
         private readonly TimeSpan _updatePeriod = TimeSpan.FromSeconds(30);
         private readonly IServices _services;
         private readonly TileConfigurationConverter _tileConfigurationConverter;
-        private string _text;
         private double _value;
-        private string _label;
-        private double _maximum;
-        private double _minimum;
+        private string _label = "";
+        private double _maximum = 1.0;
+        private double _minimum = -1.0;
+        private string _format = "-";
 
         public Guage180degTileViewModel(TileConfiguration tile, IDashboardController dashboardController, ITileLayoutController layoutController, IServices services)
         {
             _services = services;
             _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
-            Formatter = x => x + " %";
-            Label = "Running Build Agents";
-            Maximum = 100.0;
-            Minimum = 0.0;
+            Formatter = x => string.Format(Format, x);
 
             var dataSourceTypeViewModel = new DataSourceTypePropertyViewModel("Datasource", _tileConfigurationConverter, _services);
 
@@ -44,10 +41,12 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.Guage180deg
             var parameters = new IPropertyViewModel[]
             {
                 dataSourceTypeViewModel,
+                new TextPropertyViewModel("Label", _tileConfigurationConverter),
                 new DependantPropertyViewModel("Value", "TextFromCombobox", _tileConfigurationConverter, dataSourceTypeViewModel,
                     () => _services.DataService.Get((string) dataSourceTypeViewModel.Value).GetAllNames().Cast<object>().ToArray()),
-                new DependantPropertyViewModel("Maximum", "TextFromCombobox", _tileConfigurationConverter, dataSourceTypeViewModel,
-                    () => _services.DataService.Get((string) dataSourceTypeViewModel.Value).GetAllNames().Cast<object>().ToArray()),
+                new TextPropertyViewModel("Minimum", _tileConfigurationConverter),
+                new TextPropertyViewModel("Maximum", _tileConfigurationConverter),
+                new TextPropertyViewModel("Format", _tileConfigurationConverter),
             };
             return parameters;
         }
@@ -57,6 +56,10 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.Guage180deg
             get { return _label; }
             set
             {
+                if (_label != null && _label.Equals(value))
+                {
+                    return;
+                }
                 _label = value;
                 OnPropertyChanged();
             }
@@ -93,19 +96,28 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.Guage180deg
             get { return _minimum; }
             set
             {
+                if (double.IsNaN(value) || value >= Maximum)
+                {
+                    return;
+                }
                 _minimum = value;
                 OnPropertyChanged();
             }
         }
 
-        public string Text
+        public string Format
         {
-            get { return _text; }
-            private set
+            get { return _format; }
+            set
             {
-                if (value == _text) return;
-                _text = value;
+                if (_format != null && _format.Equals(value))
+                {
+                    return;
+                }
+                _format = value;
                 OnPropertyChanged();
+                OnPropertyChanged("Minimum");
+                OnPropertyChanged("Maximum");
             }
         }
 
@@ -119,8 +131,11 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.Guage180deg
         private void Update()
         {
             var datasource = _services.DataService.Get(_tileConfigurationConverter.GetString("Datasource"));
+            Label = _tileConfigurationConverter.GetString("Label", "Label");
+            Format = _tileConfigurationConverter.GetString("Format", "{0} %");
+            Minimum = _tileConfigurationConverter.GetDouble("Minimum", 0.0);
+            Maximum = _tileConfigurationConverter.GetDouble("Maximum", 100.0);
             Value = datasource.Read<double>(_tileConfigurationConverter.GetString("Value"));
-            Maximum = datasource.Read<double>(_tileConfigurationConverter.GetString("Maximum"));
         }
 
         void ITimerListener.OnTimeElapsed(TimerToken token)

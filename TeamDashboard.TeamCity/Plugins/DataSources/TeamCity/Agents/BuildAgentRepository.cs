@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using NoeticTools.TeamStatusBoard.Framework.Services;
 using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
-using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Channel;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.TcSharpInterop;
 
@@ -111,10 +109,10 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Agen
                 return;
             }
 
-            _dataSource.Write($"Agent({buildAgent.Name})", "");
-            _dataSource.Write($"Agent({buildAgent.Name}).IsAuthorised", buildAgent.IsAuthorised);
-            _dataSource.Write($"Agent({buildAgent.Name}).IsOnline", buildAgent.IsOnline);
-            _dataSource.Write($"Agent({buildAgent.Name}).IsRunning", buildAgent.IsRunning);
+            _dataSource.Write($"Agent.{buildAgent.Name}", "");
+            _dataSource.Write($"Agent.{buildAgent.Name}.IsAuthorised", buildAgent.IsAuthorised);
+            _dataSource.Write($"Agent.{buildAgent.Name}.IsOnline", buildAgent.IsOnline);
+            _dataSource.Write($"Agent.{buildAgent.Name}.IsRunning", buildAgent.IsRunning);
         }
 
         private void UpdateCounts()

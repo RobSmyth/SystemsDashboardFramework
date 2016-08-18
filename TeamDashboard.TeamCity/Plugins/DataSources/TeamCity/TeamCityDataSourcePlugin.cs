@@ -51,9 +51,9 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity
             var dataSource = new DataRepositoryFactory().Create("TeamCity.Agents", "0");
             var buildAgentFactory = new BuildAgentViewModelFactory(services, dataSource, fastConnectedTicker, teamCityClient);
             var buildAgentRepository = new BuildAgentRepository(dataSource, teamCityClient, channelStateBroadcaster, slowConnectedTicker, buildAgentFactory);
-            var dataService = new BuildAgentRepositoryDataService(buildAgentRepository, dataSource);
-            services.DataService.Register(dataService.Name, dataSource);
-            services.Register(dataService);
+            //var dataService = new BuildAgentRepositoryDataService(buildAgentRepository, dataSource);
+            services.DataService.Register("TeamCity.Agents", dataSource);
+            //services.Register(dataService);
             return buildAgentRepository;
         }
 

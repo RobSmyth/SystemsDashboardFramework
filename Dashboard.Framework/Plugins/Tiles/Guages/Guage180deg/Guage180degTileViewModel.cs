@@ -21,6 +21,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.Guage180deg
         private double _maximum = 1.0;
         private double _minimum = -1.0;
         private string _format = "-";
+        private bool _uses360Mode;
 
         public Guage180degTileViewModel(TileConfiguration tile, IDashboardController dashboardController, ITileLayoutController layoutController, IServices services)
         {
@@ -47,6 +48,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.Guage180deg
                 new TextPropertyViewModel("Minimum", _tileConfigurationConverter),
                 new TextPropertyViewModel("Maximum", _tileConfigurationConverter),
                 new TextPropertyViewModel("Format", _tileConfigurationConverter),
+                new TextPropertyViewModel("Uses360Mode", _tileConfigurationConverter),
             };
             return parameters;
         }
@@ -108,7 +110,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.Guage180deg
         public string Format
         {
             get { return _format; }
-            set
+            private set
             {
                 if (_format != null && _format.Equals(value))
                 {
@@ -118,6 +120,19 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.Guage180deg
                 OnPropertyChanged();
                 OnPropertyChanged("Minimum");
                 OnPropertyChanged("Maximum");
+            }
+        }
+
+        public bool Uses360Mode
+        {
+            get { return _uses360Mode; }
+            private set
+            {
+                if (_uses360Mode != value)
+                {
+                    _uses360Mode = value;
+                    OnPropertyChanged();
+                }
             }
         }
 
@@ -136,6 +151,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.Guage180deg
             Minimum = _tileConfigurationConverter.GetDouble("Minimum", 0.0);
             Maximum = _tileConfigurationConverter.GetDouble("Maximum", 100.0);
             Value = datasource.Read<double>(_tileConfigurationConverter.GetString("Value"));
+            Uses360Mode = _tileConfigurationConverter.GetBool("Uses360Mode");
         }
 
         void ITimerListener.OnTimeElapsed(TimerToken token)

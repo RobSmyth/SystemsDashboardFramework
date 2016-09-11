@@ -10,6 +10,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.PropertyEditControls
         public void Register(IServices services)
         {
             services.PropertyEditControlProviders.Register(new TextPropertyViewProvider());
+            services.PropertyEditControlProviders.Register(new AutoCompleteTextPropertyViewProvider());
         }
     }
 }

@@ -96,7 +96,9 @@
     <Compile Include="Commands\CloseCommand.cs" />
     <Compile Include="Commands\ShowDataSourcesCommand.cs" />
     <Compile Include="Config\Controllers\DataSourcesViewProvider.cs" />
+    <Compile Include="Config\Properties\AutoCompleteTextPropertyViewModel.cs" />
     <Compile Include="Config\Properties\DataSourceTypePropertyViewModel.cs" />
+    <Compile Include="Config\Properties\ISuggestionProvider.cs" />
     <Compile Include="Config\ViewModels\DataSourcePropertyViewModel.cs" />
     <Compile Include="Config\ViewModels\DataSourcesViewModel.cs" />
     <Compile Include="Config\IDashboardConfigurations.cs" />
@@ -148,6 +150,7 @@
     <Compile Include="Input\IDragSource.cs" />
     <Compile Include="Plugins\DataSources\DashboardData\DashboardDataSourcePlugin.cs" />
     <Compile Include="Plugins\DataSources\DashboardData\DashboardDataConfiguration.cs" />
+    <Compile Include="Plugins\PropertyEditControls\AutoCompleteTextPropertyViewProvider.cs" />
     <Compile Include="Plugins\PropertyEditControls\DataSourceTypePropertyViewPlugin.cs" />
     <Compile Include="Plugins\PropertyEditControls\DataSourceTypePropertyViewProvider.cs" />
     <Compile Include="Plugins\PropertyEditControls\TimeSpanPropertyViewPlugin.cs" />
@@ -179,6 +182,7 @@
     <Compile Include="Plugins\Tiles\Guages\Guage180deg\Guage180degTileControl.xaml.cs">
       <DependentUpon>Guage180degTileControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Plugins\Tiles\Guages\Guage180deg\SuggestionsProvider.cs" />
     <Compile Include="Plugins\Tiles\Help\HelpTileKeyHandler.cs" />
     <Compile Include="Plugins\Tiles\Image\ImageFileWatcherTileProvider.cs" />
     <Compile Include="Plugins\Tiles\InsertTile\InsertTileKeyHandler.cs" />

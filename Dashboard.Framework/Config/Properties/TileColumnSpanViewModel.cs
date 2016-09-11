@@ -31,6 +31,11 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.Properties
             }
         }
 
+        public void UpdateParameters()
+        {
+            throw new System.NotImplementedException();
+        }
+
         public string Name { get; }
         public string ViewerName { get; }
         public object[] Parameters { get; set; }

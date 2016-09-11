@@ -7,7 +7,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.Properties
     public class PropertyViewModel : NotifyingViewModelBase, INotifyingPropertyViewModel
     {
         private readonly TileConfigurationConverter _tileConfigurationConverter;
-        private readonly Func<object[]> _parametersFunc;
+        private Func<object[]> _parametersFunc;
         private object[] _parameters;
 
         public PropertyViewModel(string name, string viewerName, TileConfigurationConverter tileConfigurationConverter, Func<object[]> parametersFunc = null)
@@ -51,6 +51,11 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.Properties
                     OnPropertyChanged();
                 }
             }
+        }
+
+        protected void SetParametersProvider(Func<object[]> parametersFunc)
+        {
+            _parametersFunc = parametersFunc;
         }
 
         protected void UpdateParameters()

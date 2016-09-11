@@ -22,6 +22,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.Guage180deg
         private double _minimum = -1.0;
         private string _format = "-";
         private bool _uses360Mode;
+        private string _xyz;
 
         public Guage180degTileViewModel(TileConfiguration tile, IDashboardController dashboardController, ITileLayoutController layoutController, IServices services)
         {
@@ -49,6 +50,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.Guage180deg
                 new TextPropertyViewModel("Maximum", _tileConfigurationConverter),
                 new TextPropertyViewModel("Format", _tileConfigurationConverter),
                 new TextPropertyViewModel("Uses360Mode", _tileConfigurationConverter),
+                //new AutoCompleteTextPropertyViewModel("XYZ", _tileConfigurationConverter, new TextSuggestionsProvider(_services)),
             };
             return parameters;
         }
@@ -136,6 +138,19 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.Guage180deg
             }
         }
 
+        public string XYZ
+        {
+            get { return _xyz; }
+            private set
+            {
+                if (_xyz != value)
+                {
+                    _xyz = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public ICommand ConfigureCommand { get; }
 
         public void OnConfigurationChanged(TileConfigurationConverter converter)
@@ -152,6 +167,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.Guage180deg
             Maximum = _tileConfigurationConverter.GetDouble("Maximum", 100.0);
             Value = datasource.Read<double>(_tileConfigurationConverter.GetString("Value"));
             Uses360Mode = _tileConfigurationConverter.GetBool("Uses360Mode");
+            //XYZ = _tileConfigurationConverter.GetString("XYZ");
         }
 
         void ITimerListener.OnTimeElapsed(TimerToken token)

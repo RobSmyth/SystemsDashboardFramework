@@ -197,6 +197,12 @@
     </Compile>
     <Compile Include="Plugins\PropertyEditControls\SuggestionProviders\TextSuggestionsProvider.cs" />
     <Compile Include="Config\NamedValueAggregator.cs" />
+    <Compile Include="Plugins\Tiles\Guages\GuageAngular\GuageAngularTileControl.xaml.cs">
+      <DependentUpon>GuageAngularTileControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\Tiles\Guages\GuageAngular\GuageAngularTilePlugin.cs" />
+    <Compile Include="Plugins\Tiles\Guages\GuageAngular\GuageAngularTileProvider.cs" />
+    <Compile Include="Plugins\Tiles\Guages\GuageAngular\GuageAngularTileViewModel.cs" />
     <Compile Include="Plugins\Tiles\Help\HelpTileKeyHandler.cs" />
     <Compile Include="Plugins\Tiles\Image\ImageFileWatcherTileProvider.cs" />
     <Compile Include="Plugins\Tiles\InsertTile\InsertTileKeyHandler.cs" />
@@ -364,6 +370,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Plugins\Tiles\Guages\Guage180deg\Guage180degTileControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Plugins\Tiles\Guages\GuageAngular\GuageAngularTileControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

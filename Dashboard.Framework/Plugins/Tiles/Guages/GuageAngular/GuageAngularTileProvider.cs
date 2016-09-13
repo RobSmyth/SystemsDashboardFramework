@@ -1,25 +1,25 @@
 using System.Windows;
 using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
-using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.DataTiles.TextTile;
+using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.Guage180deg;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 
 
-namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.Guage180deg
+namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.GuageAngular
 {
-    internal sealed class Guage180degTileProvider : ITileControllerProvider
+    internal sealed class GuageAngularTileProvider : ITileControllerProvider
     {
         private readonly IDashboardController _dashboardController;
         private readonly IServices _services;
-        private static readonly string TileTypeId = "Guage180deg";
+        private static readonly string TileTypeId = "GuageAngular";
 
-        public Guage180degTileProvider(IDashboardController dashboardController, IServices services)
+        public GuageAngularTileProvider(IDashboardController dashboardController, IServices services)
         {
             _dashboardController = dashboardController;
             _services = services;
         }
 
-        public string Name => "180/360 deg Guage";
+        public string Name => "Angular Guage";
 
         public string TypeId => TileTypeId;
 
@@ -30,7 +30,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.Guage180deg
 
         public FrameworkElement CreateTile(TileConfiguration tile, TileLayoutController layoutController)
         {
-            return new Guage180degTileControl {DataContext = new Guage180DegTileViewModel(tile, _dashboardController, layoutController, _services)};
+            return new GuageAngular.GuageAngularTileControl {DataContext = new GuageAngularTileViewModel(tile, _dashboardController, layoutController, _services)};
         }
 
         public TileConfiguration CreateDefaultConfiguration()

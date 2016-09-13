@@ -38,7 +38,14 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config
 
         public bool GetBool(string name)
         {
-            return bool.Parse(name);
+            try
+            {
+                return bool.Parse(name);
+            }
+            catch (Exception)
+            {
+                return !string.IsNullOrWhiteSpace(name);
+            }
         }
 
         public object GetParameter(string name)

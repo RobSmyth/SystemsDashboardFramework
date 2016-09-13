@@ -32,12 +32,12 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config
 
         public string GetString(string name, string defaultValue)
         {
-            return _reader.GetString(GetValue(name), defaultValue);
+            return _reader.GetString(_configurationReader.GetString(name, defaultValue), defaultValue);
         }
 
         public double GetDouble(string name, double defaultValue = 0)
         {
-            return _reader.GetDouble(GetValue(name), defaultValue);
+            return _reader.GetDouble(_configurationReader.GetString(name, defaultValue.ToString()), defaultValue);
         }
 
         public bool GetBool(string name)

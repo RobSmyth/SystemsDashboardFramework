@@ -21,6 +21,7 @@ using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Date;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.DaysLeftCountDown;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.ExpiredTimeAlert;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.Guage180deg;
+using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.GuageAngular;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Help;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Image;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.InsertTile;
@@ -127,6 +128,7 @@ namespace NoeticTools.TeamStatusBoard.Runner
                 new WmiTilePlugin(),
                 new ExpiredTimeAlertTilePlugin(),
                 new Guage180degTilePlugin(), 
+                new GuageAngularTilePlugin(),
             };
 
             foreach (var plugin in plugins.OrderByDescending(x => x.Rank))

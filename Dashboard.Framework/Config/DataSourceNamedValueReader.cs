@@ -1,4 +1,5 @@
 using System;
+using System.Windows.Media;
 using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 
 
@@ -56,6 +57,11 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config
         public void SetParameter(string name, object value)
         {
             _dataService.Write(GetPropertyName(name), value);
+        }
+
+        public Color GetColour(string name, string defaultValue)
+        {
+            throw new NotImplementedException();
         }
 
         private string GetPropertyName(string name)

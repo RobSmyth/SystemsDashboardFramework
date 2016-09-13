@@ -1,4 +1,5 @@
 using System;
+using System.Windows.Media;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Config
@@ -14,5 +15,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config
         object GetParameter(string name);
         object GetParameter(string name, object defaultValue);
         void SetParameter(string name, object value);
+        Color GetColour(string name, string defaultValue);
     }
 }

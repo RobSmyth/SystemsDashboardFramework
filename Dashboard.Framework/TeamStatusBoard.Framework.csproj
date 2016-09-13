@@ -104,11 +104,13 @@
     <Compile Include="Config\NullNamedValueReaderProvider.cs" />
     <Compile Include="Config\NullValueReader.cs" />
     <Compile Include="Config\Properties\AutoCompleteBoolPropertyViewModel.cs" />
+    <Compile Include="Config\Properties\AutoCompleteColourPropertyViewModel.cs" />
     <Compile Include="Config\Properties\AutoCompleteTextPropertyViewModel.cs" />
     <Compile Include="Config\Properties\BoolPropertyViewModel.cs" />
     <Compile Include="Config\Properties\DataSourceTypePropertyViewModel.cs" />
     <Compile Include="Config\TileProperties.cs" />
     <Compile Include="Plugins\PropertyEditControls\SuggestionProviders\BoolSuggestionsProvider.cs" />
+    <Compile Include="Plugins\PropertyEditControls\SuggestionProviders\ColourSuggestionsProvider.cs" />
     <Compile Include="Plugins\PropertyEditControls\SuggestionProviders\ISuggestionProvider.cs" />
     <Compile Include="Config\ViewModels\DataSourcePropertyViewModel.cs" />
     <Compile Include="Config\ViewModels\DataSourcesViewModel.cs" />

@@ -16,7 +16,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.PropertyEditControls.Sug
             _services = services;
         }
 
-        public IEnumerable<string> UpdateSuggestions()
+        public IEnumerable<string> Get()
         {
             var suggestions = new List<string> {"<literal>"};
 

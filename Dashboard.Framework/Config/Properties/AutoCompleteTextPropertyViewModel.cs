@@ -9,7 +9,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.Properties
     public class AutoCompleteTextPropertyViewModel : PropertyViewModel
     {
         public AutoCompleteTextPropertyViewModel(string name, INamedValueReader tileConfigurationConverter, IServices services) 
-            : base(name, "AutoCompleteText", tileConfigurationConverter, () => new TextSuggestionsProvider(services).UpdateSuggestions().Cast<object>().ToArray())
+            : base(name, "AutoCompleteText", tileConfigurationConverter, () => new TextSuggestionsProvider(services).Get().Cast<object>().ToArray())
         {
         }
     }

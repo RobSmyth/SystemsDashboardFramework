@@ -5,6 +5,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.PropertyEditControls.Sug
 {
     public interface ISuggestionProvider<T>
     {
-        IEnumerable<string> UpdateSuggestions();
+        IEnumerable<string> Get();
     }
 }

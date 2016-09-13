@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Input;
+using System.Windows.Media;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
 using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Config.Properties;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
-using NoeticTools.TeamStatusBoard.Framework.Plugins.PropertyEditControls.SuggestionProviders;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
 
@@ -23,6 +23,8 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.Guage180deg
         private double _minimum = -1.0;
         private string _format = "-";
         private bool _uses360Mode;
+        private Color _fromColour;
+        private Color _toColour;
 
         public Guage180DegTileViewModel(TileConfiguration tile, IDashboardController dashboardController, ITileLayoutController layoutController, IServices services)
         {
@@ -45,7 +47,9 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.Guage180deg
                 new AutoCompleteTextPropertyViewModel("Minimum", _tileProperties.Properties, _services),
                 new AutoCompleteTextPropertyViewModel("Maximum", _tileProperties.Properties, _services),
                 new TextPropertyViewModel("Format", _tileProperties.Properties),
-                new AutoCompleteBoolPropertyViewModel("Uses360Mode", _tileProperties.Properties, _services), 
+                new AutoCompleteBoolPropertyViewModel("Uses360Mode", _tileProperties.Properties, _services),
+                new AutoCompleteColourPropertyViewModel("FromColour", _tileProperties.Properties, _services),
+                new AutoCompleteColourPropertyViewModel("ToColour", _tileProperties.Properties, _services),
             };
             return parameters;
         }
@@ -133,6 +137,32 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.Guage180deg
             }
         }
 
+        public Color FromColour
+        {
+            get { return _fromColour; }
+            private set
+            {
+                if (_fromColour != value)
+                {
+                    _fromColour = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public Color ToColour
+        {
+            get { return _toColour; }
+            private set
+            {
+                if (_toColour != value)
+                {
+                    _toColour = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public ICommand ConfigureCommand { get; }
 
         public void OnConfigurationChanged(TileConfigurationConverter converter)
@@ -149,6 +179,8 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.Guage180deg
             Maximum = namedValueReader.GetDouble("Maximum", 100.0);
             Value = namedValueReader.GetDouble("Value");
             Uses360Mode = namedValueReader.GetBool("Uses360Mode");
+            FromColour = namedValueReader.GetColour("FromColour", "Yellow");
+            ToColour = namedValueReader.GetColour("ToColour", "Crimson");
         }
 
         void ITimerListener.OnTimeElapsed(TimerToken token)

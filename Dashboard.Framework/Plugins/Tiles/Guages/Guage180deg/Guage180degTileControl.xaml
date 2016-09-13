@@ -30,7 +30,8 @@
             </Grid.RowDefinitions>
             <wpf:Gauge Name="guage" Grid.Row="0" Margin="3"
                         Uses360Mode="{Binding Path=Uses360Mode, Mode=OneWay}" 
-                        FromColor="Yellow" ToColor="Crimson"
+                        FromColor="{Binding FromColour, Mode=OneWay}" 
+                        ToColor="{Binding ToColour, Mode=OneWay}"
                         From="{Binding Minimum, Mode=OneWay}"
                         To="{Binding Maximum, Mode=OneWay}"
                         Value="{Binding Value, Mode=OneWay}" 

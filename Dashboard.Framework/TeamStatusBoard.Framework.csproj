@@ -103,6 +103,7 @@
     <Compile Include="Config\INamedValueReader.cs" />
     <Compile Include="Config\NullNamedValueReaderProvider.cs" />
     <Compile Include="Config\NullValueReader.cs" />
+    <Compile Include="Config\Properties\AutoCompleteBoolPropertyViewModel.cs" />
     <Compile Include="Config\Properties\AutoCompleteTextPropertyViewModel.cs" />
     <Compile Include="Config\Properties\BoolPropertyViewModel.cs" />
     <Compile Include="Config\Properties\DataSourceTypePropertyViewModel.cs" />

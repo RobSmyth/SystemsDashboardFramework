@@ -16,7 +16,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.Guage180deg
     {
         private readonly TimeSpan _updatePeriod = TimeSpan.FromSeconds(30);
         private readonly IServices _services;
-        private readonly INamedValueReader _tileConfigurationConverter;
+        private readonly INamedValueReader _tileProperties;
         private readonly INamedValueReader _namedValueReader;
         private double _value;
         private string _label = "";
@@ -29,32 +29,26 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.Guage180deg
         public Guage180degTileViewModel(TileConfiguration tile, IDashboardController dashboardController, ITileLayoutController layoutController, IServices services)
         {
             _services = services;
-            _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
-            _namedValueReader = new ConfigurationNamedValueReaderDecorator(_tileConfigurationConverter, 
-                new NamedValueReaderAggregator(new DataSourceNamedValueReaderProvider(_services), new NullNamedValueReaderProvider()));
+            _tileProperties = new TileConfigurationConverter(tile, this);
+            _namedValueReader = new ConfigurationNamedValueReaderDecorator(_tileProperties, new NamedValueReaderAggregator(new DataSourceNamedValueReaderProvider(_services), new NullNamedValueReaderProvider()));
             Formatter = x => string.Format(Format, x);
 
-            var dataSourceTypeViewModel = new DataSourceTypePropertyViewModel("Datasource", _tileConfigurationConverter, _services);
-
-            var parameters = GetConfigurationParameters(dataSourceTypeViewModel);
+            var parameters = GetConfigurationParameters();
             ConfigureCommand = new TileConfigureCommand(tile, "Data Value Tile Configuration", parameters, dashboardController, layoutController, services);
 
             _services.Timer.QueueCallback(TimeSpan.FromMilliseconds(100), this);
         }
 
-        private IPropertyViewModel[] GetConfigurationParameters(INotifyingPropertyViewModel dataSourceTypeViewModel)
+        private IPropertyViewModel[] GetConfigurationParameters()
         {
             var parameters = new IPropertyViewModel[]
             {
-                dataSourceTypeViewModel,
-                new TextPropertyViewModel("Label", _tileConfigurationConverter),
-                new DependantPropertyViewModel("Value", "TextFromCombobox", _tileConfigurationConverter, dataSourceTypeViewModel,
-                    () => _services.DataService.Get((string) dataSourceTypeViewModel.Value).GetAllNames().Cast<object>().ToArray()),
-                new TextPropertyViewModel("Minimum", _tileConfigurationConverter),
-                new TextPropertyViewModel("Maximum", _tileConfigurationConverter),
-                new TextPropertyViewModel("Format", _tileConfigurationConverter),
-                new AutoCompleteTextPropertyViewModel("Uses360Mode", _tileConfigurationConverter, new BoolSuggestionsProvider(_services)), 
-                new AutoCompleteTextPropertyViewModel("XYZ", _tileConfigurationConverter, new TextSuggestionsProvider(_services)),
+                new AutoCompleteTextPropertyViewModel("Label", _tileProperties, _services),
+                new AutoCompleteTextPropertyViewModel("Value", _tileProperties, _services),
+                new AutoCompleteTextPropertyViewModel("Minimum", _tileProperties, _services),
+                new AutoCompleteTextPropertyViewModel("Maximum", _tileProperties, _services),
+                new TextPropertyViewModel("Format", _tileProperties),
+                new AutoCompleteBoolPropertyViewModel("Uses360Mode", _tileProperties, _services), 
             };
             return parameters;
         }
@@ -164,14 +158,12 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.Guage180deg
 
         private void Update()
         {
-            var datasource = _services.DataService.Get(_tileConfigurationConverter.GetString("Datasource"));
             Label = _namedValueReader.GetString("Label", "Label");
             Format = _namedValueReader.GetString("Format", "{0} %");
-            Minimum = _namedValueReader.GetDouble("Minimum", 0.0);
+            Minimum = _namedValueReader.GetDouble("Minimum");
             Maximum = _namedValueReader.GetDouble("Maximum", 100.0);
-            Value = datasource.Read<double>(_tileConfigurationConverter.GetString("Value"));
+            Value = _namedValueReader.GetDouble("Value");
             Uses360Mode = _namedValueReader.GetBool("Uses360Mode");
-            XYZ = _namedValueReader.GetString("XYZ");
         }
 
         void ITimerListener.OnTimeElapsed(TimerToken token)

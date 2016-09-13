@@ -20,7 +20,10 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.GuageAngula
         private string _label = "";
         private double _maximum = 1.0;
         private double _minimum = -1.0;
-        private string _format = "-";
+        private string _format = "{0}";
+        private double _sectionsInnerRadius = 0.8;
+        private Color _foreground = Colors.White;
+        private Color _ticksForeground = Colors.Gray;
 
         public GuageAngularTileViewModel(TileConfiguration tile, IDashboardController dashboardController, ITileLayoutController layoutController, IServices services)
         {
@@ -32,6 +35,8 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.GuageAngula
             ConfigureCommand = new TileConfigureCommand(tile, "Data Value Tile Configuration", parameters, dashboardController, layoutController, services);
 
             _services.Timer.QueueCallback(TimeSpan.FromMilliseconds(100), this);
+
+            Update();
         }
 
         private IPropertyViewModel[] GetConfigurationParameters()
@@ -43,9 +48,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.GuageAngula
                 new AutoCompleteTextPropertyViewModel("Minimum", _tileProperties.Properties, _services),
                 new AutoCompleteTextPropertyViewModel("Maximum", _tileProperties.Properties, _services),
                 new TextPropertyViewModel("Format", _tileProperties.Properties),
-                new AutoCompleteBoolPropertyViewModel("Uses360Mode", _tileProperties.Properties, _services),
-                new AutoCompleteColourPropertyViewModel("FromColour", _tileProperties.Properties, _services),
-                new AutoCompleteColourPropertyViewModel("ToColour", _tileProperties.Properties, _services),
             };
             return parameters;
         }
@@ -131,10 +133,10 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.GuageAngula
         {
             var namedValueReader = _tileProperties.NamedValueReader;
             Label = namedValueReader.GetString("Label", "Label");
-            Format = namedValueReader.GetString("Format", "{0} %");
             Minimum = namedValueReader.GetDouble("Minimum");
             Maximum = namedValueReader.GetDouble("Maximum", 100.0);
             Value = namedValueReader.GetDouble("Value");
+            Format = namedValueReader.GetString("Format", "{0} %");
         }
 
         void ITimerListener.OnTimeElapsed(TimerToken token)

@@ -4,10 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:wpf="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
-             xmlns:guage180Deg="clr-namespace:NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.Guage180deg"
+             xmlns:guageAngular="clr-namespace:NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.GuageAngular"
              mc:Ignorable="d"
              d:DesignHeight="400" d:DesignWidth="400"
-             d:DataContext="{d:DesignInstance Type=guage180Deg:Guage180DegTileViewModel}">
+             d:DataContext="{d:DesignInstance Type=guageAngular:GuageAngularTileViewModel}">
 
     <UserControl.Resources>
 
@@ -31,12 +31,11 @@
             <wpf:AngularGauge Name="guage" 
                               Grid.Row="0" Margin="5"
                               LabelsStep="50" TicksStep="25" Wedge="300"
-                              FromValue="0"
-                              ToValue="250"
-                              Value="55" 
-                              TicksForeground="White"
-                              Foreground="White"
-                              SectionsInnerRadius=".5"
+                              FromValue="{Binding Minimum, Mode=OneWay}"
+                              ToValue="{Binding Maximum, Mode=OneWay}"
+                              Value="{Binding Value, Mode=OneWay}" 
+                              TicksForeground="Gray"
+                              SectionsInnerRadius="0.80"
                               FontWeight="Bold"
                               LabelsEffect="{x:Null}"
                               FontSize="{Binding Path=ActualHeight, ElementName=root, Converter={StaticResource doubleConverter}, ConverterParameter=0.07}" >

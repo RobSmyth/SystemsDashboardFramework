@@ -30,7 +30,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.Guage180deg
 
         public FrameworkElement CreateTile(TileConfiguration tile, TileLayoutController layoutController)
         {
-            return new Guage180degTileControl {DataContext = new Guage180degTileViewModel(tile, _dashboardController, layoutController, _services)};
+            return new Guage180degTileControl {DataContext = new Guage180DegTileViewModel(tile, _dashboardController, layoutController, _services)};
         }
 
         public TileConfiguration CreateDefaultConfiguration()

@@ -107,6 +107,7 @@
     <Compile Include="Config\Properties\AutoCompleteTextPropertyViewModel.cs" />
     <Compile Include="Config\Properties\BoolPropertyViewModel.cs" />
     <Compile Include="Config\Properties\DataSourceTypePropertyViewModel.cs" />
+    <Compile Include="Config\TileProperties.cs" />
     <Compile Include="Plugins\PropertyEditControls\SuggestionProviders\BoolSuggestionsProvider.cs" />
     <Compile Include="Plugins\PropertyEditControls\SuggestionProviders\ISuggestionProvider.cs" />
     <Compile Include="Config\ViewModels\DataSourcePropertyViewModel.cs" />

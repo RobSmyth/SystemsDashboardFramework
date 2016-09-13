@@ -7,7 +7,7 @@
              xmlns:guage180Deg="clr-namespace:NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.Guage180deg"
              mc:Ignorable="d"
              d:DesignHeight="400" d:DesignWidth="400"
-             d:DataContext="{d:DesignInstance Type=guage180Deg:Guage180degTileViewModel}">
+             d:DataContext="{d:DesignInstance Type=guage180Deg:Guage180DegTileViewModel}">
 
     <UserControl.Resources>
 

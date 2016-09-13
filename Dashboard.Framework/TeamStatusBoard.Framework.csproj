@@ -95,10 +95,19 @@
     <Compile Include="Commands\SaveConfigurationParametersCommand.cs" />
     <Compile Include="Commands\CloseCommand.cs" />
     <Compile Include="Commands\ShowDataSourcesCommand.cs" />
+    <Compile Include="Config\ConfigurationNamedValueReaderDecorator.cs" />
     <Compile Include="Config\Controllers\DataSourcesViewProvider.cs" />
+    <Compile Include="Config\DataSourceNamedValueReader.cs" />
+    <Compile Include="Config\DataSourceNamedValueReaderProvider.cs" />
+    <Compile Include="Config\INamedValueProvider.cs" />
+    <Compile Include="Config\INamedValueReader.cs" />
+    <Compile Include="Config\NullNamedValueReaderProvider.cs" />
+    <Compile Include="Config\NullValueReader.cs" />
     <Compile Include="Config\Properties\AutoCompleteTextPropertyViewModel.cs" />
+    <Compile Include="Config\Properties\BoolPropertyViewModel.cs" />
     <Compile Include="Config\Properties\DataSourceTypePropertyViewModel.cs" />
-    <Compile Include="Config\Properties\ISuggestionProvider.cs" />
+    <Compile Include="Plugins\PropertyEditControls\SuggestionProviders\BoolSuggestionsProvider.cs" />
+    <Compile Include="Plugins\PropertyEditControls\SuggestionProviders\ISuggestionProvider.cs" />
     <Compile Include="Config\ViewModels\DataSourcePropertyViewModel.cs" />
     <Compile Include="Config\ViewModels\DataSourcesViewModel.cs" />
     <Compile Include="Config\IDashboardConfigurations.cs" />
@@ -182,7 +191,8 @@
     <Compile Include="Plugins\Tiles\Guages\Guage180deg\Guage180degTileControl.xaml.cs">
       <DependentUpon>Guage180degTileControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Plugins\Tiles\Guages\Guage180deg\SuggestionsProvider.cs" />
+    <Compile Include="Plugins\PropertyEditControls\SuggestionProviders\TextSuggestionsProvider.cs" />
+    <Compile Include="Config\NamedValueAggregator.cs" />
     <Compile Include="Plugins\Tiles\Help\HelpTileKeyHandler.cs" />
     <Compile Include="Plugins\Tiles\Image\ImageFileWatcherTileProvider.cs" />
     <Compile Include="Plugins\Tiles\InsertTile\InsertTileKeyHandler.cs" />

@@ -4,7 +4,7 @@ using System.Globalization;
 
 namespace NoeticTools.TeamStatusBoard.Framework.Config
 {
-    public sealed class TileConfigurationConverter
+    public sealed class TileConfigurationConverter : INamedValueReader
     {
         private readonly IItemConfiguration _inner;
         private readonly IConfigurationChangeListener _listener;

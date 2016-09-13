@@ -25,11 +25,10 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.PropertyEditControls
                 DataContext = viewModel
             };
 
-
             BindingOperations.SetBinding(comboBox, ComboBox.SelectedItemProperty, new Binding("Value"));
             BindingOperations.SetBinding(comboBox, ComboBox.ItemsSourceProperty, new Binding("Parameters"));
 
-            comboBox.SelectionChanged += (a, b) => viewModel.Value = comboBox.SelectedItem;//>>>
+            comboBox.SelectionChanged += (a, b) => viewModel.Value = comboBox.SelectedItem;
 
             return comboBox;
         }

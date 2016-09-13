@@ -42,7 +42,14 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
             {
                 _values.Add(name, default(T));
             }
-            return (T) Convert.ChangeType(_values[name], typeof (T));
+            try
+            {
+                return (T)Convert.ChangeType(_values[name], typeof(T));
+            }
+            catch (Exception)
+            {
+                return default(T);
+            }
         }
 
         private void NotifyValueChanged()

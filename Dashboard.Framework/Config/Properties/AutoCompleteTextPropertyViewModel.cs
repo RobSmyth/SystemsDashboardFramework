@@ -1,23 +1,15 @@
 ﻿using System;
 using System.Linq;
+using NoeticTools.TeamStatusBoard.Framework.Plugins.PropertyEditControls.SuggestionProviders;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Config.Properties
 {
     public class AutoCompleteTextPropertyViewModel : PropertyViewModel
     {
-        private readonly ISuggestionProvider<string> _suggestionProvider;
-
-        public AutoCompleteTextPropertyViewModel(string name, TileConfigurationConverter tileConfigurationConverter, ISuggestionProvider<string> suggestionProvider) 
-            : base(name, "AutoCompleteText", tileConfigurationConverter)
+        public AutoCompleteTextPropertyViewModel(string name, INamedValueReader tileConfigurationConverter, ISuggestionProvider<string> suggestionProvider) 
+            : base(name, "AutoCompleteText", tileConfigurationConverter, () => suggestionProvider.UpdateSuggestions().Cast<object>().ToArray())
         {
-            _suggestionProvider = suggestionProvider;
-            SetParametersProvider(ParametersProvider);
-        }
-
-        private object[] ParametersProvider()
-        {
-            return _suggestionProvider.UpdateSuggestions(this).Cast<object>().ToArray();
         }
     }
 }

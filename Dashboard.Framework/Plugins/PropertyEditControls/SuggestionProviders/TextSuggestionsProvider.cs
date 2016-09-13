@@ -5,7 +5,7 @@ using NoeticTools.TeamStatusBoard.Framework.Config.Properties;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 
 
-namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.Guage180deg
+namespace NoeticTools.TeamStatusBoard.Framework.Plugins.PropertyEditControls.SuggestionProviders
 {
     public class TextSuggestionsProvider : ISuggestionProvider<string>
     {
@@ -16,14 +16,14 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.Guage180deg
             _services = services;
         }
 
-        public IEnumerable<string> UpdateSuggestions(IPropertyViewModel propertyViewModel)
+        public IEnumerable<string> UpdateSuggestions()
         {
-            var suggestions = new List<string>();
+            var suggestions = new List<string> {"<literal>"};
 
             var dataSources = _services.DataService.GetAllDataSources();
             foreach (var dataSource in dataSources)
             {
-                suggestions.AddRange(dataSource.GetAllNames().Select(x => $"{dataSource.TypeName}.{x}"));
+                suggestions.AddRange(dataSource.GetAllNames().Select(x => $"={dataSource.TypeName}.{x}"));
             }
 
             return suggestions.OrderBy(x => x).ToArray();

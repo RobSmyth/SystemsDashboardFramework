@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Threading.Tasks;
+using NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Config.Properties
 {
     public class PropertyViewModel : NotifyingViewModelBase, INotifyingPropertyViewModel
     {
-        private readonly INamedValueReader _tileConfigurationConverter;
+        private readonly INamedValueRepository _tileConfigurationConverter;
         private readonly Func<object[]> _parametersFunc;
         private object[] _parameters;
 
-        public PropertyViewModel(string name, string viewerName, INamedValueReader tileConfigurationConverter, Func<object[]> parametersFunc = null)
+        public PropertyViewModel(string name, string viewerName, INamedValueRepository tileConfigurationConverter, Func<object[]> parametersFunc = null)
         {
             _tileConfigurationConverter = tileConfigurationConverter;
             _parametersFunc = parametersFunc;

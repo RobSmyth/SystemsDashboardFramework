@@ -3,13 +3,13 @@ using System.Windows.Media;
 using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 
 
-namespace NoeticTools.TeamStatusBoard.Framework.Config
+namespace NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories
 {
-    public class DataSourceNamedValueReader : INamedValueReader
+    public class DataSourceNamedValueRepository : INamedValueRepository
     {
         private readonly IDataSource _dataService;
 
-        public DataSourceNamedValueReader(IDataSource dataService)
+        public DataSourceNamedValueRepository(IDataSource dataService)
         {
             _dataService = dataService;
         }

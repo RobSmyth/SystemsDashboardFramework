@@ -97,16 +97,15 @@
     <Compile Include="Commands\ShowDataSourcesCommand.cs" />
     <Compile Include="Config\ConfigurationNamedValueReaderDecorator.cs" />
     <Compile Include="Config\Controllers\DataSourcesViewProvider.cs" />
-    <Compile Include="Config\DataSourceNamedValueReader.cs" />
-    <Compile Include="Config\DataSourceNamedValueReaderProvider.cs" />
-    <Compile Include="Config\INamedValueProvider.cs" />
-    <Compile Include="Config\INamedValueReader.cs" />
-    <Compile Include="Config\NullNamedValueReaderProvider.cs" />
-    <Compile Include="Config\NullValueReader.cs" />
-    <Compile Include="Config\Properties\AutoCompleteBoolPropertyViewModel.cs" />
-    <Compile Include="Config\Properties\AutoCompleteColourPropertyViewModel.cs" />
-    <Compile Include="Config\Properties\AutoCompleteTextPropertyViewModel.cs" />
+    <Compile Include="Config\NamedValueRepositories\DataSourceNamedValueRepository.cs" />
+    <Compile Include="Config\NamedValueRepositories\DataSourceNamedValueRepositoryProvider.cs" />
+    <Compile Include="Config\NamedValueRepositories\INamedValueProvider.cs" />
+    <Compile Include="Config\NamedValueRepositories\INamedValueRepository.cs" />
+    <Compile Include="Config\NamedValueRepositories\NullNamedValueReaderProvider.cs" />
+    <Compile Include="Config\NamedValueRepositories\NullValueRepository.cs" />
     <Compile Include="Config\Properties\BoolPropertyViewModel.cs" />
+    <Compile Include="Config\Properties\ColourPropertyViewModel.cs" />
+    <Compile Include="Config\Properties\AutoCompleteTextPropertyViewModel.cs" />
     <Compile Include="Config\Properties\DataSourceTypePropertyViewModel.cs" />
     <Compile Include="Config\TileProperties.cs" />
     <Compile Include="Plugins\PropertyEditControls\SuggestionProviders\BoolSuggestionsProvider.cs" />
@@ -196,7 +195,7 @@
       <DependentUpon>Guage180degTileControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Plugins\PropertyEditControls\SuggestionProviders\TextSuggestionsProvider.cs" />
-    <Compile Include="Config\NamedValueAggregator.cs" />
+    <Compile Include="Config\NamedValueRepositories\NamedValueAggregator.cs" />
     <Compile Include="Plugins\Tiles\Guages\GuageAngular\GuageAngularTileControl.xaml.cs">
       <DependentUpon>GuageAngularTileControl.xaml</DependentUpon>
     </Compile>

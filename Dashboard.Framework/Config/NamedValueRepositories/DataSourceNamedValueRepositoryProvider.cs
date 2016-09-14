@@ -2,13 +2,13 @@ using System.Linq;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 
 
-namespace NoeticTools.TeamStatusBoard.Framework.Config
+namespace NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories
 {
-    public class DataSourceNamedValueReaderProvider : INamedValueReaderProvider
+    public class DataSourceNamedValueRepositoryProvider : INamedValueReaderProvider
     {
         private readonly IServices _services;
 
-        public DataSourceNamedValueReaderProvider(IServices services)
+        public DataSourceNamedValueRepositoryProvider(IServices services)
         {
             _services = services;
         }
@@ -18,14 +18,14 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config
             return name.StartsWith("=");
         }
 
-        public INamedValueReader Get(string name)
+        public INamedValueRepository Get(string name)
         {
             var dataService = _services.DataService.GetAllDataSources().FirstOrDefault(x => name.Substring(1).StartsWith(x.TypeName));
             if (dataService != null)
             {
-                return new DataSourceNamedValueReader(dataService);
+                return new DataSourceNamedValueRepository(dataService);
             }
-            return new NullValueReader();
+            return new NullValueRepository();
         }
     }
 }

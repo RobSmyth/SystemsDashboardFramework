@@ -3,13 +3,13 @@ using System.Linq;
 using System.Windows.Media;
 
 
-namespace NoeticTools.TeamStatusBoard.Framework.Config
+namespace NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories
 {
-    public sealed class NamedValueReaderAggregator : INamedValueReader
+    public sealed class NamedValueRepositoryAggregator : INamedValueRepository
     {
         private readonly INamedValueReaderProvider[] _providers;
 
-        public NamedValueReaderAggregator(params INamedValueReaderProvider[] providers)
+        public NamedValueRepositoryAggregator(params INamedValueReaderProvider[] providers)
         {
             _providers = providers;
         }
@@ -64,7 +64,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config
             return Get(name).GetColour(name, defaultValue);
         }
 
-        private INamedValueReader Get(string name)
+        private INamedValueRepository Get(string name)
         {
             return _providers.First(x => x.CanHandle(name)).Get(name);
         }

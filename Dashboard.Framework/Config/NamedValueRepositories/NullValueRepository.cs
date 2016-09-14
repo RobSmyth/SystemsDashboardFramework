@@ -2,9 +2,9 @@ using System;
 using System.Windows.Media;
 
 
-namespace NoeticTools.TeamStatusBoard.Framework.Config
+namespace NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories
 {
-    public sealed class NullValueReader : INamedValueReader
+    public sealed class NullValueRepository : INamedValueRepository
     {
         public DateTime GetDateTime(string name)
         {

@@ -42,14 +42,14 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.Guage180deg
         {
             var parameters = new IPropertyViewModel[]
             {
-                new AutoCompleteTextPropertyViewModel("Label", _tileProperties.Properties, _services),
-                new AutoCompleteTextPropertyViewModel("Value", _tileProperties.Properties, _services),
-                new AutoCompleteTextPropertyViewModel("Minimum", _tileProperties.Properties, _services),
-                new AutoCompleteTextPropertyViewModel("Maximum", _tileProperties.Properties, _services),
+                new TextPropertyAutoCompleteViewModel("Label", _tileProperties.Properties, _services),
+                new TextPropertyAutoCompleteViewModel("Value", _tileProperties.Properties, _services),
+                new TextPropertyAutoCompleteViewModel("Minimum", _tileProperties.Properties, _services),
+                new TextPropertyAutoCompleteViewModel("Maximum", _tileProperties.Properties, _services),
                 new TextPropertyViewModel("Format", _tileProperties.Properties),
-                new AutoCompleteBoolPropertyViewModel("Uses360Mode", _tileProperties.Properties, _services),
-                new AutoCompleteColourPropertyViewModel("FromColour", _tileProperties.Properties, _services),
-                new AutoCompleteColourPropertyViewModel("ToColour", _tileProperties.Properties, _services),
+                new BoolPropertyViewModel("Uses360Mode", _tileProperties.Properties, _services),
+                new ColourPropertyViewModel("FromColour", _tileProperties.Properties, _services),
+                new ColourPropertyViewModel("ToColour", _tileProperties.Properties, _services),
             };
             return parameters;
         }
@@ -172,7 +172,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.Guage180deg
 
         private void Update()
         {
-            var namedValueReader = _tileProperties.NamedValueReader;
+            var namedValueReader = _tileProperties.NamedValueRepository;
             Label = namedValueReader.GetString("Label", "Label");
             Format = namedValueReader.GetString("Format", "{0} %");
             Minimum = namedValueReader.GetDouble("Minimum");

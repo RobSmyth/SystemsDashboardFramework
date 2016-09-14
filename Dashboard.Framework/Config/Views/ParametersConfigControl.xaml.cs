@@ -51,11 +51,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.Views
             }
 
             var name = GetUIlementName(propertyViewModel);
-            if (propertyViewModel.ViewerName == "Checkbox")
-            {
-                //var checkbox = (CheckBox) PlaceholderGrid.Children.Cast<FrameworkElement>().Single(x => x.Name.Equals(name));
-                //propertyViewModel.Value = checkbox.IsChecked;
-            }
             if (propertyViewModel.ViewerName == "TextFromCombobox")
             {
                 var combobox = (ComboBox) PlaceholderGrid.Children.Cast<FrameworkElement>().Single(x => x.Name.Equals(name));

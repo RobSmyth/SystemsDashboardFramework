@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Media;
+using NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Config
 {
-    public sealed class TileConfigurationConverter : INamedValueReader
+    public sealed class TileConfigurationConverter : INamedValueRepository
     {
         private readonly IItemConfiguration _inner;
         private readonly IConfigurationChangeListener _listener;

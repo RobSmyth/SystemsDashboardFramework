@@ -5,6 +5,7 @@ using System.Windows.Media;
 using LiveCharts.Wpf;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
 using NoeticTools.TeamStatusBoard.Framework.Config;
+using NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories;
 using NoeticTools.TeamStatusBoard.Framework.Config.Properties;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Services;
@@ -44,20 +45,20 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.GuageAngula
         {
             var parameters = new IPropertyViewModel[]
             {
-                new AutoCompleteTextPropertyViewModel("Label", _tileProperties.Properties, _services),
-                new AutoCompleteTextPropertyViewModel("Value", _tileProperties.Properties, _services),
-                new AutoCompleteTextPropertyViewModel("Minimum", _tileProperties.Properties, _services),
-                new AutoCompleteTextPropertyViewModel("Maximum", _tileProperties.Properties, _services),
+                new TextPropertyAutoCompleteViewModel("Label", _tileProperties.Properties, _services),
+                new TextPropertyAutoCompleteViewModel("Value", _tileProperties.Properties, _services),
+                new TextPropertyAutoCompleteViewModel("Minimum", _tileProperties.Properties, _services),
+                new TextPropertyAutoCompleteViewModel("Maximum", _tileProperties.Properties, _services),
                 new TextPropertyViewModel("Format", _tileProperties.Properties),
                 new DividerPropertyViewModel(),
-                new AutoCompleteColourPropertyViewModel("LabelsStep", _tileProperties.Properties, _services),
-                new AutoCompleteColourPropertyViewModel("TicksStep", _tileProperties.Properties, _services),
-                new AutoCompleteTextPropertyViewModel("Wedge", _tileProperties.Properties, _services),
+                new ColourPropertyViewModel("LabelsStep", _tileProperties.Properties, _services),
+                new ColourPropertyViewModel("TicksStep", _tileProperties.Properties, _services),
+                new TextPropertyAutoCompleteViewModel("Wedge", _tileProperties.Properties, _services),
                 new TextPropertyViewModel("InnerRadius", _tileProperties.Properties),
-                new AutoCompleteColourPropertyViewModel("TicksColour", _tileProperties.Properties, _services),
-                new AutoCompleteColourPropertyViewModel("LowerColour", _tileProperties.Properties, _services),
-                new AutoCompleteColourPropertyViewModel("MidColour", _tileProperties.Properties, _services),
-                new AutoCompleteColourPropertyViewModel("UpperColour", _tileProperties.Properties, _services),
+                new ColourPropertyViewModel("TicksColour", _tileProperties.Properties, _services),
+                new ColourPropertyViewModel("LowerColour", _tileProperties.Properties, _services),
+                new ColourPropertyViewModel("MidColour", _tileProperties.Properties, _services),
+                new ColourPropertyViewModel("UpperColour", _tileProperties.Properties, _services),
             };
             return parameters;
         }
@@ -169,7 +170,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.GuageAngula
 
         private void Update()
         {
-            var namedValueReader = _tileProperties.NamedValueReader;
+            var namedValueReader = _tileProperties.NamedValueRepository;
             Label = namedValueReader.GetString("Label", "Label");
             Minimum = namedValueReader.GetDouble("Minimum");
             Maximum = namedValueReader.GetDouble("Maximum", 100.0);
@@ -189,7 +190,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.GuageAngula
         {
             Update();
 
-            var namedValueReader = _tileProperties.NamedValueReader;
+            var namedValueReader = _tileProperties.NamedValueRepository;
             var ticksColour = namedValueReader.GetColour("TicksColour", "Gray");
             var wedge = namedValueReader.GetDouble("Wedge", 300.0);
             view.Wedge = wedge;
@@ -198,17 +199,17 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.GuageAngula
             InitialiseSpans(view, namedValueReader);
         }
 
-        private void InitialiseSpans(AngularGauge view, INamedValueReader namedValueReader)
+        private void InitialiseSpans(AngularGauge view, INamedValueRepository namedValueRepository)
         {
-            var lowerColour = namedValueReader.GetColour("LowerColour", "LightGray");
-            var midColour = namedValueReader.GetColour("MidColour", "#F8A725");
-            var upperColour = namedValueReader.GetColour("UpperColour", "#FF3939");
+            var lowerColour = namedValueRepository.GetColour("LowerColour", "LightGray");
+            var midColour = namedValueRepository.GetColour("MidColour", "#F8A725");
+            var upperColour = namedValueRepository.GetColour("UpperColour", "#FF3939");
             var midSpanStart = Minimum + TicksStep;
             var midSpanEnd = Maximum - TicksStep;
             view.Sections.Add(new AngularSection() {FromValue = Minimum, ToValue = midSpanStart, Fill = new SolidColorBrush(lowerColour)});
             view.Sections.Add(new AngularSection() {FromValue = midSpanStart, ToValue = midSpanEnd, Fill = new SolidColorBrush(midColour)});
-            view.Sections.Add(new AngularSection() {FromValue = Maximum - midSpanEnd, ToValue = Maximum, Fill = new SolidColorBrush(upperColour)});
-            view.SectionsInnerRadius = namedValueReader.GetDouble("InnerRadius", 0.5);
+            view.Sections.Add(new AngularSection() {FromValue = midSpanEnd, ToValue = Maximum, Fill = new SolidColorBrush(upperColour)});
+            view.SectionsInnerRadius = namedValueRepository.GetDouble("InnerRadius", 0.5);
         }
     }
 }

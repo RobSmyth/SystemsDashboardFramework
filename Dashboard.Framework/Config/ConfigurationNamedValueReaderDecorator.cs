@@ -1,73 +1,74 @@
 using System;
 using System.Windows.Media;
+using NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Config
 {
-    public class ConfigurationNamedValueReaderDecorator : INamedValueReader
+    public class ConfigurationNamedValueRepositoryDecorator : INamedValueRepository
     {
-        private readonly INamedValueReader _configurationReader;
-        private readonly INamedValueReader _reader;
+        private readonly INamedValueRepository _configurationRepository;
+        private readonly INamedValueRepository _repository;
 
-        public ConfigurationNamedValueReaderDecorator(INamedValueReader configurationReader, INamedValueReader reader)
+        public ConfigurationNamedValueRepositoryDecorator(INamedValueRepository configurationRepository, INamedValueRepository repository)
         {
-            _configurationReader = configurationReader;
-            _reader = reader;
+            _configurationRepository = configurationRepository;
+            _repository = repository;
         }
 
         public DateTime GetDateTime(string name)
         {
-            return _reader.GetDateTime(GetValue(name));
+            return _repository.GetDateTime(GetValue(name));
         }
 
         public TimeSpan GetTimeSpan(string name)
         {
-            return _reader.GetTimeSpan(GetValue(name));
+            return _repository.GetTimeSpan(GetValue(name));
         }
 
         public string GetString(string name)
         {
-            return _reader.GetString(GetValue(name));
+            return _repository.GetString(GetValue(name));
         }
 
         public string GetString(string name, string defaultValue)
         {
-            return _reader.GetString(_configurationReader.GetString(name, defaultValue), defaultValue);
+            return _repository.GetString(_configurationRepository.GetString(name, defaultValue), defaultValue);
         }
 
         public double GetDouble(string name, double defaultValue = 0)
         {
-            return _reader.GetDouble(_configurationReader.GetString(name, defaultValue.ToString()), defaultValue);
+            return _repository.GetDouble(_configurationRepository.GetString(name, defaultValue.ToString()), defaultValue);
         }
 
         public bool GetBool(string name)
         {
-            return _reader.GetBool(GetValue(name));
+            return _repository.GetBool(GetValue(name));
         }
 
         public object GetParameter(string name)
         {
-            return _reader.GetParameter(GetValue(name));
+            return _repository.GetParameter(GetValue(name));
         }
 
         public object GetParameter(string name, object defaultValue)
         {
-            return _reader.GetParameter(name, defaultValue);
+            return _repository.GetParameter(name, defaultValue);
         }
 
         public void SetParameter(string name, object value)
         {
-            _configurationReader.SetParameter(name, value);
+            _configurationRepository.SetParameter(name, value);
         }
 
         public Color GetColour(string name, string defaultValue)
         {
-            return _reader.GetColour(GetValue(name), defaultValue);
+            return _repository.GetColour(GetValue(name), defaultValue);
         }
 
         private string GetValue(string name)
         {
-            return _configurationReader.GetString(name);
+            return _configurationRepository.GetString(name);
         }
     }
 }

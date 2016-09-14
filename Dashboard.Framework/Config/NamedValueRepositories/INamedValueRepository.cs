@@ -2,9 +2,9 @@ using System;
 using System.Windows.Media;
 
 
-namespace NoeticTools.TeamStatusBoard.Framework.Config
+namespace NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories
 {
-    public interface INamedValueReader
+    public interface INamedValueRepository
     {
         DateTime GetDateTime(string name);
         TimeSpan GetTimeSpan(string name);

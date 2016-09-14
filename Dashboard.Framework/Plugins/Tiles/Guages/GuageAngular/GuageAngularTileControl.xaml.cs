@@ -6,9 +6,18 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.GuageAngula
 {
     public partial class GuageAngularTileControl : UserControl
     {
+        private GuageAngularTileViewModel _model;
+
         public GuageAngularTileControl()
         {
             InitializeComponent();
+        }
+
+        internal void SetModel(GuageAngularTileViewModel model)
+        {
+            _model = model;
+            DataContext = model;
+            model.SetView(this.guage);
         }
     }
 }

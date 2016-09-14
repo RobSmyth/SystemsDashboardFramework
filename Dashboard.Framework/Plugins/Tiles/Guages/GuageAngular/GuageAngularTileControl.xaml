@@ -30,20 +30,16 @@
             </Grid.RowDefinitions>
             <wpf:AngularGauge Name="guage" 
                               Grid.Row="0" Margin="5"
-                              LabelsStep="50" TicksStep="25" Wedge="300"
+                              Wedge="300"
+                              LabelsStep="{Binding LabelsStep, Mode=OneWay}"
+                              TicksStep="{Binding TicksStep, Mode=OneWay}"
                               FromValue="{Binding Minimum, Mode=OneWay}"
                               ToValue="{Binding Maximum, Mode=OneWay}"
                               Value="{Binding Value, Mode=OneWay}" 
                               TicksForeground="Gray"
-                              SectionsInnerRadius="0.80"
                               FontWeight="Bold"
                               LabelsEffect="{x:Null}"
                               FontSize="{Binding Path=ActualHeight, ElementName=root, Converter={StaticResource doubleConverter}, ConverterParameter=0.07}" >
-                <wpf:AngularGauge.Sections>
-                    <wpf:AngularSection FromValue="0" ToValue="50" Fill="LightGray"/>
-                    <wpf:AngularSection FromValue="50" ToValue="200" Fill="#F8A725"/>
-                    <wpf:AngularSection FromValue="200" ToValue="250" Fill="#FF3939"/>
-                </wpf:AngularGauge.Sections>
             </wpf:AngularGauge>
             <TextBlock Name="label" Grid.Row="1"
                        HorizontalAlignment="Center" TextAlignment="Center" IsHitTestVisible="False" 

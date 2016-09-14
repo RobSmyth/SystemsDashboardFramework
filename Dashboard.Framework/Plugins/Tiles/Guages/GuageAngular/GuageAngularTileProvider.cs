@@ -28,9 +28,11 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.GuageAngula
             return id == TileTypeId;
         }
 
-        public FrameworkElement CreateTile(TileConfiguration tile, TileLayoutController layoutController)
+        public FrameworkElement CreateTile(TileConfiguration tileConfigturation, TileLayoutController layoutController)
         {
-            return new GuageAngular.GuageAngularTileControl {DataContext = new GuageAngularTileViewModel(tile, _dashboardController, layoutController, _services)};
+            var tile = new GuageAngularTileControl();
+            tile.SetModel(new GuageAngularTileViewModel(tileConfigturation, _dashboardController, layoutController, _services));
+            return tile;
         }
 
         public TileConfiguration CreateDefaultConfiguration()

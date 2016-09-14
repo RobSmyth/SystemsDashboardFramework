@@ -27,9 +27,9 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.DataTiles.TextTile
             return id == TileTypeId;
         }
 
-        public FrameworkElement CreateTile(TileConfiguration tile, TileLayoutController layoutController)
+        public FrameworkElement CreateTile(TileConfiguration tileConfigturation, TileLayoutController layoutController)
         {
-            return new TextDataTileControl {DataContext = new TextDataTileViewModel(tile, _dashboardController, layoutController, _services)};
+            return new TextDataTileControl {DataContext = new TextDataTileViewModel(tileConfigturation, _dashboardController, layoutController, _services)};
         }
 
         public TileConfiguration CreateDefaultConfiguration()

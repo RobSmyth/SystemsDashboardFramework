@@ -28,10 +28,10 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Image
             return id == TileTypeId;
         }
 
-        public FrameworkElement CreateTile(TileConfiguration tile, TileLayoutController layoutController)
+        public FrameworkElement CreateTile(TileConfiguration tileConfigturation, TileLayoutController layoutController)
         {
             var view = new ImageFileWatcherTileControl();
-            new ImageFileWatcherViewModel(tile, _dashboardController, layoutController, _services, view);
+            new ImageFileWatcherViewModel(tileConfigturation, _dashboardController, layoutController, _services, view);
             return view;
         }
 

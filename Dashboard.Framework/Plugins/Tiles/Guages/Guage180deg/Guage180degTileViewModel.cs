@@ -4,6 +4,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
 using NoeticTools.TeamStatusBoard.Framework.Config;
+using NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories;
 using NoeticTools.TeamStatusBoard.Framework.Config.Properties;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Services;
@@ -16,7 +17,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.Guage180deg
     {
         private readonly TimeSpan _updatePeriod = TimeSpan.FromSeconds(30);
         private readonly IServices _services;
-        private readonly TileProperties _tileProperties;
+        private readonly INamedValueRepository _configurationNamedValues;
         private double _value;
         private string _label = "";
         private double _maximum = 1.0;
@@ -25,11 +26,13 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.Guage180deg
         private bool _uses360Mode;
         private Color _fromColour;
         private Color _toColour;
+        private INamedValueRepository _namedValues;
 
-        public Guage180DegTileViewModel(TileConfiguration tile, IDashboardController dashboardController, ITileLayoutController layoutController, IServices services)
+        public Guage180DegTileViewModel(TileConfiguration tile, IDashboardController dashboardController, ITileLayoutController layoutController, IServices services, TileProperties properties)
         {
             _services = services;
-            _tileProperties = new TileProperties(tile, this, services);
+            _configurationNamedValues = properties.Properties;
+            _namedValues = properties.NamedValueRepository;
             Formatter = x => string.Format(Format, x);
 
             var parameters = GetConfigurationParameters();
@@ -42,14 +45,14 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.Guage180deg
         {
             var parameters = new IPropertyViewModel[]
             {
-                new TextPropertyAutoCompleteViewModel("Label", _tileProperties.Properties, _services),
-                new TextPropertyAutoCompleteViewModel("Value", _tileProperties.Properties, _services),
-                new TextPropertyAutoCompleteViewModel("Minimum", _tileProperties.Properties, _services),
-                new TextPropertyAutoCompleteViewModel("Maximum", _tileProperties.Properties, _services),
-                new TextPropertyViewModel("Format", _tileProperties.Properties),
-                new BoolPropertyViewModel("Uses360Mode", _tileProperties.Properties, _services),
-                new ColourPropertyViewModel("FromColour", _tileProperties.Properties, _services),
-                new ColourPropertyViewModel("ToColour", _tileProperties.Properties, _services),
+                new TextPropertyViewModel("Label", _configurationNamedValues, _services),
+                new TextPropertyViewModel("Value", _configurationNamedValues, _services),
+                new TextPropertyViewModel("Minimum", _configurationNamedValues, _services),
+                new TextPropertyViewModel("Maximum", _configurationNamedValues, _services),
+                new TextPropertyViewModel("Format", _configurationNamedValues, _services),
+                new BoolPropertyViewModel("Uses360Mode", _configurationNamedValues, _services),
+                new ColourPropertyViewModel("FromColour", _configurationNamedValues, _services),
+                new ColourPropertyViewModel("ToColour", _configurationNamedValues, _services),
             };
             return parameters;
         }
@@ -172,15 +175,14 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.Guage180deg
 
         private void Update()
         {
-            var namedValueReader = _tileProperties.NamedValueRepository;
-            Label = namedValueReader.GetString("Label", "Label");
-            Format = namedValueReader.GetString("Format", "{0} %");
-            Minimum = namedValueReader.GetDouble("Minimum");
-            Maximum = namedValueReader.GetDouble("Maximum", 100.0);
-            Value = namedValueReader.GetDouble("Value");
-            Uses360Mode = namedValueReader.GetBool("Uses360Mode");
-            FromColour = namedValueReader.GetColour("FromColour", "Yellow");
-            ToColour = namedValueReader.GetColour("ToColour", "Crimson");
+            Label = _namedValues.GetString("Label", "Label");
+            Format = _namedValues.GetString("Format", "{0} %");
+            Minimum = _namedValues.GetDouble("Minimum");
+            Maximum = _namedValues.GetDouble("Maximum", 100.0);
+            Value = _namedValues.GetDouble("Value");
+            Uses360Mode = _namedValues.GetBool("Uses360Mode");
+            FromColour = _namedValues.GetColour("FromColour", "Yellow");
+            ToColour = _namedValues.GetColour("ToColour", "Crimson");
         }
 
         void ITimerListener.OnTimeElapsed(TimerToken token)

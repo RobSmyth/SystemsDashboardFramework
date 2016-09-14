@@ -33,11 +33,11 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AvailableB
             return id == TeamCityAvailableBuildsTileViewModel.TileTypeId || id.Equals("0FFACE9A-8B68-4DBC-8B42-0255F51368B6", StringComparison.InvariantCultureIgnoreCase);
         }
 
-        public FrameworkElement CreateTile(TileConfiguration tile, TileLayoutController layoutController)
+        public FrameworkElement CreateTile(TileConfiguration tileConfigturation, TileLayoutController layoutController)
         {
             var teamCityService = _services.GetService<ITeamCityService>("TeamCity");
             var view = new TeamCityAvailableBuildsListControl();
-            new TeamCityAvailableBuildsTileViewModel(tile, _dashboardController, layoutController, _services, view, teamCityService);
+            new TeamCityAvailableBuildsTileViewModel(tileConfigturation, _dashboardController, layoutController, _services, view, teamCityService);
             return view;
         }
 

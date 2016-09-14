@@ -28,10 +28,10 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.BlankTile
             return id == TileTypeId;
         }
 
-        public FrameworkElement CreateTile(TileConfiguration tile, TileLayoutController layoutController)
+        public FrameworkElement CreateTile(TileConfiguration tileConfigturation, TileLayoutController layoutController)
         {
             var view = new BlankTileControl();
-            new BlankTileViewModel(tile, _dashboardController, layoutController, _services, view);
+            new BlankTileViewModel(tileConfigturation, _dashboardController, layoutController, _services, view);
             return view;
         }
 

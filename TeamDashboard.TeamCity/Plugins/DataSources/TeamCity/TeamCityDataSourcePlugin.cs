@@ -1,5 +1,6 @@
 ﻿using System;
 using NoeticTools.TeamStatusBoard.Framework;
+using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Plugins;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
@@ -34,7 +35,11 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity
             var projectRepository = new ProjectRepository(teamCityClient, projectFactory, slowConnectedTicker);
             var stateEngine = new ChannelStateEngine(services, teamCityClient, projectRepository, buildAgentRepository, dataSource, configuration, channelStateBroadcaster);
 
-            var channel = new TeamCityChannel(services, dataSource, configuration, stateEngine, projectRepository, buildAgentRepository, channelStateBroadcaster);
+            var conduit = new ConfigurationChangeListenerConduit();
+            var tileProperties = new TileProperties(configuration, conduit, services);
+            var channel = new TeamCityChannel(services, dataSource, configuration, stateEngine, buildAgentRepository, channelStateBroadcaster, tileProperties);
+            conduit.SetTarget(channel);
+
             var teamCityDataService = new TeamCityDataService(channel, channelStateBroadcaster, fastConnectedTicker, projectRepository, buildAgentRepository);
             services.Register(teamCityDataService);
 

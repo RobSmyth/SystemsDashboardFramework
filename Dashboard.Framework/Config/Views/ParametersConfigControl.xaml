@@ -5,6 +5,19 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="100">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Style TargetType="{x:Type ComboBox}">
+                <Style.Triggers>
+                    <Trigger Property="IsFocused" Value="True">
+                        <Setter Property="IsDropDownOpen" Value="false" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
     <Grid Name="PlaceholderGrid" Height="Auto" Margin="5,10,5,5" VerticalAlignment="Top">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />

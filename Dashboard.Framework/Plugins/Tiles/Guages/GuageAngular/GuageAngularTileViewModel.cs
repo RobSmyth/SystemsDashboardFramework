@@ -17,9 +17,11 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.GuageAngula
     internal sealed class GuageAngularTileViewModel : NotifyingViewModelBase, IConfigurationChangeListener, ITileViewModel, ITimerListener
     {
         private const double DefaultTickStepRatio = 4.0;
+        private const double DefaultLabelsStepRatio = 2.0;
         private readonly TimeSpan _updatePeriod = TimeSpan.FromSeconds(30);
         private readonly IServices _services;
-        private readonly TileProperties _tileProperties;
+        private readonly INamedValueRepository _configurationNamedValues;
+        private readonly INamedValueRepository _namedValues;
         private double _value;
         private string _label = "";
         private double _maximum = 1.0;
@@ -27,12 +29,12 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.GuageAngula
         private string _format = "{0}";
         private double _labelsStep;
         private double _ticksStep;
-        private Color _ticksColour;
 
-        public GuageAngularTileViewModel(TileConfiguration tile, IDashboardController dashboardController, ITileLayoutController layoutController, IServices services)
+        public GuageAngularTileViewModel(TileConfiguration tile, IDashboardController dashboardController, ITileLayoutController layoutController, IServices services, ITileProperties properties)
         {
             _services = services;
-            _tileProperties = new TileProperties(tile, this, services);
+            _configurationNamedValues = properties.Properties;
+            _namedValues = properties.NamedValueRepository;
             Formatter = x => string.Format(Format, x);
 
             var parameters = GetConfigurationParameters();
@@ -45,20 +47,20 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.GuageAngula
         {
             var parameters = new IPropertyViewModel[]
             {
-                new TextPropertyAutoCompleteViewModel("Label", _tileProperties.Properties, _services),
-                new TextPropertyAutoCompleteViewModel("Value", _tileProperties.Properties, _services),
-                new TextPropertyAutoCompleteViewModel("Minimum", _tileProperties.Properties, _services),
-                new TextPropertyAutoCompleteViewModel("Maximum", _tileProperties.Properties, _services),
-                new TextPropertyViewModel("Format", _tileProperties.Properties),
+                new TextPropertyViewModel("Label", _configurationNamedValues, _services),
+                new TextPropertyViewModel("Value", _configurationNamedValues, _services),
+                new TextPropertyViewModel("Minimum", _configurationNamedValues, _services),
+                new TextPropertyViewModel("Maximum", _configurationNamedValues, _services),
+                new TextPropertyViewModel("Format", _configurationNamedValues, _services),
                 new DividerPropertyViewModel(),
-                new ColourPropertyViewModel("LabelsStep", _tileProperties.Properties, _services),
-                new ColourPropertyViewModel("TicksStep", _tileProperties.Properties, _services),
-                new TextPropertyAutoCompleteViewModel("Wedge", _tileProperties.Properties, _services),
-                new TextPropertyViewModel("InnerRadius", _tileProperties.Properties),
-                new ColourPropertyViewModel("TicksColour", _tileProperties.Properties, _services),
-                new ColourPropertyViewModel("LowerColour", _tileProperties.Properties, _services),
-                new ColourPropertyViewModel("MidColour", _tileProperties.Properties, _services),
-                new ColourPropertyViewModel("UpperColour", _tileProperties.Properties, _services),
+                new ColourPropertyViewModel("LabelsStep", _configurationNamedValues, _services),
+                new ColourPropertyViewModel("TicksStep", _configurationNamedValues, _services),
+                new TextPropertyViewModel("Wedge", _configurationNamedValues, _services),
+                new TextPropertyViewModel("InnerRadius", _configurationNamedValues, _services),
+                new ColourPropertyViewModel("TicksColour", _configurationNamedValues, _services),
+                new ColourPropertyViewModel("LowerColour", _configurationNamedValues, _services),
+                new ColourPropertyViewModel("MidColour", _configurationNamedValues, _services),
+                new ColourPropertyViewModel("UpperColour", _configurationNamedValues, _services),
             };
             return parameters;
         }
@@ -168,16 +170,17 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.GuageAngula
             Update();
         }
 
+        private double ValueSpan => Maximum - Minimum;
+
         private void Update()
         {
-            var namedValueReader = _tileProperties.NamedValueRepository;
-            Label = namedValueReader.GetString("Label", "Label");
-            Minimum = namedValueReader.GetDouble("Minimum");
-            Maximum = namedValueReader.GetDouble("Maximum", 100.0);
-            Value = namedValueReader.GetDouble("Value");
-            Format = namedValueReader.GetString("Format", "{0} %");
-            LabelsStep = namedValueReader.GetDouble("LabelsStep", (Maximum-Minimum)/2.0);
-            TicksStep = namedValueReader.GetDouble("TicksStep", (Maximum-Minimum)/ DefaultTickStepRatio);
+            Label = _namedValues.GetString("Label", "Label");
+            Minimum = _namedValues.GetDouble("Minimum");
+            Maximum = _namedValues.GetDouble("Maximum", 100.0);
+            Value = _namedValues.GetDouble("Value");
+            Format = _namedValues.GetString("Format", "{0} %");
+            LabelsStep = _namedValues.GetDouble("LabelsStep", ValueSpan / DefaultLabelsStepRatio);
+            TicksStep = _namedValues.GetDouble("TicksStep", ValueSpan / DefaultTickStepRatio);
         }
 
         void ITimerListener.OnTimeElapsed(TimerToken token)
@@ -186,30 +189,29 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.GuageAngula
             _services.Timer.QueueCallback(_updatePeriod, this);
         }
 
-        public void SetView(AngularGauge view)
+        public void InitialiseGuageView(AngularGauge view)
         {
             Update();
 
-            var namedValueReader = _tileProperties.NamedValueRepository;
-            var ticksColour = namedValueReader.GetColour("TicksColour", "Gray");
-            var wedge = namedValueReader.GetDouble("Wedge", 300.0);
+            var ticksColour = _namedValues.GetColour("TicksColour", "Gray");
+            var wedge = _namedValues.GetDouble("Wedge", 300.0);
             view.Wedge = wedge;
             view.TicksForeground = new SolidColorBrush(ticksColour);
 
-            InitialiseSpans(view, namedValueReader);
+            InitialiseSpans(view);
         }
 
-        private void InitialiseSpans(AngularGauge view, INamedValueRepository namedValueRepository)
+        private void InitialiseSpans(AngularGauge view)
         {
-            var lowerColour = namedValueRepository.GetColour("LowerColour", "LightGray");
-            var midColour = namedValueRepository.GetColour("MidColour", "#F8A725");
-            var upperColour = namedValueRepository.GetColour("UpperColour", "#FF3939");
+            var lowerColour = _namedValues.GetColour("LowerColour", "LightGray");
+            var midColour = _namedValues.GetColour("MidColour", "#F8A725");
+            var upperColour = _namedValues.GetColour("UpperColour", "#FF3939");
             var midSpanStart = Minimum + TicksStep;
             var midSpanEnd = Maximum - TicksStep;
             view.Sections.Add(new AngularSection() {FromValue = Minimum, ToValue = midSpanStart, Fill = new SolidColorBrush(lowerColour)});
             view.Sections.Add(new AngularSection() {FromValue = midSpanStart, ToValue = midSpanEnd, Fill = new SolidColorBrush(midColour)});
             view.Sections.Add(new AngularSection() {FromValue = midSpanEnd, ToValue = Maximum, Fill = new SolidColorBrush(upperColour)});
-            view.SectionsInnerRadius = namedValueRepository.GetDouble("InnerRadius", 0.5);
+            view.SectionsInnerRadius = _namedValues.GetDouble("InnerRadius", 0.5);
         }
     }
 }

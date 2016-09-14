@@ -26,7 +26,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Date
             return id == TileTypeId || id.Equals("0FFACE9A-8B68-4DBC-8B42-0255F51368B1", StringComparison.InvariantCultureIgnoreCase);
         }
 
-        public FrameworkElement CreateTile(TileConfiguration tile, TileLayoutController layoutController)
+        public FrameworkElement CreateTile(TileConfiguration tileConfigturation, TileLayoutController layoutController)
         {
             var view = new DateTileControl();
             new DateTileViewModel(_services.Timer, _services.Clock, view);

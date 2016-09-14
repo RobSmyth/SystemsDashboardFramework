@@ -17,7 +17,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.GuageAngula
         {
             _model = model;
             DataContext = model;
-            model.SetView(this.guage);
+            model.InitialiseGuageView(this.guage);
         }
     }
 }

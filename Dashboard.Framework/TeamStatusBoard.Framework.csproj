@@ -95,8 +95,10 @@
     <Compile Include="Commands\SaveConfigurationParametersCommand.cs" />
     <Compile Include="Commands\CloseCommand.cs" />
     <Compile Include="Commands\ShowDataSourcesCommand.cs" />
+    <Compile Include="Config\ConfigurationChangeListenerConduit.cs" />
     <Compile Include="Config\ConfigurationNamedValueReaderDecorator.cs" />
     <Compile Include="Config\Controllers\DataSourcesViewProvider.cs" />
+    <Compile Include="Config\ITileProperties.cs" />
     <Compile Include="Config\NamedValueRepositories\DataSourceNamedValueRepository.cs" />
     <Compile Include="Config\NamedValueRepositories\DataSourceNamedValueRepositoryProvider.cs" />
     <Compile Include="Config\NamedValueRepositories\INamedValueProvider.cs" />
@@ -105,7 +107,7 @@
     <Compile Include="Config\NamedValueRepositories\NullValueRepository.cs" />
     <Compile Include="Config\Properties\BoolPropertyViewModel.cs" />
     <Compile Include="Config\Properties\ColourPropertyViewModel.cs" />
-    <Compile Include="Config\Properties\AutoCompleteTextPropertyViewModel.cs" />
+    <Compile Include="Config\Properties\TextPropertyViewModel.cs" />
     <Compile Include="Config\Properties\DataSourceTypePropertyViewModel.cs" />
     <Compile Include="Config\TileProperties.cs" />
     <Compile Include="Plugins\PropertyEditControls\SuggestionProviders\BoolSuggestionsProvider.cs" />
@@ -121,7 +123,6 @@
     <Compile Include="Config\Properties\DividerPropertyViewModel.cs" />
     <Compile Include="Config\Properties\DependantPropertyViewModel.cs" />
     <Compile Include="Config\Properties\PasswordPropertyViewModel.cs" />
-    <Compile Include="Config\Properties\TextPropertyViewModel.cs" />
     <Compile Include="Config\Properties\TileColumnSpanViewModel.cs" />
     <Compile Include="Config\Properties\TileRowSpanViewModel.cs" />
     <Compile Include="Config\ViewModels\DataSourceViewModel.cs" />

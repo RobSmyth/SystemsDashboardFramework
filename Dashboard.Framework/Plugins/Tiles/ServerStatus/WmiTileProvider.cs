@@ -28,10 +28,10 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.ServerStatus
             return id == TileTypeId;
         }
 
-        public FrameworkElement CreateTile(TileConfiguration tile, TileLayoutController layoutController)
+        public FrameworkElement CreateTile(TileConfiguration tileConfigturation, TileLayoutController layoutController)
         {
             var view = new ServerStatusTileControl();
-            new WmiTileViewModel(tile, view, _dashboardController, layoutController, _services);
+            new WmiTileViewModel(tileConfigturation, view, _dashboardController, layoutController, _services);
             return view;
         }
 

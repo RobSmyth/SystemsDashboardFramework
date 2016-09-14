@@ -4,6 +4,7 @@ using log4net;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
 using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Config.Controllers;
+using NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories;
 using NoeticTools.TeamStatusBoard.Framework.Config.Properties;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Services;
@@ -23,13 +24,13 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Chan
         private readonly IDataSource _repository;
         private ILog _logger;
         private readonly IStateEngine<ITeamCityIoChannel> _stateEngine;
+        private readonly INamedValueRepository _configurationNamedValues;
 
-        public TeamCityChannel(IServices services, IDataSource repository, ITeamCityDataSourceConfiguration configuration, 
-            IStateEngine<ITeamCityIoChannel> stateEngine, IProjectRepository projects, 
-            IBuildAgentRepository buildAgentRepository, ChannelConnectionStateBroadcaster stateBroadcaster)
+        public TeamCityChannel(IServices services, IDataSource repository, ITeamCityDataSourceConfiguration configuration, IStateEngine<ITeamCityIoChannel> stateEngine, IBuildAgentRepository buildAgentRepository, IChannelConnectionStateBroadcaster stateBroadcaster, TileProperties properties)
         {
             Agents = buildAgentRepository;
             StateBroadcaster = stateBroadcaster;
+            _configurationNamedValues = properties.Properties;
             _repository = repository;
             _dashboardController = services.DashboardController;
             _services = services;
@@ -43,6 +44,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Chan
             _repository.Write("Connected", false);
             _repository.Write("Mode", services.RunOptions.EmulateMode ? "Emulated" : "Run");
         }
+
 
         public string[] ProjectNames => _stateEngine.Current.ProjectNames;
 
@@ -70,13 +72,11 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity.Chan
 
         public void Configure()
         {
-            var configurationConverter = new TileConfigurationConverter(_configuration, this);
-
             var parameters = new IPropertyViewModel[]
             {
-                new TextPropertyViewModel("Url", configurationConverter),
-                new TextPropertyViewModel("UserName", configurationConverter),
-                new PasswordPropertyViewModel("Password", configurationConverter)
+                new TextPropertyViewModel("Url", _configurationNamedValues, _services),
+                new TextPropertyViewModel("UserName", _configurationNamedValues, _services),
+                new TextPropertyViewModel("Password", _configurationNamedValues, _services)
             };
 
             const string title = "TeamCity Server Configuration";

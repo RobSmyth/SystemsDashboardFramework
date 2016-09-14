@@ -16,7 +16,7 @@ namespace NoeticTools.TeamStatusBoard.Framework
             return false;
         }
 
-        public FrameworkElement CreateTile(TileConfiguration tile, TileLayoutController layoutController)
+        public FrameworkElement CreateTile(TileConfiguration tileConfigturation, TileLayoutController layoutController)
         {
             throw new System.NotImplementedException();
         }

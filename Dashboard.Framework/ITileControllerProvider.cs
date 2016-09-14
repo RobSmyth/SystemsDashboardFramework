@@ -10,7 +10,7 @@ namespace NoeticTools.TeamStatusBoard.Framework
         string Name { get; }
         string TypeId { get; }
         bool MatchesId(string id);
-        FrameworkElement CreateTile(TileConfiguration tile, TileLayoutController layoutController);
+        FrameworkElement CreateTile(TileConfiguration tileConfigturation, TileLayoutController layoutController);
         TileConfiguration CreateDefaultConfiguration();
     }
 }

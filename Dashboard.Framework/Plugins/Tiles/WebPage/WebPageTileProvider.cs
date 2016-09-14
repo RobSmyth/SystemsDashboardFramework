@@ -27,10 +27,10 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.WebPage
             return id == WebPageTileViewModel.TileTypeId || id.Equals("92CE0D61-4748-4427-8EB7-DC8B8B741C15", StringComparison.InvariantCultureIgnoreCase);
         }
 
-        public FrameworkElement CreateTile(TileConfiguration tile, TileLayoutController layoutController)
+        public FrameworkElement CreateTile(TileConfiguration tileConfigturation, TileLayoutController layoutController)
         {
             var view = new WebPageTileControl {DataContext = this};
-            new WebPageTileViewModel(tile, _dashboardController, layoutController, _services, view);
+            new WebPageTileViewModel(tileConfigturation, _dashboardController, layoutController, _services, view);
             return view;
         }
 

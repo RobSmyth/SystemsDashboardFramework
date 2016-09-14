@@ -28,9 +28,13 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.Guage180deg
             return id == TileTypeId;
         }
 
-        public FrameworkElement CreateTile(TileConfiguration tile, TileLayoutController layoutController)
+        public FrameworkElement CreateTile(TileConfiguration tileConfigturation, TileLayoutController layoutController)
         {
-            return new Guage180degTileControl {DataContext = new Guage180DegTileViewModel(tile, _dashboardController, layoutController, _services)};
+            var conduit = new ConfigurationChangeListenerConduit();
+            var tileProperties = new TileProperties(tileConfigturation, conduit, _services);
+            var viewModel = new Guage180DegTileViewModel(tileConfigturation, _dashboardController, layoutController, _services, tileProperties);
+            conduit.SetTarget(viewModel);
+            return new Guage180degTileControl {DataContext = viewModel};
         }
 
         public TileConfiguration CreateDefaultConfiguration()

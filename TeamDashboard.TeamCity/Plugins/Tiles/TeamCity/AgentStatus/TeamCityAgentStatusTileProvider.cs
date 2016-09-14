@@ -34,11 +34,11 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AgentStatu
             return id == TileTypeId;
         }
 
-        public FrameworkElement CreateTile(TileConfiguration tile, TileLayoutController layoutController)
+        public FrameworkElement CreateTile(TileConfiguration tileConfigturation, TileLayoutController layoutController)
         {
             var teamCityService = _services.GetService<ITeamCityService>("TeamCity");
             var view = new TeamCityAgentStatusTileControl();
-            new TeamCityAgentStatusTileViewModel(_channel, tile, _dashboardController, layoutController, _services, view, teamCityService);
+            new TeamCityAgentStatusTileViewModel(_channel, tileConfigturation, _dashboardController, layoutController, _services, view, teamCityService);
             return view;
         }
 

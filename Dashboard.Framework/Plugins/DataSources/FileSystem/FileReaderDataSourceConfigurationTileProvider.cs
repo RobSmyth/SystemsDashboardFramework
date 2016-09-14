@@ -22,7 +22,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.FileSystem
             throw new System.NotImplementedException();
         }
 
-        public FrameworkElement CreateTile(TileConfiguration tile, TileLayoutController layoutController)
+        public FrameworkElement CreateTile(TileConfiguration tileConfigturation, TileLayoutController layoutController)
         {
             throw new System.NotImplementedException();
         }

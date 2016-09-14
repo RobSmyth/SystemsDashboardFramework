@@ -28,9 +28,9 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.MessageTile
             return id == TileTypeId || id.Equals("0FFACE9A-8B68-4DBC-8B42-0255F51368B3", StringComparison.InvariantCultureIgnoreCase);
         }
 
-        public FrameworkElement CreateTile(TileConfiguration tile, TileLayoutController layoutController)
+        public FrameworkElement CreateTile(TileConfiguration tileConfigturation, TileLayoutController layoutController)
         {
-            return new MessageTileControl {DataContext = new MessageTileViewModel(tile, _dashboardController, layoutController, _services)};
+            return new MessageTileControl {DataContext = new MessageTileViewModel(tileConfigturation, _dashboardController, layoutController, _services)};
         }
 
         public TileConfiguration CreateDefaultConfiguration()

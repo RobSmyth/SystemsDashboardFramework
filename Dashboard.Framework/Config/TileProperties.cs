@@ -4,7 +4,7 @@ using NoeticTools.TeamStatusBoard.Framework.Services;
 
 namespace NoeticTools.TeamStatusBoard.Framework.Config
 {
-    public class TileProperties
+    public sealed class TileProperties : ITileProperties
     {
         public TileProperties(IItemConfiguration tileConfiguration, IConfigurationChangeListener listener, IServices services)
         {

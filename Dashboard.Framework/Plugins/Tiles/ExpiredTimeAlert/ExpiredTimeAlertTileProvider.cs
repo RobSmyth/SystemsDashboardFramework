@@ -28,10 +28,10 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.ExpiredTimeAlert
             return id.Equals(TileTypeId, StringComparison.InvariantCulture);
         }
 
-        public FrameworkElement CreateTile(TileConfiguration tile, TileLayoutController layoutController)
+        public FrameworkElement CreateTile(TileConfiguration tileConfigturation, TileLayoutController layoutController)
         {
             var view = new ExpiredTimeAlertTileView();
-            new ExpiredTimeAlertTileViewModel(tile, _services.Clock, _dashboardController, view, layoutController, _services);
+            new ExpiredTimeAlertTileViewModel(tileConfigturation, _services.Clock, _dashboardController, view, layoutController, _services);
             return view;
         }
 

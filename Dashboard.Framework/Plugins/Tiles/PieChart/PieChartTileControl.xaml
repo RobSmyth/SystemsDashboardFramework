@@ -28,20 +28,10 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <wpf:PieChart Name="chart" 
+            <wpf:PieChart Name="chart"
                           Grid.Row="0" Margin="3"
                           LegendLocation="{Binding Path=LegendLocation, Mode=OneWay}"
                           FontSize="{Binding Path=ActualHeight, ElementName=root, Converter={StaticResource doubleConverter}, ConverterParameter=0.03}" >
-                <wpf:PieChart.Series>
-                    <wpf:PieSeries Title="Maria" Values="3" DataLabels="True"
-                               LabelPoint="{Binding PointLabel}"/>
-                    <wpf:PieSeries Title="Charles" Values="4" DataLabels="True" 
-                               LabelPoint="{Binding PointLabel}"/>
-                    <wpf:PieSeries Title="Frida" Values="6" DataLabels="True" 
-                               LabelPoint="{Binding PointLabel}"/>
-                    <wpf:PieSeries Title="Frederic" Values="2" DataLabels="True" 
-                               LabelPoint="{Binding PointLabel}"/>
-                </wpf:PieChart.Series>
             </wpf:PieChart>
             <TextBlock Name="label" Grid.Row="1"
                        HorizontalAlignment="Center" TextAlignment="Center" IsHitTestVisible="False" 

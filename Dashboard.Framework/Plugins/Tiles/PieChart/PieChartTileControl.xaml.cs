@@ -13,6 +13,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.PieChart
         internal void SetModel(PieChartTileViewModel model)
         {
             DataContext = model;
+            model.SetView(chart);
         }
     }
 }

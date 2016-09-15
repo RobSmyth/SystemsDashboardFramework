@@ -67,7 +67,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories
         {
             try
             {
-                return (Color)ColorConverter.ConvertFromString("colour");
+                return (Color)ColorConverter.ConvertFromString(name);
             }
             catch (Exception)
             {

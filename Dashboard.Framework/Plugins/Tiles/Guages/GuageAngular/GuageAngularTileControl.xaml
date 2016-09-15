@@ -39,7 +39,7 @@
                               TicksForeground="Gray"
                               FontWeight="Bold"
                               LabelsEffect="{x:Null}"
-                              FontSize="{Binding Path=ActualHeight, ElementName=root, Converter={StaticResource doubleConverter}, ConverterParameter=0.07}" >
+                              FontSize="{Binding Path=ActualHeight, ElementName=root, Converter={StaticResource doubleConverter}, ConverterParameter=0.05}" >
             </wpf:AngularGauge>
             <TextBlock Name="label" Grid.Row="1"
                        HorizontalAlignment="Center" TextAlignment="Center" IsHitTestVisible="False" 

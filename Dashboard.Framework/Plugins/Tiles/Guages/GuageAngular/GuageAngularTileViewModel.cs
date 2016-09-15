@@ -35,7 +35,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.GuageAngula
             _services = services;
             _configurationNamedValues = properties.Properties;
             _namedValues = properties.NamedValueRepository;
-            Formatter = x => string.Format(Format, x);
 
             var parameters = GetConfigurationParameters();
             ConfigureCommand = new TileConfigureCommand(tile, "Data Value Tile Configuration", parameters, dashboardController, layoutController, services);
@@ -58,6 +57,9 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.GuageAngula
                 new TextPropertyViewModel("Wedge", _configurationNamedValues, _services),
                 new TextPropertyViewModel("InnerRadius", _configurationNamedValues, _services),
                 new ColourPropertyViewModel("TicksColour", _configurationNamedValues, _services),
+                new DividerPropertyViewModel(),
+                new TextPropertyViewModel("LowerSpan", _configurationNamedValues, _services),
+                new TextPropertyViewModel("UpperSpan", _configurationNamedValues, _services),
                 new ColourPropertyViewModel("LowerColour", _configurationNamedValues, _services),
                 new ColourPropertyViewModel("MidColour", _configurationNamedValues, _services),
                 new ColourPropertyViewModel("UpperColour", _configurationNamedValues, _services),
@@ -78,8 +80,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.GuageAngula
                 OnPropertyChanged();
             }
         }
-
-        public Func<double, string> Formatter { get; set; }
 
         public double Value
         {
@@ -178,7 +178,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.GuageAngula
             Minimum = _namedValues.GetDouble("Minimum");
             Maximum = _namedValues.GetDouble("Maximum", 100.0);
             Value = _namedValues.GetDouble("Value");
-            Format = _namedValues.GetString("Format", "{0} %");
+            Format = _namedValues.GetString("Format", "{0}%");
             LabelsStep = _namedValues.GetDouble("LabelsStep", ValueSpan / DefaultLabelsStepRatio);
             TicksStep = _namedValues.GetDouble("TicksStep", ValueSpan / DefaultTickStepRatio);
         }
@@ -191,6 +191,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.GuageAngula
 
         public void InitialiseGuageView(AngularGauge view)
         {
+            view.LabelFormatter = x => string.Format(Format,x);
             Update();
 
             var ticksColour = _namedValues.GetColour("TicksColour", "Gray");
@@ -203,11 +204,13 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.GuageAngula
 
         private void InitialiseSpans(AngularGauge view)
         {
+            var lowerSpan = _namedValues.GetDouble("LowerSpan", TicksStep);
+            var upperSpan = _namedValues.GetDouble("UpperSpan", TicksStep);
+            var midSpanStart = Minimum + lowerSpan;
+            var midSpanEnd = Maximum - upperSpan;
             var lowerColour = _namedValues.GetColour("LowerColour", "LightGray");
             var midColour = _namedValues.GetColour("MidColour", "#F8A725");
             var upperColour = _namedValues.GetColour("UpperColour", "#FF3939");
-            var midSpanStart = Minimum + TicksStep;
-            var midSpanEnd = Maximum - TicksStep;
             view.Sections.Add(new AngularSection() {FromValue = Minimum, ToValue = midSpanStart, Fill = new SolidColorBrush(lowerColour)});
             view.Sections.Add(new AngularSection() {FromValue = midSpanStart, ToValue = midSpanEnd, Fill = new SolidColorBrush(midColour)});
             view.Sections.Add(new AngularSection() {FromValue = midSpanEnd, ToValue = Maximum, Fill = new SolidColorBrush(upperColour)});

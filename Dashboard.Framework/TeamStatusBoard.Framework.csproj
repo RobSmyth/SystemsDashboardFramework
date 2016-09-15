@@ -42,12 +42,12 @@
       <HintPath>..\packages\JsonFx.2.0.1209.2802\lib\net40\JsonFx.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="LiveCharts, Version=0.7.11.0, Culture=neutral, PublicKeyToken=c5935629d38af058, processorArchitecture=MSIL">
-      <HintPath>..\packages\LiveCharts.0.7.11\lib\portable-net40+sl5+win8+wp8+wpa81\LiveCharts.dll</HintPath>
+    <Reference Include="LiveCharts, Version=0.7.13.0, Culture=neutral, PublicKeyToken=c5935629d38af058, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.0.7.13\lib\portable-net40+sl5+win8+wp8+wpa81\LiveCharts.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="LiveCharts.Wpf, Version=0.7.11.0, Culture=neutral, PublicKeyToken=3b585c2a5f1a92c1, processorArchitecture=MSIL">
-      <HintPath>..\packages\LiveCharts.Wpf.0.7.11\lib\net45\LiveCharts.Wpf.dll</HintPath>
+    <Reference Include="LiveCharts.Wpf, Version=0.7.13.0, Culture=neutral, PublicKeyToken=3b585c2a5f1a92c1, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.Wpf.0.7.13\lib\net45\LiveCharts.Wpf.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="log4net, Version=1.2.14.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
@@ -107,6 +107,7 @@
     <Compile Include="Config\NamedValueRepositories\NullValueRepository.cs" />
     <Compile Include="Config\Properties\BoolPropertyViewModel.cs" />
     <Compile Include="Config\Properties\ColourPropertyViewModel.cs" />
+    <Compile Include="Config\Properties\ComboBoxPropertyViewModel.cs" />
     <Compile Include="Config\Properties\TextPropertyViewModel.cs" />
     <Compile Include="Config\Properties\DataSourceTypePropertyViewModel.cs" />
     <Compile Include="Config\TileProperties.cs" />
@@ -207,7 +208,12 @@
     <Compile Include="Plugins\Tiles\Image\ImageFileWatcherTileProvider.cs" />
     <Compile Include="Plugins\Tiles\InsertTile\InsertTileKeyHandler.cs" />
     <Compile Include="Plugins\Tiles\MessageTile\MessageTileProvider.cs" />
-    <Compile Include="Plugins\Tiles\ServerStatus\WmiTileProvider.cs" />
+    <Compile Include="Plugins\Tiles\PieChart\PieChartTileControl.xaml.cs">
+      <DependentUpon>PieChartTileControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\Tiles\PieChart\PieChartTilePlugin.cs" />
+    <Compile Include="Plugins\Tiles\PieChart\PieChartTileProvider.cs" />
+    <Compile Include="Plugins\Tiles\PieChart\PieChartTileViewModel.cs" />
     <Compile Include="Plugins\Tiles\WebPage\WebPageTileProvider.cs" />
     <Compile Include="RunOptions.cs" />
     <Compile Include="Services\DataServices\IDataService.cs" />
@@ -281,7 +287,6 @@
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Plugins\Tiles\MessageTile\MessageTileViewModel.cs" />
     <Compile Include="Plugins\Tiles\MessageTile\MessageTilePlugin.cs" />
-    <Compile Include="Plugins\Tiles\ServerStatus\WmiTilePlugin.cs" />
     <Compile Include="Plugins\IPlugin.cs" />
     <Compile Include="Registries\TileLayoutControllerRegistry.cs" />
     <Compile Include="Registries\TileFactory.cs" />
@@ -294,10 +299,6 @@
     <Compile Include="Plugins\Tiles\MessageTile\MessageTileControl.xaml.cs">
       <DependentUpon>MessageTileControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Plugins\Tiles\ServerStatus\WmiTileControl.xaml.cs">
-      <DependentUpon>WmiTileControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Plugins\Tiles\ServerStatus\WmiTileViewModel.cs" />
     <Compile Include="Plugins\Tiles\WebPage\WebPageTilePlugin.cs" />
     <Compile Include="Plugins\Tiles\WebPage\WebPageTileControl.xaml.cs">
       <DependentUpon>WebPageTileControl.xaml</DependentUpon>
@@ -405,15 +406,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Plugins\Tiles\PieChart\PieChartTileControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Styles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Plugins\Tiles\MessageTile\MessageTileControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Plugins\Tiles\ServerStatus\WmiTileControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -423,6 +424,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

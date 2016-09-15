@@ -1,0 +1,52 @@
+﻿<UserControl x:Class="NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.PieChart.PieChartTileControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:wpf="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             xmlns:pieChart="clr-namespace:NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.PieChart"
+             mc:Ignorable="d"
+             d:DesignHeight="400" d:DesignWidth="400"
+             d:DataContext="{d:DesignInstance Type=pieChart:PieChartTileViewModel}">
+
+    <UserControl.Resources>
+
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/NoeticTools.TeamStatusBoard.Framework;component/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="TextBlock" BasedOn="{StaticResource WhiteTileStyleTextbox}" />
+            <Style TargetType="Grid" BasedOn="{StaticResource WhiteTileStyleGrid}" />
+        </ResourceDictionary>
+
+    </UserControl.Resources>
+
+    <Border Name="FocusBorder" Style="{StaticResource FocusBorder}" Focusable="True">
+        <Grid Name="root" Margin="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <wpf:PieChart Name="chart" 
+                          Grid.Row="0" Margin="3"
+                          LegendLocation="{Binding Path=LegendLocation, Mode=OneWay}"
+                          FontSize="{Binding Path=ActualHeight, ElementName=root, Converter={StaticResource doubleConverter}, ConverterParameter=0.03}" >
+                <wpf:PieChart.Series>
+                    <wpf:PieSeries Title="Maria" Values="3" DataLabels="True"
+                               LabelPoint="{Binding PointLabel}"/>
+                    <wpf:PieSeries Title="Charles" Values="4" DataLabels="True" 
+                               LabelPoint="{Binding PointLabel}"/>
+                    <wpf:PieSeries Title="Frida" Values="6" DataLabels="True" 
+                               LabelPoint="{Binding PointLabel}"/>
+                    <wpf:PieSeries Title="Frederic" Values="2" DataLabels="True" 
+                               LabelPoint="{Binding PointLabel}"/>
+                </wpf:PieChart.Series>
+            </wpf:PieChart>
+            <TextBlock Name="label" Grid.Row="1"
+                       HorizontalAlignment="Center" TextAlignment="Center" IsHitTestVisible="False" 
+                       FontWeight="Bold" Margin="3,1,3,10" Text="{Binding Label, Mode=OneWay}"
+                       FontSize="{Binding Path=ActualHeight, ElementName=root, Converter={StaticResource doubleConverter}, ConverterParameter=0.12}"/>
+        </Grid>
+    </Border>
+</UserControl>

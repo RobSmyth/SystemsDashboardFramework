@@ -26,7 +26,7 @@ using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Help;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Image;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.InsertTile;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.MessageTile;
-using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.ServerStatus;
+using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.PieChart;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.WebPage;
 using NoeticTools.TeamStatusBoard.Framework.Registries;
 using NoeticTools.TeamStatusBoard.Framework.Services;
@@ -125,10 +125,10 @@ namespace NoeticTools.TeamStatusBoard.Runner
                 new TeamCityLAvailbleBuildSTilePlugin(),
                 new DaysLeftCountDownTilePlugin(),
                 new WebPageTilePlugin(),
-                new WmiTilePlugin(),
                 new ExpiredTimeAlertTilePlugin(),
                 new Guage180degTilePlugin(), 
                 new GuageAngularTilePlugin(),
+                new PieChartTilePlugin(),
             };
 
             foreach (var plugin in plugins.OrderByDescending(x => x.Rank))

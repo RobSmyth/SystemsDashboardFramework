@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows.Data;
 
 
-namespace NoeticTools.TeamDashboard.Converters
+namespace NoeticTools.TeamStatusBoard.Framework.Converters
 {
     internal class DoubleValueConverter : IValueConverter
     {

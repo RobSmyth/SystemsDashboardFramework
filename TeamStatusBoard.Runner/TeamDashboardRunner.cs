@@ -1,6 +1,8 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using NoeticTools.TeamStatusBoard.DataSources.DashboardData;
+using NoeticTools.TeamStatusBoard.DataSources.FileSystem;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AgentStatus;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.AvailableBuilds;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.Tiles.TeamCity.LastBuildStatus;
@@ -10,8 +12,6 @@ using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Input;
 using NoeticTools.TeamStatusBoard.Framework.Plugins;
-using NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.DashboardData;
-using NoeticTools.TeamStatusBoard.Framework.Plugins.DataSources.FileSystem;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.PropertyEditControls;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.BlankTile;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.DataTiles.DataValueTile;

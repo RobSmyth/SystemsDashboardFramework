@@ -9,14 +9,15 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NoeticTools.TeamStatusBoard.Framework</RootNamespace>
     <AssemblyName>NoeticTools.TeamStatusBoard.Framework</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\Output\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -24,7 +25,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\Output\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -151,19 +152,13 @@
     <Compile Include="EventBroadcaster.cs" />
     <Compile Include="IEventBroadcaster.cs" />
     <Compile Include="NullTileControllerProvider.cs" />
-    <Compile Include="Plugins\DataSources\FileSystem\FileReaderDataSourceConfigurationTileProvider.cs" />
-    <Compile Include="Plugins\DataSources\FileSystem\FileReaderDataSourcePlugin.cs" />
-    <Compile Include="Plugins\DataSources\FileSystem\FileReaderDataService.cs" />
     <Compile Include="Input\ITileDragAndDropController.cs" />
     <Compile Include="IRunOptions.cs" />
-    <Compile Include="Plugins\DataSources\DashboardData\DashboardDataSource.cs" />
     <Compile Include="Dashboards\IDashboardController.cs" />
     <Compile Include="Dashboards\IDashBoardLoader.cs" />
     <Compile Include="Dashboards\IDashboardNavigator.cs" />
     <Compile Include="Dashboards\IDashboardTileNavigator.cs" />
     <Compile Include="Input\IDragSource.cs" />
-    <Compile Include="Plugins\DataSources\DashboardData\DashboardDataSourcePlugin.cs" />
-    <Compile Include="Plugins\DataSources\DashboardData\DashboardDataConfiguration.cs" />
     <Compile Include="Plugins\PropertyEditControls\AutoCompleteTextPropertyViewProvider.cs" />
     <Compile Include="Plugins\PropertyEditControls\DataSourceTypePropertyViewPlugin.cs" />
     <Compile Include="Plugins\PropertyEditControls\DataSourceTypePropertyViewProvider.cs" />
@@ -483,6 +478,7 @@
   <ItemGroup>
     <Resource Include="Images\server128x128_light.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

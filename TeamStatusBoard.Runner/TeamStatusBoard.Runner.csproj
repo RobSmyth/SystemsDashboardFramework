@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NoeticTools.TeamStatusBoard.Runner</RootNamespace>
     <AssemblyName>NoeticTools.TeamStatusBoard.Runner</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -52,6 +52,10 @@
     <ProjectReference Include="..\Dashboard.Framework\TeamStatusBoard.Framework.csproj">
       <Project>{1f19c0de-e777-48e9-856b-7376a7527ec0}</Project>
       <Name>TeamStatusBoard.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NoeticTools.TeamStatusBoard.DataSources\TeamStatusBoard.DataSources.csproj">
+      <Project>{518c2337-d955-4a86-910e-d6e09a6a1903}</Project>
+      <Name>TeamStatusBoard.DataSources</Name>
     </ProjectReference>
     <ProjectReference Include="..\TeamDashboard.TeamCity\TeamStatusBoard.TeamCity.csproj">
       <Project>{c02d0605-1460-486c-8943-46c090d0e9bb}</Project>

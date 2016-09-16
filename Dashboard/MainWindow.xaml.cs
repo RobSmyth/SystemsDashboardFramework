@@ -19,14 +19,27 @@ namespace NoeticTools.TeamStatusBoard
             _logger = LogManager.GetLogger("UI.MainWindow");
 
             _runner = new TeamDashboardRunner(tileGrid, sidePanel);
+            sidePanel.IsVisibleChanged += OnConfigurationVisibleChanged;
 
             Loaded += LoadedHandler;
             Closed += ClosedHandler;
             KeyDown += MainWindow_KeyDown;
+            SizeChanged += MainWindow_SizeChanged;
 
             log4net.Config.XmlConfigurator.Configure();
             _logger.Info("===========================================================================");
             _logger.Info("Main window created.");
+        }
+
+        private void MainWindow_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            sidePanel.Width = ActualWidth / 2;
+            configTileLeftSpace.Height = ActualHeight / 2;
+        }
+
+        private void OnConfigurationVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            configTileLeftSpace.Visibility = sidePanel.Visibility;
         }
 
         private void MainWindow_KeyDown(object sender, KeyEventArgs e)

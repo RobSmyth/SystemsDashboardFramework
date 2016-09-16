@@ -191,6 +191,7 @@
 
     <Style x:Key="SidePane" TargetType="DockPanel">
         <Setter Property="Focusable" Value="True"/>
+        <!--
         <Style.Triggers>
             <Trigger Property="Visibility" Value="Visible">
 
@@ -198,10 +199,10 @@
                     <BeginStoryboard>
                         <Storyboard>
                             <DoubleAnimation To="100" Duration="00:00:00.3" Storyboard.TargetProperty="Width" />
-                            <DoubleAnimation To="200" Duration="00:00:00.5" Storyboard.TargetProperty="Width" />
-                            <DoubleAnimation To="300" Duration="00:00:00.7" Storyboard.TargetProperty="Width" />
-                            <DoubleAnimation To="350" Duration="00:00:00.4" Storyboard.TargetProperty="Width" />
-                            <DoubleAnimation BeginTime="00:01:00.0"  To="0" Duration="00:00:01.0" Storyboard.TargetProperty="Width" />
+                            <DoubleAnimation To="300" Duration="00:00:00.5" Storyboard.TargetProperty="Width" />
+                            <DoubleAnimation To="400" Duration="00:00:00.7" Storyboard.TargetProperty="Width" />
+                            <DoubleAnimation To="600" Duration="00:00:00.4" Storyboard.TargetProperty="Width" />
+                            <DoubleAnimation BeginTime="00:10:00.0"  To="0" Duration="00:00:01.0" Storyboard.TargetProperty="Width" />
                         </Storyboard>
                     </BeginStoryboard>
                 </Trigger.EnterActions>
@@ -215,6 +216,7 @@
 
             </Trigger>
         </Style.Triggers>
+        -->
     </Style>
 
     <!-- Tile focus style -->

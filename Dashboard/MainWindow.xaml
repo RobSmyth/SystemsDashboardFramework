@@ -6,7 +6,7 @@
         xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=System"
         mc:Ignorable="d"
         d:DesignHeight="450" d:DesignWidth="750"
-        Title="TeamDashboard" Height="500" Width="900"
+        Title="TeamDashboard" Height="600" Width="1000"
         Background="Black" Icon="Images/NoeticTools.ico">
 
     <Window.Resources>
@@ -21,6 +21,7 @@
 
     <Grid Name="rootLayout">
         
+        <!--
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
@@ -28,11 +29,12 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
+-->
 
-        <Grid Name="tileGrid" Margin="2" Grid.Row="0" Grid.Column="0"/>
-        
-        <DockPanel Name="sidePanel" Grid.Row="0" Grid.Column="1" Visibility="Collapsed" LastChildFill="True" Width="150"
-                   Style="{StaticResource SidePane}"/>
-        
+        <DockPanel LastChildFill="True" >
+            <DockPanel Name="sidePanel" DockPanel.Dock="Right" Visibility="Collapsed" Width="100" Style="{StaticResource SidePane}"/>
+            <Grid Name="configTileLeftSpace" Margin="2" DockPanel.Dock="Bottom" Visibility="Collapsed"/>
+            <Grid Name="tileGrid" Margin="2" DockPanel.Dock="Left" />
+        </DockPanel>
     </Grid>
 </Window>

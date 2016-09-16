@@ -145,13 +145,13 @@
     <Resource Include="Images\NoeticTools.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Dashboard.Framework\TeamStatusBoard.Framework.csproj">
+    <ProjectReference Include="..\Dashboard.Framework\Framework.csproj">
       <Project>{1f19c0de-e777-48e9-856b-7376a7527ec0}</Project>
-      <Name>TeamStatusBoard.Framework</Name>
+      <Name>Framework</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TeamStatusBoard.Runner\TeamStatusBoard.Runner.csproj">
+    <ProjectReference Include="..\TeamStatusBoard.Runner\Runner.csproj">
       <Project>{41191791-ddb3-4bc4-9c37-a73e037ddc3a}</Project>
-      <Name>TeamStatusBoard.Runner</Name>
+      <Name>Runner</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

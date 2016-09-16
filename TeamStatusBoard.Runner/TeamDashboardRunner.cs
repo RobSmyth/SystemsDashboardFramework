@@ -17,7 +17,6 @@ using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.BlankTile;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.DataTiles.DataValueTile;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.DataTiles.DateTimeTile;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.DataTiles.TextTile;
-using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Date;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.DaysLeftCountDown;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.ExpiredTimeAlert;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.Guage180deg;
@@ -33,6 +32,7 @@ using NoeticTools.TeamStatusBoard.Framework.Services;
 using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity;
+using NoeticTools.TeamStatusBoard.Tiles.Date;
 
 
 namespace NoeticTools.TeamStatusBoard.Runner

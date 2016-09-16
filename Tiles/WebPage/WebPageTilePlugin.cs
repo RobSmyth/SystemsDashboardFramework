@@ -2,15 +2,15 @@
 using NoeticTools.TeamStatusBoard.Framework.Services;
 
 
-namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
+namespace NoeticTools.TeamStatusBoard.Tiles.WebPage
 {
-    public sealed class PieChartTilePlugin : IPlugin
+    public sealed class WebPageTilePlugin : IPlugin
     {
         public int Rank => 0;
 
         public void Register(IServices services)
         {
-            services.TileProviders.Register(new PieChartTileProvider(services.DashboardController, services));
+            services.TileProviders.Register(new WebPageTileProvider(services.DashboardController, services));
         }
     }
 }

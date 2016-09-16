@@ -1,7 +1,8 @@
-﻿using NoeticTools.TeamStatusBoard.Framework.Services;
+﻿using NoeticTools.TeamStatusBoard.Framework.Plugins;
+using NoeticTools.TeamStatusBoard.Framework.Services;
 
 
-namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.MessageTile
+namespace NoeticTools.TeamStatusBoard.Tiles.MessageTile
 {
     public sealed class MessageTilePlugin : IPlugin
     {

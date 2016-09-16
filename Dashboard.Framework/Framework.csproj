@@ -170,42 +170,10 @@
     <Compile Include="Plugins\Tiles\BlankTile\BlankTilePlugin.cs" />
     <Compile Include="Plugins\Tiles\BlankTile\BlankTileProvider.cs" />
     <Compile Include="Plugins\Tiles\BlankTile\BlankTileViewModel.cs" />
-    <Compile Include="Plugins\Tiles\DataTiles\DataValueTile\DataValueTilePlugin.cs" />
-    <Compile Include="Plugins\Tiles\DataTiles\DataValueTile\DataValueTileProvider.cs" />
-    <Compile Include="Plugins\Tiles\DataTiles\DataValueTile\DataValueTileViewModel.cs" />
-    <Compile Include="Plugins\Tiles\DataTiles\DateTimeTile\DateTimeTilePlugin.cs" />
-    <Compile Include="Plugins\Tiles\DataTiles\DateTimeTile\DateTimeTileProvider.cs" />
-    <Compile Include="Plugins\Tiles\DataTiles\DateTimeTile\DateTimeTileViewModel.cs" />
-    <Compile Include="Plugins\Tiles\DataTiles\TextTile\TextDataTileControl.xaml.cs">
-      <DependentUpon>TextDataTileControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Plugins\Tiles\DataTiles\TextTile\TextDataTilePlugin.cs" />
-    <Compile Include="Plugins\Tiles\DataTiles\TextTile\TextDataTileProvider.cs" />
-    <Compile Include="Plugins\Tiles\DataTiles\TextTile\TextDataTileViewModel.cs" />
-    <Compile Include="Plugins\Tiles\DaysLeftCountDown\DaysLeftCountDownTileProvider.cs" />
-    <Compile Include="Plugins\Tiles\ExpiredTimeAlert\ExpiredTimeAlertTilePlugin.cs" />
-    <Compile Include="Plugins\Tiles\ExpiredTimeAlert\ExpiredTimeAlertTileProvider.cs" />
-    <Compile Include="Plugins\Tiles\ExpiredTimeAlert\ExpiredTimeAlertTileView.xaml.cs">
-      <DependentUpon>ExpiredTimeAlertTileView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Plugins\Tiles\ExpiredTimeAlert\ExpiredTimeAlertTileViewModel.cs" />
-    <Compile Include="Plugins\Tiles\Guages\Guage180deg\Guage180degTilePlugin.cs" />
-    <Compile Include="Plugins\Tiles\Guages\Guage180deg\Guage180degTileProvider.cs" />
-    <Compile Include="Plugins\Tiles\Guages\Guage180deg\Guage180degTileViewModel.cs" />
-    <Compile Include="Plugins\Tiles\Guages\Guage180deg\Guage180degTileControl.xaml.cs">
-      <DependentUpon>Guage180degTileControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Plugins\PropertyEditControls\SuggestionProviders\TextSuggestionsProvider.cs" />
     <Compile Include="Config\NamedValueRepositories\NamedValueAggregator.cs" />
-    <Compile Include="Plugins\Tiles\Guages\GuageAngular\GuageAngularTileControl.xaml.cs">
-      <DependentUpon>GuageAngularTileControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Plugins\Tiles\Guages\GuageAngular\GuageAngularTilePlugin.cs" />
-    <Compile Include="Plugins\Tiles\Guages\GuageAngular\GuageAngularTileProvider.cs" />
-    <Compile Include="Plugins\Tiles\Guages\GuageAngular\GuageAngularTileViewModel.cs" />
     <Compile Include="Plugins\Tiles\Help\HelpTileKeyHandler.cs" />
     <Compile Include="Plugins\Tiles\InsertTile\InsertTileKeyHandler.cs" />
-    <Compile Include="Plugins\Tiles\WebPage\WebPageTileProvider.cs" />
     <Compile Include="RunOptions.cs" />
     <Compile Include="Services\DataServices\IDataService.cs" />
     <Compile Include="Services\DataServices\DataRepositoy.cs" />
@@ -242,7 +210,6 @@
     <Compile Include="Input\IKeyboardHandler.cs" />
     <Compile Include="Input\IKeyHandler.cs" />
     <Compile Include="Services\IServices.cs" />
-    <Compile Include="Plugins\Tiles\DaysLeftCountDown\DaysLeftCountDownTileViewModel.cs" />
     <Compile Include="Plugins\Tiles\Help\HelpTilePlugin.cs" />
     <Compile Include="Plugins\Tiles\InsertTile\InsertTilePlugin.cs" />
     <Compile Include="Plugins\Tiles\InsertTile\InsertTileController.cs" />
@@ -256,7 +223,6 @@
     <Compile Include="DataSources\Jira\TimeCachedArray.cs" />
     <Compile Include="Input\KeyboardHandler.cs" />
     <Compile Include="Dashboards\DashboardsNavigationViewModel.cs" />
-    <Compile Include="Plugins\Tiles\DaysLeftCountDown\DaysLeftCountDownTilePlugin.cs" />
     <Compile Include="Registries\ITileLayoutControllerRegistry.cs" />
     <Compile Include="Registries\ITileFactory.cs" />
     <Compile Include="NotifyingViewModelBase.cs" />
@@ -267,14 +233,6 @@
     <Compile Include="Plugins\IPlugin.cs" />
     <Compile Include="Registries\TileLayoutControllerRegistry.cs" />
     <Compile Include="Registries\TileFactory.cs" />
-    <Compile Include="Plugins\Tiles\DaysLeftCountDown\ExpiredTimeAlertTileView.xaml.cs">
-      <DependentUpon>ExpiredTimeAlertTileView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Plugins\Tiles\WebPage\WebPageTilePlugin.cs" />
-    <Compile Include="Plugins\Tiles\WebPage\WebPageTileControl.xaml.cs">
-      <DependentUpon>WebPageTileControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Plugins\Tiles\WebPage\WebPageTileViewModel.cs" />
     <Compile Include="Dashboards\TileInsertAction.cs" />
     <Compile Include="Dashboards\TileLayoutController.cs" />
     <Compile Include="Services\TimeServices\Clock.cs" />
@@ -333,22 +291,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Plugins\Tiles\DataTiles\TextTile\TextDataTileControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Plugins\Tiles\ExpiredTimeAlert\ExpiredTimeAlertTileView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Plugins\Tiles\Guages\Guage180deg\Guage180degTileControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Plugins\Tiles\Guages\GuageAngular\GuageAngularTileControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Plugins\Tiles\InsertTile\InsertTileControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -356,10 +298,6 @@
     <Page Include="Config\Views\ParametersConfigControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Plugins\Tiles\DaysLeftCountDown\ExpiredTimeAlertTileView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Plugins\Tiles\Help\HelpTileControl.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -370,10 +308,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Styles.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Plugins\Tiles\WebPage\WebPageTileControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -438,9 +372,7 @@
   <ItemGroup>
     <Resource Include="Images\server128x128_light.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Plugins\Tiles\PieChart\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

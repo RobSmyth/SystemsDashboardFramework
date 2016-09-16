@@ -6,33 +6,32 @@ using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 
 
-namespace NoeticTools.TeamStatusBoard.Tiles.Image
+namespace NoeticTools.TeamStatusBoard.Tiles.WebPage
 {
-    internal sealed class ImageFileWatcherTileProvider : ITileControllerProvider
+    public class WebPageTileProvider : ITileControllerProvider
     {
-        private const string TileTypeId = "Image.File.Watcher";
         private readonly IDashboardController _dashboardController;
         private readonly IServices _services;
 
-        public ImageFileWatcherTileProvider(IDashboardController dashboardController, IServices services)
+        public WebPageTileProvider(IDashboardController dashboardController, IServices services)
         {
             _dashboardController = dashboardController;
             _services = services;
         }
 
-        public string Name => "Image file watcher";
+        public string Name => "Web page";
 
-        public string TypeId => ImageFileWatcherTileProvider.TileTypeId;
+        public string TypeId => WebPageTileViewModel.TileTypeId;
 
         public bool MatchesId(string id)
         {
-            return id == TileTypeId;
+            return id == WebPageTileViewModel.TileTypeId || id.Equals("92CE0D61-4748-4427-8EB7-DC8B8B741C15", StringComparison.InvariantCultureIgnoreCase);
         }
 
         public FrameworkElement CreateTile(TileConfiguration tileConfigturation, TileLayoutController layoutController)
         {
-            var view = new ImageFileWatcherTileControl();
-            new ImageFileWatcherViewModel(tileConfigturation, _dashboardController, layoutController, _services, view);
+            var view = new WebPageTileControl {DataContext = this};
+            new WebPageTileViewModel(tileConfigturation, _dashboardController, layoutController, _services, view);
             return view;
         }
 
@@ -40,7 +39,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.Image
         {
             return new TileConfiguration
             {
-                TypeId = TileTypeId,
+                TypeId = WebPageTileViewModel.TileTypeId,
                 Id = Guid.NewGuid(),
                 Tiles = new TileConfiguration[0]
             };

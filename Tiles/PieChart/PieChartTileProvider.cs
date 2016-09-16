@@ -1,10 +1,11 @@
 using System.Windows;
+using NoeticTools.TeamStatusBoard.Framework;
 using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 
 
-namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.PieChart
+namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
 {
     internal sealed class PieChartTileProvider : ITileControllerProvider
     {

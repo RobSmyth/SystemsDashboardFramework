@@ -14,25 +14,24 @@ using NoeticTools.TeamStatusBoard.Framework.Input;
 using NoeticTools.TeamStatusBoard.Framework.Plugins;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.PropertyEditControls;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.BlankTile;
-using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.DataTiles.DataValueTile;
-using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.DataTiles.DateTimeTile;
-using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.DataTiles.TextTile;
-using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.DaysLeftCountDown;
-using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.ExpiredTimeAlert;
-using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.Guage180deg;
-using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Guages.GuageAngular;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Help;
-using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Image;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.InsertTile;
-using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.MessageTile;
-using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.PieChart;
-using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.WebPage;
 using NoeticTools.TeamStatusBoard.Framework.Registries;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
 using NoeticTools.TeamStatusBoard.TeamCity.Plugins.DataSources.TeamCity;
+using NoeticTools.TeamStatusBoard.Tiles.DataTiles.DataValueTile;
+using NoeticTools.TeamStatusBoard.Tiles.DataTiles.DateTimeTile;
+using NoeticTools.TeamStatusBoard.Tiles.DataTiles.TextTile;
 using NoeticTools.TeamStatusBoard.Tiles.Date;
+using NoeticTools.TeamStatusBoard.Tiles.DaysLeftCountDown;
+using NoeticTools.TeamStatusBoard.Tiles.Guages.Guage180deg;
+using NoeticTools.TeamStatusBoard.Tiles.Guages.GuageAngular;
+using NoeticTools.TeamStatusBoard.Tiles.Image;
+using NoeticTools.TeamStatusBoard.Tiles.MessageTile;
+using NoeticTools.TeamStatusBoard.Tiles.PieChart;
+using NoeticTools.TeamStatusBoard.Tiles.WebPage;
 
 
 namespace NoeticTools.TeamStatusBoard.Runner
@@ -125,7 +124,6 @@ namespace NoeticTools.TeamStatusBoard.Runner
                 new TeamCityLAvailbleBuildSTilePlugin(),
                 new DaysLeftCountDownTilePlugin(),
                 new WebPageTilePlugin(),
-                new ExpiredTimeAlertTilePlugin(),
                 new Guage180degTilePlugin(), 
                 new GuageAngularTilePlugin(),
                 new PieChartTilePlugin(),

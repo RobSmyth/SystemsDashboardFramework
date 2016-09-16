@@ -1,7 +1,7 @@
 ﻿using System.Windows.Controls;
 
 
-namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.PieChart
+namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
 {
     public partial class PieChartTileControl : UserControl
     {

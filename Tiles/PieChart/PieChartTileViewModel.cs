@@ -1,20 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Windows.Input;
 using System.Windows.Media;
 using LiveCharts;
 using LiveCharts.Wpf;
+using NoeticTools.TeamStatusBoard.Framework;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
 using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories;
 using NoeticTools.TeamStatusBoard.Framework.Config.Properties;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
+using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
 
 
-namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.PieChart
+namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
 {
     internal sealed class PieChartTileViewModel : NotifyingViewModelBase, IConfigurationChangeListener, ITileViewModel, ITimerListener
     {

@@ -7,14 +7,16 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using log4net;
+using NoeticTools.TeamStatusBoard.Framework;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
 using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Config.Properties;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
+using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 
 
-namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Image
+namespace NoeticTools.TeamStatusBoard.Tiles.Image
 {
     internal sealed class ImageFileWatcherViewModel : NotifyingViewModelBase, IConfigurationChangeListener, ITileViewModel
     {

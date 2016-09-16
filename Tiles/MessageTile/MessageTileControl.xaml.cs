@@ -1,7 +1,7 @@
 ﻿using System.Windows.Controls;
 
 
-namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.MessageTile
+namespace NoeticTools.TeamStatusBoard.Tiles.MessageTile
 {
     public partial class MessageTileControl : UserControl
     {

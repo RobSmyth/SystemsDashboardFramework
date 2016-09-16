@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="NoeticTools.TeamStatusBoard.Tiles.PieChart.PieChartTileControl"
+﻿<UserControl x:Class="NoeticTools.TeamStatusBoard.Tiles.Guages.Guage180deg.Guage180degTileControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -6,7 +6,7 @@
              xmlns:wpf="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              mc:Ignorable="d"
              d:DesignHeight="400" d:DesignWidth="400"
-             d:DataContext="{d:DesignInstance Type=pieChart:PieChartTileViewModel}">
+             d:DataContext="{d:DesignInstance Type=guage180Deg:Guage180DegTileViewModel}">
 
     <UserControl.Resources>
 
@@ -27,11 +27,15 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <wpf:PieChart Name="chart"
-                          Grid.Row="0" Margin="3"
-                          LegendLocation="{Binding Path=LegendLocation, Mode=OneWay}"
-                          FontSize="{Binding Path=ActualHeight, ElementName=root, Converter={StaticResource doubleConverter}, ConverterParameter=0.03}" >
-            </wpf:PieChart>
+            <wpf:Gauge Name="guage" Grid.Row="0" Margin="3"
+                       Uses360Mode="{Binding Path=Uses360Mode, Mode=OneWay}" 
+                       FromColor="{Binding FromColour, Mode=OneWay}" 
+                       ToColor="{Binding ToColour, Mode=OneWay}"
+                       From="{Binding Minimum, Mode=OneWay}"
+                       To="{Binding Maximum, Mode=OneWay}"
+                       Value="{Binding Value, Mode=OneWay}" 
+                       LabelFormatter="{Binding Formatter}" 
+                       FontSize="{Binding Path=ActualHeight, ElementName=root, Converter={StaticResource doubleConverter}, ConverterParameter=0.07}" />
             <TextBlock Name="label" Grid.Row="1"
                        HorizontalAlignment="Center" TextAlignment="Center" IsHitTestVisible="False" 
                        FontWeight="Bold" Margin="3,1,3,10" Text="{Binding Label, Mode=OneWay}"

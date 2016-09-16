@@ -1,28 +1,28 @@
-﻿using System;
 using System.Windows;
 using NoeticTools.TeamStatusBoard.Framework;
 using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Services;
+using NoeticTools.TeamStatusBoard.Tiles.DataTiles.TextTile;
 
 
-namespace NoeticTools.TeamStatusBoard.Tiles.Image
+namespace NoeticTools.TeamStatusBoard.Tiles.DataTiles.DateTimeTile
 {
-    internal sealed class ImageFileWatcherTileProvider : ITileControllerProvider
+    internal sealed class DateTimeDataTileProvider : ITileControllerProvider
     {
-        private const string TileTypeId = "Image.File.Watcher";
         private readonly IDashboardController _dashboardController;
         private readonly IServices _services;
+        private static readonly string TileTypeId = "DateTimeData";
 
-        public ImageFileWatcherTileProvider(IDashboardController dashboardController, IServices services)
+        public DateTimeDataTileProvider(IDashboardController dashboardController, IServices services)
         {
             _dashboardController = dashboardController;
             _services = services;
         }
 
-        public string Name => "Image file watcher";
+        public string Name => "Date & time property panel";
 
-        public string TypeId => ImageFileWatcherTileProvider.TileTypeId;
+        public string TypeId => DateTimeDataTileProvider.TileTypeId;
 
         public bool MatchesId(string id)
         {
@@ -31,9 +31,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.Image
 
         public FrameworkElement CreateTile(TileConfiguration tileConfigturation, TileLayoutController layoutController)
         {
-            var view = new ImageFileWatcherTileControl();
-            new ImageFileWatcherViewModel(tileConfigturation, _dashboardController, layoutController, _services, view);
-            return view;
+            return new TextDataTileControl {DataContext = new DateTimeDataTileViewModel(tileConfigturation, _dashboardController, layoutController, _services)};
         }
 
         public TileConfiguration CreateDefaultConfiguration()
@@ -41,7 +39,6 @@ namespace NoeticTools.TeamStatusBoard.Tiles.Image
             return new TileConfiguration
             {
                 TypeId = TileTypeId,
-                Id = Guid.NewGuid(),
                 Tiles = new TileConfiguration[0]
             };
         }

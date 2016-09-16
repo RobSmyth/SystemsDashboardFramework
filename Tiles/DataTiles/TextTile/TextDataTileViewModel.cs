@@ -20,7 +20,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.DataTiles.TextTile
         {
             _services = services;
             _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
-            var parameters = new IPropertyViewModel[] {new PropertyViewModel("PropertyAddress", "Text", _tileConfigurationConverter)};
+            var parameters = new IPropertyViewModel[] {new PropertyViewModel("PropertyAddress", PropertyType.Text, _tileConfigurationConverter)};
             ConfigureCommand = new TileConfigureCommand(tile, "Text Data Tile Configuration", parameters, dashboardController, layoutController, services);
             Update();
         }

@@ -38,7 +38,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.DataTiles.DataValueTile
             var parameters = new IPropertyViewModel[]
             {
                 dataSourceTypeViewModel,
-                new DependantPropertyViewModel("Property", "TextFromCombobox", _tileConfigurationConverter, dataSourceTypeViewModel,
+                new DependantPropertyViewModel("Property", PropertyType.Enum, _tileConfigurationConverter, dataSourceTypeViewModel,
                     () => _services.DataService.Get((string) dataSourceTypeViewModel.Value).GetAllNames().Cast<object>().ToArray())
             };
             return parameters;

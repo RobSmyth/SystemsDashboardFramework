@@ -9,7 +9,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.Properties
         {
             _tile = tile;
             Name = "Column span";
-            ViewerName = "Text"; // todo - numericspin
+            EditorType = PropertyType.Text; // todo - numericspin
             Parameters = new object[0];
         }
 
@@ -37,7 +37,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.Properties
         }
 
         public string Name { get; }
-        public string ViewerName { get; }
+        public PropertyType EditorType { get; }
         public object[] Parameters { get; set; }
     }
 }

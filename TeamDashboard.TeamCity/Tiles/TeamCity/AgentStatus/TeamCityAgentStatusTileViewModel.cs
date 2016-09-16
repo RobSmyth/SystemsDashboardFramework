@@ -74,7 +74,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity.AgentStatus
         {
             var configurationParameters = new IPropertyViewModel[]
             {
-                new PropertyViewModel("AgentName", "Text", _tileConfigurationConverter)
+                new PropertyViewModel("AgentName", PropertyType.Text, _tileConfigurationConverter)
             };
             return configurationParameters;
         }

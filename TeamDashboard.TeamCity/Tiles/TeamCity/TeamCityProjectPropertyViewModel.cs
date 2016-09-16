@@ -8,8 +8,8 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity
 {
     public sealed class TeamCityProjectPropertyViewModel : PropertyViewModel
     {
-        public TeamCityProjectPropertyViewModel(string name, TileConfigurationConverter tileConfigurationConverter, ITeamCityChannel channel)
-            : base(name, "TextFromCombobox", tileConfigurationConverter, () => channel.ProjectNames.Cast<object>().ToArray())
+        public TeamCityProjectPropertyViewModel(string name, TileConfigurationConverter tileConfiguration, ITeamCityChannel channel)
+            : base(name, PropertyType.Enum, tileConfiguration, () => channel.ProjectNames.Cast<object>().ToArray())
         {
         }
     }

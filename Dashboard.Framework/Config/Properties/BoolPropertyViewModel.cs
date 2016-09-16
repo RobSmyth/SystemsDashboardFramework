@@ -8,8 +8,8 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.Properties
 {
     public class BoolPropertyViewModel : PropertyViewModel
     {
-        public BoolPropertyViewModel(string name, INamedValueRepository tileConfigurationConverter, IServices services)
-            : base(name, "AutoCompleteText", tileConfigurationConverter, () => new BoolSuggestionsProvider(services).Get().Cast<object>().ToArray())
+        public BoolPropertyViewModel(string name, INamedValueRepository tileConfiguration, IServices services)
+            : base(name, PropertyType.AutoCompleteText, tileConfiguration, () => new BoolSuggestionsProvider(services).Get().Cast<object>().ToArray())
         {
         }
     }

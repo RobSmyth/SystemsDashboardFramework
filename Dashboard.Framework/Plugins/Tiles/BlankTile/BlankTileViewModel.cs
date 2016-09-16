@@ -18,7 +18,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.BlankTile
         public BlankTileViewModel(TileConfiguration tile, IDashboardController dashboardController, TileLayoutController layoutController, IServices services, BlankTileControl view)
         {
             _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
-            var parameters = new IPropertyViewModel[] {new PropertyViewModel("Colour", "Text", _tileConfigurationConverter)};
+            var parameters = new IPropertyViewModel[] {new PropertyViewModel("Colour", PropertyType.Text, _tileConfigurationConverter)};
             ConfigureCommand = new TileConfigureCommand(tile, "Blank Tile Configuration", parameters, dashboardController, layoutController, services);
             view.DataContext = this;
             Update();

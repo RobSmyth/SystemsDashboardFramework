@@ -1,4 +1,7 @@
-﻿namespace NoeticTools.TeamStatusBoard.Framework.Config
+﻿using NoeticTools.TeamStatusBoard.Framework.Config.Properties;
+
+
+namespace NoeticTools.TeamStatusBoard.Framework.Config
 {
     public interface IPropertyViewModel
     {
@@ -7,7 +10,7 @@
         /// <summary>
         ///     Name of view provider that will be used to create the view element (e.g. TextBox).
         /// </summary>
-        string ViewerName { get; }
+        PropertyType EditorType { get; }
 
         object[] Parameters { get; }
         object Value { get; set; }

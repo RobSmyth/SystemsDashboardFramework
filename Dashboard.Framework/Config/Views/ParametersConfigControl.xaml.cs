@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
+using NoeticTools.TeamStatusBoard.Framework.Config.Properties;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 
 
@@ -45,13 +46,13 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.Views
 
         private void SetParameterValue(IPropertyViewModel propertyViewModel)
         {
-            if (propertyViewModel.ViewerName == "Hyperlink" || propertyViewModel.ViewerName == "Divider")
+            if (propertyViewModel.EditorType == PropertyType.Hyperlink || propertyViewModel.EditorType == PropertyType.Divider)
             {
                 return;
             }
 
             var name = GetUIlementName(propertyViewModel);
-            if (propertyViewModel.ViewerName == "TextFromCombobox")
+            if (propertyViewModel.EditorType == PropertyType.Enum)
             {
                 var combobox = (ComboBox) PlaceholderGrid.Children.Cast<FrameworkElement>().Single(x => x.Name.Equals(name));
                 propertyViewModel.Value = combobox.SelectedValue;
@@ -82,20 +83,20 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.Views
                 Grid.SetColumn(textBlock, 0);
             }
 
-            var creatorLookup = new Dictionary<string, Func<IPropertyViewModel, int, UIElement>>
+            var creatorLookup = new Dictionary<PropertyType, Func<IPropertyViewModel, int, UIElement>>
             {
-                {"Hyperlink", CreateHyperlink},
-                {"Divider", CreateDivider},
-                {"Password", CreatePasswordBox}
+                {PropertyType.Hyperlink, CreateHyperlink},
+                {PropertyType.Divider, CreateDivider},
+                {PropertyType.Password, CreatePasswordBox}
             };
 
-            if (creatorLookup.ContainsKey(propertyViewModel.ViewerName))
+            if (creatorLookup.ContainsKey(propertyViewModel.EditorType))
             {
-                Add(rowIndex, creatorLookup[propertyViewModel.ViewerName](propertyViewModel, rowIndex));
+                Add(rowIndex, creatorLookup[propertyViewModel.EditorType](propertyViewModel, rowIndex));
             }
             else
             {
-                var element = _services.PropertyEditControlProviders.Get(propertyViewModel.ViewerName).Create(propertyViewModel, rowIndex, GetUIlementName(propertyViewModel));
+                var element = _services.PropertyEditControlProviders.Get(propertyViewModel.EditorType).Create(propertyViewModel, rowIndex, GetUIlementName(propertyViewModel));
                 element.Margin = _elementMargin;
                 Add(rowIndex, element);
             }

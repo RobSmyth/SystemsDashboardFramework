@@ -2,21 +2,19 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.Properties
 {
     public class DividerPropertyViewModel : IPropertyViewModel
     {
+        public const string Id = "Divider";
+
         public DividerPropertyViewModel()
         {
             Parameters = new object[0];
-            ViewerName = "Divider";
+            EditorType = PropertyType.Divider;
             Value = null;
             Name = string.Empty;
         }
 
         public string Name { get; }
-        public string ViewerName { get; }
-        public object[] Parameters { get; set; }
+        public PropertyType EditorType { get; }
+        public object[] Parameters { get; }
         public object Value { get; set; }
-        public void UpdateParameters()
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }

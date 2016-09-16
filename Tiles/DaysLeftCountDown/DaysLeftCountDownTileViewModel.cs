@@ -31,9 +31,9 @@ namespace NoeticTools.TeamStatusBoard.Tiles.DaysLeftCountDown
             ConfigureCommand = new TileConfigureCommand(tile, "Days Count Down Configuration",
                 new IPropertyViewModel[]
                 {
-                    new PropertyViewModel("Title", "Text", _tileConfigurationConverter),
-                    new PropertyViewModel("End_date", "DateTime", _tileConfigurationConverter),
-                    new PropertyViewModel("Disabled", "Checkbox", _tileConfigurationConverter)
+                    new PropertyViewModel("Title", PropertyType.Text, _tileConfigurationConverter),
+                    new PropertyViewModel("End_date", PropertyType.DateTime, _tileConfigurationConverter),
+                    new PropertyViewModel("Disabled", PropertyType.Checkbox, _tileConfigurationConverter)
                 },
                 dashboardController, tileLayoutController, services);
             DaysRemaining = "";

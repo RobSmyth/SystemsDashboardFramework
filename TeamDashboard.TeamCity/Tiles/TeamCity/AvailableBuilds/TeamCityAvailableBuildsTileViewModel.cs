@@ -77,7 +77,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity.AvailableBuilds
         {
             var parameters = new List<IPropertyViewModel>
             {
-                new PropertyViewModel("Title", "Text", _tileConfigurationConverter),
+                new PropertyViewModel("Title", PropertyType.Text, _tileConfigurationConverter),
                 new DividerPropertyViewModel()
             };
             for (var buildNumber = 1; buildNumber <= MaxNumberOfBuilds; buildNumber++)
@@ -85,9 +85,9 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity.AvailableBuilds
                 string diplayName = $"Display_name_{buildNumber}";
                 string project = $"Project_{buildNumber}";
                 string configuration = $"Configuration_{buildNumber}";
-                parameters.Add(new PropertyViewModel(diplayName, "Text", _tileConfigurationConverter));
-                parameters.Add(new PropertyViewModel(project, "Text", _tileConfigurationConverter));
-                parameters.Add(new PropertyViewModel(configuration, "Text", _tileConfigurationConverter));
+                parameters.Add(new PropertyViewModel(diplayName, PropertyType.Text, _tileConfigurationConverter));
+                parameters.Add(new PropertyViewModel(project, PropertyType.Text, _tileConfigurationConverter));
+                parameters.Add(new PropertyViewModel(configuration, PropertyType.Text, _tileConfigurationConverter));
                 parameters.Add(new DividerPropertyViewModel());
             }
             return parameters.ToArray();

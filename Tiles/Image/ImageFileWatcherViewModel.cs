@@ -32,7 +32,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.Image
         {
             _view = view;
             _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
-            var parameters = new IPropertyViewModel[] {new PropertyViewModel("ImagePath", "Text", _tileConfigurationConverter)};
+            var parameters = new IPropertyViewModel[] {new PropertyViewModel("ImagePath", PropertyType.Text, _tileConfigurationConverter)};
             ConfigureCommand = new TileConfigureCommand(tile, "Image Tile Configuration", parameters, dashboardController, tileLayoutController, services);
             _logger = LogManager.GetLogger($"Tiles.Image.File.Watcher.{_nextInstanceId++}");
             _fileWatcher = new FileSystemWatcher

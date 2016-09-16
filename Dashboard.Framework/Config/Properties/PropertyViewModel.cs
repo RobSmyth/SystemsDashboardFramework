@@ -7,32 +7,32 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.Properties
 {
     public class PropertyViewModel : NotifyingViewModelBase, INotifyingPropertyViewModel
     {
-        private readonly INamedValueRepository _tileConfigurationConverter;
+        private readonly INamedValueRepository _tileConfiguration;
         private readonly Func<object[]> _parametersFunc;
         private object[] _parameters;
 
-        public PropertyViewModel(string name, string viewerName, INamedValueRepository tileConfigurationConverter, Func<object[]> parametersFunc = null)
+        public PropertyViewModel(string name, PropertyType editorType, INamedValueRepository tileConfiguration, Func<object[]> parametersFunc = null)
         {
-            _tileConfigurationConverter = tileConfigurationConverter;
+            _tileConfiguration = tileConfiguration;
             _parametersFunc = parametersFunc;
             Name = name;
-            ViewerName = viewerName;
+            EditorType = editorType;
         }
 
         public object Value
         {
-            get { return _tileConfigurationConverter.GetParameter(Name); }
+            get { return _tileConfiguration.GetParameter(Name); }
             set
             {
-                var currentValue = _tileConfigurationConverter.GetParameter(Name);
+                var currentValue = _tileConfiguration.GetParameter(Name);
                 if (Equals(value, currentValue)) return;
-                _tileConfigurationConverter.SetParameter(Name, value);
+                _tileConfiguration.SetParameter(Name, value);
                 OnPropertyChanged();
             }
         }
 
         public string Name { get; }
-        public string ViewerName { get; }
+        public PropertyType EditorType { get; }
 
         public object[] Parameters
         {

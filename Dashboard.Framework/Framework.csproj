@@ -108,7 +108,8 @@
     <Compile Include="Config\NamedValueRepositories\NullValueRepository.cs" />
     <Compile Include="Config\Properties\BoolPropertyViewModel.cs" />
     <Compile Include="Config\Properties\ColourPropertyViewModel.cs" />
-    <Compile Include="Config\Properties\ComboBoxPropertyViewModel.cs" />
+    <Compile Include="Config\Properties\EnumPropertyViewModel.cs" />
+    <Compile Include="Config\Properties\PropertyEditorType.cs" />
     <Compile Include="Config\Properties\TextPropertyViewModel.cs" />
     <Compile Include="Config\Properties\DataSourceTypePropertyViewModel.cs" />
     <Compile Include="Config\TileProperties.cs" />
@@ -159,11 +160,11 @@
     <Compile Include="Dashboards\IDashboardNavigator.cs" />
     <Compile Include="Dashboards\IDashboardTileNavigator.cs" />
     <Compile Include="Input\IDragSource.cs" />
-    <Compile Include="Plugins\PropertyEditControls\AutoCompleteTextPropertyViewProvider.cs" />
+    <Compile Include="Plugins\PropertyEditControls\Text\AutoCompleteTextPropertyViewProvider.cs" />
     <Compile Include="Plugins\PropertyEditControls\DataSourceTypePropertyViewPlugin.cs" />
     <Compile Include="Plugins\PropertyEditControls\DataSourceTypePropertyViewProvider.cs" />
-    <Compile Include="Plugins\PropertyEditControls\TimeSpanPropertyViewPlugin.cs" />
-    <Compile Include="Plugins\PropertyEditControls\TimeSpanPropertyViewProvider.cs" />
+    <Compile Include="Plugins\PropertyEditControls\TimeSpan\TimeSpanPropertyViewPlugin.cs" />
+    <Compile Include="Plugins\PropertyEditControls\TimeSpan\TimeSpanPropertyViewProvider.cs" />
     <Compile Include="Plugins\Tiles\BlankTile\BlankTileControl.xaml.cs">
       <DependentUpon>BlankTileControl.xaml</DependentUpon>
     </Compile>
@@ -189,15 +190,15 @@
     <Compile Include="Plugins\KeyboardDashboardNavigationPlugin.cs" />
     <Compile Include="Plugins\KeyboardTileNavigationPlugin.cs" />
     <Compile Include="Input\LookupKeyboardHandler.cs" />
-    <Compile Include="Plugins\PropertyEditControls\CheckboxPropertyViewPlugin.cs" />
-    <Compile Include="Plugins\PropertyEditControls\CheckboxPropertyViewProvider.cs" />
-    <Compile Include="Plugins\PropertyEditControls\ComboboxTextPropertyViewPlugin.cs" />
-    <Compile Include="Plugins\PropertyEditControls\ComboboxTextPropertyViewProvider.cs" />
-    <Compile Include="Plugins\PropertyEditControls\DatePropertyViewPlugin.cs" />
-    <Compile Include="Plugins\PropertyEditControls\DatePropertyViewProvider.cs" />
-    <Compile Include="Plugins\PropertyEditControls\TextPropertyViewPlugin.cs" />
-    <Compile Include="Plugins\PropertyEditControls\TextPropertyViewProvider.cs" />
-    <Compile Include="Plugins\PropertyEditControls\UtcDateTimeValueConverter.cs" />
+    <Compile Include="Plugins\PropertyEditControls\Checkbox\CheckboxPropertyViewPlugin.cs" />
+    <Compile Include="Plugins\PropertyEditControls\Checkbox\CheckboxPropertyViewProvider.cs" />
+    <Compile Include="Plugins\PropertyEditControls\Combobox\ComboboxTextPropertyViewPlugin.cs" />
+    <Compile Include="Plugins\PropertyEditControls\Combobox\ComboboxTextPropertyViewProvider.cs" />
+    <Compile Include="Plugins\PropertyEditControls\Date\DatePropertyViewPlugin.cs" />
+    <Compile Include="Plugins\PropertyEditControls\Date\DatePropertyViewProvider.cs" />
+    <Compile Include="Plugins\PropertyEditControls\Text\TextPropertyViewPlugin.cs" />
+    <Compile Include="Plugins\PropertyEditControls\Text\TextPropertyViewProvider.cs" />
+    <Compile Include="Plugins\PropertyEditControls\Date\UtcDateTimeValueConverter.cs" />
     <Compile Include="Plugins\Tiles\ITileViewModel.cs" />
     <Compile Include="Registries\IPropertyViewProvider.cs" />
     <Compile Include="Registries\IPropertyEditControlRegistry.cs" />

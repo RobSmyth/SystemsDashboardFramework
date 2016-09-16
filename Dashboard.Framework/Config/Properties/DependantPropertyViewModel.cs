@@ -7,8 +7,8 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.Properties
 {
     public class DependantPropertyViewModel : PropertyViewModel
     {
-        public DependantPropertyViewModel(string name, string viewerName, INamedValueRepository tileConfigurationConverter, INotifyPropertyChanged changeNotifier, Func<object[]> propertyFunc)
-            : base(name, viewerName, tileConfigurationConverter, propertyFunc)
+        public DependantPropertyViewModel(string name, PropertyType editorType, INamedValueRepository tileConfiguration, INotifyPropertyChanged changeNotifier, Func<object[]> propertyFunc)
+            : base(name, editorType, tileConfiguration, propertyFunc)
         {
             changeNotifier.PropertyChanged += OnPropertyChanged;
         }

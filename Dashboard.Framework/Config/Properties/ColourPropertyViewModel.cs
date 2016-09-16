@@ -8,8 +8,8 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.Properties
 {
     public class ColourPropertyViewModel : PropertyViewModel
     {
-        public ColourPropertyViewModel(string name, INamedValueRepository tileConfigurationConverter, IServices services)
-            : base(name, "AutoCompleteText", tileConfigurationConverter, () => new ColourSuggestionsProvider(services).Get().Cast<object>().ToArray())
+        public ColourPropertyViewModel(string name, INamedValueRepository tileConfiguration, IServices services)
+            : base(name, PropertyType.AutoCompleteText, tileConfiguration, () => new ColourSuggestionsProvider(services).Get().Cast<object>().ToArray())
         {
         }
     }

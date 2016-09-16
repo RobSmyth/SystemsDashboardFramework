@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using NoeticTools.TeamStatusBoard.Framework.Config.Properties;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Registries
@@ -13,7 +14,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Registries
             _providers.Add(provider);
         }
 
-        public IPropertyViewProvider Get(string elementType)
+        public IPropertyViewProvider Get(PropertyType elementType)
         {
             return _providers.First(x => x.CanHandle(elementType));
         }

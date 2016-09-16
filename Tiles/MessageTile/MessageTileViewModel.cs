@@ -18,7 +18,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.MessageTile
         public MessageTileViewModel(TileConfiguration tile, IDashboardController dashboardController, TileLayoutController layoutController, IServices services)
         {
             _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
-            var parameters = new IPropertyViewModel[] {new PropertyViewModel("Message", "Text", _tileConfigurationConverter)};
+            var parameters = new IPropertyViewModel[] {new PropertyViewModel("Message", PropertyType.Text, _tileConfigurationConverter)};
             ConfigureCommand = new TileConfigureCommand(tile, "Message Tile Configuration", parameters, dashboardController, layoutController, services);
             Update();
         }

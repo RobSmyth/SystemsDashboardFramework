@@ -1,12 +1,13 @@
 using System.Windows;
 using NoeticTools.TeamStatusBoard.Framework.Config;
+using NoeticTools.TeamStatusBoard.Framework.Config.Properties;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Registries
 {
     public interface IPropertyViewProvider
     {
-        bool CanHandle(string elementType);
+        bool CanHandle(PropertyType propertyType);
         FrameworkElement Create(IPropertyViewModel viewModel, int rowIndex, string elementName);
     }
 }

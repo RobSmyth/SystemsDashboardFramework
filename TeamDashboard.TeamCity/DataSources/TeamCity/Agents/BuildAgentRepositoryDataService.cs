@@ -1,0 +1,50 @@
+using NoeticTools.TeamStatusBoard.Framework.Services;
+using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
+
+
+namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Agents
+{
+    public sealed class BuildAgentRepositoryDataService : IService, IDataChangeListener
+    {
+        private readonly IBuildAgentRepository _repository;
+        private readonly IDataSource _dataSource;
+
+        public BuildAgentRepositoryDataService(IBuildAgentRepository repository, IDataSource dataSource)
+        {
+            _repository = repository;
+            _dataSource = dataSource;
+        }
+
+        public string Name => "TeamCity.Agents";
+
+        public void Stop()
+        {
+        }
+
+        public void Start()
+        {
+            UpdateBuildAgents();
+            _repository.AddListener(this);
+        }
+
+        private void UpdateBuildAgents()
+        {
+            var buildAgents = _repository.GetAll();
+            _dataSource.Write($"Count", buildAgents.Length);
+            foreach (var buildAgent in buildAgents)
+            {
+                if (string.IsNullOrWhiteSpace(buildAgent.Name))
+                {
+                    continue;
+                }
+
+                _dataSource.Write($"BuildAgent({buildAgent.Name})", "-");
+            }
+        }
+
+        void IDataChangeListener.OnChanged()
+        {
+            UpdateBuildAgents();
+        }
+    }
+}

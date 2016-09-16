@@ -61,81 +61,81 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Plugins\DataSources\TeamCity\Agents\BuildAgentRepository.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\Agents\BuildAgentRepositoryDataService.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\Agents\BuildAgentStatus.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\Agents\BuildAgentViewModelFactory.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\Agents\ConnectedStateTicker.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\Agents\IBuildAgent.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\Agents\IBuildAgentRepository.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\Agents\IBuildAgentViewModelFactory.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\Agents\IConnectedStateTicker.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\Channel\ChannelConnectionStateBroadcaster.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\Channel\ITeamCityIOChannel.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\Channel\IChannelConnectionStateBroadcaster.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\Channel\IChannelConnectionStateListener.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\Channel\IStateEngine.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\Channel\ITeamCityChannel.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\Channel\ITeamCityChannelState.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\Configurations\BuildConfigurationRepository.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\Configurations\BuildConfigurationRepositoryFactory.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\Configurations\IBuildConfigurationRepository.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\Configurations\IBuildConfigurationRepositoryFactory.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\ITeamCityService.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\ITeamCityServiceConfiguration.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\Builds\NullBuild.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\Agents\NullBuildAgent.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\Configurations\IBuildConfiguration.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\Projects\IProject.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\Projects\IProjectFactory.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\Projects\IProjectRepository.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\Configurations\NullBuildConfiguration.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\Projects\IProjectRepositoryDataService.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\Projects\ProjectFactory.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\Projects\ProjectRepositoryDataService.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\TcSharpInterop\NullInteripUsers.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\TcSharpInterop\NullInteropAgents.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\TcSharpInterop\NullInteropBuildConfig.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\TcSharpInterop\NullInteropBuildConfigs.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\TcSharpInterop\NullInteropBuilds.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\TcSharpInterop\NullInteropProject.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\Projects\ProjectRepository.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\Configurations\BuildConfiguration.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\Projects\Project.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\TcSharpInterop\ITcSharpTeamCityClient.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\TcSharpInterop\NullInteropProjects.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\TcSharpInterop\TcSharpTeamCityClient.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\Agents\BuildAgentViewModel.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\Channel\ChannelConnectedState.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\Channel\ChannelDisconnectedState.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\Channel\ChannelEmulatedState.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\Channel\ChannelStateEngine.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\Channel\ChannelStoppedState.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\Channel\TeamCityChannel.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\TcSharpInterop\TxSharpAgents.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\TeamCityDataService.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\DataSourceConfiguration.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\DataSourceConfigureCommand.cs" />
-    <Compile Include="Plugins\DataSources\TeamCity\TeamCityDataSourcePlugin.cs" />
-    <Compile Include="Plugins\Tiles\TeamCity\AgentStatus\TeamCityAgentStatusTileControl.xaml.cs">
+    <Compile Include="DataSources\TeamCity\Agents\BuildAgentRepository.cs" />
+    <Compile Include="DataSources\TeamCity\Agents\BuildAgentRepositoryDataService.cs" />
+    <Compile Include="DataSources\TeamCity\Agents\BuildAgentStatus.cs" />
+    <Compile Include="DataSources\TeamCity\Agents\BuildAgentViewModelFactory.cs" />
+    <Compile Include="DataSources\TeamCity\Agents\ConnectedStateTicker.cs" />
+    <Compile Include="DataSources\TeamCity\Agents\IBuildAgent.cs" />
+    <Compile Include="DataSources\TeamCity\Agents\IBuildAgentRepository.cs" />
+    <Compile Include="DataSources\TeamCity\Agents\IBuildAgentViewModelFactory.cs" />
+    <Compile Include="DataSources\TeamCity\Agents\IConnectedStateTicker.cs" />
+    <Compile Include="DataSources\TeamCity\Channel\ChannelConnectionStateBroadcaster.cs" />
+    <Compile Include="DataSources\TeamCity\Channel\ITeamCityIOChannel.cs" />
+    <Compile Include="DataSources\TeamCity\Channel\IChannelConnectionStateBroadcaster.cs" />
+    <Compile Include="DataSources\TeamCity\Channel\IChannelConnectionStateListener.cs" />
+    <Compile Include="DataSources\TeamCity\Channel\IStateEngine.cs" />
+    <Compile Include="DataSources\TeamCity\Channel\ITeamCityChannel.cs" />
+    <Compile Include="DataSources\TeamCity\Channel\ITeamCityChannelState.cs" />
+    <Compile Include="DataSources\TeamCity\Configurations\BuildConfigurationRepository.cs" />
+    <Compile Include="DataSources\TeamCity\Configurations\BuildConfigurationRepositoryFactory.cs" />
+    <Compile Include="DataSources\TeamCity\Configurations\IBuildConfigurationRepository.cs" />
+    <Compile Include="DataSources\TeamCity\Configurations\IBuildConfigurationRepositoryFactory.cs" />
+    <Compile Include="DataSources\TeamCity\ITeamCityService.cs" />
+    <Compile Include="DataSources\TeamCity\ITeamCityServiceConfiguration.cs" />
+    <Compile Include="DataSources\TeamCity\Builds\NullBuild.cs" />
+    <Compile Include="DataSources\TeamCity\Agents\NullBuildAgent.cs" />
+    <Compile Include="DataSources\TeamCity\Configurations\IBuildConfiguration.cs" />
+    <Compile Include="DataSources\TeamCity\Projects\IProject.cs" />
+    <Compile Include="DataSources\TeamCity\Projects\IProjectFactory.cs" />
+    <Compile Include="DataSources\TeamCity\Projects\IProjectRepository.cs" />
+    <Compile Include="DataSources\TeamCity\Configurations\NullBuildConfiguration.cs" />
+    <Compile Include="DataSources\TeamCity\Projects\IProjectRepositoryDataService.cs" />
+    <Compile Include="DataSources\TeamCity\Projects\ProjectFactory.cs" />
+    <Compile Include="DataSources\TeamCity\Projects\ProjectRepositoryDataService.cs" />
+    <Compile Include="DataSources\TeamCity\TcSharpInterop\NullInteripUsers.cs" />
+    <Compile Include="DataSources\TeamCity\TcSharpInterop\NullInteropAgents.cs" />
+    <Compile Include="DataSources\TeamCity\TcSharpInterop\NullInteropBuildConfig.cs" />
+    <Compile Include="DataSources\TeamCity\TcSharpInterop\NullInteropBuildConfigs.cs" />
+    <Compile Include="DataSources\TeamCity\TcSharpInterop\NullInteropBuilds.cs" />
+    <Compile Include="DataSources\TeamCity\TcSharpInterop\NullInteropProject.cs" />
+    <Compile Include="DataSources\TeamCity\Projects\ProjectRepository.cs" />
+    <Compile Include="DataSources\TeamCity\Configurations\BuildConfiguration.cs" />
+    <Compile Include="DataSources\TeamCity\Projects\Project.cs" />
+    <Compile Include="DataSources\TeamCity\TcSharpInterop\ITcSharpTeamCityClient.cs" />
+    <Compile Include="DataSources\TeamCity\TcSharpInterop\NullInteropProjects.cs" />
+    <Compile Include="DataSources\TeamCity\TcSharpInterop\TcSharpTeamCityClient.cs" />
+    <Compile Include="DataSources\TeamCity\Agents\BuildAgentViewModel.cs" />
+    <Compile Include="DataSources\TeamCity\Channel\ChannelConnectedState.cs" />
+    <Compile Include="DataSources\TeamCity\Channel\ChannelDisconnectedState.cs" />
+    <Compile Include="DataSources\TeamCity\Channel\ChannelEmulatedState.cs" />
+    <Compile Include="DataSources\TeamCity\Channel\ChannelStateEngine.cs" />
+    <Compile Include="DataSources\TeamCity\Channel\ChannelStoppedState.cs" />
+    <Compile Include="DataSources\TeamCity\Channel\TeamCityChannel.cs" />
+    <Compile Include="DataSources\TeamCity\TcSharpInterop\TxSharpAgents.cs" />
+    <Compile Include="DataSources\TeamCity\TeamCityDataService.cs" />
+    <Compile Include="DataSources\TeamCity\DataSourceConfiguration.cs" />
+    <Compile Include="DataSources\TeamCity\DataSourceConfigureCommand.cs" />
+    <Compile Include="DataSources\TeamCity\TeamCityDataSourcePlugin.cs" />
+    <Compile Include="Tiles\TeamCity\AgentStatus\TeamCityAgentStatusTileControl.xaml.cs">
       <DependentUpon>TeamCityAgentStatusTileControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Plugins\Tiles\TeamCity\AgentStatus\TeamCityAgentStatusTilePlugin.cs" />
-    <Compile Include="Plugins\Tiles\TeamCity\AgentStatus\TeamCityAgentStatusTileProvider.cs" />
-    <Compile Include="Plugins\Tiles\TeamCity\AgentStatus\TeamCityAgentStatusTileViewModel.cs" />
-    <Compile Include="Plugins\Tiles\TeamCity\AvailableBuilds\TeamCityAvailableBuildsListControl.xaml.cs">
+    <Compile Include="Tiles\TeamCity\AgentStatus\TeamCityAgentStatusTilePlugin.cs" />
+    <Compile Include="Tiles\TeamCity\AgentStatus\TeamCityAgentStatusTileProvider.cs" />
+    <Compile Include="Tiles\TeamCity\AgentStatus\TeamCityAgentStatusTileViewModel.cs" />
+    <Compile Include="Tiles\TeamCity\AvailableBuilds\TeamCityAvailableBuildsListControl.xaml.cs">
       <DependentUpon>TeamCityAvailableBuildsListControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Plugins\Tiles\TeamCity\AvailableBuilds\TeamCityAvailableBuildsTilePlugin.cs" />
-    <Compile Include="Plugins\Tiles\TeamCity\AvailableBuilds\TeamCityAvailableBuildsTileViewModel.cs" />
-    <Compile Include="Plugins\Tiles\TeamCity\AvailableBuilds\TeamCityAvailbleBuildsTileProvider.cs" />
-    <Compile Include="Plugins\Tiles\TeamCity\LastBuildStatus\TeamCityLastBuildStatusTileControl.xaml.cs">
+    <Compile Include="Tiles\TeamCity\AvailableBuilds\TeamCityAvailableBuildsTilePlugin.cs" />
+    <Compile Include="Tiles\TeamCity\AvailableBuilds\TeamCityAvailableBuildsTileViewModel.cs" />
+    <Compile Include="Tiles\TeamCity\AvailableBuilds\TeamCityAvailbleBuildsTileProvider.cs" />
+    <Compile Include="Tiles\TeamCity\LastBuildStatus\TeamCityLastBuildStatusTileControl.xaml.cs">
       <DependentUpon>TeamCityLastBuildStatusTileControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Plugins\Tiles\TeamCity\LastBuildStatus\TeamCityLastBuildStatusTilePlugin.cs" />
-    <Compile Include="Plugins\Tiles\TeamCity\LastBuildStatus\TeamCityLastBuildStatusTileProvider.cs" />
-    <Compile Include="Plugins\Tiles\TeamCity\LastBuildStatus\TeamCityLastBuildStatusTileViewModel.cs" />
-    <Compile Include="Plugins\Tiles\TeamCity\TeamCityProjectPropertyViewModel.cs" />
+    <Compile Include="Tiles\TeamCity\LastBuildStatus\TeamCityLastBuildStatusTilePlugin.cs" />
+    <Compile Include="Tiles\TeamCity\LastBuildStatus\TeamCityLastBuildStatusTileProvider.cs" />
+    <Compile Include="Tiles\TeamCity\LastBuildStatus\TeamCityLastBuildStatusTileViewModel.cs" />
+    <Compile Include="Tiles\TeamCity\TeamCityProjectPropertyViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -149,15 +149,15 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Plugins\Tiles\TeamCity\AgentStatus\TeamCityAgentStatusTileControl.xaml">
+    <Page Include="Tiles\TeamCity\AgentStatus\TeamCityAgentStatusTileControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Plugins\Tiles\TeamCity\AvailableBuilds\TeamCityAvailableBuildsListControl.xaml">
+    <Page Include="Tiles\TeamCity\AvailableBuilds\TeamCityAvailableBuildsListControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Plugins\Tiles\TeamCity\LastBuildStatus\TeamCityLastBuildStatusTileControl.xaml">
+    <Page Include="Tiles\TeamCity\LastBuildStatus\TeamCityLastBuildStatusTileControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

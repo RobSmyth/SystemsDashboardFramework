@@ -8,7 +8,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Projects
         private readonly IProjectRepository _repository;
         private readonly IDataSource _dataSource;
 
-        public ProjectRepositoryDataService(IProjectRepository repository, IDataSource dataSource)
+        public ProjectRepositoryDataService(IDataSource dataSource, IProjectRepository repository)
         {
             _repository = repository;
             _dataSource = dataSource;
@@ -32,7 +32,11 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Projects
             _dataSource.Write($"Count", projects.Length);
             foreach (var project in projects)
             {
-                _dataSource.Write($"Project({project.Name})", "-");
+                _dataSource.Write($"Project.{project.Name}", "-");
+                foreach (var buildConfiguration in project.Configurations)
+                {
+                    _dataSource.Write($"Project.{project.Name}.Configuration.{buildConfiguration.Name}", "-");
+                }
             }
         }
 

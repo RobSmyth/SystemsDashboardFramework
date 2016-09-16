@@ -22,7 +22,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Projects
 
         public IBuildConfiguration GetConfiguration(string name)
         {
-            return Configurations.FirstOrDefault(x => x.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase)) ?? new NullBuildConfiguration(name);
+            return _configurations.Get(name);
         }
 
         public void Update(TeamCitySharp.DomainEntities.Project project)

@@ -4,6 +4,7 @@ using System.Linq;
 using NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Agents;
 using NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Projects;
 using NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.TcSharpInterop;
+using TeamCitySharp.DomainEntities;
 
 
 namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Configurations
@@ -59,6 +60,16 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Configuratio
         public IBuildConfiguration[] GetAll()
         {
             return _configurations.Values.ToArray();
+        }
+
+        public IBuildConfiguration Get(string name)
+        {
+            var normalisedName = name.ToLower();
+            if (!_configurations.ContainsKey(normalisedName))
+            {
+                _configurations.Add(normalisedName, new BuildConfiguration(new BuildConfig() {Name = name, Description = "n/a", Id="n/a"}, _project, _teamCityClient));
+            }
+            return _configurations[normalisedName];
         }
     }
 }

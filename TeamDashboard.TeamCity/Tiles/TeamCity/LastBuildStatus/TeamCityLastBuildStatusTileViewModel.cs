@@ -56,11 +56,20 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity.LastBuildStatus
             var configurationParameters = GetConfigurationParameters();
             ConfigureCommand = new TileConfigureCommand(tile, "Last Build Status Tile Configuration", configurationParameters, dashboardController, layoutController, services);
 
+            RegisterProjectAndConfiguration(teamCityService);
+
             var stateBroadcaster = teamCityService.StateBroadcaster;
             teamCityService.ConnectedTicker.AddListener(Update);
             stateBroadcaster.Add(this);
 
             _view.DataContext = this;
+        }
+
+        private void RegisterProjectAndConfiguration(ITeamCityService teamCityService)
+        {
+            var projectName = _tileConfiguration.GetString("Project");
+            var configurationName = _tileConfiguration.GetString("Configuration");
+            teamCityService.Projects.Get(projectName).GetConfiguration(configurationName);
         }
 
         public string Status

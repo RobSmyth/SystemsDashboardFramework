@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Media;
 using NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories;
@@ -102,6 +103,19 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config
             {
                 return (Color)ColorConverter.ConvertFromString(defaultValue);
             }
+        }
+
+        public double[] GetDoubleArray(string name)
+        {
+            var elements = GetString(name).Split(',');
+            var values = new List<double>();
+            foreach (var element in elements)
+            {
+                var value = 0.0;
+                double.TryParse(element, out value);
+                values.Add(value);
+            }
+            return values.ToArray();
         }
 
         private void SetParameter<T>(string name, T value)

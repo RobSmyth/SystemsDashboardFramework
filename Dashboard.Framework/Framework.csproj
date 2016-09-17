@@ -108,6 +108,7 @@
     <Compile Include="Config\NamedValueRepositories\NullValueRepository.cs" />
     <Compile Include="Config\Properties\BoolPropertyViewModel.cs" />
     <Compile Include="Config\Properties\ColourPropertyViewModel.cs" />
+    <Compile Include="Config\Properties\CompountColourPropertyViewModel.cs" />
     <Compile Include="Config\Properties\CompountTextPropertyViewModel.cs" />
     <Compile Include="Config\Properties\EnumPropertyViewModel.cs" />
     <Compile Include="Config\Properties\PropertyEditorType.cs" />

@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Media;
 using NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories;
 
@@ -64,6 +66,11 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config
         public Color GetColour(string name, string defaultValue)
         {
             return _repository.GetColour(GetValue(name), defaultValue);
+        }
+
+        public double[] GetDoubleArray(string name)
+        {
+            return GetValue(name).Split(',').Select(element => _repository.GetDouble(element)).ToArray();
         }
 
         private string GetValue(string name)

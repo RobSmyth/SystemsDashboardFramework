@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Windows.Media;
 
 
@@ -73,6 +74,19 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories
             {
                 return (Color)ColorConverter.ConvertFromString(defaultValue);
             }
+        }
+
+        public double[] GetDoubleArray(string name)
+        {
+            var elements = name.Split(',');
+            var values = new List<double>();
+            foreach (var element in elements)
+            {
+                var value = 0.0;
+                double.TryParse(element, out value);
+                values.Add(value);
+            }
+            return values.ToArray();
         }
     }
 }

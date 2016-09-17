@@ -28,13 +28,13 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.PropertyEditControls.Tex
             var values = ((string) viewModel.Value).Split(',');
             foreach (var value in values)
             {
-                valuesPanel.Children.Add(CreateComboBox(viewModel, value, () => viewModel.Value = GetCompountValue(valuesPanel)));
+                valuesPanel.Children.Add(CreatePropertyViewElement(viewModel, value, () => viewModel.Value = GetCompountValue(valuesPanel)));
             }
 
             var panel = new StackPanel() { HorizontalAlignment = HorizontalAlignment.Stretch, Orientation = Orientation.Vertical };
             panel.Children.Add(valuesPanel);
             var addButton = new Button() { Content = "Add", HorizontalAlignment = HorizontalAlignment.Right, Margin = new Thickness(1), Padding = new Thickness(4,1,4,1)};
-            addButton.Click += (a,b) => valuesPanel.Children.Add(CreateComboBox(viewModel, "", () => viewModel.Value = GetCompountValue(valuesPanel)));
+            addButton.Click += (a,b) => valuesPanel.Children.Add(CreatePropertyViewElement(viewModel, "", () => viewModel.Value = GetCompountValue(valuesPanel)));
             panel.Children.Add(addButton);
 
             return new Border() {BorderThickness = new Thickness(1), BorderBrush = System.Windows.Media.Brushes.Gray, Child = panel, Padding = new Thickness(1)};
@@ -46,7 +46,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.PropertyEditControls.Tex
             return string.Join(",", values);
         }
 
-        private static FrameworkElement CreateComboBox(IPropertyViewModel viewModel, string initialValue, Action onFocusLostAction)
+        private static FrameworkElement CreatePropertyViewElement(IPropertyViewModel viewModel, string initialValue, Action onFocusLostAction)
         {
             var comboBox = new ComboBox
             {

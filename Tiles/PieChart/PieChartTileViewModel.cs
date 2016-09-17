@@ -24,7 +24,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
         private readonly IServices _services;
         private readonly INamedValueRepository _configurationNamedValues;
         private readonly INamedValueRepository _namedValues;
-        private object[] _values;
+        private double[] _values;
         private string _label = "";
         private string _format = "{0}";
         private LegendLocation _legendLocation = LegendLocation.None;
@@ -51,19 +51,9 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
             {
                 new TextPropertyViewModel("Label", _configurationNamedValues, _services),
 
-                // todo - user could select an array source, or specific properties
-                //
-                // Values = UserGrades[]
-                // - or -
-                // Values = Agents.Running, Agents.Idle, Agents.OffLine
-                // Titles = Running,Idle,Off-line
-                // Colours = Greem,Gray,Red
-
                 new CompountTextPropertyViewModel("Values", _configurationNamedValues, _services),
                 new CompountTextPropertyViewModel("Titles", _configurationNamedValues, _services),
-
-                // todo - view model to allow selection of a series of colours
-                new ColourPropertyViewModel("Colours", _configurationNamedValues, _services),
+                new CompountColourPropertyViewModel("Colours", _configurationNamedValues, _services),
 
                 new TextPropertyViewModel("Format", _configurationNamedValues, _services),
                 new EnumPropertyViewModel("LegendLocation", _configurationNamedValues, "None", "Top", "Bottom", "Left", "Right"),
@@ -87,7 +77,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
 
         public Func<double, string> Formatter { get; set; }
 
-        public object[] Values
+        public double[] Values
         {
             get { return _values; }
             set
@@ -137,7 +127,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
         private void Update()
         {
             Label = _namedValues.GetString("Label", "Label (alpha)");
-            //Values = _namedValues.GetArray("Values");
+            Values = _namedValues.GetDoubleArray("Values");
             //Titles = _namedValues.GetArray("Titles");
             Format = _namedValues.GetString("Format", "{0} %");
             LegendLocation = (LegendLocation)Enum.Parse(typeof(LegendLocation), _configurationNamedValues.GetString("LegendLocation", "None"));

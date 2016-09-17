@@ -78,6 +78,11 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config
             return GetValue(name).Split(',').Select(element => _repository.GetString(element)).ToArray();
         }
 
+        public Color[] GetColourArray(string name)
+        {
+            return GetValue(name).Split(',').Select(element => _repository.GetColour(element, "White")).ToArray();
+        }
+
         private string GetValue(string name)
         {
             return _configurationRepository.GetString(name);

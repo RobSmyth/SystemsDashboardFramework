@@ -18,5 +18,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories
         Color GetColour(string name, string defaultValue);
         double[] GetDoubleArray(string name);
         string[] GetStringArray(string name);
+        Color[] GetColourArray(string name);
     }
 }

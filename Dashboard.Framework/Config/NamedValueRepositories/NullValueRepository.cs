@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Media;
 
 
@@ -78,20 +79,17 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories
 
         public double[] GetDoubleArray(string name)
         {
-            var elements = GetStringArray(name);
-            var values = new List<double>();
-            foreach (var element in elements)
-            {
-                var value = 0.0;
-                double.TryParse(element, out value);
-                values.Add(value);
-            }
-            return values.ToArray();
+            return GetStringArray(name).Select(x => GetDouble(x)).ToArray();
         }
 
         public string[] GetStringArray(string name)
         {
             return name.Split(',');
+        }
+
+        public Color[] GetColourArray(string name)
+        {
+            return GetStringArray(name).Select(x => GetColour(x, "White")).ToArray();
         }
     }
 }

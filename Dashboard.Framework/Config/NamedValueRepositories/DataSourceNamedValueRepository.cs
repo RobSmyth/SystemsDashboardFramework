@@ -74,6 +74,11 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories
             throw new NotImplementedException();
         }
 
+        public Color[] GetColourArray(string name)
+        {
+            throw new NotImplementedException();
+        }
+
         private string GetPropertyName(string name)
         {
             return name.Substring(_dataService.TypeName.Length + 2);

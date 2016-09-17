@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Input;
 using System.Windows.Media;
 using LiveCharts;
@@ -31,6 +32,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
         private LiveCharts.Wpf.PieChart _chart;
         private List<LiveCharts.Wpf.PieSeries> _series = new List<LiveCharts.Wpf.PieSeries>();
         private string[] _titles = new string[0];
+        private SolidColorBrush[] _colours = new SolidColorBrush[0];
 
         public PieChartTileViewModel(TileConfiguration tile, IDashboardController dashboardController, ITileLayoutController layoutController, IServices services, ITileProperties properties)
         {
@@ -83,6 +85,10 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
             get { return _values; }
             set
             {
+                if (_values.SequenceEqual(value))
+                {
+                    return;
+                }
                 _values = value;
                 OnPropertyChanged();
             }
@@ -93,7 +99,25 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
             get { return _titles; }
             set
             {
+                if (_titles.SequenceEqual(value))
+                {
+                    return;
+                }
                 _titles = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public SolidColorBrush[] Colours
+        {
+            get { return _colours; }
+            set
+            {
+                if (_colours.Select(x => x.Color).SequenceEqual(value.Select(y => y.Color)))
+                {
+                    return;
+                }
+                _colours = value;
                 OnPropertyChanged();
             }
         }
@@ -140,6 +164,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
             Label = _namedValues.GetString("Label", "Label (alpha)");
             Values = _namedValues.GetDoubleArray("Values");
             Titles = _namedValues.GetStringArray("Titles");
+            Colours = _namedValues.GetColourArray("Colours").Select(x => new SolidColorBrush(x)).ToArray();
             Format = _namedValues.GetString("Format", "{0} %");
             LegendLocation = (LegendLocation)Enum.Parse(typeof(LegendLocation), _configurationNamedValues.GetString("LegendLocation", "None"));
         }
@@ -173,7 +198,8 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
 
         private SolidColorBrush GetSeriesFill(int seriesNumber)
         {
-            return new SolidColorBrush(_configurationNamedValues.GetColour($"Series{seriesNumber}Colour", _defaultColours[seriesNumber-1]));
+            return Colours.Length >= seriesNumber ? Colours[seriesNumber - 1] : 
+                new SolidColorBrush((Color)ColorConverter.ConvertFromString(_defaultColours[seriesNumber - 1]));
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Windows.Media;
 using NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories;
 
@@ -97,7 +98,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config
         {
             try
             {
-                return (Color)ColorConverter.ConvertFromString("colour");
+                return (Color)ColorConverter.ConvertFromString(name);
             }
             catch (Exception)
             {
@@ -121,6 +122,12 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config
         public string[] GetStringArray(string name)
         {
             return GetString(name).Split(',');
+        }
+
+        public Color[] GetColourArray(string name)
+        {
+            var colours = GetStringArray(name);
+            return colours.Select(x => GetColour(x, "white")).ToArray();
         }
 
         private void SetParameter<T>(string name, T value)

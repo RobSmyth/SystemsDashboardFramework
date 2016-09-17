@@ -30,7 +30,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
         private string _format = "{0}";
         private LegendLocation _legendLocation = LegendLocation.None;
         private LiveCharts.Wpf.PieChart _chart;
-        private List<LiveCharts.Wpf.PieSeries> _series = new List<LiveCharts.Wpf.PieSeries>();
+        private readonly List<LiveCharts.Wpf.PieSeries> _series = new List<LiveCharts.Wpf.PieSeries>();
         private string[] _titles = new string[0];
         private SolidColorBrush[] _colours = new SolidColorBrush[0];
 
@@ -89,8 +89,14 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
                 {
                     return;
                 }
+                var priorCount = _values.Length;
                 _values = value;
                 OnPropertyChanged();
+                // todo - find out how to dynamically update the chart
+                //if (_values.Length != priorCount)
+                {
+                    OnChartSeriesChanged();
+                }
             }
         }
 
@@ -192,7 +198,6 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
                 var title = Titles.Length > index ? Titles[index] : "";
                 AddValue(title, Values[index]);
             }
-
             _chart.Series.Clear();
             _chart.Series.AddRange(_series);
         }

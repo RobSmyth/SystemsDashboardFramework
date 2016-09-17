@@ -107,7 +107,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config
 
         public double[] GetDoubleArray(string name)
         {
-            var elements = GetString(name).Split(',');
+            var elements = GetStringArray(name);
             var values = new List<double>();
             foreach (var element in elements)
             {
@@ -116,6 +116,11 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config
                 values.Add(value);
             }
             return values.ToArray();
+        }
+
+        public string[] GetStringArray(string name)
+        {
+            return GetString(name).Split(',');
         }
 
         private void SetParameter<T>(string name, T value)

@@ -73,6 +73,11 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config
             return GetValue(name).Split(',').Select(element => _repository.GetDouble(element)).ToArray();
         }
 
+        public string[] GetStringArray(string name)
+        {
+            return GetValue(name).Split(',').Select(element => _repository.GetString(element)).ToArray();
+        }
+
         private string GetValue(string name)
         {
             return _configurationRepository.GetString(name);

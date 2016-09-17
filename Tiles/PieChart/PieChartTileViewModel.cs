@@ -24,12 +24,13 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
         private readonly IServices _services;
         private readonly INamedValueRepository _configurationNamedValues;
         private readonly INamedValueRepository _namedValues;
-        private double[] _values;
+        private double[] _values = new double[0];
         private string _label = "";
         private string _format = "{0}";
         private LegendLocation _legendLocation = LegendLocation.None;
         private LiveCharts.Wpf.PieChart _chart;
         private List<LiveCharts.Wpf.PieSeries> _series = new List<LiveCharts.Wpf.PieSeries>();
+        private string[] _titles = new string[0];
 
         public PieChartTileViewModel(TileConfiguration tile, IDashboardController dashboardController, ITileLayoutController layoutController, IServices services, ITileProperties properties)
         {
@@ -87,6 +88,16 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
             }
         }
 
+        public string[] Titles
+        {
+            get { return _titles; }
+            set
+            {
+                _titles = value;
+                OnPropertyChanged();
+            }
+        }
+
         public string Format
         {
             get { return _format; }
@@ -128,7 +139,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
         {
             Label = _namedValues.GetString("Label", "Label (alpha)");
             Values = _namedValues.GetDoubleArray("Values");
-            //Titles = _namedValues.GetArray("Titles");
+            Titles = _namedValues.GetStringArray("Titles");
             Format = _namedValues.GetString("Format", "{0} %");
             LegendLocation = (LegendLocation)Enum.Parse(typeof(LegendLocation), _configurationNamedValues.GetString("LegendLocation", "None"));
         }
@@ -143,9 +154,13 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
         {
             _chart = chart;
 
-            AddValue("Running", 3.0);
-            AddValue("Idle", 5.0);
-            AddValue("Off-line", 1.0);
+            Update();
+            // todo - this needs to be a run-time update - bind?
+            for(var index=0; index<Values.Length; index++)
+            {
+                var title = Titles.Length > index ? Titles[index] : "";
+                AddValue(title, Values[index]);
+            }
 
             _chart.Series.AddRange(_series);
         }

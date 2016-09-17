@@ -78,7 +78,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories
 
         public double[] GetDoubleArray(string name)
         {
-            var elements = name.Split(',');
+            var elements = GetStringArray(name);
             var values = new List<double>();
             foreach (var element in elements)
             {
@@ -87,6 +87,11 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories
                 values.Add(value);
             }
             return values.ToArray();
+        }
+
+        public string[] GetStringArray(string name)
+        {
+            return name.Split(',');
         }
     }
 }

@@ -69,6 +69,11 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories
             return Get(name).GetDoubleArray(name);
         }
 
+        public string[] GetStringArray(string name)
+        {
+            return Get(name).GetStringArray(name);
+        }
+
         private INamedValueRepository Get(string name)
         {
             return _providers.First(x => x.CanHandle(name)).Get(name);

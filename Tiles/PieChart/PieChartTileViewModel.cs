@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using System.Windows.Media;
 using LiveCharts;
+using LiveCharts.Defaults;
 using LiveCharts.Wpf;
 using NoeticTools.TeamStatusBoard.Framework;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
@@ -25,7 +27,6 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
         private readonly IServices _services;
         private readonly INamedValueRepository _configurationNamedValues;
         private readonly INamedValueRepository _namedValues;
-        private double[] _values = new double[0];
         private string _label = "";
         private string _format = "{0}";
         private LegendLocation _legendLocation = LegendLocation.None;
@@ -39,6 +40,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
             _services = services;
             _configurationNamedValues = properties.Properties;
             _namedValues = properties.NamedValueRepository;
+            Values = new ObservableCollection<ObservableValue>();
             PointLabel = chartPoint => "";
             Formatter = x => string.Format(Format, x);
 
@@ -80,25 +82,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
 
         public Func<double, string> Formatter { get; set; }
 
-        public double[] Values
-        {
-            get { return _values; }
-            set
-            {
-                if (_values.SequenceEqual(value))
-                {
-                    return;
-                }
-                var priorCount = _values.Length;
-                _values = value;
-                OnPropertyChanged();
-                // todo - find out how to dynamically update the chart
-                //if (_values.Length != priorCount)
-                {
-                    OnChartSeriesChanged();
-                }
-            }
-        }
+        public ObservableCollection<ObservableValue> Values { get; }
 
         public string[] Titles
         {
@@ -170,11 +154,35 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
         private void Update()
         {
             Label = _namedValues.GetString("Label", "Label (alpha)");
-            Values = _namedValues.GetDoubleArray("Values");
+
+            var values = _namedValues.GetDoubleArray("Values");
+            SynchroniseValues(values);
+
             Titles = _namedValues.GetStringArray("Titles");
             Colours = _namedValues.GetColourArray("Colours").Select(x => new SolidColorBrush(x)).ToArray();
             Format = _namedValues.GetString("Format", "{0} %");
             LegendLocation = (LegendLocation)Enum.Parse(typeof(LegendLocation), _configurationNamedValues.GetString("LegendLocation", "None"));
+        }
+
+        private void SynchroniseValues(IReadOnlyList<double> values)
+        {
+            var priorCount = Values.Count;
+            while (Values.Count > values.Count)
+            {
+                Values.Remove(Values.Last());
+            }
+            while (Values.Count < values.Count)
+            {
+                Values.Add(new ObservableValue());
+            }
+            for (var index = 0; index < values.Count; index++)
+            {
+                Values[index].Value = values[index];
+            }
+            if (Values.Count != priorCount)
+            {
+                OnChartSeriesChanged();
+            }
         }
 
         void ITimerListener.OnTimeElapsed(TimerToken token)
@@ -193,7 +201,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
         private void OnChartSeriesChanged()
         {
             _series.Clear();
-            for (var index = 0; index < Values.Length; index++)
+            for (var index = 0; index < Values.Count; index++)
             {
                 var title = Titles.Length > index ? Titles[index] : "";
                 AddValue(title, Values[index]);
@@ -202,10 +210,11 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
             _chart.Series.AddRange(_series);
         }
 
-        private void AddValue(string title, double value)
+        private void AddValue(string title, ObservableValue value)
         {
             var seriesNumber = _series.Count+1;
-            _series.Add(new PieSeries { Title = title, Values = new ChartValues<double>() { value }, Fill = GetSeriesFill(seriesNumber) });
+            var pieSeries = new PieSeries { Title = title, Values = new ChartValues<ObservableValue> { value }, Fill = GetSeriesFill(seriesNumber)};
+            _series.Add(pieSeries);
         }
 
         private SolidColorBrush GetSeriesFill(int seriesNumber)

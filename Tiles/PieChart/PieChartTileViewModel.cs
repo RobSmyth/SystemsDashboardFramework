@@ -105,6 +105,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
                 }
                 _titles = value;
                 OnPropertyChanged();
+                OnChartSeriesChanged();
             }
         }
 
@@ -119,6 +120,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
                 }
                 _colours = value;
                 OnPropertyChanged();
+                OnChartSeriesChanged();
             }
         }
 
@@ -178,15 +180,20 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
         public void SetView(LiveCharts.Wpf.PieChart chart)
         {
             _chart = chart;
-
             Update();
-            // todo - this needs to be a run-time update - bind?
-            for(var index=0; index<Values.Length; index++)
+            OnChartSeriesChanged();
+        }
+
+        private void OnChartSeriesChanged()
+        {
+            _series.Clear();
+            for (var index = 0; index < Values.Length; index++)
             {
                 var title = Titles.Length > index ? Titles[index] : "";
                 AddValue(title, Values[index]);
             }
 
+            _chart.Series.Clear();
             _chart.Series.AddRange(_series);
         }
 

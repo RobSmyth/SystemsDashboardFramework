@@ -108,6 +108,7 @@
     <Compile Include="Config\NamedValueRepositories\NullValueRepository.cs" />
     <Compile Include="Config\Properties\BoolPropertyViewModel.cs" />
     <Compile Include="Config\Properties\ColourPropertyViewModel.cs" />
+    <Compile Include="Config\Properties\CompountTextPropertyViewModel.cs" />
     <Compile Include="Config\Properties\EnumPropertyViewModel.cs" />
     <Compile Include="Config\Properties\PropertyEditorType.cs" />
     <Compile Include="Config\Properties\TextPropertyViewModel.cs" />
@@ -163,6 +164,7 @@
     <Compile Include="Plugins\PropertyEditControls\Text\AutoCompleteTextPropertyViewProvider.cs" />
     <Compile Include="Plugins\PropertyEditControls\DataSourceTypePropertyViewPlugin.cs" />
     <Compile Include="Plugins\PropertyEditControls\DataSourceTypePropertyViewProvider.cs" />
+    <Compile Include="Plugins\PropertyEditControls\Text\CompoundAutoCompleteTextPropertyViewProvider.cs" />
     <Compile Include="Plugins\PropertyEditControls\TimeSpan\TimeSpanPropertyViewPlugin.cs" />
     <Compile Include="Plugins\PropertyEditControls\TimeSpan\TimeSpanPropertyViewProvider.cs" />
     <Compile Include="Plugins\Tiles\BlankTile\BlankTileControl.xaml.cs">

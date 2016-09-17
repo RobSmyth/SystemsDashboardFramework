@@ -59,9 +59,8 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
                 // Titles = Running,Idle,Off-line
                 // Colours = Greem,Gray,Red
 
-                // todo - view model to allow selection of a series of text values
-                new TextPropertyViewModel("Values", _configurationNamedValues, _services),
-                new TextPropertyViewModel("Titles", _configurationNamedValues, _services),
+                new CompountTextPropertyViewModel("Values", _configurationNamedValues, _services),
+                new CompountTextPropertyViewModel("Titles", _configurationNamedValues, _services),
 
                 // todo - view model to allow selection of a series of colours
                 new ColourPropertyViewModel("Colours", _configurationNamedValues, _services),

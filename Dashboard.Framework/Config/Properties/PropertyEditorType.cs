@@ -11,6 +11,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.Properties
         TimeSpan,
         Checkbox,
         DataSourceType,
-        DateTime
+        DateTime,
+        CompoundAutoCompleteText
     }
 }

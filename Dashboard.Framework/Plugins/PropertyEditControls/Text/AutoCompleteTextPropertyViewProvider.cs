@@ -31,7 +31,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.PropertyEditControls.Tex
                 
                 Text = (string)viewModel.Value,
             };
-            comboBox.GotFocus += (a, b) => comboBox.IsDropDownOpen = true;
+            comboBox.GotFocus += (a, b) => comboBox.IsDropDownOpen = false;
             comboBox.LostFocus += (a, b) => viewModel.Value = comboBox.Text;
 
             BindingOperations.SetBinding(comboBox, ComboBox.ItemsSourceProperty, new Binding("Parameters"));

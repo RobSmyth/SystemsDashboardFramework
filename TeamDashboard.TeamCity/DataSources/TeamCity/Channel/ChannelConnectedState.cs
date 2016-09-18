@@ -62,12 +62,6 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Channel
 
         private void UpdateBuildAgentRepository()
         {
-            var teamCityAgents = _teamCityClient.Agents.All();
-            foreach (var teamCityAgent in teamCityAgents)
-            {
-                _buildAgentRepository.Get(teamCityAgent.Name); // todo - move this functionality to the repository
-            }
         }
     }
-
 }

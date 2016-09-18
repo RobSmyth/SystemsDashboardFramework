@@ -10,15 +10,11 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Configuratio
     public sealed class BuildConfigurationRepositoryFactory : IBuildConfigurationRepositoryFactory
     {
         private readonly ITcSharpTeamCityClient _teamCityClient;
-        private readonly IServices _services;
-        private readonly IChannelConnectionStateBroadcaster _stateBroadcaster;
         private readonly ConnectedStateTicker _connectedTicker;
 
-        public BuildConfigurationRepositoryFactory(ITcSharpTeamCityClient teamCityClient, IServices services, IChannelConnectionStateBroadcaster stateBroadcaster, ConnectedStateTicker connectedTicker)
+        public BuildConfigurationRepositoryFactory(ITcSharpTeamCityClient teamCityClient, ConnectedStateTicker connectedTicker)
         {
             _teamCityClient = teamCityClient;
-            _services = services;
-            _stateBroadcaster = stateBroadcaster;
             _connectedTicker = connectedTicker;
         }
 

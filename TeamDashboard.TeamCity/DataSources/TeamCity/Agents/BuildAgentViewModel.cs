@@ -166,7 +166,11 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Agents
 
         private void UpdateBuildAgentParameters()
         {
-            _agentsRepository.Write($"Agent.{Name}.Status", Status);
+            if (string.IsNullOrWhiteSpace(Name))
+            {
+                return;
+            }
+            _agentsRepository.Write($"Agents.{Name}.Status", Status);
         }
 
         void IChannelConnectionStateListener.OnConnected()

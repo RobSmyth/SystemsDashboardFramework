@@ -30,6 +30,12 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity
             set { _inner.Parameter("Password", "MyPassword").Value = value; }
         }
 
+        public string AgentsFilter
+        {
+            get { return _inner.Parameter("AgentsFilter", ".*").Value; }
+            set { _inner.Parameter("AgentsFilter", ".*").Value = value; }
+        }
+
         public DashboardConfigValuePair[] Values
         {
             get { return _inner.Values; }

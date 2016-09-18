@@ -65,7 +65,8 @@
                     </DataGridTemplateColumn.CellTemplate>
                     <DataGridTemplateColumn.CellEditingTemplate>
                         <DataTemplate>
-                            <ComboBox Text="{Binding Path=TypeName}" 
+                            <!-- todo mode onway is not useful when editing -->
+                            <ComboBox Text="{Binding Path=TypeName, Mode=OneWay}" 
                                       ItemsSource="{Binding ElementName=root, Path=DataContext.AvailableDataSourceTypes}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellEditingTemplate>
@@ -82,9 +83,12 @@
                   CanUserAddRows="False" CanUserDeleteRows="False" CanUserSortColumns="True"
                   SelectionMode="Single" SelectionUnit="FullRow"
                   IsReadOnly="False"
-                  RowHeaderWidth="0">
+                  RowHeaderWidth="0" 
+                  EnableRowVirtualization="True" EnableColumnVirtualization="True"
+                  MaxHeight="5000" MaxWidth="1000"
+                  VerticalScrollBarVisibility="Hidden">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Binding="{Binding Name, Mode=OneWay}" SortMemberPath="Name" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Name" Width="5*" Binding="{Binding Name, Mode=OneTime}" SortMemberPath="Name" IsReadOnly="True"/>
                 <DataGridTemplateColumn Header="Value" Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -93,7 +97,7 @@
                     </DataGridTemplateColumn.CellTemplate>
                     <DataGridTemplateColumn.CellEditingTemplate>
                         <DataTemplate>
-                            <TextBox Text="{Binding Path=Value, Mode=TwoWay}" IsReadOnly="{Binding IsReadOnly, Mode=OneWay}"/>
+                            <TextBox Text="{Binding Path=Value, Mode=TwoWay}" IsReadOnly="{Binding IsReadOnly, Mode=OneTime}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellEditingTemplate>
                 </DataGridTemplateColumn>

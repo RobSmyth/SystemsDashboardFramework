@@ -30,7 +30,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
 
         public IEnumerable<string> GetAllNames()
         {
-            return _sources.Keys.OrderBy(x => x).ToArray();
+            return _sources.Keys.ToArray();
         }
 
         public void AddListener(IDataChangeListener listener)

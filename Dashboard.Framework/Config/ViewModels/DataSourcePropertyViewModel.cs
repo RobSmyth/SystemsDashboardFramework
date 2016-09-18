@@ -23,7 +23,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.ViewModels
 
         public bool IsReadOnly
         {
-            get { return true; }//_dataSource.IsReadOnly(Name); }
+            get { return _dataSource.IsReadOnly(Name); }
         }
     }
 }

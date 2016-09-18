@@ -1,4 +1,5 @@
 ﻿using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
+using NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Agents;
 
 
 namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Projects
@@ -9,10 +10,11 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Projects
         private readonly IProjectRepository _repository;
         private readonly IDataSource _dataSource;
 
-        public ProjectRepositoryDataService(IDataSource dataSource, IProjectRepository repository)
+        public ProjectRepositoryDataService(IDataSource dataSource, IProjectRepository repository, IConnectedStateTicker ticker)
         {
             _repository = repository;
             _dataSource = dataSource;
+            ticker.AddListener(UpdateProjects);
         }
 
         public string Name => "TeamCity.Projects";

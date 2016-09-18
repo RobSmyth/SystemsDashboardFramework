@@ -75,7 +75,8 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Channel
             {
                 new TextPropertyViewModel("Url", _configurationNamedValues, _services),
                 new TextPropertyViewModel("UserName", _configurationNamedValues, _services),
-                new TextPropertyViewModel("Password", _configurationNamedValues, _services)
+                new TextPropertyViewModel("Password", _configurationNamedValues, _services),
+                new PropertyViewModel("AgentsFilter", PropertyType.Text, _configurationNamedValues), 
             };
 
             const string title = "TeamCity Server Configuration";

@@ -135,7 +135,6 @@
     <Compile Include="Tiles\TeamCity\LastBuildStatus\TeamCityLastBuildStatusTileProvider.cs" />
     <Compile Include="Tiles\TeamCity\LastBuildStatus\TeamCityLastBuildStatusTileViewModel.cs" />
     <Compile Include="Tiles\TeamCity\TeamCityConfigurationSuggestionProvider.cs" />
-    <Compile Include="Tiles\TeamCity\TeamCityProjectPropertyViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tiles\TeamCity\TeamCityConfigurationPropertyViewModel.cs" />
   </ItemGroup>

@@ -8,5 +8,6 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity
         string Url { get; set; }
         string UserName { get; set; }
         string Password { get; set; }
+        string AgentsFilter { get; set; }
     }
 }

@@ -31,7 +31,15 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Projects
             var projects = _repository.GetAll();
             foreach (var project in projects)
             {
+                if (project.Archived)
+                {
+                    continue;
+                }
+
                 _dataSource.Write($"{project.Name}", "-");
+                _dataSource.Write($"{project.Name}.Id", project.Id);
+                _dataSource.Write($"{project.Name}.Url", project.WebUrl);
+
                 foreach (var buildConfiguration in project.Configurations)
                 {
                     _dataSource.Write($"{project.Name}.Configuration.{buildConfiguration.Name}", "-");

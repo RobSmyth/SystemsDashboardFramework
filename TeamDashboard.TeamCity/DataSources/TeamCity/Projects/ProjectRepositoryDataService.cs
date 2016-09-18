@@ -32,7 +32,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Projects
             var projects = _repository.GetAll();
             foreach (var project in projects)
             {
-                if (project.Archived)
+                if (project.Archived || project.Name.Contains("Archived"))
                 {
                     continue;
                 }
@@ -43,6 +43,10 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Projects
 
                 foreach (var buildConfiguration in project.Configurations)
                 {
+                    if (buildConfiguration.Name.Contains("Archived"))
+                    {
+                        continue;
+                    }
                     _dataSource.Set($"Projects.{project.Name}.Configuration.{buildConfiguration.Name}", buildConfiguration, PropertiesFlags.ReadOnly, "TeamCity.BuildConfiguration", "Ref");
                 }
             }

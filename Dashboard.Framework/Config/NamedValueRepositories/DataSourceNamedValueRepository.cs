@@ -79,6 +79,11 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories
             throw new NotImplementedException();
         }
 
+        public T Get<T>(string name)
+        {
+            return _dataService.Read<T>(GetPropertyName(name));
+        }
+
         private string GetPropertyName(string name)
         {
             return name.Substring(_dataService.TypeName.Length + 2);

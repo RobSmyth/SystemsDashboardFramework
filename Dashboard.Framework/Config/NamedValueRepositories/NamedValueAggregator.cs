@@ -79,6 +79,11 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories
             return Get(name).GetColourArray(name);
         }
 
+        public T Get<T>(string name)
+        {
+            return Get(name).Get<T>(name);
+        }
+
         private INamedValueRepository Get(string name)
         {
             return _providers.First(x => x.CanHandle(name)).Get(name);

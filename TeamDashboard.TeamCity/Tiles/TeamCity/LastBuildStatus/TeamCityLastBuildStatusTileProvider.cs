@@ -36,7 +36,10 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity.LastBuildStatus
         {
             var teamCityService = _services.GetService<ITeamCityService>("TeamCity");
             var view = new TeamCityBuildStatusTileControl();
-            new TeamCityLastBuildStatusTileViewModel(_channel, tileConfigturation, _dashboardController, layoutController, _services, view, teamCityService);
+            var conduit = new ConfigurationChangeListenerConduit();
+            var tileProperties = new TileProperties(tileConfigturation, conduit, _services);
+            var viewModel = new TeamCityLastBuildStatusTileViewModel(_channel, tileConfigturation, _dashboardController, layoutController, _services, view, teamCityService, tileProperties);
+            conduit.SetTarget(viewModel);
             return view;
         }
 

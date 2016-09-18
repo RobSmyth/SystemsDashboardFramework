@@ -91,5 +91,10 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories
         {
             return GetStringArray(name).Select(x => GetColour(x, "White")).ToArray();
         }
+
+        public T Get<T>(string name)
+        {
+            return default(T);
+        }
     }
 }

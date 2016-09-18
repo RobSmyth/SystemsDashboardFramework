@@ -31,7 +31,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
         {
             if (!_values.ContainsKey(name))
             {
-                _values[name] = new DataValue(value, flags, NotifyValueChanged, tags);
+                _values[name] = new DataValue(name, value, flags, NotifyValueChanged, tags);
             }
             else
             {
@@ -41,6 +41,11 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
                 dataValue.Tags.AddRange(tags);
                 dataValue.Value = value;
             }
+        }
+
+        public IEnumerable<DataValue> Find(Func<DataValue, bool> predicate)
+        {
+            return _values.Values.Where(x => predicate(x)).OrderBy(y => y.Name).ToArray();
         }
 
         public IEnumerable<string> GetAllNames()

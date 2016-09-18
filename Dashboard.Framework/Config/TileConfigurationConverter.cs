@@ -130,6 +130,12 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config
             return colours.Select(x => GetColour(x, "white")).ToArray();
         }
 
+        public T Get<T>(string name)
+        {
+            var value = GetParameter(name);
+            return (value is T) ? (T) value : default(T);
+        }
+
         private void SetParameter<T>(string name, T value)
         {
             var textValue = value.ToString();

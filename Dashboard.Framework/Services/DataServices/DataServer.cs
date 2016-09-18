@@ -49,6 +49,11 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
             GetDataSource(parser.TypeName).Set(parser.PropertyName, value, flags, tags);
         }
 
+        public IEnumerable<DataValue> Find(Func<DataValue, bool> predicate)
+        {
+            throw new InvalidOperationException();
+        }
+
         public IEnumerable<IDataSource> GetAllDataSources()
         {
             return _sources.Values.OrderBy(x => x.TypeName).ToArray();

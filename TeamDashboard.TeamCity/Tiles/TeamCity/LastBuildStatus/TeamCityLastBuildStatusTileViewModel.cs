@@ -7,12 +7,14 @@ using log4net;
 using NoeticTools.TeamStatusBoard.Framework;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
 using NoeticTools.TeamStatusBoard.Framework.Config;
+using NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories;
 using NoeticTools.TeamStatusBoard.Framework.Config.Properties;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 using NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity;
 using NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Channel;
+using NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Configurations;
 using TeamCitySharp.DomainEntities;
 
 
@@ -23,7 +25,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity.LastBuildStatus
         public const string TileTypeId = "TeamCity.Build.Status";
         private readonly ITeamCityChannel _channel;
         private readonly IServices _services;
-        private readonly TileConfigurationConverter _tileConfiguration;
+        //private readonly TileConfigurationConverter _tileConfiguration;
         private readonly TeamCityBuildStatusTileControl _view;
         private readonly ITeamCityService _teamCityService;
         private readonly ILog _logger;
@@ -34,8 +36,10 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity.LastBuildStatus
         private string _buildVersion;
         private int _agentsCount;
         private string _runningStatus;
+        private INamedValueRepository _configurationNamedValues;
+        private INamedValueRepository _namedValues;
 
-        public TeamCityLastBuildStatusTileViewModel(ITeamCityChannel channel, TileConfiguration tile, IDashboardController dashboardController, ITileLayoutController layoutController, IServices services, TeamCityBuildStatusTileControl view, ITeamCityService teamCityService)
+        public TeamCityLastBuildStatusTileViewModel(ITeamCityChannel channel, TileConfiguration tile, IDashboardController dashboardController, ITileLayoutController layoutController, IServices services, TeamCityBuildStatusTileControl view, ITeamCityService teamCityService, ITileProperties properties)
         {
             lock (_syncRoot)
             {
@@ -44,9 +48,11 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity.LastBuildStatus
 
             _channel = channel;
             _services = services;
+            _configurationNamedValues = properties.Properties;
+            _namedValues = properties.NamedValueRepository;
             _view = view;
             _teamCityService = teamCityService;
-            _tileConfiguration = new TileConfigurationConverter(tile, this);
+            //_tileConfiguration = new TileConfigurationConverter(tile, this);
             _status = "UNKNOWN";
             _runningStatus = "UNKNOWN";
             _description = "";
@@ -67,9 +73,9 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity.LastBuildStatus
 
         private void RegisterProjectAndConfiguration(ITeamCityService teamCityService)
         {
-            var projectName = _tileConfiguration.GetString("Project");
-            var configurationName = _tileConfiguration.GetString("Configuration");
-            teamCityService.Projects.Get(projectName).GetConfiguration(configurationName);
+            var configurationName = _configurationNamedValues.GetString("Configuration");
+            _namedValues.GetString(configurationName);
+            //teamCityService.Projects.Get(projectName).GetConfiguration(configurationName);
         }
 
         public string Status
@@ -149,15 +155,17 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity.LastBuildStatus
         {
             _logger.Debug("Timer elapsed. Update.");
 
-            var projectName = _tileConfiguration.GetString("Project");
-            var configurationName = _tileConfiguration.GetString("Configuration");
+            var buildConfiguration = _namedValues.Get<BuildConfiguration>("Configuration");
 
-            Task.Factory.StartNew(() => GetBuilds(projectName, configurationName)).ContinueWith(x => _view.Dispatcher.InvokeAsync(() => Update(x.Result)));
+            Task.Factory.StartNew(() => GetBuilds(buildConfiguration)).ContinueWith(x => _view.Dispatcher.InvokeAsync(() => Update(x.Result)));
         }
 
-        private Build[] GetBuilds(string projectName, string configurationName)
+        private Build[] GetBuilds(BuildConfiguration buildConfiguration)
         {
-            var buildConfiguration = _teamCityService.Projects.Get(projectName).GetConfiguration(configurationName);
+            if (buildConfiguration == null)
+            {
+                return new Build[0];
+            }
 
             var build = buildConfiguration.GetRunningBuilds();
             if (build.Any())
@@ -190,7 +198,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity.LastBuildStatus
             var running = build.Status.StartsWith("RUNNING");
 
             var status = build.Status;
-            Description = _tileConfiguration.GetString("Description");
+            Description = _configurationNamedValues.GetString("Description");
             BuildVersion = build.Number;
             RunningStatus = running ? "Running" : "";
             _view.agentsCount.Visibility = running ? Visibility.Visible : Visibility.Collapsed;
@@ -211,16 +219,11 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity.LastBuildStatus
 
         private IPropertyViewModel[] GetConfigurationParameters()
         {
-            var projectElementViewModel = new TeamCityProjectPropertyViewModel("Project", _tileConfiguration, _channel);
-
             var configurationParameters = new IPropertyViewModel[]
             {
-                projectElementViewModel,
-                new DependantPropertyViewModel("Configuration", PropertyType.Enum, _tileConfiguration, projectElementViewModel,
-                    () => _teamCityService.Projects.Get((string) projectElementViewModel.Value).Configurations.Select(x => x.Name).Cast<object>().ToArray()),
-                new PropertyViewModel("Description", PropertyType.Text, _tileConfiguration),
+                new TeamCityConfigurationPropertyViewModel("Configuration", _configurationNamedValues, _services),
+                new TextPropertyViewModel("Description", _configurationNamedValues, _services),
                 new HyperlinkPropertyViewModel("TeamCity service", ConfigureServiceCommand),
-                new TeamCityConfigurationPropertyViewModel("X", _tileConfiguration, _services.DataService.Get("TeamCity")), 
             };
             return configurationParameters;
         }

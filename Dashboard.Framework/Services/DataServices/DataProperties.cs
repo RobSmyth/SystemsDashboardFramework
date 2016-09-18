@@ -9,16 +9,18 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
         private object _value;
         private readonly Action _notifyValueChanged;
 
-        public DataValue(object value, PropertiesFlags flags, Action notifyValueChanged, params string[] tags)
+        public DataValue(string name, object value, PropertiesFlags flags, Action notifyValueChanged, params string[] tags)
         {
+            Name = name;
             Flags = flags;
             _value = value;
             _notifyValueChanged = notifyValueChanged;
             Tags = new List<string>(tags);
         }
 
+        public string Name { get; }
         public PropertiesFlags Flags { get; set; }
-        public List<string> Tags { get; set; }
+        public List<string> Tags { get; }
 
         public object Value
         {

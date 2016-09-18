@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 
@@ -41,6 +42,11 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
 
         public void Set(string name, object value, PropertiesFlags flags, params string[] tags)
         {
+        }
+
+        public IEnumerable<DataValue> Find(Func<DataValue, bool> predicate)
+        {
+            return new DataValue[0];
         }
     }
 }

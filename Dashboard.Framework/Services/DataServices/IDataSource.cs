@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
@@ -12,5 +13,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
         void AddListener(IDataChangeListener listener);
         bool IsReadOnly(string name);
         void Set(string name, object value, PropertiesFlags flags, params string[] tags);
+        IEnumerable<DataValue> Find(Func<DataValue, bool> predicate);
     }
 }

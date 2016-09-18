@@ -60,6 +60,11 @@ namespace NoeticTools.TeamStatusBoard.DataSources.DashboardData
             _innerDataSource.Set(name, value, flags, tags);
         }
 
+        public IEnumerable<DataValue> Find(Func<DataValue, bool> predicate)
+        {
+            return _innerDataSource.Find(predicate);
+        }
+
         private void SetParameter(string name, string value)
         {
             _configuration.GetParameter(name, string.Empty).Value = value;

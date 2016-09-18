@@ -29,13 +29,12 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Projects
         private void UpdateProjects()
         {
             var projects = _repository.GetAll();
-            _dataSource.Write($"Count", projects.Length);
             foreach (var project in projects)
             {
-                _dataSource.Write($"Project.{project.Name}", "-");
+                _dataSource.Write($"{project.Name}", "-");
                 foreach (var buildConfiguration in project.Configurations)
                 {
-                    _dataSource.Write($"Project.{project.Name}.Configuration.{buildConfiguration.Name}", "-");
+                    _dataSource.Write($"{project.Name}.Configuration.{buildConfiguration.Name}", "-");
                 }
             }
         }

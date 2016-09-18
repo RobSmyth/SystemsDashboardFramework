@@ -109,10 +109,10 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Agents
                 return;
             }
 
-            _dataSource.Write($"Agent.{buildAgent.Name}", "");
-            _dataSource.Write($"Agent.{buildAgent.Name}.IsAuthorised", buildAgent.IsAuthorised);
-            _dataSource.Write($"Agent.{buildAgent.Name}.IsOnline", buildAgent.IsOnline);
-            _dataSource.Write($"Agent.{buildAgent.Name}.IsRunning", buildAgent.IsRunning);
+            _dataSource.Write($"{buildAgent.Name}", "");
+            _dataSource.Write($"{buildAgent.Name}.IsAuthorised", buildAgent.IsAuthorised);
+            _dataSource.Write($"{buildAgent.Name}.IsOnline", buildAgent.IsOnline);
+            _dataSource.Write($"{buildAgent.Name}.IsRunning", buildAgent.IsRunning);
         }
 
         private void UpdateCounts()

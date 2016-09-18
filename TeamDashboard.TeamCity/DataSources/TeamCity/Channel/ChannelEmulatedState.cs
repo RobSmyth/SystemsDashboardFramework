@@ -15,12 +15,10 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Channel
         {
             _logger = LogManager.GetLogger("DateSources.TeamCity.Emulated");
 
-            repository.Write("Projects.Count", 0);
             foreach (var projectName in ProjectNames)
             {
-                repository.Write($"Project.{projectName}.Status", "Emulated");
+                repository.Write($"{projectName}.Status", "Emulated");
             }
-            repository.Write("Projects.Count", ProjectNames.Length);
         }
 
         public string[] ProjectNames => new[] {"Project A", "Project B"};

@@ -55,9 +55,9 @@ namespace NoeticTools.TeamStatusBoard.DataSources.DashboardData
             return _innerDataSource.IsReadOnly(name);
         }
 
-        public void SetProperties(string name, ValueProperties properties)
+        public void Set(string name, object value, PropertiesFlags flags, params string[] tags)
         {
-            _innerDataSource.SetProperties(name, properties);
+            _innerDataSource.Set(name, value, flags, tags);
         }
 
         private void SetParameter(string name, string value)

@@ -11,6 +11,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
         IEnumerable<string> GetAllNames();
         void AddListener(IDataChangeListener listener);
         bool IsReadOnly(string name);
-        void SetProperties(string name, ValueProperties properties);
+        void Set(string name, object value, PropertiesFlags flags, params string[] tags);
     }
 }

@@ -179,6 +179,7 @@
     <Compile Include="Plugins\Tiles\Help\HelpTileKeyHandler.cs" />
     <Compile Include="Plugins\Tiles\InsertTile\InsertTileKeyHandler.cs" />
     <Compile Include="RunOptions.cs" />
+    <Compile Include="Services\DataServices\DataProperties.cs" />
     <Compile Include="Services\DataServices\DataSourcePropertyParser.cs" />
     <Compile Include="Services\DataServices\IDataService.cs" />
     <Compile Include="Services\DataServices\DataRepositoy.cs" />
@@ -188,7 +189,7 @@
     <Compile Include="Services\DataServices\IDataRepositoryFactory.cs" />
     <Compile Include="Services\DataServices\IDataSource.cs" />
     <Compile Include="Services\DataServices\IDataChangeListener.cs" />
-    <Compile Include="Services\DataServices\ValueProperties.cs" />
+    <Compile Include="Services\DataServices\PropertiesFlags.cs" />
     <Compile Include="Services\IService.cs" />
     <Compile Include="ITileControllerProvider.cs" />
     <Compile Include="ITileLayoutController.cs" />

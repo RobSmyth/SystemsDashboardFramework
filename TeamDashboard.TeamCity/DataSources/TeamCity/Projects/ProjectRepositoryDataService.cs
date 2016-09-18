@@ -5,6 +5,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Projects
 {
     public sealed class ProjectRepositoryDataService : IProjectRepositoryDataService, IDataChangeListener
     {
+        private const string PropertyTag = "TeamCity.Project";
         private readonly IProjectRepository _repository;
         private readonly IDataSource _dataSource;
 
@@ -36,18 +37,13 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Projects
                     continue;
                 }
 
-                _dataSource.SetProperties($"Projects.{project.Name}", ValueProperties.ReadOnly);
-                _dataSource.SetProperties($"Projects.{project.Name}.Id", ValueProperties.ReadOnly);
-                _dataSource.SetProperties($"Projects.{project.Name}.Url", ValueProperties.ReadOnly);
-
-                _dataSource.Write($"Projects.{project.Name}", "");
-                _dataSource.Write($"Projects.{project.Name}.Id", project.Id);
-                _dataSource.Write($"Projects.{project.Name}.Url", project.WebUrl);
+                _dataSource.Set($"Projects.{project.Name}", project, PropertiesFlags.ReadOnly, PropertyTag, "Ref");
+                _dataSource.Set($"Projects.{project.Name}.Id", project.Id, PropertiesFlags.ReadOnly, PropertyTag);
+                _dataSource.Set($"Projects.{project.Name}.Url", project.WebUrl, PropertiesFlags.ReadOnly, PropertyTag);
 
                 foreach (var buildConfiguration in project.Configurations)
                 {
-                    _dataSource.SetProperties($"Projects.{project.Name}.Configuration.{buildConfiguration.Name}", ValueProperties.ReadOnly);
-                    _dataSource.Write($"Projects.{project.Name}.Configuration.{buildConfiguration.Name}", "");
+                    _dataSource.Set($"Projects.{project.Name}.Configuration.{buildConfiguration.Name}", buildConfiguration, PropertiesFlags.ReadOnly, "TeamCity.BuildConfiguration", "Ref");
                 }
             }
         }

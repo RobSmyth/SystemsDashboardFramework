@@ -220,6 +220,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity.LastBuildStatus
                     () => _teamCityService.Projects.Get((string) projectElementViewModel.Value).Configurations.Select(x => x.Name).Cast<object>().ToArray()),
                 new PropertyViewModel("Description", PropertyType.Text, _tileConfiguration),
                 new HyperlinkPropertyViewModel("TeamCity service", ConfigureServiceCommand),
+                new TeamCityConfigurationPropertyViewModel("X", _tileConfiguration, _services.DataService.Get("TeamCity")), 
             };
             return configurationParameters;
         }

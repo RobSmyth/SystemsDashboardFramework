@@ -10,6 +10,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Agents
 {
     public sealed class BuildAgentRepository : IBuildAgentRepository
     {
+        private const string PropertyTag = "TeamCity.BuildAgent";
         private readonly IDataSource _dataSource;
         private readonly ITcSharpTeamCityClient _teamCitySharpClient;
         private readonly IChannelConnectionStateBroadcaster _channelStateBroadcaster;
@@ -94,7 +95,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Agents
 
             UpdateCounts();
 
-            NotifyValueChanged(); // todo
+            NotifyValueChanged(); // _propertyTag
         }
 
         private void OnTick()
@@ -109,30 +110,20 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Agents
                 return;
             }
 
-            _dataSource.SetProperties($"Agents.{buildAgent.Name}", ValueProperties.ReadOnly);
-            _dataSource.SetProperties($"Agents.{buildAgent.Name}.IsAuthorised", ValueProperties.ReadOnly);
-            _dataSource.SetProperties($"Agents.{buildAgent.Name}.IsOnline", ValueProperties.ReadOnly);
-            _dataSource.SetProperties($"Agents.{buildAgent.Name}.IsRunning", ValueProperties.ReadOnly);
-
-            _dataSource.Write($"Agents.{buildAgent.Name}", "");
-            _dataSource.Write($"Agents.{buildAgent.Name}.IsAuthorised", buildAgent.IsAuthorised);
-            _dataSource.Write($"Agents.{buildAgent.Name}.IsOnline", buildAgent.IsOnline);
-            _dataSource.Write($"Agents.{buildAgent.Name}.IsRunning", buildAgent.IsRunning);
+            _dataSource.Set($"Agents.{buildAgent.Name}", buildAgent, PropertiesFlags.ReadOnly, PropertyTag, "Ref");
+            _dataSource.Set($"Agents.{buildAgent.Name}.IsAuthorised", buildAgent.IsAuthorised, PropertiesFlags.ReadOnly, PropertyTag);
+            _dataSource.Set($"Agents.{buildAgent.Name}.IsOnline", buildAgent.IsOnline, PropertiesFlags.ReadOnly, PropertyTag);
+            _dataSource.Set($"Agents.{buildAgent.Name}.IsRunning", buildAgent.IsRunning, PropertiesFlags.ReadOnly, PropertyTag);
         }
 
         private void UpdateCounts()
         {
             var buildAgents = GetAll();
 
-            _dataSource.SetProperties($"Agents.Count", ValueProperties.ReadOnly);
-            _dataSource.SetProperties($"Agents.Count.Authorised", ValueProperties.ReadOnly);
-            _dataSource.SetProperties($"Agents.Count.Online", ValueProperties.ReadOnly);
-            _dataSource.SetProperties($"Agents.Count.Running", ValueProperties.ReadOnly);
-
-            _dataSource.Write($"Agents.Count", buildAgents.Length);
-            _dataSource.Write($"Agents.Count.Authorised", buildAgents.Count(x => x.IsAuthorised));
-            _dataSource.Write($"Agents.Count.Online", buildAgents.Count(x => x.IsOnline));
-            _dataSource.Write($"Agents.Count.Running", buildAgents.Count(x => x.IsRunning));
+            _dataSource.Set($"Agents.Count", buildAgents.Length, PropertiesFlags.ReadOnly, PropertyTag);
+            _dataSource.Set($"Agents.Count.Authorised", buildAgents.Count(x => x.IsAuthorised), PropertiesFlags.ReadOnly, PropertyTag);
+            _dataSource.Set($"Agents.Count.Online", buildAgents.Count(x => x.IsOnline), PropertiesFlags.ReadOnly, PropertyTag);
+            _dataSource.Set($"Agents.Count.Running", buildAgents.Count(x => x.IsRunning), PropertiesFlags.ReadOnly, PropertyTag);
 
             NotifyValueChanged();
         }

@@ -136,6 +136,7 @@
     <Compile Include="Tiles\TeamCity\LastBuildStatus\TeamCityLastBuildStatusTileViewModel.cs" />
     <Compile Include="Tiles\TeamCity\TeamCityProjectPropertyViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tiles\TeamCity\TeamCityTextPropertyViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dashboard.Framework\Framework.csproj">

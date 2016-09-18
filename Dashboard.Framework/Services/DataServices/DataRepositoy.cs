@@ -7,8 +7,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
 {
     public class DataRepositoy : IDataSource
     {
-        private readonly IDictionary<string, ValueProperties> _valueProperties = new Dictionary<string, ValueProperties>();
-        private readonly IDictionary<string, object> _values = new Dictionary<string, object>();
+        private readonly IDictionary<string, DataValue> _values = new Dictionary<string, DataValue>();
         private readonly IList<IDataChangeListener> _listeners = new List<IDataChangeListener>();
 
         public DataRepositoy(string typeName)
@@ -25,12 +24,23 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
 
         public bool IsReadOnly(string name)
         {
-            return _valueProperties.ContainsKey(name) && _valueProperties[name] == ValueProperties.ReadOnly;
+            return _values.ContainsKey(name) && ((_values[name].Flags & PropertiesFlags.ReadOnly) != PropertiesFlags.None);
         }
 
-        public void SetProperties(string name, ValueProperties properties)
+        public void Set(string name, object value, PropertiesFlags flags, params string[] tags)
         {
-            _valueProperties[name] = properties;
+            if (!_values.ContainsKey(name))
+            {
+                _values[name] = new DataValue(value, flags, NotifyValueChanged, tags);
+            }
+            else
+            {
+                var dataValue = _values[name];
+                dataValue.Flags = flags;
+                dataValue.Tags.Clear();
+                dataValue.Tags.AddRange(tags);
+                dataValue.Value = value;
+            }
         }
 
         public IEnumerable<string> GetAllNames()
@@ -40,19 +50,25 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
 
         public void Write<T>(string name, T value)
         {
-            _values[name] = value;
-            NotifyValueChanged();
+            if (!_values.ContainsKey(name))
+            {
+                Set(name, value, PropertiesFlags.None);
+            }
+            else
+            {
+                _values[name].Value = value;
+            }
         }
 
         public T Read<T>(string name)
         {
             if (!_values.ContainsKey(name))
             {
-                _values.Add(name, default(T));
+                Set(name, default(T), PropertiesFlags.None);
             }
             try
             {
-                return (T)Convert.ChangeType(_values[name], typeof(T));
+                return (T)Convert.ChangeType(_values[name].Value, typeof(T));
             }
             catch (Exception)
             {

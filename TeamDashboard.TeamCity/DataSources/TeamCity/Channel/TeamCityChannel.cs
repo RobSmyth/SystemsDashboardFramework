@@ -17,6 +17,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Channel
 {
     public sealed class TeamCityChannel : IConfigurationChangeListener, ITimerListener, ITeamCityChannel
     {
+        private const string PropertyTag = "TeamCity.Channel";
         private readonly IDashboardController _dashboardController;
         private readonly IServices _services;
         private readonly ITeamCityDataSourceConfiguration _configuration;
@@ -38,13 +39,10 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Channel
             _logger = LogManager.GetLogger("DataSources.TeamCity.Channel");
             _services.Timer.QueueCallback(TimeSpan.FromMilliseconds(10), this);
 
-            _repository.SetProperties("Service.Status", ValueProperties.ReadOnly);
-            _repository.SetProperties("Service.Connected", ValueProperties.ReadOnly);
-
-            _repository.Write("Service.URL", _configuration.Url);
-            _repository.Write("Service.Status", services.RunOptions.EmulateMode ? "Connected" : "Stopped");
-            _repository.Write("Service.Connected", false);
-            _repository.Write("Service.Mode", services.RunOptions.EmulateMode ? "Emulated" : "Run");
+            _repository.Set("Service.URL", _configuration.Url, PropertiesFlags.ReadOnly, PropertyTag);
+            _repository.Set("Service.Status", services.RunOptions.EmulateMode ? "Connected" : "Stopped", PropertiesFlags.ReadOnly, PropertyTag);
+            _repository.Set("Service.Connected", false, PropertiesFlags.ReadOnly, PropertyTag);
+            _repository.Set("Service.Mode", services.RunOptions.EmulateMode ? "Emulated" : "Run", PropertiesFlags.ReadOnly, PropertyTag);
         }
 
         public string[] ProjectNames => _stateEngine.Current.ProjectNames;

@@ -43,10 +43,10 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
             throw new NotImplementedException();
         }
 
-        public void SetProperties(string name, ValueProperties properties)
+        public void Set(string name, object value, PropertiesFlags flags, params string[] tags)
         {
             var parser = new DataSourcePropertyParser(name);
-            GetDataSource(parser.TypeName).SetProperties(parser.PropertyName, properties);
+            GetDataSource(parser.TypeName).Set(parser.PropertyName, value, flags, tags);
         }
 
         public IEnumerable<IDataSource> GetAllDataSources()

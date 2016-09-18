@@ -6,13 +6,13 @@ namespace NoeticTools.TeamStatusBoard.DataSources.FileSystem
 {
     public class FileReaderDataService : IService
     {
+        private const string PropertyTag = "FileReader";
+
         public FileReaderDataService(IServices services, IDataSource dataSource)
         {
-            dataSource.SetProperties("Service.Name", ValueProperties.ReadOnly);
-            dataSource.SetProperties("Service.Status", ValueProperties.ReadOnly);
-            dataSource.Write("Service.Name", "FileReader");
-            dataSource.Write("Service.Mode", "Run");
-            dataSource.Write("Service.Status", "Stopped");
+            dataSource.Set("Service.Name", "FileReader", PropertiesFlags.ReadOnly, PropertyTag);
+            dataSource.Set("Service.Mode", "Run", PropertiesFlags.ReadOnly, PropertyTag);
+            dataSource.Set("Service.Status", "Stopped", PropertiesFlags.ReadOnly, PropertyTag);
 
             // todo - ability to configure a service from services view
         }

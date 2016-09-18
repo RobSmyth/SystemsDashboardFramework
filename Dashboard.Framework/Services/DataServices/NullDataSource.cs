@@ -39,7 +39,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
             return true;
         }
 
-        public void SetProperties(string name, ValueProperties properties)
+        public void Set(string name, object value, PropertiesFlags flags, params string[] tags)
         {
         }
     }

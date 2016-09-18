@@ -21,8 +21,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.ViewModels
 
         public string TypeName => _dataSource.TypeName;
 
-        public string Name => _dataSource.Name;
-
         public ICommand ConfigureCommand { get; }
 
         public ObservableCollection<IDataSourcePropertyViewModel> Properties { get; }

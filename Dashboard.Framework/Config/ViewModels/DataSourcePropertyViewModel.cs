@@ -20,5 +20,10 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.ViewModels
             get { return _dataSource.Read<object>(Name); }
             set {  _dataSource.Write<object>(Name, value);}
         }
+
+        public bool IsReadOnly
+        {
+            get { return true; }//_dataSource.IsReadOnly(Name); }
+        }
     }
 }

@@ -2,9 +2,9 @@
 {
     public sealed class DataRepositoryFactory : IDataRepositoryFactory
     {
-        public IDataSource Create(string typeName, string name)
+        public IDataSource Create(string typeName)
         {
-            return new DataRepositoy(typeName, name);
+            return new DataRepositoy(typeName);
         }
     }
 }

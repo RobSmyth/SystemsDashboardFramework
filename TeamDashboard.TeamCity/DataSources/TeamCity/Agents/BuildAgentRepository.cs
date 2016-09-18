@@ -109,19 +109,31 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Agents
                 return;
             }
 
-            _dataSource.Write($"{buildAgent.Name}", "");
-            _dataSource.Write($"{buildAgent.Name}.IsAuthorised", buildAgent.IsAuthorised);
-            _dataSource.Write($"{buildAgent.Name}.IsOnline", buildAgent.IsOnline);
-            _dataSource.Write($"{buildAgent.Name}.IsRunning", buildAgent.IsRunning);
+            _dataSource.SetProperties($"Agents.{buildAgent.Name}", ValueProperties.ReadOnly);
+            _dataSource.SetProperties($"Agents.{buildAgent.Name}.IsAuthorised", ValueProperties.ReadOnly);
+            _dataSource.SetProperties($"Agents.{buildAgent.Name}.IsOnline", ValueProperties.ReadOnly);
+            _dataSource.SetProperties($"Agents.{buildAgent.Name}.IsRunning", ValueProperties.ReadOnly);
+
+            _dataSource.Write($"Agents.{buildAgent.Name}", "");
+            _dataSource.Write($"Agents.{buildAgent.Name}.IsAuthorised", buildAgent.IsAuthorised);
+            _dataSource.Write($"Agents.{buildAgent.Name}.IsOnline", buildAgent.IsOnline);
+            _dataSource.Write($"Agents.{buildAgent.Name}.IsRunning", buildAgent.IsRunning);
         }
 
         private void UpdateCounts()
         {
             var buildAgents = GetAll();
-            _dataSource.Write($"Count", buildAgents.Length);
-            _dataSource.Write($"Count.Authorised", buildAgents.Count(x => x.IsAuthorised));
-            _dataSource.Write($"Count.Online", buildAgents.Count(x => x.IsOnline));
-            _dataSource.Write($"Count.Running", buildAgents.Count(x => x.IsRunning));
+
+            _dataSource.SetProperties($"Agents.Count", ValueProperties.ReadOnly);
+            _dataSource.SetProperties($"Agents.Count.Authorised", ValueProperties.ReadOnly);
+            _dataSource.SetProperties($"Agents.Count.Online", ValueProperties.ReadOnly);
+            _dataSource.SetProperties($"Agents.Count.Running", ValueProperties.ReadOnly);
+
+            _dataSource.Write($"Agents.Count", buildAgents.Length);
+            _dataSource.Write($"Agents.Count.Authorised", buildAgents.Count(x => x.IsAuthorised));
+            _dataSource.Write($"Agents.Count.Online", buildAgents.Count(x => x.IsOnline));
+            _dataSource.Write($"Agents.Count.Running", buildAgents.Count(x => x.IsRunning));
+
             NotifyValueChanged();
         }
 

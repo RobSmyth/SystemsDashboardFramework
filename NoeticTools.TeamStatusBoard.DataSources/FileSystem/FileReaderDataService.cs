@@ -8,6 +8,8 @@ namespace NoeticTools.TeamStatusBoard.DataSources.FileSystem
     {
         public FileReaderDataService(IServices services, IDataSource dataSource)
         {
+            dataSource.SetProperties("Service.Name", ValueProperties.ReadOnly);
+            dataSource.SetProperties("Service.Status", ValueProperties.ReadOnly);
             dataSource.Write("Service.Name", "FileReader");
             dataSource.Write("Service.Mode", "Run");
             dataSource.Write("Service.Status", "Stopped");

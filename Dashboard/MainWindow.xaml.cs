@@ -33,8 +33,9 @@ namespace NoeticTools.TeamStatusBoard
 
         private void MainWindow_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            sidePanel.Width = ActualWidth / 2;
-            configTileLeftSpace.Height = ActualHeight / 2;
+            var sidePanelWidth = Math.Min(ActualWidth / 2, 800.0);
+            configTileLeftSpace.Height = ActualHeight * sidePanelWidth / ActualWidth;
+            sidePanel.Width = sidePanelWidth;
         }
 
         private void OnConfigurationVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)

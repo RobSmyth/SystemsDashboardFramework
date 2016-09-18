@@ -36,13 +36,18 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Projects
                     continue;
                 }
 
-                _dataSource.Write($"{project.Name}", "-");
-                _dataSource.Write($"{project.Name}.Id", project.Id);
-                _dataSource.Write($"{project.Name}.Url", project.WebUrl);
+                _dataSource.SetProperties($"Projects.{project.Name}", ValueProperties.ReadOnly);
+                _dataSource.SetProperties($"Projects.{project.Name}.Id", ValueProperties.ReadOnly);
+                _dataSource.SetProperties($"Projects.{project.Name}.Url", ValueProperties.ReadOnly);
+
+                _dataSource.Write($"Projects.{project.Name}", "");
+                _dataSource.Write($"Projects.{project.Name}.Id", project.Id);
+                _dataSource.Write($"Projects.{project.Name}.Url", project.WebUrl);
 
                 foreach (var buildConfiguration in project.Configurations)
                 {
-                    _dataSource.Write($"{project.Name}.Configuration.{buildConfiguration.Name}", "-");
+                    _dataSource.SetProperties($"Projects.{project.Name}.Configuration.{buildConfiguration.Name}", ValueProperties.ReadOnly);
+                    _dataSource.Write($"Projects.{project.Name}.Configuration.{buildConfiguration.Name}", "");
                 }
             }
         }

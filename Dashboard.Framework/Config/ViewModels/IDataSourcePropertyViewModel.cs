@@ -4,5 +4,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.ViewModels
     {
         string Name { get; }
         object Value { get; }
+        bool IsReadOnly { get; }
     }
 }

@@ -5,14 +5,12 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
 {
     public class NullDataSource : IDataSource, IDataChangeListener
     {
-        public NullDataSource(string typeName, string name)
+        public NullDataSource(string typeName)
         {
             TypeName = typeName;
-            Name = name;
         }
 
         public string TypeName { get; }
-        public string Name { get; }
 
         public void OnChanged()
         {
@@ -33,6 +31,15 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
         }
 
         public void AddListener(IDataChangeListener listener)
+        {
+        }
+
+        public bool IsReadOnly(string name)
+        {
+            return true;
+        }
+
+        public void SetProperties(string name, ValueProperties properties)
         {
         }
     }

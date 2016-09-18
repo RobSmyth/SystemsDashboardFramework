@@ -2,6 +2,6 @@
 {
     public interface IDataRepositoryFactory
     {
-        IDataSource Create(string typeName, string name);
+        IDataSource Create(string typeName);
     }
 }

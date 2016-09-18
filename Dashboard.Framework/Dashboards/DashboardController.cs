@@ -79,7 +79,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.Dashboards
         public void ToggleGroupPanelsEditMode()
         {
             DashboardNavigator.ToggleShowGroupPanelsDetailsMode();
-            //ShowOnSidePane(new GroupPanelsEditTileViewModel(_config, _tileRegistryConduit));
         }
 
         public void ShowInsertPanel()

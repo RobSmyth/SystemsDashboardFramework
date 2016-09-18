@@ -62,7 +62,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataSources\TeamCity\Agents\BuildAgentRepository.cs" />
-    <Compile Include="DataSources\TeamCity\Agents\BuildAgentRepositoryDataService.cs" />
     <Compile Include="DataSources\TeamCity\Agents\BuildAgentStatus.cs" />
     <Compile Include="DataSources\TeamCity\Agents\BuildAgentViewModelFactory.cs" />
     <Compile Include="DataSources\TeamCity\Agents\ConnectedStateTicker.cs" />

@@ -33,7 +33,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config
         {
             var list = new List<DashboardServiceConfiguration> {service};
             list.AddRange(Services);
-            Services = list.ToArray();
+            Services = list.OrderBy(x => x.Name).ToArray();
         }
     }
 }

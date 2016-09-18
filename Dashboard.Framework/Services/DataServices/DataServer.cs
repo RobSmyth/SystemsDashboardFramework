@@ -10,7 +10,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
         private readonly IDictionary<string, IDataSource> _sources = new Dictionary<string, IDataSource>();
 
         public string TypeName => "DataServer";
-        public string Name => "";
+        public string Name { get { return ""; } set {} }
 
         public void Write<T>(string name, T value)
         {
@@ -19,21 +19,18 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
 
         public T Read<T>(string address)
         {
-            var elements = address.Split('.');
-            if (elements.Length < 3)
+            var parser = new DataSourcePropertyParser(address);
+            if (!parser.IsValid)
             {
                 return default(T);
             }
-
-            var typeName = elements[0];
-            var sourceName = elements[1];
-            var propertyName = address.Substring(typeName.Length + sourceName.Length + 2);
-            return GetDataSource(typeName, sourceName).Read<T>(propertyName);
+            var dataSource = GetDataSource(parser.TypeName);
+            return dataSource.Read<T>(parser.PropertyName);
         }
 
         public IEnumerable<string> GetAllNames()
         {
-            return _sources.Keys.ToArray();
+            return _sources.Keys.OrderBy(x => x).ToArray();
         }
 
         public void AddListener(IDataChangeListener listener)
@@ -41,27 +38,38 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
             throw new NotImplementedException();
         }
 
+        public bool IsReadOnly(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetProperties(string name, ValueProperties properties)
+        {
+            var parser = new DataSourcePropertyParser(name);
+            GetDataSource(parser.TypeName).SetProperties(parser.PropertyName, properties);
+        }
+
         public IEnumerable<IDataSource> GetAllDataSources()
         {
-            return _sources.Values.ToArray();
+            return _sources.Values.OrderBy(x => x.TypeName).ToArray();
         }
 
         public IDataSource Get(string name)
         {
             if (!_sources.ContainsKey(name))
             {
-                return new NullDataSource(name, "");
+                return new NullDataSource(name);
             }
             return _sources[name];
         }
 
-        public IDataSource GetDataSource(string typeName, string name)
+        public IDataSource GetDataSource(string typeName)
         {
-            if (!_sources.ContainsKey(name))
+            if (!_sources.ContainsKey(typeName))
             {
-                return new NullDataSource(typeName, name);
+                return new NullDataSource(typeName);
             }
-            return _sources[name];
+            return _sources[typeName];
         }
 
         public void Register(string name, IDataSource dataSource)

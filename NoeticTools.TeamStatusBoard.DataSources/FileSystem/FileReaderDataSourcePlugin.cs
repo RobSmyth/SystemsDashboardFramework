@@ -11,7 +11,7 @@ namespace NoeticTools.TeamStatusBoard.DataSources.FileSystem
 
         public void Register(IServices services)
         {
-            var dataSource = new DataRepositoryFactory().Create("FileReader", "0");
+            var dataSource = new DataRepositoryFactory().Create("FileReader");
             var dataService = new FileReaderDataService(services, dataSource);
             services.Register(dataService);
             services.DataService.Register(dataService.Name, dataSource);

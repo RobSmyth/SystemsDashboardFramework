@@ -11,17 +11,11 @@ namespace NoeticTools.TeamStatusBoard.Tests.Services.DataServices
 
         protected override void SetUp()
         {
-            _target = new DataRepositoy("1", "A");
+            _target = new DataRepositoy("1");
         }
 
         protected override void TearDown()
         {
-        }
-
-        [Test]
-        public void Name()
-        {
-            Assert.AreEqual("A", _target.Name);
         }
 
         [Test]

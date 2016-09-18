@@ -12,7 +12,7 @@ namespace NoeticTools.TeamStatusBoard.DataSources.DashboardData
         public void Register(IServices services)
         {
             services.DataService.Register("Dashboard", new DashboardDataSource(services.Configuration.Services, services, 
-                new DataRepositoy("DashboardInner", "")));
+                new DataRepositoy("DashboardInner")));
         }
     }
 }

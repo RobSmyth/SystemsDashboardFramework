@@ -29,7 +29,6 @@ namespace NoeticTools.TeamStatusBoard.DataSources.DashboardData
         }
 
         public string TypeName => "Dashboard";
-        public string Name => "";
 
         public void Write<T>(string name, T value)
         {
@@ -49,6 +48,16 @@ namespace NoeticTools.TeamStatusBoard.DataSources.DashboardData
         public void AddListener(IDataChangeListener listener)
         {
             _innerDataSource.AddListener(listener);
+        }
+
+        public bool IsReadOnly(string name)
+        {
+            return _innerDataSource.IsReadOnly(name);
+        }
+
+        public void SetProperties(string name, ValueProperties properties)
+        {
+            _innerDataSource.SetProperties(name, properties);
         }
 
         private void SetParameter(string name, string value)

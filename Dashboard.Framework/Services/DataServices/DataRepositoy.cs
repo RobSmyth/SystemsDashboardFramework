@@ -7,27 +7,35 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
 {
     public class DataRepositoy : IDataSource
     {
+        private readonly IDictionary<string, ValueProperties> _valueProperties = new Dictionary<string, ValueProperties>();
         private readonly IDictionary<string, object> _values = new Dictionary<string, object>();
         private readonly IList<IDataChangeListener> _listeners = new List<IDataChangeListener>();
 
-        public DataRepositoy(string typeName, string name)
+        public DataRepositoy(string typeName)
         {
             TypeName = typeName;
-            Name = name;
         }
 
         public string TypeName { get; }
-
-        public string Name { get; }
 
         public void AddListener(IDataChangeListener listener)
         {
             _listeners.Add(listener);
         }
 
+        public bool IsReadOnly(string name)
+        {
+            return _valueProperties.ContainsKey(name) && _valueProperties[name] == ValueProperties.ReadOnly;
+        }
+
+        public void SetProperties(string name, ValueProperties properties)
+        {
+            _valueProperties[name] = properties;
+        }
+
         public IEnumerable<string> GetAllNames()
         {
-            return _values.Keys.ToArray();
+            return _values.Keys.OrderBy(x => x).ToArray();
         }
 
         public void Write<T>(string name, T value)

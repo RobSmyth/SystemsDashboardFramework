@@ -23,7 +23,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Projects
             _teamCityClient = teamCityClient;
             _projectFactory = projectFactory;
             _logger = LogManager.GetLogger("Repositories.TeamCity.Projects");
-            tiker.AddListener(Update);
+            tiker.AddListener(this, Update);
         }
 
         public void AddListener(IDataChangeListener listener)

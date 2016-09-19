@@ -31,7 +31,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Agents
             _buildAgentFactory = buildAgentFactory;
             _teamCityDataSourceConfiguration = teamCityDataSourceConfiguration;
             UpdateCounts();
-            ticker.AddListener(OnTick);
+            ticker.AddListener(this, OnTick);
         }
 
         public IBuildAgent[] GetAll()

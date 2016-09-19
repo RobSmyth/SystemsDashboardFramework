@@ -14,7 +14,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Projects
         {
             _repository = repository;
             _dataSource = dataSource;
-            ticker.AddListener(UpdateProjects);
+            ticker.AddListener(this, UpdateProjects);
         }
 
         public string Name => "TeamCity.Projects";

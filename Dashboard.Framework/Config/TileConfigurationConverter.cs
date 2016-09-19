@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Windows.Media;
 using NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories;
+using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Config
@@ -134,6 +135,11 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config
         {
             var value = GetParameter(name);
             return (value is T) ? (T) value : default(T);
+        }
+
+        public DataValue GetDatum(string name, object defaultValue = null)
+        {
+            throw new NotImplementedException();
         }
 
         private void SetParameter<T>(string name, T value)

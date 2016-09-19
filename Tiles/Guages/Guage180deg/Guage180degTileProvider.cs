@@ -11,7 +11,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.Guages.Guage180deg
     {
         private readonly IDashboardController _dashboardController;
         private readonly IServices _services;
-        private static readonly string TileTypeId = "Guage180deg";
+        private const string TileTypeId = "Guage180deg";
 
         public Guage180degTileProvider(IDashboardController dashboardController, IServices services)
         {

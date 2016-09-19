@@ -52,7 +52,6 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity.LastBuildStatus
             _namedValues = properties.NamedValueRepository;
             _view = view;
             _teamCityService = teamCityService;
-            //_tileConfiguration = new TileConfigurationConverter(tile, this);
             _status = "UNKNOWN";
             _runningStatus = "UNKNOWN";
             _description = "";
@@ -62,20 +61,19 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity.LastBuildStatus
             var configurationParameters = GetConfigurationParameters();
             ConfigureCommand = new TileConfigureCommand(tile, "Last Build Status Tile Configuration", configurationParameters, dashboardController, layoutController, services);
 
-            RegisterProjectAndConfiguration(teamCityService);
+            RegisterProjectAndConfiguration();
 
             var stateBroadcaster = teamCityService.StateBroadcaster;
-            teamCityService.ConnectedTicker.AddListener(Update);
+            teamCityService.ConnectedTicker.AddListener(this, Update);
             stateBroadcaster.Add(this);
 
             _view.DataContext = this;
         }
 
-        private void RegisterProjectAndConfiguration(ITeamCityService teamCityService)
+        private void RegisterProjectAndConfiguration()
         {
             var configurationName = _configurationNamedValues.GetString("Configuration");
             _namedValues.GetString(configurationName);
-            //teamCityService.Projects.Get(projectName).GetConfiguration(configurationName);
         }
 
         public string Status

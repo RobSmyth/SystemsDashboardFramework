@@ -7,18 +7,18 @@ namespace NoeticTools.TeamStatusBoard.Framework
 {
     public class EventBroadcaster : IEventBroadcaster
     {
-        private readonly IList<Action> _callbacks = new List<Action>();
+        private readonly IDictionary<object, Action> _callbacks = new Dictionary<object, Action>();
         private readonly IList<Action<Action>> _listenerAddedCallbacks = new List<Action<Action>>();
 
-        public void AddListener(Action callback)
+        public void AddListener(object listener, Action callback)
         {
-            _callbacks.Add(callback);
+            _callbacks.Add(listener, callback);
             NotifyNewListenerAdded(callback);
         }
 
-        public void RemoveListener(Action callback)
+        public void RemoveListener(object listener)
         {
-            _callbacks.Remove(callback);
+            _callbacks.Remove(listener);
         }
 
         public void Flush()
@@ -31,7 +31,7 @@ namespace NoeticTools.TeamStatusBoard.Framework
             var listeners = _callbacks.ToArray();
             foreach (var listener in listeners)
             {
-                listener();
+                listener.Value();
             }
         }
 

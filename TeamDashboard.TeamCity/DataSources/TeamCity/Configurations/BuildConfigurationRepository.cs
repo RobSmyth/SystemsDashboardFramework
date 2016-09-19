@@ -20,7 +20,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Configuratio
         {
             _teamCityClient = teamCityClient;
             _project = project;
-            connectedTicker.AddListener(Update);
+            connectedTicker.AddListener(this, Update);
         }
 
         private void Update()

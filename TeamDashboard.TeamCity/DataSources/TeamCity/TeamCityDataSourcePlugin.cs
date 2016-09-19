@@ -29,7 +29,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity
             var configuration = new DataSourceConfiguration(services.Configuration.Services.GetService("TeamCity"));
             var teamCityClient = new TcSharpTeamCityClient(new TeamCityClient(configuration.Url));
 
-            var buildAgentRepository = GetBuildAgentRepository(services, fastConnectedTicker, teamCityClient, channelStateBroadcaster, slowConnectedTicker, dataSource, configuration);
+            var buildAgentRepository = GetBuildAgentRepository(fastConnectedTicker, teamCityClient, channelStateBroadcaster, slowConnectedTicker, dataSource, configuration);
 
             var buildConfigurationRepositoryFactory = new BuildConfigurationRepositoryFactory(teamCityClient, verySlowConnectedTicker);
             var projectFactory = new ProjectFactory(buildConfigurationRepositoryFactory);
@@ -51,7 +51,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity
             // todo - add data sources for agents
         }
 
-        private static BuildAgentRepository GetBuildAgentRepository(IServices services, IConnectedStateTicker ticker, ITcSharpTeamCityClient teamCityClient, IChannelConnectionStateBroadcaster channelStateBroadcaster, IConnectedStateTicker slowConnectedTicker, IDataSource dataSource, ITeamCityDataSourceConfiguration teamCityDataSourceConfiguration)
+        private static BuildAgentRepository GetBuildAgentRepository(IConnectedStateTicker ticker, ITcSharpTeamCityClient teamCityClient, IChannelConnectionStateBroadcaster channelStateBroadcaster, IConnectedStateTicker slowConnectedTicker, IDataSource dataSource, ITeamCityDataSourceConfiguration teamCityDataSourceConfiguration)
         {
             var buildAgentFactory = new BuildAgentViewModelFactory(dataSource, ticker, teamCityClient);
             var buildAgentRepository = new BuildAgentRepository(dataSource, teamCityClient, channelStateBroadcaster, slowConnectedTicker, buildAgentFactory, teamCityDataSourceConfiguration);

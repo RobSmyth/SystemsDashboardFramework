@@ -24,7 +24,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity.AgentStatus
             _services = services;
         }
 
-        public string Name => "TeamCity build agent status (future)";
+        public string Name => "TeamCity build agent status";
 
         public string TypeId => TeamCityAgentStatusTileProvider.TileTypeId;
 

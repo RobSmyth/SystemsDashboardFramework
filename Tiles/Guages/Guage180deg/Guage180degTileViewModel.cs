@@ -9,6 +9,7 @@ using NoeticTools.TeamStatusBoard.Framework.Config.Properties;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles;
 using NoeticTools.TeamStatusBoard.Framework.Services;
+using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
 
 
@@ -18,26 +19,28 @@ namespace NoeticTools.TeamStatusBoard.Tiles.Guages.Guage180deg
     {
         private readonly TimeSpan _updatePeriod = TimeSpan.FromSeconds(30);
         private readonly IServices _services;
-        private readonly INamedValueRepository _configurationNamedValues;
-        private double _value;
-        private string _label = "";
-        private double _maximum = 1.0;
-        private double _minimum = -1.0;
+        private readonly INamedValueRepository _configuration;
+        private DataValue _value = new DataValue("", 0.0, PropertiesFlags.None, () => {});
+        private DataValue _label = new DataValue("", "Label", PropertiesFlags.None, () => {});
+        private DataValue _maximum = new DataValue("", 100.0, PropertiesFlags.None, () => {});
+        private DataValue _minimum = new DataValue("", 0.0, PropertiesFlags.None, () => { });
         private string _format = "-";
         private bool _uses360Mode;
-        private Color _fromColour;
-        private Color _toColour;
-        private INamedValueRepository _namedValues;
+        private DataValue _fromColour = new DataValue("", "Yellow", PropertiesFlags.None, () => {});
+        private DataValue _toColour = new DataValue("", "Crimson", PropertiesFlags.None, () => { });
+        private readonly INamedValueRepository _namedValues;
 
         public Guage180DegTileViewModel(TileConfiguration tile, IDashboardController dashboardController, ITileLayoutController layoutController, IServices services, TileProperties properties)
         {
             _services = services;
-            _configurationNamedValues = properties.Properties;
+            _configuration = properties.Properties;
             _namedValues = properties.NamedValueRepository;
             Formatter = x => string.Format(Format, x);
 
             var parameters = GetConfigurationParameters();
             ConfigureCommand = new TileConfigureCommand(tile, "Data Value Tile Configuration", parameters, dashboardController, layoutController, services);
+
+            Subscribe();
 
             _services.Timer.QueueCallback(TimeSpan.FromMilliseconds(100), this);
         }
@@ -46,71 +49,23 @@ namespace NoeticTools.TeamStatusBoard.Tiles.Guages.Guage180deg
         {
             var parameters = new IPropertyViewModel[]
             {
-                new TextPropertyViewModel("Label", _configurationNamedValues, _services),
-                new TextPropertyViewModel("Value", _configurationNamedValues, _services),
-                new TextPropertyViewModel("Minimum", _configurationNamedValues, _services),
-                new TextPropertyViewModel("Maximum", _configurationNamedValues, _services),
-                new TextPropertyViewModel("Format", _configurationNamedValues, _services),
-                new BoolPropertyViewModel("Uses360Mode", _configurationNamedValues, _services),
-                new ColourPropertyViewModel("FromColour", _configurationNamedValues, _services),
-                new ColourPropertyViewModel("ToColour", _configurationNamedValues, _services),
+                new TextPropertyViewModel("Label", _configuration, _services),
+                new TextPropertyViewModel("Value", _configuration, _services),
+                new TextPropertyViewModel("Minimum", _configuration, _services),
+                new TextPropertyViewModel("Maximum", _configuration, _services),
+                new TextPropertyViewModel("Format", _configuration, _services),
+                new BoolPropertyViewModel("Uses360Mode", _configuration, _services),
+                new ColourPropertyViewModel("FromColour", _configuration, _services),
+                new ColourPropertyViewModel("ToColour", _configuration, _services),
             };
             return parameters;
         }
 
-        public string Label
-        {
-            get { return _label; }
-            set
-            {
-                if (_label != null && _label.Equals(value))
-                {
-                    return;
-                }
-                _label = value;
-                OnPropertyChanged();
-            }
-        }
-
+        public string Label => _label.GetString();
         public Func<double, string> Formatter { get; set; }
-
-        public double Value
-        {
-            get { return _value; }
-            set
-            {
-                _value = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public double Maximum
-        {
-            get { return _maximum; }
-            set
-            {
-                if (double.IsNaN(value) || value <= Minimum)
-                {
-                    return;
-                }
-                _maximum = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public double Minimum
-        {
-            get { return _minimum; }
-            set
-            {
-                if (double.IsNaN(value) || value >= Maximum)
-                {
-                    return;
-                }
-                _minimum = value;
-                OnPropertyChanged();
-            }
-        }
+        public double Value => _value.GetDouble();
+        public double Maximum => _maximum.GetDouble();
+        public double Minimum => _minimum.GetDouble();
 
         public string Format
         {
@@ -141,49 +96,55 @@ namespace NoeticTools.TeamStatusBoard.Tiles.Guages.Guage180deg
             }
         }
 
-        public Color FromColour
-        {
-            get { return _fromColour; }
-            private set
-            {
-                if (_fromColour != value)
-                {
-                    _fromColour = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public Color ToColour
-        {
-            get { return _toColour; }
-            private set
-            {
-                if (_toColour != value)
-                {
-                    _toColour = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        public Color FromColour => _fromColour.GetColour();
+        public Color ToColour => _toColour.GetColour();
 
         public ICommand ConfigureCommand { get; }
 
         public void OnConfigurationChanged(TileConfigurationConverter converter)
         {
+            Subscribe();
             Update();
+        }
+
+        private void Subscribe()
+        {
+            _label = Subscribe(_label, "Label", "Label");
+            _minimum = Subscribe(_minimum, "Minimum", 0.0);
+            _maximum = Subscribe(_maximum, "Maximum", 100.0);
+            _value = Subscribe(_value, "Value", 0.0);
+            _fromColour = Subscribe(_fromColour, "FromColour", "Yellow");
+            _toColour = Subscribe(_toColour, "ToColour", "Crimson");
+
+            OnPropertyChanged("Label");
+            OnPropertyChanged("Value");
+            OnPropertyChanged("Minimum");
+            OnPropertyChanged("Maximum");
+            OnPropertyChanged("FromColour");
+            OnPropertyChanged("ToColour");
+        }
+
+        private DataValue Subscribe(DataValue existing, string propertyName, object defaultValue)
+        {
+            var datum = string.IsNullOrWhiteSpace(propertyName) ? 
+                new DataValue("", defaultValue, PropertiesFlags.None, () => OnPropertyChanged(propertyName)) 
+                : _namedValues.GetDatum(propertyName, defaultValue);
+
+            if (ReferenceEquals(existing, datum))
+            {
+                return existing;
+            }
+
+            existing.Broadcaster.RemoveListener(this);
+            datum.Broadcaster.AddListener(this, () => OnPropertyChanged(propertyName));
+
+            return datum;
         }
 
         private void Update()
         {
-            Label = _namedValues.GetString("Label", "Label");
             Format = _namedValues.GetString("Format", "{0} %");
-            Minimum = _namedValues.GetDouble("Minimum");
-            Maximum = _namedValues.GetDouble("Maximum", 100.0);
-            Value = _namedValues.GetDouble("Value");
             Uses360Mode = _namedValues.GetBool("Uses360Mode");
-            FromColour = _namedValues.GetColour("FromColour", "Yellow");
-            ToColour = _namedValues.GetColour("ToColour", "Crimson");
         }
 
         void ITimerListener.OnTimeElapsed(TimerToken token)

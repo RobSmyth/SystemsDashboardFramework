@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Input;
+using NoeticTools.TeamStatusBoard.Framework;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
 using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Config.Properties;
@@ -16,7 +17,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.WebPage
         private readonly TileConfigurationConverter _tileConfigurationConverter;
         private readonly WebPageTileControl _view;
 
-        public WebPageTileViewModel(TileConfiguration tile, IDashboardController dashboardController, TileLayoutController layoutController, IServices services, WebPageTileControl view)
+        public WebPageTileViewModel(TileConfiguration tile, IDashboardController dashboardController, ITileLayoutController layoutController, IServices services, WebPageTileControl view)
         {
             _view = view;
             _tileConfigurationConverter = new TileConfigurationConverter(tile, this);

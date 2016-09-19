@@ -40,7 +40,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Agents
             _statusText = string.Empty;
             Status = BuildAgentStatus.Unknown;
             SetDisconnectedStateActions();
-            connectedStateTicker.AddListener(OnTick);
+            connectedStateTicker.AddListener(this, OnTick);
             channelStateBroadcaster.Add(this);
         }
 

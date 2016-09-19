@@ -5,8 +5,8 @@ namespace NoeticTools.TeamStatusBoard.Framework
 {
     public interface IEventBroadcaster
     {
-        void AddListener(Action callback);
-        void RemoveListener(Action callback);
+        void AddListener(object listener, Action callback);
+        void RemoveListener(object listener);
         void Flush();
         void Fire();
     }

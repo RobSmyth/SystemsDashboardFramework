@@ -22,7 +22,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.DaysLeftCountDown
         private string _daysRemaining;
         private string _title;
 
-        public DaysLeftCountDownTileViewModel(TileConfiguration tile, IClock clock, IDashboardController dashboardController, DaysLeftCoundDownTileView view, TileLayoutController tileLayoutController,
+        public DaysLeftCountDownTileViewModel(TileConfiguration tile, IClock clock, IDashboardController dashboardController, DaysLeftCoundDownTileView view, ITileLayoutController tileLayoutController,
             IServices services)
         {
             _clock = clock;

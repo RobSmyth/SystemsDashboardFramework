@@ -30,15 +30,15 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Agents
             connectionStateBroadcaster.Add(this);
         }
 
-        public void AddListener(Action tickCallback)
+        public void AddListener(object listener, Action tickCallback)
         {
-            _broadcaster.AddListener(tickCallback);
+            _broadcaster.AddListener(listener, tickCallback);
             _onAdded(tickCallback);
         }
 
-        public void RemoveListener(Action tickCallback)
+        public void RemoveListener(object listener, Action tickCallback)
         {
-            _broadcaster.RemoveListener(tickCallback);
+            _broadcaster.RemoveListener(listener);
         }
 
         void IChannelConnectionStateListener.OnConnected()

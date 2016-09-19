@@ -36,7 +36,8 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories
 
         public double GetDouble(string name, double defaultValue = 0)
         {
-            return _dataService.Read<double>(GetPropertyName(name));
+            var propertyName = GetPropertyName(name);
+            return _dataService.Read<double>(propertyName);
         }
 
         public bool GetBool(string name)
@@ -82,6 +83,11 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories
         public T Get<T>(string name)
         {
             return _dataService.Read<T>(GetPropertyName(name));
+        }
+
+        public DataValue GetDatum(string name, object defaultValue = null)
+        {
+            return _dataService.GetDatum(GetPropertyName(name), defaultValue);
         }
 
         private string GetPropertyName(string name)

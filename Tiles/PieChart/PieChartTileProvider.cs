@@ -19,8 +19,6 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
             _services = services;
         }
 
-        public string Name => "Pie Chart";
-
         public string TypeId => TileTypeId;
 
         public bool MatchesId(string id)

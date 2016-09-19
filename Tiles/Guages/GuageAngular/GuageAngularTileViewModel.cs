@@ -21,7 +21,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.Guages.GuageAngular
         private const double DefaultLabelsStepRatio = 2.0;
         private readonly TimeSpan _updatePeriod = TimeSpan.FromSeconds(30);
         private readonly IServices _services;
-        private readonly INamedValueRepository _configurationNamedValues;
+        private readonly INamedValueRepository _configuration;
         private readonly INamedValueRepository _namedValues;
         private double _value;
         private string _label = "";
@@ -34,7 +34,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.Guages.GuageAngular
         public GuageAngularTileViewModel(TileConfiguration tile, IDashboardController dashboardController, ITileLayoutController layoutController, IServices services, ITileProperties properties)
         {
             _services = services;
-            _configurationNamedValues = properties.Properties;
+            _configuration = properties.Properties;
             _namedValues = properties.NamedValueRepository;
 
             var parameters = GetConfigurationParameters();
@@ -47,23 +47,23 @@ namespace NoeticTools.TeamStatusBoard.Tiles.Guages.GuageAngular
         {
             var parameters = new IPropertyViewModel[]
             {
-                new TextPropertyViewModel("Label", _configurationNamedValues, _services),
-                new TextPropertyViewModel("Value", _configurationNamedValues, _services),
-                new TextPropertyViewModel("Minimum", _configurationNamedValues, _services),
-                new TextPropertyViewModel("Maximum", _configurationNamedValues, _services),
-                new TextPropertyViewModel("Format", _configurationNamedValues, _services),
+                new TextPropertyViewModel("Label", _configuration, _services),
+                new TextPropertyViewModel("Value", _configuration, _services),
+                new TextPropertyViewModel("Minimum", _configuration, _services),
+                new TextPropertyViewModel("Maximum", _configuration, _services),
+                new TextPropertyViewModel("Format", _configuration, _services),
                 new DividerPropertyViewModel(),
-                new ColourPropertyViewModel("LabelsStep", _configurationNamedValues, _services),
-                new ColourPropertyViewModel("TicksStep", _configurationNamedValues, _services),
-                new TextPropertyViewModel("Wedge", _configurationNamedValues, _services),
-                new TextPropertyViewModel("InnerRadius", _configurationNamedValues, _services),
-                new ColourPropertyViewModel("TicksColour", _configurationNamedValues, _services),
+                new ColourPropertyViewModel("LabelsStep", _configuration, _services),
+                new ColourPropertyViewModel("TicksStep", _configuration, _services),
+                new TextPropertyViewModel("Wedge", _configuration, _services),
+                new TextPropertyViewModel("InnerRadius", _configuration, _services),
+                new ColourPropertyViewModel("TicksColour", _configuration, _services),
                 new DividerPropertyViewModel(),
-                new TextPropertyViewModel("LowerSpan", _configurationNamedValues, _services),
-                new TextPropertyViewModel("UpperSpan", _configurationNamedValues, _services),
-                new ColourPropertyViewModel("LowerColour", _configurationNamedValues, _services),
-                new ColourPropertyViewModel("MidColour", _configurationNamedValues, _services),
-                new ColourPropertyViewModel("UpperColour", _configurationNamedValues, _services),
+                new TextPropertyViewModel("LowerSpan", _configuration, _services),
+                new TextPropertyViewModel("UpperSpan", _configuration, _services),
+                new ColourPropertyViewModel("LowerColour", _configuration, _services),
+                new ColourPropertyViewModel("MidColour", _configuration, _services),
+                new ColourPropertyViewModel("UpperColour", _configuration, _services),
             };
             return parameters;
         }

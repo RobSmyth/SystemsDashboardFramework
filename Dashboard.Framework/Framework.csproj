@@ -179,7 +179,7 @@
     <Compile Include="Plugins\Tiles\Help\HelpTileKeyHandler.cs" />
     <Compile Include="Plugins\Tiles\InsertTile\InsertTileKeyHandler.cs" />
     <Compile Include="RunOptions.cs" />
-    <Compile Include="Services\DataServices\DataProperties.cs" />
+    <Compile Include="Services\DataServices\DataValue.cs" />
     <Compile Include="Services\DataServices\DataSourcePropertyParser.cs" />
     <Compile Include="Services\DataServices\IDataService.cs" />
     <Compile Include="Services\DataServices\DataRepositoy.cs" />

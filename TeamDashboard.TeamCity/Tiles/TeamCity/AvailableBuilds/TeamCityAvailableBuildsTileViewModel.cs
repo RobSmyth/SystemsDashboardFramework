@@ -49,7 +49,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity.AvailableBuilds
             _view.DataContext = this;
             _view.buildsList.ItemsSource = Builds;
             _teamCityService.StateBroadcaster.Add(this);
-            _teamCityService.ConnectedTicker.AddListener(Update);
+            _teamCityService.ConnectedTicker.AddListener(this, Update);
         }
 
         public ICommand ConfigureCommand { get; }

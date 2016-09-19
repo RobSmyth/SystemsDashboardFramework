@@ -20,7 +20,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Commands
         private readonly string _title;
         private bool _canExecute = true;
 
-        public TileConfigureCommand(TileConfiguration tile, string title, IPropertyViewModel[] parameters, IDashboardController dashboardController, ITileLayoutController tileLayoutController,
+        public TileConfigureCommand(TileConfiguration tile, string title, IEnumerable<IPropertyViewModel> parameters, IDashboardController dashboardController, ITileLayoutController tileLayoutController,
             IServices services)
         {
             _tile = tile;

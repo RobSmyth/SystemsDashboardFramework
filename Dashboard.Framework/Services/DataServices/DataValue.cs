@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Windows.Media;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
@@ -16,7 +17,10 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
             _value = value;
             _notifyValueChanged = notifyValueChanged;
             Tags = new List<string>(tags);
+            Broadcaster = new EventBroadcaster();
         }
+
+        public EventBroadcaster Broadcaster { get; }
 
         public string Name { get; }
         public PropertiesFlags Flags { get; set; }
@@ -27,9 +31,36 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
             get { return _value; }
             set
             {
+                if (_value != null && _value.Equals(value))
+                {
+                    return;
+                }
                 _value = value;
                 _notifyValueChanged();
+                Broadcaster.Fire();
             }
+        }
+
+        public string GetString()
+        {
+            return Convert.ToString(Value);
+        }
+
+        public Color GetColour()
+        {
+            try
+            {
+                return (Color)ColorConverter.ConvertFromString(GetString());
+            }
+            catch (Exception)
+            {
+                return (Color)ColorConverter.ConvertFromString("Gray");
+            }
+        }
+
+        public double GetDouble()
+        {
+            return Convert.ToDouble(Value);
         }
     }
 }

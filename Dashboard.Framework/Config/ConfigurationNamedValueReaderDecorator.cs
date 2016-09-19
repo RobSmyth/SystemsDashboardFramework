@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Media;
 using NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories;
+using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Config
@@ -40,7 +41,8 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config
 
         public double GetDouble(string name, double defaultValue = 0)
         {
-            return _repository.GetDouble(_configurationRepository.GetString(name, defaultValue.ToString()), defaultValue);
+            var value = _configurationRepository.GetString(name, defaultValue.ToString());
+            return _repository.GetDouble(value, defaultValue);
         }
 
         public bool GetBool(string name)
@@ -86,6 +88,11 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config
         public T Get<T>(string name)
         {
             return _repository.Get<T>(GetValue(name));
+        }
+
+        public DataValue GetDatum(string name, object defaultValue = null)
+        {
+            return _repository.GetDatum(GetValue(name), defaultValue);
         }
 
         private string GetValue(string name)

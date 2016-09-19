@@ -54,6 +54,16 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
             throw new InvalidOperationException();
         }
 
+        public DataValue GetDatum(string name, object defaultValue = null)
+        {
+            var parser = new DataSourcePropertyParser(name);
+            if (!parser.IsValid)
+            {
+                return null;
+            }
+            return GetDataSource(parser.TypeName).GetDatum(parser.PropertyName, defaultValue);
+        }
+
         public IEnumerable<IDataSource> GetAllDataSources()
         {
             return _sources.Values.OrderBy(x => x.TypeName).ToArray();

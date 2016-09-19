@@ -29,23 +29,25 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
 
         public void Set(string name, object value, PropertiesFlags flags, params string[] tags)
         {
-            if (!_values.ContainsKey(name))
-            {
-                _values[name] = new DataValue(name, value, flags, NotifyValueChanged, tags);
-            }
-            else
-            {
-                var dataValue = _values[name];
-                dataValue.Flags = flags;
-                dataValue.Tags.Clear();
-                dataValue.Tags.AddRange(tags);
-                dataValue.Value = value;
-            }
+            var dataValue = GetDatum(name, value);
+            dataValue.Flags = flags;
+            dataValue.Tags.Clear();
+            dataValue.Tags.AddRange(tags);
+            dataValue.Value = value;
         }
 
         public IEnumerable<DataValue> Find(Func<DataValue, bool> predicate)
         {
             return _values.Values.Where(x => predicate(x)).OrderBy(y => y.Name).ToArray();
+        }
+
+        public DataValue GetDatum(string name, object defaultValue = null)
+        {
+            if (!_values.ContainsKey(name))
+            {
+                _values[name] = new DataValue(name, defaultValue, PropertiesFlags.None, NotifyValueChanged);
+            }
+            return _values[name];
         }
 
         public IEnumerable<string> GetAllNames()
@@ -55,25 +57,14 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
 
         public void Write<T>(string name, T value)
         {
-            if (!_values.ContainsKey(name))
-            {
-                Set(name, value, PropertiesFlags.None);
-            }
-            else
-            {
-                _values[name].Value = value;
-            }
+            GetDatum(name).Value = value;
         }
 
         public T Read<T>(string name)
         {
-            if (!_values.ContainsKey(name))
-            {
-                Set(name, default(T), PropertiesFlags.None);
-            }
             try
             {
-                return (T)Convert.ChangeType(_values[name].Value, typeof(T));
+                return (T)Convert.ChangeType(GetDatum(name).Value, typeof(T));
             }
             catch (Exception)
             {

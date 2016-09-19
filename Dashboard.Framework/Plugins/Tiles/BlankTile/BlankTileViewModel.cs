@@ -15,7 +15,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.BlankTile
         private readonly TileConfigurationConverter _tileConfigurationConverter;
         private Brush _background;
 
-        public BlankTileViewModel(TileConfiguration tile, IDashboardController dashboardController, TileLayoutController layoutController, IServices services, BlankTileControl view)
+        public BlankTileViewModel(TileConfiguration tile, IDashboardController dashboardController, ITileLayoutController layoutController, IServices services, BlankTileControl view)
         {
             _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
             var parameters = new IPropertyViewModel[] {new PropertyViewModel("Colour", PropertyType.Text, _tileConfigurationConverter)};

@@ -15,8 +15,8 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Channel
             OnDisconnected = onDisconnectedBroadcaster;
             _onConnectedListenerAdded = x => { };
             _onDisconnectedListenerAdded = x => { };
-            OnConnected.AddListener(EnterConnectedState);
-            OnDisconnected.AddListener(EnterDisconnectedState);
+            OnConnected.AddListener(this, EnterConnectedState);
+            OnDisconnected.AddListener(this, EnterDisconnectedState);
             OnConnected.AddListenersAddedListener(OnConnectedListenerAdded);
             OnDisconnected.AddListenersAddedListener(OnDisconnectedListenerAdded);
             EnterDisconnectedState();
@@ -27,14 +27,14 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Channel
 
         public void Add(IChannelConnectionStateListener listener)
         {
-            OnConnected.AddListener(listener.OnConnected);
-            OnDisconnected.AddListener(listener.OnDisconnected);
+            OnConnected.AddListener(listener, listener.OnConnected);
+            OnDisconnected.AddListener(listener, listener.OnDisconnected);
         }
 
         public void Remove(IChannelConnectionStateListener listener)
         {
-            OnConnected.RemoveListener(listener.OnConnected);
-            OnDisconnected.RemoveListener(listener.OnDisconnected);
+            OnConnected.RemoveListener(listener);
+            OnDisconnected.RemoveListener(listener);
         }
 
         private void OnDisconnectedListenerAdded(Action callback)

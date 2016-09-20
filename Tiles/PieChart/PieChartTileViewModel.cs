@@ -156,11 +156,13 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
 
         public void OnConfigurationChanged(TileConfigurationConverter converter)
         {
+            Subscribe();
             Update();
         }
 
         private void Update()
         {
+            // todo - get array of datums
             var values = NamedValues.GetDoubleArray("Values");
             SynchroniseValues(values);
 
@@ -201,6 +203,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
         public void SetView(LiveCharts.Wpf.PieChart chart)
         {
             _chart = chart;
+            _chart.AnimationsSpeed = TimeSpan.FromSeconds(3.0);
             Update();
             OnChartSeriesChanged();
         }

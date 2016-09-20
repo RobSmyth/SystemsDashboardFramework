@@ -3,6 +3,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
 using NoeticTools.TeamStatusBoard.Framework.Config;
+using NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories;
 using NoeticTools.TeamStatusBoard.Framework.Config.Properties;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Services;
@@ -10,12 +11,13 @@ using NoeticTools.TeamStatusBoard.Framework.Services;
 
 namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.BlankTile
 {
-    public class BlankTileViewModel : NotifyingViewModelBase, IConfigurationChangeListener, ITileViewModel
+    public class BlankTileViewModel : ConfiguredTileViewModelBase, IConfigurationChangeListener, ITileViewModel
     {
-        private readonly TileConfigurationConverter _tileConfigurationConverter;
+        private readonly INamedValueRepository _tileConfigurationConverter;
         private Brush _background;
 
-        public BlankTileViewModel(TileConfiguration tile, IDashboardController dashboardController, ITileLayoutController layoutController, IServices services, BlankTileControl view)
+        public BlankTileViewModel(TileConfiguration tile, IDashboardController dashboardController, ITileLayoutController layoutController, IServices services, BlankTileControl view, ITileProperties properties)
+            : base(properties)
         {
             _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
             var parameters = new IPropertyViewModel[] {new PropertyViewModel("Colour", PropertyType.Text, _tileConfigurationConverter)};

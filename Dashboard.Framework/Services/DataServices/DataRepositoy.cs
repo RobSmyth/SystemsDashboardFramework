@@ -33,7 +33,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
             dataValue.Flags = flags;
             dataValue.Tags.Clear();
             dataValue.Tags.AddRange(tags);
-            dataValue.Value = value;
+            dataValue.Instance = value;
         }
 
         public IEnumerable<DataValue> Find(Func<DataValue, bool> predicate)
@@ -41,7 +41,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
             return _values.Values.Where(x => predicate(x)).OrderBy(y => y.Name).ToArray();
         }
 
-        public DataValue GetDatum(string name, object defaultValue = null)
+        public IDataValue GetDatum(string name, object defaultValue = null)
         {
             if (!_values.ContainsKey(name))
             {
@@ -57,14 +57,14 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
 
         public void Write<T>(string name, T value)
         {
-            GetDatum(name).Value = value;
+            GetDatum(name).Instance = value;
         }
 
         public T Read<T>(string name)
         {
             try
             {
-                return (T)Convert.ChangeType(GetDatum(name).Value, typeof(T));
+                return (T)Convert.ChangeType(GetDatum(name).Instance, typeof(T));
             }
             catch (Exception)
             {

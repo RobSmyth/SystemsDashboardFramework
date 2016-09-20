@@ -5,16 +5,19 @@ using System.Windows.Media;
 
 namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
 {
-    public class DataValue
+    public sealed class DataValue : IDataValue
     {
-        private object _value;
+        public const string DefaultString = "";
+        public const string DefaultColour = "Gray";
+        public const double DefaultDouble = 0.0;
+        private object _instance;
         private readonly Action _notifyValueChanged;
 
-        public DataValue(string name, object value, PropertiesFlags flags, Action notifyValueChanged, params string[] tags)
+        public DataValue(string name, object instance, PropertiesFlags flags, Action notifyValueChanged, params string[] tags)
         {
             Name = name;
             Flags = flags;
-            _value = value;
+            _instance = instance;
             _notifyValueChanged = notifyValueChanged;
             Tags = new List<string>(tags);
             Broadcaster = new EventBroadcaster();
@@ -26,41 +29,51 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
         public PropertiesFlags Flags { get; set; }
         public List<string> Tags { get; }
 
-        public object Value
+        public object Instance
         {
-            get { return _value; }
+            get { return _instance; }
             set
             {
-                if (_value != null && _value.Equals(value))
+                if (_instance != null && _instance.Equals(value))
                 {
                     return;
                 }
-                _value = value;
+                _instance = value;
                 _notifyValueChanged();
                 Broadcaster.Fire();
             }
         }
 
-        public string GetString()
+        public double Double
         {
-            return Convert.ToString(Value);
+            get { return Convert.ToDouble(Instance); }
+            set { Instance = value; }
         }
 
-        public Color GetColour()
+        public Color Colour
         {
-            try
+            get
             {
-                return (Color)ColorConverter.ConvertFromString(GetString());
+                try
+                {
+                    if (Instance is Color)
+                    {
+                        return (Color) Instance;
+                    }
+                    return (Color)ColorConverter.ConvertFromString(Convert.ToString(Instance));
+                }
+                catch (Exception)
+                {
+                    return (Color)ColorConverter.ConvertFromString(DefaultColour);
+                }
             }
-            catch (Exception)
-            {
-                return (Color)ColorConverter.ConvertFromString("Gray");
-            }
+            set { Instance = value; }
         }
 
-        public double GetDouble()
+        public string String
         {
-            return Convert.ToDouble(Value);
+            get { return Convert.ToString(Instance); }
+            set { Instance = value; }
         }
     }
 }

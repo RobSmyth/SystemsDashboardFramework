@@ -137,7 +137,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config
             return (value is T) ? (T) value : default(T);
         }
 
-        public DataValue GetDatum(string name, object defaultValue = null)
+        public IDataValue GetDatum(string name, object defaultValue = null)
         {
             throw new NotImplementedException();
         }

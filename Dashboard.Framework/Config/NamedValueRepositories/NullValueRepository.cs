@@ -98,9 +98,9 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories
             return default(T);
         }
 
-        public DataValue GetDatum(string name, object defaultValue = null)
+        public IDataValue GetDatum(string name, object defaultValue = null)
         {
-            return new DataValue(name, name, PropertiesFlags.None, () => { });
+            return new DataValue(name, name, PropertiesFlags.ReadOnly, () => { });
         }
     }
 }

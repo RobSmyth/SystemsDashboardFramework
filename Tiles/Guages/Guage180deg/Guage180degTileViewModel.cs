@@ -15,27 +15,28 @@ using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
 
 namespace NoeticTools.TeamStatusBoard.Tiles.Guages.Guage180deg
 {
-    internal sealed class Guage180DegTileViewModel : NotifyingViewModelBase, IConfigurationChangeListener, ITileViewModel, ITimerListener
+    internal sealed class Guage180DegTileViewModel : ConfiguredTileViewModelBase, IConfigurationChangeListener, ITileViewModel, ITimerListener
     {
         private readonly TimeSpan _updatePeriod = TimeSpan.FromSeconds(30);
         private readonly IServices _services;
         private readonly INamedValueRepository _configuration;
-        private DataValue _value = new DataValue("", 0.0, PropertiesFlags.None, () => {});
-        private DataValue _label = new DataValue("", "Label", PropertiesFlags.None, () => {});
-        private DataValue _maximum = new DataValue("", 100.0, PropertiesFlags.None, () => {});
-        private DataValue _minimum = new DataValue("", 0.0, PropertiesFlags.None, () => { });
+        private IDataValue _value = new NullDataValue();
+        private IDataValue _label = new DataValue("", "Label", PropertiesFlags.None, () => { });
+        private IDataValue _maximum = new DataValue("", 100.0, PropertiesFlags.None, () => { });
+        private IDataValue _minimum = new NullDataValue();
         private string _format = "-";
         private bool _uses360Mode;
-        private DataValue _fromColour = new DataValue("", "Yellow", PropertiesFlags.None, () => {});
-        private DataValue _toColour = new DataValue("", "Crimson", PropertiesFlags.None, () => { });
+        private IDataValue _fromColour = new DataValue("", "Yellow", PropertiesFlags.None, () => { });
+        private IDataValue _toColour = new DataValue("", "Crimson", PropertiesFlags.None, () => { });
         private readonly INamedValueRepository _namedValues;
 
-        public Guage180DegTileViewModel(TileConfiguration tile, IDashboardController dashboardController, ITileLayoutController layoutController, IServices services, TileProperties properties)
+        public Guage180DegTileViewModel(TileConfiguration tile, IDashboardController dashboardController, ITileLayoutController layoutController, IServices services, ITileProperties properties)
+            : base(properties)
         {
             _services = services;
             _configuration = properties.Properties;
             _namedValues = properties.NamedValueRepository;
-            Formatter = x => string.Format(Format, x);
+            Formatter = FormatValue;
 
             var parameters = GetConfigurationParameters();
             ConfigureCommand = new TileConfigureCommand(tile, "Data Value Tile Configuration", parameters, dashboardController, layoutController, services);
@@ -43,6 +44,18 @@ namespace NoeticTools.TeamStatusBoard.Tiles.Guages.Guage180deg
             Subscribe();
 
             _services.Timer.QueueCallback(TimeSpan.FromMilliseconds(100), this);
+        }
+
+        private string FormatValue(double x)
+        {
+            try
+            {
+                return string.Format(Format, x);
+            }
+            catch (Exception)
+            {
+                return $"{x}";
+            }
         }
 
         private IPropertyViewModel[] GetConfigurationParameters()
@@ -61,11 +74,11 @@ namespace NoeticTools.TeamStatusBoard.Tiles.Guages.Guage180deg
             return parameters;
         }
 
-        public string Label => _label.GetString();
+        public string Label => _label.String;
         public Func<double, string> Formatter { get; set; }
-        public double Value => _value.GetDouble();
-        public double Maximum => _maximum.GetDouble();
-        public double Minimum => _minimum.GetDouble();
+        public double Value => _value.Double;
+        public double Maximum => _maximum.Double;
+        public double Minimum => _minimum.Double;
 
         public string Format
         {
@@ -96,8 +109,8 @@ namespace NoeticTools.TeamStatusBoard.Tiles.Guages.Guage180deg
             }
         }
 
-        public Color FromColour => _fromColour.GetColour();
-        public Color ToColour => _toColour.GetColour();
+        public Color FromColour => _fromColour.Colour;
+        public Color ToColour => _toColour.Colour;
 
         public ICommand ConfigureCommand { get; }
 
@@ -124,12 +137,9 @@ namespace NoeticTools.TeamStatusBoard.Tiles.Guages.Guage180deg
             OnPropertyChanged("ToColour");
         }
 
-        private DataValue Subscribe(DataValue existing, string propertyName, object defaultValue)
+        private IDataValue Subscribe(IDataValue existing, string propertyName, object defaultValue)
         {
-            var datum = string.IsNullOrWhiteSpace(propertyName) ? 
-                new DataValue("", defaultValue, PropertiesFlags.None, () => OnPropertyChanged(propertyName)) 
-                : _namedValues.GetDatum(propertyName, defaultValue);
-
+            var datum = string.IsNullOrWhiteSpace(propertyName) ? (IDataValue)new NullDataValue() : _namedValues.GetDatum(propertyName, defaultValue);
             if (ReferenceEquals(existing, datum))
             {
                 return existing;

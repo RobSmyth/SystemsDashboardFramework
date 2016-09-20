@@ -54,7 +54,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
             throw new InvalidOperationException();
         }
 
-        public DataValue GetDatum(string name, object defaultValue = null)
+        public IDataValue GetDatum(string name, object defaultValue = null)
         {
             var parser = new DataSourcePropertyParser(name);
             if (!parser.IsValid)

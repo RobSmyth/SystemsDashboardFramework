@@ -85,7 +85,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories
             return Get(name).Get<T>(name);
         }
 
-        public DataValue GetDatum(string name, object defaultValue = null)
+        public IDataValue GetDatum(string name, object defaultValue = null)
         {
             return Get(name).GetDatum(name, defaultValue);
         }

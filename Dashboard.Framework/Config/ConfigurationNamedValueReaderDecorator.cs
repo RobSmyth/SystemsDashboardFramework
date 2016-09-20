@@ -90,7 +90,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config
             return _repository.Get<T>(GetValue(name));
         }
 
-        public DataValue GetDatum(string name, object defaultValue = null)
+        public IDataValue GetDatum(string name, object defaultValue = null)
         {
             return _repository.GetDatum(GetValue(name), defaultValue);
         }

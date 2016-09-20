@@ -21,6 +21,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories
         string[] GetStringArray(string name);
         Color[] GetColourArray(string name);
         T Get<T>(string name);
-        DataValue GetDatum(string name, object defaultValue = null);
+        IDataValue GetDatum(string name, object defaultValue = null);
     }
 }

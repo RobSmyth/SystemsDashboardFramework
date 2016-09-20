@@ -14,6 +14,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
         bool IsReadOnly(string name);
         void Set(string name, object value, PropertiesFlags flags, params string[] tags);
         IEnumerable<DataValue> Find(Func<DataValue, bool> predicate);
-        DataValue GetDatum(string name, object value = null);
+        IDataValue GetDatum(string name, object value = null);
     }
 }

@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using NoeticTools.TeamStatusBoard.DataSources.DashboardData;
 using NoeticTools.TeamStatusBoard.DataSources.FileSystem;
+using NoeticTools.TeamStatusBoard.DataSources.TestData;
 using NoeticTools.TeamStatusBoard.Framework;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
 using NoeticTools.TeamStatusBoard.Framework.Config;
@@ -104,6 +105,7 @@ namespace NoeticTools.TeamStatusBoard.Runner
         {
             var plugins = new IPlugin[]
             {
+                new TestDataSourcePlugin(), 
                 new TeamCityDataSourcePlugin(),
                 new DataSourceTypePropertyViewPlugin(), 
                 new DashboardDataSourcePlugin(),

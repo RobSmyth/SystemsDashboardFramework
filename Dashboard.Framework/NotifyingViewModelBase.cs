@@ -1,8 +1,6 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows.Input;
 using NoeticTools.TeamStatusBoard.Framework.Annotations;
-
 
 namespace NoeticTools.TeamStatusBoard.Framework
 {

@@ -96,6 +96,7 @@
     <Compile Include="Commands\SaveConfigurationParametersCommand.cs" />
     <Compile Include="Commands\CloseCommand.cs" />
     <Compile Include="Commands\ShowDataSourcesCommand.cs" />
+    <Compile Include="ConfiguredTileViewModelBase.cs" />
     <Compile Include="Config\ConfigurationChangeListenerConduit.cs" />
     <Compile Include="Config\ConfigurationNamedValueReaderDecorator.cs" />
     <Compile Include="Config\Controllers\DataSourcesViewProvider.cs" />
@@ -185,10 +186,12 @@
     <Compile Include="Services\DataServices\DataRepositoy.cs" />
     <Compile Include="Services\DataServices\DataServer.cs" />
     <Compile Include="Services\DataServices\DataRepositoryFactory.cs" />
+    <Compile Include="Services\DataServices\IDataValue.cs" />
     <Compile Include="Services\DataServices\NullDataSource.cs" />
     <Compile Include="Services\DataServices\IDataRepositoryFactory.cs" />
     <Compile Include="Services\DataServices\IDataSource.cs" />
     <Compile Include="Services\DataServices\IDataChangeListener.cs" />
+    <Compile Include="Services\DataServices\NullDataValue.cs" />
     <Compile Include="Services\DataServices\PropertiesFlags.cs" />
     <Compile Include="Services\IService.cs" />
     <Compile Include="ITileControllerProvider.cs" />

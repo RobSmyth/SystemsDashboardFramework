@@ -65,7 +65,7 @@ namespace NoeticTools.TeamStatusBoard.DataSources.DashboardData
             return _innerDataSource.Find(predicate);
         }
 
-        public DataValue GetDatum(string name, object defaultValue = null)
+        public IDataValue GetDatum(string name, object defaultValue = null)
         {
             return _innerDataSource.GetDatum(name, defaultValue);
         }

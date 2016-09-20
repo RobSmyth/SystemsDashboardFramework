@@ -1,124 +1,93 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Input;
 using System.Windows.Media;
 using LiveCharts.Wpf;
 using NoeticTools.TeamStatusBoard.Framework;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
 using NoeticTools.TeamStatusBoard.Framework.Config;
-using NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories;
 using NoeticTools.TeamStatusBoard.Framework.Config.Properties;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles;
 using NoeticTools.TeamStatusBoard.Framework.Services;
+using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
 
 
 namespace NoeticTools.TeamStatusBoard.Tiles.Guages.GuageAngular
 {
-    internal sealed class GuageAngularTileViewModel : NotifyingViewModelBase, IConfigurationChangeListener, ITileViewModel, ITimerListener
+    internal sealed class GuageAngularTileViewModel : ConfiguredTileViewModelBase, IConfigurationChangeListener, ITileViewModel, ITimerListener
     {
         private const double DefaultTickStepRatio = 4.0;
         private const double DefaultLabelsStepRatio = 2.0;
         private readonly TimeSpan _updatePeriod = TimeSpan.FromSeconds(30);
         private readonly IServices _services;
-        private readonly INamedValueRepository _configuration;
-        private readonly INamedValueRepository _namedValues;
-        private double _value;
-        private string _label = "";
-        private double _maximum = 1.0;
-        private double _minimum = -1.0;
+        private IDataValue _value = new NullDataValue();
+        private IDataValue _label = new NullDataValue();
+        private IDataValue _maximum = new DataValue("", 100.0, PropertiesFlags.None, () => { });
+        private IDataValue _minimum = new NullDataValue();
         private string _format = "{0}";
         private double _labelsStep;
         private double _ticksStep;
 
         public GuageAngularTileViewModel(TileConfiguration tile, IDashboardController dashboardController, ITileLayoutController layoutController, IServices services, ITileProperties properties)
+            : base(properties)
         {
             _services = services;
-            _configuration = properties.Properties;
-            _namedValues = properties.NamedValueRepository;
 
             var parameters = GetConfigurationParameters();
             ConfigureCommand = new TileConfigureCommand(tile, "Data Value Tile Configuration", parameters, dashboardController, layoutController, services);
 
+            Subscribe();
+
             _services.Timer.QueueCallback(TimeSpan.FromMilliseconds(100), this);
         }
 
-        private IPropertyViewModel[] GetConfigurationParameters()
+        private void Subscribe()
+        {
+            _label = UpdateSubscription(_label, "Label", "Label");
+            _minimum = UpdateSubscription(_minimum, "Minimum", 0.0);
+            _maximum = UpdateSubscription(_maximum, "Maximum", 100.0);
+            _value = UpdateSubscription(_value, "Value", 0.0);
+
+            OnPropertyChanged("Label");
+            OnPropertyChanged("Value");
+            OnPropertyChanged("Minimum");
+            OnPropertyChanged("Maximum");
+        }
+
+        private IEnumerable<IPropertyViewModel> GetConfigurationParameters()
         {
             var parameters = new IPropertyViewModel[]
             {
-                new TextPropertyViewModel("Label", _configuration, _services),
-                new TextPropertyViewModel("Value", _configuration, _services),
-                new TextPropertyViewModel("Minimum", _configuration, _services),
-                new TextPropertyViewModel("Maximum", _configuration, _services),
-                new TextPropertyViewModel("Format", _configuration, _services),
+                new TextPropertyViewModel("Label", Configuration, _services),
+                new TextPropertyViewModel("Value", Configuration, _services),
+                new TextPropertyViewModel("Minimum", Configuration, _services),
+                new TextPropertyViewModel("Maximum", Configuration, _services),
+                new TextPropertyViewModel("Format", Configuration, _services),
                 new DividerPropertyViewModel(),
-                new ColourPropertyViewModel("LabelsStep", _configuration, _services),
-                new ColourPropertyViewModel("TicksStep", _configuration, _services),
-                new TextPropertyViewModel("Wedge", _configuration, _services),
-                new TextPropertyViewModel("InnerRadius", _configuration, _services),
-                new ColourPropertyViewModel("TicksColour", _configuration, _services),
+                new ColourPropertyViewModel("LabelsStep", Configuration, _services),
+                new ColourPropertyViewModel("TicksStep", Configuration, _services),
+                new TextPropertyViewModel("Wedge", Configuration, _services),
+                new TextPropertyViewModel("InnerRadius", Configuration, _services),
+                new ColourPropertyViewModel("TicksColour", Configuration, _services),
                 new DividerPropertyViewModel(),
-                new TextPropertyViewModel("LowerSpan", _configuration, _services),
-                new TextPropertyViewModel("UpperSpan", _configuration, _services),
-                new ColourPropertyViewModel("LowerColour", _configuration, _services),
-                new ColourPropertyViewModel("MidColour", _configuration, _services),
-                new ColourPropertyViewModel("UpperColour", _configuration, _services),
+                new TextPropertyViewModel("LowerSpan", Configuration, _services),
+                new TextPropertyViewModel("UpperSpan", Configuration, _services),
+                new ColourPropertyViewModel("LowerColour", Configuration, _services),
+                new ColourPropertyViewModel("MidColour", Configuration, _services),
+                new ColourPropertyViewModel("UpperColour", Configuration, _services),
             };
             return parameters;
         }
 
-        public string Label
-        {
-            get { return _label; }
-            set
-            {
-                if (_label != null && _label.Equals(value))
-                {
-                    return;
-                }
-                _label = value;
-                OnPropertyChanged();
-            }
-        }
+        public string Label => _label.String;
 
-        public double Value
-        {
-            get { return _value; }
-            set
-            {
-                _value = value;
-                OnPropertyChanged();
-            }
-        }
+        public double Value => _value.Double;
 
-        public double Maximum
-        {
-            get { return _maximum; }
-            set
-            {
-                if (double.IsNaN(value) || value <= Minimum)
-                {
-                    return;
-                }
-                _maximum = value;
-                OnPropertyChanged();
-            }
-        }
+        public double Maximum => _maximum.Double;
 
-        public double Minimum
-        {
-            get { return _minimum; }
-            set
-            {
-                if (double.IsNaN(value) || value >= Maximum)
-                {
-                    return;
-                }
-                _minimum = value;
-                OnPropertyChanged();
-            }
-        }
+        public double Minimum => _minimum.Double;
 
         public string Format
         {
@@ -175,13 +144,9 @@ namespace NoeticTools.TeamStatusBoard.Tiles.Guages.GuageAngular
 
         private void Update()
         {
-            Label = _namedValues.GetString("Label", "Label");
-            Minimum = _namedValues.GetDouble("Minimum");
-            Maximum = _namedValues.GetDouble("Maximum", 100.0);
-            Value = _namedValues.GetDouble("Value");
-            Format = _namedValues.GetString("Format", "{0}%");
-            LabelsStep = _namedValues.GetDouble("LabelsStep", ValueSpan / DefaultLabelsStepRatio);
-            TicksStep = _namedValues.GetDouble("TicksStep", ValueSpan / DefaultTickStepRatio);
+            Format = NamedValues.GetString("Format", "{0}%");
+            LabelsStep = NamedValues.GetDouble("LabelsStep", ValueSpan / DefaultLabelsStepRatio);
+            TicksStep = NamedValues.GetDouble("TicksStep", ValueSpan / DefaultTickStepRatio);
         }
 
         void ITimerListener.OnTimeElapsed(TimerToken token)
@@ -195,8 +160,8 @@ namespace NoeticTools.TeamStatusBoard.Tiles.Guages.GuageAngular
             view.LabelFormatter = x => string.Format(Format,x);
             Update();
 
-            var ticksColour = _namedValues.GetColour("TicksColour", "Gray");
-            var wedge = _namedValues.GetDouble("Wedge", 300.0);
+            var ticksColour = NamedValues.GetColour("TicksColour", "Gray");
+            var wedge = NamedValues.GetDouble("Wedge", 300.0);
             view.Wedge = wedge;
             view.TicksForeground = new SolidColorBrush(ticksColour);
 
@@ -205,17 +170,17 @@ namespace NoeticTools.TeamStatusBoard.Tiles.Guages.GuageAngular
 
         private void InitialiseSpans(AngularGauge view)
         {
-            var lowerSpan = _namedValues.GetDouble("LowerSpan", TicksStep);
-            var upperSpan = _namedValues.GetDouble("UpperSpan", TicksStep);
+            var lowerSpan = NamedValues.GetDouble("LowerSpan", TicksStep);
+            var upperSpan = NamedValues.GetDouble("UpperSpan", TicksStep);
             var midSpanStart = Minimum + lowerSpan;
             var midSpanEnd = Maximum - upperSpan;
-            var lowerColour = _namedValues.GetColour("LowerColour", "LightGray");
-            var midColour = _namedValues.GetColour("MidColour", "#F8A725");
-            var upperColour = _namedValues.GetColour("UpperColour", "#FF3939");
+            var lowerColour = NamedValues.GetColour("LowerColour", "LightGray");
+            var midColour = NamedValues.GetColour("MidColour", "#F8A725");
+            var upperColour = NamedValues.GetColour("UpperColour", "#FF3939");
             view.Sections.Add(new AngularSection() {FromValue = Minimum, ToValue = midSpanStart, Fill = new SolidColorBrush(lowerColour)});
             view.Sections.Add(new AngularSection() {FromValue = midSpanStart, ToValue = midSpanEnd, Fill = new SolidColorBrush(midColour)});
             view.Sections.Add(new AngularSection() {FromValue = midSpanEnd, ToValue = Maximum, Fill = new SolidColorBrush(upperColour)});
-            view.SectionsInnerRadius = _namedValues.GetDouble("InnerRadius", 0.5);
+            view.SectionsInnerRadius = NamedValues.GetDouble("InnerRadius", 0.5);
         }
     }
 }

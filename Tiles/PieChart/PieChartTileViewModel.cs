@@ -15,19 +15,18 @@ using NoeticTools.TeamStatusBoard.Framework.Config.Properties;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles;
 using NoeticTools.TeamStatusBoard.Framework.Services;
+using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
 
 
 namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
 {
-    internal sealed class PieChartTileViewModel : NotifyingViewModelBase, IConfigurationChangeListener, ITileViewModel, ITimerListener
+    internal sealed class PieChartTileViewModel : ConfiguredTileViewModelBase, IConfigurationChangeListener, ITileViewModel, ITimerListener
     {
         private readonly string[] _defaultColours = { "#F8A725", "#FF3939", "LightGray", "YellowGreen", "Tomato", "LightGreen" };
         private readonly TimeSpan _updatePeriod = TimeSpan.FromSeconds(30);
         private readonly IServices _services;
-        private readonly INamedValueRepository _configurationNamedValues;
-        private readonly INamedValueRepository _namedValues;
-        private string _label = "";
+        private IDataValue _label = new NullDataValue();
         private string _format = "{0}";
         private LegendLocation _legendLocation = LegendLocation.None;
         private LiveCharts.Wpf.PieChart _chart;
@@ -36,49 +35,58 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
         private SolidColorBrush[] _colours = new SolidColorBrush[0];
 
         public PieChartTileViewModel(TileConfiguration tile, IDashboardController dashboardController, ITileLayoutController layoutController, IServices services, ITileProperties properties)
+            : base(properties)
         {
             _services = services;
-            _configurationNamedValues = properties.Properties;
-            _namedValues = properties.NamedValueRepository;
+            Configuration = properties.Properties;
+            NamedValues = properties.NamedValueRepository;
             Values = new ObservableCollection<ObservableValue>();
             PointLabel = chartPoint => "";
-            Formatter = x => string.Format(Format, x);
+            Formatter = FormatValue;
 
             var parameters = GetConfigurationParameters();
             ConfigureCommand = new TileConfigureCommand(tile, "Data Value Tile Configuration", parameters, dashboardController, layoutController, services);
 
+            Subscribe();
+
             _services.Timer.QueueCallback(TimeSpan.FromMilliseconds(100), this);
+        }
+
+        private void Subscribe()
+        {
+            _label = UpdateSubscription(_label, "Label", "Label");
+            OnPropertyChanged("Label");
+        }
+
+        private string FormatValue(double x)
+        {
+            try
+            {
+                return string.Format(Format, x);
+            }
+            catch (Exception)
+            {
+                return $"{x}";
+            }
         }
 
         private IPropertyViewModel[] GetConfigurationParameters()
         {
             var parameters = new IPropertyViewModel[]
             {
-                new TextPropertyViewModel("Label", _configurationNamedValues, _services),
+                new TextPropertyViewModel("Label", Configuration, _services),
 
-                new CompountTextPropertyViewModel("Values", _configurationNamedValues, _services),
-                new CompountTextPropertyViewModel("Titles", _configurationNamedValues, _services),
-                new CompountColourPropertyViewModel("Colours", _configurationNamedValues, _services),
+                new CompountTextPropertyViewModel("Values", Configuration, _services),
+                new CompountTextPropertyViewModel("Titles", Configuration, _services),
+                new CompountColourPropertyViewModel("Colours", Configuration, _services),
 
-                new TextPropertyViewModel("Format", _configurationNamedValues, _services),
-                new EnumPropertyViewModel("LegendLocation", _configurationNamedValues, "None", "Top", "Bottom", "Left", "Right"),
+                new TextPropertyViewModel("Format", Configuration, _services),
+                new EnumPropertyViewModel("LegendLocation", Configuration, "None", "Top", "Bottom", "Left", "Right"),
             };
             return parameters;
         }
 
-        public string Label
-        {
-            get { return _label; }
-            set
-            {
-                if (_label != null && _label.Equals(value))
-                {
-                    return;
-                }
-                _label = value;
-                OnPropertyChanged();
-            }
-        }
+        public string Label => _label.String;
 
         public Func<double, string> Formatter { get; set; }
 
@@ -153,15 +161,14 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
 
         private void Update()
         {
-            Label = _namedValues.GetString("Label", "Label (alpha)");
-
-            var values = _namedValues.GetDoubleArray("Values");
+            var values = NamedValues.GetDoubleArray("Values");
             SynchroniseValues(values);
 
-            Titles = _namedValues.GetStringArray("Titles");
-            Colours = _namedValues.GetColourArray("Colours").Select(x => new SolidColorBrush(x)).ToArray();
-            Format = _namedValues.GetString("Format", "{0} %");
-            LegendLocation = (LegendLocation)Enum.Parse(typeof(LegendLocation), _configurationNamedValues.GetString("LegendLocation", "None"));
+            Titles = NamedValues.GetStringArray("Titles");
+            Colours = NamedValues.GetColourArray("Colours").Select(x => new SolidColorBrush(x)).ToArray();
+
+            Format = NamedValues.GetString("Format", "{0} %");
+            LegendLocation = (LegendLocation)Enum.Parse(typeof(LegendLocation), Configuration.GetString("LegendLocation", "None"));
         }
 
         private void SynchroniseValues(IReadOnlyList<double> values)

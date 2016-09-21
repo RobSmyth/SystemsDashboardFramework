@@ -31,7 +31,11 @@ namespace NoeticTools.TeamStatusBoard.Tiles.MessageTile
 
         public FrameworkElement CreateTile(TileConfiguration tileConfigturation, TileLayoutController layoutController)
         {
-            return new MessageTileControl {DataContext = new MessageTileViewModel(tileConfigturation, _dashboardController, layoutController, _services)};
+            var conduit = new ConfigurationChangeListenerConduit();
+            var tileProperties = new TileProperties(tileConfigturation, conduit, _services);
+            var viewModel = new MessageTileViewModel(tileConfigturation, _dashboardController, layoutController, _services, tileProperties);
+            conduit.SetTarget(viewModel);
+            return new MessageTileControl {DataContext = viewModel};
         }
 
         public TileConfiguration CreateDefaultConfiguration()

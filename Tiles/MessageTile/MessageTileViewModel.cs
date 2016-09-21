@@ -6,44 +6,37 @@ using NoeticTools.TeamStatusBoard.Framework.Config.Properties;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles;
 using NoeticTools.TeamStatusBoard.Framework.Services;
+using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 
 
 namespace NoeticTools.TeamStatusBoard.Tiles.MessageTile
 {
-    internal sealed class MessageTileViewModel : NotifyingViewModelBase, IConfigurationChangeListener, ITileViewModel
+    internal sealed class MessageTileViewModel : ConfiguredTileViewModelBase, IConfigurationChangeListener, ITileViewModel
     {
         private readonly TileConfigurationConverter _tileConfigurationConverter;
-        private string _text;
+        private IDataValue _text = new NullDataValue();
 
-        public MessageTileViewModel(TileConfiguration tile, IDashboardController dashboardController, ITileLayoutController layoutController, IServices services)
+        public MessageTileViewModel(TileConfiguration tile, IDashboardController dashboardController, ITileLayoutController layoutController, IServices services, TileProperties properties)
+            : base(properties)
         {
             _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
             var parameters = new IPropertyViewModel[] {new PropertyViewModel("Message", PropertyType.Text, _tileConfigurationConverter)};
             ConfigureCommand = new TileConfigureCommand(tile, "Message Tile Configuration", parameters, dashboardController, layoutController, services);
-            Update();
+            Subscribe();
         }
 
-        public string Text
+        private void Subscribe()
         {
-            get { return _text; }
-            private set
-            {
-                if (value == _text) return;
-                _text = value;
-                OnPropertyChanged();
-            }
+            _text = UpdateSubscription(_text, "Label", "Label");
         }
+
+        public string Text => _text.String;
 
         public ICommand ConfigureCommand { get; }
 
         public void OnConfigurationChanged(TileConfigurationConverter converter)
         {
-            Update();
-        }
-
-        private void Update()
-        {
-            Text = _tileConfigurationConverter.GetString("Message");
+            Subscribe();
         }
     }
 }

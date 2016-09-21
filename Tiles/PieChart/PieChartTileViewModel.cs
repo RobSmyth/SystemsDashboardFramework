@@ -38,8 +38,6 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
             : base(properties)
         {
             _services = services;
-            Configuration = properties.Properties;
-            NamedValues = properties.NamedValueRepository;
             Values = new ObservableCollection<ObservableValue>();
             Titles = new ObservableCollection<string>();
             Colours = new ObservableCollection<SolidColorBrush>();

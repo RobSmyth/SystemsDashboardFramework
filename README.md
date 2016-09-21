@@ -10,11 +10,14 @@ A Windows application (C# WPF) wall team/systems dashboard.
 - Tiles:
  - TeamCity last/current build configuration monitor
  - TeamCity list of available (last successful) builds
+ - 360 or 180 degree guage
+ - Angular (needle) guage
+ - Pie chart
  - Days remaining countdown
  - Today's date
  - Message
  - Webbrowser
- - Image file watcher
+ - Image (updates when image file is updated)
 - Drag and drop tile insertion
 - Drag and drop tile positioning
 - Quick configuration in UI

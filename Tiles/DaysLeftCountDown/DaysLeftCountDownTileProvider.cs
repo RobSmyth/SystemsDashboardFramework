@@ -22,7 +22,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.DaysLeftCountDown
 
         public string Name => "Working days left to date count down";
 
-        public string TypeId => DaysLeftCountDownTileProvider.TileTypeId;
+        public string TypeId => TileTypeId;
 
         public bool MatchesId(string id)
         {

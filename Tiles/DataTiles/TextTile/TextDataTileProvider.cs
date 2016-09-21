@@ -21,7 +21,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.DataTiles.TextTile
 
         public string Name => "Text property panel";
 
-        public string TypeId => TextDataTileProvider.TileTypeId;
+        public string TypeId => TileTypeId;
 
         public bool MatchesId(string id)
         {

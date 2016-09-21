@@ -20,7 +20,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.Date
 
         public string Name => "Today's date";
 
-        public string TypeId => DateTileProvider.TileTypeId;
+        public string TypeId => TileTypeId;
 
         public bool MatchesId(string id)
         {

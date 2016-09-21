@@ -22,7 +22,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.Image
 
         public string Name => "Image file watcher";
 
-        public string TypeId => ImageFileWatcherTileProvider.TileTypeId;
+        public string TypeId => TileTypeId;
 
         public bool MatchesId(string id)
         {

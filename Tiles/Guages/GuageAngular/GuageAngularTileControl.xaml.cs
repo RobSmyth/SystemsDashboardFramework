@@ -16,7 +16,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.Guages.GuageAngular
         {
             _model = model;
             DataContext = model;
-            model.InitialiseGuageView(this.guage);
+            model.InitialiseGuageView(guage);
         }
     }
 }

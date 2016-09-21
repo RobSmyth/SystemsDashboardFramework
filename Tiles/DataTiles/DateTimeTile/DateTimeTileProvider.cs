@@ -22,7 +22,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.DataTiles.DateTimeTile
 
         public string Name => "Date & time property panel";
 
-        public string TypeId => DateTimeDataTileProvider.TileTypeId;
+        public string TypeId => TileTypeId;
 
         public bool MatchesId(string id)
         {

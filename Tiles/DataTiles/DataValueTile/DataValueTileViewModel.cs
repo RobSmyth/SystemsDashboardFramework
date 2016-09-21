@@ -33,17 +33,6 @@ namespace NoeticTools.TeamStatusBoard.Tiles.DataTiles.DataValueTile
             _services.Timer.QueueCallback(TimeSpan.FromMilliseconds(100), this);
         }
 
-        private IPropertyViewModel[] GetConfigurationParameters(INotifyingPropertyViewModel dataSourceTypeViewModel)
-        {
-            var parameters = new IPropertyViewModel[]
-            {
-                dataSourceTypeViewModel,
-                new DependantPropertyViewModel("Property", PropertyType.Enum, _tileConfigurationConverter, dataSourceTypeViewModel,
-                    () => _services.DataService.Get((string) dataSourceTypeViewModel.Value).GetAllNames().Cast<object>().ToArray())
-            };
-            return parameters;
-        }
-
         public string Text
         {
             get { return _text; }
@@ -60,6 +49,17 @@ namespace NoeticTools.TeamStatusBoard.Tiles.DataTiles.DataValueTile
         public void OnConfigurationChanged(TileConfigurationConverter converter)
         {
             Update();
+        }
+
+        private IPropertyViewModel[] GetConfigurationParameters(INotifyingPropertyViewModel dataSourceTypeViewModel)
+        {
+            var parameters = new IPropertyViewModel[]
+            {
+                dataSourceTypeViewModel,
+                new DependantPropertyViewModel("Property", PropertyType.Enum, _tileConfigurationConverter, dataSourceTypeViewModel,
+                    () => _services.DataService.Get((string) dataSourceTypeViewModel.Value).GetAllNames().Cast<object>().ToArray())
+            };
+            return parameters;
         }
 
         private void Update()

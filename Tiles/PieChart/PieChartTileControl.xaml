@@ -31,8 +31,7 @@
             <wpf:PieChart Name="chart"
                           Grid.Row="0" Margin="3"
                           LegendLocation="{Binding Path=LegendLocation, Mode=OneWay}"
-                          FontSize="{Binding Path=ActualHeight, ElementName=root, Converter={StaticResource doubleConverter}, ConverterParameter=0.03}" >
-            </wpf:PieChart>
+                          FontSize="{Binding Path=ActualHeight, ElementName=root, Converter={StaticResource doubleConverter}, ConverterParameter=0.03}" />
             <TextBlock Name="label" Grid.Row="1"
                        HorizontalAlignment="Center" TextAlignment="Center" IsHitTestVisible="False" 
                        FontWeight="Bold" Margin="3,1,3,10" Text="{Binding Label, Mode=OneWay}"

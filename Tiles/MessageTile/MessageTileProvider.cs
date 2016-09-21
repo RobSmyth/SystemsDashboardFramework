@@ -22,7 +22,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.MessageTile
 
         public string Name => "Message";
 
-        public string TypeId => MessageTileProvider.TileTypeId;
+        public string TypeId => TileTypeId;
 
         public bool MatchesId(string id)
         {

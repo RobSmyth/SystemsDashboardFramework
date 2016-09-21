@@ -30,10 +30,11 @@ namespace NoeticTools.TeamStatusBoard.Tiles.Guages.GuageAngular
         private IDataValue _ticksStep = new NullDataValue();
         private IDataValue _ticksColour = new NullDataValue();
         private IDataValue _wedge = new NullDataValue(300.0);
-        private string _format = "{0}";
         private IDataValue _lowerSpan = new NullDataValue();
         private IDataValue _upperSpan = new NullDataValue();
         private IDataValue _innerRadius = new NullDataValue(0.5);
+
+        private string _format = "{0}";
 
         public GuageAngularTileViewModel(TileConfiguration tile, IDashboardController dashboardController, ITileLayoutController layoutController, IServices services, ITileProperties properties)
             : base(properties)
@@ -48,14 +49,60 @@ namespace NoeticTools.TeamStatusBoard.Tiles.Guages.GuageAngular
             _services.Timer.QueueCallback(TimeSpan.FromMilliseconds(100), this);
         }
 
+        public string Label => _label.String;
+
+        public double Value => _value.Double;
+
+        public double Maximum => _maximum.Double;
+
+        public double Minimum => _minimum.Double;
+
+        public string Format
+        {
+            get { return _format; }
+            private set
+            {
+                if (_format != null && _format.Equals(value))
+                {
+                    return;
+                }
+                _format = value;
+                OnPropertyChanged();
+                OnPropertyChanged("Minimum");
+                OnPropertyChanged("Maximum");
+            }
+        }
+
+        public double LabelsStep => _labelsStep.Double;
+
+        public double TicksStep => _ticksStep.Double;
+
+        public ICommand ConfigureCommand { get; }
+
+        public void OnConfigurationChanged(TileConfigurationConverter converter)
+        {
+            Update();
+        }
+
+        public void InitialiseGuageView(AngularGauge view)
+        {
+            view.LabelFormatter = x => string.Format(Format, x);
+            Update();
+
+            view.Wedge = _wedge.Double;
+            view.TicksForeground = new SolidColorBrush(_ticksColour.Colour);
+
+            InitialiseSpans(view);
+        }
+
         private void Subscribe()
         {
             _label = UpdateSubscription(_label, "Label", "Label");
             _minimum = UpdateSubscription(_minimum, "Minimum", 0.0);
             _maximum = UpdateSubscription(_maximum, "Maximum", 100.0);
             _value = UpdateSubscription(_value, "Value", 0.0);
-            _labelsStep = UpdateSubscription(_labelsStep, "LabelsStep", ValueSpan / DefaultLabelsStepRatio);
-            _ticksStep = UpdateSubscription(_ticksStep, "TicksStep", ValueSpan / DefaultTickStepRatio);
+            _labelsStep = UpdateSubscription(_labelsStep, "LabelsStep", ValueSpan/DefaultLabelsStepRatio);
+            _ticksStep = UpdateSubscription(_ticksStep, "TicksStep", ValueSpan/DefaultTickStepRatio);
             _ticksColour = UpdateSubscription(_ticksColour, "TicksColour", "Gray");
             _wedge = UpdateSubscription(_wedge, "Wedge", 300.0);
             _lowerSpan = UpdateSubscription(_lowerSpan, "LowerSpan", TicksStep);
@@ -95,47 +142,10 @@ namespace NoeticTools.TeamStatusBoard.Tiles.Guages.GuageAngular
                 new TextPropertyViewModel("UpperSpan", Configuration, _services),
                 new ColourPropertyViewModel("LowerColour", Configuration, _services),
                 new ColourPropertyViewModel("MidColour", Configuration, _services),
-                new ColourPropertyViewModel("UpperColour", Configuration, _services),
+                new ColourPropertyViewModel("UpperColour", Configuration, _services)
             };
             return parameters;
         }
-
-        public string Label => _label.String;
-
-        public double Value => _value.Double;
-
-        public double Maximum => _maximum.Double;
-
-        public double Minimum => _minimum.Double;
-
-        public string Format
-        {
-            get { return _format; }
-            private set
-            {
-                if (_format != null && _format.Equals(value))
-                {
-                    return;
-                }
-                _format = value;
-                OnPropertyChanged();
-                OnPropertyChanged("Minimum");
-                OnPropertyChanged("Maximum");
-            }
-        }
-
-        public double LabelsStep => _labelsStep.Double;
-
-        public double TicksStep => _ticksStep.Double;
-
-        public ICommand ConfigureCommand { get; }
-
-        public void OnConfigurationChanged(TileConfigurationConverter converter)
-        {
-            Update();
-        }
-
-        private double ValueSpan => Maximum - Minimum;
 
         private void Update()
         {
@@ -148,17 +158,6 @@ namespace NoeticTools.TeamStatusBoard.Tiles.Guages.GuageAngular
             _services.Timer.QueueCallback(_updatePeriod, this);
         }
 
-        public void InitialiseGuageView(AngularGauge view)
-        {
-            view.LabelFormatter = x => string.Format(Format,x);
-            Update();
-
-            view.Wedge = _wedge.Double;
-            view.TicksForeground = new SolidColorBrush(_ticksColour.Colour);
-
-            InitialiseSpans(view);
-        }
-
         private void InitialiseSpans(AngularGauge view)
         {
             var midSpanStart = _lowerSpan.Double;
@@ -166,10 +165,12 @@ namespace NoeticTools.TeamStatusBoard.Tiles.Guages.GuageAngular
             var lowerColour = NamedValues.GetColour("LowerColour", "LightGray");
             var midColour = NamedValues.GetColour("MidColour", "#F8A725");
             var upperColour = NamedValues.GetColour("UpperColour", "#FF3939");
-            view.Sections.Add(new AngularSection() {FromValue = Minimum, ToValue = midSpanStart, Fill = new SolidColorBrush(lowerColour)});
-            view.Sections.Add(new AngularSection() {FromValue = midSpanStart, ToValue = midSpanEnd, Fill = new SolidColorBrush(midColour)});
-            view.Sections.Add(new AngularSection() {FromValue = midSpanEnd, ToValue = Maximum, Fill = new SolidColorBrush(upperColour)});
+            view.Sections.Add(new AngularSection {FromValue = Minimum, ToValue = midSpanStart, Fill = new SolidColorBrush(lowerColour)});
+            view.Sections.Add(new AngularSection {FromValue = midSpanStart, ToValue = midSpanEnd, Fill = new SolidColorBrush(midColour)});
+            view.Sections.Add(new AngularSection {FromValue = midSpanEnd, ToValue = Maximum, Fill = new SolidColorBrush(upperColour)});
             view.SectionsInnerRadius = _innerRadius.Double;
         }
+
+        private double ValueSpan => Maximum - Minimum;
     }
 }

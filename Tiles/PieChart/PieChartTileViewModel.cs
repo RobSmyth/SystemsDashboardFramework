@@ -22,14 +22,14 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
 {
     internal sealed class PieChartTileViewModel : LiveChartTileViewModelBase, IConfigurationChangeListener, ITileViewModel, ITimerListener
     {
-        private readonly string[] _defaultColours = { "#F8A725", "#FF3939", "LightGray", "YellowGreen", "Tomato", "LightGreen" };
+        private readonly string[] _defaultColours = {"#F8A725", "#FF3939", "LightGray", "YellowGreen", "Tomato", "LightGreen"};
         private readonly TimeSpan _updatePeriod = TimeSpan.FromSeconds(30);
         private readonly IServices _services;
+        private readonly List<PieSeries> _series = new List<PieSeries>();
         private IDataValue _label = new NullDataValue();
         private string _format = "{0}";
         private LegendLocation _legendLocation = LegendLocation.None;
         private LiveCharts.Wpf.PieChart _chart;
-        private readonly List<LiveCharts.Wpf.PieSeries> _series = new List<LiveCharts.Wpf.PieSeries>();
         private IEnumerable<IDataValue> _titles = new IDataValue[0];
         private IEnumerable<IDataValue> _colours = new IDataValue[0];
         private IEnumerable<IDataValue> _dataValues = new IDataValue[0];
@@ -52,53 +52,6 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
             Subscribe();
 
             _services.Timer.QueueCallback(TimeSpan.FromMilliseconds(100), this);
-        }
-
-        private void Subscribe()
-        {
-            _label = UpdateSubscription(_label, "Label", "Label");
-
-            var priorCount = _dataValues.Count();
-            _dataValues = UpdateSubscriptions(_dataValues, "Values", Values);
-            if (_dataValues.Count() != priorCount)
-            {
-                OnChartSeriesChanged();
-            }
-
-            _titles = UpdateSubscription(_titles, "Titles", Titles, x => x.String);
-            _colours = UpdateSubscription(_colours, "Colours", Colours, x => x.SolidColourBrush);
-
-            OnPropertyChanged("Label");
-            OnPropertyChanged("Values");
-            OnPropertyChanged("Titles");
-        }
-
-        private string FormatValue(double x)
-        {
-            try
-            {
-                return string.Format(Format, x);
-            }
-            catch (Exception)
-            {
-                return $"{x}";
-            }
-        }
-
-        private IPropertyViewModel[] GetConfigurationParameters()
-        {
-            var parameters = new IPropertyViewModel[]
-            {
-                new TextPropertyViewModel("Label", Configuration, _services),
-
-                new CompountTextPropertyViewModel("Values", Configuration, _services),
-                new CompountTextPropertyViewModel("Titles", Configuration, _services),
-                new CompountColourPropertyViewModel("Colours", Configuration, _services),
-
-                new TextPropertyViewModel("Format", Configuration, _services),
-                new EnumPropertyViewModel("LegendLocation", Configuration, "None", "Top", "Bottom", "Left", "Right"),
-            };
-            return parameters;
         }
 
         public string Label => _label.String;
@@ -149,24 +102,69 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
             Update();
         }
 
-        private void Update()
-        {
-            Format = NamedValues.GetString("Format", "{0} %");
-            LegendLocation = (LegendLocation)Enum.Parse(typeof(LegendLocation), Configuration.GetString("LegendLocation", "None"));
-        }
-
-        void ITimerListener.OnTimeElapsed(TimerToken token)
-        {
-            Update();
-            _services.Timer.QueueCallback(_updatePeriod, this);
-        }
-
         public void SetView(LiveCharts.Wpf.PieChart chart)
         {
             _chart = chart;
             _chart.AnimationsSpeed = TimeSpan.FromSeconds(1.0);
             Update();
             OnChartSeriesChanged();
+        }
+
+        private void Subscribe()
+        {
+            _label = UpdateSubscription(_label, "Label", "Label");
+
+            var priorCount = _dataValues.Count();
+            _dataValues = UpdateSubscriptions(_dataValues, "Values", Values);
+            if (_dataValues.Count() != priorCount)
+            {
+                OnChartSeriesChanged();
+            }
+
+            _titles = UpdateSubscription(_titles, "Titles", Titles, x => x.String);
+            _colours = UpdateSubscription(_colours, "Colours", Colours, x => x.SolidColourBrush);
+
+            OnPropertyChanged("Label");
+            OnPropertyChanged("Values");
+            OnPropertyChanged("Titles");
+        }
+
+        private string FormatValue(double x)
+        {
+            try
+            {
+                return string.Format(Format, x);
+            }
+            catch (Exception)
+            {
+                return $"{x}";
+            }
+        }
+
+        private IPropertyViewModel[] GetConfigurationParameters()
+        {
+            var parameters = new IPropertyViewModel[]
+            {
+                new TextPropertyViewModel("Label", Configuration, _services),
+                new CompountTextPropertyViewModel("Values", Configuration, _services),
+                new CompountTextPropertyViewModel("Titles", Configuration, _services),
+                new CompountColourPropertyViewModel("Colours", Configuration, _services),
+                new TextPropertyViewModel("Format", Configuration, _services),
+                new EnumPropertyViewModel("LegendLocation", Configuration, "None", "Top", "Bottom", "Left", "Right")
+            };
+            return parameters;
+        }
+
+        private void Update()
+        {
+            Format = NamedValues.GetString("Format", "{0} %");
+            LegendLocation = (LegendLocation) Enum.Parse(typeof(LegendLocation), Configuration.GetString("LegendLocation", "None"));
+        }
+
+        void ITimerListener.OnTimeElapsed(TimerToken token)
+        {
+            Update();
+            _services.Timer.QueueCallback(_updatePeriod, this);
         }
 
         private void OnChartSeriesChanged()
@@ -187,15 +185,16 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
 
         private void AddValue(string title, ObservableValue value)
         {
-            var seriesNumber = _series.Count+1;
-            var pieSeries = new PieSeries { Title = title, Values = new ChartValues<ObservableValue> { value }, Fill = GetSeriesFill(seriesNumber)};
+            var seriesNumber = _series.Count + 1;
+            var pieSeries = new PieSeries {Title = title, Values = new ChartValues<ObservableValue> {value}, Fill = GetSeriesFill(seriesNumber)};
             _series.Add(pieSeries);
         }
 
         private SolidColorBrush GetSeriesFill(int seriesNumber)
         {
-            return Colours.Count >= seriesNumber ? Colours[seriesNumber - 1] : 
-                new SolidColorBrush((Color)ColorConverter.ConvertFromString(_defaultColours[seriesNumber - 1]));
+            return Colours.Count >= seriesNumber
+                ? Colours[seriesNumber - 1]
+                : new SolidColorBrush((Color) ColorConverter.ConvertFromString(_defaultColours[seriesNumber - 1]));
         }
     }
 }

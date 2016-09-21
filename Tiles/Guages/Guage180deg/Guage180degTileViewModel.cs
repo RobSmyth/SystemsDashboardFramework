@@ -42,34 +42,6 @@ namespace NoeticTools.TeamStatusBoard.Tiles.Guages.Guage180deg
             _services.Timer.QueueCallback(TimeSpan.FromMilliseconds(100), this);
         }
 
-        private string FormatValue(double x)
-        {
-            try
-            {
-                return string.Format(Format, x);
-            }
-            catch (Exception)
-            {
-                return $"{x}";
-            }
-        }
-
-        private IEnumerable<IPropertyViewModel> GetConfigurationParameters()
-        {
-            var parameters = new IPropertyViewModel[]
-            {
-                new TextPropertyViewModel("Label", Configuration, _services),
-                new TextPropertyViewModel("Value", Configuration, _services),
-                new TextPropertyViewModel("Minimum", Configuration, _services),
-                new TextPropertyViewModel("Maximum", Configuration, _services),
-                new TextPropertyViewModel("Format", Configuration, _services),
-                new BoolPropertyViewModel("Uses360Mode", Configuration, _services),
-                new ColourPropertyViewModel("FromColour", Configuration, _services),
-                new ColourPropertyViewModel("ToColour", Configuration, _services),
-            };
-            return parameters;
-        }
-
         public string Label => _label.String;
 
         public double Value => _value.Double;
@@ -111,6 +83,34 @@ namespace NoeticTools.TeamStatusBoard.Tiles.Guages.Guage180deg
         {
             Subscribe();
             Update();
+        }
+
+        private string FormatValue(double x)
+        {
+            try
+            {
+                return string.Format(Format, x);
+            }
+            catch (Exception)
+            {
+                return $"{x}";
+            }
+        }
+
+        private IEnumerable<IPropertyViewModel> GetConfigurationParameters()
+        {
+            var parameters = new IPropertyViewModel[]
+            {
+                new TextPropertyViewModel("Label", Configuration, _services),
+                new TextPropertyViewModel("Value", Configuration, _services),
+                new TextPropertyViewModel("Minimum", Configuration, _services),
+                new TextPropertyViewModel("Maximum", Configuration, _services),
+                new TextPropertyViewModel("Format", Configuration, _services),
+                new BoolPropertyViewModel("Uses360Mode", Configuration, _services),
+                new ColourPropertyViewModel("FromColour", Configuration, _services),
+                new ColourPropertyViewModel("ToColour", Configuration, _services)
+            };
+            return parameters;
         }
 
         private void Subscribe()

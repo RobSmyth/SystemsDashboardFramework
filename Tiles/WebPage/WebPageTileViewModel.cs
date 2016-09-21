@@ -22,9 +22,9 @@ namespace NoeticTools.TeamStatusBoard.Tiles.WebPage
             _view = view;
             _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
             ConfigureCommand = new TileConfigureCommand(tile, "Web Page Tile Configuration", new[]
-            {
-                new PropertyViewModel("Url", PropertyType.Text, _tileConfigurationConverter)
-            },
+                {
+                    new PropertyViewModel("Url", PropertyType.Text, _tileConfigurationConverter)
+                },
                 dashboardController, layoutController, services);
             _view.DataContext = this;
             UpdateView();

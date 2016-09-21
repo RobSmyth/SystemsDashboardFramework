@@ -58,7 +58,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
             _label = UpdateSubscription(_label, "Label", "Label");
 
             var priorCount = _dataValues.Count();
-            _dataValues = UpdateSubscription(_dataValues, "Values", Values);
+            _dataValues = UpdateSubscriptions(_dataValues, "Values", Values);
             if (_dataValues.Count() != priorCount)
             {
                 OnChartSeriesChanged();
@@ -69,23 +69,6 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
             OnPropertyChanged("Label");
             OnPropertyChanged("Values");
             OnPropertyChanged("Titles");
-        }
-
-        private IEnumerable<IDataValue> UpdateSubscription(IEnumerable<IDataValue> existingValues, string name, ObservableCollection<string> observableCollection)
-        {
-            observableCollection.Clear();
-            foreach (var dataValue in existingValues)
-            {
-                dataValue.Broadcaster.RemoveListener(this);
-            }
-
-            var newValues = NamedValues.GetDatums(name).ToArray();
-            foreach (var dataValue in newValues)
-            {
-                observableCollection.Add(dataValue.String);
-            }
-
-            return newValues;
         }
 
         private string FormatValue(double x)

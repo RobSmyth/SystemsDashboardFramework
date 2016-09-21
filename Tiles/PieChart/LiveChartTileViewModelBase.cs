@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using LiveCharts.Defaults;
 using NoeticTools.TeamStatusBoard.Framework;
 using NoeticTools.TeamStatusBoard.Framework.Config;
@@ -13,15 +14,11 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
         {
         }
 
-        protected IEnumerable<IDataValue> UpdateSubscription(IEnumerable<IDataValue> existingValues, string name, ICollection<ObservableValue> observableCollection)
+        protected IEnumerable<IDataValue> UpdateSubscriptions(IEnumerable<IDataValue> existingValues, string name, ICollection<ObservableValue> observableCollection)
         {
-            observableCollection.Clear();
-            foreach (var dataValue in existingValues)
-            {
-                dataValue.Broadcaster.RemoveListener(this);
-            }
+            Flush(existingValues, observableCollection);
 
-            var newValues = NamedValues.GetDatums(name);
+            var newValues = NamedValues.GetDatums(name).ToArray();
             foreach (var dataValue in newValues)
             {
                 var chartValue = new ObservableValue(dataValue.Double);

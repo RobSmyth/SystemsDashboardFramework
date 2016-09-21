@@ -161,8 +161,8 @@ namespace NoeticTools.TeamStatusBoard.Tiles.Guages.GuageAngular
 
         private void InitialiseSpans(AngularGauge view)
         {
-            var midSpanStart = Minimum + _lowerSpan.Double;
-            var midSpanEnd = Maximum - _upperSpan.Double;
+            var midSpanStart = _lowerSpan.Double;
+            var midSpanEnd = _upperSpan.Double;
             var lowerColour = NamedValues.GetColour("LowerColour", "LightGray");
             var midColour = NamedValues.GetColour("MidColour", "#F8A725");
             var upperColour = NamedValues.GetColour("UpperColour", "#FF3939");

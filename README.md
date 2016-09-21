@@ -34,6 +34,13 @@ The guage tile displays a 360 or 180 degree guage.
 
 ![Message tile screen shot](./Images/Chart360deg.png "360deg chart")
 
+## Angular guage
+
+![Message tile screen shot](./Images/AngularGuage01.png "Angular guage")
+
+## Pie chart
+
+![Message tile screen shot](./Images/PieChart01.png "Angular guage")
 
 ## Message
 

@@ -118,13 +118,13 @@ To add a build agent tile:
 
 Thanks to the authors of the open source libraries I've used:
 
-* LiveCharts
-* Log4Net
-* EasyHttp
-* JsonFx
-* TeamCitySharp
+* [LiveCharts](https://www.lvcharts.net/)
+* [Log4Net](http://logging.apache.org/log4net/)
+* [EasyHttp](https://github.com/hhariri/EasyHttp)
+* [JsonFx](https://github.com/jsonfx/jsonfx)
+* [TeamCitySharp](https://github.com/stack72/TeamCitySharp)
 * Atlassian.Jira (WIP)
-* NUnit
-* Moq
+* [NUnit](http://nunit.org/)
+* [Moq](http://www.moqthis.com/)
 
 

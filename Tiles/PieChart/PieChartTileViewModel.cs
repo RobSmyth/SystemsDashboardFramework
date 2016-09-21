@@ -27,7 +27,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
         private readonly IServices _services;
         private readonly List<PieSeries> _series = new List<PieSeries>();
         private IDataValue _label = new NullDataValue();
-        private string _format = "{0}";
+        private IDataValue _format = new NullDataValue();
         private LegendLocation _legendLocation = LegendLocation.None;
         private LiveCharts.Wpf.PieChart _chart;
         private IEnumerable<IDataValue> _titles = new IDataValue[0];
@@ -64,19 +64,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
 
         public ObservableCollection<SolidColorBrush> Colours { get; }
 
-        public string Format
-        {
-            get { return _format; }
-            private set
-            {
-                if (_format != null && _format.Equals(value))
-                {
-                    return;
-                }
-                _format = value;
-                OnPropertyChanged();
-            }
-        }
+        public string Format => _format.String;
 
         public LegendLocation LegendLocation
         {
@@ -124,9 +112,12 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
             _titles = UpdateSubscription(_titles, "Titles", Titles, x => x.String);
             _colours = UpdateSubscription(_colours, "Colours", Colours, x => x.SolidColourBrush);
 
+            _format = UpdateSubscription(_format, "Format", "{0} %");
+
             OnPropertyChanged("Label");
             OnPropertyChanged("Values");
             OnPropertyChanged("Titles");
+            OnPropertyChanged("Format");
         }
 
         private string FormatValue(double x)
@@ -157,7 +148,6 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
 
         private void Update()
         {
-            Format = NamedValues.GetString("Format", "{0} %");
             LegendLocation = (LegendLocation) Enum.Parse(typeof(LegendLocation), Configuration.GetString("LegendLocation", "None"));
         }
 

@@ -10,8 +10,8 @@ namespace NoeticTools.TeamStatusBoard.Framework
 {
     public abstract class ConfiguredTileViewModelBase : NotifyingViewModelBase
     {
-        protected INamedValueRepository Configuration;
-        protected INamedValueRepository NamedValues;
+        protected readonly INamedValueRepository Configuration;
+        protected readonly INamedValueRepository NamedValues;
 
         protected ConfiguredTileViewModelBase(ITileProperties properties)
         {

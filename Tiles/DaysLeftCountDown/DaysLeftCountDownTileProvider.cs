@@ -32,7 +32,10 @@ namespace NoeticTools.TeamStatusBoard.Tiles.DaysLeftCountDown
         public FrameworkElement CreateTile(TileConfiguration tileConfigturation, TileLayoutController layoutController)
         {
             var view = new DaysLeftCoundDownTileView();
-            new DaysLeftCountDownTileViewModel(tileConfigturation, _services.Clock, _dashboardController, view, layoutController, _services);
+            var conduit = new ConfigurationChangeListenerConduit();
+            var tileProperties = new TileProperties(tileConfigturation, conduit, _services);
+            var viewModel = new DaysLeftCountDownTileViewModel(tileConfigturation, _services.Clock, _dashboardController, view, layoutController, _services, tileProperties);
+            conduit.SetTarget(viewModel);
             return view;
         }
 

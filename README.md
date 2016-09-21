@@ -28,6 +28,13 @@ A Windows application (C# WPF) wall team/systems dashboard.
 
 # Tiles #
 
+## Guage
+
+The guage tile displays a 360 or 180 degree guage.
+
+![Message tile screen shot](./Images/Chart360deg.png "360deg chart")
+
+
 ## Message
 
 The message tile displays a text message. Useful of adding labels to the dashboard such as your team's name.
@@ -91,8 +98,6 @@ To add a build tile:
 
 The TeamCity build agent tile displays an build agents state.
 
-THIS TILE IS A WORK IN PROGRESS
-
 ![TeamCity agent tile screen shot](./Images/Screenshot_TC_AgentTile_Error.png "TeamCity agent tile")
 
 To add a build agent tile:
@@ -102,6 +107,17 @@ To add a build agent tile:
 3. Double click on the tile to configure it.
 
 
+# Thanks to
 
+Thanks to the authors of the open source libraries I've used:
+
+* LiveCharts
+* Log4Net
+* EasyHttp
+* JsonFx
+* TeamCitySharp
+* Atlassian.Jira (WIP)
+* NUnit
+* Moq
 
 

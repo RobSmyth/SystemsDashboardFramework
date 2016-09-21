@@ -13,7 +13,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories
         string GetString(string name);
         string GetString(string name, string defaultValue);
         double GetDouble(string name, double defaultValue = 0.0);
-        bool GetBool(string name);
         object GetParameter(string name);
         object GetParameter(string name, object defaultValue);
         void SetParameter(string name, object value);

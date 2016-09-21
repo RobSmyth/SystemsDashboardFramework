@@ -24,11 +24,11 @@ namespace NoeticTools.TeamStatusBoard.Tiles.Guages.GuageAngular
         private readonly IServices _services;
         private IDataValue _value = new NullDataValue();
         private IDataValue _label = new NullDataValue();
-        private IDataValue _maximum = new DataValue("", 100.0, PropertiesFlags.None, () => { });
+        private IDataValue _maximum = new NullDataValue(100.0);
         private IDataValue _minimum = new NullDataValue();
+        private IDataValue _labelsStep = new NullDataValue();
+        private IDataValue _ticksStep = new NullDataValue();
         private string _format = "{0}";
-        private double _labelsStep;
-        private double _ticksStep;
 
         public GuageAngularTileViewModel(TileConfiguration tile, IDashboardController dashboardController, ITileLayoutController layoutController, IServices services, ITileProperties properties)
             : base(properties)
@@ -49,11 +49,15 @@ namespace NoeticTools.TeamStatusBoard.Tiles.Guages.GuageAngular
             _minimum = UpdateSubscription(_minimum, "Minimum", 0.0);
             _maximum = UpdateSubscription(_maximum, "Maximum", 100.0);
             _value = UpdateSubscription(_value, "Value", 0.0);
+            _labelsStep = UpdateSubscription(_labelsStep, "LabelsStep", ValueSpan / DefaultLabelsStepRatio);
+            _ticksStep = UpdateSubscription(_ticksStep, "TicksStep", ValueSpan / DefaultTickStepRatio);
 
             OnPropertyChanged("Label");
             OnPropertyChanged("Value");
             OnPropertyChanged("Minimum");
             OnPropertyChanged("Maximum");
+            OnPropertyChanged("LabelsStep");
+            OnPropertyChanged("TicksStep");
         }
 
         private IEnumerable<IPropertyViewModel> GetConfigurationParameters()
@@ -105,33 +109,9 @@ namespace NoeticTools.TeamStatusBoard.Tiles.Guages.GuageAngular
             }
         }
 
-        public double LabelsStep
-        {
-            get { return _labelsStep; }
-            set
-            {
-                if (double.IsNaN(value) || value.Equals(_labelsStep))
-                {
-                    return;
-                }
-                _labelsStep = value;
-                OnPropertyChanged();
-            }
-        }
+        public double LabelsStep => _labelsStep.Double;
 
-        public double TicksStep
-        {
-            get { return _ticksStep; }
-            set
-            {
-                if (double.IsNaN(value) || value.Equals(_ticksStep))
-                {
-                    return;
-                }
-                _ticksStep = value;
-                OnPropertyChanged();
-            }
-        }
+        public double TicksStep => _ticksStep.Double;
 
         public ICommand ConfigureCommand { get; }
 
@@ -145,8 +125,6 @@ namespace NoeticTools.TeamStatusBoard.Tiles.Guages.GuageAngular
         private void Update()
         {
             Format = NamedValues.GetString("Format", "{0}%");
-            LabelsStep = NamedValues.GetDouble("LabelsStep", ValueSpan / DefaultLabelsStepRatio);
-            TicksStep = NamedValues.GetDouble("TicksStep", ValueSpan / DefaultTickStepRatio);
         }
 
         void ITimerListener.OnTimeElapsed(TimerToken token)

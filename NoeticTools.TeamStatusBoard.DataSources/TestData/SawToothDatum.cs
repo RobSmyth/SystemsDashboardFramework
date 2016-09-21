@@ -67,6 +67,12 @@ namespace NoeticTools.TeamStatusBoard.DataSources.TestData
             set { _inner.String = value; }
         }
 
+        public bool Boolean
+        {
+            get { return _inner.Boolean; }
+            set { _inner.Boolean = value; }
+        }
+
         void ITimerListener.OnTimeElapsed(TimerToken token)
         {
             var elapsed = _stopwatch.Elapsed;

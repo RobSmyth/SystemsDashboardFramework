@@ -45,11 +45,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config
             return _repository.GetDouble(value, defaultValue);
         }
 
-        public bool GetBool(string name)
-        {
-            return _repository.GetBool(GetValue(name));
-        }
-
         public object GetParameter(string name)
         {
             return _repository.GetParameter(GetValue(name));

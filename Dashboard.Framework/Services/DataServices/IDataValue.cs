@@ -14,5 +14,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
         double Double { get; set; }
         Color Colour { get; set; }
         string String { get; set; }
+        bool Boolean { get; set; }
     }
 }

@@ -75,5 +75,11 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
             get { return Convert.ToString(Instance); }
             set { Instance = value; }
         }
+
+        public bool Boolean
+        {
+            get { return Convert.ToBoolean(Instance); }
+            set { Instance = value; }
+        }
     }
 }

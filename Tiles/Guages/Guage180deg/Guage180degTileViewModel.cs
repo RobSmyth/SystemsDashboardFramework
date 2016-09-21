@@ -26,7 +26,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.Guages.Guage180deg
         private IDataValue _fromColour = new DataValue("", "Yellow", PropertiesFlags.None, () => { });
         private IDataValue _toColour = new DataValue("", "Crimson", PropertiesFlags.None, () => { });
         private string _format = "-";
-        private bool _uses360Mode;
+        private IDataValue _uses360Mode;
 
         public Guage180DegTileViewModel(TileConfiguration tile, IDashboardController dashboardController, ITileLayoutController layoutController, IServices services, ITileProperties properties)
             : base(properties)
@@ -102,15 +102,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.Guages.Guage180deg
 
         public bool Uses360Mode
         {
-            get { return _uses360Mode; }
-            private set
-            {
-                if (_uses360Mode != value)
-                {
-                    _uses360Mode = value;
-                    OnPropertyChanged();
-                }
-            }
+            get { return _uses360Mode.Boolean; }
         }
 
         public ICommand ConfigureCommand { get; }
@@ -129,6 +121,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.Guages.Guage180deg
             _value = UpdateSubscription(_value, "Value", 0.0);
             _fromColour = UpdateSubscription(_fromColour, "FromColour", "Yellow");
             _toColour = UpdateSubscription(_toColour, "ToColour", "Crimson");
+            _uses360Mode = UpdateSubscription(_toColour, "Uses360Mode", "False");
 
             OnPropertyChanged("Label");
             OnPropertyChanged("Value");
@@ -136,12 +129,12 @@ namespace NoeticTools.TeamStatusBoard.Tiles.Guages.Guage180deg
             OnPropertyChanged("Maximum");
             OnPropertyChanged("FromColour");
             OnPropertyChanged("ToColour");
+            OnPropertyChanged("Uses360Mode");
         }
 
         private void Update()
         {
             Format = NamedValues.GetString("Format", "{0} %");
-            Uses360Mode = NamedValues.GetBool("Uses360Mode");
         }
 
         void ITimerListener.OnTimeElapsed(TimerToken token)

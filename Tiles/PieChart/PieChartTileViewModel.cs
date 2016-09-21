@@ -20,7 +20,7 @@ using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
 
 namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
 {
-    internal sealed class PieChartTileViewModel : ConfiguredTileViewModelBase, IConfigurationChangeListener, ITileViewModel, ITimerListener
+    internal sealed class PieChartTileViewModel : LiveChartTileViewModelBase, IConfigurationChangeListener, ITileViewModel, ITimerListener
     {
         private readonly string[] _defaultColours = { "#F8A725", "#FF3939", "LightGray", "YellowGreen", "Tomato", "LightGreen" };
         private readonly TimeSpan _updatePeriod = TimeSpan.FromSeconds(30);
@@ -57,7 +57,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
             _label = UpdateSubscription(_label, "Label", "Label");
 
             var priorCount = _dataValues.Count();
-            _dataValues = SubscribeValues(_dataValues, "Values", Values);
+            _dataValues = UpdateSubscription(_dataValues, "Values", Values);
             if (_dataValues.Count() != priorCount)
             {
                 OnChartSeriesChanged();
@@ -65,25 +65,6 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
 
             OnPropertyChanged("Label");
             OnPropertyChanged("Values");
-        }
-
-        private IEnumerable<IDataValue> SubscribeValues(IEnumerable<IDataValue> existingValues, string name, ObservableCollection<ObservableValue> observableCollection)
-        {
-            observableCollection.Clear();
-            foreach (var dataValue in existingValues)
-            {
-                dataValue.Broadcaster.RemoveListener(this);
-            }
-
-            var newValues = NamedValues.GetDatums(name);
-            foreach (var dataValue in newValues)
-            {
-                var chartValue = new ObservableValue(dataValue.Double);
-                new LiveChartsObervableValueAdapter(dataValue, chartValue);
-                observableCollection.Add(chartValue);
-            }
-
-            return newValues;
         }
 
         private string FormatValue(double x)

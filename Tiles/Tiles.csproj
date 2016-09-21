@@ -106,6 +106,7 @@
     <Compile Include="MessageTile\MessageTileProvider.cs" />
     <Compile Include="MessageTile\MessageTileViewModel.cs" />
     <Compile Include="PieChart\LiveChartsObervableValueAdapter.cs" />
+    <Compile Include="PieChart\LiveChartTileViewModelBase.cs" />
     <Compile Include="PieChart\PieChartTileControl.xaml.cs">
       <DependentUpon>PieChartTileControl.xaml</DependentUpon>
     </Compile>

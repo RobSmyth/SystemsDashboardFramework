@@ -9,7 +9,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
     {
         public const string DefaultString = "";
         public const string DefaultColour = "Gray";
-        public const double DefaultDouble = 0.0;
         private object _instance;
         private readonly Action _notifyValueChanged;
 
@@ -44,9 +43,14 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
             }
         }
 
+        public bool NotSet
+        {
+            get { return Instance == null || string.IsNullOrWhiteSpace(String); }
+        }
+
         public double Double
         {
-            get { return Convert.ToDouble(Instance); }
+            get { return NotSet ? default(double) : Convert.ToDouble(Instance); }
             set { Instance = value; }
         }
 

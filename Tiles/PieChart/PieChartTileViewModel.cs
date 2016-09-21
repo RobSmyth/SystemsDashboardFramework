@@ -10,7 +10,6 @@ using LiveCharts.Wpf;
 using NoeticTools.TeamStatusBoard.Framework;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
 using NoeticTools.TeamStatusBoard.Framework.Config;
-using NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories;
 using NoeticTools.TeamStatusBoard.Framework.Config.Properties;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles;
@@ -57,33 +56,34 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
         {
             _label = UpdateSubscription(_label, "Label", "Label");
 
-            SubscribeValues();
+            var priorCount = _dataValues.Count();
+            _dataValues = SubscribeValues(_dataValues, "Values", Values);
+            if (_dataValues.Count() != priorCount)
+            {
+                OnChartSeriesChanged();
+            }
 
             OnPropertyChanged("Label");
             OnPropertyChanged("Values");
         }
 
-        private void SubscribeValues()
+        private IEnumerable<IDataValue> SubscribeValues(IEnumerable<IDataValue> existingValues, string name, ObservableCollection<ObservableValue> observableCollection)
         {
-            var priorCount = _dataValues.Count();
-            Values.Clear();
-            foreach (var dataValue in _dataValues)
+            observableCollection.Clear();
+            foreach (var dataValue in existingValues)
             {
                 dataValue.Broadcaster.RemoveListener(this);
             }
 
-            _dataValues = NamedValues.GetDatums("Values");
-            foreach (var dataValue in _dataValues)
+            var newValues = NamedValues.GetDatums(name);
+            foreach (var dataValue in newValues)
             {
                 var chartValue = new ObservableValue(dataValue.Double);
                 new LiveChartsObervableValueAdapter(dataValue, chartValue);
-                Values.Add(chartValue);
+                observableCollection.Add(chartValue);
             }
 
-            if (_dataValues.Count() != priorCount)
-            {
-                OnChartSeriesChanged();
-            }
+            return newValues;
         }
 
         private string FormatValue(double x)
@@ -191,8 +191,6 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
         private void Update()
         {
             // todo - get array of datums
-
-            //var values = NamedValues.GetDoubleArray("Values");
 
             Titles = NamedValues.GetStringArray("Titles");
             Colours = NamedValues.GetColourArray("Colours").Select(x => new SolidColorBrush(x)).ToArray();

@@ -36,11 +36,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories
             return Get(name).GetString(name, defaultValue);
         }
 
-        public double GetDouble(string name, double defaultValue = 0)
-        {
-            return Get(name).GetDouble(name, defaultValue);
-        }
-
         public object GetParameter(string name)
         {
             return Get(name).GetParameter(name);
@@ -59,11 +54,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories
         public Color GetColour(string name, string defaultValue)
         {
             return Get(name).GetColour(name, defaultValue);
-        }
-
-        public double[] GetDoubleArray(string name)
-        {
-            return Get(name).GetDoubleArray(name);
         }
 
         public string[] GetStringArray(string name)

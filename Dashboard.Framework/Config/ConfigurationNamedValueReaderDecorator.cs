@@ -39,12 +39,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config
             return _repository.GetString(_configurationRepository.GetString(name, defaultValue), defaultValue);
         }
 
-        public double GetDouble(string name, double defaultValue = 0)
-        {
-            var value = _configurationRepository.GetString(name, defaultValue.ToString());
-            return _repository.GetDouble(value, defaultValue);
-        }
-
         public object GetParameter(string name)
         {
             return _repository.GetParameter(GetValue(name));
@@ -63,11 +57,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config
         public Color GetColour(string name, string defaultValue)
         {
             return _repository.GetColour(GetValue(name), defaultValue);
-        }
-
-        public double[] GetDoubleArray(string name)
-        {
-            return GetValue(name).Split(',').Select(element => _repository.GetDouble(element)).ToArray();
         }
 
         public string[] GetStringArray(string name)

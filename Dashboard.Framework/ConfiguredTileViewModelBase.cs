@@ -24,6 +24,11 @@ namespace NoeticTools.TeamStatusBoard.Framework
                 return existing;
             }
 
+            if (datum.NotSet)
+            {
+                datum.Instance = defaultValue;
+            }
+
             existing.Broadcaster.RemoveListener(this);
             datum.Broadcaster.AddListener(this, () => OnPropertyChanged(propertyName));
 

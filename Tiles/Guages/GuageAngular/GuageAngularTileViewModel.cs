@@ -28,7 +28,12 @@ namespace NoeticTools.TeamStatusBoard.Tiles.Guages.GuageAngular
         private IDataValue _minimum = new NullDataValue();
         private IDataValue _labelsStep = new NullDataValue();
         private IDataValue _ticksStep = new NullDataValue();
+        private IDataValue _ticksColour = new NullDataValue();
+        private IDataValue _wedge = new NullDataValue(300.0);
         private string _format = "{0}";
+        private IDataValue _lowerSpan = new NullDataValue();
+        private IDataValue _upperSpan = new NullDataValue();
+        private IDataValue _innerRadius = new NullDataValue(0.5);
 
         public GuageAngularTileViewModel(TileConfiguration tile, IDashboardController dashboardController, ITileLayoutController layoutController, IServices services, ITileProperties properties)
             : base(properties)
@@ -51,6 +56,11 @@ namespace NoeticTools.TeamStatusBoard.Tiles.Guages.GuageAngular
             _value = UpdateSubscription(_value, "Value", 0.0);
             _labelsStep = UpdateSubscription(_labelsStep, "LabelsStep", ValueSpan / DefaultLabelsStepRatio);
             _ticksStep = UpdateSubscription(_ticksStep, "TicksStep", ValueSpan / DefaultTickStepRatio);
+            _ticksColour = UpdateSubscription(_ticksColour, "TicksColour", "Gray");
+            _wedge = UpdateSubscription(_wedge, "Wedge", 300.0);
+            _lowerSpan = UpdateSubscription(_lowerSpan, "LowerSpan", TicksStep);
+            _upperSpan = UpdateSubscription(_upperSpan, "UpperSpan", TicksStep);
+            _innerRadius = UpdateSubscription(_innerRadius, "InnerRadius", 0.5);
 
             OnPropertyChanged("Label");
             OnPropertyChanged("Value");
@@ -58,6 +68,11 @@ namespace NoeticTools.TeamStatusBoard.Tiles.Guages.GuageAngular
             OnPropertyChanged("Maximum");
             OnPropertyChanged("LabelsStep");
             OnPropertyChanged("TicksStep");
+            OnPropertyChanged("TicksColour");
+            OnPropertyChanged("Wedge");
+            OnPropertyChanged("LowerSpan");
+            OnPropertyChanged("UpperSpan");
+            OnPropertyChanged("InnerRadius");
         }
 
         private IEnumerable<IPropertyViewModel> GetConfigurationParameters()
@@ -138,27 +153,23 @@ namespace NoeticTools.TeamStatusBoard.Tiles.Guages.GuageAngular
             view.LabelFormatter = x => string.Format(Format,x);
             Update();
 
-            var ticksColour = NamedValues.GetColour("TicksColour", "Gray");
-            var wedge = NamedValues.GetDouble("Wedge", 300.0);
-            view.Wedge = wedge;
-            view.TicksForeground = new SolidColorBrush(ticksColour);
+            view.Wedge = _wedge.Double;
+            view.TicksForeground = new SolidColorBrush(_ticksColour.Colour);
 
             InitialiseSpans(view);
         }
 
         private void InitialiseSpans(AngularGauge view)
         {
-            var lowerSpan = NamedValues.GetDouble("LowerSpan", TicksStep);
-            var upperSpan = NamedValues.GetDouble("UpperSpan", TicksStep);
-            var midSpanStart = Minimum + lowerSpan;
-            var midSpanEnd = Maximum - upperSpan;
+            var midSpanStart = Minimum + _lowerSpan.Double;
+            var midSpanEnd = Maximum - _upperSpan.Double;
             var lowerColour = NamedValues.GetColour("LowerColour", "LightGray");
             var midColour = NamedValues.GetColour("MidColour", "#F8A725");
             var upperColour = NamedValues.GetColour("UpperColour", "#FF3939");
             view.Sections.Add(new AngularSection() {FromValue = Minimum, ToValue = midSpanStart, Fill = new SolidColorBrush(lowerColour)});
             view.Sections.Add(new AngularSection() {FromValue = midSpanStart, ToValue = midSpanEnd, Fill = new SolidColorBrush(midColour)});
             view.Sections.Add(new AngularSection() {FromValue = midSpanEnd, ToValue = Maximum, Fill = new SolidColorBrush(upperColour)});
-            view.SectionsInnerRadius = NamedValues.GetDouble("InnerRadius", 0.5);
+            view.SectionsInnerRadius = _innerRadius.Double;
         }
     }
 }

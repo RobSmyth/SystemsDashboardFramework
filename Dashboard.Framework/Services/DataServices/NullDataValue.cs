@@ -14,9 +14,9 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
             _inner = new DataValue("", DataValue.DefaultString, PropertiesFlags.None, () => { });
         }
 
-        public NullDataValue(double value) : this()
+        public NullDataValue(double value)
         {
-            Double = value;
+            _inner = new DataValue("", value, PropertiesFlags.None, () => { });
         }
 
         public EventBroadcaster Broadcaster => _inner.Broadcaster;
@@ -60,5 +60,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
             get { return _inner.Boolean; }
             set { _inner.Boolean = value; }
         }
+
+        public bool NotSet => true;
     }
 }

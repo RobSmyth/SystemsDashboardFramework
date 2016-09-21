@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System.Collections.Generic;
+using System.Windows.Input;
 using NoeticTools.TeamStatusBoard.Framework;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
 using NoeticTools.TeamStatusBoard.Framework.Config;
@@ -13,21 +14,24 @@ namespace NoeticTools.TeamStatusBoard.Tiles.MessageTile
 {
     internal sealed class MessageTileViewModel : ConfiguredTileViewModelBase, IConfigurationChangeListener, ITileViewModel
     {
-        private readonly TileConfigurationConverter _tileConfigurationConverter;
         private IDataValue _text = new NullDataValue();
 
-        public MessageTileViewModel(TileConfiguration tile, IDashboardController dashboardController, ITileLayoutController layoutController, IServices services, TileProperties properties)
+        public MessageTileViewModel(TileConfiguration tile, IDashboardController dashboardController, ITileLayoutController layoutController, IServices services, ITileProperties properties)
             : base(properties)
         {
-            _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
-            var parameters = new IPropertyViewModel[] {new PropertyViewModel("Message", PropertyType.Text, _tileConfigurationConverter)};
+            var parameters = GetConfigurationParameters();
             ConfigureCommand = new TileConfigureCommand(tile, "Message Tile Configuration", parameters, dashboardController, layoutController, services);
             Subscribe();
         }
 
+        private IEnumerable<IPropertyViewModel> GetConfigurationParameters()
+        {
+            return new IPropertyViewModel[] { new PropertyViewModel("Message", PropertyType.Text, Configuration) };
+        }
+
         private void Subscribe()
         {
-            _text = UpdateSubscription(_text, "Label", "Label");
+            _text = UpdateSubscription(_text, "Message", "Message");
         }
 
         public string Text => _text.String;

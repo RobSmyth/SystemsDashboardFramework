@@ -70,6 +70,11 @@ namespace NoeticTools.TeamStatusBoard.DataSources.DashboardData
             return _innerDataSource.GetDatum(name, defaultValue);
         }
 
+        public IEnumerable<IDataValue> GetDatums(string name)
+        {
+            return _innerDataSource.GetDatums(name);
+        }
+
         private void SetParameter(string name, string value)
         {
             _configuration.GetParameter(name, string.Empty).Value = value;

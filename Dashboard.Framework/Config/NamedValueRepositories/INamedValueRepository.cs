@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Windows.Media;
 using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 
@@ -22,5 +23,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories
         Color[] GetColourArray(string name);
         T Get<T>(string name);
         IDataValue GetDatum(string name, object defaultValue = null);
+        IEnumerable<IDataValue> GetDatums(string name);
     }
 }

@@ -85,6 +85,11 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config
             return GetValue(name).Split(',').Select(element => _repository.GetColour(element, "White")).ToArray();
         }
 
+        public IEnumerable<IDataValue> GetDatums(string name)
+        {
+            return GetValue(name).Split(',').Select(element => _repository.GetDatum(element)).ToArray();
+        }
+
         public T Get<T>(string name)
         {
             return _repository.Get<T>(GetValue(name));

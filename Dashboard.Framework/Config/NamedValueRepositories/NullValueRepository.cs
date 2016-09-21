@@ -102,5 +102,10 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories
         {
             return new DataValue(name, name, PropertiesFlags.ReadOnly, () => { });
         }
+
+        public IEnumerable<IDataValue> GetDatums(string name)
+        {
+            return new IDataValue[0];
+        }
     }
 }

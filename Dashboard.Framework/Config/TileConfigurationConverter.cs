@@ -142,6 +142,11 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config
             throw new NotImplementedException();
         }
 
+        public IEnumerable<IDataValue> GetDatums(string name)
+        {
+            throw new NotImplementedException();
+        }
+
         private void SetParameter<T>(string name, T value)
         {
             var textValue = value.ToString();

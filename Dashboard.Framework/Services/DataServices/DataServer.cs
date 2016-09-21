@@ -64,6 +64,16 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
             return GetDataSource(parser.TypeName).GetDatum(parser.PropertyName, defaultValue);
         }
 
+        public IEnumerable<IDataValue> GetDatums(string name)
+        {
+            var parseer = new DataSourcePropertyParser(name);
+            if (!parseer.IsValid)
+            {
+                return new IDataValue[0];
+            }
+            return GetDataSource(parseer.TypeName).GetDatums(parseer.PropertyName);
+        }
+
         public IEnumerable<IDataSource> GetAllDataSources()
         {
             return _sources.Values.OrderBy(x => x.TypeName).ToArray();

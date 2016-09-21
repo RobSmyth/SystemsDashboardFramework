@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Media;
 using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
@@ -88,6 +89,11 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories
         public IDataValue GetDatum(string name, object defaultValue = null)
         {
             return Get(name).GetDatum(name, defaultValue);
+        }
+
+        public IEnumerable<IDataValue> GetDatums(string name)
+        {
+            return Get(name).GetDatums(name);
         }
 
         private INamedValueRepository Get(string name)

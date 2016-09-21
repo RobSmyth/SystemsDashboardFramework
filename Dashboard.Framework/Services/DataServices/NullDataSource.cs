@@ -53,5 +53,10 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
         {
             return new DataValue(name, null, PropertiesFlags.None, () => {});
         }
+
+        public IEnumerable<IDataValue> GetDatums(string name)
+        {
+            return new IDataValue[0];
+        }
     }
 }

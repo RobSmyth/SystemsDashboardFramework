@@ -50,6 +50,11 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
             return _values[name];
         }
 
+        public IEnumerable<IDataValue> GetDatums(string name)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<string> GetAllNames()
         {
             return _values.Keys.OrderBy(x => x).ToArray();

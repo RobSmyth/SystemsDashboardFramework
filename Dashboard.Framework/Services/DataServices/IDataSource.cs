@@ -15,5 +15,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
         void Set(string name, object value, PropertiesFlags flags, params string[] tags);
         IEnumerable<DataValue> Find(Func<DataValue, bool> predicate);
         IDataValue GetDatum(string name, object value = null);
+        IEnumerable<IDataValue> GetDatums(string name);
     }
 }

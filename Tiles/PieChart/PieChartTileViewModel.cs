@@ -33,6 +33,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
         private readonly List<LiveCharts.Wpf.PieSeries> _series = new List<LiveCharts.Wpf.PieSeries>();
         private string[] _titles = new string[0];
         private SolidColorBrush[] _colours = new SolidColorBrush[0];
+        private IEnumerable<IDataValue> _dataValues = new IDataValue[0];
 
         public PieChartTileViewModel(TileConfiguration tile, IDashboardController dashboardController, ITileLayoutController layoutController, IServices services, ITileProperties properties)
             : base(properties)
@@ -55,7 +56,34 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
         private void Subscribe()
         {
             _label = UpdateSubscription(_label, "Label", "Label");
+
+            SubscribeValues();
+
             OnPropertyChanged("Label");
+            OnPropertyChanged("Values");
+        }
+
+        private void SubscribeValues()
+        {
+            var priorCount = _dataValues.Count();
+            Values.Clear();
+            foreach (var dataValue in _dataValues)
+            {
+                dataValue.Broadcaster.RemoveListener(this);
+            }
+
+            _dataValues = NamedValues.GetDatums("Values");
+            foreach (var dataValue in _dataValues)
+            {
+                var chartValue = new ObservableValue(dataValue.Double);
+                new LiveChartsObervableValueAdapter(dataValue, chartValue);
+                Values.Add(chartValue);
+            }
+
+            if (_dataValues.Count() != priorCount)
+            {
+                OnChartSeriesChanged();
+            }
         }
 
         private string FormatValue(double x)
@@ -163,35 +191,14 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
         private void Update()
         {
             // todo - get array of datums
-            var values = NamedValues.GetDoubleArray("Values");
-            SynchroniseValues(values);
+
+            //var values = NamedValues.GetDoubleArray("Values");
 
             Titles = NamedValues.GetStringArray("Titles");
             Colours = NamedValues.GetColourArray("Colours").Select(x => new SolidColorBrush(x)).ToArray();
 
             Format = NamedValues.GetString("Format", "{0} %");
             LegendLocation = (LegendLocation)Enum.Parse(typeof(LegendLocation), Configuration.GetString("LegendLocation", "None"));
-        }
-
-        private void SynchroniseValues(IReadOnlyList<double> values)
-        {
-            var priorCount = Values.Count;
-            while (Values.Count > values.Count)
-            {
-                Values.Remove(Values.Last());
-            }
-            while (Values.Count < values.Count)
-            {
-                Values.Add(new ObservableValue());
-            }
-            for (var index = 0; index < values.Count; index++)
-            {
-                Values[index].Value = values[index];
-            }
-            if (Values.Count != priorCount)
-            {
-                OnChartSeriesChanged();
-            }
         }
 
         void ITimerListener.OnTimeElapsed(TimerToken token)
@@ -203,13 +210,17 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
         public void SetView(LiveCharts.Wpf.PieChart chart)
         {
             _chart = chart;
-            _chart.AnimationsSpeed = TimeSpan.FromSeconds(3.0);
+            _chart.AnimationsSpeed = TimeSpan.FromSeconds(1.0);
             Update();
             OnChartSeriesChanged();
         }
 
         private void OnChartSeriesChanged()
         {
+            if (_chart == null)
+            {
+                return;
+            }
             _series.Clear();
             for (var index = 0; index < Values.Count; index++)
             {

@@ -30,7 +30,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
         private LegendLocation _legendLocation = LegendLocation.None;
         private LiveCharts.Wpf.PieChart _chart;
         private readonly List<LiveCharts.Wpf.PieSeries> _series = new List<LiveCharts.Wpf.PieSeries>();
-        private string[] _titles = new string[0];
+        private IEnumerable<IDataValue> _titles = new IDataValue[0];
         private SolidColorBrush[] _colours = new SolidColorBrush[0];
         private IEnumerable<IDataValue> _dataValues = new IDataValue[0];
 
@@ -41,6 +41,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
             Configuration = properties.Properties;
             NamedValues = properties.NamedValueRepository;
             Values = new ObservableCollection<ObservableValue>();
+            Titles = new ObservableCollection<string>();
             PointLabel = chartPoint => "";
             Formatter = FormatValue;
 
@@ -63,8 +64,28 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
                 OnChartSeriesChanged();
             }
 
+            _titles = UpdateSubscription(_titles, "Titles", Titles);
+
             OnPropertyChanged("Label");
             OnPropertyChanged("Values");
+            OnPropertyChanged("Titles");
+        }
+
+        private IEnumerable<IDataValue> UpdateSubscription(IEnumerable<IDataValue> existingValues, string name, ObservableCollection<string> observableCollection)
+        {
+            observableCollection.Clear();
+            foreach (var dataValue in existingValues)
+            {
+                dataValue.Broadcaster.RemoveListener(this);
+            }
+
+            var newValues = NamedValues.GetDatums(name).ToArray();
+            foreach (var dataValue in newValues)
+            {
+                observableCollection.Add(dataValue.String);
+            }
+
+            return newValues;
         }
 
         private string FormatValue(double x)
@@ -101,20 +122,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
 
         public ObservableCollection<ObservableValue> Values { get; }
 
-        public string[] Titles
-        {
-            get { return _titles; }
-            set
-            {
-                if (_titles.SequenceEqual(value))
-                {
-                    return;
-                }
-                _titles = value;
-                OnPropertyChanged();
-                OnChartSeriesChanged();
-            }
-        }
+        public ObservableCollection<string> Titles { get; }
 
         public SolidColorBrush[] Colours
         {
@@ -173,7 +181,6 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
         {
             // todo - get array of datums
 
-            Titles = NamedValues.GetStringArray("Titles");
             Colours = NamedValues.GetColourArray("Colours").Select(x => new SolidColorBrush(x)).ToArray();
 
             Format = NamedValues.GetString("Format", "{0} %");
@@ -203,7 +210,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
             _series.Clear();
             for (var index = 0; index < Values.Count; index++)
             {
-                var title = Titles.Length > index ? Titles[index] : "";
+                var title = Titles.Count > index ? Titles[index] : "";
                 AddValue(title, Values[index]);
             }
             _chart.Series.Clear();

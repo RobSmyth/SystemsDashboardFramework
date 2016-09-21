@@ -47,14 +47,14 @@ namespace NoeticTools.TeamStatusBoard.Framework
             }
         }
 
-        protected IEnumerable<IDataValue> UpdateSubscription<T>(IEnumerable<IDataValue> existingValues, string name, ICollection<T> observableCollection)
+        protected IEnumerable<IDataValue> UpdateSubscription<T>(IEnumerable<IDataValue> existingValues, string name, ICollection<T> observableCollection, Func<IDataValue, T> converterFunc)
         {
             Flush(existingValues, observableCollection);
 
             var newValues = NamedValues.GetDatums(name).ToArray();
             foreach (var dataValue in newValues)
             {
-                observableCollection.Add((T)Convert.ChangeType(dataValue.Instance, typeof(T)));
+                observableCollection.Add(converterFunc(dataValue));
             }
 
             return newValues;

@@ -62,5 +62,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
         }
 
         public bool NotSet => true;
+
+        public SolidColorBrush SolidColourBrush => _inner.SolidColourBrush;
     }
 }

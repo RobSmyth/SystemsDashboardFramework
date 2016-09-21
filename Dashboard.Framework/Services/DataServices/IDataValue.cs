@@ -16,5 +16,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
         string String { get; set; }
         bool Boolean { get; set; }
         bool NotSet { get; }
+        SolidColorBrush SolidColourBrush { get; }
     }
 }

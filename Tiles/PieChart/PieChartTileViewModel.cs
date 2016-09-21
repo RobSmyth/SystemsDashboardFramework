@@ -31,7 +31,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
         private LiveCharts.Wpf.PieChart _chart;
         private readonly List<LiveCharts.Wpf.PieSeries> _series = new List<LiveCharts.Wpf.PieSeries>();
         private IEnumerable<IDataValue> _titles = new IDataValue[0];
-        private SolidColorBrush[] _colours = new SolidColorBrush[0];
+        private IEnumerable<IDataValue> _colours = new IDataValue[0];
         private IEnumerable<IDataValue> _dataValues = new IDataValue[0];
 
         public PieChartTileViewModel(TileConfiguration tile, IDashboardController dashboardController, ITileLayoutController layoutController, IServices services, ITileProperties properties)
@@ -42,6 +42,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
             NamedValues = properties.NamedValueRepository;
             Values = new ObservableCollection<ObservableValue>();
             Titles = new ObservableCollection<string>();
+            Colours = new ObservableCollection<SolidColorBrush>();
             PointLabel = chartPoint => "";
             Formatter = FormatValue;
 
@@ -64,7 +65,8 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
                 OnChartSeriesChanged();
             }
 
-            _titles = UpdateSubscription(_titles, "Titles", Titles);
+            _titles = UpdateSubscription(_titles, "Titles", Titles, x => x.String);
+            _colours = UpdateSubscription(_colours, "Colours", Colours, x => x.SolidColourBrush);
 
             OnPropertyChanged("Label");
             OnPropertyChanged("Values");
@@ -107,20 +109,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
 
         public ObservableCollection<string> Titles { get; }
 
-        public SolidColorBrush[] Colours
-        {
-            get { return _colours; }
-            set
-            {
-                if (_colours.Select(x => x.Color).SequenceEqual(value.Select(y => y.Color)))
-                {
-                    return;
-                }
-                _colours = value;
-                OnPropertyChanged();
-                OnChartSeriesChanged();
-            }
-        }
+        public ObservableCollection<SolidColorBrush> Colours { get; }
 
         public string Format
         {
@@ -162,10 +151,6 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
 
         private void Update()
         {
-            // todo - get array of datums
-
-            Colours = NamedValues.GetColourArray("Colours").Select(x => new SolidColorBrush(x)).ToArray();
-
             Format = NamedValues.GetString("Format", "{0} %");
             LegendLocation = (LegendLocation)Enum.Parse(typeof(LegendLocation), Configuration.GetString("LegendLocation", "None"));
         }
@@ -209,7 +194,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
 
         private SolidColorBrush GetSeriesFill(int seriesNumber)
         {
-            return Colours.Length >= seriesNumber ? Colours[seriesNumber - 1] : 
+            return Colours.Count >= seriesNumber ? Colours[seriesNumber - 1] : 
                 new SolidColorBrush((Color)ColorConverter.ConvertFromString(_defaultColours[seriesNumber - 1]));
         }
     }

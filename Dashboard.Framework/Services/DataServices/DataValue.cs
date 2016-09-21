@@ -48,6 +48,8 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
             get { return Instance == null || string.IsNullOrWhiteSpace(String); }
         }
 
+        public SolidColorBrush SolidColourBrush => new SolidColorBrush(Colour);
+
         public double Double
         {
             get { return NotSet ? default(double) : Convert.ToDouble(Instance); }

@@ -75,6 +75,8 @@ namespace NoeticTools.TeamStatusBoard.DataSources.TestData
 
         public bool NotSet => false;
 
+        public SolidColorBrush SolidColourBrush => _inner.SolidColourBrush;
+
         void ITimerListener.OnTimeElapsed(TimerToken token)
         {
             var elapsed = _stopwatch.Elapsed;

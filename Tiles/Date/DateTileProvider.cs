@@ -4,6 +4,7 @@ using NoeticTools.TeamStatusBoard.Framework;
 using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Services;
+using NoeticTools.TeamStatusBoard.Framework.Styles;
 
 
 namespace NoeticTools.TeamStatusBoard.Tiles.Date
@@ -30,6 +31,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.Date
         public FrameworkElement CreateTile(TileConfiguration tileConfigturation, TileLayoutController layoutController)
         {
             var view = new DateTileControl();
+            new StatusBoardStyleStategy(view, _services.Style);
             new DateTileViewModel(_services.Timer, _services.Clock, view);
             return view;
         }

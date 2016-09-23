@@ -3,6 +3,7 @@ using NoeticTools.TeamStatusBoard.Framework;
 using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Services;
+using NoeticTools.TeamStatusBoard.Framework.Styles;
 
 
 namespace NoeticTools.TeamStatusBoard.Tiles.Guages.Guage180deg
@@ -34,7 +35,9 @@ namespace NoeticTools.TeamStatusBoard.Tiles.Guages.Guage180deg
             var tileProperties = new TileProperties(tileConfigturation, conduit, _services);
             var viewModel = new Guage180DegTileViewModel(tileConfigturation, _dashboardController, layoutController, _services, tileProperties);
             conduit.SetTarget(viewModel);
-            return new Guage180degTileControl {DataContext = viewModel};
+            var view = new Guage180degTileControl {DataContext = viewModel};
+            new StatusBoardStyleStategy(view, _services.Style);
+            return view;
         }
 
         public TileConfiguration CreateDefaultConfiguration()

@@ -15,14 +15,12 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/NoeticTools.TeamStatusBoard.Framework;component/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <Style TargetType="TextBlock" BasedOn="{StaticResource WhiteTileStyleTextbox}" />
-            <Style TargetType="Grid" BasedOn="{StaticResource WhiteTileStyleGrid}" />
         </ResourceDictionary>
 
     </UserControl.Resources>
 
     <Border Name="FocusBorder" Style="{StaticResource FocusBorder}" Focusable="True">
-        <Grid Name="root" Margin="0">
+        <Grid Name="root" Margin="0" Style="{DynamicResource WhiteTileStyleGrid}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
@@ -41,6 +39,7 @@
                               LabelsEffect="{x:Null}"
                               FontSize="{Binding Path=ActualHeight, ElementName=root, Converter={StaticResource doubleConverter}, ConverterParameter=0.05}" />
             <TextBlock Name="label" Grid.Row="1"
+                       Style="{DynamicResource WhiteTileStyleTextBlock}"
                        HorizontalAlignment="Center" TextAlignment="Center" IsHitTestVisible="False" 
                        FontWeight="Bold" Margin="3,1,3,10" Text="{Binding Label, Mode=OneWay}"
                        FontSize="{Binding Path=ActualHeight, ElementName=root, Converter={StaticResource doubleConverter}, ConverterParameter=0.12}"/>

@@ -4,6 +4,7 @@ using NoeticTools.TeamStatusBoard.Framework;
 using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Services;
+using NoeticTools.TeamStatusBoard.Framework.Styles;
 
 
 namespace NoeticTools.TeamStatusBoard.Tiles.MessageTile
@@ -35,7 +36,9 @@ namespace NoeticTools.TeamStatusBoard.Tiles.MessageTile
             var tileProperties = new TileProperties(tileConfigturation, conduit, _services);
             var viewModel = new MessageTileViewModel(tileConfigturation, _dashboardController, layoutController, _services, tileProperties);
             conduit.SetTarget(viewModel);
-            return new MessageTileControl {DataContext = viewModel};
+            var view = new MessageTileControl {DataContext = viewModel};
+            new StatusBoardStyleStategy(view, _services.Style);
+            return view;
         }
 
         public TileConfiguration CreateDefaultConfiguration()

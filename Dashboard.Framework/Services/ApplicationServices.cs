@@ -7,6 +7,7 @@ using NoeticTools.TeamStatusBoard.Framework.Input;
 using NoeticTools.TeamStatusBoard.Framework.Registries;
 using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
+using NoeticTools.TeamStatusBoard.Framework.Styles;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Services
@@ -27,6 +28,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services
             DashboardController = dashboardController;
             Configuration = configuration;
             RunOptions = runOptions;
+            Style = new StatusBoardStyle();
 
             Register(timerService);
             Register(dataService);
@@ -47,6 +49,8 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services
         {
             return (T) _services.Single(x => serviceName.Equals(x.Name, StringComparison.InvariantCulture));
         }
+
+        public IStatusBoardStyle Style { get; }
 
         public void Register(IService service)
         {

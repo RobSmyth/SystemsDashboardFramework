@@ -15,13 +15,15 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services
         IPropertyEditControlRegistry PropertyEditControlProviders { get; }
         ITimerService Timer { get; }
         IDataService DataService { get; }
-        IClock Clock { get; set; }
-        IDashboardController DashboardController { get; set; }
-        IDashboardConfigurations Configuration { get; set; }
-        IRunOptions RunOptions { get; set; }
+        IClock Clock { get; }
+        IDashboardController DashboardController { get; }
+        IDashboardConfigurations Configuration { get; }
+        IRunOptions RunOptions { get; }
         void Register(IService service);
 
         T GetService<T>(string serviceName)
             where T : IService;
+
+        IStatusBoardStyle Style { get; }
     }
 }

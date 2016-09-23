@@ -3,6 +3,7 @@ using NoeticTools.TeamStatusBoard.Framework;
 using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Services;
+using NoeticTools.TeamStatusBoard.Framework.Styles;
 
 
 namespace NoeticTools.TeamStatusBoard.Tiles.Guages.GuageAngular
@@ -31,6 +32,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.Guages.GuageAngular
         public FrameworkElement CreateTile(TileConfiguration tileConfigturation, TileLayoutController layoutController)
         {
             var tile = new GuageAngularTileControl();
+            new StatusBoardStyleStategy(tile, _services.Style);
             var conduit = new ConfigurationChangeListenerConduit();
             var tileProperties = new TileProperties(tileConfigturation, conduit, _services);
             var viewModel = new GuageAngularTileViewModel(tileConfigturation, _dashboardController, layoutController, _services, tileProperties);

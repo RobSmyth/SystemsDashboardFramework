@@ -112,6 +112,7 @@
     <Compile Include="Config\Properties\TextPropertyViewModel.cs" />
     <Compile Include="Config\Properties\DataSourceTypePropertyViewModel.cs" />
     <Compile Include="Config\TileProperties.cs" />
+    <Compile Include="IStatusBoardStyle.cs" />
     <Compile Include="Plugins\PropertyEditControls\SuggestionProviders\BoolSuggestionsProvider.cs" />
     <Compile Include="Plugins\PropertyEditControls\SuggestionProviders\ColourSuggestionsProvider.cs" />
     <Compile Include="Plugins\PropertyEditControls\SuggestionProviders\ISuggestionProvider.cs" />
@@ -278,6 +279,8 @@
     <Compile Include="Services\TimerService.cs" />
     <Compile Include="Services\TimeServices\NullTimerToken.cs" />
     <Compile Include="Services\TimeServices\TimerToken.cs" />
+    <Compile Include="Styles\StatusBoardStyle.cs" />
+    <Compile Include="Styles\StatusBoardStyleStategy.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="dashboard.config.default.xml">
@@ -310,6 +313,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Dashboards\DashboardNaviagtionTileControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\Styles2.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -378,7 +385,9 @@
   <ItemGroup>
     <Resource Include="Images\server128x128_light.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Skins\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

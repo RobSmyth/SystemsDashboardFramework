@@ -1,4 +1,6 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
+using NoeticTools.TeamStatusBoard.Framework;
 
 
 namespace NoeticTools.TeamStatusBoard.Tiles.Date

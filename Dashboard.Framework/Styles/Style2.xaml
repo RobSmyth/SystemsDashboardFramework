@@ -104,6 +104,63 @@
         </Style.Triggers>
     </Style>
 
+    <Style x:Key="DeviceText" TargetType="{x:Type TextBlock}">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Path=BuildAgent.Status}" Value="{x:Static framework:DeviceStatus.Disabled}">
+                <Setter Property="Foreground" Value="White"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=BuildAgent.Status}" Value="{x:Static framework:DeviceStatus.Running}">
+                <Setter Property="Foreground" Value="DarkSlateGray"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=BuildAgent.Status}" Value="{x:Static framework:DeviceStatus.Idle}">
+                <Setter Property="Foreground" Value="White"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=BuildAgent.Status}" Value="{x:Static framework:DeviceStatus.Unknown}">
+                <Setter Property="Foreground" Value="White"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=BuildAgent.Status}" Value="{x:Static framework:DeviceStatus.Offline}">
+                <Setter Property="Foreground" Value="White"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=BuildAgent.Status}" Value="{x:Static framework:DeviceStatus.NotAuthorised}">
+                <Setter Property="Foreground" Value="White"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="DeviceBackground" TargetType="{x:Type Grid}">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Path=BuildAgent.Status}" Value="{x:Static framework:DeviceStatus.Disabled}">
+                <Setter Property="Background" Value="Gray"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=BuildAgent.Status}" Value="{x:Static framework:DeviceStatus.Running}">
+                <Setter Property="Background" Value="Yellow"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=BuildAgent.Status}" Value="{x:Static framework:DeviceStatus.Idle}">
+                <Setter Property="Background" Value="#FF448032"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=BuildAgent.Status}" Value="{x:Static framework:DeviceStatus.Unknown}">
+                <Setter Property="Background" Value="#FF292929"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=BuildAgent.Status}" Value="{x:Static framework:DeviceStatus.Offline}">
+                <Setter Property="Background" Value="Firebrick"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=BuildAgent.Status}" Value="{x:Static framework:DeviceStatus.NotAuthorised}">
+                <Setter Property="Background" Value="DarkCyan"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="BuildAgentImage" TargetType="{x:Type Image}">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Path=BuildAgent.IsOnline}" Value="True">
+                <Setter Property="Source" Value="/NoeticTools.TeamStatusBoard.Framework;component/Images/server128x128.png" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=BuildAgent.IsOnline}" Value="False">
+                <Setter Property="Source" Value="/NoeticTools.TeamStatusBoard.Framework;component/Images/server128x128_light.png" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
     <!-- Configuration tile style -->
     <SolidColorBrush x:Key="ConfigPanelStyleBackgroundBrush">Black</SolidColorBrush>
     <SolidColorBrush x:Key="ConfigPanelStyleForegroundBrush">White</SolidColorBrush>

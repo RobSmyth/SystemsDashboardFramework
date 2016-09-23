@@ -81,7 +81,7 @@ namespace NoeticTools.TeamStatusBoard.Runner
 
             TsbCommands.SetDefaultShowDataSources(new ShowDataSourcesCommand(_applicationServices));
 
-            var rootTileLayoutController = new TileLayoutController(tileGrid, tileControllerFactory, tileLayoutControllerRegistry, new Thickness(0), dragAndDropController, tileNavigator, null, commands);
+            var rootTileLayoutController = new TileLayoutController(tileGrid, tileControllerFactory, tileLayoutControllerRegistry, new Thickness(0), dragAndDropController, tileNavigator, commands);
             _loader = new DashBoardLoader(rootTileLayoutController);
             loaderConduit.SetTarget(_loader);
 

@@ -18,7 +18,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Dashboards
     public sealed class TileLayoutController : ITileLayoutController
     {
         private readonly Thickness _normalMargin;
-        private readonly Thickness _tileMargin = new Thickness(2);
+        private readonly Thickness _tileMargin = new Thickness(0);
         private readonly TileDragAndDropController _dragAndDropController;
         private readonly DashboardTileNavigator _tileNavigator;
         private readonly Grid _tileGrid;
@@ -28,8 +28,8 @@ namespace NoeticTools.TeamStatusBoard.Framework.Dashboards
         private readonly TsbCommands _commandsBindings;
         private TileConfiguration _tile;
 
-        public TileLayoutController(Grid tileGrid, ITileFactory tileFactory, ITileLayoutControllerRegistry layoutControllerRegistry, Thickness normalMargin,
-            TileDragAndDropController dragAndDropController, DashboardTileNavigator tileNavigator, TileLayoutController parent, TsbCommands commandsBindings)
+        public TileLayoutController(Grid tileGrid, ITileFactory tileFactory, ITileLayoutControllerRegistry layoutControllerRegistry, Thickness normalMargin, TileDragAndDropController dragAndDropController,
+            DashboardTileNavigator tileNavigator, TsbCommands commandsBindings)
         {
             _tileFactory = tileFactory;
             _layoutControllerRegistry = layoutControllerRegistry;

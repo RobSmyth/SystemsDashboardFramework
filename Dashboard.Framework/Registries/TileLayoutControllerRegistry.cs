@@ -30,7 +30,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Registries
 
         public ITileLayoutController GetNew(Grid tileGrid, TileConfiguration tileConfiguration, TileLayoutController parent)
         {
-            var layoutController = new TileLayoutController(tileGrid, _tileFactory, this, new Thickness(0), _dragAndDropController, _tileNavigator, parent, _commandsBindings);
+            var layoutController = new TileLayoutController(tileGrid, _tileFactory, this, new Thickness(0), _dragAndDropController, _tileNavigator, _commandsBindings);
             _layoutControllers.Add(layoutController);
             layoutController.Load(tileConfiguration);
             return layoutController;

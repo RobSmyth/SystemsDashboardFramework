@@ -18,6 +18,7 @@
     </UserControl.Resources>
 
     <Border Name="FocusBorder" Style="{DynamicResource FocusBorder}">
+        
         <Grid Name="root" Margin="0" Style="{DynamicResource GridStyle}">
             <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
                 <ScrollViewer.InputBindings>
@@ -63,44 +64,13 @@
 
                         <DataGrid.Columns>
 
-                            <DataGridTextColumn Binding="{Binding BuildConfiguration}" IsReadOnly="True" Header="Build">
-                                <DataGridTextColumn.ElementStyle>
-                                    <Style TargetType="{x:Type TextBlock}">
-                                        <Setter Property="Style" Value="{DynamicResource TextboxStyle}"/>
-                                        <Setter Property="Margin" Value="2,2,5,2" />
-                                        <Setter Property="FontSize"
-                                        Value="{Binding Path=ActualHeight, ElementName=root, 
-                                    Converter={StaticResource doubleConverter}, ConverterParameter=0.06}" />
-                                    </Style>
-                                </DataGridTextColumn.ElementStyle>
-                            </DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding BuildConfiguration}" IsReadOnly="True" Header="Build"/>
 
-                            <DataGridTextColumn Binding="{Binding Version}" IsReadOnly="True" Header="Version">
-                                <DataGridTextColumn.ElementStyle>
-                                    <Style TargetType="{x:Type TextBlock}">
-                                        <Setter Property="Style" Value="{DynamicResource TextboxStyle}"/>
-                                        <Setter Property="Margin" Value="5,2,2,2" />
-                                        <Setter Property="FontWeight" Value="Bold" />
-                                        <Setter Property="FontSize"
-                                        Value="{Binding Path=ActualHeight, ElementName=root, 
-                                    Converter={StaticResource doubleConverter}, ConverterParameter=0.06}" />
-                                    </Style>
-                                </DataGridTextColumn.ElementStyle>
-                            </DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding Version}" IsReadOnly="True" Header="Version"/>
 
-                            <DataGridTextColumn Binding="{Binding DaysOld}" IsReadOnly="True" Header="Age" Width="Auto"
-                                        MinWidth="30">
-                                <DataGridTextColumn.ElementStyle>
-                                    <Style TargetType="{x:Type TextBlock}">
-                                        <Setter Property="Style" Value="{DynamicResource TextboxStyle}"/>
-                                        <Setter Property="Margin" Value="10,2,10,2" />
-                                        <Setter Property="FontWeight" Value="Normal" />
-                                        <Setter Property="HorizontalAlignment" Value="Center" />
-                                        <Setter Property="FontSize"
-                                        Value="{Binding Path=ActualHeight, ElementName=root, 
-                                    Converter={StaticResource doubleConverter}, ConverterParameter=0.06}" />
-                                    </Style>
-                                </DataGridTextColumn.ElementStyle>
+                            <DataGridTextColumn Binding="{Binding DaysOld}" 
+                                                IsReadOnly="True" Header="Age" 
+                                                Width="Auto" MinWidth="30">
                             </DataGridTextColumn>
 
                             <DataGridTemplateColumn Header="" Width="SizeToCells" IsReadOnly="True" MinWidth="30">
@@ -133,5 +103,6 @@
                 </StackPanel>
             </ScrollViewer>
         </Grid>
+        
     </Border>
 </UserControl>

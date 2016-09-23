@@ -20,7 +20,7 @@
     </UserControl.Resources>
 
     <Border Name="FocusBorder" Style="{DynamicResource FocusBorder}" Focusable="True">
-        <Grid Name="root" Margin="0" Style="{DynamicResource WhiteTileStyleGrid}">
+        <Grid Name="root" Margin="0" Style="{DynamicResource GridStyle}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
@@ -31,7 +31,7 @@
                           LegendLocation="{Binding Path=LegendLocation, Mode=OneWay}"
                           FontSize="{Binding Path=ActualHeight, ElementName=root, Converter={StaticResource doubleConverter}, ConverterParameter=0.03}" />
             <TextBlock Name="label" Grid.Row="1"
-                       Style="{DynamicResource WhiteTileStyleTextbox}"
+                       Style="{DynamicResource TextboxStyle}"
                        HorizontalAlignment="Center" TextAlignment="Center" IsHitTestVisible="False" 
                        FontWeight="Bold" Margin="3,1,3,10" Text="{Binding Label, Mode=OneWay}"
                        FontSize="{Binding Path=ActualHeight, ElementName=root, Converter={StaticResource doubleConverter}, ConverterParameter=0.12}"/>

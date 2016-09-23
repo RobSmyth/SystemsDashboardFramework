@@ -18,7 +18,7 @@
     </UserControl.Resources>
 
     <Border Name="FocusBorder" Style="{DynamicResource FocusBorder}">
-        <Grid Name="root" Margin="0" Style="{DynamicResource DarkTileStyleGrid}">
+        <Grid Name="root" Margin="0" Style="{DynamicResource GridStyle}">
             <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
                 <ScrollViewer.InputBindings>
                     <MouseBinding MouseAction="LeftClick" Command="{Binding ConfigureCommand}" />
@@ -29,7 +29,7 @@
                     VerticalAlignment="Center" Width="Auto" Height="Auto">
 
                     <TextBlock Name="projectName" HorizontalAlignment="Left" VerticalAlignment="Top" TextAlignment="Left"
-                               Style="{DynamicResource DarkTileStyleTextbox}"
+                               Style="{DynamicResource TextboxStyle}"
                        TextWrapping="WrapWithOverflow"
                        FontSize="{Binding Path=ActualHeight, ElementName=root, 
                                 Converter={StaticResource doubleConverter}, ConverterParameter=0.06}"
@@ -39,7 +39,7 @@
                     </TextBlock>
 
                     <DataGrid Name="buildsList" BorderThickness="0" Background="Transparent"
-                      Foreground="{DynamicResource DarkTileStyleForegroundBrush}"
+                      Foreground="{DynamicResource ForegroundBrushStyle}"
                       HeadersVisibility="Column" RowHeaderWidth="0" Margin="5,2,5,2" AutoGenerateColumns="False"
                       Padding="5"
                       BorderBrush="{x:Null}" GridLinesVisibility="None" Height="Auto" CanUserAddRows="False"
@@ -49,8 +49,8 @@
 
                         <DataGrid.Resources>
                             <Style TargetType="{x:Type DataGridColumnHeader}">
-                                <Setter Property="Background" Value="{DynamicResource DarkTileStyleGridHeaderRowBrush}" />
-                                <Setter Property="Foreground" Value="{DynamicResource DarkTileStyleForegroundBrush}" />
+                                <Setter Property="Background" Value="{DynamicResource GridHeaderRowBrushStyle}" />
+                                <Setter Property="Foreground" Value="{DynamicResource ForegroundBrushStyle}" />
                                 <Setter Property="Padding" Value="5,2,5,2" />
                                 <Setter Property="FontSize"
                                 Value="{Binding Path=ActualHeight, ElementName=root, 
@@ -66,7 +66,7 @@
                             <DataGridTextColumn Binding="{Binding BuildConfiguration}" IsReadOnly="True" Header="Build">
                                 <DataGridTextColumn.ElementStyle>
                                     <Style TargetType="{x:Type TextBlock}">
-                                        <Setter Property="Style" Value="{DynamicResource DarkTileStyleTextbox}"/>
+                                        <Setter Property="Style" Value="{DynamicResource TextboxStyle}"/>
                                         <Setter Property="Margin" Value="2,2,5,2" />
                                         <Setter Property="FontSize"
                                         Value="{Binding Path=ActualHeight, ElementName=root, 
@@ -78,7 +78,7 @@
                             <DataGridTextColumn Binding="{Binding Version}" IsReadOnly="True" Header="Version">
                                 <DataGridTextColumn.ElementStyle>
                                     <Style TargetType="{x:Type TextBlock}">
-                                        <Setter Property="Style" Value="{DynamicResource DarkTileStyleTextbox}"/>
+                                        <Setter Property="Style" Value="{DynamicResource TextboxStyle}"/>
                                         <Setter Property="Margin" Value="5,2,2,2" />
                                         <Setter Property="FontWeight" Value="Bold" />
                                         <Setter Property="FontSize"
@@ -92,7 +92,7 @@
                                         MinWidth="30">
                                 <DataGridTextColumn.ElementStyle>
                                     <Style TargetType="{x:Type TextBlock}">
-                                        <Setter Property="Style" Value="{DynamicResource DarkTileStyleTextbox}"/>
+                                        <Setter Property="Style" Value="{DynamicResource TextboxStyle}"/>
                                         <Setter Property="Margin" Value="10,2,10,2" />
                                         <Setter Property="FontWeight" Value="Normal" />
                                         <Setter Property="HorizontalAlignment" Value="Center" />
@@ -121,7 +121,7 @@
                             <Style TargetType="DataGridRow">
                                 <Setter Property="IsTabStop" Value="False"/>
                                 <Setter Property="Background" Value="Transparent" />
-                                <Setter Property="Foreground" Value="{DynamicResource DarkTileStyleForegroundBrush}" />
+                                <Setter Property="Foreground" Value="{DynamicResource ForegroundBrushStyle}" />
                                 <Setter Property="FontSize"
                                 Value="{Binding Path=ActualHeight, ElementName=root, 
                                     Converter={StaticResource doubleConverter}, ConverterParameter=0.06}" />

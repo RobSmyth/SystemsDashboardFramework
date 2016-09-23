@@ -17,36 +17,36 @@
     </UserControl.Resources>
 
     <Border Name="FocusBorder" Style="{DynamicResource FocusBorder}" Focusable="True">
-        <Grid Name="root" Margin="0" Style="{DynamicResource TealTileStyleGrid}">
+        <Grid Name="root" Margin="0" Style="{DynamicResource GridStyle}">
 
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Height="Auto"
                     Margin="0">
 
                 <TextBlock Name="header" HorizontalAlignment="Center" TextAlignment="Center" IsHitTestVisible="False"
-                           Style="{DynamicResource TealTileStyleTextbox}"
+                           Style="{DynamicResource TextboxStyle}"
                        TextWrapping="WrapWithOverflow"
                        FontSize="{Binding Path=ActualHeight, ElementName=root, 
                                     Converter={StaticResource doubleConverter}, ConverterParameter=0.15}"
                        FontWeight="Normal"
-                       Foreground="{DynamicResource TealTileStyleForegroundBrush}"
+                       Foreground="{DynamicResource ForegroundBrushStyle}"
                        Margin="0,5,0,-2"
                            Text="{Binding Title, Mode=OneWay}"/>
 
                 <TextBlock Name="days" HorizontalAlignment="Center" TextAlignment="Center" IsHitTestVisible="False"
-                           Style="{DynamicResource TealTileStyleTextbox}"
+                           Style="{DynamicResource TextboxStyle}"
                        FontSize="{Binding Path=ActualHeight, ElementName=root, 
                                     Converter={StaticResource doubleConverter}, ConverterParameter=0.4}"
-                       FontWeight="Bold" Foreground="{DynamicResource TealTileStyleForegroundBrush}"
+                       FontWeight="Bold" Foreground="{DynamicResource ForegroundBrushStyle}"
                        Margin="0,0,0,-3"
                            Text="{Binding DaysRemaining, Mode=OneWay}"/>
 
                 <TextBlock Name="footer" HorizontalAlignment="Center" TextAlignment="Center" IsHitTestVisible="False"
-                           Style="{DynamicResource TealTileStyleTextbox}"
+                           Style="{DynamicResource TextboxStyle}"
                        TextWrapping="WrapWithOverflow"
                        FontSize="{Binding Path=ActualHeight, ElementName=root, 
                                     Converter={StaticResource doubleConverter}, ConverterParameter=0.10}"
                        FontWeight="Normal"
-                       Foreground="{DynamicResource TealTileStyleForegroundBrush}"
+                       Foreground="{DynamicResource ForegroundBrushStyle}"
                        Margin="0,-2,0,5">
                 Days left
                 </TextBlock>

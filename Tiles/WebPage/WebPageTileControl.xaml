@@ -12,8 +12,8 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/NoeticTools.TeamStatusBoard.Framework;component/Styles/Style1.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <Style TargetType="TextBlock" BasedOn="{StaticResource WhiteTileStyleTextbox}" />
-            <Style TargetType="Grid" BasedOn="{StaticResource WhiteTileStyleGrid}" />
+            <Style TargetType="TextBlock" BasedOn="{StaticResource TextboxStyle}" />
+            <Style TargetType="Grid" BasedOn="{StaticResource GridStyle}" />
         </ResourceDictionary>
 
     </UserControl.Resources>

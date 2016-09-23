@@ -20,7 +20,7 @@
     </UserControl.Resources>
 
     <Border Name="FocusBorder" Style="{StaticResource FocusBorder}" Focusable="True">
-        <Grid Name="root" Margin="0" Style="{DynamicResource WhiteTileStyleGrid}">
+        <Grid Name="root" Margin="0" Style="{DynamicResource GridStyle}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>

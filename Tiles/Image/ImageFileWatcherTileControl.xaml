@@ -17,7 +17,7 @@
     </UserControl.Resources>
 
     <Border Name="FocusBorder" Style="{DynamicResource FocusBorder}" Focusable="True">
-        <Grid Name="root" Margin="0" Style="{DynamicResource DarkTileStyleGrid}">
+        <Grid Name="root" Margin="0" Style="{DynamicResource GridStyle}">
             <Image Source="{Binding Source}"/>
         </Grid>
     </Border>

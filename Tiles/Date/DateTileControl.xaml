@@ -17,17 +17,17 @@
     </UserControl.Resources>
 
     <Border Name="FocusBorder" Style="{StaticResource FocusBorder}">
-        <Grid Name="root" Margin="0" Style="{DynamicResource TealTileStyleGrid}">
+        <Grid Name="root" Margin="0" Style="{DynamicResource GridStyle}">
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Height="Auto"
                     Margin="0">
                 <TextBlock Name="day" HorizontalAlignment="Center" TextAlignment="Center" IsHitTestVisible="False"
-                           Style="{DynamicResource TealTileStyleTextbox}"
+                           Style="{DynamicResource TextboxStyle}"
                            FontSize="{Binding Path=ActualHeight, ElementName=root, 
                                     Converter={StaticResource doubleConverter}, ConverterParameter=0.4}"
                            FontWeight="Bold" Margin="0,0,0,-3"
                            Text="{Binding Day, Mode=OneWay}"/>
                 <TextBlock Name="month" HorizontalAlignment="Center" TextAlignment="Center" IsHitTestVisible="False"
-                           Style="{DynamicResource TealTileStyleTextbox}"
+                           Style="{DynamicResource TextboxStyle}"
                            TextWrapping="WrapWithOverflow"
                            FontSize="{Binding Path=ActualHeight, ElementName=root, 
                                     Converter={StaticResource doubleConverter}, ConverterParameter=0.15}"

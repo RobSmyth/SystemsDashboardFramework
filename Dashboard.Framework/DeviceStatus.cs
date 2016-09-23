@@ -1,6 +1,6 @@
-﻿namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Agents
+﻿namespace NoeticTools.TeamStatusBoard.Framework
 {
-    public enum BuildAgentStatus
+    public enum DeviceStatus
     {
         Unknown = 0,
         Idle,

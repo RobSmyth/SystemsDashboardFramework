@@ -11,19 +11,19 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Agents
 {
     public class BuildAgentViewModel : NotifyingViewModelBase, IBuildAgent, IChannelConnectionStateListener
     {
-        private readonly IDictionary<BuildAgentStatus, string> _statusTextLookup = new Dictionary<BuildAgentStatus, string>()
+        private readonly IDictionary<DeviceStatus, string> _statusTextLookup = new Dictionary<DeviceStatus, string>()
             {
-                {BuildAgentStatus.Unknown, "Unknown" },
-                {BuildAgentStatus.Idle, "Idle" },
-                {BuildAgentStatus.Offline, "Off-line" },
-                {BuildAgentStatus.Disabled, "Disabled" },
-                {BuildAgentStatus.NotAuthorised, "Not authorised" },
-                {BuildAgentStatus.Running, "Running" },
+                {DeviceStatus.Unknown, "Unknown" },
+                {DeviceStatus.Idle, "Idle" },
+                {DeviceStatus.Offline, "Off-line" },
+                {DeviceStatus.Disabled, "Disabled" },
+                {DeviceStatus.NotAuthorised, "Not authorised" },
+                {DeviceStatus.Running, "Running" },
             };
 
         private readonly IDataSource _agentsRepository;
         private readonly ITcSharpTeamCityClient _teamCityClient;
-        private BuildAgentStatus _status;
+        private DeviceStatus _status;
         private bool _isRunning;
         private string _statusText;
         private Action _onDisconnectAction;
@@ -38,7 +38,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Agents
             _teamCityClient = teamCityClient;
             Name = name;
             _statusText = string.Empty;
-            Status = BuildAgentStatus.Unknown;
+            Status = DeviceStatus.Unknown;
             SetDisconnectedStateActions();
             connectedStateTicker.AddListener(this, OnTick);
             channelStateBroadcaster.Add(this);
@@ -92,39 +92,39 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Agents
         {
             if (string.IsNullOrWhiteSpace(Name))
             {
-                Status = BuildAgentStatus.Unknown;
+                Status = DeviceStatus.Unknown;
                 return;
             }
 
             if (!IsAuthorised)
             {
-                Status = BuildAgentStatus.NotAuthorised;
+                Status = DeviceStatus.NotAuthorised;
                 return;
             }
 
             if (!IsOnline)
             {
-                Status = BuildAgentStatus.Offline;
+                Status = DeviceStatus.Offline;
             }
-            else if (Status == BuildAgentStatus.Offline || Status == BuildAgentStatus.Unknown)
+            else if (Status == DeviceStatus.Offline || Status == DeviceStatus.Unknown)
             {
-                Status = BuildAgentStatus.Idle;
+                Status = DeviceStatus.Idle;
             }
 
-            if (Status != BuildAgentStatus.Offline)
+            if (Status != DeviceStatus.Offline)
             {
                 if (IsRunning)
                 {
-                    Status = BuildAgentStatus.Running;
+                    Status = DeviceStatus.Running;
                 }
-                else if (Status == BuildAgentStatus.Running)
+                else if (Status == DeviceStatus.Running)
                 {
-                    Status = BuildAgentStatus.Idle;
+                    Status = DeviceStatus.Idle;
                 }
             }
         }
 
-        public BuildAgentStatus Status
+        public DeviceStatus Status
         {
             get { return _status; }
             private set
@@ -192,7 +192,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Agents
             _onConnectAction = DoNothing;
             _onDisconnectAction = () =>
             {
-                Status = BuildAgentStatus.Unknown;
+                Status = DeviceStatus.Unknown;
                 StatusText = "Unknown";
                 IsOnline = false;
             };

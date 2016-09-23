@@ -12,7 +12,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Agents
         }
 
         public string Name { get; }
-        public BuildAgentStatus Status => BuildAgentStatus.Unknown;
+        public DeviceStatus Status => DeviceStatus.Unknown;
         public bool IsRunning => false;
         public bool IsOnline { get { return false; } set { throw new InvalidOperationException(); } }
         public bool IsAuthorised { get { return false; } set { throw new InvalidOperationException(); } }

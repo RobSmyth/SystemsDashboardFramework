@@ -4,6 +4,7 @@ using NoeticTools.TeamStatusBoard.Framework;
 using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Services;
+using NoeticTools.TeamStatusBoard.Framework.Styles;
 
 
 namespace NoeticTools.TeamStatusBoard.Tiles.DaysLeftCountDown
@@ -32,6 +33,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.DaysLeftCountDown
         public FrameworkElement CreateTile(TileConfiguration tileConfigturation, TileLayoutController layoutController)
         {
             var view = new DaysLeftCoundDownTileView();
+            new StatusBoardStyleStategy(view, _services.Style);
             var conduit = new ConfigurationChangeListenerConduit();
             var tileProperties = new TileProperties(tileConfigturation, conduit, _services);
             var viewModel = new DaysLeftCountDownTileViewModel(tileConfigturation, _services.Clock, _dashboardController, view, layoutController, _services, tileProperties);

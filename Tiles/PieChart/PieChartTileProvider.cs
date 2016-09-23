@@ -3,6 +3,7 @@ using NoeticTools.TeamStatusBoard.Framework;
 using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Services;
+using NoeticTools.TeamStatusBoard.Framework.Styles;
 
 
 namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
@@ -29,6 +30,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
         public FrameworkElement CreateTile(TileConfiguration tileConfigturation, TileLayoutController layoutController)
         {
             var tile = new PieChartTileControl();
+            new StatusBoardStyleStategy(tile, _services.Style);
             var conduit = new ConfigurationChangeListenerConduit();
             var tileProperties = new TileProperties(tileConfigturation, conduit, _services);
             var viewModel = new PieChartTileViewModel(tileConfigturation, _dashboardController, layoutController, _services, tileProperties);

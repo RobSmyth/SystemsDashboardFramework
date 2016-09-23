@@ -12,40 +12,41 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/NoeticTools.TeamStatusBoard.Framework;component/Styles/Style1.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <Style TargetType="TextBlock" BasedOn="{StaticResource TealTileStyleTextbox}" />
-            <Style TargetType="Grid" BasedOn="{StaticResource TealTileStyleGrid}" />
         </ResourceDictionary>
 
     </UserControl.Resources>
 
-    <Border Name="FocusBorder" Style="{StaticResource FocusBorder}" Focusable="True">
-        <Grid Name="root" Margin="0">
+    <Border Name="FocusBorder" Style="{DynamicResource FocusBorder}" Focusable="True">
+        <Grid Name="root" Margin="0" Style="{DynamicResource TealTileStyleGrid}">
 
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Height="Auto"
                     Margin="0">
 
                 <TextBlock Name="header" HorizontalAlignment="Center" TextAlignment="Center" IsHitTestVisible="False"
+                           Style="{DynamicResource TealTileStyleTextbox}"
                        TextWrapping="WrapWithOverflow"
                        FontSize="{Binding Path=ActualHeight, ElementName=root, 
                                     Converter={StaticResource doubleConverter}, ConverterParameter=0.15}"
                        FontWeight="Normal"
-                       Foreground="{StaticResource TealTileStyleForegroundBrush}"
+                       Foreground="{DynamicResource TealTileStyleForegroundBrush}"
                        Margin="0,5,0,-2"
                            Text="{Binding Title, Mode=OneWay}"/>
 
                 <TextBlock Name="days" HorizontalAlignment="Center" TextAlignment="Center" IsHitTestVisible="False"
+                           Style="{DynamicResource TealTileStyleTextbox}"
                        FontSize="{Binding Path=ActualHeight, ElementName=root, 
                                     Converter={StaticResource doubleConverter}, ConverterParameter=0.4}"
-                       FontWeight="Bold" Foreground="{StaticResource TealTileStyleForegroundBrush}"
+                       FontWeight="Bold" Foreground="{DynamicResource TealTileStyleForegroundBrush}"
                        Margin="0,0,0,-3"
                            Text="{Binding DaysRemaining, Mode=OneWay}"/>
 
                 <TextBlock Name="footer" HorizontalAlignment="Center" TextAlignment="Center" IsHitTestVisible="False"
+                           Style="{DynamicResource TealTileStyleTextbox}"
                        TextWrapping="WrapWithOverflow"
                        FontSize="{Binding Path=ActualHeight, ElementName=root, 
                                     Converter={StaticResource doubleConverter}, ConverterParameter=0.10}"
                        FontWeight="Normal"
-                       Foreground="{StaticResource TealTileStyleForegroundBrush}"
+                       Foreground="{DynamicResource TealTileStyleForegroundBrush}"
                        Margin="0,-2,0,5">
                 Days left
                 </TextBlock>

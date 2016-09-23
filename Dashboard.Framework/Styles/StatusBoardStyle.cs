@@ -6,8 +6,8 @@
 
         public StatusBoardStyle()
         {
-            //_styleUrl = "/NoeticTools.TeamStatusBoard.Framework;component/Styles/Style1.xaml";
-            _styleUrl = "/NoeticTools.TeamStatusBoard.Framework;component/Styles/Style2.xaml";
+            _styleUrl = "/NoeticTools.TeamStatusBoard.Framework;component/Styles/Style1.xaml";
+            //_styleUrl = "/NoeticTools.TeamStatusBoard.Framework;component/Styles/Style2.xaml";
             Broadcaster = new EventBroadcaster();
         }
 

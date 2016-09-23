@@ -4,6 +4,7 @@ using NoeticTools.TeamStatusBoard.Framework;
 using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Services;
+using NoeticTools.TeamStatusBoard.Framework.Styles;
 
 
 namespace NoeticTools.TeamStatusBoard.Tiles.Image
@@ -32,6 +33,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.Image
         public FrameworkElement CreateTile(TileConfiguration tileConfigturation, TileLayoutController layoutController)
         {
             var view = new ImageFileWatcherTileControl();
+            new StatusBoardStyleStategy(view, _services.Style);
             new ImageFileWatcherViewModel(tileConfigturation, _dashboardController, layoutController, _services, view);
             return view;
         }

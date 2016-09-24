@@ -40,7 +40,7 @@
                     </TextBlock>
 
                     <DataGrid Name="buildsList" BorderThickness="0" Background="Transparent"
-                      Foreground="{DynamicResource ForegroundBrushStyle}"
+                      Foreground="{DynamicResource ForegroundBrush}"
                       HeadersVisibility="Column" RowHeaderWidth="0" Margin="5,2,5,2" AutoGenerateColumns="False"
                       Padding="5"
                       BorderBrush="{x:Null}" GridLinesVisibility="None" Height="Auto" CanUserAddRows="False"
@@ -50,8 +50,8 @@
 
                         <DataGrid.Resources>
                             <Style TargetType="{x:Type DataGridColumnHeader}">
-                                <Setter Property="Background" Value="{DynamicResource GridHeaderRowBrushStyle}" />
-                                <Setter Property="Foreground" Value="{DynamicResource ForegroundBrushStyle}" />
+                                <Setter Property="Background" Value="{DynamicResource GridHeaderRowBrush}" />
+                                <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
                                 <Setter Property="Padding" Value="5,2,5,2" />
                                 <Setter Property="FontSize"
                                 Value="{Binding Path=ActualHeight, ElementName=root, 
@@ -91,7 +91,7 @@
                             <Style TargetType="DataGridRow">
                                 <Setter Property="IsTabStop" Value="False"/>
                                 <Setter Property="Background" Value="Transparent" />
-                                <Setter Property="Foreground" Value="{DynamicResource ForegroundBrushStyle}" />
+                                <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
                                 <Setter Property="FontSize"
                                 Value="{Binding Path=ActualHeight, ElementName=root, 
                                     Converter={StaticResource doubleConverter}, ConverterParameter=0.06}" />

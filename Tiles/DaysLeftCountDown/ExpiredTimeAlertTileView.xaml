@@ -28,7 +28,7 @@
                        FontSize="{Binding Path=ActualHeight, ElementName=root, 
                                     Converter={StaticResource doubleConverter}, ConverterParameter=0.15}"
                        FontWeight="Normal"
-                       Foreground="{DynamicResource ForegroundBrushStyle}"
+                       Foreground="{DynamicResource ForegroundBrush}"
                        Margin="0,5,0,-2"
                            Text="{Binding Title, Mode=OneWay}"/>
 
@@ -36,7 +36,7 @@
                            Style="{DynamicResource TextboxStyle}"
                        FontSize="{Binding Path=ActualHeight, ElementName=root, 
                                     Converter={StaticResource doubleConverter}, ConverterParameter=0.4}"
-                       FontWeight="Bold" Foreground="{DynamicResource ForegroundBrushStyle}"
+                       FontWeight="Bold" Foreground="{DynamicResource ForegroundBrush}"
                        Margin="0,0,0,-3"
                            Text="{Binding DaysRemaining, Mode=OneWay}"/>
 
@@ -46,7 +46,7 @@
                        FontSize="{Binding Path=ActualHeight, ElementName=root, 
                                     Converter={StaticResource doubleConverter}, ConverterParameter=0.10}"
                        FontWeight="Normal"
-                       Foreground="{DynamicResource ForegroundBrushStyle}"
+                       Foreground="{DynamicResource ForegroundBrush}"
                        Margin="0,-2,0,5">
                 Days left
                 </TextBlock>

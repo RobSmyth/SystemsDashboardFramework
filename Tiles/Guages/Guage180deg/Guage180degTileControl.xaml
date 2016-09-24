@@ -34,6 +34,7 @@
                        To="{Binding Maximum, Mode=OneWay}"
                        Value="{Binding Value, Mode=OneWay}" 
                        LabelFormatter="{Binding Formatter}" 
+                       Foreground="{DynamicResource ForegroundBrush}"
                        FontSize="{Binding Path=ActualHeight, ElementName=root, Converter={StaticResource doubleConverter}, ConverterParameter=0.07}" />
             <TextBlock Name="label" Grid.Row="1"
                        Style="{DynamicResource TextboxStyle}"

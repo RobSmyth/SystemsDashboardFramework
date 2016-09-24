@@ -10,7 +10,7 @@ using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
 
 namespace NoeticTools.TeamStatusBoard.DataSources.TestData
 {
-    public class SawToothDatum : IDataValue, ITimerListener
+    public class TriangeWaveformDatum : IDataValue, ITimerListener
     {
         private const double Minimum = 0.0;
         private const double Maximum = 10.0;
@@ -21,7 +21,7 @@ namespace NoeticTools.TeamStatusBoard.DataSources.TestData
         private readonly Stopwatch _stopwatch = new Stopwatch();
         private readonly ITimerToken _timerToken;
 
-        public SawToothDatum(IDataValue inner, TimeSpan cyclePeriod, IServices services)
+        public TriangeWaveformDatum(IDataValue inner, TimeSpan cyclePeriod, IServices services)
         {
             _inner = inner;
             _cyclePeriod = cyclePeriod;

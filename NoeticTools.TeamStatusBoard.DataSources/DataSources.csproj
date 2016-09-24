@@ -51,7 +51,7 @@
     <Compile Include="FileSystem\FileReaderDataService.cs" />
     <Compile Include="FileSystem\FileReaderDataSourcePlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestData\SawToothDatum.cs" />
+    <Compile Include="TestData\TriangeWaveformDatum.cs" />
     <Compile Include="TestData\TestDataService.cs" />
     <Compile Include="TestData\TestDataSourcePlugin.cs" />
   </ItemGroup>

@@ -12,10 +12,10 @@ namespace NoeticTools.TeamStatusBoard.DataSources.TestData
 
         public TestDataService(IServices services, IDataSource dataSource)
         {
-            var datum = new SawToothDatum(dataSource.GetDatum("SawTooth5seconds", 0.0), TimeSpan.FromSeconds(5.0), services) {Flags = PropertiesFlags.ReadOnly};
+            var datum = new TriangeWaveformDatum(dataSource.GetDatum("TriangleWaveform5seconds", 0.0), TimeSpan.FromSeconds(5.0), services) {Flags = PropertiesFlags.ReadOnly};
             datum.Tags.Add(PropertyTag);
 
-            datum = new SawToothDatum(dataSource.GetDatum("SawTooth20seconds", 0.0), TimeSpan.FromSeconds(20.0), services) { Flags = PropertiesFlags.ReadOnly };
+            datum = new TriangeWaveformDatum(dataSource.GetDatum("TriangleWaveform20seconds", 0.0), TimeSpan.FromSeconds(20.0), services) { Flags = PropertiesFlags.ReadOnly };
             datum.Tags.Add(PropertyTag);
         }
 

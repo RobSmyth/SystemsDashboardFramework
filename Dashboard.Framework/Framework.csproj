@@ -110,9 +110,9 @@
     <Compile Include="Config\Properties\TextPropertyViewModel.cs" />
     <Compile Include="Config\Properties\DataSourceTypePropertyViewModel.cs" />
     <Compile Include="Config\TileProperties.cs" />
-    <Compile Include="Plugins\PropertyEditControls\SuggestionProviders\BoolSuggestionsProvider.cs" />
-    <Compile Include="Plugins\PropertyEditControls\SuggestionProviders\ColourSuggestionsProvider.cs" />
-    <Compile Include="Plugins\PropertyEditControls\SuggestionProviders\ISuggestionProvider.cs" />
+    <Compile Include="Config\SuggestionProviders\BoolSuggestionsProvider.cs" />
+    <Compile Include="Config\SuggestionProviders\ColourSuggestionsProvider.cs" />
+    <Compile Include="Config\SuggestionProviders\ISuggestionProvider.cs" />
     <Compile Include="Config\ViewModels\DataSourcePropertyViewModel.cs" />
     <Compile Include="Config\ViewModels\DataSourcesViewModel.cs" />
     <Compile Include="Config\IDashboardConfigurations.cs" />
@@ -167,7 +167,7 @@
     <Compile Include="Plugins\Tiles\BlankTile\BlankTilePlugin.cs" />
     <Compile Include="Plugins\Tiles\BlankTile\BlankTileProvider.cs" />
     <Compile Include="Plugins\Tiles\BlankTile\BlankTileViewModel.cs" />
-    <Compile Include="Plugins\PropertyEditControls\SuggestionProviders\TextSuggestionsProvider.cs" />
+    <Compile Include="Config\SuggestionProviders\TextSuggestionsProvider.cs" />
     <Compile Include="Config\NamedValueRepositories\NamedValueAggregator.cs" />
     <Compile Include="Plugins\Tiles\Help\HelpTileKeyHandler.cs" />
     <Compile Include="Plugins\Tiles\InsertTile\InsertTileKeyHandler.cs" />

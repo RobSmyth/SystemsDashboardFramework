@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories;
-using NoeticTools.TeamStatusBoard.Framework.Plugins.PropertyEditControls.SuggestionProviders;
+using NoeticTools.TeamStatusBoard.Framework.Config.SuggestionProviders;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 
 

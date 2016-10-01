@@ -75,6 +75,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{04ebbac1-c5ef-4b93-9b6f-d270afa3e878}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Dashboard.Framework\Framework.csproj">
       <Project>{1f19c0de-e777-48e9-856b-7376a7527ec0}</Project>
       <Name>Framework</Name>

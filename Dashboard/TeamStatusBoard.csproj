@@ -145,9 +145,17 @@
     <Resource Include="Images\NoeticTools.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{04ebbac1-c5ef-4b93-9b6f-d270afa3e878}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Dashboard.Framework\Framework.csproj">
       <Project>{1f19c0de-e777-48e9-856b-7376a7527ec0}</Project>
       <Name>Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Styles\Styles.csproj">
+      <Project>{6c579cd4-6ff8-4990-8e27-6353d02f1f53}</Project>
+      <Name>Styles</Name>
     </ProjectReference>
     <ProjectReference Include="..\TeamStatusBoard.Runner\Runner.csproj">
       <Project>{41191791-ddb3-4bc4-9c37-a73e037ddc3a}</Project>
@@ -171,6 +179,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="NoeticTools.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

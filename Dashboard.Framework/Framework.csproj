@@ -86,11 +86,9 @@
   <ItemGroup>
     <Compile Include="Adorners\DropTargetAdorner.cs" />
     <Compile Include="Adorners\GroupPanelDetailsAdorner.cs" />
-    <Compile Include="Commands\CommandConduit.cs" />
     <Compile Include="Commands\TsbCommands.cs" />
     <Compile Include="Commands\IApplicationCommands.cs" />
     <Compile Include="Commands\SaveConfigurationParametersCommand.cs" />
-    <Compile Include="Commands\CloseCommand.cs" />
     <Compile Include="Commands\ShowDataSourcesCommand.cs" />
     <Compile Include="ConfiguredTileViewModelBase.cs" />
     <Compile Include="Config\ConfigurationChangeListenerConduit.cs" />
@@ -112,8 +110,6 @@
     <Compile Include="Config\Properties\TextPropertyViewModel.cs" />
     <Compile Include="Config\Properties\DataSourceTypePropertyViewModel.cs" />
     <Compile Include="Config\TileProperties.cs" />
-    <Compile Include="DeviceStatus.cs" />
-    <Compile Include="IStatusBoardStyle.cs" />
     <Compile Include="Plugins\PropertyEditControls\SuggestionProviders\BoolSuggestionsProvider.cs" />
     <Compile Include="Plugins\PropertyEditControls\SuggestionProviders\ColourSuggestionsProvider.cs" />
     <Compile Include="Plugins\PropertyEditControls\SuggestionProviders\ISuggestionProvider.cs" />
@@ -151,8 +147,6 @@
     <Compile Include="DataSources\DataPropertiesRepository.cs" />
     <Compile Include="DataSources\DataPropertyViewModel.cs" />
     <Compile Include="DataSources\DataPropertyViewModelFactory.cs" />
-    <Compile Include="EventBroadcaster.cs" />
-    <Compile Include="IEventBroadcaster.cs" />
     <Compile Include="NullTileControllerProvider.cs" />
     <Compile Include="Input\ITileDragAndDropController.cs" />
     <Compile Include="IRunOptions.cs" />
@@ -233,18 +227,15 @@
     <Compile Include="Dashboards\DashboardsNavigationViewModel.cs" />
     <Compile Include="Registries\ITileLayoutControllerRegistry.cs" />
     <Compile Include="Registries\ITileFactory.cs" />
-    <Compile Include="NotifyingViewModelBase.cs" />
     <Compile Include="DataSources\Jira\IJiraChannel.cs" />
     <Compile Include="DataSources\Jira\JiraChannelEmulateState.cs" />
     <Compile Include="DataSources\Jira\JiraChannelState.cs" />
-    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Plugins\IPlugin.cs" />
     <Compile Include="Registries\TileLayoutControllerRegistry.cs" />
     <Compile Include="Registries\TileFactory.cs" />
     <Compile Include="Dashboards\TileInsertAction.cs" />
     <Compile Include="Dashboards\TileLayoutController.cs" />
     <Compile Include="Services\TimeServices\Clock.cs" />
-    <Compile Include="Commands\NullCommand.cs" />
     <Compile Include="Commands\TileConfigureCommand.cs" />
     <Compile Include="Config\DashboardConfiguration.cs" />
     <Compile Include="Config\DashboardConfigurationManager.cs" />
@@ -260,7 +251,6 @@
     <Compile Include="Config\IPropertyViewModel.cs" />
     <Compile Include="Config\TileConfigurationConverter.cs" />
     <Compile Include="Config\Controllers\ConfigationViewController.cs" />
-    <Compile Include="Converters\DoubleValueConverter.cs" />
     <Compile Include="DataSources\Jira\JiraChannel.cs" />
     <Compile Include="Services\TimeServices\IClock.cs" />
     <Compile Include="Services\TimeServices\ITimerListener.cs" />
@@ -280,8 +270,6 @@
     <Compile Include="Services\TimerService.cs" />
     <Compile Include="Services\TimeServices\NullTimerToken.cs" />
     <Compile Include="Services\TimeServices\TimerToken.cs" />
-    <Compile Include="Styles\StatusBoardStyle.cs" />
-    <Compile Include="Styles\StatusBoardStyleStategy.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="dashboard.config.default.xml">
@@ -314,14 +302,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Dashboards\DashboardNaviagtionTileControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\Style1.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\Style2.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -387,7 +367,17 @@
     <Resource Include="Images\server128x128_light.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Skins\" />
+    <Folder Include="Converters\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{04ebbac1-c5ef-4b93-9b6f-d270afa3e878}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Styles\Styles.csproj">
+      <Project>{6c579cd4-6ff8-4990-8e27-6353d02f1f53}</Project>
+      <Name>Styles</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

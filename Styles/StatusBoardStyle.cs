@@ -1,4 +1,7 @@
-﻿namespace NoeticTools.TeamStatusBoard.Framework.Styles
+﻿using NoeticTools.TeamStatusBoard.Common;
+
+
+namespace NoeticTools.TeamStatusBoard.Framework.Styles
 {
     public sealed class StatusBoardStyle : IStatusBoardStyle
     {
@@ -6,8 +9,8 @@
 
         public StatusBoardStyle()
         {
-            _styleUrl = "/NoeticTools.TeamStatusBoard.Framework;component/Styles/Style1.xaml";
-            //_styleUrl = "/NoeticTools.TeamStatusBoard.Framework;component/Styles/Style2.xaml";
+            _styleUrl = "/NoeticTools.TeamStatusBoard.Styles;component/Style1.xaml";
+            //_styleUrl = "/NoeticTools.TeamStatusBoard.Common;component/Style2.xaml";
             Broadcaster = new EventBroadcaster();
         }
 

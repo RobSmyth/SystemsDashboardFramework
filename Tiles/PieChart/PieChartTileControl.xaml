@@ -13,7 +13,7 @@
 
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/NoeticTools.TeamStatusBoard.Framework;component/Styles/Style1.xaml" />
+                <ResourceDictionary Source="/NoeticTools.TeamStatusBoard.Styles;component/Style1.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 

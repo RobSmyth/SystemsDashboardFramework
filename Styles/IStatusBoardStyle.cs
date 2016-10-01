@@ -1,4 +1,7 @@
-﻿namespace NoeticTools.TeamStatusBoard.Framework
+﻿using NoeticTools.TeamStatusBoard.Common;
+
+
+namespace NoeticTools.TeamStatusBoard.Framework.Styles
 {
     public interface IStatusBoardStyle
     {

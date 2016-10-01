@@ -10,7 +10,7 @@
 
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/NoeticTools.TeamStatusBoard.Framework;component/Styles/Style1.xaml" />
+                <ResourceDictionary Source="/NoeticTools.TeamStatusBoard.Styles;component/Style1.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 
@@ -20,7 +20,7 @@
         <Grid Name="root" Margin="0" Style="{DynamicResource GridStyle}">
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Height="Auto"
                     Margin="0">
-                <TextBlock Name="message" HorizontalAlignment="Center" TextAlignment="Center"
+                <TextBlock Name="message" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap"
                            Style="{DynamicResource TextboxStyle}"
                            IsHitTestVisible="False"
                            FontSize="{Binding Path=ActualHeight, ElementName=root, Converter={StaticResource doubleConverter}, ConverterParameter=0.27}"

@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Input;
-using NoeticTools.TeamStatusBoard.Framework.Commands;
+using NoeticTools.TeamStatusBoard.Common.Commands;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Help

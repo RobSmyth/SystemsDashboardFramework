@@ -1,4 +1,4 @@
-﻿namespace NoeticTools.TeamStatusBoard.Framework
+﻿namespace NoeticTools.TeamStatusBoard.Common
 {
     public enum DeviceStatus
     {

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Media;
+using NoeticTools.TeamStatusBoard.Common;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices

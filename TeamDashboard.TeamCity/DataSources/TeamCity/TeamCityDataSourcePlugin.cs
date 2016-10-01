@@ -1,4 +1,5 @@
 ﻿using System;
+using NoeticTools.TeamStatusBoard.Common;
 using NoeticTools.TeamStatusBoard.Framework;
 using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Plugins;

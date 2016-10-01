@@ -1,3 +1,6 @@
+using NoeticTools.TeamStatusBoard.Common.ViewModels;
+
+
 namespace NoeticTools.TeamStatusBoard.Framework.Config.Properties
 {
     public class TileColumnSpanViewModel : NotifyingViewModelBase, INotifyingPropertyViewModel

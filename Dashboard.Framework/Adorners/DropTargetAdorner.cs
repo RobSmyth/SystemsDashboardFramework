@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
-using NoeticTools.TeamStatusBoard.Framework.Annotations;
+using NoeticTools.TeamStatusBoard.Common.Annotations;
 using NoeticTools.TeamStatusBoard.Framework.Input;
 
 

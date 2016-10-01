@@ -1,4 +1,5 @@
 using System.Windows.Input;
+using NoeticTools.TeamStatusBoard.Common.ViewModels;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Config.ViewModels

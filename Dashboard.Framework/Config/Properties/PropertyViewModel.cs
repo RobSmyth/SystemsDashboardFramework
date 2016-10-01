@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using NoeticTools.TeamStatusBoard.Common.ViewModels;
 using NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories;
 
 

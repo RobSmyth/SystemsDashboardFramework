@@ -1,4 +1,6 @@
 ﻿using System;
+using NoeticTools.TeamStatusBoard.Common;
+using NoeticTools.TeamStatusBoard.Common.ViewModels;
 using NoeticTools.TeamStatusBoard.Framework;
 
 

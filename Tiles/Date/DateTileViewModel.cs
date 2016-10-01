@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
+using NoeticTools.TeamStatusBoard.Common.Commands;
+using NoeticTools.TeamStatusBoard.Common.ViewModels;
 using NoeticTools.TeamStatusBoard.Framework;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles;

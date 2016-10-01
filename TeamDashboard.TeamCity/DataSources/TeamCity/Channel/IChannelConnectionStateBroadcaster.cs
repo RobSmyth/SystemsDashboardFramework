@@ -1,4 +1,5 @@
-﻿using NoeticTools.TeamStatusBoard.Framework;
+﻿using NoeticTools.TeamStatusBoard.Common;
+using NoeticTools.TeamStatusBoard.Framework;
 
 
 namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Channel

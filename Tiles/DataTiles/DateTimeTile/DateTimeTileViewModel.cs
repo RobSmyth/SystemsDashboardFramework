@@ -24,8 +24,8 @@ namespace NoeticTools.TeamStatusBoard.Tiles.DataTiles.DateTimeTile
             _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
             var parameters = new IPropertyViewModel[]
             {
-                new PropertyViewModel("PropertyAddress", PropertyType.Text, _tileConfigurationConverter),
-                new PropertyViewModel("DateTimeFormat", PropertyType.Text, _tileConfigurationConverter)
+                new TextPropertyViewModel("PropertyAddress", _tileConfigurationConverter, _services),
+                new TextPropertyViewModel("DateTimeFormat", _tileConfigurationConverter, _services)
             };
             ConfigureCommand = new TileConfigureCommand(tile, "Text Data Tile Configuration", parameters, dashboardController, layoutController, services);
             Update();

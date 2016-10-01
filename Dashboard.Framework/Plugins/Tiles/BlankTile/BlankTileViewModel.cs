@@ -5,6 +5,7 @@ using NoeticTools.TeamStatusBoard.Framework.Commands;
 using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories;
 using NoeticTools.TeamStatusBoard.Framework.Config.Properties;
+using NoeticTools.TeamStatusBoard.Framework.Config.SuggestionProviders;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 
@@ -20,7 +21,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.BlankTile
             : base(properties)
         {
             _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
-            var parameters = new IPropertyViewModel[] {new PropertyViewModel("Colour", PropertyType.Text, _tileConfigurationConverter)};
+            var parameters = new IPropertyViewModel[] {new PropertyViewModel("Colour", PropertyType.Text, _tileConfigurationConverter, new ColourSuggestionsProvider(services))};
             ConfigureCommand = new TileConfigureCommand(tile, "Blank Tile Configuration", parameters, dashboardController, layoutController, services);
             view.DataContext = this;
             Update();

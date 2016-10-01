@@ -10,7 +10,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.Properties
     public class TextPropertyViewModel : PropertyViewModel
     {
         public TextPropertyViewModel(string name, INamedValueRepository tileConfiguration, IServices services) 
-            : base(name, PropertyType.AutoCompleteText, tileConfiguration, () => new TextSuggestionsProvider(services).Get().Cast<object>().ToArray())
+            : base(name, PropertyType.AutoCompleteText, tileConfiguration, new TextSuggestionsProvider(services))
         {
         }
     }

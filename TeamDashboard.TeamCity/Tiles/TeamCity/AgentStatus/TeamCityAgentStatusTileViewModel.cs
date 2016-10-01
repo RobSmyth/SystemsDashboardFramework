@@ -20,6 +20,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity.AgentStatus
         private readonly TileConfigurationConverter _tileConfigurationConverter;
         private readonly ILog _logger;
         private readonly object _syncRoot = new object();
+        private readonly IServices _services;
         private readonly ITeamCityService _teamCityService;
         private IBuildAgent _buildAgent = new NullBuildAgent("");
         private static int _nextInstanceId = 1;
@@ -34,6 +35,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity.AgentStatus
             }
 
             Tile = tile;
+            _services = services;
             _teamCityService = teamCityService;
             _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
             ConfigureServiceCommand = new DataSourceConfigureCommand(channel);
@@ -75,7 +77,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity.AgentStatus
         {
             var configurationParameters = new IPropertyViewModel[]
             {
-                new PropertyViewModel("AgentName", PropertyType.Text, _tileConfigurationConverter)
+                new TextPropertyViewModel("AgentName", _tileConfigurationConverter, _services)
             };
             return configurationParameters;
         }

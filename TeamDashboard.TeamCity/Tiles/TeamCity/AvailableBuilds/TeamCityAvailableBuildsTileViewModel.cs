@@ -33,12 +33,14 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity.AvailableBuilds
         public const string TileTypeId = "TeamCity.AvailableBuilds";
         private readonly TileConfigurationConverter _tileConfigurationConverter;
         private readonly ILog _logger;
+        private readonly IServices _services;
         private readonly TeamCityAvailableBuildsListControl _view;
         private readonly ITeamCityService _teamCityService;
         private static int _nextInstanceId = 1;
 
         public TeamCityAvailableBuildsTileViewModel(TileConfiguration tile, IDashboardController dashboardController, ITileLayoutController layoutController, IServices services, TeamCityAvailableBuildsListControl view, ITeamCityService teamCityService)
         {
+            _services = services;
             _view = view;
             _teamCityService = teamCityService;
             _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
@@ -77,7 +79,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity.AvailableBuilds
         {
             var parameters = new List<IPropertyViewModel>
             {
-                new PropertyViewModel("Title", PropertyType.Text, _tileConfigurationConverter),
+                new TextPropertyViewModel("Title", _tileConfigurationConverter, _services),
                 new DividerPropertyViewModel()
             };
             for (var buildNumber = 1; buildNumber <= MaxNumberOfBuilds; buildNumber++)
@@ -85,9 +87,9 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity.AvailableBuilds
                 string diplayName = $"Display_name_{buildNumber}";
                 string project = $"Project_{buildNumber}";
                 string configuration = $"Configuration_{buildNumber}";
-                parameters.Add(new PropertyViewModel(diplayName, PropertyType.Text, _tileConfigurationConverter));
-                parameters.Add(new PropertyViewModel(project, PropertyType.Text, _tileConfigurationConverter));
-                parameters.Add(new PropertyViewModel(configuration, PropertyType.Text, _tileConfigurationConverter));
+                parameters.Add(new TextPropertyViewModel(diplayName, _tileConfigurationConverter, _services));
+                parameters.Add(new TextPropertyViewModel(project, _tileConfigurationConverter, _services));
+                parameters.Add(new TextPropertyViewModel(configuration, _tileConfigurationConverter, _services));
                 parameters.Add(new DividerPropertyViewModel());
             }
             return parameters.ToArray();

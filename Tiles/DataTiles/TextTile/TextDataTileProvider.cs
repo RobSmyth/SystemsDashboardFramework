@@ -30,7 +30,11 @@ namespace NoeticTools.TeamStatusBoard.Tiles.DataTiles.TextTile
 
         public FrameworkElement CreateTile(TileConfiguration tileConfigturation, TileLayoutController layoutController)
         {
-            return new TextDataTileControl {DataContext = new TextDataTileViewModel(tileConfigturation, _dashboardController, layoutController, _services)};
+            var conduit = new ConfigurationChangeListenerConduit();
+            var tileProperties = new TileProperties(tileConfigturation, conduit, _services);
+            var viewModel = new TextDataTileViewModel(tileConfigturation, _dashboardController, layoutController, _services, tileProperties);
+            conduit.SetTarget(viewModel);
+            return new TextDataTileControl {DataContext = viewModel};
         }
 
         public TileConfiguration CreateDefaultConfiguration()

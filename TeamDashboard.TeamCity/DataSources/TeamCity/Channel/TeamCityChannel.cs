@@ -6,6 +6,7 @@ using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Config.Controllers;
 using NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories;
 using NoeticTools.TeamStatusBoard.Framework.Config.Properties;
+using NoeticTools.TeamStatusBoard.Framework.Config.SuggestionProviders;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
@@ -76,7 +77,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Channel
                 new TextPropertyViewModel("Url", _configurationNamedValues, _services),
                 new TextPropertyViewModel("UserName", _configurationNamedValues, _services),
                 new TextPropertyViewModel("Password", _configurationNamedValues, _services),
-                new PropertyViewModel("AgentsFilter", PropertyType.Text, _configurationNamedValues), 
+                new TextPropertyViewModel("AgentsFilter", _configurationNamedValues, _services), 
             };
 
             const string title = "TeamCity Server Configuration";

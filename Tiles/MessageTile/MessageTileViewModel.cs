@@ -14,11 +14,13 @@ namespace NoeticTools.TeamStatusBoard.Tiles.MessageTile
 {
     internal sealed class MessageTileViewModel : ConfiguredTileViewModelBase, IConfigurationChangeListener, ITileViewModel
     {
+        private readonly IServices _services;
         private IDataValue _text = new NullDataValue();
 
         public MessageTileViewModel(TileConfiguration tile, IDashboardController dashboardController, ITileLayoutController layoutController, IServices services, ITileProperties properties)
             : base(properties)
         {
+            _services = services;
             var parameters = GetConfigurationParameters();
             ConfigureCommand = new TileConfigureCommand(tile, "Message Tile Configuration", parameters, dashboardController, layoutController, services);
             Subscribe();
@@ -26,7 +28,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.MessageTile
 
         private IEnumerable<IPropertyViewModel> GetConfigurationParameters()
         {
-            return new IPropertyViewModel[] { new PropertyViewModel("Message", PropertyType.Text, Configuration) };
+            return new IPropertyViewModel[] { new TextPropertyViewModel("Message", Configuration, _services) };
         }
 
         private void Subscribe()

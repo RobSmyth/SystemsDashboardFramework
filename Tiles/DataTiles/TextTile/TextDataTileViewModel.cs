@@ -7,47 +7,37 @@ using NoeticTools.TeamStatusBoard.Framework.Config.Properties;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles;
 using NoeticTools.TeamStatusBoard.Framework.Services;
+using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 
 
 namespace NoeticTools.TeamStatusBoard.Tiles.DataTiles.TextTile
 {
-    internal sealed class TextDataTileViewModel : NotifyingViewModelBase, IConfigurationChangeListener, ITileViewModel
+    internal sealed class TextDataTileViewModel : ConfiguredTileViewModelBase, IConfigurationChangeListener, ITileViewModel
     {
-        private readonly IServices _services;
-        private readonly TileConfigurationConverter _tileConfigurationConverter;
-        private string _text;
+        private IDataValue _text = new DataValue("", "Label", PropertiesFlags.None, () => { });
 
-        public TextDataTileViewModel(TileConfiguration tile, IDashboardController dashboardController, TileLayoutController layoutController, IServices services)
+        public TextDataTileViewModel(TileConfiguration tileConfiguration, IDashboardController dashboardController, ITileLayoutController layoutController, IServices services, ITileProperties properties)
+            : base(properties)
         {
-            _services = services;
-            _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
-            var parameters = new IPropertyViewModel[] {new PropertyViewModel("PropertyAddress", PropertyType.Text, _tileConfigurationConverter)};
-            ConfigureCommand = new TileConfigureCommand(tile, "Text Data Tile Configuration", parameters, dashboardController, layoutController, services);
-            Update();
+            var tileConfigurationConverter = new TileConfigurationConverter(tileConfiguration, this);
+            var parameters = new IPropertyViewModel[] {new TextPropertyViewModel("PropertyAddress", tileConfigurationConverter, services)};
+            ConfigureCommand = new TileConfigureCommand(tileConfiguration, "Text Data Tile Configuration", parameters, dashboardController, layoutController, services);
+            Subscribe();
         }
 
-        public string Text
-        {
-            get { return _text; }
-            private set
-            {
-                if (value == _text) return;
-                _text = value;
-                OnPropertyChanged();
-            }
-        }
+        public string Text => _text.String;
 
         public ICommand ConfigureCommand { get; }
 
         public void OnConfigurationChanged(TileConfigurationConverter converter)
         {
-            Update();
+            Subscribe();
         }
 
-        private void Update()
+        private void Subscribe()
         {
-            var propertyAddress = _tileConfigurationConverter.GetString("PropertyAddress");
-            Text = _services.DataService.Read<string>(propertyAddress);
+            _text = UpdateSubscription(_text, "Text", "Text");
+            OnPropertyChanged("Text");
         }
     }
 }

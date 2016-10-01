@@ -9,7 +9,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.Properties
     public class CompountColourPropertyViewModel : PropertyViewModel
     {
         public CompountColourPropertyViewModel(string name, INamedValueRepository tileConfiguration, IServices services)
-            : base(name, PropertyType.CompoundAutoCompleteText, tileConfiguration, () => new ColourSuggestionsProvider(services).Get().Cast<object>().ToArray())
+            : base(name, PropertyType.CompoundAutoCompleteText, tileConfiguration, new ColourSuggestionsProvider(services))
         {
         }
     }

@@ -4,6 +4,7 @@ using NoeticTools.TeamStatusBoard.Framework;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
 using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Config.Properties;
+using NoeticTools.TeamStatusBoard.Framework.Config.SuggestionProviders;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles;
 using NoeticTools.TeamStatusBoard.Framework.Services;
@@ -17,7 +18,6 @@ namespace NoeticTools.TeamStatusBoard.Tiles.DaysLeftCountDown
     {
         private readonly IClock _clock;
         private readonly TimeSpan _tickPeriod = TimeSpan.FromSeconds(30);
-        private readonly DaysLeftCoundDownTileView _view;
         private readonly ITimerToken _timerToken;
         private string _daysRemaining;
         private string _title;
@@ -27,17 +27,16 @@ namespace NoeticTools.TeamStatusBoard.Tiles.DaysLeftCountDown
             : base(properties)
         {
             _clock = clock;
-            _view = view;
             ConfigureCommand = new TileConfigureCommand(tile, "Days Count Down Configuration",
                 new IPropertyViewModel[]
                 {
-                    new PropertyViewModel("Title", PropertyType.Text, Configuration),
-                    new PropertyViewModel("End_date", PropertyType.DateTime, Configuration),
-                    new PropertyViewModel("Disabled", PropertyType.Checkbox, Configuration)
+                    new TextPropertyViewModel("Title", Configuration, services),
+                    new PropertyViewModel("End_date", PropertyType.DateTime, Configuration, new NullSuggestionProvider()),
+                    new TextPropertyViewModel("Disabled", Configuration, services)
                 },
                 dashboardController, tileLayoutController, services);
             DaysRemaining = "";
-            _view.DataContext = this;
+            view.DataContext = this;
 
             Subscribe();
 

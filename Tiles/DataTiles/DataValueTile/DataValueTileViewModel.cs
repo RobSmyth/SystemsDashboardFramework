@@ -21,15 +21,13 @@ namespace NoeticTools.TeamStatusBoard.Tiles.DataTiles.DataValueTile
         private readonly TileConfigurationConverter _tileConfigurationConverter;
         private string _text;
 
-        public DataValueTileViewModel(TileConfiguration tile, IDashboardController dashboardController, ITileLayoutController layoutController, IServices services)
+        public DataValueTileViewModel(TileConfiguration tileConfiguration, IDashboardController dashboardController, ITileLayoutController layoutController, IServices services)
         {
             _services = services;
-            _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
+            _tileConfigurationConverter = new TileConfigurationConverter(tileConfiguration, this);
 
-            var dataSourceTypeViewModel = new DataSourceTypePropertyViewModel("Datasource", _tileConfigurationConverter, _services);
-
-            var parameters = GetConfigurationParameters(dataSourceTypeViewModel);
-            ConfigureCommand = new TileConfigureCommand(tile, "Data Value Tile Configuration", parameters, dashboardController, layoutController, services);
+            var parameters = GetConfigurationParameters();
+            ConfigureCommand = new TileConfigureCommand(tileConfiguration, "Data Value Tile Configuration", parameters, dashboardController, layoutController, services);
 
             _services.Timer.QueueCallback(TimeSpan.FromMilliseconds(100), this);
         }
@@ -52,21 +50,19 @@ namespace NoeticTools.TeamStatusBoard.Tiles.DataTiles.DataValueTile
             Update();
         }
 
-        private IPropertyViewModel[] GetConfigurationParameters(INotifyingPropertyViewModel dataSourceTypeViewModel)
+        private IPropertyViewModel[] GetConfigurationParameters()
         {
             var parameters = new IPropertyViewModel[]
             {
-                dataSourceTypeViewModel,
-                new DependantPropertyViewModel("Property", PropertyType.Enum, _tileConfigurationConverter, dataSourceTypeViewModel,
-                    () => _services.DataService.Get((string) dataSourceTypeViewModel.Value).GetAllNames().Cast<object>().ToArray())
+                new TextPropertyViewModel("Value", _tileConfigurationConverter, _services)
             };
             return parameters;
         }
 
         private void Update()
         {
-            var datasource = _services.DataService.Get(_tileConfigurationConverter.GetString("Datasource"));
-            Text = datasource.Read<string>(_tileConfigurationConverter.GetString("Property"));
+            // todo
+            //Text = datasource.Read<string>(_tileConfigurationConverter.GetString("Property"));
         }
 
         void ITimerListener.OnTimeElapsed(TimerToken token)

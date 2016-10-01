@@ -28,14 +28,14 @@ namespace NoeticTools.TeamStatusBoard.Tiles.Guages.Guage180deg
         private string _format = "-";
         private IDataValue _uses360Mode;
 
-        public Guage180DegTileViewModel(TileConfiguration tile, IDashboardController dashboardController, ITileLayoutController layoutController, IServices services, ITileProperties properties)
+        public Guage180DegTileViewModel(TileConfiguration tileConfiguration, IDashboardController dashboardController, ITileLayoutController layoutController, IServices services, ITileProperties properties)
             : base(properties)
         {
             _services = services;
             Formatter = FormatValue;
 
             var parameters = GetConfigurationParameters();
-            ConfigureCommand = new TileConfigureCommand(tile, "Data Value Tile Configuration", parameters, dashboardController, layoutController, services);
+            ConfigureCommand = new TileConfigureCommand(tileConfiguration, "Data Value Tile Configuration", parameters, dashboardController, layoutController, services);
 
             Subscribe();
 

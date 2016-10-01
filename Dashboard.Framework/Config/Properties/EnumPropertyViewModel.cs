@@ -1,13 +1,14 @@
 ﻿using System.Linq;
 using NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories;
+using NoeticTools.TeamStatusBoard.Framework.Config.SuggestionProviders;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Config.Properties
 {
     public class EnumPropertyViewModel : PropertyViewModel
     {
-        public EnumPropertyViewModel(string name, INamedValueRepository tileConfiguration, params object[] values) 
-            : base(name, PropertyType.Enum, tileConfiguration, () => values)
+        public EnumPropertyViewModel(string name, INamedValueRepository tileConfiguration, ISuggestionProvider<string> suggestionProvider) 
+            : base(name, PropertyType.Enum, tileConfiguration, suggestionProvider)
         {
         }
     }

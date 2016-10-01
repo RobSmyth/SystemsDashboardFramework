@@ -11,6 +11,7 @@ using NoeticTools.TeamStatusBoard.Framework;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
 using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Config.Properties;
+using NoeticTools.TeamStatusBoard.Framework.Config.SuggestionProviders;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles;
 using NoeticTools.TeamStatusBoard.Framework.Services;
@@ -139,7 +140,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
                 new CompountTextPropertyViewModel("Titles", Configuration, _services),
                 new CompountColourPropertyViewModel("Colours", Configuration, _services),
                 new TextPropertyViewModel("Format", Configuration, _services),
-                new EnumPropertyViewModel("LegendLocation", Configuration, "None", "Top", "Bottom", "Left", "Right")
+                new EnumPropertyViewModel("LegendLocation", Configuration, new TextListSuggestionProvider("None", "Top", "Bottom", "Left", "Right")),
             };
             return parameters;
         }

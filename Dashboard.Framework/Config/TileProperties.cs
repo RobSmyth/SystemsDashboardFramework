@@ -1,4 +1,5 @@
 using NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories;
+using NoeticTools.TeamStatusBoard.Framework.Config.XmlTypes;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 
 

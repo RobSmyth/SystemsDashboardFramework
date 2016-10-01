@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Windows.Media;
 using NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories;
+using NoeticTools.TeamStatusBoard.Framework.Config.XmlTypes;
 using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 
 

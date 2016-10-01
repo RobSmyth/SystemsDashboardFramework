@@ -119,9 +119,9 @@
     <Compile Include="Config\ViewModels\DataSourceProperty.cs" />
     <Compile Include="Config\ViewModels\DataSourcePropertyViewModel.cs" />
     <Compile Include="Config\ViewModels\DataSourcesViewModel.cs" />
-    <Compile Include="Config\IDashboardConfigurations.cs" />
+    <Compile Include="Config\XmlTypes\IDashboardConfigurations.cs" />
     <Compile Include="Config\IDashboardConfigurationServices.cs" />
-    <Compile Include="Config\IItemConfiguration.cs" />
+    <Compile Include="Config\XmlTypes\IItemConfiguration.cs" />
     <Compile Include="Config\INotifyingPropertyViewModel.cs" />
     <Compile Include="Config\ItemConfigurationBase.cs" />
     <Compile Include="Config\Properties\DividerPropertyViewModel.cs" />
@@ -253,7 +253,7 @@
     <Compile Include="Config\XmlTypes\DashboardServiceConfiguration.cs" />
     <Compile Include="Config\XmlTypes\TileConfiguration.cs" />
     <Compile Include="Config\IConfigurationChangeListener.cs" />
-    <Compile Include="Config\IDashboardConfiguration.cs" />
+    <Compile Include="Config\XmlTypes\IDashboardConfiguration.cs" />
     <Compile Include="Config\Properties\HyperlinkPropertyViewModel.cs" />
     <Compile Include="Config\Properties\PropertyViewModel.cs" />
     <Compile Include="Config\IPropertyViewModel.cs" />

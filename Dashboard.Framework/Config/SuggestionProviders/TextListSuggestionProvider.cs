@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using NoeticTools.TeamStatusBoard.Framework.Config.ViewModels;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Config.SuggestionProviders
@@ -12,9 +14,10 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.SuggestionProviders
         {
             _values = values;
         }
+
         public IEnumerable<object> Get()
         {
-            return _values;
+            return _values.Select(x => new LiteralTextProperty(x));
         }
     }
 }

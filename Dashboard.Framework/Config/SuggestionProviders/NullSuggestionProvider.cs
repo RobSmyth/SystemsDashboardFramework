@@ -8,7 +8,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.SuggestionProviders
     {
         public IEnumerable<object> Get()
         {
-            return new string[0];
+            return new object[0];
         }
     }
 }

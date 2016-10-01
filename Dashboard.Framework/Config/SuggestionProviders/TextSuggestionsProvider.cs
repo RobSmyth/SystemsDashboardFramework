@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using NoeticTools.TeamStatusBoard.Common;
 using NoeticTools.TeamStatusBoard.Framework.Config.ViewModels;
-using NoeticTools.TeamStatusBoard.Framework.Plugins.PropertyEditControls.Text;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 
 

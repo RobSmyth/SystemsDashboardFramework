@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
+using NoeticTools.TeamStatusBoard.Framework.Config.XmlTypes;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Config

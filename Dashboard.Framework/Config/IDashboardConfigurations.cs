@@ -1,3 +1,6 @@
+using NoeticTools.TeamStatusBoard.Framework.Config.XmlTypes;
+
+
 namespace NoeticTools.TeamStatusBoard.Framework.Config
 {
     public interface IDashboardConfigurations

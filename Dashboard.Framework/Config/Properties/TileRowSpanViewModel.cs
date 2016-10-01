@@ -1,4 +1,5 @@
 using NoeticTools.TeamStatusBoard.Common.ViewModels;
+using NoeticTools.TeamStatusBoard.Framework.Config.XmlTypes;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Config.Properties

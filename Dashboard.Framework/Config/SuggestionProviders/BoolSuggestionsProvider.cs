@@ -5,7 +5,7 @@ using NoeticTools.TeamStatusBoard.Framework.Services;
 
 namespace NoeticTools.TeamStatusBoard.Framework.Config.SuggestionProviders
 {
-    public class BoolSuggestionsProvider : ISuggestionProvider<string>
+    public class BoolSuggestionsProvider : ISuggestionProvider<object>
     {
         private readonly IServices _services;
 
@@ -14,7 +14,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.SuggestionProviders
             _services = services;
         }
 
-        public IEnumerable<string> Get()
+        public IEnumerable<object> Get()
         {
             var suggestions = new List<string> { true.ToString(), false.ToString() };
 

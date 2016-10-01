@@ -6,7 +6,7 @@ using NoeticTools.TeamStatusBoard.Framework.Services;
 
 namespace NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity
 {
-    public class TeamCityConfigurationSuggestionProvider : ISuggestionProvider<string>
+    public class TeamCityConfigurationSuggestionProvider : ISuggestionProvider<object>
     {
         private readonly IServices _services;
 
@@ -15,7 +15,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity
             _services = services;
         }
 
-        public IEnumerable<string> Get()
+        public IEnumerable<object> Get()
         {
             var suggestions = new List<string> { "=<property>" };
 

@@ -4,9 +4,9 @@ using System.Linq;
 
 namespace NoeticTools.TeamStatusBoard.Framework.Config.SuggestionProviders
 {
-    public sealed class NullSuggestionProvider : ISuggestionProvider<string>
+    public sealed class NullSuggestionProvider : ISuggestionProvider<object>
     {
-        public IEnumerable<string> Get()
+        public IEnumerable<object> Get()
         {
             return new string[0];
         }

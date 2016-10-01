@@ -101,6 +101,7 @@
     <Compile Include="Config\NamedValueRepositories\INamedValueRepository.cs" />
     <Compile Include="Config\NamedValueRepositories\NullNamedValueReaderProvider.cs" />
     <Compile Include="Config\NamedValueRepositories\NullValueRepository.cs" />
+    <Compile Include="Config\NullPropertyViewModel.cs" />
     <Compile Include="Config\Properties\BoolPropertyViewModel.cs" />
     <Compile Include="Config\Properties\ColourPropertyViewModel.cs" />
     <Compile Include="Config\Properties\CompountColourPropertyViewModel.cs" />
@@ -114,6 +115,8 @@
     <Compile Include="Config\SuggestionProviders\BoolSuggestionsProvider.cs" />
     <Compile Include="Config\SuggestionProviders\ColourSuggestionsProvider.cs" />
     <Compile Include="Config\SuggestionProviders\ISuggestionProvider.cs" />
+    <Compile Include="Config\ViewModels\ColourNameProperty.cs" />
+    <Compile Include="Config\ViewModels\DataSourceProperty.cs" />
     <Compile Include="Config\ViewModels\DataSourcePropertyViewModel.cs" />
     <Compile Include="Config\ViewModels\DataSourcesViewModel.cs" />
     <Compile Include="Config\IDashboardConfigurations.cs" />
@@ -127,7 +130,13 @@
     <Compile Include="Config\ViewModels\DataSourceViewModel.cs" />
     <Compile Include="Config\ViewModels\IDataSourcePropertyViewModel.cs" />
     <Compile Include="Config\ViewModels\IDataSourceViewModel.cs" />
+    <Compile Include="Config\ViewModels\ITextProperty.cs" />
+    <Compile Include="Config\ViewModels\LiteralTextProperty.cs" />
     <Compile Include="Config\ViewModels\NewDataSourceViewModel.cs" />
+    <Compile Include="Config\ViewModels\TextProperty.cs" />
+    <Compile Include="Config\Views\AutoCompletePropertyTextBox.xaml.cs">
+      <DependentUpon>AutoCompletePropertyTextBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Config\Views\PanelWithTitleBarControl.xaml.cs">
       <DependentUpon>PanelWithTitleBarControl.xaml</DependentUpon>
     </Compile>
@@ -276,6 +285,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Config\Views\AutoCompletePropertyTextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Config\Views\PanelWithTitleBarControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

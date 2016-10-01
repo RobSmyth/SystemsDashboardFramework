@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace NoeticTools.TeamStatusBoard.Framework.Config.SuggestionProviders
 {
-    public sealed class TextListSuggestionProvider : ISuggestionProvider<string>
+    public sealed class TextListSuggestionProvider : ISuggestionProvider<object>
     {
         private readonly string[] _values;
 
@@ -12,7 +12,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.SuggestionProviders
         {
             _values = values;
         }
-        public IEnumerable<string> Get()
+        public IEnumerable<object> Get()
         {
             return _values;
         }

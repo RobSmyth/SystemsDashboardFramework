@@ -23,7 +23,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.PropertyEditControls.Com
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 FontSize = 12.0,
                 Name = elementName.Replace('.','_'),
-                DataContext = viewModel
+                DataContext = viewModel,
             };
 
             BindingOperations.SetBinding(comboBox, ComboBox.SelectedItemProperty, new Binding("Value"));

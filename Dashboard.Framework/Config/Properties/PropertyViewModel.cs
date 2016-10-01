@@ -11,10 +11,10 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.Properties
     public class PropertyViewModel : NotifyingViewModelBase, INotifyingPropertyViewModel
     {
         private readonly INamedValueRepository _tileConfiguration;
-        private readonly ISuggestionProvider<string> _suggestionProvider;
+        private readonly ISuggestionProvider<object> _suggestionProvider;
         private object[] _parameters;
 
-        public PropertyViewModel(string name, PropertyType editorType, INamedValueRepository tileConfiguration, ISuggestionProvider<string> suggestionProvider)
+        public PropertyViewModel(string name, PropertyType editorType, INamedValueRepository tileConfiguration, ISuggestionProvider<object> suggestionProvider)
         {
             _tileConfiguration = tileConfiguration;
             _suggestionProvider = suggestionProvider;
@@ -59,7 +59,8 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.Properties
 
         protected void UpdateParameters()
         {
-            Task.Factory.StartNew(() => _suggestionProvider.Get().Cast<object>().ToArray()).ContinueWith(x => Parameters = x.Result);
+            Parameters = _suggestionProvider.Get().ToArray();
+            //Task.Factory.StartNew(() => _suggestionProvider.Get().Cast<object>().ToArray()).ContinueWith(x => Parameters = x.Result);
         }
     }
 }

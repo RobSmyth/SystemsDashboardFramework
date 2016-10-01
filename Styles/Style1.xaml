@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:common="clr-namespace:NoeticTools.TeamStatusBoard.Framework;assembly=NoeticTools.TeamStatusBoard.Common"
+                    xmlns:common="clr-namespace:NoeticTools.TeamStatusBoard.Common;assembly=NoeticTools.TeamStatusBoard.Common"
                     xmlns:converters="clr-namespace:NoeticTools.TeamStatusBoard.Common.Converters;assembly=NoeticTools.TeamStatusBoard.Common"
                     xmlns:common1="clr-namespace:NoeticTools.TeamStatusBoard.Common;assembly=NoeticTools.TeamStatusBoard.Common">
 
@@ -21,7 +21,7 @@
     <SolidColorBrush x:Key="BackgroundBrush">#FF292929</SolidColorBrush>
     <SolidColorBrush x:Key="ForegroundBrush">WhiteSmoke</SolidColorBrush>
     <SolidColorBrush x:Key="GridHeaderRowBrush">#FF448032</SolidColorBrush>
-    
+
     <Style x:Key="TextboxStyle" TargetType="TextBlock">
         <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}"/>
     </Style>

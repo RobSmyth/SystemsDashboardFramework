@@ -7,7 +7,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.Properties
 {
     public class EnumPropertyViewModel : PropertyViewModel
     {
-        public EnumPropertyViewModel(string name, INamedValueRepository tileConfiguration, ISuggestionProvider<string> suggestionProvider) 
+        public EnumPropertyViewModel(string name, INamedValueRepository tileConfiguration, ISuggestionProvider<object> suggestionProvider) 
             : base(name, PropertyType.Enum, tileConfiguration, suggestionProvider)
         {
         }

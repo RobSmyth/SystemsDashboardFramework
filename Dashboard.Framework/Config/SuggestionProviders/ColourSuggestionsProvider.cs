@@ -2,13 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Windows;
 using System.Windows.Media;
+using System.Windows.Shapes;
+using NoeticTools.TeamStatusBoard.Common;
+using NoeticTools.TeamStatusBoard.Framework.Config.ViewModels;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Config.SuggestionProviders
 {
-    public class ColourSuggestionsProvider : ISuggestionProvider<string>
+    public class ColourSuggestionsProvider : ISuggestionProvider<object>
     {
         private readonly IServices _services;
 
@@ -17,16 +21,17 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.SuggestionProviders
             _services = services;
         }
 
-        public IEnumerable<string> Get()
+        public IEnumerable<object> Get()
         {
+            var suggestions = new List<ITextProperty>();
             var colorProperties = typeof(Colors).GetProperties(BindingFlags.Static | BindingFlags.Public);
             var colors = colorProperties.Select(prop => prop.Name);
-            var suggestions = colors.OrderBy(x => x).ToList();
+            suggestions.AddRange(colors.Select(y => new ColourNameProperty(y)).OrderBy(x => x));
 
             var dataSources = _services.DataService.GetAllDataSources();
             foreach (var dataSource in dataSources)
             {
-                suggestions.AddRange(dataSource.GetAllNames().Select(x => $"={dataSource.TypeName}.{x}").OrderBy(y => y));
+                suggestions.AddRange(dataSource.GetAllNames().Select(x => new DataSourceProperty($"={dataSource.TypeName}.{x}")).OrderBy(y => y));
             }
 
             return suggestions.ToArray();

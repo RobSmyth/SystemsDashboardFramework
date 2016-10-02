@@ -2,7 +2,6 @@
 using System.Windows.Controls;
 using NoeticTools.TeamStatusBoard.Framework.Config.Properties;
 using NoeticTools.TeamStatusBoard.Framework.Config.ViewModels;
-using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Config.Views
@@ -27,7 +26,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.Views
                     viewModel.Value.String = textProperty.Text;
                 }
             };
-            //comboBox.LostFocus += (a, b) => viewModel.Value.String = comboBox.Text;
         }
     }
 }

@@ -22,7 +22,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.Properties
             _suggestionProvider = suggestionProvider;
             Name = name;
             EditorType = editorType;
-            _value = Subscribe(new DataValue("Value", "", PropertiesFlags.None, () => { }), "Value", _tileConfiguration.GetString(Name));
+            _value = Subscribe(new DataValue(name, "", PropertiesFlags.None, () => { }), name, _tileConfiguration.GetString(Name));
         }
 
         public IDataValue Value

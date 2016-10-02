@@ -26,7 +26,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.PropertyEditControls.Tex
                 DataContext = viewModel
             };
 
-            var binding = new Binding("Value");
+            var binding = new Binding("Value.String");
             BindingOperations.SetBinding(textbox, TextBox.TextProperty, binding);
 
             return textbox;

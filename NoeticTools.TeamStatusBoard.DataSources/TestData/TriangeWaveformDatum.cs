@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Media;
 using NoeticTools.TeamStatusBoard.Common;
-using NoeticTools.TeamStatusBoard.Framework;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
@@ -77,6 +76,12 @@ namespace NoeticTools.TeamStatusBoard.DataSources.TestData
         public bool NotSet => false;
 
         public SolidColorBrush SolidColourBrush => _inner.SolidColourBrush;
+
+        public int Integer
+        {
+            get { return _inner.Integer; }
+            set { _inner.Integer = value; }
+        }
 
         void ITimerListener.OnTimeElapsed(TimerToken token)
         {

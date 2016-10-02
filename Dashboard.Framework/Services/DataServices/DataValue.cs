@@ -56,6 +56,12 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
             set { Instance = value; }
         }
 
+        public int Integer
+        {
+            get { return NotSet ? default(int) : Convert.ToInt32(Instance); }
+            set { Instance = value; }
+        }
+
         public Color Colour
         {
             get

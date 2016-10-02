@@ -1,3 +1,6 @@
+using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
+
+
 namespace NoeticTools.TeamStatusBoard.Framework.Config.Properties
 {
     public class DividerPropertyViewModel : IPropertyViewModel
@@ -15,6 +18,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.Properties
         public string Name { get; }
         public PropertyType EditorType { get; }
         public object[] Parameters { get; }
-        public object Value { get; set; }
+        public IDataValue Value { get; set; }
     }
 }

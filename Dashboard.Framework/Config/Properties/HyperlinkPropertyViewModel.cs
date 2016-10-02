@@ -1,4 +1,5 @@
 ﻿using System.Windows.Input;
+using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Config.Properties
@@ -10,13 +11,13 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.Properties
         {
             Parameters = new object[] {text, command};
             EditorType = PropertyType.Hyperlink;
-            Value = text;
+            Value = new DataValue("Hyperlink", text, PropertiesFlags.None, () => {});
             Name = string.Empty;
         }
 
         public string Name { get; }
         public PropertyType EditorType { get; }
         public object[] Parameters { get; }
-        public object Value { get; set; }
+        public IDataValue Value { get; set; }
     }
 }

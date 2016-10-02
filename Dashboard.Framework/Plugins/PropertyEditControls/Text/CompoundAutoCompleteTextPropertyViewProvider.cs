@@ -25,16 +25,16 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.PropertyEditControls.Tex
         public FrameworkElement Create(IPropertyViewModel viewModel, int rowIndex, string elementName)
         {
             var valuesPanel = new StackPanel() { HorizontalAlignment = HorizontalAlignment.Stretch, Orientation = Orientation.Vertical };
-            var values = ((string) viewModel.Value).Split(',');
+            var values = (viewModel.Value.String).Split(',');
             foreach (var value in values)
             {
-                valuesPanel.Children.Add(CreatePropertyViewElement(viewModel, value, () => viewModel.Value = GetCompountValue(valuesPanel)));
+                valuesPanel.Children.Add(CreatePropertyViewElement(viewModel, value, () => viewModel.Value.String = GetCompountValue(valuesPanel)));
             }
 
             var panel = new StackPanel() { HorizontalAlignment = HorizontalAlignment.Stretch, Orientation = Orientation.Vertical };
             panel.Children.Add(valuesPanel);
             var addButton = new Button() { Content = "Add", HorizontalAlignment = HorizontalAlignment.Right, Margin = new Thickness(1), Padding = new Thickness(4,1,4,1)};
-            addButton.Click += (a,b) => valuesPanel.Children.Add(CreatePropertyViewElement(viewModel, "", () => viewModel.Value = GetCompountValue(valuesPanel)));
+            addButton.Click += (a,b) => valuesPanel.Children.Add(CreatePropertyViewElement(viewModel, "", () => viewModel.Value.String = GetCompountValue(valuesPanel)));
             panel.Children.Add(addButton);
 
             return new Border() {BorderThickness = new Thickness(1), BorderBrush = System.Windows.Media.Brushes.Gray, Child = panel, Padding = new Thickness(1)};

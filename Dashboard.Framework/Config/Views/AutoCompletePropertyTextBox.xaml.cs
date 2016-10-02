@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Windows.Controls;
 using NoeticTools.TeamStatusBoard.Framework.Config.Properties;
+using NoeticTools.TeamStatusBoard.Framework.Config.ViewModels;
+using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Config.Views
@@ -15,9 +17,17 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.Views
         {
             InitializeComponent();
             comboBox.DataContext = viewModel;
-            comboBox.Text = (string)viewModel.Value;
+            comboBox.Text = viewModel.Value.String;
             comboBox.GotFocus += (a, b) => comboBox.IsDropDownOpen = false;
-            comboBox.LostFocus += (a, b) => viewModel.Value = comboBox.Text;
+            comboBox.LostFocus += (a, b) =>
+            {
+                var textProperty = comboBox.SelectedItem as ITextProperty;
+                if (textProperty != null)
+                {
+                    viewModel.Value.String = textProperty.Text;
+                }
+            };
+            //comboBox.LostFocus += (a, b) => viewModel.Value.String = comboBox.Text;
         }
     }
 }

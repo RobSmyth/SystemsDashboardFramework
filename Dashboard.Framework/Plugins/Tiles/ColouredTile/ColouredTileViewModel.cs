@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Input;
 using System.Windows.Media;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
@@ -9,55 +10,48 @@ using NoeticTools.TeamStatusBoard.Framework.Config.SuggestionProviders;
 using NoeticTools.TeamStatusBoard.Framework.Config.XmlTypes;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Services;
+using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.ColouredTile
 {
     public class ColouredTileViewModel : ConfiguredTileViewModelBase, IConfigurationChangeListener, ITileViewModel
     {
-        private readonly INamedValueRepository _tileConfigurationConverter;
-        private Brush _background;
+        private readonly IServices _services;
+        private IDataValue _background = new DataValue("", "Gray", PropertiesFlags.None, () => { });
 
         public ColouredTileViewModel(TileConfiguration tile, IDashboardController dashboardController, ITileLayoutController layoutController, IServices services, ColouredTileControl view, ITileProperties properties)
             : base(properties)
         {
-            _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
-            var parameters = new IPropertyViewModel[] {new PropertyViewModel("Colour", PropertyType.Text, _tileConfigurationConverter, new ColourSuggestionsProvider(services))};
+            _services = services;
+            var parameters = GetConfigurationParameters();
             ConfigureCommand = new TileConfigureCommand(tile, "Coloured Tile Configuration", parameters, dashboardController, layoutController, services);
+            Subscribe();
             view.DataContext = this;
-            Update();
         }
 
-        public Brush Background
-        {
-            get { return _background; }
-            private set
-            {
-                if (value.Equals(_background)) return;
-                _background = value;
-                OnPropertyChanged();
-            }
-        }
+        public Brush Background => _background.SolidColourBrush;
 
         public ICommand ConfigureCommand { get; }
 
-        public void OnConfigurationChanged(INamedValueRepository converter)
+        private IEnumerable<IPropertyViewModel> GetConfigurationParameters()
         {
-            Update();
+            var parameters = new IPropertyViewModel[]
+            {
+                new ColourPropertyViewModel("Background", Configuration, _services),
+            };
+            return parameters;
         }
 
-        private void Update()
+        private void Subscribe()
         {
-            try
-            {
-                var value = _tileConfigurationConverter.GetString("Colour", "Gray");
-                Background = new SolidColorBrush((Color) ColorConverter.ConvertFromString(value));
-            }
-            catch (Exception)
-            {
-                Background = Brushes.Red;
-                _tileConfigurationConverter.SetParameter("Colour", "Red");
-            }
+            _background = UpdateSubscription(_background, "Background", "Gray");
+            OnPropertyChanged("Background");
+        }
+
+        public void OnConfigurationChanged(INamedValueRepository converter)
+        {
+            Subscribe();
         }
     }
 }

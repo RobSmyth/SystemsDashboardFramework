@@ -24,7 +24,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
         }
 
         public EventBroadcaster Broadcaster { get; }
-
         public string Name { get; }
         public PropertiesFlags Flags { get; set; }
         public List<string> Tags { get; }
@@ -87,6 +86,11 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
         {
             get { return Convert.ToBoolean(Instance); }
             set { Instance = value; }
+        }
+
+        public override bool Equals(object obj)
+        {
+            return _instance.Equals(obj);    
         }
     }
 }

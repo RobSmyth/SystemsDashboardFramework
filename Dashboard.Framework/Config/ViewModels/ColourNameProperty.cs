@@ -17,16 +17,16 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.ViewModels
         public FrameworkElement Image { get; }
         public string Text { get; }
 
-        private FrameworkElement GetRectangle(string colourName)
+        private static FrameworkElement GetRectangle(string colourName)
         {
             var color = (Color) ColorConverter.ConvertFromString(colourName);
             var rect = new Rectangle
             {
-                Fill = new SolidColorBrush(color),
                 Width = 14,
                 Height = 14,
-                Stroke = new SolidColorBrush(Colors.Black),
                 Margin = new Thickness(1),
+                Fill = new SolidColorBrush(color),
+                Stroke = new SolidColorBrush(Colors.Black),
             };
             return rect;
         }
@@ -39,6 +39,11 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.ViewModels
                 return Text.CompareTo(otherProperty.Text);
             }
             return GetHashCode().CompareTo(obj.GetHashCode());
+        }
+
+        public override string ToString()
+        {
+            return Text;
         }
     }
 }

@@ -1,5 +1,6 @@
 using NoeticTools.TeamStatusBoard.Common.ViewModels;
 using NoeticTools.TeamStatusBoard.Framework.Config.XmlTypes;
+using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Config.Properties
@@ -17,13 +18,13 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.Properties
             Parameters = new object[0];
         }
 
-        public object Value
+        public IDataValue Value
         {
-            get { return _tile.ColumnSpan.ToString(); }
+            get { return new DataValue("", _tile.ColumnSpan.ToString(), PropertiesFlags.None, () => {}); }// todo
             set
             {
                 int newValue;
-                if (int.TryParse((string) value, out newValue))
+                if (int.TryParse(value.String, out newValue))
                 {
                     if (_tile.ColumnSpan == newValue || newValue > MaxSpan || newValue <= 0)
                     {

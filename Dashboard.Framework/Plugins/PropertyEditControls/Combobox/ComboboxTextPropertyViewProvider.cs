@@ -5,6 +5,7 @@ using System.Windows.Data;
 using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Config.Properties;
 using NoeticTools.TeamStatusBoard.Framework.Registries;
+using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Plugins.PropertyEditControls.Combobox
@@ -29,7 +30,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.PropertyEditControls.Com
             BindingOperations.SetBinding(comboBox, ComboBox.SelectedItemProperty, new Binding("Value"));
             BindingOperations.SetBinding(comboBox, ComboBox.ItemsSourceProperty, new Binding("Parameters"));
 
-            comboBox.SelectionChanged += (a, b) => viewModel.Value = comboBox.SelectedItem;
+            comboBox.SelectionChanged += (a, b) => viewModel.Value = (IDataValue)comboBox.SelectedItem;
 
             return comboBox;
         }

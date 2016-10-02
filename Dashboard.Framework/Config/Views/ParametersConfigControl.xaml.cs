@@ -8,6 +8,7 @@ using System.Windows.Input;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
 using NoeticTools.TeamStatusBoard.Framework.Config.Properties;
 using NoeticTools.TeamStatusBoard.Framework.Services;
+using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Config.Views
@@ -55,7 +56,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.Views
             if (propertyViewModel.EditorType == PropertyType.Enum)
             {
                 var combobox = (ComboBox) PlaceholderGrid.Children.Cast<FrameworkElement>().Single(x => x.Name.Equals(name));
-                propertyViewModel.Value = combobox.SelectedValue;
+                propertyViewModel.Value = ((IDataValue)combobox.SelectedValue);
             }
         }
 
@@ -139,7 +140,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.Views
                 FontSize = 12.0,
                 Name = GetUIlementName(propertyViewModel),
                 DataContext = propertyViewModel,
-                Password = (string) propertyViewModel.Value
+                Password = propertyViewModel.Value.String,
             };
 
             return passwordBox;

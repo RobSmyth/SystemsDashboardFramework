@@ -140,7 +140,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config
 
         public IDataValue GetDatum(string name, object defaultValue = null)
         {
-            throw new NotImplementedException();
+            return new DataValue(name, GetParameter(name), PropertiesFlags.None, () => {});
         }
 
         public IEnumerable<IDataValue> GetDatums(string name)

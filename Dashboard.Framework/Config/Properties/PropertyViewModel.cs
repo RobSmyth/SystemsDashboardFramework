@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using NoeticTools.TeamStatusBoard.Common.ViewModels;
 using NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories;
 using NoeticTools.TeamStatusBoard.Framework.Config.SuggestionProviders;
+using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Config.Properties
@@ -13,6 +14,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.Properties
         private readonly INamedValueRepository _tileConfiguration;
         private readonly ISuggestionProvider<object> _suggestionProvider;
         private object[] _parameters;
+        private IDataValue _value;
 
         public PropertyViewModel(string name, PropertyType editorType, INamedValueRepository tileConfiguration, ISuggestionProvider<object> suggestionProvider)
         {
@@ -20,16 +22,17 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.Properties
             _suggestionProvider = suggestionProvider;
             Name = name;
             EditorType = editorType;
+            _value = Subscribe(new DataValue("Value", "", PropertiesFlags.None, () => { }), "Value", _tileConfiguration.GetString(Name));
         }
 
-        public object Value
+        public IDataValue Value
         {
-            get { return _tileConfiguration.GetParameter(Name); }
+            get { return _value; }
             set
             {
-                var currentValue = _tileConfiguration.GetParameter(Name);
-                if (Equals(value, currentValue)) return;
-                _tileConfiguration.SetParameter(Name, value);
+                if (Equals(value, _value)) return;
+                _value = value;
+                _tileConfiguration.SetParameter(Name, _value.String);
                 OnPropertyChanged();
             }
         }
@@ -57,10 +60,34 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.Properties
             }
         }
 
-        protected void UpdateParameters()
+        private void UpdateParameters()
         {
             Parameters = _suggestionProvider.Get().ToArray();
-            //Task.Factory.StartNew(() => _suggestionProvider.Get().Cast<object>().ToArray()).ContinueWith(x => Parameters = x.Result);
+        }
+
+        private IDataValue Subscribe(IDataValue existing, string propertyName, string defaultValue)
+        {
+            var dataValue = string.IsNullOrWhiteSpace(propertyName) ? (IDataValue)new NullDataValue() 
+                : new DataValue("Value", _tileConfiguration.GetString(propertyName, defaultValue), PropertiesFlags.ReadWrite, () => { });
+
+            if (ReferenceEquals(existing, dataValue))
+            {
+                return existing;
+            }
+
+            if (dataValue.NotSet)
+            {
+                dataValue.Instance = defaultValue;
+            }
+
+            existing.Broadcaster.RemoveListener(this);
+            dataValue.Broadcaster.AddListener(this, () =>
+            {
+                _tileConfiguration.SetParameter(Name, dataValue.String);
+                OnPropertyChanged(propertyName);
+            });
+
+            return dataValue;
         }
     }
 }

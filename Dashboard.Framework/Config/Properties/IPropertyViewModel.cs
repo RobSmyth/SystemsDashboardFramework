@@ -1,4 +1,7 @@
-﻿namespace NoeticTools.TeamStatusBoard.Framework.Config.Properties
+﻿using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
+
+
+namespace NoeticTools.TeamStatusBoard.Framework.Config.Properties
 {
     public interface IPropertyViewModel
     {
@@ -10,6 +13,6 @@
         PropertyType EditorType { get; }
 
         object[] Parameters { get; }
-        object Value { get; set; }
+        IDataValue Value { get; set; }
     }
 }

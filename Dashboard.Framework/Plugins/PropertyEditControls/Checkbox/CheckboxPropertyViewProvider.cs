@@ -17,7 +17,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.PropertyEditControls.Che
 
         public FrameworkElement Create(IPropertyViewModel viewModel, int rowIndex, string elementName)
         {
-            var value = (string) viewModel.Value;
+            var value = viewModel.Value.String;
             var isChecked = !string.IsNullOrWhiteSpace(value) && bool.Parse(value);
             var checkbox = new CheckBox
             {

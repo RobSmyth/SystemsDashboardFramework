@@ -5,44 +5,12 @@ using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 
 namespace NoeticTools.TeamStatusBoard.Framework.Config.Properties
 {
-    public class TileColumnSpanViewModel : NotifyingViewModelBase, INotifyingPropertyViewModel
+    public class TileColumnSpanViewModel : TileSpanViewModelBase
     {
-        private const int MaxSpan = 50;
-        private readonly TileConfiguration _tile;
-
-        public TileColumnSpanViewModel(TileConfiguration tile)
+        public TileColumnSpanViewModel(TileConfiguration tileConfiguration) : base(tileConfiguration, "Column span")
         {
-            _tile = tile;
-            Name = "Column span";
-            EditorType = PropertyType.Text; // todo - numericspin
-            Parameters = new object[0];
         }
 
-        public IDataValue Value
-        {
-            get { return new DataValue("", _tile.ColumnSpan.ToString(), PropertiesFlags.None, () => {}); }// todo
-            set
-            {
-                int newValue;
-                if (int.TryParse(value.String, out newValue))
-                {
-                    if (_tile.ColumnSpan == newValue || newValue > MaxSpan || newValue <= 0)
-                    {
-                        return;
-                    }
-                    _tile.ColumnSpan = newValue;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public void UpdateParameters()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public string Name { get; }
-        public PropertyType EditorType { get; }
-        public object[] Parameters { get; set; }
+        protected override int Span { get { return TileConfiguration.ColumnSpan; } set { TileConfiguration.ColumnSpan = value; } }
     }
 }

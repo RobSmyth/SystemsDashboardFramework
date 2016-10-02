@@ -109,6 +109,7 @@
     <Compile Include="Config\Properties\EnumPropertyViewModel.cs" />
     <Compile Include="Config\Properties\PropertyEditorType.cs" />
     <Compile Include="Config\Properties\TextPropertyViewModel.cs" />
+    <Compile Include="Config\Properties\TileSpanViewModelBase.cs" />
     <Compile Include="Config\SuggestionProviders\NullSuggestionProvider.cs" />
     <Compile Include="Config\SuggestionProviders\TextListSuggestionProvider.cs" />
     <Compile Include="Config\TileProperties.cs" />

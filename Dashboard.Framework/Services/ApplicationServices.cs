@@ -40,10 +40,16 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services
         public ITileProviderRegistry TileProviders { get; }
         public IPropertyEditControlRegistry PropertyEditControlProviders { get; }
         public KeyboardHandler KeyboardHandler { get; }
-        public IClock Clock { get; set; }
-        public IDashboardController DashboardController { get; set; }
-        public IDashboardConfigurations Configuration { get; set; }
-        public IRunOptions RunOptions { get; set; }
+        public IClock Clock { get; }
+        public IDashboardController DashboardController { get; }
+        public IDashboardConfigurations Configuration { get; }
+        public IRunOptions RunOptions { get; }
+
+        public IEnumerable<T> GetServicesOfType<T>()
+            where T : class, IService
+        {
+            return _services.Where(x => x as T != null).Cast<T>().ToArray();
+        }
 
         public T GetService<T>(string serviceName)
             where T : IService

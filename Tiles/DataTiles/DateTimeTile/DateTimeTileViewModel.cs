@@ -4,6 +4,7 @@ using NoeticTools.TeamStatusBoard.Common.ViewModels;
 using NoeticTools.TeamStatusBoard.Framework;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
 using NoeticTools.TeamStatusBoard.Framework.Config;
+using NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories;
 using NoeticTools.TeamStatusBoard.Framework.Config.Properties;
 using NoeticTools.TeamStatusBoard.Framework.Config.XmlTypes;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
@@ -45,7 +46,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.DataTiles.DateTimeTile
 
         public ICommand ConfigureCommand { get; }
 
-        public void OnConfigurationChanged(TileConfigurationConverter converter)
+        public void OnConfigurationChanged(INamedValueRepository converter)
         {
             Update();
         }

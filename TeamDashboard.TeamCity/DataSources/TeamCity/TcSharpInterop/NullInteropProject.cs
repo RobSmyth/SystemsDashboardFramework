@@ -4,11 +4,11 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.TcSharpInter
 {
     public sealed class NullInteropProject : TeamCitySharp.DomainEntities.Project
     {
-        public NullInteropProject(string name)
+        public NullInteropProject(string name, string description = "Unknown", string id= "")
         {
             Name = name;
-            Description = "Unknown";
-            Id = "";
+            Description = description;
+            Id = id;
         }
     }
 }

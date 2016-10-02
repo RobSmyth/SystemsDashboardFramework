@@ -14,33 +14,13 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity
 
         public void Register(IServices services)
         {
-            Register(services, "TeamCity");
-            RegisterTestService(services, "TestData_TeamCity");
-        }
+            new TeamCityDataSourcePlugin("TeamCity").Register(services);
+            new TeamCityAgentStatusTilePlugin("TeamCity").Register(services);
+            new TeamCityLastBuildStatusTilePlugin("TeamCity").Register(services);
+            new TeamCityLAvailbleBuildSTilePlugin("TeamCity").Register(services);
 
-        private static void RegisterTestService(IServices services, string testServiceName)
-        {
-            Register(services, testServiceName);
-            new TeamCityTestDataPlugin(testServiceName).Register(services);
-        }
-
-        private static void Register(IServices services, string serviceName)
-        {
-            foreach (var plugin in GetTeamCityServicePlugins(serviceName))
-            {
-                plugin.Register(services);
-            }
-        }
-
-        private static IEnumerable<IPlugin> GetTeamCityServicePlugins(string serviceName)
-        {
-            return new IPlugin[]
-            {
-                new TeamCityDataSourcePlugin(serviceName),
-                new TeamCityAgentStatusTilePlugin(serviceName),
-                new TeamCityLastBuildStatusTilePlugin(serviceName),
-                new TeamCityLAvailbleBuildSTilePlugin(serviceName),
-            };
+            new TeamCityDataSourcePlugin("TestData_TeamCity").Register(services);
+            new TeamCityTestDataPlugin("TestData_TeamCity").Register(services);
         }
     }
 }

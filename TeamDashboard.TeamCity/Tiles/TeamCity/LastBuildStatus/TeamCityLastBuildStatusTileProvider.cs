@@ -19,6 +19,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity.LastBuildStatus
 
         public TeamCityLastBuildStatusTileProvider(ITeamCityChannel channel, IDashboardController dashboardController, IServices services)
         {
+            // todo - should not be passing in channel here. Breaks having multiple team city services.
             _channel = channel;
             _dashboardController = dashboardController;
             _services = services;
@@ -35,11 +36,10 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity.LastBuildStatus
 
         public FrameworkElement CreateTile(TileConfiguration tileConfigturation, TileLayoutController layoutController)
         {
-            var teamCityService = _services.GetService<ITeamCityService>("TeamCity");
             var view = new TeamCityBuildStatusTileControl();
             var conduit = new ConfigurationChangeListenerConduit();
             var tileProperties = new TileProperties(tileConfigturation, conduit, _services);
-            var viewModel = new TeamCityLastBuildStatusTileViewModel(_channel, tileConfigturation, _dashboardController, layoutController, _services, view, teamCityService, tileProperties);
+            var viewModel = new TeamCityLastBuildStatusTileViewModel(_channel, tileConfigturation, _dashboardController, layoutController, _services, view, tileProperties);
             conduit.SetTarget(viewModel);
             return view;
         }

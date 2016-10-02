@@ -57,17 +57,18 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Agents
         {
             lock (_syncRoot)
             {
-                if (!Has(name))
+                var shortName = GetShortName(name);
+                if (!Has(shortName))
                 {
-                    Add(name);
+                    Add(shortName);
                 }
-                return _buildAgents[name];
+                return _buildAgents[shortName];
             }
         }
 
         public bool Has(string name)
         {
-            return _buildAgents.ContainsKey(name);
+            return _buildAgents.ContainsKey(GetShortName(name));
         }
 
         public void AddListener(IDataChangeListener listener)
@@ -102,6 +103,16 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Agents
 
             UpdateCounts();
             NotifyValueChanged();
+        }
+
+        private string GetShortName(string name)
+        {
+            var longNamePrefix = $"{_dataSource.TypeName}.Agents.";
+            if (name.StartsWith(longNamePrefix))
+            {
+                return name.Substring(longNamePrefix.Length);
+            }
+            return name;
         }
 
         private bool IsFiltered(string name)

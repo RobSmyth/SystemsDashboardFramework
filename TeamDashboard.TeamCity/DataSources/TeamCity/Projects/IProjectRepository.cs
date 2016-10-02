@@ -9,5 +9,6 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Projects
         IProject Get(string name);
         IProject[] GetAll();
         void AddListener(IDataChangeListener listener);
+        void Add(IProject project);
     }
 }

@@ -12,13 +12,13 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Projects
     public sealed class ProjectRepository : IProjectRepository
     {
         private readonly ITcSharpTeamCityClient _teamCityClient;
-        private readonly ProjectFactory _projectFactory;
+        private readonly IProjectFactory _projectFactory;
         private readonly ILog _logger;
         private readonly IDictionary<string, IProject> _projects = new Dictionary<string, IProject>();
         private readonly object _syncRoot = new object();
         private readonly IList<IDataChangeListener> _listeners = new List<IDataChangeListener>();
 
-        public ProjectRepository(ITcSharpTeamCityClient teamCityClient, ProjectFactory projectFactory, IConnectedStateTicker ticker)
+        public ProjectRepository(ITcSharpTeamCityClient teamCityClient, IProjectFactory projectFactory, IConnectedStateTicker ticker)
         {
             _teamCityClient = teamCityClient;
             _projectFactory = projectFactory;
@@ -36,14 +36,23 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Projects
             return _projects.Values.ToArray();
         }
 
+        public void Add(IProject project)
+        {
+            lock (_syncRoot)
+            {
+                _projects.Add(project.Name, project);
+                NotifyValueChanged();
+            }
+        }
+
         public IProject Add(string name)
         {
             lock (_syncRoot)
             {
                 var project = new NullInteropProject(name);
-                _projects.Add(name.ToLower(), _projectFactory.Create(project));
+                _projects.Add(name, _projectFactory.Create(project));
                 NotifyValueChanged();
-                return _projects[name.ToLower()];
+                return _projects[name];
             }
         }
 
@@ -51,11 +60,11 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Projects
         {
             lock (_syncRoot)
             {
-                if (!_projects.ContainsKey(name.ToLower()))
+                if (!_projects.ContainsKey(name))
                 {
                     Add(name);
                 }
-                return _projects[name.ToLower()];
+                return _projects[name];
             }
         }
 
@@ -73,15 +82,15 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Projects
             }
             var changed = false;
 
-            foreach (var teamCitySharpProject in teamCityProjects.Where(teamCityProject => !_projects.ContainsKey(teamCityProject.Name.ToLower())))
+            foreach (var teamCitySharpProject in teamCityProjects.Where(teamCityProject => !_projects.ContainsKey(teamCityProject.Name)))
             {
-                _projects.Add(teamCitySharpProject.Name.ToLower(), _projectFactory.Create(teamCitySharpProject));
+                _projects.Add(teamCitySharpProject.Name, _projectFactory.Create(teamCitySharpProject));
                 changed = true;
             }
 
             foreach (var teamCityProject in teamCityProjects)
             {
-                var project = _projects[teamCityProject.Name.ToLower()];
+                var project = _projects[teamCityProject.Name];
                 project.Update(teamCityProject);
                 updated.Add(project);
             }

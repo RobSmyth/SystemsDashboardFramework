@@ -1,9 +1,12 @@
-﻿using System.Windows.Input;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Input;
 using log4net;
 using NoeticTools.TeamStatusBoard.Common.ViewModels;
 using NoeticTools.TeamStatusBoard.Framework;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
 using NoeticTools.TeamStatusBoard.Framework.Config;
+using NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories;
 using NoeticTools.TeamStatusBoard.Framework.Config.Properties;
 using NoeticTools.TeamStatusBoard.Framework.Config.XmlTypes;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
@@ -26,23 +29,20 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity.AgentStatus
         private IBuildAgent _buildAgent = new NullBuildAgent("");
         private static int _nextInstanceId = 1;
 
-        public TeamCityAgentStatusTileViewModel(ITeamCityChannel channel, TileConfiguration tile, 
-            IDashboardController dashboardController, ITileLayoutController tileLayoutController, IServices services, 
-            TeamCityAgentStatusTileControl view, ITeamCityService teamCityService)
+        public TeamCityAgentStatusTileViewModel(ITeamCityChannel channel, TileConfiguration tileConfiguration, IDashboardController dashboardController, ITileLayoutController tileLayoutController, IServices services, ITeamCityAgentStatusTileControl view)
         {
             lock (_syncRoot)
             {
                 _logger = LogManager.GetLogger($"Tiles.TeamCity.Agent.{_nextInstanceId++}");
             }
 
-            Tile = tile;
             _services = services;
-            _teamCityService = teamCityService;
-            _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
+            _teamCityService = _services.GetServicesOfType<ITeamCityService>().First(); // todo - hack to introduce concept of multiple TeamCity services
+            _tileConfigurationConverter = new TileConfigurationConverter(tileConfiguration, this);
             ConfigureServiceCommand = new DataSourceConfigureCommand(channel);
 
             var configurationParameters = GetConfigurationParameters();
-            ConfigureCommand = new TileConfigureCommand(Tile, "Build Agent Configuration", configurationParameters, dashboardController, tileLayoutController, services);
+            ConfigureCommand = new TileConfigureCommand(tileConfiguration, "Build Agent Configuration", configurationParameters, dashboardController, tileLayoutController, services);
             GetBuildAgent();
 
             view.DataContext = this;
@@ -63,7 +63,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity.AgentStatus
 
         public ICommand ConfigureCommand { get; }
 
-        public void OnConfigurationChanged(TileConfigurationConverter converter)
+        public void OnConfigurationChanged(INamedValueRepository converter)
         {
             _logger.Debug("Configuration changed.");
             GetBuildAgent();
@@ -71,19 +71,26 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity.AgentStatus
 
         private void GetBuildAgent()
         {
-            BuildAgent = _teamCityService.Agents.Get(_tileConfigurationConverter.GetString("AgentName"));
+            var name = _tileConfigurationConverter.GetString("Agent");
+
+            // todo - move this is a teamcity service aggregator
+            foreach (var service in _services.GetServicesOfType<ITeamCityService>())
+            {
+                if (service.Agents.Has(name))
+                {
+                    BuildAgent = service.Agents.Get(name);
+                }
+            }
         }
 
-        private IPropertyViewModel[] GetConfigurationParameters()
+        private IEnumerable<IPropertyViewModel> GetConfigurationParameters()
         {
             var configurationParameters = new IPropertyViewModel[]
             {
-                new TextPropertyViewModel("AgentName", _tileConfigurationConverter, _services)
+                new TextPropertyViewModel("Agent", _tileConfigurationConverter, _services)
             };
             return configurationParameters;
         }
-
-        private TileConfiguration Tile { get; }
 
         private ICommand ConfigureServiceCommand { get; }
     }

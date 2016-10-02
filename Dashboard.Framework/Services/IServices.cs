@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Config.XmlTypes;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
@@ -27,5 +28,8 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services
             where T : IService;
 
         IStatusBoardStyle Style { get; }
+
+        IEnumerable<T> GetServicesOfType<T>()
+            where T : class, IService;
     }
 }

@@ -11,6 +11,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity.LastBuildStatus
 
         public TeamCityLastBuildStatusTilePlugin(string serviceName)
         {
+            // todo - should not be passing in service name here. Breaks having multiple team city services.
             _serviceName = serviceName;
         }
 

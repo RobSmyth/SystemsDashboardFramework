@@ -1,6 +1,6 @@
 ﻿using NoeticTools.TeamStatusBoard.Framework.Plugins;
 using NoeticTools.TeamStatusBoard.Framework.Services;
-using NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Demo;
+using NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.TestData;
 
 
 namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity
@@ -18,7 +18,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity
 
         public void Register(IServices services)
         {
-            new TeamCityDemoService(services.GetService<ITeamCityService>(_teamCityServiceName), services);
+            new TeamCityTestDataService(services.GetService<ITeamCityService>(_teamCityServiceName), services);
         }
     }
 }

@@ -15,13 +15,11 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity.AgentStatus
     public sealed class TeamCityAgentStatusTileProvider : ITileControllerProvider
     {
         private const string TileTypeId = "TeamCity.Agent.Status";
-        private readonly ITeamCityChannel _channel;
         private readonly IDashboardController _dashboardController;
         private readonly IServices _services;
 
-        public TeamCityAgentStatusTileProvider(ITeamCityChannel channel, IDashboardController dashboardController, IServices services)
+        public TeamCityAgentStatusTileProvider(IDashboardController dashboardController, IServices services)
         {
-            _channel = channel;
             _dashboardController = dashboardController;
             _services = services;
         }
@@ -37,10 +35,10 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity.AgentStatus
 
         public FrameworkElement CreateTile(TileConfiguration tileConfigturation, TileLayoutController layoutController)
         {
-            var teamCityService = _services.GetService<ITeamCityService>("TeamCity");
+            var channel =_services.GetService<ITeamCityService>("TeamCity").Channel;
             var view = new TeamCityAgentStatusTileControl();
             new StatusBoardStyleStategy(view, _services.Style);
-            new TeamCityAgentStatusTileViewModel(_channel, tileConfigturation, _dashboardController, layoutController, _services, view, teamCityService);
+            new TeamCityAgentStatusTileViewModel(channel, tileConfigturation, _dashboardController, layoutController, _services, view);
             return view;
         }
 

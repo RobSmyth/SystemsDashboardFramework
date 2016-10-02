@@ -25,11 +25,8 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity.LastBuildStatus
     internal sealed class TeamCityLastBuildStatusTileViewModel : NotifyingViewModelBase, IConfigurationChangeListener, ITileViewModel, IChannelConnectionStateListener
     {
         public const string TileTypeId = "TeamCity.Build.Status";
-        private readonly ITeamCityChannel _channel;
         private readonly IServices _services;
-        //private readonly TileConfigurationConverter _tileConfiguration;
         private readonly TeamCityBuildStatusTileControl _view;
-        private readonly ITeamCityService _teamCityService;
         private readonly ILog _logger;
         private readonly object _syncRoot = new object();
         private string _status;
@@ -38,26 +35,26 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity.LastBuildStatus
         private string _buildVersion;
         private int _agentsCount;
         private string _runningStatus;
-        private INamedValueRepository _configurationNamedValues;
-        private INamedValueRepository _namedValues;
+        private readonly INamedValueRepository _configurationNamedValues;
+        private readonly INamedValueRepository _namedValues;
 
-        public TeamCityLastBuildStatusTileViewModel(ITeamCityChannel channel, TileConfiguration tile, IDashboardController dashboardController, ITileLayoutController layoutController, IServices services, TeamCityBuildStatusTileControl view, ITeamCityService teamCityService, ITileProperties properties)
+        public TeamCityLastBuildStatusTileViewModel(ITeamCityChannel channel, TileConfiguration tile, IDashboardController dashboardController, ITileLayoutController layoutController, IServices services, TeamCityBuildStatusTileControl view, ITileProperties properties)
         {
             lock (_syncRoot)
             {
                 _logger = LogManager.GetLogger($"Tiles.TeamCity.LastBuildStatus.{_nextInstanceId++}");
             }
 
-            _channel = channel;
             _services = services;
             _configurationNamedValues = properties.Properties;
             _namedValues = properties.NamedValueRepository;
             _view = view;
-            _teamCityService = teamCityService;
             _status = "UNKNOWN";
             _runningStatus = "UNKNOWN";
             _description = "";
             _buildVersion = "";
+
+            var teamCityService = _services.GetServicesOfType<ITeamCityService>().First(); // todo - hack to introduce concept of multiple TeamCity services
 
             ConfigureServiceCommand = new DataSourceConfigureCommand(channel);
             var configurationParameters = GetConfigurationParameters();
@@ -145,7 +142,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity.LastBuildStatus
 
         public ICommand ConfigureCommand { get; }
 
-        public void OnConfigurationChanged(TileConfigurationConverter converter)
+        public void OnConfigurationChanged(INamedValueRepository converter)
         {
             _logger.Debug("Configuration changed.");
             Update();

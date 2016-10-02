@@ -41,7 +41,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.BlankTile
 
         public ICommand ConfigureCommand { get; }
 
-        public void OnConfigurationChanged(TileConfigurationConverter converter)
+        public void OnConfigurationChanged(INamedValueRepository converter)
         {
             Update();
         }

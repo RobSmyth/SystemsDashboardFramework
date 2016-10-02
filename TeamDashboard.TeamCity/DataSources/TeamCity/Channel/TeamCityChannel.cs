@@ -85,7 +85,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Channel
             _dashboardController.ShowOnSidePane(controller.CreateView(), title);
         }
 
-        public void OnConfigurationChanged(TileConfigurationConverter converter)
+        public void OnConfigurationChanged(INamedValueRepository converter)
         {
             _configuration.Password = converter.GetString("Password");
         }

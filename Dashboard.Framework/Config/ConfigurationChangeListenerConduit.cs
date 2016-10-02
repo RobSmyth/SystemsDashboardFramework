@@ -1,10 +1,13 @@
+using NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories;
+
+
 namespace NoeticTools.TeamStatusBoard.Framework.Config
 {
     public sealed class ConfigurationChangeListenerConduit : IConfigurationChangeListener
     {
         private IConfigurationChangeListener _listener;
 
-        public void OnConfigurationChanged(TileConfigurationConverter converter)
+        public void OnConfigurationChanged(INamedValueRepository converter)
         {
             _listener.OnConfigurationChanged(converter);
         }

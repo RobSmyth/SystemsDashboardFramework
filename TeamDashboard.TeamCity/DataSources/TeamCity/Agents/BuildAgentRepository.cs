@@ -41,29 +41,33 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Agents
 
         public void Add(IBuildAgent buildAgent)
         {
-            _buildAgents.Add(buildAgent.Name.ToLower(), buildAgent);
+            _buildAgents.Add(buildAgent.Name, buildAgent);
             UpdateAgentData(buildAgent);
             UpdateCounts();
         }
 
+        public IBuildAgent Add(string name)
+        {
+            var buildAgent = _buildAgentFactory.Create(name, _channelStateBroadcaster);
+            Add(buildAgent);
+            return buildAgent;
+        }
+
         public IBuildAgent Get(string name)
         {
-            var normalisedName = name.ToLower();
             lock (_syncRoot)
             {
-                if (!Has(normalisedName))
+                if (!Has(name))
                 {
-                    var buildAgent = _buildAgentFactory.Create(name, _channelStateBroadcaster);
-                    Add(buildAgent);
-                    return buildAgent;
+                    Add(name);
                 }
-                return _buildAgents[normalisedName];
+                return _buildAgents[name];
             }
         }
 
         public bool Has(string name)
         {
-            return _buildAgents.ContainsKey(name.ToLower());
+            return _buildAgents.ContainsKey(name);
         }
 
         public void AddListener(IDataChangeListener listener)
@@ -122,10 +126,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Agents
                 return;
             }
 
-            _dataSource.Set($"Agents.{buildAgent.Name}", buildAgent, PropertiesFlags.ReadOnly, PropertyTag, "Ref");
-            _dataSource.Set($"Agents.{buildAgent.Name}.IsAuthorised", buildAgent.IsAuthorised, PropertiesFlags.ReadOnly, PropertyTag);
-            _dataSource.Set($"Agents.{buildAgent.Name}.IsOnline", buildAgent.IsOnline, PropertiesFlags.ReadOnly, PropertyTag);
-            _dataSource.Set($"Agents.{buildAgent.Name}.IsRunning", buildAgent.IsRunning, PropertiesFlags.ReadOnly, PropertyTag);
+            buildAgent.UpdateProperties();
         }
 
         private void UpdateCounts()

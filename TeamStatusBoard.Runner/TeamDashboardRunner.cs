@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -25,9 +26,6 @@ using NoeticTools.TeamStatusBoard.Framework.Services;
 using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
 using NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity;
-using NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity.AgentStatus;
-using NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity.AvailableBuilds;
-using NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity.LastBuildStatus;
 using NoeticTools.TeamStatusBoard.Tiles.DataTiles.DataValueTile;
 using NoeticTools.TeamStatusBoard.Tiles.DataTiles.DateTimeTile;
 using NoeticTools.TeamStatusBoard.Tiles.DataTiles.TextTile;
@@ -107,9 +105,9 @@ namespace NoeticTools.TeamStatusBoard.Runner
             var plugins = new IPlugin[]
             {
                 new TestDataSourcePlugin(), 
-                new TeamCityDataSourcePlugin(),
                 new DataSourceTypePropertyViewPlugin(), 
                 new DashboardDataSourcePlugin(),
+                new TeamCityPlugin(),
                 new FileReaderDataSourcePlugin(),
                 new TextPropertyViewPlugin(),
                 new DatePropertyViewPlugin(),
@@ -127,9 +125,6 @@ namespace NoeticTools.TeamStatusBoard.Runner
                 new ImageFileWatcherTilePlugin(),
                 new DateTilePlugin(),
                 new MessageTilePlugin(),
-                new TeamCityAgentStatusTilePlugin(),
-                new TeamCityLastBuildStatusTilePlugin(),
-                new TeamCityLAvailbleBuildSTilePlugin(),
                 new DaysLeftCountDownTilePlugin(),
                 new WebPageTilePlugin(),
                 new Guage180degTilePlugin(), 

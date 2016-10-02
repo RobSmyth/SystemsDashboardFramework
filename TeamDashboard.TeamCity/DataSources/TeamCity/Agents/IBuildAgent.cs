@@ -12,5 +12,6 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Agents
         bool IsRunning { get; }
         bool IsOnline { get; set; }
         bool IsAuthorised { get; set; }
+        void UpdateProperties();
     }
 }

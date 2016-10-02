@@ -7,11 +7,18 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity.AgentStatus
 {
     public sealed class TeamCityAgentStatusTilePlugin : IPlugin
     {
+        private readonly string _serviceName;
+
+        public TeamCityAgentStatusTilePlugin(string serviceName)
+        {
+            _serviceName = serviceName;
+        }
+
         public int Rank => 0;
 
         public void Register(IServices services)
         {
-            services.TileProviders.Register(new TeamCityAgentStatusTileProvider(services.GetService<ITeamCityService>("TeamCity").Channel, services.DashboardController, services));
+            services.TileProviders.Register(new TeamCityAgentStatusTileProvider(services.GetService<ITeamCityService>(_serviceName).Channel, services.DashboardController, services));
         }
     }
 }

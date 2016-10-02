@@ -27,7 +27,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Channel
         private readonly IStateEngine<ITeamCityIoChannel> _stateEngine;
         private readonly INamedValueRepository _configurationNamedValues;
 
-        public TeamCityChannel(IServices services, IDataSource repository, ITeamCityDataSourceConfiguration configuration, IStateEngine<ITeamCityIoChannel> stateEngine, IBuildAgentRepository buildAgentRepository, IChannelConnectionStateBroadcaster stateBroadcaster, TileProperties properties)
+        public TeamCityChannel(IServices services, IDataSource repository, ITeamCityDataSourceConfiguration configuration, IStateEngine<ITeamCityIoChannel> stateEngine, IBuildAgentRepository buildAgentRepository, IChannelConnectionStateBroadcaster stateBroadcaster, ITileProperties properties)
         {
             Agents = buildAgentRepository;
             StateBroadcaster = stateBroadcaster;

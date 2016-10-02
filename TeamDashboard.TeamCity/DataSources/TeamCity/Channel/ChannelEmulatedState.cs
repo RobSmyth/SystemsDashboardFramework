@@ -8,16 +8,18 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Channel
 {
     internal class ChannelEmulatedState : ITeamCityChannelState
     {
+        private readonly IDataSource _dataSource;
         private readonly string[] _status = {"SUCCESS", "SUCCESS", "SUCCESS", "SUCCESS", "FAILURE", "UNKNOWN"};
         private ILog _logger;
 
-        public ChannelEmulatedState(IDataSource repository)
+        public ChannelEmulatedState(IDataSource dataSource)
         {
+            _dataSource = dataSource;
             _logger = LogManager.GetLogger("DateSources.TeamCity.Emulated");
 
             foreach (var projectName in ProjectNames)
             {
-                repository.Write($"{projectName}.Status", "Emulated");
+                dataSource.Write($"{projectName}.Status", "Emulated");
             }
         }
 

@@ -15,16 +15,18 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity.AvailableBuilds
     {
         private readonly IDashboardController _dashboardController;
         private readonly IServices _services;
+        private readonly string _serviceName;
         private ILog _logger;
 
-        public TeamCityAvailbleBuildsTileProvider(IDashboardController dashboardController, IServices services)
+        public TeamCityAvailbleBuildsTileProvider(IDashboardController dashboardController, IServices services, string serviceName)
         {
             _dashboardController = dashboardController;
             _services = services;
-            _logger = LogManager.GetLogger("Plugin.TeamCity.AvailableBuilds");
+            _serviceName = serviceName;
+            _logger = LogManager.GetLogger($"Plugin.{serviceName}.AvailableBuilds");
         }
 
-        public string Name => "TeamCity available builds";
+        public string Name => $"{_serviceName} available builds";
 
         public string TypeId => TeamCityAvailableBuildsTileViewModel.TileTypeId;
 
@@ -35,7 +37,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity.AvailableBuilds
 
         public FrameworkElement CreateTile(TileConfiguration tileConfigturation, TileLayoutController layoutController)
         {
-            var teamCityService = _services.GetService<ITeamCityService>("TeamCity");
+            var teamCityService = _services.GetService<ITeamCityService>(_serviceName);
             var view = new TeamCityAvailableBuildsListControl();
             new TeamCityAvailableBuildsTileViewModel(tileConfigturation, _dashboardController, layoutController, _services, view, teamCityService);
             return view;

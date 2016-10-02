@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Controls;
+using NoeticTools.TeamStatusBoard.Framework.Config.Properties;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Config.Views

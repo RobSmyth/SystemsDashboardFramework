@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using NoeticTools.TeamStatusBoard.Common;
 using NoeticTools.TeamStatusBoard.Common.ViewModels;
 using NoeticTools.TeamStatusBoard.Framework;
@@ -13,6 +14,8 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Agents
 {
     public class BuildAgentViewModel : NotifyingViewModelBase, IBuildAgent, IChannelConnectionStateListener
     {
+        private const string PropertyTag = "TeamCity.BuildAgent";
+
         private readonly IDictionary<DeviceStatus, string> _statusTextLookup = new Dictionary<DeviceStatus, string>()
             {
                 {DeviceStatus.Unknown, "Unknown" },
@@ -23,7 +26,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Agents
                 {DeviceStatus.Running, "Running" },
             };
 
-        private readonly IDataSource _agentsRepository;
+        private readonly IDataSource _dataSource;
         private readonly ITcSharpTeamCityClient _teamCityClient;
         private DeviceStatus _status;
         private bool _isRunning;
@@ -33,15 +36,16 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Agents
         private bool? _isOnline;
         private bool? _isAuthorised;
 
-        public BuildAgentViewModel(string name, IDataSource agentsRepository, IChannelConnectionStateBroadcaster channelStateBroadcaster, 
+        public BuildAgentViewModel(string name, IDataSource dataSource, IChannelConnectionStateBroadcaster channelStateBroadcaster, 
             ITcSharpTeamCityClient teamCityClient, IConnectedStateTicker connectedStateTicker)
         {
-            _agentsRepository = agentsRepository;
+            _dataSource = dataSource;
             _teamCityClient = teamCityClient;
             Name = name;
             _statusText = string.Empty;
             Status = DeviceStatus.Unknown;
             SetDisconnectedStateActions();
+            UpdateProperties();
             connectedStateTicker.AddListener(this, OnTick);
             channelStateBroadcaster.Add(this);
         }
@@ -159,20 +163,31 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Agents
             {
                 var runningProjects = _teamCityClient.Builds.ByBuildLocator(BuildLocator.WithDimensions(running: true, branch: "default:any", agentName: Name)).ToArray();
                 IsRunning = runningProjects.Length == 1;
-                UpdateBuildAgentParameters();
+                UpdateProperties();
             }
             catch (Exception)
             {
             }
         }
 
-        private void UpdateBuildAgentParameters()
+        public void UpdateProperties()
         {
             if (string.IsNullOrWhiteSpace(Name))
             {
                 return;
             }
-            _agentsRepository.Write($"Agents.{Name}.Status", Status);
+            SetProperty("Status", Status);
+            SetProperty("Name", Name, "Ref");
+            SetProperty("IsAuthorised", IsAuthorised);
+            SetProperty("IsOnline", IsOnline);
+            SetProperty("IsRunning", IsRunning);
+        }
+
+        private void SetProperty<T>(string propertyName, T value, params string[] tags)
+        {
+            var tagList = new List<string>(new [] { PropertyTag});
+            tagList.AddRange(tags);
+            _dataSource.Set($"Agents.{Name}.{propertyName}", value, PropertiesFlags.ReadOnly, tagList.ToArray());
         }
 
         void IChannelConnectionStateListener.OnConnected()
@@ -197,6 +212,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Agents
                 Status = DeviceStatus.Unknown;
                 StatusText = "Unknown";
                 IsOnline = false;
+                UpdateProperties();
             };
         }
 
@@ -205,6 +221,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Agents
             _onConnectAction = () =>
             {
                 _onDisconnectAction = DoNothing;
+                UpdateProperties();
             };
             _onDisconnectAction = DoNothing;
         }

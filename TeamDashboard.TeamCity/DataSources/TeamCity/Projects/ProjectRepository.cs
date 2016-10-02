@@ -18,12 +18,12 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Projects
         private readonly object _syncRoot = new object();
         private readonly IList<IDataChangeListener> _listeners = new List<IDataChangeListener>();
 
-        public ProjectRepository(ITcSharpTeamCityClient teamCityClient, ProjectFactory projectFactory, IConnectedStateTicker tiker)
+        public ProjectRepository(ITcSharpTeamCityClient teamCityClient, ProjectFactory projectFactory, IConnectedStateTicker ticker)
         {
             _teamCityClient = teamCityClient;
             _projectFactory = projectFactory;
             _logger = LogManager.GetLogger("Repositories.TeamCity.Projects");
-            tiker.AddListener(this, Update);
+            ticker.AddListener(this, Update);
         }
 
         public void AddListener(IDataChangeListener listener)
@@ -36,14 +36,24 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Projects
             return _projects.Values.ToArray();
         }
 
+        public IProject Add(string name)
+        {
+            lock (_syncRoot)
+            {
+                var project = new NullInteropProject(name);
+                _projects.Add(name.ToLower(), _projectFactory.Create(project));
+                NotifyValueChanged();
+                return _projects[name.ToLower()];
+            }
+        }
+
         public IProject Get(string name)
         {
             lock (_syncRoot)
             {
                 if (!_projects.ContainsKey(name.ToLower()))
                 {
-                    _projects.Add(name.ToLower(), _projectFactory.Create(new NullInteropProject(name)));
-                    NotifyValueChanged();
+                    Add(name);
                 }
                 return _projects[name.ToLower()];
             }

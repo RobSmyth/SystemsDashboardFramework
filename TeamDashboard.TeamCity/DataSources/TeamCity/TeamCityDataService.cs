@@ -7,11 +7,11 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity
 {
     public sealed class TeamCityDataService : ITeamCityService
     {
-        public string Name => "TeamCity";
+        public string Name { get; }
 
-        public TeamCityDataService(ITeamCityChannel channel, IChannelConnectionStateBroadcaster stateBroadcaster, 
-            IConnectedStateTicker connectedTicker, IProjectRepository projectRepository, BuildAgentRepository buildAgentRepository)
+        public TeamCityDataService(string serviceName, ITeamCityChannel channel, IChannelConnectionStateBroadcaster stateBroadcaster, IConnectedStateTicker connectedTicker, IProjectRepository projectRepository, IBuildAgentRepository buildAgentRepository)
         {
+            Name = serviceName;
             Channel = channel;
             Projects = projectRepository;
             Agents = buildAgentRepository;
@@ -21,7 +21,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity
 
         public ITeamCityChannel Channel { get; }
         public IProjectRepository Projects { get; }
-        public BuildAgentRepository Agents { get; }
+        public IBuildAgentRepository Agents { get; }
         public IChannelConnectionStateBroadcaster StateBroadcaster { get; }
         public IConnectedStateTicker ConnectedTicker { get; }
 

@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Input;
 using NoeticTools.TeamStatusBoard.Common.ViewModels;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
+using NoeticTools.TeamStatusBoard.Framework.Config.Properties;
 using NoeticTools.TeamStatusBoard.Framework.Config.Views;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 

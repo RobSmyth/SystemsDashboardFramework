@@ -1,7 +1,4 @@
-﻿using NoeticTools.TeamStatusBoard.Framework.Config.Properties;
-
-
-namespace NoeticTools.TeamStatusBoard.Framework.Config
+﻿namespace NoeticTools.TeamStatusBoard.Framework.Config.Properties
 {
     public sealed class NullPropertyViewModel : IPropertyViewModel
     {

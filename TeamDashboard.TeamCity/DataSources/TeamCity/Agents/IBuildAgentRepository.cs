@@ -10,5 +10,6 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Agents
         IBuildAgent Get(string name);
         bool Has(string name);
         void AddListener(IDataChangeListener listener);
+        IBuildAgent Add(string name);
     }
 }

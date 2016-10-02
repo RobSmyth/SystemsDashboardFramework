@@ -101,7 +101,7 @@
     <Compile Include="Config\NamedValueRepositories\INamedValueRepository.cs" />
     <Compile Include="Config\NamedValueRepositories\NullNamedValueReaderProvider.cs" />
     <Compile Include="Config\NamedValueRepositories\NullValueRepository.cs" />
-    <Compile Include="Config\NullPropertyViewModel.cs" />
+    <Compile Include="Config\Properties\NullPropertyViewModel.cs" />
     <Compile Include="Config\Properties\BoolPropertyViewModel.cs" />
     <Compile Include="Config\Properties\ColourPropertyViewModel.cs" />
     <Compile Include="Config\Properties\CompountColourPropertyViewModel.cs" />
@@ -120,7 +120,7 @@
     <Compile Include="Config\ViewModels\DataSourcePropertyViewModel.cs" />
     <Compile Include="Config\ViewModels\DataSourcesViewModel.cs" />
     <Compile Include="Config\XmlTypes\IDashboardConfigurations.cs" />
-    <Compile Include="Config\IDashboardConfigurationServices.cs" />
+    <Compile Include="Config\XmlTypes\IDashboardConfigurationServices.cs" />
     <Compile Include="Config\XmlTypes\IItemConfiguration.cs" />
     <Compile Include="Config\INotifyingPropertyViewModel.cs" />
     <Compile Include="Config\ItemConfigurationBase.cs" />
@@ -256,7 +256,7 @@
     <Compile Include="Config\XmlTypes\IDashboardConfiguration.cs" />
     <Compile Include="Config\Properties\HyperlinkPropertyViewModel.cs" />
     <Compile Include="Config\Properties\PropertyViewModel.cs" />
-    <Compile Include="Config\IPropertyViewModel.cs" />
+    <Compile Include="Config\Properties\IPropertyViewModel.cs" />
     <Compile Include="Config\TileConfigurationConverter.cs" />
     <Compile Include="Config\Controllers\ConfigationViewController.cs" />
     <Compile Include="DataSources\Jira\JiraChannel.cs" />

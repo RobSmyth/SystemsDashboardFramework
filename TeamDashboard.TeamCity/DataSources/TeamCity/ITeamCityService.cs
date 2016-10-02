@@ -12,6 +12,6 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity
         IProjectRepository Projects { get; }
         IChannelConnectionStateBroadcaster StateBroadcaster { get; }
         IConnectedStateTicker ConnectedTicker { get; }
-        BuildAgentRepository Agents { get; }
+        IBuildAgentRepository Agents { get; }
     }
 }

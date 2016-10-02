@@ -19,6 +19,7 @@ using NoeticTools.TeamStatusBoard.Framework.Plugins.PropertyEditControls.Date;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.PropertyEditControls.Text;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.PropertyEditControls.TimeSpan;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.BlankTile;
+using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.ColouredTile;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Help;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.InsertTile;
 using NoeticTools.TeamStatusBoard.Framework.Registries;
@@ -119,6 +120,7 @@ namespace NoeticTools.TeamStatusBoard.Runner
                 new InsertTilePlugin(),
                 new HelpTilePlugin(),
                 new BlankTilePlugin(),
+                new ColouredTilePlugin(), 
                 new TextDataTilePlugin(),
                 new DataValueTilePlugin(),
                 new DateTimeDataTilePlugin(),

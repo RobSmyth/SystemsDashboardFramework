@@ -22,7 +22,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.BlankTile
             : base(properties)
         {
             _tileConfigurationConverter = new TileConfigurationConverter(tile, this);
-            var parameters = new IPropertyViewModel[] {new PropertyViewModel("Colour", PropertyType.Text, _tileConfigurationConverter, new ColourSuggestionsProvider(services))};
+            var parameters = new IPropertyViewModel[0];
             ConfigureCommand = new TileConfigureCommand(tile, "Blank Tile Configuration", parameters, dashboardController, layoutController, services);
             view.DataContext = this;
             Update();
@@ -48,16 +48,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.BlankTile
 
         private void Update()
         {
-            try
-            {
-                var value = _tileConfigurationConverter.GetString("Colour", "Black");
-                Background = new SolidColorBrush((Color) ColorConverter.ConvertFromString(value));
-            }
-            catch (Exception)
-            {
-                Background = Brushes.Red;
-                _tileConfigurationConverter.SetParameter("Colour", "Red");
-            }
         }
     }
 }

@@ -19,17 +19,17 @@ using NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Channel;
 
 namespace NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity.AgentStatus
 {
-    internal sealed class TeamCityAgentStatusTileViewModel : NotifyingViewModelBase, IConfigurationChangeListener, ITileViewModel
+    internal sealed class TeamCityAgentStatusTileViewModel : ConfiguredTileViewModelBase, IConfigurationChangeListener, ITileViewModel
     {
         private readonly TileConfigurationConverter _tileConfigurationConverter;
         private readonly ILog _logger;
         private readonly object _syncRoot = new object();
         private readonly IServices _services;
-        private readonly ITeamCityService _teamCityService;
         private IBuildAgent _buildAgent = new NullBuildAgent("");
         private static int _nextInstanceId = 1;
 
-        public TeamCityAgentStatusTileViewModel(ITeamCityChannel channel, TileConfiguration tileConfiguration, IDashboardController dashboardController, ITileLayoutController tileLayoutController, IServices services, ITeamCityAgentStatusTileControl view)
+        public TeamCityAgentStatusTileViewModel(ITeamCityChannel channel, TileConfiguration tileConfiguration, IDashboardController dashboardController, ITileLayoutController tileLayoutController, IServices services, ITeamCityAgentStatusTileControl view, ITileProperties tileProperties)
+            : base(tileProperties)
         {
             lock (_syncRoot)
             {
@@ -37,14 +37,15 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity.AgentStatus
             }
 
             _services = services;
-            _teamCityService = _services.GetServicesOfType<ITeamCityService>().First(); // todo - hack to introduce concept of multiple TeamCity services
             _tileConfigurationConverter = new TileConfigurationConverter(tileConfiguration, this);
             ConfigureServiceCommand = new DataSourceConfigureCommand(channel);
 
             var configurationParameters = GetConfigurationParameters();
             ConfigureCommand = new TileConfigureCommand(tileConfiguration, "Build Agent Configuration", configurationParameters, dashboardController, tileLayoutController, services);
-            GetBuildAgent();
 
+            Subscribe();
+
+            GetBuildAgent();
             view.DataContext = this;
         }
 
@@ -67,6 +68,11 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity.AgentStatus
         {
             _logger.Debug("Configuration changed.");
             GetBuildAgent();
+        }
+
+        private void Subscribe()
+        {
+            // todo - change to use subscription model
         }
 
         private void GetBuildAgent()

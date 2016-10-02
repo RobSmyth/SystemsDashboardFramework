@@ -12,14 +12,12 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/NoeticTools.TeamStatusBoard.Styles;component/Style1.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <Style TargetType="TextBlock" BasedOn="{StaticResource TextboxStyle}" />
-            <Style TargetType="Grid" BasedOn="{StaticResource GridStyle}" />
         </ResourceDictionary>
 
     </UserControl.Resources>
 
-    <Border Name="FocusBorder" Style="{StaticResource FocusBorder}">
-        <Grid Name="root" Margin="0" Background="{Binding Background}">
+    <Border Name="FocusBorder" Style="{DynamicResource FocusBorder}">
+        <Grid Name="root" Margin="0" Style="{DynamicResource GridStyle}">
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Height="Auto"
                     Margin="0"/>
         </Grid>

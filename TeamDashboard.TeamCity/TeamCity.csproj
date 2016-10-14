@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataSources\TeamCity\Agents\BuildAgentRepository.cs" />
+    <Compile Include="DataSources\TeamCity\Agents\BuildAgentsStatusService.cs" />
     <Compile Include="DataSources\TeamCity\Agents\BuildAgentViewModelFactory.cs" />
     <Compile Include="DataSources\TeamCity\Agents\ConnectedStateTicker.cs" />
     <Compile Include="DataSources\TeamCity\Agents\IBuildAgent.cs" />
@@ -79,8 +80,9 @@
     <Compile Include="DataSources\TeamCity\Configurations\BuildConfigurationRepositoryFactory.cs" />
     <Compile Include="DataSources\TeamCity\Configurations\IBuildConfigurationRepository.cs" />
     <Compile Include="DataSources\TeamCity\Configurations\IBuildConfigurationRepositoryFactory.cs" />
+    <Compile Include="DataSources\TeamCity\TeamCityDataSourceCommonServicesBuilder.cs" />
     <Compile Include="DataSources\TeamCity\TestData\TestDataBuildConfigurationFactory.cs" />
-    <Compile Include="DataSources\TeamCity\TestData\TeamCityDemoService.cs" />
+    <Compile Include="DataSources\TeamCity\TestData\TeamCityTestDataService.cs" />
     <Compile Include="DataSources\TeamCity\ITeamCityService.cs" />
     <Compile Include="DataSources\TeamCity\ITeamCityServiceConfiguration.cs" />
     <Compile Include="DataSources\TeamCity\Builds\NullBuild.cs" />
@@ -104,7 +106,7 @@
     <Compile Include="DataSources\TeamCity\Projects\Project.cs" />
     <Compile Include="DataSources\TeamCity\TcSharpInterop\ITcSharpTeamCityClient.cs" />
     <Compile Include="DataSources\TeamCity\TcSharpInterop\NullInteropProjects.cs" />
-    <Compile Include="DataSources\TeamCity\TcSharpInterop\TcSharpTeamCityClient.cs" />
+    <Compile Include="DataSources\TeamCity\TcSharpInterop\TcsTeamCityClientFacade.cs" />
     <Compile Include="DataSources\TeamCity\Agents\BuildAgentViewModel.cs" />
     <Compile Include="DataSources\TeamCity\Channel\ChannelConnectedState.cs" />
     <Compile Include="DataSources\TeamCity\Channel\ChannelDisconnectedState.cs" />
@@ -114,7 +116,7 @@
     <Compile Include="DataSources\TeamCity\Channel\TeamCityChannel.cs" />
     <Compile Include="DataSources\TeamCity\TcSharpInterop\TxSharpAgents.cs" />
     <Compile Include="DataSources\TeamCity\TeamCityDataService.cs" />
-    <Compile Include="DataSources\TeamCity\DataSourceConfiguration.cs" />
+    <Compile Include="DataSources\TeamCity\TeamCityDataSourceConfiguration.cs" />
     <Compile Include="DataSources\TeamCity\DataSourceConfigureCommand.cs" />
     <Compile Include="DataSources\TeamCity\TeamCityDataSourcePlugin.cs" />
     <Compile Include="DataSources\TeamCity\TeamCityPlugin.cs" />

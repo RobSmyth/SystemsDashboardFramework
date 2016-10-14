@@ -15,12 +15,12 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity
         public void Register(IServices services)
         {
             new TeamCityDataSourcePlugin("TeamCity").Register(services);
-            new TeamCityAgentStatusTilePlugin("TeamCity").Register(services);
-            new TeamCityLastBuildStatusTilePlugin("TeamCity").Register(services);
-            new TeamCityLAvailbleBuildSTilePlugin("TeamCity").Register(services);
-
             new TeamCityDataSourcePlugin("TestData_TeamCity").Register(services);
             new TeamCityTestDataPlugin("TestData_TeamCity").Register(services);
+
+            new TeamCityAgentStatusTilePlugin("TeamCity").Register(services);
+            new TeamCityLastBuildStatusTilePlugin("TeamCity").Register(services);
+            new TeamCityAvailbleBuildSTilePlugin("TeamCity").Register(services);
         }
     }
 }

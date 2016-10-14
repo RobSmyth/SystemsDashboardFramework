@@ -10,10 +10,12 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services
 {
     public sealed class TimerService : ITimerService, ITimerQueue
     {
+        private readonly TimeSpan _perTickTimeLimit = TimeSpan.FromSeconds(0.2);
+        private readonly TimeSpan _tickRate = TimeSpan.FromMilliseconds(25);
+        private readonly TimeSpan _firstTickDelay = TimeSpan.FromSeconds(0.1);
         private readonly IClock _clock;
         private readonly List<TimerToken> _callbacks = new List<TimerToken>();
         private readonly DispatcherTimer _timer;
-        private readonly TimeSpan _tickRate = TimeSpan.FromMilliseconds(25);
         private bool _stopped;
 
         public TimerService(IClock clock)
@@ -59,7 +61,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services
         public void Start()
         {
             _stopped = false;
-            _timer.Interval = TimeSpan.FromMilliseconds(100);
+            _timer.Interval = _firstTickDelay;
             _timer.Start();
         }
 
@@ -71,7 +73,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services
             stopwatch.Start();
 
             var dueCallback = GetNextDueToken();
-            while (dueCallback != null && stopwatch.Elapsed <= TimeSpan.FromSeconds(0.5) && !_stopped)
+            while (dueCallback != null && stopwatch.Elapsed <= _perTickTimeLimit && !_stopped)
             {
                 _callbacks.Remove(dueCallback);
                 dueCallback.Listener.OnTimeElapsed(dueCallback);

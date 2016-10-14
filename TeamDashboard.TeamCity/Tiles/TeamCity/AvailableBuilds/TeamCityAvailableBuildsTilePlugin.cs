@@ -5,12 +5,12 @@ using NoeticTools.TeamStatusBoard.Framework.Services;
 
 namespace NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity.AvailableBuilds
 {
-    public sealed class TeamCityLAvailbleBuildSTilePlugin : IPlugin
+    public sealed class TeamCityAvailbleBuildSTilePlugin : IPlugin
     {
         private readonly string _serviceName;
         private ILog _logger;
 
-        public TeamCityLAvailbleBuildSTilePlugin(string serviceName)
+        public TeamCityAvailbleBuildSTilePlugin(string serviceName)
         {
             _serviceName = serviceName;
             _logger = LogManager.GetLogger($"Plugin.{serviceName}.AvailableBuilds");

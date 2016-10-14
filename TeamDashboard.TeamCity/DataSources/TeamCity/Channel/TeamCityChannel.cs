@@ -44,6 +44,7 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Channel
             _repository.Set("Service.Status", services.RunOptions.EmulateMode ? "Connected" : "Stopped", PropertiesFlags.ReadOnly, PropertyTag);
             _repository.Set("Service.Connected", false, PropertiesFlags.ReadOnly, PropertyTag);
             _repository.Set("Service.Mode", services.RunOptions.EmulateMode ? "Emulated" : "Run", PropertiesFlags.ReadOnly, PropertyTag);
+            _repository.Set("Service.AgentsFilter", _configuration.AgentsFilter, PropertiesFlags.ReadWrite, PropertyTag);
         }
 
         public string[] ProjectNames => _stateEngine.Current.ProjectNames;

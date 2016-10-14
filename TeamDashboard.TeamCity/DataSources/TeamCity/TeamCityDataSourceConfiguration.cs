@@ -4,11 +4,11 @@ using NoeticTools.TeamStatusBoard.Framework.Config.XmlTypes;
 
 namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity
 {
-    public sealed class DataSourceConfiguration : ITeamCityDataSourceConfiguration
+    public sealed class TeamCityDataSourceConfiguration : ITeamCityDataSourceConfiguration
     {
         private readonly DashboardServiceConfiguration _inner;
 
-        public DataSourceConfiguration(DashboardServiceConfiguration inner)
+        public TeamCityDataSourceConfiguration(DashboardServiceConfiguration inner)
         {
             _inner = inner;
         }

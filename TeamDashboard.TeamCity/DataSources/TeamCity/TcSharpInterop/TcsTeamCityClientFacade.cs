@@ -6,12 +6,12 @@ using TeamCitySharp.ActionTypes;
 
 namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.TcSharpInterop
 {
-    public class TcSharpTeamCityClient : ITcSharpTeamCityClient
+    public class TcsTeamCityClientFacade : ITcSharpTeamCityClient
     {
         private readonly TeamCityClient _inner;
         private readonly ILog _logger;
 
-        public TcSharpTeamCityClient(TeamCityClient inner)
+        public TcsTeamCityClientFacade(TeamCityClient inner)
         {
             _inner = inner;
             _logger = LogManager.GetLogger("DateSources.TeamCity.Client");

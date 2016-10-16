@@ -100,7 +100,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories
 
         public IDataValue GetDatum(string name, object defaultValue = null)
         {
-            return new DataValue(name, name, PropertiesFlags.ReadOnly, () => { });
+            return new DataValue(name, name, PropertiesFlags.ReadOnly);
         }
 
         public IEnumerable<IDataValue> GetDatums(string name)

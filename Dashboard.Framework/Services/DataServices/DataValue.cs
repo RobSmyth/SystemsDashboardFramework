@@ -9,16 +9,14 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
     public sealed class DataValue : IDataValue
     {
         public const string DefaultString = "";
-        public const string DefaultColour = "Gray";
+        private const string DefaultColour = "Gray";
         private object _instance;
-        private readonly Action _notifyValueChanged;
 
-        public DataValue(string name, object instance, PropertiesFlags flags, Action notifyValueChanged, params string[] tags)
+        public DataValue(string name, object instance, PropertiesFlags flags, params string[] tags)
         {
             Name = name;
             Flags = flags;
             _instance = instance;
-            _notifyValueChanged = notifyValueChanged;
             Tags = new List<string>(tags);
             Broadcaster = new EventBroadcaster();
         }
@@ -38,7 +36,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
                     return;
                 }
                 _instance = value;
-                _notifyValueChanged();
                 Broadcaster.Fire();
             }
         }

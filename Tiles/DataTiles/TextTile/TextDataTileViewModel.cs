@@ -16,7 +16,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.DataTiles.TextTile
 {
     internal sealed class TextDataTileViewModel : ConfiguredTileViewModelBase, IConfigurationChangeListener, ITileViewModel
     {
-        private IDataValue _text = new DataValue("", "Label", PropertiesFlags.None, () => { });
+        private IDataValue _text = new DataValue("", "Label", PropertiesFlags.None);
 
         public TextDataTileViewModel(TileConfiguration tileConfiguration, IDashboardController dashboardController, ITileLayoutController layoutController, IServices services, ITileProperties properties)
             : base(properties)

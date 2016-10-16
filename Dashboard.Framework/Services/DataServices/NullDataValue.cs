@@ -12,12 +12,12 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
 
         public NullDataValue()
         {
-            _inner = new DataValue("", DataValue.DefaultString, PropertiesFlags.None, () => { });
+            _inner = new DataValue("", DataValue.DefaultString, PropertiesFlags.None);
         }
 
         public NullDataValue(double value)
         {
-            _inner = new DataValue("", value, PropertiesFlags.None, () => { });
+            _inner = new DataValue("", value, PropertiesFlags.None);
         }
 
         public EventBroadcaster Broadcaster => _inner.Broadcaster;

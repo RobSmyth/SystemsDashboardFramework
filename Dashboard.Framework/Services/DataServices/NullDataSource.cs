@@ -51,7 +51,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
 
         public IDataValue GetDatum(string name, object value = null)
         {
-            return new DataValue(name, null, PropertiesFlags.None, () => {});
+            return new DataValue(name, null, PropertiesFlags.None);
         }
 
         public IEnumerable<IDataValue> GetDatums(string name)

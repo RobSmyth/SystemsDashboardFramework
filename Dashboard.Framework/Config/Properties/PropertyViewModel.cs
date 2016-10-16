@@ -22,7 +22,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.Properties
             _suggestionProvider = suggestionProvider;
             Name = name;
             EditorType = editorType;
-            _value = Subscribe(new DataValue(name, "", PropertiesFlags.None, () => { }), name, _tileConfiguration.GetString(Name));
+            _value = Subscribe(new DataValue(name, "", PropertiesFlags.None), name, _tileConfiguration.GetString(Name));
         }
 
         public IDataValue Value
@@ -68,7 +68,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.Properties
         private IDataValue Subscribe(IDataValue existing, string propertyName, string defaultValue)
         {
             var dataValue = string.IsNullOrWhiteSpace(propertyName) ? (IDataValue)new NullDataValue() 
-                : new DataValue("Value", _tileConfiguration.GetString(propertyName, defaultValue), PropertiesFlags.ReadWrite, () => { });
+                : new DataValue("Value", _tileConfiguration.GetString(propertyName, defaultValue), PropertiesFlags.ReadWrite);
 
             if (ReferenceEquals(existing, dataValue))
             {

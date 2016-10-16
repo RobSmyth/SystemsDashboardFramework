@@ -17,7 +17,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.Properties
             TileConfiguration = tileConfiguration;
             EditorType = PropertyType.Text; // todo - numericspin
             Parameters = new object[0];
-            _value = new DataValue("", Span.ToString(), PropertiesFlags.None, OnValueChanged);
+            _value = new DataValue("", Span.ToString(), PropertiesFlags.None);
         }
 
         protected abstract int Span { get; set; }

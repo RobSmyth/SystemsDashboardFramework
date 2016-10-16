@@ -45,7 +45,9 @@ namespace NoeticTools.TeamStatusBoard.Framework.Services.DataServices
         {
             if (!_values.ContainsKey(name))
             {
-                _values[name] = new DataValue(name, defaultValue, PropertiesFlags.None, NotifyValueChanged);
+                var dataValue = new DataValue(name, defaultValue, PropertiesFlags.None);
+                dataValue.Broadcaster.AddListener(this, NotifyValueChanged);
+                _values[name] = dataValue;
             }
             return _values[name];
         }

@@ -18,7 +18,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.ColouredTile
     public class ColouredTileViewModel : ConfiguredTileViewModelBase, IConfigurationChangeListener, ITileViewModel
     {
         private readonly IServices _services;
-        private IDataValue _background = new DataValue("", "Gray", PropertiesFlags.None, () => { });
+        private IDataValue _background = new DataValue("", "Gray", PropertiesFlags.None);
 
         public ColouredTileViewModel(TileConfiguration tile, IDashboardController dashboardController, ITileLayoutController layoutController, IServices services, ColouredTileControl view, ITileProperties properties)
             : base(properties)

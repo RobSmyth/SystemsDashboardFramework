@@ -11,7 +11,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.Properties
         {
             Parameters = new object[] {text, command};
             EditorType = PropertyType.Hyperlink;
-            Value = new DataValue("Hyperlink", text, PropertiesFlags.None, () => {});
+            Value = new DataValue("Hyperlink", text, PropertiesFlags.None);
             Name = string.Empty;
         }
 

@@ -22,11 +22,11 @@ namespace NoeticTools.TeamStatusBoard.Tiles.Guages.Guage180deg
         private readonly TimeSpan _updatePeriod = TimeSpan.FromSeconds(30);
         private readonly IServices _services;
         private IDataValue _value = new NullDataValue();
-        private IDataValue _label = new DataValue("", "Label", PropertiesFlags.None, () => { });
-        private IDataValue _maximum = new DataValue("", 100.0, PropertiesFlags.None, () => { });
+        private IDataValue _label = new DataValue("", "Label", PropertiesFlags.None);
+        private IDataValue _maximum = new DataValue("", 100.0, PropertiesFlags.None);
         private IDataValue _minimum = new NullDataValue();
-        private IDataValue _fromColour = new DataValue("", "Yellow", PropertiesFlags.None, () => { });
-        private IDataValue _toColour = new DataValue("", "Crimson", PropertiesFlags.None, () => { });
+        private IDataValue _fromColour = new DataValue("", "Yellow", PropertiesFlags.None);
+        private IDataValue _toColour = new DataValue("", "Crimson", PropertiesFlags.None);
         private string _format = "-";
         private IDataValue _uses360Mode;
 

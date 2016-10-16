@@ -1,6 +1,6 @@
 ﻿using NoeticTools.TeamStatusBoard.Framework.Plugins;
 using NoeticTools.TeamStatusBoard.Framework.Services;
-using NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.TestData;
+using NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.TestDataSource;
 
 
 namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity

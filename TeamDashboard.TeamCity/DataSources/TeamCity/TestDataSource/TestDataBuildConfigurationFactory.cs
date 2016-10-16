@@ -2,7 +2,7 @@ using NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Configurations;
 using NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Projects;
 
 
-namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.TestData
+namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.TestDataSource
 {
     public sealed class TestDataBuildConfigurationFactory : IBuildConfigurationRepositoryFactory
     {

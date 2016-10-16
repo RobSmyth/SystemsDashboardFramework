@@ -5,7 +5,7 @@ using NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Projects;
 using NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.TcSharpInterop;
 
 
-namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.TestData
+namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.TestDataSource
 {
     public sealed class TeamCityTestDataService : ITimerListener
     {

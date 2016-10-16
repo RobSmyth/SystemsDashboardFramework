@@ -1,7 +1,7 @@
 using NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Configurations;
 
 
-namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.TestData
+namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.TestDataSource
 {
     public class TestDataBuildConfigurationRepository : IBuildConfigurationRepository
     {

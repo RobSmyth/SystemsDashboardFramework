@@ -80,9 +80,12 @@
     <Compile Include="DataSources\TeamCity\Configurations\BuildConfigurationRepositoryFactory.cs" />
     <Compile Include="DataSources\TeamCity\Configurations\IBuildConfigurationRepository.cs" />
     <Compile Include="DataSources\TeamCity\Configurations\IBuildConfigurationRepositoryFactory.cs" />
+    <Compile Include="DataSources\TeamCity\TestDataSource\TestTeamCityClientFacade.cs" />
     <Compile Include="DataSources\TeamCity\TeamCityDataSourceCommonServicesBuilder.cs" />
-    <Compile Include="DataSources\TeamCity\TestData\TestDataBuildConfigurationFactory.cs" />
-    <Compile Include="DataSources\TeamCity\TestData\TeamCityTestDataService.cs" />
+    <Compile Include="DataSources\TeamCity\TestDataSource\TeamCityTestDataSourcePlugin.cs" />
+    <Compile Include="DataSources\TeamCity\TestDataSource\TestBuilds.cs" />
+    <Compile Include="DataSources\TeamCity\TestDataSource\TestDataBuildConfigurationFactory.cs" />
+    <Compile Include="DataSources\TeamCity\TestDataSource\TeamCityTestDataService.cs" />
     <Compile Include="DataSources\TeamCity\ITeamCityService.cs" />
     <Compile Include="DataSources\TeamCity\ITeamCityServiceConfiguration.cs" />
     <Compile Include="DataSources\TeamCity\Builds\NullBuild.cs" />
@@ -121,7 +124,8 @@
     <Compile Include="DataSources\TeamCity\TeamCityDataSourcePlugin.cs" />
     <Compile Include="DataSources\TeamCity\TeamCityPlugin.cs" />
     <Compile Include="DataSources\TeamCity\TeamCityTestDataPlugin.cs" />
-    <Compile Include="DataSources\TeamCity\TestData\TestDataBuildConfigurationRepository.cs" />
+    <Compile Include="DataSources\TeamCity\TestDataSource\TestDataBuildConfigurationRepository.cs" />
+    <Compile Include="DataSources\TeamCity\TestDataSource\TestServerInformation.cs" />
     <Compile Include="Tiles\TeamCity\AgentStatus\ITeamCityAgentStatusTileControl.cs" />
     <Compile Include="Tiles\TeamCity\AgentStatus\TeamCityAgentStatusTileControl.xaml.cs">
       <DependentUpon>TeamCityAgentStatusTileControl.xaml</DependentUpon>

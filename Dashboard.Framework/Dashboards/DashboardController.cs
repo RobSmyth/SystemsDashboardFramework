@@ -48,11 +48,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.Dashboards
             Save();
         }
 
-        public void ShowHelpPane()
-        {
-            ShowOnSidePane(new HelpViewController().CreateView(), "Help");
-        }
-
         public void ShowNavigationPane()
         {
             _logger.Info("Show navigation.");
@@ -80,11 +75,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.Dashboards
         public void ToggleGroupPanelsEditMode()
         {
             DashboardNavigator.ToggleShowGroupPanelsDetailsMode();
-        }
-
-        public void ShowInsertPanel()
-        {
-            ShowOnSidePane(new InsertTileController(_tileProviderRegistry, DragAndDropController).CreateView(), "Help");
         }
 
         private void Save()

@@ -12,6 +12,7 @@ using NoeticTools.TeamStatusBoard.Framework.Config.XmlTypes;
 using NoeticTools.TeamStatusBoard.Framework.Input;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.BlankTile;
 using NoeticTools.TeamStatusBoard.Framework.Registries;
+using NoeticTools.TeamStatusBoard.Framework.Services;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Dashboards
@@ -29,8 +30,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Dashboards
         private readonly TsbCommands _commandsBindings;
         private TileConfiguration _tile;
 
-        public TileLayoutController(Grid tileGrid, ITileFactory tileFactory, ITileLayoutControllerRegistry layoutControllerRegistry, Thickness normalMargin, TileDragAndDropController dragAndDropController,
-            DashboardTileNavigator tileNavigator, TsbCommands commandsBindings)
+        public TileLayoutController(Grid tileGrid, ITileFactory tileFactory, ITileLayoutControllerRegistry layoutControllerRegistry, Thickness normalMargin, TileDragAndDropController dragAndDropController, DashboardTileNavigator tileNavigator, TsbCommands commandsBindings)
         {
             _tileFactory = tileFactory;
             _layoutControllerRegistry = layoutControllerRegistry;
@@ -121,8 +121,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.Dashboards
             {
                 FillRow(rowNumber);
             }
-
-            //RemoveEmptyRowsAndColumns();
         }
 
         public bool ProvdesLayoutFor(UIElement element)

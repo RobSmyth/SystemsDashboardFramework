@@ -11,11 +11,9 @@ namespace NoeticTools.TeamStatusBoard.Framework.Dashboards
         ITileDragAndDropController DragAndDropController { get; }
         void Start();
         void Stop();
-        void ShowHelpPane();
         void ShowNavigationPane();
         void ShowOnSidePane(FrameworkElement viewController, string title);
         void Refresh();
         void ToggleGroupPanelsEditMode();
-        void ShowInsertPanel();
     }
 }

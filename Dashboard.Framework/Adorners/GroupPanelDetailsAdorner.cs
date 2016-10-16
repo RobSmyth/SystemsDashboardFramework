@@ -1,8 +1,16 @@
-﻿using System.Globalization;
+﻿using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Media;
 using NoeticTools.TeamStatusBoard.Common.Annotations;
+using NoeticTools.TeamStatusBoard.Framework.Services;
+using FlowDirection = System.Windows.FlowDirection;
+using HorizontalAlignment = System.Windows.HorizontalAlignment;
+using Panel = System.Windows.Controls.Panel;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Adorners
@@ -11,12 +19,14 @@ namespace NoeticTools.TeamStatusBoard.Framework.Adorners
     {
         private const int MarginIncrease = 4;
         private const int NameFontSize = 24;
-        private readonly FrameworkElement _adornedElement;
+        private readonly Panel _adornedElement;
         private readonly Thickness _originalMargin;
         private static readonly Color Colour = Colors.AntiqueWhite;
         private readonly Brush _nameBrush = Brushes.Black;
+        private readonly List<FrameworkElement> _hitTestDisabledElements = new List<FrameworkElement>();
+        private bool _isSelected;
 
-        public GroupPanelDetailsAdorner([NotNull] FrameworkElement adornedElement) : base(adornedElement)
+        public GroupPanelDetailsAdorner([NotNull] Panel adornedElement) : base(adornedElement)
         {
             _adornedElement = adornedElement;
             _originalMargin = _adornedElement.Margin;
@@ -27,6 +37,10 @@ namespace NoeticTools.TeamStatusBoard.Framework.Adorners
             _adornedElement.Margin = new Thickness(_originalMargin.Left + MarginIncrease, _originalMargin.Top + MarginIncrease, _originalMargin.Right + MarginIncrease, _originalMargin.Bottom + MarginIncrease);
             var layer = AdornerLayer.GetAdornerLayer(AdornedElement);
             layer.Add(this);
+
+            _hitTestDisabledElements.AddRange(_adornedElement.Children.Cast<FrameworkElement>().Where(x => x.IsHitTestVisible));
+            SetAdornedElementChildrenHitTestVisible(false);
+            MouseDown += MouseDownHandler; ;
         }
 
         public void Detach()
@@ -34,12 +48,19 @@ namespace NoeticTools.TeamStatusBoard.Framework.Adorners
             _adornedElement.Margin = _originalMargin;
             var layer = AdornerLayer.GetAdornerLayer(AdornedElement);
             layer.Remove(this);
+            SetAdornedElementChildrenHitTestVisible(true);
+            _hitTestDisabledElements.Clear();
         }
 
-        private static void DrawCornerCircles(DrawingContext drawingContext, Rect adornedElementRect)
+        private void DrawCornerCircles(DrawingContext drawingContext, Rect adornedElementRect)
+        {
+            DrawAdornment(drawingContext, adornedElementRect);
+        }
+
+        private void DrawAdornment(DrawingContext drawingContext, Rect adornedElementRect)
         {
             const double renderRadius = 5.0;
-            var cornerNodeRenderBrush = new SolidColorBrush(Colour) {Opacity = 0.6};
+            var cornerNodeRenderBrush = new SolidColorBrush(Colour) {Opacity = _isSelected ? 0.8 : 0.6 };
             var cornerNodeRenderPen = new Pen(new SolidColorBrush(Colour), 1.5);
             drawingContext.DrawEllipse(cornerNodeRenderBrush, cornerNodeRenderPen, adornedElementRect.TopLeft, renderRadius, renderRadius);
             drawingContext.DrawEllipse(cornerNodeRenderBrush, cornerNodeRenderPen, adornedElementRect.TopRight, renderRadius, renderRadius);
@@ -53,8 +74,9 @@ namespace NoeticTools.TeamStatusBoard.Framework.Adorners
 
             DrawOverlayingRectangle(drawingContext, adornedElementRect);
             DrawCornerCircles(drawingContext, adornedElementRect);
-
             DrawPanelId(drawingContext, adornedElementRect);
+
+
         }
 
         private void DrawPanelId(DrawingContext drawingContext, Rect adornedElementRect)
@@ -68,12 +90,26 @@ namespace NoeticTools.TeamStatusBoard.Framework.Adorners
             drawingContext.DrawText(formattedText, textPoint);
         }
 
-        private static void DrawOverlayingRectangle(DrawingContext drawingContext, Rect adornedElementRect)
+        private void DrawOverlayingRectangle(DrawingContext drawingContext, Rect adornedElementRect)
         {
-            var renderBrush = new SolidColorBrush(Colour) {Opacity = 0.5};
+            var renderBrush = new SolidColorBrush(Colour) {Opacity = _isSelected ? 0.75 : 0.5 };
             var renderPen = new Pen(new SolidColorBrush(Colour), 1.5);
             var rect = new Rect(adornedElementRect.TopLeft, adornedElementRect.BottomRight);
             drawingContext.DrawRectangle(renderBrush, renderPen, rect);
+        }
+
+        private void MouseDownHandler(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            _isSelected ^= true;
+            InvalidateVisual();
+        }
+
+        private void SetAdornedElementChildrenHitTestVisible(bool hitTestVisible)
+        {
+            foreach (var child in _hitTestDisabledElements)
+            {
+                child.IsHitTestVisible = hitTestVisible;
+            }
         }
     }
 }

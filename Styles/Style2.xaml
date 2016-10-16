@@ -129,7 +129,7 @@
     <SolidColorBrush x:Key="ConfigPanelStyleBackgroundBrush">Black</SolidColorBrush>
     <SolidColorBrush x:Key="ConfigPanelStyleForegroundBrush">White</SolidColorBrush>
     <SolidColorBrush x:Key="ConfigPanelStyleDarkBackgroundBrush">Black</SolidColorBrush>
-    <Style x:Key="ConfigPanelStyleTextbox" TargetType="TextBlock">
+    <Style x:Key="ConfigPanelStyleTextblock" TargetType="TextBlock">
         <Setter Property="Foreground" Value="{StaticResource ConfigPanelStyleForegroundBrush}"/>
     </Style>
     <Style x:Key="ConfigPanelStyleLabel" TargetType="Label">

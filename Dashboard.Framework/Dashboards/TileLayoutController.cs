@@ -50,8 +50,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.Dashboards
             {
                 AddTile(childTile);
             }
-
-            RemoveEmptyRowsAndColumns();
         }
 
         public void InsertTile(TileConfiguration currentTile, TileConfiguration tile, TileInsertAction insertAction)
@@ -124,7 +122,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Dashboards
                 FillRow(rowNumber);
             }
 
-            RemoveEmptyRowsAndColumns();
+            //RemoveEmptyRowsAndColumns();
         }
 
         public bool ProvdesLayoutFor(UIElement element)
@@ -183,45 +181,11 @@ namespace NoeticTools.TeamStatusBoard.Framework.Dashboards
             _tile.Tiles = new List<TileConfiguration>(_tile.Tiles) {tile}.ToArray();
         }
 
-        private void RemoveEmptyRowsAndColumns()
-        {
-            RemoveEmptyRows();
-            RemoveEmptyColumns();
-        }
-
         private void RemoveAt(int rowNumber, int columnNumber)
         {
             foreach (var tile in _tileToView.Keys.Where(x => x.IsInRow(rowNumber) && x.IsInColumn(columnNumber)).ToArray())
             {
                 RemoveTile(tile);
-            }
-        }
-
-        private void RemoveEmptyRows()
-        {
-            var rowIndex = 0;
-            while (rowIndex < _tileGrid.RowDefinitions.Count)
-            {
-                if (IsEmptyRow(rowIndex))
-                {
-                    RemoveRow(rowIndex);
-                    continue;
-                }
-                rowIndex++;
-            }
-        }
-
-        private void RemoveEmptyColumns()
-        {
-            var columnIndex = 0;
-            while (columnIndex < _tileGrid.ColumnDefinitions.Count)
-            {
-                if (IsEmptyColumn(columnIndex))
-                {
-                    RemoveColumn(columnIndex);
-                    continue;
-                }
-                columnIndex++;
             }
         }
 

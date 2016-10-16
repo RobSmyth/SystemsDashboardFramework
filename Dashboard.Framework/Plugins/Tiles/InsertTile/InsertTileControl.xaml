@@ -12,7 +12,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/NoeticTools.TeamStatusBoard.Styles;component/Style1.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <Style TargetType="TextBlock" BasedOn="{StaticResource ConfigPanelStyleTextbox}" />
+            <Style TargetType="TextBlock" BasedOn="{StaticResource ConfigPanelStyleTextblock}" />
             <Style TargetType="Label" BasedOn="{StaticResource ConfigPanelStyleLabel}" />
             <Style TargetType="Grid" BasedOn="{StaticResource ConfigPanelStyleGrid}" />
             <Style TargetType="Button" BasedOn="{StaticResource ConfigPanelStyleButton}"/>

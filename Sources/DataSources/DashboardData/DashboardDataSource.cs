@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using NoeticTools.TeamStatusBoard.Framework.Config.XmlTypes;
+using NoeticTools.TeamStatusBoard.Framework.Persistence.Xml;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;

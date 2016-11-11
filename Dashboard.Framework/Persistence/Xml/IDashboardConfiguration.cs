@@ -1,4 +1,4 @@
-﻿namespace NoeticTools.TeamStatusBoard.Framework.Config.XmlTypes
+﻿namespace NoeticTools.TeamStatusBoard.Framework.Persistence.Xml
 {
     public interface IDashboardConfiguration
     {

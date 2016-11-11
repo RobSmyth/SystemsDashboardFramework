@@ -4,8 +4,8 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using NoeticTools.TeamStatusBoard.Framework.Adorners;
-using NoeticTools.TeamStatusBoard.Framework.Config.XmlTypes;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
+using NoeticTools.TeamStatusBoard.Framework.Persistence.Xml;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Input

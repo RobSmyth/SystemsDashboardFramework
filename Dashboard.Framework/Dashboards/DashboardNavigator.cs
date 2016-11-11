@@ -1,4 +1,5 @@
-﻿using NoeticTools.TeamStatusBoard.Framework.Config.XmlTypes;
+﻿using NoeticTools.TeamStatusBoard.Framework.Persistence;
+using NoeticTools.TeamStatusBoard.Framework.Persistence.Xml;
 using NoeticTools.TeamStatusBoard.Framework.Registries;
 
 

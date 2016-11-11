@@ -1,8 +1,8 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using NoeticTools.TeamStatusBoard.Framework.Config;
-using NoeticTools.TeamStatusBoard.Framework.Config.XmlTypes;
 using NoeticTools.TeamStatusBoard.Framework.Input;
+using NoeticTools.TeamStatusBoard.Framework.Persistence.Xml;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.InsertTile

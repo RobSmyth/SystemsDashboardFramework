@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
 using NoeticTools.TeamStatusBoard.Framework.Config;
-using NoeticTools.TeamStatusBoard.Framework.Config.XmlTypes;
 using NoeticTools.TeamStatusBoard.Framework.Input;
+using NoeticTools.TeamStatusBoard.Framework.Persistence.Xml;
 using NoeticTools.TeamStatusBoard.Framework.Registries;
 
 

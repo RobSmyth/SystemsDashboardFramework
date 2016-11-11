@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using NoeticTools.TeamStatusBoard.Common.ViewModels;
-using NoeticTools.TeamStatusBoard.Framework.Config.XmlTypes;
+using NoeticTools.TeamStatusBoard.Framework.Persistence.Xml;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Dashboards

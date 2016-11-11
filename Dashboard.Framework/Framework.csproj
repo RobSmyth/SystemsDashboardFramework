@@ -120,9 +120,9 @@
     <Compile Include="Config\ViewModels\DataSourceProperty.cs" />
     <Compile Include="Config\ViewModels\DataSourcePropertyViewModel.cs" />
     <Compile Include="Config\ViewModels\DataSourcesViewModel.cs" />
-    <Compile Include="Config\XmlTypes\IDashboardConfigurations.cs" />
-    <Compile Include="Config\XmlTypes\IDashboardConfigurationServices.cs" />
-    <Compile Include="Config\XmlTypes\IItemConfiguration.cs" />
+    <Compile Include="Persistence\Xml\IDashboardConfigurations.cs" />
+    <Compile Include="Persistence\Xml\IDashboardConfigurationServices.cs" />
+    <Compile Include="Persistence\Xml\IItemConfiguration.cs" />
     <Compile Include="Config\INotifyingPropertyViewModel.cs" />
     <Compile Include="Config\ItemConfigurationBase.cs" />
     <Compile Include="Config\Properties\DividerPropertyViewModel.cs" />
@@ -145,14 +145,14 @@
       <DependentUpon>DataSourcesView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dashboards\DashboardController.cs" />
-    <Compile Include="Dashboards\DashBoardLoader.cs" />
-    <Compile Include="Dashboards\DashBoardLoaderConduit.cs" />
+    <Compile Include="Persistence\DashBoardLoader.cs" />
+    <Compile Include="Persistence\DashBoardLoaderConduit.cs" />
     <Compile Include="Dashboards\DashboardNavigator.cs" />
     <Compile Include="Dashboards\DashboardTileNavigator.cs" />
     <Compile Include="Input\ITileDragAndDropController.cs" />
     <Compile Include="IRunOptions.cs" />
     <Compile Include="Dashboards\IDashboardController.cs" />
-    <Compile Include="Dashboards\IDashBoardLoader.cs" />
+    <Compile Include="Persistence\IDashBoardLoader.cs" />
     <Compile Include="Dashboards\IDashboardNavigator.cs" />
     <Compile Include="Dashboards\IDashboardTileNavigator.cs" />
     <Compile Include="Input\IDragSource.cs" />
@@ -233,15 +233,15 @@
     <Compile Include="Dashboards\TileLayoutController.cs" />
     <Compile Include="Services\TimeServices\Clock.cs" />
     <Compile Include="Commands\TileConfigureCommand.cs" />
-    <Compile Include="Config\XmlTypes\DashboardConfiguration.cs" />
+    <Compile Include="Persistence\Xml\DashboardConfiguration.cs" />
     <Compile Include="Config\DashboardConfigurationManager.cs" />
-    <Compile Include="Config\XmlTypes\DashboardConfigurations.cs" />
-    <Compile Include="Config\XmlTypes\DashboardConfigurationServices.cs" />
-    <Compile Include="Config\XmlTypes\DashboardConfigValuePair.cs" />
-    <Compile Include="Config\XmlTypes\DashboardServiceConfiguration.cs" />
-    <Compile Include="Config\XmlTypes\TileConfiguration.cs" />
+    <Compile Include="Persistence\Xml\DashboardConfigurations.cs" />
+    <Compile Include="Persistence\Xml\DashboardConfigurationServices.cs" />
+    <Compile Include="Persistence\Xml\DashboardConfigValuePair.cs" />
+    <Compile Include="Persistence\Xml\DashboardServiceConfiguration.cs" />
+    <Compile Include="Persistence\Xml\TileConfiguration.cs" />
     <Compile Include="Config\IConfigurationChangeListener.cs" />
-    <Compile Include="Config\XmlTypes\IDashboardConfiguration.cs" />
+    <Compile Include="Persistence\Xml\IDashboardConfiguration.cs" />
     <Compile Include="Config\Properties\HyperlinkPropertyViewModel.cs" />
     <Compile Include="Config\Properties\PropertyViewModel.cs" />
     <Compile Include="Config\Properties\IPropertyViewModel.cs" />

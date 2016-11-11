@@ -1,5 +1,5 @@
 using NoeticTools.TeamStatusBoard.Common.ViewModels;
-using NoeticTools.TeamStatusBoard.Framework.Config.XmlTypes;
+using NoeticTools.TeamStatusBoard.Framework.Persistence.Xml;
 using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 
 

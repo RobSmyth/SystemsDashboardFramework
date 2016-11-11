@@ -4,9 +4,9 @@ using System.Windows;
 using System.Windows.Controls;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
 using NoeticTools.TeamStatusBoard.Framework.Config;
-using NoeticTools.TeamStatusBoard.Framework.Config.XmlTypes;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Input;
+using NoeticTools.TeamStatusBoard.Framework.Persistence.Xml;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Registries

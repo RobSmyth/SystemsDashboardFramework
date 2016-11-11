@@ -1,8 +1,8 @@
-﻿using System;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
+using NoeticTools.TeamStatusBoard.Framework.Config;
 
 
-namespace NoeticTools.TeamStatusBoard.Framework.Config.XmlTypes
+namespace NoeticTools.TeamStatusBoard.Framework.Persistence.Xml
 {
     [XmlType("tile")]
     public sealed class TileConfiguration : ItemConfigurationBase

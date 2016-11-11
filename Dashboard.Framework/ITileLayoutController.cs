@@ -1,6 +1,6 @@
 ﻿using System.Windows;
-using NoeticTools.TeamStatusBoard.Framework.Config.XmlTypes;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
+using NoeticTools.TeamStatusBoard.Framework.Persistence.Xml;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework

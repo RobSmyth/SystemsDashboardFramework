@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 using NoeticTools.TeamStatusBoard.Framework.Config;
-using NoeticTools.TeamStatusBoard.Framework.Config.XmlTypes;
+using NoeticTools.TeamStatusBoard.Framework.Persistence.Xml;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles;
 
 

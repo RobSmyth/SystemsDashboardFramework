@@ -49,8 +49,8 @@
     <Compile Include="TeamDashboardRunner.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Dashboard.Framework\Framework.csproj">
-      <Project>{1f19c0de-e777-48e9-856b-7376a7527ec0}</Project>
+    <ProjectReference Include="..\Framework\Framework\Framework.csproj">
+      <Project>{12b659c1-221a-4478-ab79-f44b2046c8f0}</Project>
       <Name>Framework</Name>
     </ProjectReference>
     <ProjectReference Include="..\Persistence\Persistence.csproj">

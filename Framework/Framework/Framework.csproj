@@ -1,0 +1,366 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{12B659C1-221A-4478-AB79-F44B2046C8F0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NoeticTools.TeamStatusBoard.Framework</RootNamespace>
+    <AssemblyName>NoeticTools.TeamStatusBoard.Framework</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Output\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\Output\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="JsonFx, Version=2.0.1209.2802, Culture=neutral, PublicKeyToken=315052dd637f8a52, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\JsonFx.2.0.1209.2802\lib\net40\JsonFx.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="LiveCharts, Version=0.7.13.0, Culture=neutral, PublicKeyToken=c5935629d38af058, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\LiveCharts.0.7.13\lib\portable-net40+sl5+win8+wp8+wpa81\LiveCharts.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="LiveCharts.Wpf, Version=0.7.13.0, Culture=neutral, PublicKeyToken=3b585c2a5f1a92c1, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\LiveCharts.Wpf.0.7.13\lib\net46\LiveCharts.Wpf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.14.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\log4net.2.0.4\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\RestSharp.105.2.3\lib\net46\RestSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Adorners\DropTargetAdorner.cs" />
+    <Compile Include="Adorners\GroupPanelDetailsAdorner.cs" />
+    <Compile Include="Commands\TsbCommands.cs" />
+    <Compile Include="Commands\IApplicationCommands.cs" />
+    <Compile Include="Commands\SaveConfigurationParametersCommand.cs" />
+    <Compile Include="Commands\ShowDataSourcesCommand.cs" />
+    <Compile Include="ConfiguredTileViewModelBase.cs" />
+    <Compile Include="Config\ConfigurationChangeListenerConduit.cs" />
+    <Compile Include="Config\ConfigurationNamedValueReaderDecorator.cs" />
+    <Compile Include="Config\Controllers\DataSourcesViewProvider.cs" />
+    <Compile Include="Config\DashBoardLoader.cs" />
+    <Compile Include="Config\ITileProperties.cs" />
+    <Compile Include="Config\NamedValueRepositories\DataSourceNamedValueRepository.cs" />
+    <Compile Include="Config\NamedValueRepositories\DataSourceNamedValueRepositoryProvider.cs" />
+    <Compile Include="Config\NamedValueRepositories\INamedValueProvider.cs" />
+    <Compile Include="Config\NamedValueRepositories\INamedValueRepository.cs" />
+    <Compile Include="Config\NamedValueRepositories\NullNamedValueReaderProvider.cs" />
+    <Compile Include="Config\NamedValueRepositories\NullValueRepository.cs" />
+    <Compile Include="Config\Properties\NullPropertyViewModel.cs" />
+    <Compile Include="Config\Properties\BoolPropertyViewModel.cs" />
+    <Compile Include="Config\Properties\ColourPropertyViewModel.cs" />
+    <Compile Include="Config\Properties\CompoundColourPropertyViewModel.cs" />
+    <Compile Include="Config\Properties\CompountTextPropertyViewModel.cs" />
+    <Compile Include="Config\Properties\EnumPropertyViewModel.cs" />
+    <Compile Include="Config\Properties\PropertyEditorType.cs" />
+    <Compile Include="Config\Properties\TextPropertyViewModel.cs" />
+    <Compile Include="Config\Properties\TileSpanViewModelBase.cs" />
+    <Compile Include="Config\SuggestionProviders\NullSuggestionProvider.cs" />
+    <Compile Include="Config\SuggestionProviders\TextListSuggestionProvider.cs" />
+    <Compile Include="Config\TileProperties.cs" />
+    <Compile Include="Config\SuggestionProviders\BoolSuggestionsProvider.cs" />
+    <Compile Include="Config\SuggestionProviders\ColourSuggestionsProvider.cs" />
+    <Compile Include="Config\SuggestionProviders\ISuggestionProvider.cs" />
+    <Compile Include="Config\ViewModels\ColourNameProperty.cs" />
+    <Compile Include="Config\ViewModels\DataSourceProperty.cs" />
+    <Compile Include="Config\ViewModels\DataSourcePropertyViewModel.cs" />
+    <Compile Include="Config\ViewModels\DataSourcesViewModel.cs" />
+    <Compile Include="Config\INotifyingPropertyViewModel.cs" />
+    <Compile Include="Config\Properties\DividerPropertyViewModel.cs" />
+    <Compile Include="Config\Properties\TileColumnSpanViewModel.cs" />
+    <Compile Include="Config\Properties\TileRowSpanViewModel.cs" />
+    <Compile Include="Config\ViewModels\DataSourceViewModel.cs" />
+    <Compile Include="Config\ViewModels\IDataSourcePropertyViewModel.cs" />
+    <Compile Include="Config\ViewModels\IDataSourceViewModel.cs" />
+    <Compile Include="Config\ViewModels\ITextProperty.cs" />
+    <Compile Include="Config\ViewModels\LiteralTextProperty.cs" />
+    <Compile Include="Config\ViewModels\NewDataSourceViewModel.cs" />
+    <Compile Include="Config\ViewModels\TextProperty.cs" />
+    <Compile Include="Config\Views\AutoCompletePropertyTextBox.xaml.cs">
+      <DependentUpon>AutoCompletePropertyTextBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Config\Views\PanelWithTitleBarControl.xaml.cs">
+      <DependentUpon>PanelWithTitleBarControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Config\Views\DataSourcesView.xaml.cs">
+      <DependentUpon>DataSourcesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dashboards\DashboardController.cs" />
+    <Compile Include="Dashboards\DashboardNavigator.cs" />
+    <Compile Include="Dashboards\DashboardTileNavigator.cs" />
+    <Compile Include="Input\ITileDragAndDropController.cs" />
+    <Compile Include="IRunOptions.cs" />
+    <Compile Include="Dashboards\IDashboardController.cs" />
+    <Compile Include="Dashboards\IDashboardNavigator.cs" />
+    <Compile Include="Dashboards\IDashboardTileNavigator.cs" />
+    <Compile Include="Input\IDragSource.cs" />
+    <Compile Include="Plugins\PropertyEditControls\Text\AutoCompleteTextPropertyViewProvider.cs" />
+    <Compile Include="Plugins\PropertyEditControls\DataSourceTypePropertyViewPlugin.cs" />
+    <Compile Include="Plugins\PropertyEditControls\DataSourceTypePropertyViewProvider.cs" />
+    <Compile Include="Plugins\PropertyEditControls\Text\CompoundAutoCompleteTextPropertyViewProvider.cs" />
+    <Compile Include="Plugins\PropertyEditControls\TimeSpan\TimeSpanPropertyViewPlugin.cs" />
+    <Compile Include="Plugins\PropertyEditControls\TimeSpan\TimeSpanPropertyViewProvider.cs" />
+    <Compile Include="Plugins\Tiles\BlankTile\BlankTileControl.xaml.cs">
+      <DependentUpon>BlankTileControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\Tiles\BlankTile\BlankTilePlugin.cs" />
+    <Compile Include="Plugins\Tiles\BlankTile\BlankTileProvider.cs" />
+    <Compile Include="Plugins\Tiles\BlankTile\BlankTileViewModel.cs" />
+    <Compile Include="Config\SuggestionProviders\TextSuggestionsProvider.cs" />
+    <Compile Include="Config\NamedValueRepositories\NamedValueAggregator.cs" />
+    <Compile Include="Plugins\Tiles\HelpTile\HelpTileKeyHandler.cs" />
+    <Compile Include="Plugins\Tiles\InsertTile\InsertTileKeyHandler.cs" />
+    <Compile Include="RunOptions.cs" />
+    <Compile Include="Services\DataServices\DataValue.cs" />
+    <Compile Include="Services\DataServices\DataSourcePropertyParser.cs" />
+    <Compile Include="Services\DataServices\IDataService.cs" />
+    <Compile Include="Services\DataServices\DataRepositoy.cs" />
+    <Compile Include="Services\DataServices\DataServer.cs" />
+    <Compile Include="Services\DataServices\DataRepositoryFactory.cs" />
+    <Compile Include="Services\DataServices\IDataValue.cs" />
+    <Compile Include="Services\DataServices\NullDataSource.cs" />
+    <Compile Include="Services\DataServices\IDataRepositoryFactory.cs" />
+    <Compile Include="Services\DataServices\IDataSource.cs" />
+    <Compile Include="Services\DataServices\IDataChangeListener.cs" />
+    <Compile Include="Services\DataServices\NullDataValue.cs" />
+    <Compile Include="Services\DataServices\PropertiesFlags.cs" />
+    <Compile Include="Services\IService.cs" />
+    <Compile Include="ITileControllerProvider.cs" />
+    <Compile Include="ITileLayoutController.cs" />
+    <Compile Include="Plugins\KeyboardDashboardNavigationPlugin.cs" />
+    <Compile Include="Plugins\KeyboardTileNavigationPlugin.cs" />
+    <Compile Include="Input\LookupKeyboardHandler.cs" />
+    <Compile Include="Plugins\PropertyEditControls\Checkbox\CheckboxPropertyViewPlugin.cs" />
+    <Compile Include="Plugins\PropertyEditControls\Checkbox\CheckboxPropertyViewProvider.cs" />
+    <Compile Include="Plugins\PropertyEditControls\Combobox\ComboboxTextPropertyViewPlugin.cs" />
+    <Compile Include="Plugins\PropertyEditControls\Combobox\ComboboxTextPropertyViewProvider.cs" />
+    <Compile Include="Plugins\PropertyEditControls\Date\DatePropertyViewPlugin.cs" />
+    <Compile Include="Plugins\PropertyEditControls\Date\DatePropertyViewProvider.cs" />
+    <Compile Include="Plugins\PropertyEditControls\Text\TextPropertyViewPlugin.cs" />
+    <Compile Include="Plugins\PropertyEditControls\Text\TextPropertyViewProvider.cs" />
+    <Compile Include="Plugins\PropertyEditControls\Date\UtcDateTimeValueConverter.cs" />
+    <Compile Include="Plugins\Tiles\ITileViewModel.cs" />
+    <Compile Include="Registries\IPropertyViewProvider.cs" />
+    <Compile Include="Registries\IPropertyEditControlRegistry.cs" />
+    <Compile Include="Registries\ITileProviderRegistry.cs" />
+    <Compile Include="Registries\PropertyEditControlRegistry.cs" />
+    <Compile Include="Registries\TileProviderRegistry.cs" />
+    <Compile Include="Input\RelativeDropPostion.cs" />
+    <Compile Include="Services\ApplicationServices.cs" />
+    <Compile Include="Input\TileDragAndDropController.cs" />
+    <Compile Include="Input\IKeyboardHandler.cs" />
+    <Compile Include="Input\IKeyHandler.cs" />
+    <Compile Include="Services\IServices.cs" />
+    <Compile Include="Plugins\Tiles\HelpTile\HelpTilePlugin.cs" />
+    <Compile Include="Plugins\Tiles\InsertTile\InsertTilePlugin.cs" />
+    <Compile Include="Plugins\Tiles\InsertTile\InsertTileController.cs" />
+    <Compile Include="Plugins\Tiles\InsertTile\InsertTileControl.xaml.cs">
+      <DependentUpon>InsertTileControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Config\Views\ParametersConfigControl.xaml.cs">
+      <DependentUpon>ParametersConfigControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Input\KeyboardHandler.cs" />
+    <Compile Include="Dashboards\DashboardsNavigationViewModel.cs" />
+    <Compile Include="Registries\ITileLayoutControllerRegistry.cs" />
+    <Compile Include="Registries\ITileFactory.cs" />
+    <Compile Include="Plugins\IPlugin.cs" />
+    <Compile Include="Registries\TileLayoutControllerRegistry.cs" />
+    <Compile Include="Registries\TileFactory.cs" />
+    <Compile Include="Dashboards\TileInsertAction.cs" />
+    <Compile Include="Dashboards\TileLayoutController.cs" />
+    <Compile Include="Services\TimeServices\Clock.cs" />
+    <Compile Include="Commands\TileConfigureCommand.cs" />
+    <Compile Include="Config\DashboardConfigurationManager.cs" />
+    <Compile Include="Config\IConfigurationChangeListener.cs" />
+    <Compile Include="Config\Properties\HyperlinkPropertyViewModel.cs" />
+    <Compile Include="Config\Properties\PropertyViewModel.cs" />
+    <Compile Include="Config\Properties\IPropertyViewModel.cs" />
+    <Compile Include="Config\TileConfigurationConverter.cs" />
+    <Compile Include="Config\Controllers\ConfigationViewController.cs" />
+    <Compile Include="Services\TimeServices\IClock.cs" />
+    <Compile Include="Services\TimeServices\ITimerListener.cs" />
+    <Compile Include="Services\TimeServices\ITimerQueue.cs" />
+    <Compile Include="Services\TimeServices\ITimerService.cs" />
+    <Compile Include="Services\TimeServices\ITimerToken.cs" />
+    <Compile Include="Services\TimeServices\NullTimerListener.cs" />
+    <Compile Include="Plugins\Tiles\HelpTile\HelpTileControl.xaml.cs">
+      <DependentUpon>HelpTileControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\Tiles\HelpTile\HelpViewController.cs" />
+    <Compile Include="Dashboards\DashboardNaviagtionTileControl.xaml.cs">
+      <DependentUpon>DashboardNaviagtionTileControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dashboards\DashboardsNavigationViewController.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\TimerService.cs" />
+    <Compile Include="Services\TimeServices\NullTimerToken.cs" />
+    <Compile Include="Services\TimeServices\TimerToken.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="dashboard.config.default.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Config\Views\AutoCompletePropertyTextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Config\Views\PanelWithTitleBarControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Config\Views\DataSourcesView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Plugins\Tiles\BlankTile\BlankTileControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Plugins\Tiles\InsertTile\InsertTileControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Config\Views\ParametersConfigControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Plugins\Tiles\HelpTile\HelpTileControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dashboards\DashboardNaviagtionTileControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\server128x128.png" />
+    <Resource Include="NoeticTools.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\NoeticTools.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\NoeticTools.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\TransparentStar_20x20.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\WhiteStar_20x20.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\YellowStar_20x20.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\YellowStar_24x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\YellowStar_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Insert row to left.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Insert row to right.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Insert row above.png" />
+    <Resource Include="Images\Insert row below.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Delete row.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Delete column.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Cog1_20x20.png" />
+    <Resource Include="Images\Cog1_24x24.png" />
+    <Resource Include="Images\Cog1_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Cog1_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Data1_16x16.png" />
+    <Resource Include="Images\Data1_24x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\server128x128_light.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Common.csproj">
+      <Project>{04ebbac1-c5ef-4b93-9b6f-d270afa3e878}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Persistence\Persistence.csproj">
+      <Project>{f80c1ce8-bd88-439b-b06b-7f0d510b63a9}</Project>
+      <Name>Persistence</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Styles\Styles.csproj">
+      <Project>{6c579cd4-6ff8-4990-8e27-6353d02f1f53}</Project>
+      <Name>Styles</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

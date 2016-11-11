@@ -1,0 +1,579 @@
+<?xml version="1.0"?>
+<Dashboards xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" current="default" xmlns="http://www.cpandl.com">
+  <configurations>
+    <dashboard name="default">
+      <displayName />
+      <root typeId="Pane" row="1" column="2" rowSpan="1" columnSpan="1">
+        <values />
+        <tiles>
+          <tile typeId="Pane" row="1" column="1" rowSpan="2" columnSpan="4">
+            <values />
+            <tiles>
+              <tile typeId="TeamCity.Build.Status" row="1" column="1" rowSpan="1" columnSpan="1">
+                <values>
+                  <keyValue key="Project">
+                    <value>TEAMCITY PROJECT A</value>
+                  </keyValue>
+                  <keyValue key="Configuration">
+                    <value>TeamCity build configuration A</value>
+                  </keyValue>
+                  <keyValue key="Description">
+                    <value>YOUR Continuous Build</value>
+                  </keyValue>
+                </values>
+                <tiles />
+              </tile>
+              <tile typeId="TeamCity.Build.Status" row="1" column="2" rowSpan="1" columnSpan="1">
+                <values>
+                  <keyValue key="Project">
+                    <value>TEAMCITY PROJECT B</value>
+                  </keyValue>
+                  <keyValue key="Configuration">
+                    <value>Configuration 1</value>
+                  </keyValue>
+                  <keyValue key="Description">
+                    <value>Integration Build</value>
+                  </keyValue>
+                </values>
+                <tiles />
+              </tile>
+              <tile typeId="TeamCity.Build.Status" row="1" column="3" rowSpan="1" columnSpan="1">
+                <values>
+                  <keyValue key="Project">
+                    <value>YOUR TEAMCITY PROJECT NAME</value>
+                  </keyValue>
+                  <keyValue key="Configuration">
+                    <value>Configuration 2</value>
+                  </keyValue>
+                  <keyValue key="Description">
+                    <value>Configuration 3</value>
+                  </keyValue>
+                </values>
+                <tiles />
+              </tile>
+              <tile typeId="TeamCity.Build.Status" row="1" column="4" rowSpan="1" columnSpan="1">
+                <values>
+                  <keyValue key="Project">
+                    <value>YOUR TEAMCITY PROJECT NAME</value>
+                  </keyValue>
+                  <keyValue key="Configuration">
+                    <value>Configuration 3</value>
+                  </keyValue>
+                  <keyValue key="Description">
+                    <value>PUT YOUR BUILD DESCRIPTION HERE</value>
+                  </keyValue>
+                </values>
+                <tiles />
+              </tile>
+              <tile typeId="TeamCity.Build.Status" row="2" column="1" rowSpan="1" columnSpan="1">
+                <values>
+                  <keyValue key="Project">
+                    <value>YOUR TEAMCITY PROJECT NAME</value>
+                  </keyValue>
+                  <keyValue key="Configuration">
+                    <value>Configuration 4</value>
+                  </keyValue>
+                  <keyValue key="Description">
+                    <value>Dashboard</value>
+                  </keyValue>
+                </values>
+                <tiles />
+              </tile>
+              <tile typeId="TeamCity.Build.Status" row="2" column="2" rowSpan="1" columnSpan="1">
+                <values>
+                  <keyValue key="Project">
+                    <value>YOUR TEAMCITY PROJECT NAME</value>
+                  </keyValue>
+                  <keyValue key="Configuration">
+                    <value>Configuration 5</value>
+                  </keyValue>
+                  <keyValue key="Description">
+                    <value>A Release Build</value>
+                  </keyValue>
+                </values>
+                <tiles />
+              </tile>
+              <tile typeId="TeamCity.Build.Status" row="2" column="3" rowSpan="1" columnSpan="1">
+                <values>
+                  <keyValue key="Project">
+                    <value>TEAMCITY PROJECT NAME</value>
+                  </keyValue>
+                  <keyValue key="Configuration">
+                    <value>Configuration 6</value>
+                  </keyValue>
+                  <keyValue key="Description">
+                    <value>DESCRIPTION HERE</value>
+                  </keyValue>
+                </values>
+                <tiles />
+              </tile>
+              <tile typeId="TeamCity.Build.Status" row="2" column="4" rowSpan="1" columnSpan="1">
+                <values>
+                  <keyValue key="Project">
+                    <value>TEAMCITY PROJECT NAME</value>
+                  </keyValue>
+                  <keyValue key="Configuration">
+                    <value>Configuration 1</value>
+                  </keyValue>
+                  <keyValue key="Description">
+                    <value>DESCRIPTION HERE</value>
+                  </keyValue>
+                </values>
+                <tiles />
+              </tile>
+            </tiles>
+          </tile>
+          <tile typeId="Pane" row="3" column="1" rowSpan="2" columnSpan="1">
+            <values />
+            <tiles>
+              <tile typeId="TimeLeft.Days.Count" row="1" column="1" rowSpan="1" columnSpan="1">
+                <values>
+                  <keyValue key="End_date">
+                    <value>130875264000000000</value>
+                  </keyValue>
+                  <keyValue key="Title">
+                    <value>Complete</value>
+                  </keyValue>
+                  <keyValue key="Disabled">
+                    <value />
+                  </keyValue>
+                  <keyValue key="Disable">
+                    <value />
+                  </keyValue>
+                </values>
+                <tiles />
+              </tile>
+              <tile typeId="Date.Now" row="2" column="1" rowSpan="1" columnSpan="1">
+                <values />
+                <tiles />
+              </tile>
+            </tiles>
+          </tile>
+          <tile typeId="Pane" row="3" column="4" rowSpan="2" columnSpan="1">
+            <values />
+            <tiles>
+              <tile typeId="TimeLeft.Days.Count" row="1" column="1" rowSpan="2" columnSpan="1">
+                <values>
+                  <keyValue key="End_date">
+                    <value>130870080000000000</value>
+                  </keyValue>
+                  <keyValue key="Title">
+                    <value>Formal</value>
+                  </keyValue>
+                  <keyValue key="Disabled">
+                    <value>True</value>
+                  </keyValue>
+                  <keyValue key="Disable">
+                    <value>True</value>
+                  </keyValue>
+                </values>
+                <tiles />
+              </tile>
+              <tile typeId="Message" row="3" column="1" rowSpan="1" columnSpan="1">
+                <values>
+                  <keyValue key="Message">
+                    <value>YOURPROJECT</value>
+                  </keyValue>
+                </values>
+                <tiles />
+              </tile>
+            </tiles>
+          </tile>
+          <tile typeId="TeamCity.AvailableBuilds" row="3" column="2" rowSpan="2" columnSpan="2">
+            <values>
+              <keyValue key="Title">
+                <value>Available builds</value>
+              </keyValue>
+              <keyValue key="Display_name_1">
+                <value>TeamCity build configuration name 1</value>
+              </keyValue>
+              <keyValue key="Project_1">
+                <value>TeamCity build configuration name 2</value>
+              </keyValue>
+              <keyValue key="Display_name_2">
+                <value>TeamCity build configuration name 3</value>
+              </keyValue>
+              <keyValue key="Project_2">
+                <value>TeamCity build configuration name 4</value>
+              </keyValue>
+              <keyValue key="Display_name_3">
+                <value>Your build X</value>
+              </keyValue>
+              <keyValue key="Project_3">
+                <value>TeamCity build configuration name 3</value>
+              </keyValue>
+              <keyValue key="Display_name_4">
+                <value>Your display name 4</value>
+              </keyValue>
+              <keyValue key="Project_4">
+                <value>TeamCity build configuration name 4</value>
+              </keyValue>
+              <keyValue key="Display_name_5">
+                <value>Your display Name 5</value>
+              </keyValue>
+              <keyValue key="Project_5">
+                <value>TeamCity build configuration name 5</value>
+              </keyValue>
+              <keyValue key="Configuration_1">
+                <value>X</value>
+              </keyValue>
+              <keyValue key="Configuration_2">
+                <value>X</value>
+              </keyValue>
+              <keyValue key="Configuration_3">
+                <value>X</value>
+              </keyValue>
+              <keyValue key="Configuration_4">
+                <value>X</value>
+              </keyValue>
+              <keyValue key="Configuration_5">
+                <value>X</value>
+              </keyValue>
+              <keyValue key="Display_name_6">
+                <value>X</value>
+              </keyValue>
+              <keyValue key="Project_6">
+                <value>X</value>
+              </keyValue>
+              <keyValue key="Configuration_6">
+                <value>X</value>
+              </keyValue>
+              <keyValue key="Display_name_7">
+                <value>X</value>
+              </keyValue>
+              <keyValue key="Project_7">
+                <value>X</value>
+              </keyValue>
+              <keyValue key="Configuration_7">
+                <value>X</value>
+              </keyValue>
+              <keyValue key="Display_name_8">
+                <value>X</value>
+              </keyValue>
+              <keyValue key="Project_8">
+                <value>X</value>
+              </keyValue>
+              <keyValue key="Configuration_8">
+                <value>X</value>
+              </keyValue>
+            </values>
+            <tiles />
+          </tile>
+        </tiles>
+      </root>
+    </dashboard>
+    <dashboard name="one">
+      <displayName />
+      <root typeId="6f1bf918-6080-42c2-b980-d562f77cb4e6" row="1" column="2" rowSpan="1" columnSpan="1">
+        <values />
+        <tiles>
+          <tile typeId="6f1bf918-6080-42c2-b980-d562f77cb4e6" row="1" column="1" rowSpan="4" columnSpan="2">
+            <values />
+            <tiles>
+              <tile typeId="0fface9a-8b68-4dbc-8b42-0255f51368b5" row="1" column="1" rowSpan="1" columnSpan="1">
+                <values>
+                  <keyValue key="Project">
+                    <value>YOUR TEAMCITY PROJECT NAME</value>
+                  </keyValue>
+                  <keyValue key="Configuration">
+                    <value>1.0 Continuous Build</value>
+                  </keyValue>
+                  <keyValue key="Description">
+                    <value>Continuous Build</value>
+                  </keyValue>
+                </values>
+                <tiles />
+              </tile>
+              <tile typeId="0fface9a-8b68-4dbc-8b42-0255f51368b5" row="1" column="2" rowSpan="1" columnSpan="1">
+                <values>
+                  <keyValue key="Project">
+                    <value>YOUR TEAMCITY PROJECT NAME</value>
+                  </keyValue>
+                  <keyValue key="Configuration">
+                    <value>1.1 Integration Build</value>
+                  </keyValue>
+                  <keyValue key="Description">
+                    <value>Integration Build</value>
+                  </keyValue>
+                </values>
+                <tiles />
+              </tile>
+              <tile typeId="0fface9a-8b68-4dbc-8b42-0255f51368b5" row="2" column="1" rowSpan="1" columnSpan="1">
+                <values>
+                  <keyValue key="Project">
+                    <value>YOUR TEAMCITY PROJECT NAME</value>
+                  </keyValue>
+                  <keyValue key="Configuration">
+                    <value>1.3 Release Build</value>
+                  </keyValue>
+                  <keyValue key="Description">
+                    <value>Client &amp; Server</value>
+                  </keyValue>
+                </values>
+                <tiles />
+              </tile>
+              <tile typeId="0fface9a-8b68-4dbc-8b42-0255f51368b5" row="2" column="2" rowSpan="1" columnSpan="1">
+                <values>
+                  <keyValue key="Project">
+                    <value>YOUR TEAMCITY PROJECT NAME</value>
+                  </keyValue>
+                  <keyValue key="Configuration">
+                    <value>YOUR  BUILD X</value>
+                  </keyValue>
+                  <keyValue key="Description">
+                    <value>Reports</value>
+                  </keyValue>
+                </values>
+                <tiles />
+              </tile>
+              <tile typeId="0fface9a-8b68-4dbc-8b42-0255f51368b5" row="3" column="1" rowSpan="1" columnSpan="1">
+                <values>
+                  <keyValue key="Project">
+                    <value>YOUR TEAMCITY PROJECT NAME</value>
+                  </keyValue>
+                  <keyValue key="Configuration">
+                    <value>1.6 Dashboard - CI &amp; Release</value>
+                  </keyValue>
+                  <keyValue key="Description">
+                    <value>Dashboard</value>
+                  </keyValue>
+                </values>
+                <tiles />
+              </tile>
+              <tile typeId="0fface9a-8b68-4dbc-8b42-0255f51368b5" row="3" column="2" rowSpan="1" columnSpan="1">
+                <values>
+                  <keyValue key="Project">
+                    <value>YOUR TEAMCITY PROJECT NAME</value>
+                  </keyValue>
+                  <keyValue key="Configuration">
+                    <value>TeamCity build configuration X</value>
+                  </keyValue>
+                  <keyValue key="Description">
+                    <value>TeamCity build configuration X</value>
+                  </keyValue>
+                </values>
+                <tiles />
+              </tile>
+              <tile typeId="0fface9a-8b68-4dbc-8b42-0255f51368b5" row="4" column="1" rowSpan="1" columnSpan="1">
+                <values>
+                  <keyValue key="Project">
+                    <value>YOUR TEAMCITY PROJECT NAME</value>
+                  </keyValue>
+                  <keyValue key="Configuration">
+                    <value>Your TeamCity build configuration name Y</value>
+                  </keyValue>
+                  <keyValue key="Description">
+                    <value>Your TeamCity build configuration description Y</value>
+                  </keyValue>
+                </values>
+                <tiles />
+              </tile>
+              <tile typeId="0fface9a-8b68-4dbc-8b42-0255f51368b5" row="4" column="2" rowSpan="1" columnSpan="1">
+                <values>
+                  <keyValue key="Project">
+                    <value>TEAM CITY CONFIGURATION NAME</value>
+                  </keyValue>
+                  <keyValue key="Configuration">
+                    <value>TeamCity build configuration name ?</value>
+                  </keyValue>
+                  <keyValue key="Description">
+                    <value>TeamCity build configuration ?</value>
+                  </keyValue>
+                </values>
+                <tiles />
+              </tile>
+            </tiles>
+          </tile>
+          <tile typeId="6f1bf918-6080-42c2-b980-d562f77cb4e6" row="1" column="3" rowSpan="4" columnSpan="4">
+            <values />
+            <tiles>
+              <tile typeId="0fface9a-8b68-4dbc-8b42-0255f51368b2" row="1" column="1" rowSpan="1" columnSpan="1">
+                <values>
+                  <keyValue key="End_date">
+                    <value>130875264000000000</value>
+                  </keyValue>
+                  <keyValue key="Title">
+                    <value>Complete</value>
+                  </keyValue>
+                  <keyValue key="Disabled">
+                    <value>True</value>
+                  </keyValue>
+                </values>
+                <tiles />
+              </tile>
+              <tile typeId="0fface9a-8b68-4dbc-8b42-0255f51368b2" row="1" column="2" rowSpan="1" columnSpan="1">
+                <values>
+                  <keyValue key="End_date">
+                    <value>130870080000000000</value>
+                  </keyValue>
+                  <keyValue key="Title">
+                    <value>Formal</value>
+                  </keyValue>
+                  <keyValue key="Disabled">
+                    <value>True</value>
+                  </keyValue>
+                  <keyValue key="Disable">
+                    <value />
+                  </keyValue>
+                </values>
+                <tiles />
+              </tile>
+              <tile typeId="0fface9a-8b68-4dbc-8b42-0255f51368b1" row="1" column="3" rowSpan="1" columnSpan="1">
+                <values />
+                <tiles />
+              </tile>
+              <tile typeId="0fface9a-8b68-4dbc-8b42-0255f51368b3" row="1" column="4" rowSpan="1" columnSpan="2">
+                <values>
+                  <keyValue key="Message">
+                    <value>YOURPROJECT</value>
+                  </keyValue>
+                </values>
+                <tiles />
+              </tile>
+              <tile typeId="0fface9a-8b68-4dbc-8b42-0255f51368b6" row="2" column="1" rowSpan="3" columnSpan="5">
+                <values>
+                  <keyValue key="Title">
+                    <value>Available builds</value>
+                  </keyValue>
+                  <keyValue key="Display_name_1">
+                    <value>Release</value>
+                  </keyValue>
+                  <keyValue key="Project_1">
+                    <value>TEAMCITY PROJECT NAME</value>
+                  </keyValue>
+                  <keyValue key="Display_name_2">
+                    <value>????</value>
+                  </keyValue>
+                  <keyValue key="Project_2">
+                    <value>TEAMCITY PROJECT NAME</value>
+                  </keyValue>
+                  <keyValue key="Display_name_3">
+                    <value>??????</value>
+                  </keyValue>
+                  <keyValue key="Project_3">
+                    <value>TEAMCITY PROJECT NAME</value>
+                  </keyValue>
+                  <keyValue key="Display_name_4">
+                    <value>?????</value>
+                  </keyValue>
+                  <keyValue key="Project_4">
+                    <value>TEAMCITY PROJECT NAME</value>
+                  </keyValue>
+                  <keyValue key="Display_name_5">
+                    <value>??????</value>
+                  </keyValue>
+                  <keyValue key="Project_5">
+                    <value>TEAMCITY PROJECT NAME</value>
+                  </keyValue>
+                  <keyValue key="Display_name_6">
+                    <value>??????</value>
+                  </keyValue>
+                  <keyValue key="Project_6">
+                    <value>TEAMCITY PROJECT NAME</value>
+                  </keyValue>
+                  <keyValue key="Configuration_1">
+                    <value>???????</value>
+                  </keyValue>
+                  <keyValue key="Configuration_2">
+                    <value>????????????</value>
+                  </keyValue>
+                </values>
+                <tiles />
+              </tile>
+            </tiles>
+          </tile>
+        </tiles>
+      </root>
+    </dashboard>
+    <dashboard name="two">
+      <displayName />
+      <root typeId="6f1bf918-6080-42c2-b980-d562f77cb4e6" row="1" column="2" rowSpan="1" columnSpan="1">
+        <values />
+        <tiles>
+          <tile typeId="6f1bf918-6080-42c2-b980-d562f77cb4e6" row="1" column="5" rowSpan="2" columnSpan="2">
+            <values />
+            <tiles>
+              <tile typeId="0fface9a-8b68-4dbc-8b42-0255f51368b4" row="1" column="1" rowSpan="1" columnSpan="1">
+                <values>
+                  <keyValue key="Name">
+                    <value>XXX</value>
+                  </keyValue>
+                  <keyValue key="Message">
+                    <value>YYY</value>
+                  </keyValue>
+                </values>
+                <tiles />
+              </tile>
+              <tile typeId="0fface9a-8b68-4dbc-8b42-0255f51368b4" row="1" column="2" rowSpan="1" columnSpan="1">
+                <values>
+                  <keyValue key="Name">
+                    <value>XXX</value>
+                  </keyValue>
+                  <keyValue key="Message">
+                    <value>YYY</value>
+                  </keyValue>
+                </values>
+                <tiles />
+              </tile>
+              <tile typeId="0fface9a-8b68-4dbc-8b42-0255f51368b4" row="2" column="1" rowSpan="1" columnSpan="1">
+                <values>
+                  <keyValue key="Name">
+                    <value>XXX</value>
+                  </keyValue>
+                  <keyValue key="Message">
+                    <value>YYY</value>
+                  </keyValue>
+                </values>
+                <tiles />
+              </tile>
+              <tile typeId="0fface9a-8b68-4dbc-8b42-0255f51368b4" row="2" column="2" rowSpan="1" columnSpan="1">
+                <values>
+                  <keyValue key="Name">
+                    <value>XXX</value>
+                  </keyValue>
+                  <keyValue key="Message">
+                    <value>YYY</value>
+                  </keyValue>
+                </values>
+                <tiles />
+              </tile>
+            </tiles>
+          </tile>
+        </tiles>
+      </root>
+    </dashboard>
+    <dashboard name="web">
+      <displayName />
+      <root typeId="6f1bf918-6080-42c2-b980-d562f77cb4e6" row="1" column="1" rowSpan="1" columnSpan="1">
+        <values />
+        <tiles>
+          <tile typeId="92ce0d61-4748-4427-8eb7-dc8b8b741c15" row="1" column="1" rowSpan="1" columnSpan="1">
+            <values>
+              <keyValue key="Url">
+                <value>http://www.abc.net.au</value>
+              </keyValue>
+            </values>
+            <tiles />
+          </tile>
+        </tiles>
+      </root>
+    </dashboard>
+  </configurations>
+  <services>
+    <Services>
+      <service typeId="b714e5ab-8f0d-4c4a-a6cb-44b6c3aeee88" name="TeamCity">
+        <values>
+          <keyValue key="Url">
+            <value>yourTeamcity:8000</value>
+          </keyValue>
+          <keyValue key="UserName">
+            <value>YourUserName</value>
+          </keyValue>
+          <keyValue key="Password">
+            <value>YourPassword</value>
+          </keyValue>
+        </values>
+      </service>
+    </Services>
+  </services>
+</Dashboards>

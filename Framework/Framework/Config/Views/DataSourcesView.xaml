@@ -1,0 +1,108 @@
+﻿<UserControl x:Class="NoeticTools.TeamStatusBoard.Framework.Config.Views.DataSourcesConfigControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:viewModels="clr-namespace:NoeticTools.TeamStatusBoard.Framework.Config.ViewModels"
+             mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance Type=viewModels:DataSourcesViewModel}"
+             d:DesignHeight="300" d:DesignWidth="300">
+    
+    <UserControl.Resources>
+
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/NoeticTools.TeamStatusBoard.Styles;component/Style1.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="TextBlock" BasedOn="{StaticResource ConfigPanelStyleTextblock}" />
+            <Style TargetType="Grid" BasedOn="{StaticResource ConfigPanelStyleGrid}" />
+            <Style TargetType="Button" BasedOn="{StaticResource ConfigPanelStyleButton}"/>
+            <Style TargetType="ComboBox" BasedOn="{StaticResource ConfigPanelStyleCombobox}"/>
+            <Style TargetType="Hyperlink" BasedOn="{StaticResource ConfigpanelStyleHyperlink}"/>
+            <x:Array x:Key="testTypeNames" Type="system:String">
+                <system:String>AAAA</system:String>
+                <system:String>BBBB</system:String>
+                <system:String>CCCC</system:String>
+            </x:Array>
+        </ResourceDictionary>
+    
+    </UserControl.Resources>
+    
+    <Grid Name="root" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Transparent">
+
+        <Grid.Resources>
+            <DataTemplate x:Key="EditingDataSourceTemplate">
+                <TextBlock Margin="2,0,2,0">
+                    <Hyperlink>Configure</Hyperlink>
+                </TextBlock>
+            </DataTemplate>
+        </Grid.Resources>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" MaxHeight="200"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        
+        <DataGrid x:Name="sourcesGrid" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,5,0,2"
+                  ItemsSource="{Binding DataSources, Mode=OneWay}"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="True" CanUserDeleteRows="True" SelectionMode="Single" SelectionUnit="FullRow"
+                  CanUserSortColumns="False"
+                  GridLinesVisibility="Horizontal"
+                  VerticalScrollBarVisibility="Auto"
+                  RowHeaderWidth="0">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Source type" Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Path=TypeName, Mode=OneWay}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <!-- todo mode onway is not useful when editing -->
+                            <ComboBox Text="{Binding Path=TypeName, Mode=OneWay}" 
+                                      ItemsSource="{Binding ElementName=root, Path=DataContext.AvailableDataSourceTypes}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn CellTemplate="{StaticResource EditingDataSourceTemplate}" />
+            </DataGrid.Columns>
+        </DataGrid>
+        
+        <TextBlock Grid.Row="1" Foreground="White">Parameters</TextBlock>
+        
+        <DataGrid x:Name="propertiesGrid" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,2,0,2"
+                  ItemsSource="{Binding ElementName=sourcesGrid, Path=SelectedItem.Properties}"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False" CanUserDeleteRows="False" CanUserSortColumns="True"
+                  SelectionMode="Single" SelectionUnit="FullRow"
+                  IsReadOnly="False"
+                  RowHeaderWidth="0" 
+                  EnableRowVirtualization="True" EnableColumnVirtualization="True"
+                  MaxHeight="5000" MaxWidth="1000"
+                  VerticalScrollBarVisibility="Hidden">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Width="5*" Binding="{Binding Name, Mode=OneTime}" SortMemberPath="Name" IsReadOnly="True"/>
+                <DataGridTemplateColumn Header="Value" Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Path=Value, Mode=OneWay}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <TextBox Text="{Binding Path=Value, Mode=TwoWay}" IsReadOnly="{Binding IsReadOnly, Mode=OneTime}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+    
+</UserControl>

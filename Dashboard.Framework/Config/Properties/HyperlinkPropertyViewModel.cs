@@ -6,7 +6,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.Properties
 {
     public class HyperlinkPropertyViewModel : IPropertyViewModel
     {
-        public const string Id = "Hyperlink";
         public HyperlinkPropertyViewModel(string text, ICommand command)
         {
             Parameters = new object[] {text, command};

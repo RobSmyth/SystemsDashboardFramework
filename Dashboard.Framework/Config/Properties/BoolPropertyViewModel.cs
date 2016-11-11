@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories;
+﻿using NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories;
 using NoeticTools.TeamStatusBoard.Framework.Config.SuggestionProviders;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 

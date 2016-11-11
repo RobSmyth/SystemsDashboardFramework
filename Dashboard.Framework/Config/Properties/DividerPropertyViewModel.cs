@@ -5,8 +5,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.Properties
 {
     public class DividerPropertyViewModel : IPropertyViewModel
     {
-        public const string Id = "Divider";
-
         public DividerPropertyViewModel()
         {
             Parameters = new object[0];

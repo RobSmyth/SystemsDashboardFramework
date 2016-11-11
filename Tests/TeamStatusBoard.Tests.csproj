@@ -83,10 +83,6 @@
       <Project>{1f19c0de-e777-48e9-856b-7376a7527ec0}</Project>
       <Name>Framework</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TeamDashboard.TeamCity\TeamCity.csproj">
-      <Project>{c02d0605-1460-486c-8943-46c090d0e9bb}</Project>
-      <Name>TeamCity</Name>
-    </ProjectReference>
     <ProjectReference Include="..\TeamStatusBoard.Runner\Runner.csproj">
       <Project>{41191791-ddb3-4bc4-9c37-a73e037ddc3a}</Project>
       <Name>Runner</Name>

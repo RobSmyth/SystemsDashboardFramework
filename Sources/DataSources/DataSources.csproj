@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\Output\</OutputPath>
+    <OutputPath>..\..\Output\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -56,11 +56,11 @@
     <Compile Include="TestData\TestDataSourcePlugin.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Common\Common.csproj">
+    <ProjectReference Include="..\..\Common\Common.csproj">
       <Project>{04ebbac1-c5ef-4b93-9b6f-d270afa3e878}</Project>
       <Name>Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Dashboard.Framework\Framework.csproj">
+    <ProjectReference Include="..\..\Dashboard.Framework\Framework.csproj">
       <Project>{1f19c0de-e777-48e9-856b-7376a7527ec0}</Project>
       <Name>Framework</Name>
     </ProjectReference>

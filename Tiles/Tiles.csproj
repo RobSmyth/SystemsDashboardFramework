@@ -57,6 +57,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ColouredTile\ColouredTileControl.xaml.cs">
+      <DependentUpon>ColouredTileControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ColouredTile\ColouredTilePlugin.cs" />
+    <Compile Include="ColouredTile\ColouredTileProvider.cs" />
+    <Compile Include="ColouredTile\ColouredTileViewModel.cs" />
     <Compile Include="DataTiles\DataValueTile\DataValueTilePlugin.cs" />
     <Compile Include="DataTiles\DataValueTile\DataValueTileProvider.cs" />
     <Compile Include="DataTiles\DataValueTile\DataValueTileViewModel.cs" />
@@ -136,6 +142,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="ColouredTile\ColouredTileControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="DataTiles\TextTile\TextDataTileControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

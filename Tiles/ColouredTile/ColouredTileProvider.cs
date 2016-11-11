@@ -1,12 +1,13 @@
 using System;
 using System.Windows;
+using NoeticTools.TeamStatusBoard.Framework;
 using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Config.XmlTypes;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 
 
-namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.ColouredTile
+namespace NoeticTools.TeamStatusBoard.Tiles.ColouredTile
 {
     public sealed class ColouredTileProvider : ITileControllerProvider
     {

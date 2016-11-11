@@ -170,12 +170,6 @@
     <Compile Include="Plugins\PropertyEditControls\Text\CompoundAutoCompleteTextPropertyViewProvider.cs" />
     <Compile Include="Plugins\PropertyEditControls\TimeSpan\TimeSpanPropertyViewPlugin.cs" />
     <Compile Include="Plugins\PropertyEditControls\TimeSpan\TimeSpanPropertyViewProvider.cs" />
-    <Compile Include="Plugins\Tiles\ColouredTile\ColouredTileControl.xaml.cs">
-      <DependentUpon>ColouredTileControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Plugins\Tiles\ColouredTile\ColouredTilePlugin.cs" />
-    <Compile Include="Plugins\Tiles\ColouredTile\ColouredTileProvider.cs" />
-    <Compile Include="Plugins\Tiles\ColouredTile\ColouredTileViewModel.cs" />
     <Compile Include="Plugins\Tiles\BlankTile\BlankTileControl.xaml.cs">
       <DependentUpon>BlankTileControl.xaml</DependentUpon>
     </Compile>
@@ -295,10 +289,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Config\Views\DataSourcesView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Plugins\Tiles\ColouredTile\ColouredTileControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

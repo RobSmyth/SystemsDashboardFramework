@@ -1,19 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows.Input;
 using System.Windows.Media;
+using NoeticTools.TeamStatusBoard.Framework;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
 using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories;
 using NoeticTools.TeamStatusBoard.Framework.Config.Properties;
-using NoeticTools.TeamStatusBoard.Framework.Config.SuggestionProviders;
 using NoeticTools.TeamStatusBoard.Framework.Config.XmlTypes;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
+using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 
 
-namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.ColouredTile
+namespace NoeticTools.TeamStatusBoard.Tiles.ColouredTile
 {
     public class ColouredTileViewModel : ConfiguredTileViewModelBase, IConfigurationChangeListener, ITileViewModel
     {

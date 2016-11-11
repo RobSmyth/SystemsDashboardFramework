@@ -1,7 +1,8 @@
-﻿using NoeticTools.TeamStatusBoard.Framework.Services;
+﻿using NoeticTools.TeamStatusBoard.Framework.Plugins;
+using NoeticTools.TeamStatusBoard.Framework.Services;
 
 
-namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.ColouredTile
+namespace NoeticTools.TeamStatusBoard.Tiles.ColouredTile
 {
     public class ColouredTilePlugin : IPlugin
     {

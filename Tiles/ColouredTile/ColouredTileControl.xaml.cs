@@ -1,7 +1,7 @@
 ﻿using System.Windows.Controls;
 
 
-namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.ColouredTile
+namespace NoeticTools.TeamStatusBoard.Tiles.ColouredTile
 {
     public partial class ColouredTileControl : UserControl
     {

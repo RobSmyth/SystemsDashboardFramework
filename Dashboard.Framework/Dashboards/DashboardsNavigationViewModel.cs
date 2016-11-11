@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using NoeticTools.TeamStatusBoard.Common.ViewModels;
-using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Config.XmlTypes;
 
 

@@ -7,12 +7,10 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using NoeticTools.TeamStatusBoard.Framework.Adorners;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
-using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Config.XmlTypes;
 using NoeticTools.TeamStatusBoard.Framework.Input;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.BlankTile;
 using NoeticTools.TeamStatusBoard.Framework.Registries;
-using NoeticTools.TeamStatusBoard.Framework.Services;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Dashboards
@@ -185,78 +183,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.Dashboards
             {
                 RemoveTile(tile);
             }
-        }
-
-        private void RemoveColumn(int toDeleteColumnIndex)
-        {
-            for (var rowNumber = 1; rowNumber <= _tileGrid.ColumnDefinitions.Count; rowNumber++)
-            {
-                RemoveAt(rowNumber, toDeleteColumnIndex + 1);
-            }
-
-            if (!IsEmptyColumn(toDeleteColumnIndex))
-            {
-                throw new InvalidOperationException();
-            }
-
-            var rowToDeleteNumber = toDeleteColumnIndex + 1;
-            foreach (var tileConfiguration in _tileToView.Keys.Where(tileConfiguration => tileConfiguration.ColumnNumber >= rowToDeleteNumber))
-            {
-                tileConfiguration.ColumnNumber--;
-            }
-
-            foreach (UIElement child in _tileGrid.Children)
-            {
-                var rowIndex = Grid.GetColumn(child);
-                if (rowIndex >= toDeleteColumnIndex)
-                {
-                    Grid.SetColumn(child, rowIndex - 1);
-                }
-            }
-
-            _tileGrid.ColumnDefinitions.Remove(_tileGrid.ColumnDefinitions.Last());
-        }
-
-        private bool IsEmptyColumn(int columnIndex)
-        {
-            var columnNumber = columnIndex + 1;
-            return !_tileToView.Keys.Any(x => x.IsInColumn(columnNumber) && x.TypeId != BlankTilePlugin.TileTypeId);
-        }
-
-        private void RemoveRow(int toDeleteRowIndex)
-        {
-            for (var columnNumber = 1; columnNumber <= _tileGrid.ColumnDefinitions.Count; columnNumber++)
-            {
-                RemoveAt(toDeleteRowIndex + 1, columnNumber);
-            }
-
-            if (!IsEmptyRow(toDeleteRowIndex))
-            {
-                throw new InvalidOperationException();
-            }
-
-            var rowToDeleteNumber = toDeleteRowIndex + 1;
-            foreach (var tileConfiguration in _tileToView.Keys.Where(tileConfiguration => tileConfiguration.RowNumber >= rowToDeleteNumber))
-            {
-                tileConfiguration.RowNumber--;
-            }
-
-            foreach (UIElement child in _tileGrid.Children)
-            {
-                var rowIndex = Grid.GetRow(child);
-                if (rowIndex >= toDeleteRowIndex)
-                {
-                    Grid.SetRow(child, rowIndex - 1);
-                }
-            }
-
-            _tileGrid.RowDefinitions.Remove(_tileGrid.RowDefinitions.Last());
-        }
-
-        private bool IsEmptyRow(int rowIndex)
-        {
-            var rowNumber = rowIndex + 1;
-            return !_tileToView.Keys.Any(x => x.IsInRow(rowNumber) && x.TypeId != BlankTilePlugin.TileTypeId);
         }
 
         private void InsertNewRow(int insertAtRowNumber)

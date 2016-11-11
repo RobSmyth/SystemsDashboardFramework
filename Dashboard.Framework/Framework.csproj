@@ -149,7 +149,6 @@
     <Compile Include="Dashboards\DashBoardLoaderConduit.cs" />
     <Compile Include="Dashboards\DashboardNavigator.cs" />
     <Compile Include="Dashboards\DashboardTileNavigator.cs" />
-    <Compile Include="NullTileControllerProvider.cs" />
     <Compile Include="Input\ITileDragAndDropController.cs" />
     <Compile Include="IRunOptions.cs" />
     <Compile Include="Dashboards\IDashboardController.cs" />

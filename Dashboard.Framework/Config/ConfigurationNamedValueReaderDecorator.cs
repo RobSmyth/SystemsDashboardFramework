@@ -59,16 +59,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config
             return _repository.GetColour(GetValue(name), defaultValue);
         }
 
-        public string[] GetStringArray(string name)
-        {
-            return GetValue(name).Split(',').Select(element => _repository.GetString(element)).ToArray();
-        }
-
-        public Color[] GetColourArray(string name)
-        {
-            return GetValue(name).Split(',').Select(element => _repository.GetColour(element, "White")).ToArray();
-        }
-
         public IEnumerable<IDataValue> GetDatums(string name)
         {
             return GetValue(name).Split(',').Select(element => _repository.GetDatum(element)).ToArray();

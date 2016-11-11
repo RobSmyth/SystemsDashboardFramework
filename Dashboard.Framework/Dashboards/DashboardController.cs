@@ -4,8 +4,6 @@ using log4net;
 using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Config.XmlTypes;
 using NoeticTools.TeamStatusBoard.Framework.Input;
-using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.InsertTile;
-using NoeticTools.TeamStatusBoard.Framework.Registries;
 using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
 
 
@@ -14,14 +12,14 @@ namespace NoeticTools.TeamStatusBoard.Framework.Dashboards
     public sealed class DashboardController : IDashboardController
     {
         private readonly DashboardConfigurations _config;
-        private readonly TileProviderRegistry _tileProviderRegistry;
         private readonly DashboardConfigurationManager _configurationManager;
         private readonly ITimerService _timerService;
         private readonly DockPanel _sidePanel;
         private readonly ILog _logger;
 
-        public DashboardController(DashboardConfigurationManager configurationManager, ITimerService timerService, DockPanel sidePanel, DashboardConfigurations config, IDashboardNavigator dashboardNavigator,
-            TileProviderRegistry tileProviderRegistry, ITileDragAndDropController dragAndDropController, IDashboardTileNavigator tileNavigator)
+        public DashboardController(DashboardConfigurationManager configurationManager, ITimerService timerService, DockPanel sidePanel, 
+            DashboardConfigurations config, IDashboardNavigator dashboardNavigator, ITileDragAndDropController dragAndDropController, 
+            IDashboardTileNavigator tileNavigator)
         {
             _configurationManager = configurationManager;
             _timerService = timerService;
@@ -29,7 +27,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.Dashboards
             _config = config;
             DashboardNavigator = dashboardNavigator;
             TileNavigator = tileNavigator;
-            _tileProviderRegistry = tileProviderRegistry;
             DragAndDropController = dragAndDropController;
             _logger = LogManager.GetLogger("UI.Dashboard");
         }

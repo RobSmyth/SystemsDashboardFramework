@@ -68,7 +68,7 @@ namespace NoeticTools.TeamStatusBoard.Runner
 
             var tileLayoutControllerRegistry = new TileLayoutControllerRegistry(tileControllerFactory, dragAndDropController, tileNavigator, commands);
             _dashboardNavigator = new DashboardNavigator(loaderConduit, _config, tileLayoutControllerRegistry);
-            _dashboardController = new DashboardController(dashboardConfigurationManager, timerService, sidePanel, _config, _dashboardNavigator, tileProviderRegistry, dragAndDropController, tileNavigator);
+            _dashboardController = new DashboardController(dashboardConfigurationManager, timerService, sidePanel, _config, _dashboardNavigator, dragAndDropController, tileNavigator);
             KeyboardHandler = new KeyboardHandler(_dashboardController);
 
             _applicationServices = new ApplicationServices(

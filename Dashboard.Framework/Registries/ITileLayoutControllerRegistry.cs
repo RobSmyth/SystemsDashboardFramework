@@ -1,5 +1,5 @@
-﻿using System.Windows.Controls;
-using NoeticTools.TeamStatusBoard.Framework.Config;
+﻿using System.Collections.Generic;
+using System.Windows.Controls;
 using NoeticTools.TeamStatusBoard.Framework.Config.XmlTypes;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
 
@@ -9,7 +9,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Registries
     public interface ITileLayoutControllerRegistry
     {
         int Count { get; }
-        ITileLayoutController GetNew(Grid tileGrid, TileConfiguration tileConfiguration, TileLayoutController parent);
-        ITileLayoutController[] GetAll();
+        void GetNew(Grid tileGrid, TileConfiguration tileConfiguration, TileLayoutController parent);
+        IEnumerable<ITileLayoutController> GetAll();
     }
 }

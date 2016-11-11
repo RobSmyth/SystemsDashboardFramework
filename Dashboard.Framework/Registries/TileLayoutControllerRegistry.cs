@@ -29,15 +29,14 @@ namespace NoeticTools.TeamStatusBoard.Framework.Registries
 
         public int Count => _layoutControllers.Count;
 
-        public ITileLayoutController GetNew(Grid tileGrid, TileConfiguration tileConfiguration, TileLayoutController parent)
+        public void GetNew(Grid tileGrid, TileConfiguration tileConfiguration, TileLayoutController parent)
         {
             var layoutController = new TileLayoutController(tileGrid, _tileFactory, this, new Thickness(0), _dragAndDropController, _tileNavigator, _commandsBindings);
             _layoutControllers.Add(layoutController);
             layoutController.Load(tileConfiguration);
-            return layoutController;
         }
 
-        public ITileLayoutController[] GetAll()
+        public IEnumerable<ITileLayoutController> GetAll()
         {
             return _layoutControllers.ToArray();
         }

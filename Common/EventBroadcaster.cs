@@ -21,11 +21,6 @@ namespace NoeticTools.TeamStatusBoard.Common
             _callbacks.Remove(listener);
         }
 
-        public void Flush()
-        {
-            _callbacks.Clear();
-        }
-
         public void Fire()
         {
             var listeners = _callbacks.ToArray();

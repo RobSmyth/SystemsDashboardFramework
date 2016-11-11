@@ -2,12 +2,9 @@
 using System.Globalization;
 using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Documents;
-using System.Windows.Forms;
 using System.Windows.Media;
 using NoeticTools.TeamStatusBoard.Common.Annotations;
-using NoeticTools.TeamStatusBoard.Framework.Services;
 using FlowDirection = System.Windows.FlowDirection;
 using HorizontalAlignment = System.Windows.HorizontalAlignment;
 using Panel = System.Windows.Controls.Panel;

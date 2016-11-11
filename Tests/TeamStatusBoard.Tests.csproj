@@ -83,6 +83,10 @@
       <Project>{1f19c0de-e777-48e9-856b-7376a7527ec0}</Project>
       <Name>Framework</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Sources\Jira\Jira.csproj">
+      <Project>{834c3f0d-bb65-4d50-95c3-8da84d0db9c5}</Project>
+      <Name>Jira</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TeamStatusBoard.Runner\Runner.csproj">
       <Project>{41191791-ddb3-4bc4-9c37-a73e037ddc3a}</Project>
       <Name>Runner</Name>

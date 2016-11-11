@@ -7,8 +7,8 @@
     <ProjectGuid>{C02D0605-1460-486C-8943-46C090D0E9BB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NoeticTools.TeamStatusBoard.TeamCity</RootNamespace>
-    <AssemblyName>NoeticTools.TeamStatusBoard.TeamCity</AssemblyName>
+    <RootNamespace>NoeticTools.TeamStatusBoard.DataSource.TeamCity</RootNamespace>
+    <AssemblyName>NoeticTools.TeamStatusBoard.DataSource.TeamCity</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

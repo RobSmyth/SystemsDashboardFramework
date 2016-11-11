@@ -236,15 +236,10 @@
     <Compile Include="Config\Views\ParametersConfigControl.xaml.cs">
       <DependentUpon>ParametersConfigControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DataSources\Jira\JiraFilterIssuesReader.cs" />
-    <Compile Include="DataSources\Jira\TimeCachedArray.cs" />
     <Compile Include="Input\KeyboardHandler.cs" />
     <Compile Include="Dashboards\DashboardsNavigationViewModel.cs" />
     <Compile Include="Registries\ITileLayoutControllerRegistry.cs" />
     <Compile Include="Registries\ITileFactory.cs" />
-    <Compile Include="DataSources\Jira\IJiraChannel.cs" />
-    <Compile Include="DataSources\Jira\JiraChannelEmulateState.cs" />
-    <Compile Include="DataSources\Jira\JiraChannelState.cs" />
     <Compile Include="Plugins\IPlugin.cs" />
     <Compile Include="Registries\TileLayoutControllerRegistry.cs" />
     <Compile Include="Registries\TileFactory.cs" />
@@ -266,7 +261,6 @@
     <Compile Include="Config\Properties\IPropertyViewModel.cs" />
     <Compile Include="Config\TileConfigurationConverter.cs" />
     <Compile Include="Config\Controllers\ConfigationViewController.cs" />
-    <Compile Include="DataSources\Jira\JiraChannel.cs" />
     <Compile Include="Services\TimeServices\IClock.cs" />
     <Compile Include="Services\TimeServices\ITimerListener.cs" />
     <Compile Include="Services\TimeServices\ITimerQueue.cs" />
@@ -391,6 +385,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Converters\" />
+    <Folder Include="DataSources\Jira\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">

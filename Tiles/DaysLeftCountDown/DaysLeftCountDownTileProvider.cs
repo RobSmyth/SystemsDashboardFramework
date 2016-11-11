@@ -47,8 +47,6 @@ namespace NoeticTools.TeamStatusBoard.Tiles.DaysLeftCountDown
             return new TileConfiguration
             {
                 TypeId = TileTypeId,
-                Id = Guid.NewGuid(),
-                Tiles = new TileConfiguration[0]
             };
         }
     }

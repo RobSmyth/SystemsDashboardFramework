@@ -306,7 +306,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.Dashboards
                 ColumnNumber = columnNumber,
                 RowSpan = 1,
                 ColumnSpan = 1,
-                Tiles = new TileConfiguration[0]
             };
             _tileToView.Add(blankTile, AddTile(blankTile, _tileFactory.Create(blankTile, this)));
             AddToConfiguration(blankTile);

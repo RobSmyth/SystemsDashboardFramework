@@ -40,7 +40,6 @@ namespace NoeticTools.TeamStatusBoard.Tiles.DataTiles.DataValueTile
             return new TileConfiguration
             {
                 TypeId = TileTypeId,
-                Tiles = new TileConfiguration[0]
             };
         }
     }

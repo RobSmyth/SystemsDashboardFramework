@@ -47,7 +47,6 @@ namespace NoeticTools.TeamStatusBoard.Tiles.MessageTile
             return new TileConfiguration
             {
                 TypeId = TileTypeId,
-                Tiles = new TileConfiguration[0]
             };
         }
     }

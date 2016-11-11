@@ -43,7 +43,6 @@ namespace NoeticTools.TeamStatusBoard.Tiles.DataTiles.TextTile
             return new TileConfiguration
             {
                 TypeId = TileTypeId,
-                Tiles = new TileConfiguration[0]
             };
         }
     }

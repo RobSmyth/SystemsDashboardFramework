@@ -48,8 +48,6 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity.AvailableBuilds
             return new TileConfiguration
             {
                 TypeId = TeamCityAvailableBuildsTileViewModel.TileTypeId,
-                Id = Guid.NewGuid(),
-                Tiles = new TileConfiguration[0]
             };
         }
     }

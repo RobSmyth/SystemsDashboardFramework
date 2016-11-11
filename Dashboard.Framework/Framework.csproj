@@ -178,7 +178,7 @@
     <Compile Include="Plugins\Tiles\BlankTile\BlankTileViewModel.cs" />
     <Compile Include="Config\SuggestionProviders\TextSuggestionsProvider.cs" />
     <Compile Include="Config\NamedValueRepositories\NamedValueAggregator.cs" />
-    <Compile Include="Plugins\Tiles\Help\HelpTileKeyHandler.cs" />
+    <Compile Include="Plugins\Tiles\HelpTile\HelpTileKeyHandler.cs" />
     <Compile Include="Plugins\Tiles\InsertTile\InsertTileKeyHandler.cs" />
     <Compile Include="RunOptions.cs" />
     <Compile Include="Services\DataServices\DataValue.cs" />
@@ -221,7 +221,7 @@
     <Compile Include="Input\IKeyboardHandler.cs" />
     <Compile Include="Input\IKeyHandler.cs" />
     <Compile Include="Services\IServices.cs" />
-    <Compile Include="Plugins\Tiles\Help\HelpTilePlugin.cs" />
+    <Compile Include="Plugins\Tiles\HelpTile\HelpTilePlugin.cs" />
     <Compile Include="Plugins\Tiles\InsertTile\InsertTilePlugin.cs" />
     <Compile Include="Plugins\Tiles\InsertTile\InsertTileController.cs" />
     <Compile Include="Plugins\Tiles\InsertTile\InsertTileControl.xaml.cs">
@@ -261,10 +261,10 @@
     <Compile Include="Services\TimeServices\ITimerService.cs" />
     <Compile Include="Services\TimeServices\ITimerToken.cs" />
     <Compile Include="Services\TimeServices\NullTimerListener.cs" />
-    <Compile Include="Plugins\Tiles\Help\HelpTileControl.xaml.cs">
+    <Compile Include="Plugins\Tiles\HelpTile\HelpTileControl.xaml.cs">
       <DependentUpon>HelpTileControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Plugins\Tiles\Help\HelpViewController.cs" />
+    <Compile Include="Plugins\Tiles\HelpTile\HelpViewController.cs" />
     <Compile Include="Dashboards\DashboardNaviagtionTileControl.xaml.cs">
       <DependentUpon>DashboardNaviagtionTileControl.xaml</DependentUpon>
     </Compile>
@@ -304,7 +304,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Plugins\Tiles\Help\HelpTileControl.xaml">
+    <Page Include="Plugins\Tiles\HelpTile\HelpTileControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -374,7 +374,6 @@
     <Resource Include="Images\server128x128_light.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Converters\" />
     <Folder Include="DataSources\Jira\" />
   </ItemGroup>
   <ItemGroup>

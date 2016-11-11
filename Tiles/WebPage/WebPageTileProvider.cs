@@ -41,8 +41,6 @@ namespace NoeticTools.TeamStatusBoard.Tiles.WebPage
             return new TileConfiguration
             {
                 TypeId = WebPageTileViewModel.TileTypeId,
-                Id = Guid.NewGuid(),
-                Tiles = new TileConfiguration[0]
             };
         }
     }

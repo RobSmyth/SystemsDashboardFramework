@@ -49,8 +49,6 @@ namespace NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity.LastBuildStatus
             return new TileConfiguration
             {
                 TypeId = TeamCityLastBuildStatusTileViewModel.TileTypeId,
-                Id = Guid.NewGuid(),
-                Tiles = new TileConfiguration[0]
             };
         }
     }

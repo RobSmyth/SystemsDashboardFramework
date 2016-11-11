@@ -44,8 +44,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.BlankTile
             return new TileConfiguration
             {
                 TypeId = TileTypeId,
-                Id = Guid.NewGuid(),
-                Tiles = new TileConfiguration[0]
             };
         }
     }

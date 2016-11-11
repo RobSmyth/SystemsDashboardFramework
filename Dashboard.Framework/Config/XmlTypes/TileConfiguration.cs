@@ -11,7 +11,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.XmlTypes
         {
             TypeId = PaneTileTypeId;
             Values = new DashboardConfigValuePair[0];
-            Tiles = new TileConfiguration[0];
         }
 
         /// <summary>
@@ -19,13 +18,6 @@ namespace NoeticTools.TeamStatusBoard.Framework.Config.XmlTypes
         /// </summary>
         [XmlAttribute(AttributeName = "typeId")]
         public string TypeId { get; set; }
-
-        /// <summary>
-        ///     The tile's unique ID.
-        /// </summary>
-        [XmlAttribute(AttributeName = "id")]
-        [XmlIgnore]
-        public Guid Id { get; set; }
 
         /// <summary>
         ///     Tile's row number starting at 1. Row 1 is the top row.

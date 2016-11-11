@@ -46,7 +46,6 @@ namespace NoeticTools.TeamStatusBoard.Tiles.Guages.Guage180deg
             return new TileConfiguration
             {
                 TypeId = TileTypeId,
-                Tiles = new TileConfiguration[0]
             };
         }
     }

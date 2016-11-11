@@ -47,7 +47,6 @@ namespace NoeticTools.TeamStatusBoard.Tiles.Guages.GuageAngular
             return new TileConfiguration
             {
                 TypeId = TileTypeId,
-                Tiles = new TileConfiguration[0]
             };
         }
     }

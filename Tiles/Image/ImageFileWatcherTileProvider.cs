@@ -44,8 +44,6 @@ namespace NoeticTools.TeamStatusBoard.Tiles.Image
             return new TileConfiguration
             {
                 TypeId = TileTypeId,
-                Id = Guid.NewGuid(),
-                Tiles = new TileConfiguration[0]
             };
         }
     }

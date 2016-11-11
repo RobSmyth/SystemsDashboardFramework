@@ -45,7 +45,6 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
             return new TileConfiguration
             {
                 TypeId = TileTypeId,
-                Tiles = new TileConfiguration[0]
             };
         }
     }

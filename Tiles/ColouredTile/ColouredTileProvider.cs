@@ -45,8 +45,6 @@ namespace NoeticTools.TeamStatusBoard.Tiles.ColouredTile
             return new TileConfiguration
             {
                 TypeId = TileTypeId,
-                Id = Guid.NewGuid(),
-                Tiles = new TileConfiguration[0]
             };
         }
     }

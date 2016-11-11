@@ -4,7 +4,6 @@ using log4net;
 using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Config.XmlTypes;
 using NoeticTools.TeamStatusBoard.Framework.Input;
-using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.Help;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles.InsertTile;
 using NoeticTools.TeamStatusBoard.Framework.Registries;
 using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;

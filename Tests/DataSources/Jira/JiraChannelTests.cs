@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
+using NoeticTools.TeamStatusBoard.DataSource.Jira.DataSource;
 using NoeticTools.TeamStatusBoard.Framework;
-using NoeticTools.TeamStatusBoard.Framework.DataSources.Jira;
 using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
 using NUnit.Framework;
 

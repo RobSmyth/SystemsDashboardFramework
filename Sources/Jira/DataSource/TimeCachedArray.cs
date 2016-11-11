@@ -5,7 +5,7 @@ using log4net;
 using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
 
 
-namespace NoeticTools.TeamStatusBoard.Framework.DataSources.Jira
+namespace NoeticTools.TeamStatusBoard.DataSource.Jira.DataSource
 {
     public class TimeCachedArray<T>
     {

@@ -32,7 +32,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Styles", "Styles\Styles.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{04EBBAC1-C5EF-4B93-9B6F-D270AFA3E878}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sources", "Sources", "{93BE6950-0916-4BA9-9A93-F142DB2421A7}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataSources", "DataSources", "{93BE6950-0916-4BA9-9A93-F142DB2421A7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamCity", "Sources\TeamCity\TeamCity.csproj", "{C02D0605-1460-486C-8943-46C090D0E9BB}"
 EndProject

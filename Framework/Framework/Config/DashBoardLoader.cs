@@ -2,7 +2,7 @@
 using NoeticTools.TeamStatusBoard.Persistence.Xml;
 
 
-namespace NoeticTools.TeamStatusBoard.Framework.Persistence
+namespace NoeticTools.TeamStatusBoard.Framework.Config
 {
     public class DashBoardLoader : IDashBoardLoader
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Xml.Serialization;
 
 
-namespace NoeticTools.TeamStatusBoard.Framework.Persistence.Xml
+namespace NoeticTools.TeamStatusBoard.Persistence.Xml
 {
     [XmlType("services")]
     public class DashboardConfigurationServices : IDashboardConfigurationServices

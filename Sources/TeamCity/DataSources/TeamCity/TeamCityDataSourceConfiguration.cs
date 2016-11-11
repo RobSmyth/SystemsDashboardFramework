@@ -1,8 +1,7 @@
-using NoeticTools.TeamStatusBoard.Framework.Config;
-using NoeticTools.TeamStatusBoard.Framework.Persistence.Xml;
+using NoeticTools.TeamStatusBoard.Persistence.Xml;
 
 
-namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity
+namespace NoeticTools.TeamStatusBoard.DataSource.TeamCity.DataSources.TeamCity
 {
     public sealed class TeamCityDataSourceConfiguration : ITeamCityDataSourceConfiguration
     {

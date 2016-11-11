@@ -2,9 +2,9 @@ using System.Windows;
 using NoeticTools.TeamStatusBoard.Framework;
 using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
-using NoeticTools.TeamStatusBoard.Framework.Persistence.Xml;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 using NoeticTools.TeamStatusBoard.Framework.Styles;
+using NoeticTools.TeamStatusBoard.Persistence.Xml;
 
 
 namespace NoeticTools.TeamStatusBoard.Tiles.PieChart

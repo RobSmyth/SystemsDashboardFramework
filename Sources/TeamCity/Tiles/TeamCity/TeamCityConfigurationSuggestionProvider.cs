@@ -4,7 +4,7 @@ using NoeticTools.TeamStatusBoard.Framework.Config.SuggestionProviders;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 
 
-namespace NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity
+namespace NoeticTools.TeamStatusBoard.DataSource.TeamCity.Tiles.TeamCity
 {
     public class TeamCityConfigurationSuggestionProvider : ISuggestionProvider<object>
     {

@@ -1,7 +1,7 @@
 using NoeticTools.TeamStatusBoard.Framework.Services;
 
 
-namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Projects
+namespace NoeticTools.TeamStatusBoard.DataSource.TeamCity.DataSources.TeamCity.Projects
 {
     public interface IProjectRepositoryDataService : IService
     {

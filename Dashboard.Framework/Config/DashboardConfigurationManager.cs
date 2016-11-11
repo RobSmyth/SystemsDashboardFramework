@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Xml.Serialization;
-using NoeticTools.TeamStatusBoard.Framework.Persistence.Xml;
+using NoeticTools.TeamStatusBoard.Persistence.Xml;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Config

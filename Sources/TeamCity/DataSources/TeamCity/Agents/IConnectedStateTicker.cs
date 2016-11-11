@@ -1,7 +1,7 @@
 using System;
 
 
-namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Agents
+namespace NoeticTools.TeamStatusBoard.DataSource.TeamCity.DataSources.TeamCity.Agents
 {
     public interface IConnectedStateTicker
     {

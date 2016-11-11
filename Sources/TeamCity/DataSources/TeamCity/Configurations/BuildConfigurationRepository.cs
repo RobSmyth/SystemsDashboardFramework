@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Agents;
-using NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Projects;
-using NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.TcSharpInterop;
+using NoeticTools.TeamStatusBoard.DataSource.TeamCity.DataSources.TeamCity.Agents;
+using NoeticTools.TeamStatusBoard.DataSource.TeamCity.DataSources.TeamCity.Projects;
+using NoeticTools.TeamStatusBoard.DataSource.TeamCity.DataSources.TeamCity.TcSharpInterop;
 using TeamCitySharp.DomainEntities;
 
 
-namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Configurations
+namespace NoeticTools.TeamStatusBoard.DataSource.TeamCity.DataSources.TeamCity.Configurations
 {
     public sealed class BuildConfigurationRepository : IBuildConfigurationRepository
     {

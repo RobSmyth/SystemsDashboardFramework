@@ -1,9 +1,9 @@
-﻿using NoeticTools.TeamStatusBoard.Framework.Plugins;
+﻿using NoeticTools.TeamStatusBoard.DataSource.TeamCity.DataSources.TeamCity.TestDataSource;
+using NoeticTools.TeamStatusBoard.Framework.Plugins;
 using NoeticTools.TeamStatusBoard.Framework.Services;
-using NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.TestDataSource;
 
 
-namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity
+namespace NoeticTools.TeamStatusBoard.DataSource.TeamCity.DataSources.TeamCity
 {
     public sealed class TeamCityTestDataPlugin : IPlugin
     {

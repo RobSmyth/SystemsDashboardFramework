@@ -94,6 +94,7 @@
     <Compile Include="Config\ConfigurationChangeListenerConduit.cs" />
     <Compile Include="Config\ConfigurationNamedValueReaderDecorator.cs" />
     <Compile Include="Config\Controllers\DataSourcesViewProvider.cs" />
+    <Compile Include="Config\DashBoardLoader.cs" />
     <Compile Include="Config\ITileProperties.cs" />
     <Compile Include="Config\NamedValueRepositories\DataSourceNamedValueRepository.cs" />
     <Compile Include="Config\NamedValueRepositories\DataSourceNamedValueRepositoryProvider.cs" />
@@ -120,11 +121,7 @@
     <Compile Include="Config\ViewModels\DataSourceProperty.cs" />
     <Compile Include="Config\ViewModels\DataSourcePropertyViewModel.cs" />
     <Compile Include="Config\ViewModels\DataSourcesViewModel.cs" />
-    <Compile Include="Persistence\Xml\IDashboardConfigurations.cs" />
-    <Compile Include="Persistence\Xml\IDashboardConfigurationServices.cs" />
-    <Compile Include="Persistence\Xml\IItemConfiguration.cs" />
     <Compile Include="Config\INotifyingPropertyViewModel.cs" />
-    <Compile Include="Config\ItemConfigurationBase.cs" />
     <Compile Include="Config\Properties\DividerPropertyViewModel.cs" />
     <Compile Include="Config\Properties\TileColumnSpanViewModel.cs" />
     <Compile Include="Config\Properties\TileRowSpanViewModel.cs" />
@@ -145,14 +142,11 @@
       <DependentUpon>DataSourcesView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dashboards\DashboardController.cs" />
-    <Compile Include="Persistence\DashBoardLoader.cs" />
-    <Compile Include="Persistence\DashBoardLoaderConduit.cs" />
     <Compile Include="Dashboards\DashboardNavigator.cs" />
     <Compile Include="Dashboards\DashboardTileNavigator.cs" />
     <Compile Include="Input\ITileDragAndDropController.cs" />
     <Compile Include="IRunOptions.cs" />
     <Compile Include="Dashboards\IDashboardController.cs" />
-    <Compile Include="Persistence\IDashBoardLoader.cs" />
     <Compile Include="Dashboards\IDashboardNavigator.cs" />
     <Compile Include="Dashboards\IDashboardTileNavigator.cs" />
     <Compile Include="Input\IDragSource.cs" />
@@ -233,15 +227,8 @@
     <Compile Include="Dashboards\TileLayoutController.cs" />
     <Compile Include="Services\TimeServices\Clock.cs" />
     <Compile Include="Commands\TileConfigureCommand.cs" />
-    <Compile Include="Persistence\Xml\DashboardConfiguration.cs" />
     <Compile Include="Config\DashboardConfigurationManager.cs" />
-    <Compile Include="Persistence\Xml\DashboardConfigurations.cs" />
-    <Compile Include="Persistence\Xml\DashboardConfigurationServices.cs" />
-    <Compile Include="Persistence\Xml\DashboardConfigValuePair.cs" />
-    <Compile Include="Persistence\Xml\DashboardServiceConfiguration.cs" />
-    <Compile Include="Persistence\Xml\TileConfiguration.cs" />
     <Compile Include="Config\IConfigurationChangeListener.cs" />
-    <Compile Include="Persistence\Xml\IDashboardConfiguration.cs" />
     <Compile Include="Config\Properties\HyperlinkPropertyViewModel.cs" />
     <Compile Include="Config\Properties\PropertyViewModel.cs" />
     <Compile Include="Config\Properties\IPropertyViewModel.cs" />
@@ -370,6 +357,10 @@
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{04ebbac1-c5ef-4b93-9b6f-d270afa3e878}</Project>
       <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Persistence\Persistence.csproj">
+      <Project>{f80c1ce8-bd88-439b-b06b-7f0d510b63a9}</Project>
+      <Name>Persistence</Name>
     </ProjectReference>
     <ProjectReference Include="..\Styles\Styles.csproj">
       <Project>{6c579cd4-6ff8-4990-8e27-6353d02f1f53}</Project>

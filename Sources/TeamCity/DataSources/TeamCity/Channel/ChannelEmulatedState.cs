@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
 using log4net;
+using NoeticTools.TeamStatusBoard.DataSource.TeamCity.DataSources.TeamCity.Agents;
 using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
-using NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Agents;
 
 
-namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Channel
+namespace NoeticTools.TeamStatusBoard.DataSource.TeamCity.DataSources.TeamCity.Channel
 {
     internal class ChannelEmulatedState : ITeamCityChannelState
     {

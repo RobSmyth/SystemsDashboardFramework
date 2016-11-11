@@ -1,11 +1,10 @@
 using System;
 using NoeticTools.TeamStatusBoard.Common;
-using NoeticTools.TeamStatusBoard.Framework;
+using NoeticTools.TeamStatusBoard.DataSource.TeamCity.DataSources.TeamCity.Channel;
 using NoeticTools.TeamStatusBoard.Framework.Services.TimeServices;
-using NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Channel;
 
 
-namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Agents
+namespace NoeticTools.TeamStatusBoard.DataSource.TeamCity.DataSources.TeamCity.Agents
 {
     public sealed class ConnectedStateTicker : IChannelConnectionStateListener, ITimerListener, IConnectedStateTicker
     {

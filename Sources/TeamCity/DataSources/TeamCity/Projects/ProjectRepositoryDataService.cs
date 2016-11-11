@@ -1,8 +1,8 @@
-﻿using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
-using NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Agents;
+﻿using NoeticTools.TeamStatusBoard.DataSource.TeamCity.DataSources.TeamCity.Agents;
+using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 
 
-namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Projects
+namespace NoeticTools.TeamStatusBoard.DataSource.TeamCity.DataSources.TeamCity.Projects
 {
     public sealed class ProjectRepositoryDataService : IProjectRepositoryDataService, IDataChangeListener
     {

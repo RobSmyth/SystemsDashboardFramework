@@ -1,4 +1,4 @@
-﻿namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Configurations
+﻿namespace NoeticTools.TeamStatusBoard.DataSource.TeamCity.DataSources.TeamCity.Configurations
 {
     public interface IBuildConfigurationRepository
     {

@@ -1,8 +1,7 @@
 ﻿using NoeticTools.TeamStatusBoard.Common;
-using NoeticTools.TeamStatusBoard.Framework;
 
 
-namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Channel
+namespace NoeticTools.TeamStatusBoard.DataSource.TeamCity.DataSources.TeamCity.Channel
 {
     public interface IChannelConnectionStateBroadcaster
     {

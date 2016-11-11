@@ -1,5 +1,4 @@
-using NoeticTools.TeamStatusBoard.Framework.Config;
-using NoeticTools.TeamStatusBoard.Framework.Persistence.Xml;
+using NoeticTools.TeamStatusBoard.Persistence.Xml;
 
 
 namespace NoeticTools.TeamStatusBoard.DataSources.DashboardData

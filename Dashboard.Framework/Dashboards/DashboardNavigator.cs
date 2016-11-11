@@ -1,6 +1,7 @@
 ﻿using NoeticTools.TeamStatusBoard.Framework.Persistence;
-using NoeticTools.TeamStatusBoard.Framework.Persistence.Xml;
 using NoeticTools.TeamStatusBoard.Framework.Registries;
+using NoeticTools.TeamStatusBoard.Persistence;
+using NoeticTools.TeamStatusBoard.Persistence.Xml;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Dashboards

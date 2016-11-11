@@ -1,4 +1,4 @@
-﻿namespace NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity.AgentStatus
+﻿namespace NoeticTools.TeamStatusBoard.DataSource.TeamCity.Tiles.TeamCity.AgentStatus
 {
     public interface ITeamCityAgentStatusTileControl
     {

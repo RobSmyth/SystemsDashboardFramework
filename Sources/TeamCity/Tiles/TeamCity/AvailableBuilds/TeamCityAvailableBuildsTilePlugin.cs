@@ -3,7 +3,7 @@ using NoeticTools.TeamStatusBoard.Framework.Plugins;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 
 
-namespace NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity.AvailableBuilds
+namespace NoeticTools.TeamStatusBoard.DataSource.TeamCity.Tiles.TeamCity.AvailableBuilds
 {
     public sealed class TeamCityAvailbleBuildSTilePlugin : IPlugin
     {

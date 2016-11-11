@@ -1,8 +1,8 @@
-using NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.TcSharpInterop;
+using NoeticTools.TeamStatusBoard.DataSource.TeamCity.DataSources.TeamCity.TcSharpInterop;
 using TeamCitySharp.ActionTypes;
 
 
-namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.TestDataSource
+namespace NoeticTools.TeamStatusBoard.DataSource.TeamCity.DataSources.TeamCity.TestDataSource
 {
     public sealed class TestTeamCityClientFacade : ITcSharpTeamCityClient
     {

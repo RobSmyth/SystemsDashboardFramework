@@ -1,9 +1,9 @@
-﻿using NoeticTools.TeamStatusBoard.Framework.Plugins;
+﻿using NoeticTools.TeamStatusBoard.DataSource.TeamCity.DataSources.TeamCity;
+using NoeticTools.TeamStatusBoard.Framework.Plugins;
 using NoeticTools.TeamStatusBoard.Framework.Services;
-using NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity;
 
 
-namespace NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity.LastBuildStatus
+namespace NoeticTools.TeamStatusBoard.DataSource.TeamCity.Tiles.TeamCity.LastBuildStatus
 {
     public sealed class TeamCityLastBuildStatusTilePlugin : IPlugin
     {

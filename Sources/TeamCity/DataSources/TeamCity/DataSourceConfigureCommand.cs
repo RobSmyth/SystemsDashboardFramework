@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Windows.Input;
-using NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Channel;
+using NoeticTools.TeamStatusBoard.DataSource.TeamCity.DataSources.TeamCity.Channel;
 
 
-namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity
+namespace NoeticTools.TeamStatusBoard.DataSource.TeamCity.DataSources.TeamCity
 {
     public class DataSourceConfigureCommand : ICommand
     {

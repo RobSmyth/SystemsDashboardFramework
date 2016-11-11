@@ -1,9 +1,8 @@
 ﻿using NoeticTools.TeamStatusBoard.Framework.Plugins;
 using NoeticTools.TeamStatusBoard.Framework.Services;
-using NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity;
 
 
-namespace NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity.AgentStatus
+namespace NoeticTools.TeamStatusBoard.DataSource.TeamCity.Tiles.TeamCity.AgentStatus
 {
     public sealed class TeamCityAgentStatusTilePlugin : IPlugin
     {

@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
-using NoeticTools.TeamStatusBoard.Framework.Config;
 
 
-namespace NoeticTools.TeamStatusBoard.Framework.Persistence.Xml
+namespace NoeticTools.TeamStatusBoard.Persistence.Xml
 {
     [XmlType("service")]
     public class DashboardServiceConfiguration : ItemConfigurationBase

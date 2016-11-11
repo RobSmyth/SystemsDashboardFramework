@@ -1,4 +1,4 @@
-namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Channel
+namespace NoeticTools.TeamStatusBoard.DataSource.TeamCity.DataSources.TeamCity.Channel
 {
     internal interface ITeamCityChannelState : ITeamCityIoChannel
     {

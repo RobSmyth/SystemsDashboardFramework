@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
-using NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Agents;
+using NoeticTools.TeamStatusBoard.DataSource.TeamCity.DataSources.TeamCity.Agents;
 
 
-namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Channel
+namespace NoeticTools.TeamStatusBoard.DataSource.TeamCity.DataSources.TeamCity.Channel
 {
     public interface ITeamCityIoChannel
     {

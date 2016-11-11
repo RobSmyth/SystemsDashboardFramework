@@ -1,4 +1,4 @@
-﻿namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.TcSharpInterop
+﻿namespace NoeticTools.TeamStatusBoard.DataSource.TeamCity.DataSources.TeamCity.TcSharpInterop
 {
     public sealed class NullInteropBuildConfig : TeamCitySharp.DomainEntities.BuildConfig
     {

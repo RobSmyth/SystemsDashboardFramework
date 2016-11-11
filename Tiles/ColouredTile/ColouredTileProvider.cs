@@ -3,8 +3,8 @@ using System.Windows;
 using NoeticTools.TeamStatusBoard.Framework;
 using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
-using NoeticTools.TeamStatusBoard.Framework.Persistence.Xml;
 using NoeticTools.TeamStatusBoard.Framework.Services;
+using NoeticTools.TeamStatusBoard.Persistence.Xml;
 
 
 namespace NoeticTools.TeamStatusBoard.Tiles.ColouredTile
@@ -20,8 +20,6 @@ namespace NoeticTools.TeamStatusBoard.Tiles.ColouredTile
             _dashboardController = dashboardController;
             _services = services;
         }
-
-        public string Name => "ColouredTile";
 
         public string TypeId => ColouredTileProvider.TileTypeId;
 

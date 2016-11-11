@@ -1,6 +1,6 @@
 using NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories;
-using NoeticTools.TeamStatusBoard.Framework.Persistence.Xml;
 using NoeticTools.TeamStatusBoard.Framework.Services;
+using NoeticTools.TeamStatusBoard.Persistence.Xml;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Config

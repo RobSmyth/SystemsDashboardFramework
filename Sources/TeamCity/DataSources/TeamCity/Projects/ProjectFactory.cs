@@ -1,7 +1,7 @@
-﻿using NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Configurations;
+﻿using NoeticTools.TeamStatusBoard.DataSource.TeamCity.DataSources.TeamCity.Configurations;
 
 
-namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Projects
+namespace NoeticTools.TeamStatusBoard.DataSource.TeamCity.DataSources.TeamCity.Projects
 {
     public sealed class ProjectFactory : IProjectFactory
     {

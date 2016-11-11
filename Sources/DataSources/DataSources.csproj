@@ -64,6 +64,10 @@
       <Project>{1f19c0de-e777-48e9-856b-7376a7527ec0}</Project>
       <Name>Framework</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Persistence\Persistence.csproj">
+      <Project>{f80c1ce8-bd88-439b-b06b-7f0d510b63a9}</Project>
+      <Name>Persistence</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -5,22 +5,22 @@ using System.Windows;
 using System.Windows.Input;
 using log4net;
 using NoeticTools.TeamStatusBoard.Common.ViewModels;
+using NoeticTools.TeamStatusBoard.DataSource.TeamCity.DataSources.TeamCity;
+using NoeticTools.TeamStatusBoard.DataSource.TeamCity.DataSources.TeamCity.Channel;
+using NoeticTools.TeamStatusBoard.DataSource.TeamCity.DataSources.TeamCity.Configurations;
 using NoeticTools.TeamStatusBoard.Framework;
 using NoeticTools.TeamStatusBoard.Framework.Commands;
 using NoeticTools.TeamStatusBoard.Framework.Config;
 using NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories;
 using NoeticTools.TeamStatusBoard.Framework.Config.Properties;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
-using NoeticTools.TeamStatusBoard.Framework.Persistence.Xml;
 using NoeticTools.TeamStatusBoard.Framework.Plugins.Tiles;
 using NoeticTools.TeamStatusBoard.Framework.Services;
-using NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity;
-using NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Channel;
-using NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Configurations;
+using NoeticTools.TeamStatusBoard.Persistence.Xml;
 using TeamCitySharp.DomainEntities;
 
 
-namespace NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity.LastBuildStatus
+namespace NoeticTools.TeamStatusBoard.DataSource.TeamCity.Tiles.TeamCity.LastBuildStatus
 {
     internal sealed class TeamCityLastBuildStatusTileViewModel : NotifyingViewModelBase, IConfigurationChangeListener, ITileViewModel, IChannelConnectionStateListener
     {

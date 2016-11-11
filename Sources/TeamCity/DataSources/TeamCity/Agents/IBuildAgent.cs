@@ -1,9 +1,8 @@
 ﻿using System.ComponentModel;
 using NoeticTools.TeamStatusBoard.Common;
-using NoeticTools.TeamStatusBoard.Framework;
 
 
-namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Agents
+namespace NoeticTools.TeamStatusBoard.DataSource.TeamCity.DataSources.TeamCity.Agents
 {
     public interface IBuildAgent : INotifyPropertyChanged
     {

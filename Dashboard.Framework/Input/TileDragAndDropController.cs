@@ -5,7 +5,7 @@ using System.Windows;
 using System.Windows.Input;
 using NoeticTools.TeamStatusBoard.Framework.Adorners;
 using NoeticTools.TeamStatusBoard.Framework.Dashboards;
-using NoeticTools.TeamStatusBoard.Framework.Persistence.Xml;
+using NoeticTools.TeamStatusBoard.Persistence.Xml;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Input

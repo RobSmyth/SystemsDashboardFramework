@@ -1,7 +1,7 @@
 ﻿using System.Xml.Serialization;
 
 
-namespace NoeticTools.TeamStatusBoard.Framework.Persistence.Xml
+namespace NoeticTools.TeamStatusBoard.Persistence.Xml
 {
     [XmlRoot("Dashboards", Namespace = "http://www.cpandl.com", IsNullable = false)]
     [XmlType("configurations")]

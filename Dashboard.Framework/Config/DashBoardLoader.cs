@@ -1,4 +1,5 @@
-﻿using NoeticTools.TeamStatusBoard.Framework.Persistence.Xml;
+﻿using NoeticTools.TeamStatusBoard.Persistence;
+using NoeticTools.TeamStatusBoard.Persistence.Xml;
 
 
 namespace NoeticTools.TeamStatusBoard.Framework.Persistence

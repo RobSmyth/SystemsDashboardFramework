@@ -1,7 +1,7 @@
 ﻿using TeamCitySharp.DomainEntities;
 
 
-namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Builds
+namespace NoeticTools.TeamStatusBoard.DataSource.TeamCity.DataSources.TeamCity.Builds
 {
     internal class NullBuild : Build
     {

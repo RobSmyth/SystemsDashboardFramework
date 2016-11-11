@@ -1,7 +1,7 @@
-using NoeticTools.TeamStatusBoard.Framework.Persistence.Xml;
+using NoeticTools.TeamStatusBoard.Persistence.Xml;
 
 
-namespace NoeticTools.TeamStatusBoard.Framework.Persistence
+namespace NoeticTools.TeamStatusBoard.Persistence
 {
     public class DashBoardLoaderConduit : IDashBoardLoader
     {

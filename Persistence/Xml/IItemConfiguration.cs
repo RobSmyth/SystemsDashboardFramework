@@ -1,4 +1,4 @@
-﻿namespace NoeticTools.TeamStatusBoard.Framework.Persistence.Xml
+﻿namespace NoeticTools.TeamStatusBoard.Persistence.Xml
 {
     public interface IItemConfiguration
     {

@@ -1,10 +1,9 @@
-﻿using System.Linq;
-using NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories;
+﻿using NoeticTools.TeamStatusBoard.Framework.Config.NamedValueRepositories;
 using NoeticTools.TeamStatusBoard.Framework.Config.Properties;
 using NoeticTools.TeamStatusBoard.Framework.Services;
 
 
-namespace NoeticTools.TeamStatusBoard.TeamCity.Tiles.TeamCity
+namespace NoeticTools.TeamStatusBoard.DataSource.TeamCity.Tiles.TeamCity
 {
 
     public sealed class TeamCityConfigurationPropertyViewModel : PropertyViewModel

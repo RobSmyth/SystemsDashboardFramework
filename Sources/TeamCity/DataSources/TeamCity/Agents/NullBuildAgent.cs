@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using NoeticTools.TeamStatusBoard.Common;
 using NoeticTools.TeamStatusBoard.Common.ViewModels;
-using NoeticTools.TeamStatusBoard.Framework;
-using NoeticTools.TeamStatusBoard.Framework.Services.DataServices;
 
 
-namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Agents
+namespace NoeticTools.TeamStatusBoard.DataSource.TeamCity.DataSources.TeamCity.Agents
 {
     public class NullBuildAgent : NotifyingViewModelBase, IBuildAgent
     {

@@ -1,8 +1,7 @@
-namespace NoeticTools.TeamStatusBoard.Framework.Persistence.Xml
+namespace NoeticTools.TeamStatusBoard.Persistence.Xml
 {
     public interface IDashboardConfigurationServices
     {
-        DashboardServiceConfiguration[] Services { get; set; }
         DashboardServiceConfiguration GetService(string serviceName);
     }
 }

@@ -1,11 +1,9 @@
-﻿using System;
-using System.Linq;
-using log4net;
-using NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Configurations;
+﻿using log4net;
+using NoeticTools.TeamStatusBoard.DataSource.TeamCity.DataSources.TeamCity.Configurations;
 using TeamCitySharp.DomainEntities;
 
 
-namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Projects
+namespace NoeticTools.TeamStatusBoard.DataSource.TeamCity.DataSources.TeamCity.Projects
 {
     public sealed class Project : IProject
     {

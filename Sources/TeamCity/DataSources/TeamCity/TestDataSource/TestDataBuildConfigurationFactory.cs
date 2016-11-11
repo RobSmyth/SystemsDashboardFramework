@@ -1,8 +1,8 @@
-using NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Configurations;
-using NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Projects;
+using NoeticTools.TeamStatusBoard.DataSource.TeamCity.DataSources.TeamCity.Configurations;
+using NoeticTools.TeamStatusBoard.DataSource.TeamCity.DataSources.TeamCity.Projects;
 
 
-namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.TestDataSource
+namespace NoeticTools.TeamStatusBoard.DataSource.TeamCity.DataSources.TeamCity.TestDataSource
 {
     public sealed class TestDataBuildConfigurationFactory : IBuildConfigurationRepositoryFactory
     {

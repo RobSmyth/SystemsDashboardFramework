@@ -1,9 +1,9 @@
-﻿using NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Agents;
-using NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Channel;
-using NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity.Projects;
+﻿using NoeticTools.TeamStatusBoard.DataSource.TeamCity.DataSources.TeamCity.Agents;
+using NoeticTools.TeamStatusBoard.DataSource.TeamCity.DataSources.TeamCity.Channel;
+using NoeticTools.TeamStatusBoard.DataSource.TeamCity.DataSources.TeamCity.Projects;
 
 
-namespace NoeticTools.TeamStatusBoard.TeamCity.DataSources.TeamCity
+namespace NoeticTools.TeamStatusBoard.DataSource.TeamCity.DataSources.TeamCity
 {
     public sealed class TeamCityDataService : ITeamCityService
     {

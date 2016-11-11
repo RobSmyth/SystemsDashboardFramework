@@ -140,7 +140,7 @@ namespace NoeticTools.TeamStatusBoard.Tiles.PieChart
                 new TextPropertyViewModel("Label", Configuration, _services),
                 new CompountTextPropertyViewModel("Values", Configuration, _services),
                 new CompountTextPropertyViewModel("Titles", Configuration, _services),
-                new CompountColourPropertyViewModel("Colours", Configuration, _services),
+                new CompoundColourPropertyViewModel("Colours", Configuration, _services),
                 new TextPropertyViewModel("Format", Configuration, _services),
                 new EnumPropertyViewModel("LegendLocation", Configuration, new TextListSuggestionProvider("None", "Top", "Bottom", "Left", "Right")),
             };

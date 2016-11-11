@@ -104,7 +104,7 @@
     <Compile Include="Config\Properties\NullPropertyViewModel.cs" />
     <Compile Include="Config\Properties\BoolPropertyViewModel.cs" />
     <Compile Include="Config\Properties\ColourPropertyViewModel.cs" />
-    <Compile Include="Config\Properties\CompountColourPropertyViewModel.cs" />
+    <Compile Include="Config\Properties\CompoundColourPropertyViewModel.cs" />
     <Compile Include="Config\Properties\CompountTextPropertyViewModel.cs" />
     <Compile Include="Config\Properties\EnumPropertyViewModel.cs" />
     <Compile Include="Config\Properties\PropertyEditorType.cs" />
@@ -149,13 +149,6 @@
     <Compile Include="Dashboards\DashBoardLoaderConduit.cs" />
     <Compile Include="Dashboards\DashboardNavigator.cs" />
     <Compile Include="Dashboards\DashboardTileNavigator.cs" />
-    <Compile Include="DataSources\IPropertiesDataService.cs" />
-    <Compile Include="DataSources\IDataPropertyViewModel.cs" />
-    <Compile Include="DataSources\IDataPropertyViewModelFactory.cs" />
-    <Compile Include="DataSources\NullDataPropertyViewModel.cs" />
-    <Compile Include="DataSources\DataPropertiesRepository.cs" />
-    <Compile Include="DataSources\DataPropertyViewModel.cs" />
-    <Compile Include="DataSources\DataPropertyViewModelFactory.cs" />
     <Compile Include="NullTileControllerProvider.cs" />
     <Compile Include="Input\ITileDragAndDropController.cs" />
     <Compile Include="IRunOptions.cs" />
@@ -373,9 +366,7 @@
   <ItemGroup>
     <Resource Include="Images\server128x128_light.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DataSources\Jira\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{04ebbac1-c5ef-4b93-9b6f-d270afa3e878}</Project>

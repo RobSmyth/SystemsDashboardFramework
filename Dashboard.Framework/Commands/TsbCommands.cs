@@ -16,7 +16,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Commands
         public readonly CommandBinding DeleteCommandBinding = new CommandBinding(ApplicationCommands.Delete);
         public readonly CommandBinding OpenCommandBinding = new CommandBinding(ApplicationCommands.Open);
         public readonly CommandBinding ShowDataSourcesBinding = new CommandBinding(ShowDataSources);
-        private static ICommand _defaultShowDataSourcesCommand;
+        private static ICommand _showDataSourcesCommand;
 
         static TsbCommands()
         {
@@ -30,10 +30,10 @@ namespace NoeticTools.TeamStatusBoard.Framework.Commands
         {
             ShowDataSourcesBinding.PreviewCanExecute += (x, y) =>
             {
-                y.CanExecute = _defaultShowDataSourcesCommand.CanExecute(y.Parameter);
+                y.CanExecute = _showDataSourcesCommand.CanExecute(y.Parameter);
                 y.Handled = false;
             };
-            ShowDataSourcesBinding.Executed += (x, y) => { _defaultShowDataSourcesCommand.Execute(y.Parameter); };
+            ShowDataSourcesBinding.Executed += (x, y) => { _showDataSourcesCommand.Execute(y.Parameter); };
         }
 
         public CommandBinding SaveCommand
@@ -75,7 +75,7 @@ namespace NoeticTools.TeamStatusBoard.Framework.Commands
 
         public static void SetDefaultShowDataSources(ICommand showDataSourcesCommand)
         {
-            _defaultShowDataSourcesCommand = showDataSourcesCommand;
+            _showDataSourcesCommand = showDataSourcesCommand;
         }
 
         private void BindViewToDeleteCommand(TileConfiguration tile, UIElement view, ITileLayoutController layoutController)

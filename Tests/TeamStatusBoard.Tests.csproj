@@ -62,8 +62,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataSources\Jira\JiraChannelTests.cs" />
-    <Compile Include="DataSources\DataPropertiesRepositoryTests.cs" />
-    <Compile Include="DataSources\DataPropertyViewModelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\DataServices\DataServiceTests.cs" />
     <Compile Include="MockingTestFixtureBase.cs" />

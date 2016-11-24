@@ -20,16 +20,6 @@
     </Window.Resources>
 
     <Grid Name="rootLayout">
-        
-        <!--
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
--->
 
         <DockPanel LastChildFill="True" >
             <DockPanel Name="sidePanel" DockPanel.Dock="Right" Visibility="Collapsed" Width="100" Style="{StaticResource SidePane}"/>

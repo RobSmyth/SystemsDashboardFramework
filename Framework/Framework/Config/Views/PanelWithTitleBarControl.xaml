@@ -64,9 +64,7 @@
             
         </Grid>
 
-        <ScrollViewer Grid.Row="1" Grid.Column="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Margin="2">
-            <Grid Name="PlaceholderGrid" Height="Auto"/>
-        </ScrollViewer>
+        <Grid Name="PlaceholderGrid" Grid.Row="1" Grid.Column="0" Height="Auto" Margin="2"/>
 
         <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom"
                     Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right"

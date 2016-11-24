@@ -18,10 +18,13 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid Name="PlaceholderGrid" Height="Auto" Margin="5,10,5,5" VerticalAlignment="Top">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-    </Grid>
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden">
+        <Grid Name="PlaceholderGrid" Height="Auto" Margin="5,10,5,5" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+        </Grid>
+    </ScrollViewer>
+    
 </UserControl>

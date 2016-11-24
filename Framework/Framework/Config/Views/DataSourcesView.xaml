@@ -40,20 +40,21 @@
         </Grid.Resources>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" MaxHeight="200"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="3*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        
-        <DataGrid x:Name="sourcesGrid" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,5,0,2"
+
+        <DataGrid x:Name="sourcesGrid" Grid.Row="0" HorizontalAlignment="Stretch" Margin="0,5,0,2"
                   ItemsSource="{Binding DataSources, Mode=OneWay}"
                   AutoGenerateColumns="False"
                   CanUserAddRows="True" CanUserDeleteRows="True" SelectionMode="Single" SelectionUnit="FullRow"
                   CanUserSortColumns="False"
                   GridLinesVisibility="Horizontal"
+                  HorizontalScrollBarVisibility="Auto"
                   VerticalScrollBarVisibility="Auto"
                   RowHeaderWidth="0">
             <DataGrid.Columns>
@@ -71,13 +72,21 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellEditingTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn CellTemplate="{StaticResource EditingDataSourceTemplate}" />
             </DataGrid.Columns>
         </DataGrid>
-        
-        <TextBlock Grid.Row="1" Foreground="White">Parameters</TextBlock>
-        
-        <DataGrid x:Name="propertiesGrid" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,2,0,2"
+
+        <GridSplitter Grid.Row="1" Height="5" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                      ShowsPreview="true" ResizeDirection="Rows"/>
+
+        <Grid Grid.Row="2" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Foreground="White">Parameters</TextBlock>
+
+            <DataGrid x:Name="propertiesGrid" Grid.Row="1" HorizontalAlignment="Stretch" Margin="0,2,0,2"
                   ItemsSource="{Binding ElementName=sourcesGrid, Path=SelectedItem.Properties}"
                   AutoGenerateColumns="False"
                   CanUserAddRows="False" CanUserDeleteRows="False" CanUserSortColumns="True"
@@ -85,24 +94,26 @@
                   IsReadOnly="False"
                   RowHeaderWidth="0" 
                   EnableRowVirtualization="True" EnableColumnVirtualization="True"
-                  MaxHeight="5000" MaxWidth="1000"
-                  VerticalScrollBarVisibility="Hidden">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Width="5*" Binding="{Binding Name, Mode=OneTime}" SortMemberPath="Name" IsReadOnly="True"/>
-                <DataGridTemplateColumn Header="Value" Width="*">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Path=Value, Mode=OneWay}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                    <DataGridTemplateColumn.CellEditingTemplate>
-                        <DataTemplate>
-                            <TextBox Text="{Binding Path=Value, Mode=TwoWay}" IsReadOnly="{Binding IsReadOnly, Mode=OneTime}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellEditingTemplate>
-                </DataGridTemplateColumn>
-            </DataGrid.Columns>
-        </DataGrid>
+                  MaxWidth="1000"
+                  VerticalScrollBarVisibility="Auto">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name" Width="5*" Binding="{Binding Name, Mode=OneTime}" SortMemberPath="Name" IsReadOnly="True"/>
+                    <DataGridTemplateColumn Header="Value" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=Value, Mode=OneWay}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Path=Value, Mode=TwoWay}" IsReadOnly="{Binding IsReadOnly, Mode=OneTime}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
+        </Grid>
     </Grid>
     
 </UserControl>
